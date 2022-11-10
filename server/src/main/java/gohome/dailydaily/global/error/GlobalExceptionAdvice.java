@@ -62,7 +62,7 @@ public class GlobalExceptionAdvice {
     // HttpMessageNotReadableException 을 처리하기 위한 메서드
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleHttpMessageNotReadableException (HttpMessageNotReadableException) {
+    public ErrorResponse handleHttpMessageNotReadableException (HttpMessageNotReadableException e) {
 
         final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST,
                 "Required request body is missing");
