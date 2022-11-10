@@ -1,6 +1,8 @@
 package gohome.dailydaily.global.error;
 
 import javax.validation.ConstraintViolationException;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 /*
 * Controller 클래스에서 발생하는 예외들을 공통으로 처리하는 클래스
 * */
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionAdvice {
 
@@ -48,6 +51,16 @@ public class GlobalExceptionAdvice {
     public ErrorResponse handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
 
         final ErrorResponse response = ErrorResponse.of(HttpStatus.METHOD_NOT_ALLOWED);
+        return response;
+    }
+
+    // 코드 상의 문제로 발생하는 Exception 을 처리하기 위한 메서드
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleException(Exception e) {
+        log.error("# handle Exception", e);
+
+        final ErrorResponse response = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR);
         return response;
     }
 }

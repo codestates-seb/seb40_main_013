@@ -1,5 +1,7 @@
 package gohome.dailydaily.global.error;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -54,17 +56,12 @@ public class ErrorResponse {
     * DTO 멤버 변수 필드의 유효성 검증 실패로 발생한 에러 정보를 담는 멤버 변수
     * */
     @Getter
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class FieldError {
         private String field;
 
         private Object rejectedValue;
         private String reason;
-
-        private FieldError(String field, Object rejectedValue, String reason) {
-            this.field = field;
-            this.rejectedValue = rejectedValue;
-            this.reason = reason;
-        }
 
         public static List<FieldError> of(BindingResult bindingResult) {
             final List<org.springframework.validation.FieldError> fieldErrors = bindingResult.getFieldErrors();
@@ -84,16 +81,12 @@ public class ErrorResponse {
     * URI 변수 값의 유효성 검증에 실패로 발생한 에러 정보를 담는 변수
     * */
     @Getter
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class ConstraintViolationError {
         private String propertyPath;
         private Object rejectedValue;
         private String reason;
 
-        private ConstraintViolationError(String propertyPath, Object rejectedValue, String reason) {
-            this.propertyPath = propertyPath;
-            this.rejectedValue = rejectedValue;
-            this.reason = reason;
-        }
         public static List<ConstraintViolationError> of(Set<ConstraintViolation<?>> constraintViolations) {
 
             return constraintViolations.stream()
