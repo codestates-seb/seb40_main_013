@@ -41,7 +41,7 @@ public class Member extends BaseTime {
     @Enumerated(EnumType.STRING)
     private final List<MemberRole> roles = new ArrayList<>();
 
-    public void addRoles(MemberRole ... memberRoles) {
+    public void addRoles(MemberRole... memberRoles) {
         roles.addAll(List.of(memberRoles));
     }
 
@@ -57,8 +57,8 @@ public class Member extends BaseTime {
     }
 
     public void updateInfo(Member member, String password) {
-        Optional.ofNullable(member.getEmail())
-                .ifPresent(email -> this.email = email);
+        Optional.ofNullable(member.getNickname())
+                .ifPresent(nickname -> this.nickname = nickname);
         Optional.ofNullable(member.getAddress())
                 .ifPresent(address -> this.address = address);
         Optional.ofNullable(member.getPhone())

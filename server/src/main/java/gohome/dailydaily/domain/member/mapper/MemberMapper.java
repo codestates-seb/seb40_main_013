@@ -12,6 +12,7 @@ public interface MemberMapper {
 
     Member toMember(MemberDto.UserSignup userSignup);
 
+    @Mapping(target = "id", source = "memberId")
     Member toMember(MemberDto.Patch patch, Long memberId);
 
     @Mapping(target = "memberId", source = "id")
