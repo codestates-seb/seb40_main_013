@@ -6,6 +6,7 @@ import gohome.dailydaily.global.common.BaseTime;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -24,7 +25,7 @@ public class Member extends BaseTime {
     private String email;
 
     @Column(nullable = false)
-    private String name;
+    private String nickname;
 
     @Column(nullable = false)
     private String password;
@@ -32,14 +33,17 @@ public class Member extends BaseTime {
     private String address;
     private String phone;
 
+    @Enumerated(EnumType.STRING)
+    private MemberStatus memberStatus;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    private List<MemberRole> roles;
+    private final List<MemberRole> roles = new ArrayList<>();
 
     @OneToOne(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Cart cart;
 
     @OneToMany(mappedBy = "member")
-    private List<Review> reviews;
+    private final List<Review> reviews = new ArrayList<>();
 
 }

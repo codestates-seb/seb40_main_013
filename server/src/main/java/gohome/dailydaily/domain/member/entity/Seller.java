@@ -5,6 +5,7 @@ import gohome.dailydaily.global.common.BaseTime;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -25,11 +26,11 @@ public class Seller extends BaseTime {
     @Column(nullable = false)
     private String brandNumber;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "member_id")
     private Member member;
 
     @OneToMany(mappedBy = "seller")
-    private List<Product> products;
+    private final List<Product> products = new ArrayList<>();
 
 }

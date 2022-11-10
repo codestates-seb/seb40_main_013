@@ -6,7 +6,6 @@ import gohome.dailydaily.global.common.BaseTime;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Entity
@@ -37,8 +36,5 @@ public class Review extends BaseTime {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-
-    @OneToMany(mappedBy = "product")
-    private List<Review> reviews;
 
 }
