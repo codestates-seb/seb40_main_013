@@ -1,5 +1,15 @@
+import './App.css';
+import GlobalStyles from './GlobalStyles';
+import Header from './components/headers/Header'
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <>
+    <GlobalStyles />
+    <Header/>
+    </>
+
+  );
 }
 
 export default App;
