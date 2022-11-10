@@ -59,10 +59,11 @@ const Wrapper = styled.div`
   display: flex;
   align-items: flex-end;
   position: fixed;
+  overflow-y: scroll;
 `;
 const FooterWrapper = styled.div`
   width: 100%;
-  height: 200px;
+  height: 150px;
   background-color: #fcf9e9;
   padding: 20px 200px 10px 40px;
 `;
@@ -71,10 +72,10 @@ const FooterTopInformation = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 70px;
+  height: 45px;
 `;
 const FooterSeviceContent = styled.div`
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bolder;
   margin-bottom: 5px;
 `;
@@ -88,20 +89,21 @@ const FooterSocialBtnSpace = styled.div`
   align-items: center;
 `;
 const FooterSocialBtn = styled.div`
-  font-size: 30px;
+  font-size: 20px;
   cursor: pointer;
 `;
 
 const FooterSeviceAvailble = styled.div`
-  font-size: 15px;
+  font-size: 11px;
   color: #bebcaf;
+  margin-top: 10px;
 `;
 
 const FooterMidBtnMenu = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 50px;
+  height: 35px;
 `;
 
 const FooterMenuBtn = styled.div`
@@ -114,7 +116,7 @@ const FooterMenuBtn = styled.div`
   }
 `;
 const FooterDownContentSpace = styled.div`
-  font-size: 15px;
+  font-size: 11px;
   color: #bebcaf;
 `;
 const FooterDownContent = styled.div`
