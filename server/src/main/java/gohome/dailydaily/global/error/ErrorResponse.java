@@ -51,6 +51,11 @@ public class ErrorResponse {
         return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
     }
 
+    // MissingServletRequestParameterException 을 처리하기 위한 응답 객체 생성
+    public static ErrorResponse of(HttpStatus httpStatus, String message) {
+        return new ErrorResponse(httpStatus.value(), message);
+    }
+
     /*
     * MethodArgumentNotValidException Error 메시지
     * DTO 멤버 변수 필드의 유효성 검증 실패로 발생한 에러 정보를 담는 멤버 변수
