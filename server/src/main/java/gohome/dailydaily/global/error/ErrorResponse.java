@@ -10,27 +10,39 @@ import java.util.stream.Collectors;
 import javax.validation.ConstraintViolation;
 
 @Getter
+// Error 응답 메시지로 전달할 내용
 public class ErrorResponse {
 
+    private int status;
+    private String message;
+    private ErrorResponse(int status, String message) {
+        this.status = status;
+        this.message = message;
+    }
     private List<FieldError> fieldErrors;
     private List<ConstraintViolationError> violationErrors;
 
-    // 생성자 접근제한
     private ErrorResponse(final List<FieldError> fieldErrors,
                           final List<ConstraintViolationError> violationErrors) {
         this.fieldErrors = fieldErrors;
         this.violationErrors = violationErrors;
     }
 
-    // BindingResult 에 대한 ErrorResponse 객체 생성
+    // MethodArgumentNotValidException 으로 발생하는 에러 정보를 담는 멤버 변수
     public static ErrorResponse of(BindingResult bindingResult) {
         return new ErrorResponse(FieldError.of(bindingResult), null);
     }
 
-    // Set<ConstraintViolation<?>> 객체에 대한 ErrorResponse 객체 생성
+    // ConstraintViolationException 으로부터 발생하는 에러 정보를 담는 멤버 변수
     public static ErrorResponse of(Set<ConstraintViolation<?>> violations) {
         return new ErrorResponse(null, ConstraintViolationError.of(violations));
     }
+
+    // BusinessLogicException 에서 에러 정보를 얻기 위해 필요한 ExceptionCode 객체 생성
+    public static ErrorResponse of(ExceptionCode exceptionCode) {
+        return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage());
+    }
+
     /*
     * MethodArgumentNotValidException Error 메시지
     * DTO 멤버 변수 필드의 유효성 검증 실패로 발생한 에러 정보를 담는 멤버 변수
