@@ -1,6 +1,7 @@
 package gohome.dailydaily.global.error;
 
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 
 
@@ -41,6 +42,11 @@ public class ErrorResponse {
     // BusinessLogicException 에서 에러 정보를 얻기 위해 필요한 ExceptionCode 객체 생성
     public static ErrorResponse of(ExceptionCode exceptionCode) {
         return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage());
+    }
+
+    // HttpRequestMethodNotSupportedException 의 HttpStatus 를 전달하기 위한 객체 생성
+    public static ErrorResponse of(HttpStatus httpStatus) {
+        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
     }
 
     /*
