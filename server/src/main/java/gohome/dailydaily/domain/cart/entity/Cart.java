@@ -5,6 +5,7 @@ import gohome.dailydaily.global.common.BaseTime;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -24,6 +25,6 @@ public class Cart extends BaseTime {
     private Member member;
 
     @OneToMany(mappedBy = "cart")
-    private List<ProductCart> productCarts;
+    private final List<ProductCart> productCarts = new ArrayList<>();
 
 }
