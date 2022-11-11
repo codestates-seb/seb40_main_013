@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 
+
 function Signup() {
   return (
     <Wrapper>
@@ -15,6 +16,7 @@ function Signup() {
         <UserWriteInput />
         <UserSubmitBtn>회원 가입</UserSubmitBtn>
       </SignupWrapper>
+
     </Wrapper>
   );
 }
@@ -61,4 +63,5 @@ const UserSubmitBtn = styled.button`
   font-size: 22px;
   font-weight: bold;
 `;
+
 export default Signup;
