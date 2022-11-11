@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
-import styled from "styled-components";
+import { Link } from "react-router-dom";
+import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel";
 import Button from "../components/Button";
 import Products from "../components/mains/Product";
@@ -49,55 +49,62 @@ const ProductList = styled.div`
 const Main = () => {
   const [productList, setProductList] = useState([]);
 
-  useEffect(()=> {
-    axios.get("http://localhost:3001/products")
-    .then((data) => setProductList(data.data));
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/products")
+      .then((data) => setProductList(data.data));
   }, []);
   console.log(productList);
 
-return(
-  <Container>
-    <Carousel />
-    <Title>거실</Title>
-    <Hr />
-    <FullTitle name="fullTitle" className="fullTitle">
-      <FullView name="fullView" className="fullView">전체보기 &gt;&gt;</FullView>
-    </FullTitle>
-    <ProductList>
-      {productList.map(product => (
-        <Products 
-          brand={product.brand} 
-          // img={product.img} 
-          name={product.name} 
-          price={product.price}/>
-        )
-      )}
-    </ProductList>
-    <Title>서재</Title>
-    <Hr />
-    <FullTitle name="fullTitle" className="fullTitle">
-      <FullView name="fullView" className="fullView">전체보기 &gt;&gt;</FullView>
-    </FullTitle>
-    <ProductList>
-      <Products />
-      <Products />
-      <Products />
-      <Products />
-    </ProductList>
-    <Title>침실</Title>
-    <Hr />
-    <FullTitle name="fullTitle" className="fullTitle">
-      <FullView name="fullView" className="fullView">전체보기 &gt;&gt;</FullView>
-    </FullTitle>
-    <ProductList>
-      <Products />
-      <Products />
-      <Products />
-      <Products />
-    </ProductList>
-    <Button />
-  </Container>
-)
-}
+  return (
+    <Container>
+      <Carousel />
+      <Title>거실</Title>
+      <Hr />
+      <FullTitle name="fullTitle" className="fullTitle">
+        <FullView name="fullView" className="fullView">
+          전체보기 &gt;&gt;
+        </FullView>
+      </FullTitle>
+      <ProductList>
+        {productList.map((product) => (
+          <Products
+            brand={product.brand}
+            // img={product.img}
+            name={product.name}
+            price={product.price}
+          />
+        ))}
+      </ProductList>
+      <Title>서재</Title>
+      <Hr />
+      <FullTitle name="fullTitle" className="fullTitle">
+        <FullView name="fullView" className="fullView">
+          전체보기 &gt;&gt;
+        </FullView>
+      </FullTitle>
+      <ProductList>
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+      </ProductList>
+      <Title>침실</Title>
+      <Hr />
+      <FullTitle name="fullTitle" className="fullTitle">
+        <FullView name="fullView" className="fullView">
+          전체보기 &gt;&gt;
+        </FullView>
+      </FullTitle>
+      <ProductList>
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+      </ProductList>
+      <Button />
+    </Container>
+  );
+};
 
 export default Main;
