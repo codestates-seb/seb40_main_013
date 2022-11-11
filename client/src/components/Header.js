@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import logo from '../imgs/logo.png'
+import { Link, useNavigate } from 'react-router-dom';
 import { BsCart3, BsSearch } from 'react-icons/bs';
 
 const HeaderBlock = styled.header`
   width: 100%;
-  height: 215px;
+  height: 230px;
   color: #BEBCAF;
   div{
     display: flex;
@@ -13,14 +14,11 @@ const HeaderBlock = styled.header`
     justify-content: end;
     margin: 7px 20px 7px 10px;
   }
-  .space{
-    margin-right: 7px;
-  }
 `
 const Logo = styled.div`
   justify-content: center;
   img{
-    width: 250px;
+    width: 245px;
     height: 150px;
   }
 `;
@@ -40,6 +38,13 @@ const Category = styled.div`
  border-bottom: 1px solid #BEBCAF;
  padding: 7px;
  margin: 5px 30px 5px 30px;
+ .space{
+    margin-right: 7px;
+  &:hover{
+    cursor: pointer;
+
+  }
+  }
 `;
 
 const Nav =styled.nav`
@@ -55,23 +60,50 @@ const Nav =styled.nav`
     justify-content: center;
     padding: 5px;
   }
+  /* display: none; */
 `;
 
+//우측 상단 버튼
+const LoginBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+  padding: 5px;
+  white-space: nowrap;
+  color: #797979;
+  border: none;
+  background-color: white;
+  &:hover {
+    cursor: pointer;
+    color: #FFAF51;
+  }
+`;
+
+
 function Header() {
+  const navigate = useNavigate();
     return (
       <>
         <HeaderBlock>
             <div className="top">
-                <div className="space">상품추가</div>
-                <div className="space">로그인/회원가입</div>
-                <div className="space">마이페이지</div>
+                <Link to="/users/login">
+                  <LoginBtn className="space">로그인/회원가입</LoginBtn>
+                </Link>
+                <Link to="/users/me/*">
+                  <LoginBtn className="space">마이페이지</LoginBtn>
+                </Link>
             </div>
-            <Logo>
-                <img src={logo} alt='daily,daily 로고'/>
-            </Logo>
+              <Logo>
+                <Link to="/">
+                  <img src={logo} alt='daily,daily 로고'/>
+                </Link>
+              </Logo>
             <Category>
                 <div>
+                  <Link to='/sub'>
                     <div className="space">서재</div>
+                  </Link>
                     <div className="space">침실</div>
                     <div className="space">거실</div>
                     <div className="space">주방</div>

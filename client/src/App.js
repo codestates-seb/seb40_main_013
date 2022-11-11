@@ -1,22 +1,36 @@
 import GlobalStyles from './GlobalStyles';
-import Header from './components/Header'
-import Footer from './components/Footer'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
+import Header from './components/Header'
+import Footer from './components/Footer';
+import Login from './pages/Login';
+import Main from './pages/Main';
+import MyPage from './pages/Mypage';
+import SubCategory from './components/subcategory';
 
-const Main = styled.div`
-width: 100%;
-height: 1500px;
+
+const MainContainter = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 function App() {
   return (
-    <>
-    <GlobalStyles />
-    <Header/>
-    <Main />
-    <Footer />
-    </>
-
+    <BrowserRouter>
+      <GlobalStyles />
+        <div className="App">
+        <Header/>
+        <MainContainter>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/users/login" element={<Login />} />
+            <Route path="/users/me/*" element={<MyPage />} />
+            <Route path="/sub" element={<SubCategory />} />
+          </Routes>
+        </MainContainter>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

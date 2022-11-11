@@ -1,0 +1,64 @@
+{
+  "products" : [
+    {
+      "id": 1,
+      "name": "책상",
+      "img": "../src/imgs/2단 서랍.png",
+      "price": 99000,
+      "brand": "dodot",
+      "category": "서재",
+      "colorChip": {
+        "beige": 1,
+        "wood": 5
+      }
+    },
+    {
+      "id": 2,
+      "name": "2단 장식장",
+      "img": "../src/imgs/2단 장식장.png",
+      "price": 120000,
+      "brand": "illom",
+      "category": "서재",
+      "colorChip": {
+        "beige": 3,
+        "wood": 2
+      }
+    },
+    {
+      "id": 3,
+      "name": "4단서랍",
+      "img": "../src/imgs/4단서랍.png",
+      "price": 29000,
+      "brand": "포더홈",
+      "category": "서재",
+      "colorChip": {
+        "white": 2,
+        "wood": 10
+      }
+    },
+    {
+      "id": 4,
+      "name": "오픈 장식장",
+      "img": "../src/imgs/오픈 장식장.png",
+      "price": 49000,
+      "brand": "소프시스",
+      "category": "서재",
+      "colorChip": {
+        "beige": 2,
+        "wood": 7
+      }
+    },
+    {
+      "id": 5,
+      "name": "화장대",
+      "img": "../src/imgs/화장대.png",
+      "price": 29000,
+      "brand": "dodot",
+      "category": "서재",
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    }
+  ]
+}

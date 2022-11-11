@@ -9,7 +9,8 @@ const Container = styled.div`
   flex-direction: column;
   width: 450px;
   border-radius: 5px;
-  height: 50vh;
+  height: 70vh;
+  margin: 50px;
 `;
 
 //Tab 메뉴
@@ -60,6 +61,7 @@ const Input = styled.input`
 
 const Check = styled.label`
   display: flex;
+  margin: 20px 0;
 `;
 const Checkbox = styled.input`
   color: #545454;
@@ -81,7 +83,7 @@ const Button = styled.button`
 const Bottoms = styled.div``;
 const Content2 = styled.div`
   display: flex;
-  margin: 10px;
+  margin: 20px;
 `;
 const Bottom = styled.h4``;
 function Login(){

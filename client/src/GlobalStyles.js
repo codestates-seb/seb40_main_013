@@ -7,6 +7,10 @@ const GlobalStyles = createGlobalStyle`
     *{
         box-sizing:boerder-box;
     }
+    a{
+         text-decoration:none;
+         color:inherit;
+    }
 `;
 
 export default GlobalStyles;
