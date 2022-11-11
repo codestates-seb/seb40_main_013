@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import logo from './logo.png'
+import { Link, useNavigate } from 'react-router-dom';
 import { BsCart3, BsSearch } from 'react-icons/bs';
 
 const HeaderBlock = styled.header`
@@ -42,18 +43,45 @@ const Category = styled.div`
  margin: 5px 30px 5px 30px;
 `;
 
+//우측 상단 버튼
+const LoginBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+  padding: 5px;
+  white-space: nowrap;
+  color: #797979;
+  border: none;
+  background-color: white;
+  &:hover {
+    cursor: pointer;
+    color: #FFAF51;
+  }
+`;
+
+const PageMove = styled(Link)`
+  text-decoration: none;
+`;
+
 function Header() {
+  const navigate = useNavigate();
     return (
       <>
         <HeaderBlock>
             <div className="top">
-                <div className="space">상품추가</div>
-                <div className="space">로그인/회원가입</div>
-                <div className="space">마이페이지</div>
+                <PageMove to="/users/login">
+                  <LoginBtn className="space">로그인/회원가입</LoginBtn>
+                </PageMove>
+                <PageMove to="/users/me/*">
+                  <LoginBtn className="space">마이페이지</LoginBtn>
+                </PageMove>
             </div>
-            <Logo>
-                <img src={logo} alt='daily,daily 로고'/>
-            </Logo>
+              <Logo>
+                <PageMove to="/">
+                  <img src={logo} alt='daily,daily 로고'/>
+                </PageMove>
+              </Logo>
             <Category>
                 <div>
                     <div className="space">서재</div>
