@@ -8,6 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Entity
@@ -24,7 +25,7 @@ public class Member extends BaseTime {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nickname;
 
     @Column(nullable = false)
@@ -40,10 +41,34 @@ public class Member extends BaseTime {
     @Enumerated(EnumType.STRING)
     private final List<MemberRole> roles = new ArrayList<>();
 
-    @OneToOne(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    public void addRoles(MemberRole... memberRoles) {
+        roles.addAll(List.of(memberRoles));
+    }
+
+    @OneToOne(mappedBy = "member", cascade = CascadeType.PERSIST)
     private Cart cart;
 
     @OneToMany(mappedBy = "member")
     private final List<Review> reviews = new ArrayList<>();
+
+    public void initInfo(String encodedPassword) {
+        this.password = encodedPassword;
+        memberStatus = MemberStatus.ACTIVE;
+    }
+
+    public void updateInfo(Member member, String password) {
+        Optional.ofNullable(member.getNickname())
+                .ifPresent(nickname -> this.nickname = nickname);
+        Optional.ofNullable(member.getAddress())
+                .ifPresent(address -> this.address = address);
+        Optional.ofNullable(member.getPhone())
+                .ifPresent(phone -> this.phone = phone);
+        Optional.ofNullable(password)
+                .ifPresent(pw -> this.password = pw);
+    }
+
+    public void updateStatus(MemberStatus memberStatus) {
+        this.memberStatus = memberStatus;
+    }
 
 }

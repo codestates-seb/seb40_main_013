@@ -21,9 +21,6 @@ public class Seller extends BaseTime {
     private Long id;
 
     @Column(nullable = false)
-    private String brandName;
-
-    @Column(nullable = false)
     private String brandNumber;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
