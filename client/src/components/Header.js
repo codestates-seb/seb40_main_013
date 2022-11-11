@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from './logo.png'
+import logo from '../imgs/logo.png'
 import { BsCart3, BsSearch } from 'react-icons/bs';
 
 const HeaderBlock = styled.header`
@@ -42,6 +42,21 @@ const Category = styled.div`
  margin: 5px 30px 5px 30px;
 `;
 
+const Nav =styled.nav`
+  background-color: white;
+  border: 1px solid #BEBCAF;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 20px;
+  bottom: 10px;
+  div{
+    justify-content: center;
+    padding: 5px;
+  }
+`;
+
 function Header() {
     return (
       <>
@@ -71,6 +86,11 @@ function Header() {
                     </div>
                 </div>
             </Category>
+            <Nav>
+              <div>의자</div>
+              <div>책상</div>
+              <div>책장</div>
+            </Nav>
         </HeaderBlock>
       </>
   
