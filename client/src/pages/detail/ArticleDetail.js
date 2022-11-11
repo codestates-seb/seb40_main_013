@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
+
 import thumbnailImg from "../../imgs/일로 크롬 오피스 체어.jpeg";
 import contentsImg from "../../imgs/일룸 오피스 체어2.jpeg";
 import { BsStarFill, BsStarHalf, BsHeart, BsHeartFill } from "react-icons/bs";
