@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <React.StrictMode> {/* 요청을 보내면 한번더 보내게되어서 지움 */}
     <App />
   </React.StrictMode>
 );

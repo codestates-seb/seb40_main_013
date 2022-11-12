@@ -1,12 +1,10 @@
 import React from "react";
-import styled from "styled-components";
-import Footer from "../../components/Footer";
+import styled from "styled-components/macro";
 
-function SignupBuyer() {
+function Signup() {
   return (
     <Wrapper>
       <SignupContents>123</SignupContents>
-      <Footer />
     </Wrapper>
   );
 }
@@ -25,4 +23,4 @@ const SignupContents = styled.div`
   border: 1px solid red;
 `;
 
-export default SignupBuyer;
+export default Signup;

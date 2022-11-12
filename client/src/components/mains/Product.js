@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import 화장대 from '../../imgs/화장대.png'
 
 const ProductList = styled.div`

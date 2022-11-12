@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 //import { Link } from 'react-router-dom';
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel";
 import Button from "../components/Button";
 import Products from "../components/mains/Product";

@@ -18,7 +18,7 @@ const Img = styled.img`
   background-repeat: no-repeat;
   /* object-fit: contain; */
 `;
-const Carousel = () => {
+const SubCarousel = () => {
   return (
     <Carousels>
       {/* 화면 전환효과 딜레이 / 자동 슬라이드 전환 시간 */}
@@ -40,4 +40,4 @@ const Carousel = () => {
   );
 }
 
-export default Carousel;
+export default SubCarousel;
