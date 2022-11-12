@@ -104,7 +104,9 @@ function Header() {
                   <Link to='/sub'>
                     <div className="space">서재</div>
                   </Link>
+                  <Link to='/cart'>
                     <div className="space">침실</div>
+                  </Link>
                     <div className="space">거실</div>
                     <div className="space">주방</div>
                 </div>
