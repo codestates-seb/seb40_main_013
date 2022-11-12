@@ -39,14 +39,4 @@ public class LoginController {
         return sellerMapper.toResponse(seller);
     }
 
-    @PostMapping("/login")
-    public void login() {
-
-    }
-
-    @PostMapping("/logout")
-    public void logout() {
-
-    }
-
 }
