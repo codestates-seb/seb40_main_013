@@ -71,6 +71,7 @@ const Main = () => {
           <Products
             brand={product.brand}
             // img={product.img}
+            key={product.id}
             name={product.name}
             price={product.price}
           />
