@@ -8,13 +8,11 @@ import carousel4 from './../../imgs/carousel4.png'
 
 //carousel
 const Carousels = styled.div`
- background-color: #FCF9E9;
- width: 100vw;
- height: 500px;
+ background-color: #F2F2F2;
+ height: 300px;
  overflow: hidden;
 `;
 const Img = styled.img`
-  height: 100vh;
   background-repeat: no-repeat;
   /* object-fit: contain; */
 `;

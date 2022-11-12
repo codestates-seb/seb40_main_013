@@ -11,8 +11,8 @@ import ArticleDetail from "./pages/detail/ArticleDetail";
 import SubCategory from "./components/subcategories/SubCategory";
 
 const MainContainter = styled.div`
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
 `;
 
 function App() {

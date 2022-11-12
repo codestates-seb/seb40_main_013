@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
 import logo from '../imgs/logo.png'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { BsCart3, BsSearch } from 'react-icons/bs';
 
 const HeaderBlock = styled.header`
@@ -10,7 +10,7 @@ const HeaderBlock = styled.header`
   div{
     display: flex;
   }
-  .top{
+  .top {
     justify-content: end;
     margin: 7px 20px 7px 10px;
   }
@@ -24,12 +24,12 @@ const Logo = styled.div`
 `;
 
 const Serach = styled.div`
-width: 200px;
-height: 15px;
-border: 1px solid #BEBCAF;
-padding: 3px;
-margin-right: 10px;
-justify-content: end;
+  width: 200px;
+  height: 15px;
+  border: 1px solid #bebcaf;
+  padding: 3px;
+  margin-right: 10px;
+  justify-content: end;
 `;
 
 const Category = styled.div`
@@ -76,13 +76,13 @@ const LoginBtn = styled.button`
   background-color: white;
   &:hover {
     cursor: pointer;
-    color: #FFAF51;
+    color: #ffaf51;
   }
 `;
 
 
 function Header() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
     return (
       <>
         <HeaderBlock>

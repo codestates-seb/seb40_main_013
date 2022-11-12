@@ -1,155 +1,177 @@
-import React, { useState } from 'react';
-import styled from 'styled-components/macro';
-import { AiOutlineMail } from 'react-icons/ai';
+import React, { useState } from "react";
+import styled from "styled-components/macro";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../reduxstore/slices/userSlice";
+import loginImg from "../imgs/chairImage.png";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
+function Login() {
+  const [userWriteEmail, setUserWriteEmail] = useState("");
+  const [userWritePwd, setUserWritePwd] = useState("");
+  const [userWriteInput, setUserWriteInput] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 450px;
-  border-radius: 5px;
-  height: 70vh;
-  margin: 50px;
-`;
-
-//Tab 메뉴
-const Tab = styled.ul`
-  display: flex;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-`;
-const TabMenu = styled.li`
-  display:flex;
-  justify-content: center;
-  list-style: none;
-  padding: 10px 30px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  font-size: 1.5rem;
-  width: 100%;
-  background-color: #E6E6E6;
-  cursor: pointer;
-  color: #545454;
-  &.isActive{
-    background-color: #FFAF51;
-  }
-`;
-
-//content
-const Content = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  border: 1px solid #FFAF51;
-  border-end-start-radius: 5px;
-  border-end-end-radius: 5px;
-`;
-
-const LoginForm = styled.form`
-  margin-top: 30px;
-`;
-const Input = styled.input`
-  padding: 10px 75px 10px 10px;
-  font-size: 1rem;
-`;
-
-const Check = styled.label`
-  display: flex;
-  margin: 20px 0;
-`;
-const Checkbox = styled.input`
-  color: #545454;
-`;
-const IsLogin = styled.h4`
-  color: #545454;
-`;
-const Button = styled.button`
-  background-color: #FFAF51;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-bottom: 30px;
-`;
-
-//비밀번호 찾기, 아이디찾기, 회원가입
-const Bottoms = styled.div``;
-const Content2 = styled.div`
-  display: flex;
-  margin: 20px;
-`;
-const Bottom = styled.h4``;
-function Login(){
-  const [clicked, setClicked] = useState(0);
-  const [checked, setChecked] = useState(false);
-
-  //tab 클릭 이벤트
-  const clickTabHandler = (index) => {
-    setClicked(index)
-    console.log("click!!!", index);
+  const routeSignup = () => {
+    navigate("/signup");
+  };
+  const writeChangeEmail = (e) => {
+    setUserWriteEmail(e.target.value);
+  };
+  const writeChangePwd = (e) => {
+    setUserWritePwd(e.target.value);
   };
 
-  //로그인 유지 핸들러
-  const checkLoginHandler = ()=> {
-    console.log(checked);
-    setChecked(!checked);
-  }
-  //content
-  const tabContentArr = [
-    {
-      tabTitle: (
-        <TabMenu className={clicked === 0 ? "isActive" : ""} onClick={()=> clickTabHandler(0)}> 일반 로그인</TabMenu>
-      ),
-      tabContent:(
-        <Content2>
-          <Bottom>비밀번호 찾기&nbsp;&nbsp;|</Bottom>
-          <Bottom> &nbsp;&nbsp;아이디 찾기&nbsp;&nbsp;|</Bottom>
-          <Bottom>&nbsp;&nbsp;회원가입</Bottom>
-        </Content2>
-      )
-    },
-    {
-      tabTitle: (
-        <TabMenu  key={`${clicked}`} className={clicked === 1 ? "isActive" : ""} onClick={()=> clickTabHandler(1)}> 판매자 로그인</TabMenu>
-      ),
-      tabContent:(
-        <Content2>비밀번호 찾기 | 아이디 찾기 | 판매자 회원가입</Content2>
-      )
+  const clickLogin = () => {
+    if (userWriteEmail === "" || userWritePwd === "") {
+      setUserWriteInput(true);
+    } else {
+      setUserWriteInput(false);
     }
-  ];
-  return(
-    <Container>
-      <Tab>
-        {tabContentArr.map((content, index)=> {
-          return content.tabTitle
-        })}
-      </Tab>
-      <Content>
-          <LoginForm for="email">
-              {/* <AiOutlineMail /> */}
-            <Input name="email" placeholder="email 을 입력해주세요" />
-          </LoginForm>
-          <LoginForm>
-            <Input name="password" placeholder="비밀번호를 입력해주세요" />
-          </LoginForm>
-          <Check>
-            <Checkbox type="checkbox" name="checked" onClick={checkLoginHandler}/>
-            <IsLogin name="isLogin">로그인 상태 유지</IsLogin>
-          </Check>
-          <Button name="loginBtn">로그인 하기</Button>
-      </Content>
-      <Bottoms>
-        {tabContentArr[clicked].tabContent}
-      </Bottoms>
-    </Container>
-  )
-};
+
+    let loginData = {
+      email: userWriteEmail,
+      password: userWritePwd,
+    };
+    if (
+      userWriteEmail !== "" &&
+      userWritePwd !== "" &&
+      userWriteInput === false
+    ) {
+      dispatch(loginUser({ loginData, navigate }));
+    }
+  };
+  //content
+
+  return (
+    <Wrapper>
+      <LoginWrapper>
+        <LoginImg src={loginImg} />
+        <LoginContentSpace>
+          <LoginTitle>Log In</LoginTitle>
+          <LoginInputSpace>
+            <LoginInput placeholder="Email" />
+            <LoginInput placeholder="Password" />
+          </LoginInputSpace>
+          <LoginButton>로그인</LoginButton>
+          <LoginInformationSpace>
+            <LoginCheckSpace>
+              <div>
+                <AiOutlineCheckCircle />
+              </div>
+              <div>로그인 상태 유지</div>
+            </LoginCheckSpace>
+            <div>이이디/비밀번호 찾기</div>
+          </LoginInformationSpace>
+          <LoginRouteSign>
+            <div>Don`t have an account?</div>
+            <LoginSignBtn>Sign Up</LoginSignBtn>
+          </LoginRouteSign>
+        </LoginContentSpace>
+      </LoginWrapper>
+    </Wrapper>
+  );
+}
+
+const Wrapper = styled.div`
+  width: 100%;
+  /* height: 58vh; */
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  margin: 45px 0px 30px 0px;
+`;
+
+const LoginWrapper = styled.div`
+  width: 900px;
+  height: 100%;
+  border: 1px solid var(--color-gray);
+  display: flex;
+  border-radius: 7px;
+`;
+
+const LoginImg = styled.img`
+  width: 400px;
+  height: 100%;
+  margin-right: 20px;
+`;
+
+const LoginContentSpace = styled.div`
+  width: 480px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const LoginTitle = styled.div`
+  width: 100%;
+  height: 50px;
+  font-size: 25px;
+  color: var(--color-navy);
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+`;
+const LoginInputSpace = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+`;
+const LoginInput = styled.input`
+  width: 90%;
+  height: 60px;
+  border: none;
+  border-bottom: 1px solid var(--color-gray);
+  &:nth-child(1) {
+    margin-bottom: 10px;
+  }
+`;
+
+const LoginButton = styled.button`
+  width: 90%;
+  height: 45px;
+  background-color: var(--color-navy);
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
+  margin-top: 40px;
+`;
+
+const LoginInformationSpace = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  height: 40px;
+  font-size: 13px;
+  color: var(--color-gray);
+`;
+const LoginCheckSpace = styled.div`
+  width: 105px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const LoginRouteSign = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  color: var(--color-gray);
+  font-weight: 500;
+  margin-top: 20px;
+`;
+
+const LoginSignBtn = styled.div`
+  color: #ffaf51;
+  background: none;
+  border: none;
+  margin-left: 5px;
+`;
 
 export default Login;
