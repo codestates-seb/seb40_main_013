@@ -3,6 +3,7 @@ export const nickNameCheck = (name) => {
 
   return nickreg.test(name);
 };
+//2자 이상 8자 이하 영어 또는 숫자 또는 한글로 구성 초성및 모음은 허가하지않음
 
 export const emailCheck = (email) => {
   let emailreg =
@@ -10,3 +11,12 @@ export const emailCheck = (email) => {
 
   return emailreg.test(email);
 };
+// 이메일 정규식
+
+export const pwdCheck = (pwd) => {
+  let pwdreg = /^(?=.[A-Za-z])(?=.\d)(?=.[$@$!%#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
+
+  return pwdreg.test(pwd);
+};
+
+//최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자

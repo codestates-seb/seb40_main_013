@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components/macro";
-
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import reviewImg1 from "../../imgs/리뷰이미지.jpeg";
