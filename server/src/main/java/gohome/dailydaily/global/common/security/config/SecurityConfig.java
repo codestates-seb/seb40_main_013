@@ -1,5 +1,6 @@
 package gohome.dailydaily.global.common.security.config;
 
+import gohome.dailydaily.global.common.security.filter.CustomFilterConfigurer;
 import gohome.dailydaily.global.common.security.handler.CustomAccessDeniedHandler;
 import gohome.dailydaily.global.common.security.handler.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +17,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+import static org.springframework.http.HttpMethod.*;
+
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private final CustomAccessDeniedHandler accessDeniedHandler;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private final CustomFilterConfigurer customFilterConfigurer;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -39,11 +43,13 @@ public class SecurityConfig {
                 .accessDeniedHandler(accessDeniedHandler)
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
+                .apply(customFilterConfigurer)
+                .and()
                 .authorizeRequests()
-                .mvcMatchers("GET").permitAll()
-                .mvcMatchers("POST").permitAll()
-                .mvcMatchers("PATCH").permitAll()
-                .mvcMatchers("DELETE").permitAll()
+                .mvcMatchers(POST, "/signup/**", "/login").permitAll()
+                .mvcMatchers(POST, "/**").hasRole("USER")
+                .mvcMatchers(PATCH, "/**").hasRole("USER")
+                .mvcMatchers(DELETE, "/**").hasRole("USER")
                 .anyRequest().permitAll()
                 .and()
                 .build();
