@@ -51,10 +51,10 @@ function Login() {
         <LoginContentSpace>
           <LoginTitle>Log In</LoginTitle>
           <LoginInputSpace>
-            <LoginInput placeholder="Email" />
-            <LoginInput placeholder="Password" />
+            <LoginInput placeholder="Email" onChange={writeChangeEmail} />
+            <LoginInput placeholder="Password" onChange={writeChangePwd} />
           </LoginInputSpace>
-          <LoginButton>로그인</LoginButton>
+          <LoginButton onClick={clickLogin}>로그인</LoginButton>
           <LoginInformationSpace>
             <LoginCheckSpace>
               <div>
@@ -66,7 +66,7 @@ function Login() {
           </LoginInformationSpace>
           <LoginRouteSign>
             <div>Don`t have an account?</div>
-            <LoginSignBtn>Sign Up</LoginSignBtn>
+            <LoginSignBtn onClick={routeSignup}>Sign Up</LoginSignBtn>
           </LoginRouteSign>
         </LoginContentSpace>
       </LoginWrapper>
@@ -172,6 +172,11 @@ const LoginSignBtn = styled.div`
   background: none;
   border: none;
   margin-left: 5px;
+  cursor: pointer;
+  &:hover {
+    color: var(--color-navy);
+    font-weight: bolder;
+  }
 `;
 
 export default Login;
