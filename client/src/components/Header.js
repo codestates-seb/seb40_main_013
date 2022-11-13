@@ -120,11 +120,11 @@ function Header() {
                     </div>
                 </div>
             </Category>
-            <Nav>
+            {/* <Nav>
               <div>의자</div>
               <div>책상</div>
               <div>책장</div>
-            </Nav>
+            </Nav> */}
         </HeaderBlock>
       </>
   
