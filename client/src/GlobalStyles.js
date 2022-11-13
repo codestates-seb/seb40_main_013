@@ -3,9 +3,11 @@ import { reset } from "styled-reset";
 
 const GlobalStyles = createGlobalStyle`
     ${reset};
-    *{
-        box-sizing:boerder-box;
-    }
+  
+    * {
+		box-sizing: border-box;
+	}
+	
     :root{
       // font-color
       --font-red : #FF2323;

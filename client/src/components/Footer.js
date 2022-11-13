@@ -50,10 +50,10 @@ function Footer() {
 }
 
 const FooterWrapper = styled.div`
-  width: 99%;
-  height: 100px;
+  width: 100%;
+  height: 125px;
   background-color: #fcf9e9;
-  padding: 10px 0px 10px 20px;
+  padding: 20px 0px 10px 20px;
 `;
 
 const FooterTopInformation = styled.div`

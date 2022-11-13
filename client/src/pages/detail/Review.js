@@ -2,10 +2,9 @@ import React from "react";
 import styled from "styled-components/macro";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import reviewImg1 from "../../imgs/리뷰이미지.jpeg";
-import reviewImg2 from "../../imgs/리뷰이미지2.jpeg";
 
-function Review() {
+function Review({ filterArticle }) {
+  console.log(filterArticle);
   return (
     <ReviewWrapper>
       <ReviewTitle>상품 후기 ( OO건 )</ReviewTitle>
@@ -22,53 +21,30 @@ function Review() {
         </ReviewStaAverage>
       </ReviewStarSpace>
       <Boundary />
-      <ReviewContentsSpace>
-        <ReviewContentsLeftSpace>
-          <ReviewContentsNumber>1</ReviewContentsNumber>
-          <ReviewContentsImg src={reviewImg1}></ReviewContentsImg>
-          <ReviewContentsMainSpace>
-            <ReviewStar>
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-            </ReviewStar>
-            <ReviewMainTitle>예쁘고 편한 일로오피스체어</ReviewMainTitle>
-            <ReviewMainContent>
-              바퀴가 있어 넘편합니다 내구도도 좋아요
-            </ReviewMainContent>
-          </ReviewContentsMainSpace>
-        </ReviewContentsLeftSpace>
-        <ReviewContentsRightSpace>
-          <ReviewContentsUser>hyoji**</ReviewContentsUser>
-          <ReviewContentsUser>2022-10-11</ReviewContentsUser>
-        </ReviewContentsRightSpace>
-      </ReviewContentsSpace>
-      <Boundary />
-      <ReviewContentsSpace>
-        <ReviewContentsLeftSpace>
-          <ReviewContentsNumber>1</ReviewContentsNumber>
-          <ReviewContentsImg src={reviewImg2}></ReviewContentsImg>
-          <ReviewContentsMainSpace>
-            <ReviewStar>
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-            </ReviewStar>
-            <ReviewMainTitle>예쁘고 편한 일로오피스체어</ReviewMainTitle>
-            <ReviewMainContent>
-              바퀴가 있어 넘편합니다 내구도도 좋아요
-            </ReviewMainContent>
-          </ReviewContentsMainSpace>
-        </ReviewContentsLeftSpace>
-        <ReviewContentsRightSpace>
-          <ReviewContentsUser>hyoji**</ReviewContentsUser>
-          <ReviewContentsUser>2022-10-11</ReviewContentsUser>
-        </ReviewContentsRightSpace>
-      </ReviewContentsSpace>
+      {filterArticle?.map((data) => (
+        <ReviewContentsSpace key={data.reviewId}>
+          <ReviewContentsLeftSpace>
+            <ReviewContentsNumber>{data.reviewId}</ReviewContentsNumber>
+            <ReviewContentsImg src={data.img}></ReviewContentsImg>
+            <ReviewContentsMainSpace>
+              <ReviewStar>
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+              </ReviewStar>
+              <ReviewMainTitle>{data.title}</ReviewMainTitle>
+              <ReviewMainContent>{data.content}</ReviewMainContent>
+            </ReviewContentsMainSpace>
+          </ReviewContentsLeftSpace>
+          <ReviewContentsRightSpace>
+            <ReviewContentsUser>{data.nickname}</ReviewContentsUser>
+            <ReviewContentsUser>{data.craeateAt}</ReviewContentsUser>
+          </ReviewContentsRightSpace>
+        </ReviewContentsSpace>
+      ))}
+
       <Boundary />
       <ReviewPageNationSpace>
         <ButtonIcon>
@@ -82,6 +58,11 @@ function Review() {
     </ReviewWrapper>
   );
 }
+const Display = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid blue;
+`;
 
 const ReviewWrapper = styled.div`
   width: 600px;
