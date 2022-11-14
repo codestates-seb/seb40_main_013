@@ -22,3 +22,7 @@ jwt:
   secret-key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
+
+file:
+  profileImg: {프로젝트 경로}/img/profileImg/
+  productImg: {프로젝트 경로}/img/productImg/
