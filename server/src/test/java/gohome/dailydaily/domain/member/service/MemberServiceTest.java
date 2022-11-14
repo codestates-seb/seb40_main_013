@@ -29,16 +29,12 @@ class MemberServiceTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
-
     @Mock
     private MemberRepository memberRepository;
-
     @Mock
     private SellerRepository sellerRepository;
-
     @InjectMocks
     private MemberService memberService;
-
     private Member member;
 
     @BeforeEach
@@ -109,7 +105,6 @@ class MemberServiceTest {
         memberService.updateMember(patchMember);
 
         // then
-        assertThat(member.getEmail()).isEqualTo(patchMember.getEmail());
         assertThat(member.getNickname()).isEqualTo(patchMember.getNickname());
         assertThat(member.getPassword()).isEqualTo(patchMember.getPassword());
         assertThat(member.getAddress()).isEqualTo(patchMember.getAddress());
