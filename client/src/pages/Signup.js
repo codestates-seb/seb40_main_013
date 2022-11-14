@@ -163,7 +163,7 @@ const UserWriteTitle = styled.div`
 const UserWriteInput = styled.input`
   margin-top: 10px;
   width: 98%;
-  height: 30px;
+  height: 40px;
 `;
 
 const UserSubmitBtn = styled.button`

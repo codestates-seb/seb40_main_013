@@ -21,7 +21,6 @@ function ArticleDetail() {
   const filterArticle = detatilArticle?.filter(
     (data) => data.id === Number(params.id)
   );
-  console.log(filterArticle);
 
   const clickFunction = () => {
     setClickSelect(!clickSelect);
