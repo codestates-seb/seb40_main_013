@@ -23,15 +23,6 @@ const Logo = styled.div`
   }
 `;
 
-const Serach = styled.div`
-  width: 200px;
-  height: 15px;
-  border: 1px solid #bebcaf;
-  padding: 3px;
-  margin-right: 10px;
-  justify-content: end;
-`;
-
 const Category = styled.div`
  display: flex;
  justify-content: space-between;
@@ -111,9 +102,7 @@ function Header() {
                     <div className="space">주방</div>
                 </div>
                 <div>
-                    <Serach>
-                        <BsSearch/>
-                    </Serach>
+                    <BsSearch size='20'/>
                     <div>
                         <BsCart3 />
                         <div> (0)</div>
