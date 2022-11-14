@@ -1,5 +1,9 @@
 import React from "react";
+<<<<<<< HEAD
 import styled from "styled-components";
+=======
+import styled from "styled-components/macro";
+>>>>>>> dab95ec5c2f7f888c1e204edffd7f222bea84032
 import 화장대 from '../../imgs/화장대.png'
 
 const ProductList = styled.div`

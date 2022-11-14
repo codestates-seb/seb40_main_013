@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "products" : [
+=======
+  "products": [
+>>>>>>> dab95ec5c2f7f888c1e204edffd7f222bea84032
     {
       "id": 1,
       "name": "책상",
@@ -60,5 +64,85 @@
         "wood": 11
       }
     }
+<<<<<<< HEAD
+=======
+  ],
+  "user": [
+    {
+      "id": 1,
+      "email": "책상",
+      "password": "123"
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "qwer!Q1111",
+      "id": 2
+    },
+    {
+      "email": "asd",
+      "password": "12",
+      "id": 3
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 4
+    },
+    {
+      "email": "test@gmail",
+      "password": "qwer!Q1111",
+      "id": 5
+    },
+    {
+      "email": "qwe@naver",
+      "password": "qwer!Q1111",
+      "id": 6
+    },
+    {
+      "email": "asd@naver",
+      "password": "qwe!Q1111",
+      "id": 7
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "qwer!Q1111",
+      "id": 8
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "qwer!Q1111",
+      "id": 9
+    },
+    {
+      "email": "aa@naver.com",
+      "password": "123",
+      "id": 10
+    }
+  ],
+  "signup": [
+    {
+      "id": 1,
+      "userEmail": "책상",
+      "password": "123"
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "qwer!Q1111",
+      "nickname": "테스트1",
+      "id": 2
+    },
+    {
+      "email": "test2@gmail.com",
+      "password": "qwer!Q1111",
+      "nickname": "test2",
+      "id": 3
+    },
+    {
+      "email": "test3@gmail.com",
+      "password": "qwer!Q1111",
+      "nickname": "test3",
+      "id": 4
+    }
+>>>>>>> dab95ec5c2f7f888c1e204edffd7f222bea84032
   ]
 }

@@ -1,9 +1,5 @@
 import React from "react";
-<<<<<<< HEAD
-import styled from "styled-components";
-=======
 import styled from "styled-components/macro";
->>>>>>> dab95ec5c2f7f888c1e204edffd7f222bea84032
 import ImageSlider, { Slide } from "react-auto-image-slider";
 import carousel1 from './../../imgs/carousel1.png'
 import carousel2 from './../../imgs/carousel2.png'
@@ -12,17 +8,15 @@ import carousel4 from './../../imgs/carousel4.png'
 
 //carousel
 const Carousels = styled.div`
- background-color: #FCF9E9;
- width: 100vw;
- height: 500px;
+ background-color: #F2F2F2;
+ height: 300px;
  overflow: hidden;
 `;
 const Img = styled.img`
-  height: 100vh;
   background-repeat: no-repeat;
   /* object-fit: contain; */
 `;
-const Carousel = () => {
+const SubCarousel = () => {
   return (
     <Carousels>
       {/* 화면 전환효과 딜레이 / 자동 슬라이드 전환 시간 */}
@@ -44,4 +38,4 @@ const Carousel = () => {
   );
 }
 
-export default Carousel;
+export default SubCarousel;

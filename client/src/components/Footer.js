@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { ImFacebook } from "react-icons/im";
 import { BsInstagram } from "react-icons/bs";
 
