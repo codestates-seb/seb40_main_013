@@ -12,6 +12,10 @@ const GlobalStyles = createGlobalStyle`
          text-decoration: none;
          color: inherit;
     }
+    button{
+        border: 0;
+        outline: 0;
+    }
     :root{
       // font-color
       --font-red : #FF2323;
