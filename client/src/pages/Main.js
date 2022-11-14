@@ -4,6 +4,7 @@ import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel";
 import Button from "../components/Button";
 import Products from "../components/mains/Product";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Container = styled.div`
@@ -33,7 +34,7 @@ const FullTitle = styled.div`
   margin-bottom: 10px;
   color: #515151;
 `;
-const FullView = styled.h2`
+const FullView = styled(Link)`
   font-size: 1.5rem;
   margin-bottom: 10px;
   margin-right: 40px;
@@ -51,7 +52,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4003/products")
+      .get("http://localhost:4004/products")
       .then((data) => setProductList(data.data));
   }, []);
   console.log(productList);
@@ -62,7 +63,7 @@ const Main = () => {
       <Title>거실</Title>
       <Hr />
       <FullTitle name="fullTitle" className="fullTitle">
-        <FullView name="fullView" className="fullView">
+        <FullView to="/sub" name="fullView" className="fullView">
           전체보기 &gt;&gt;
         </FullView>
       </FullTitle>
@@ -70,25 +71,32 @@ const Main = () => {
         {productList.map((product) => (
           <Products
             brand={product.brand}
-            // img={product.img}
+            img={product.img}
             key={product.id}
             name={product.name}
             price={product.price}
+            star={product.star}
           />
         ))}
       </ProductList>
       <Title>서재</Title>
       <Hr />
       <FullTitle name="fullTitle" className="fullTitle">
-        <FullView name="fullView" className="fullView">
+        <FullView to="/sub" name="fullView" className="fullView">
           전체보기 &gt;&gt;
         </FullView>
       </FullTitle>
       <ProductList>
-        <Products />
-        <Products />
-        <Products />
-        <Products />
+        {productList.map((product) => (
+            <Products
+              brand={product.brand}
+              img={product.img}
+              key={product.id}
+              name={product.name}
+              price={product.price}
+              star={product.star}
+            />
+          ))}
       </ProductList>
       <Title>침실</Title>
       <Hr />
@@ -98,10 +106,17 @@ const Main = () => {
         </FullView>
       </FullTitle>
       <ProductList>
-        <Products />
-        <Products />
-        <Products />
-        <Products />
+        {productList.map((product) => (
+            <Products
+              brand={product.brand}
+              img={product.img}
+              key={product.id}
+              name={product.name}
+              price={product.price}
+              star={product.star}
+              colorChip={product.colorChip}
+            />
+          ))}
       </ProductList>
       <Button />
     </Container>
