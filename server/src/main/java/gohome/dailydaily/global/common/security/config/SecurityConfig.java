@@ -46,6 +46,7 @@ public class SecurityConfig {
                 .apply(customFilterConfigurer)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/h2/*").permitAll()
                 .mvcMatchers(POST, "/signup/**", "/login").permitAll()
                 .mvcMatchers(POST, "/**").hasRole("USER")
                 .mvcMatchers(PATCH, "/**").hasRole("USER")
@@ -61,6 +62,8 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
         configuration.addAllowedHeader(CorsConfiguration.ALL);
+        configuration.addExposedHeader("Authorization");
+        configuration.addExposedHeader("Refresh");
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedOrigin("http://localhost:80");
         configuration.addAllowedOrigin("http://localhost");
