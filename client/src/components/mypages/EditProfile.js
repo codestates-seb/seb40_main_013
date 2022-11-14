@@ -7,7 +7,7 @@ const Container = styled.form`
   flex-direction: column;
   margin: 20px 30px;
   border-radius: 5px;
-  padding: 20px;
+  padding: 20px 20px 20px 40px;
   width: 80%;
   border: 1px solid var(--color-center-line);
 `;
@@ -22,6 +22,17 @@ const Input = styled.input`
   margin-bottom: 20px;
   border: 1px solid var(--color-center-line);
   border-radius: 5px;
+  transition: 1s;
+  &:hover {
+      outline: none;
+      /* border-color: 1px solid #FFAF51; */
+      box-shadow: 0px 0px 0px 1.5px #FFAF51;
+    }
+  &:focus-within {
+      outline: none;
+      /* border-color: 1px solid #FFAF51; */
+      box-shadow: 0px 0px 0px 3px #FFAF51;
+    }
 `;
 //버튼
 const Buttons = styled.div`
@@ -31,14 +42,14 @@ const Buttons = styled.div`
   justify-content: flex-end;
 `;
 
-const Edit = styled.button`
+const Delete = styled.button`
   color: var(--color-navy);
   border: 1px solid var(--color-navy);
   border-radius: 5px;
   padding: 7px 30px;
   margin-right: 10px;;
 `;
-const Delete = styled.button`
+const Edit = styled.button`
   color: white;
   background-color: var(--color-navy);
   border: none;
@@ -61,8 +72,8 @@ const EditProfile = ()=>{
       <Label for="phone">휴대폰 번호</Label>
       <Input name="phone"></Input>
       <Buttons>
-        <Edit>정보수정</Edit>
         <Delete>회원탈퇴</Delete>
+        <Edit>정보수정</Edit>
       </Buttons>
     </Container>
   )
