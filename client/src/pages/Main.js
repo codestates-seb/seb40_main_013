@@ -52,7 +52,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/products")
+      .get("http://localhost:4004/products")
       .then((data) => setProductList(data.data));
   }, []);
   console.log(productList);
