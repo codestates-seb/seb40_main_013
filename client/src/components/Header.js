@@ -1,38 +1,35 @@
-import styled from "styled-components";
-import logo from './logo.png'
-import { Link, useNavigate } from 'react-router-dom';
+import styled from "styled-components/macro";
+import logo from '../imgs/logo.png'
+import { Link } from 'react-router-dom';
 import { BsCart3, BsSearch } from 'react-icons/bs';
 
 const HeaderBlock = styled.header`
   width: 100%;
-  height: 215px;
+  height: 230px;
   color: #BEBCAF;
   div{
     display: flex;
   }
-  .top{
+  .top {
     justify-content: end;
     margin: 7px 20px 7px 10px;
-  }
-  .space{
-    margin-right: 7px;
   }
 `
 const Logo = styled.div`
   justify-content: center;
   img{
-    width: 250px;
+    width: 245px;
     height: 150px;
   }
 `;
 
 const Serach = styled.div`
-width: 200px;
-height: 15px;
-border: 1px solid #BEBCAF;
-padding: 3px;
-margin-right: 10px;
-justify-content: end;
+  width: 200px;
+  height: 15px;
+  border: 1px solid #bebcaf;
+  padding: 3px;
+  margin-right: 10px;
+  justify-content: end;
 `;
 
 const Category = styled.div`
@@ -41,6 +38,29 @@ const Category = styled.div`
  border-bottom: 1px solid #BEBCAF;
  padding: 7px;
  margin: 5px 30px 5px 30px;
+ .space{
+    margin-right: 7px;
+  &:hover{
+    cursor: pointer;
+
+  }
+  }
+`;
+
+const Nav =styled.nav`
+  background-color: white;
+  border: 1px solid #BEBCAF;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 20px;
+  bottom: 10px;
+  div{
+    justify-content: center;
+    padding: 5px;
+  }
+  /* display: none; */
 `;
 
 //우측 상단 버튼
@@ -56,36 +76,37 @@ const LoginBtn = styled.button`
   background-color: white;
   &:hover {
     cursor: pointer;
-    color: #FFAF51;
+    color: #ffaf51;
   }
 `;
 
-const PageMove = styled(Link)`
-  text-decoration: none;
-`;
 
 function Header() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
     return (
       <>
         <HeaderBlock>
             <div className="top">
-                <PageMove to="/users/login">
+                <Link to="/users/login">
                   <LoginBtn className="space">로그인/회원가입</LoginBtn>
-                </PageMove>
-                <PageMove to="/users/me/*">
+                </Link>
+                <Link to="/users/me/*">
                   <LoginBtn className="space">마이페이지</LoginBtn>
-                </PageMove>
+                </Link>
             </div>
               <Logo>
-                <PageMove to="/">
+                <Link to="/">
                   <img src={logo} alt='daily,daily 로고'/>
-                </PageMove>
+                </Link>
               </Logo>
             <Category>
                 <div>
+                  <Link to='/sub'>
                     <div className="space">서재</div>
+                  </Link>
+                  <Link to='/cart'>
                     <div className="space">침실</div>
+                  </Link>
                     <div className="space">거실</div>
                     <div className="space">주방</div>
                 </div>
@@ -99,6 +120,11 @@ function Header() {
                     </div>
                 </div>
             </Category>
+            {/* <Nav>
+              <div>의자</div>
+              <div>책상</div>
+              <div>책장</div>
+            </Nav> */}
         </HeaderBlock>
       </>
   

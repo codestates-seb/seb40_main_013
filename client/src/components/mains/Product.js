@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
-import 화장대 from '../../imgs/화장대.png'
+import styled from "styled-components/macro";
+import starimg from '../../imgs/star.png'
 
 const ProductList = styled.div`
   width: 250px;
@@ -16,16 +16,20 @@ const Detail = styled.div`
   width: 250px;
   margin-top: 10px;
 `;
-const Brand = styled.h5``;
-const Title = styled.h3`
+const Brand = styled.h5`
+  color: var(--font-ligthblack);
+`;
+const Title = styled.h2`
+  font-size: 1.2rem;
   font-weight: 600;
-  margin-left: 10px;
 `;
 const Price = styled.h5`
   display: flex;
   justify-content: flex-end;
   padding: 5px;
   margin-right: 10px;
+  font-size: 1.7rem;
+  font-weight: 900;
 `;
 const Colorchip = styled.div`
   display: flex;
@@ -38,18 +42,42 @@ const Color = styled.div`
   width: 8px;
   height: 8px;
 `;
-
-const Product = ({ brand, name, price }) => {
+const SubDetail = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+`;
+const StarDetail = styled.div`
+  display: flex;
+`;
+const Star = styled.img`
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+`;
+const StarAerage = styled.div`
+  display: flex;
+`;
+const Product = ({ img, brand, name, price, star }) => {
   return(
     <ProductList>
-      <Img src={화장대}></Img>
+      <Img src={img}></Img>
       <Detail>
-        <Brand>{brand}</Brand>
+        <SubDetail>
+          <Brand>{brand}</Brand>
+          <StarDetail>
+            <Star src={starimg}></Star>
+            <StarAerage>{star}</StarAerage>
+          </StarDetail>
+        </SubDetail>
         <Title>{name}</Title>
-        <Price>{price}</Price>
-        <Colorchip>
-          <Color />
-        </Colorchip>
+        <SubDetail>
+          <Colorchip>
+            <Color />
+          </Colorchip>
+          <Price>{price}</Price>
+        </SubDetail>
       </Detail>
     </ProductList>
   );

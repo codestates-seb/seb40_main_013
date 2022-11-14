@@ -8,10 +8,12 @@ import Main from "./pages/Main";
 import MyPage from "./pages/Mypage";
 import Signup from "./pages/Signup";
 import ArticleDetail from "./pages/detail/ArticleDetail";
+import SubCategory from "./pages/SubCategory";
+import ShoppingCart from "./pages/ShoppingCart";
 
 const MainContainter = styled.div`
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
 `;
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
             <Route path="/users/me/*" element={<MyPage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/detail/:id" element={<ArticleDetail />} />
+            <Route path="/sub" element={<SubCategory />} />
+            <Route path="/cart" element={<ShoppingCart />} />
           </Routes>
         </MainContainter>
         <Footer />

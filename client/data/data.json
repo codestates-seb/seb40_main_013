@@ -2,23 +2,26 @@
   "products": [
     {
       "id": 1,
-      "name": "책상",
-      "img": "../src/imgs/2단 서랍.png",
+      "name": "콰트로 에어 1008 데스크",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/33097/main_img.jpg",
       "price": 99000,
       "brand": "dodot",
       "category": "서재",
+      "star": 4.8,
       "colorChip": {
         "beige": 1,
-        "wood": 5
+        "wood": 5,
+        "black": 2
       }
     },
     {
       "id": 2,
-      "name": "2단 장식장",
-      "img": "../src/imgs/2단 장식장.png",
-      "price": 120000,
+      "name": "콰트로 3단 책상 서랍장",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/31344/main_img.jpg",
+      "price": 104000,
       "brand": "illom",
       "category": "서재",
+      "star": 4.2,
       "colorChip": {
         "beige": 3,
         "wood": 2
@@ -26,11 +29,12 @@
     },
     {
       "id": 3,
-      "name": "4단서랍",
-      "img": "../src/imgs/4단서랍.png",
+      "name": "몰덴 1800 라운드 테이블",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/31319/main_img.jpg",
       "price": 29000,
       "brand": "포더홈",
       "category": "서재",
+      "star": 5.0,
       "colorChip": {
         "white": 2,
         "wood": 10
@@ -38,11 +42,12 @@
     },
     {
       "id": 4,
-      "name": "오픈 장식장",
-      "img": "../src/imgs/오픈 장식장.png",
+      "name": "콰트로 1200 5단 수납형 철제 책장",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/33104/main_img.jpg",
       "price": 49000,
       "brand": "소프시스",
       "category": "서재",
+      "star": 3.7,
       "colorChip": {
         "beige": 2,
         "wood": 7
@@ -50,11 +55,12 @@
     },
     {
       "id": 5,
-      "name": "화장대",
-      "img": "../src/imgs/화장대.png",
+      "name": "콰트로 800 3단 철제 책장",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32054/main_img.jpg",
       "price": 29000,
       "brand": "dodot",
       "category": "서재",
+      "star": 4.6,
       "colorChip": {
         "beige": 3,
         "wood": 11
@@ -71,8 +77,78 @@
   "signup": [
     {
       "id": 1,
+      "email": "책상",
+      "password": "123"
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "qwer!Q1111",
+      "id": 2
+    },
+    {
+      "email": "asd",
+      "password": "12",
+      "id": 3
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 4
+    },
+    {
+      "email": "test@gmail",
+      "password": "qwer!Q1111",
+      "id": 5
+    },
+    {
+      "email": "qwe@naver",
+      "password": "qwer!Q1111",
+      "id": 6
+    },
+    {
+      "email": "asd@naver",
+      "password": "qwe!Q1111",
+      "id": 7
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "qwer!Q1111",
+      "id": 8
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "qwer!Q1111",
+      "id": 9
+    },
+    {
+      "email": "aa@naver.com",
+      "password": "123",
+      "id": 10
+    }
+  ],
+  "signup": [
+    {
+      "id": 1,
       "userEmail": "책상",
       "password": "123"
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "qwer!Q1111",
+      "nickname": "테스트1",
+      "id": 2
+    },
+    {
+      "email": "test2@gmail.com",
+      "password": "qwer!Q1111",
+      "nickname": "test2",
+      "id": 3
+    },
+    {
+      "email": "test3@gmail.com",
+      "password": "qwer!Q1111",
+      "nickname": "test3",
+      "id": 4
     }
   ],
   "detail": [

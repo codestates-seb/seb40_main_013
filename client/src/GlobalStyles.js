@@ -3,11 +3,15 @@ import { reset } from "styled-reset";
 
 const GlobalStyles = createGlobalStyle`
     ${reset};
-  
-    * {
-		box-sizing: border-box;
-	}
-	
+    *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    a{
+         text-decoration: none;
+         color: inherit;
+    }
     :root{
       // font-color
       --font-red : #FF2323;
