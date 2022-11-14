@@ -1,0 +1,36 @@
+= dailydaily
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: prettify
+
+***
+== 회원
+=== 회원 가입
+.curl-request
+include::{snippets}/members/signup/curl-request.adoc[]
+
+.http-request
+include::{snippets}/members/signup/http-request.adoc[]
+
+.request-fields
+[caption=]
+include::{snippets}/members/signup/request-fields.adoc[]
+
+.http-response
+include::{snippets}/members/signup/http-response.adoc[]
+
+=== 정보 수정
+.curl-request
+include::{snippets}/members/signup/curl-request.adoc[]
+
+.http-request
+include::{snippets}/members/signup/http-request.adoc[]
+
+.request-fields
+[caption=]
+include::{snippets}/members/signup/request-fields.adoc[]
+
+.http-response
+include::{snippets}/members/signup/http-response.adoc[]
