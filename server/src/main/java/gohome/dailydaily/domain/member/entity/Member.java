@@ -13,7 +13,7 @@ import java.util.Optional;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 public class Member extends BaseTime {
 
@@ -43,6 +43,9 @@ public class Member extends BaseTime {
 
     public void addRoles(MemberRole... memberRoles) {
         roles.addAll(List.of(memberRoles));
+    }
+    public void addRoles(List<MemberRole> memberRoles) {
+        roles.addAll(memberRoles);
     }
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.PERSIST)
