@@ -4,7 +4,7 @@ import Apis from "../../apis/apis";
 export const signUser = createAsyncThunk(
   "user/signUser",
   async ({ signData, navigate }) => {
-    return Apis.post(`/users/login/`, signData)
+    return Apis.post(`signup`, signData)
       .then((res) => {
         navigate("/users/login");
         return res.data;
@@ -18,9 +18,12 @@ export const signUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async ({ loginData, navigate }) => {
-    return Apis.post(`user`, loginData)
+    return Apis.post(`login`, loginData, { withCredentials: true })
       .then((res) => {
-        console.log(res);
+        let jwtToken = res.headers.get("Authorization");
+        let jwtrefreshToken = res.headers.get("Refresh");
+        localStorage.setItem("Authorization", jwtToken);
+        localStorage.setItem("Refresh", jwtrefreshToken);
         navigate("/");
         return res.data;
       })

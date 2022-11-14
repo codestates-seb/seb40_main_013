@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
-import thumbnailImg from "../../imgs/일로 크롬 오피스 체어.jpeg";
-import contentsImg from "../../imgs/일룸 오피스 체어2.jpeg";
 import { BsStarFill, BsStarHalf, BsHeart, BsHeartFill } from "react-icons/bs";
 import { FiChevronDown } from "react-icons/fi";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import Review from "./Review";
+import { useDispatch, useSelector } from "react-redux";
+import { getArticleDetail } from "../../reduxstore/slices/articleSlice";
+import { useParams } from "react-router-dom";
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
   const [selectOptions, setSelectOptions] = useState([
@@ -14,6 +15,12 @@ function ArticleDetail() {
     { id: 3, value: "검은색" },
     { id: 4, value: "네이비" },
   ]);
+  const dispatch = useDispatch();
+  const params = useParams();
+  const detatilArticle = useSelector((state) => state.article.detailArticle);
+  const filterArticle = detatilArticle?.filter(
+    (data) => data.id === Number(params.id)
+  );
 
   const clickFunction = () => {
     setClickSelect(!clickSelect);
@@ -24,16 +31,19 @@ function ArticleDetail() {
     setSelectOptions(data);
   };
   console.log(selectOptions);
+  useEffect(() => {
+    dispatch(getArticleDetail(Number(params.id)));
+  }, []);
 
   return (
     <Wrapper>
       <DetailContents>
         <DetailTopUserSelectSpace>
-          <DetailTopThumbnailImg src={thumbnailImg} />
+          <DetailTopThumbnailImg src={filterArticle[0]?.img} />
           <ArticleInformations>
             <DetailArticleNameSpace>
               <div>
-                <DetailArticleName>일로 크롬 오피스 체어</DetailArticleName>
+                <DetailArticleName>{filterArticle[0]?.title}</DetailArticleName>
                 <DetailArticleStarSpace>
                   <DetailArticleStar>
                     <BsStarFill />
@@ -42,7 +52,9 @@ function ArticleDetail() {
                     <BsStarFill />
                     <BsStarFill />
                   </DetailArticleStar>
-                  <DetailArticleStaAverage>5점 (100)</DetailArticleStaAverage>
+                  <DetailArticleStaAverage>
+                    {filterArticle[0]?.score}점
+                  </DetailArticleStaAverage>
                 </DetailArticleStarSpace>
               </div>
               <ButtonIcon>
@@ -51,7 +63,9 @@ function ArticleDetail() {
             </DetailArticleNameSpace>
             <DetailArticlePriceSpace>
               <DetailArticlePrice>35%</DetailArticlePrice>
-              <DetailArticlePrice>75000 원</DetailArticlePrice>
+              <DetailArticlePrice>
+                {filterArticle[0]?.price} 원
+              </DetailArticlePrice>
               <DetailArticlePrice>115,000원</DetailArticlePrice>
             </DetailArticlePriceSpace>
             <DetailArticleOptionSpace>
@@ -105,7 +119,7 @@ function ArticleDetail() {
               </DetailUserQuantitySpace>
               <DetailUserPriceSpace>
                 <DetailUserPrice>총 상품금액</DetailUserPrice>
-                <DetailUserPrice>75,000</DetailUserPrice>
+                <DetailUserPrice>{filterArticle[0]?.price}</DetailUserPrice>
                 <DetailUserPrice> 원</DetailUserPrice>
               </DetailUserPriceSpace>
             </DetailUserSubmitPriceSpace>
@@ -115,8 +129,8 @@ function ArticleDetail() {
             </DetailArticlBtnSpace>
           </ArticleInformations>
         </DetailTopUserSelectSpace>
-        <DetailMidImg src={contentsImg} />
-        <Review />
+        <DetailMidImg src={filterArticle[0]?.contentImg} />
+        <Review filterArticle={filterArticle[0]?.reviewList} />
       </DetailContents>
     </Wrapper>
   );
@@ -194,8 +208,9 @@ const ButtonIcon = styled.button`
     margin-top: 0px;
   }
   &:nth-child(2) {
-    margin-bottom: 2px;
+    margin-bottom: 7px;
   }
+
   &:nth-child(3) {
     margin-top: 0px;
   }
