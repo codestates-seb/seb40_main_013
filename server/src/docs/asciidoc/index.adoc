@@ -34,3 +34,13 @@ include::{snippets}/members/signup/request-fields.adoc[]
 
 .http-response
 include::{snippets}/members/signup/http-response.adoc[]
+
+=== 회원 탈퇴
+.curl-request
+include::{snippets}/members/delete/curl-request.adoc[]
+
+.http-request
+include::{snippets}/members/delete/http-request.adoc[]
+
+.http-response
+include::{snippets}/members/delete/http-response.adoc[]

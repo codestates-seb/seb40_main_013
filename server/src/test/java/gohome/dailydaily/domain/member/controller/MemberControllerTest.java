@@ -25,11 +25,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = {MemberController.class, MemberMapper.class, SellerMapper.class})
 @MockBean(JpaMetamodelMappingContext.class)
@@ -101,6 +102,7 @@ class MemberControllerTest implements Reflection {
         // when
         ResultActions actions = mockMvc.perform(
                 patch("/members/mypage")
+                        .header("Authorization", "JWT")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request)
@@ -117,6 +119,7 @@ class MemberControllerTest implements Reflection {
                 .andDo(document("members/patch",
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
                         requestFields(
                                 FWP_NICKNAME, FWP_PASSWORD, FWP_ADDRESS, FWP_PHONE
                         ),
@@ -132,11 +135,15 @@ class MemberControllerTest implements Reflection {
         // when
         ResultActions actions = mockMvc.perform(
                 delete("/members/mypage")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "JWT")
         );
 
         // then
-        actions.andExpect(status().isNoContent());
+        actions.andExpect(status().isNoContent())
+                .andDo(document("members/delete",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT
+                ));
     }
 }
