@@ -6,6 +6,7 @@ import Button from "../components/Button";
 import Products from "../components/mains/Product";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Apis from "../apis/apis";
 
 const Container = styled.div`
   display: flex;
@@ -51,9 +52,7 @@ const Main = () => {
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4004/products")
-      .then((data) => setProductList(data.data));
+    Apis.get(`products`).then((data) => setProductList(data.data));
   }, []);
   console.log(productList);
 
@@ -88,15 +87,15 @@ const Main = () => {
       </FullTitle>
       <ProductList>
         {productList.map((product) => (
-            <Products
-              brand={product.brand}
-              img={product.img}
-              key={product.id}
-              name={product.name}
-              price={product.price}
-              star={product.star}
-            />
-          ))}
+          <Products
+            brand={product.brand}
+            img={product.img}
+            key={product.id}
+            name={product.name}
+            price={product.price}
+            star={product.star}
+          />
+        ))}
       </ProductList>
       <Title>침실</Title>
       <Hr />
@@ -107,16 +106,16 @@ const Main = () => {
       </FullTitle>
       <ProductList>
         {productList.map((product) => (
-            <Products
-              brand={product.brand}
-              img={product.img}
-              key={product.id}
-              name={product.name}
-              price={product.price}
-              star={product.star}
-              colorChip={product.colorChip}
-            />
-          ))}
+          <Products
+            brand={product.brand}
+            img={product.img}
+            key={product.id}
+            name={product.name}
+            price={product.price}
+            star={product.star}
+            colorChip={product.colorChip}
+          />
+        ))}
       </ProductList>
       <Button />
     </Container>

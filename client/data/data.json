@@ -67,7 +67,14 @@
       }
     }
   ],
-  "user": [
+  "login": [
+    {
+      "id": 1,
+      "email": "책상",
+      "password": "123"
+    }
+  ],
+  "signup": [
     {
       "id": 1,
       "email": "책상",
@@ -142,6 +149,70 @@
       "password": "qwer!Q1111",
       "nickname": "test3",
       "id": 4
+    }
+  ],
+  "detail": [
+    {
+      "id": 1,
+      "categoryId": 1,
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/33042/main_img.jpg",
+      "contentImg": "https://www.dodot.co.kr/2012renual/02_goodspage/dodot/08chair/illo_chrome_office_chair/illo_chrome_office_chair.jpg",
+      "member": {
+        "memberId": 1,
+        "name": "hong"
+      },
+      "title": "일롬 크롬 오피스 체어",
+      "price": 75000,
+      "score": 4.5,
+      "reviewList": [
+        {
+          "reviewId": 1,
+          "title": "처음리뷰",
+          "content": "good1",
+          "img": "https://admin.dodot.co.kr/board/upload1/202210111665468758_31.jpg",
+          "nickname": "test1",
+          "score": 4,
+          "craeateAt": "2022.11.12"
+        },
+        {
+          "reviewId": 2,
+          "title": "두번째리뷰",
+          "content": "good2",
+          "img": "https://admin.dodot.co.kr/board/upload1/202208081659920086_79.jpg",
+          "nickname": "test2",
+          "score": 4.5,
+          "craeateAt": "2022.11.13"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "categoryId": 2,
+      "img": "../src/imgs/일로 크롬 오피스 체어.jpeg",
+      "contentImg": "../src/imgs/일룸 오피스 체어2.jpeg",
+      "member": {
+        "memberId": 2,
+        "name": "kong"
+      },
+      "title": "일롬 크롬 오피스 체어",
+      "price": 105000,
+      "score": 3.5,
+      "reviewList": [
+        {
+          "reviewId": 1,
+          "title": "처음리뷰",
+          "content": "good1",
+          "nickname": "test1",
+          "score": 3
+        },
+        {
+          "reviewId": 2,
+          "title": "두번째리뷰",
+          "content": "good2",
+          "nickname": "test2",
+          "score": 3.5
+        }
+      ]
     }
   ]
 }
