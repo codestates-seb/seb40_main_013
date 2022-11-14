@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import PurchaseList from "../components/mypages/PurchaseList";
 import EditProfile from '../components/mypages/EditProfile';
 import { Routes, Route, Link } from "react-router-dom";
