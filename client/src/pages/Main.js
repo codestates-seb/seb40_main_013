@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel";
 import Button from "../components/Button";
@@ -51,7 +51,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/products")
+      .get("http://localhost:4003/products")
       .then((data) => setProductList(data.data));
   }, []);
   console.log(productList);

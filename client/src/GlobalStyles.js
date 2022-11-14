@@ -4,7 +4,13 @@ import { reset } from "styled-reset";
 const GlobalStyles = createGlobalStyle`
     ${reset};
     *{
-        box-sizing:boerder-box;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    a{
+         text-decoration: none;
+         color: inherit;
     }
     :root{
       // font-color
