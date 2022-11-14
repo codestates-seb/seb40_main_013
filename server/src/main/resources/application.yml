@@ -23,6 +23,3 @@ jwt:
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
 
-file:
-  profileImg: {PROJECT_URL}/img/profileImg/
-  productImg: {PROJECT_URL}/img/productImg/
