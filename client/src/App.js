@@ -1,7 +1,7 @@
 import GlobalStyles from "./GlobalStyles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components/macro";
-import Header from "./components/headers/Header";
+import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Main from "./pages/Main";

@@ -6,6 +6,7 @@ import Button from "../components/Button";
 import Products from "../components/mains/Product";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Apis from "../apis/apis";
 
 const Container = styled.div`
   display: flex;
@@ -51,9 +52,7 @@ const Main = () => {
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4004/products")
-      .then((data) => setProductList(data.data));
+    Apis.get(`products`).then((data) => setProductList(data.data));
   }, []);
   console.log(productList);
 
