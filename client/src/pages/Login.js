@@ -13,16 +13,6 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-<<<<<<< HEAD
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 450px;
-  border-radius: 5px;
-  height: 70vh;
-  margin: 50px;
-=======
   const routeSignup = () => {
     navigate("/signup");
   };
@@ -91,7 +81,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 45px 0px 30px 0px;
->>>>>>> dab95ec5c2f7f888c1e204edffd7f222bea84032
 `;
 
 const LoginWrapper = styled.div`
@@ -156,16 +145,12 @@ const LoginButton = styled.button`
 
 const LoginInformationSpace = styled.div`
   display: flex;
-<<<<<<< HEAD
-  margin: 20px 0;
-=======
   justify-content: space-between;
   align-items: center;
   width: 90%;
   height: 40px;
   font-size: 13px;
   color: var(--color-gray);
->>>>>>> dab95ec5c2f7f888c1e204edffd7f222bea84032
 `;
 const LoginCheckSpace = styled.div`
   width: 105px;
@@ -175,15 +160,11 @@ const LoginCheckSpace = styled.div`
 
 const LoginRouteSign = styled.div`
   display: flex;
-<<<<<<< HEAD
-  margin: 20px;
-=======
   width: 100%;
   justify-content: center;
   color: var(--color-gray);
   font-weight: 500;
   margin-top: 20px;
->>>>>>> dab95ec5c2f7f888c1e204edffd7f222bea84032
 `;
 
 const LoginSignBtn = styled.div`

@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
-import { Link } from 'react-router-dom';
-import styled from "styled-components";
-=======
 //import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
->>>>>>> dab95ec5c2f7f888c1e204edffd7f222bea84032
 import Carousel from "../components/mains/Calousel";
 import Button from "../components/Button";
 import Products from "../components/mains/Product";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Container = styled.div`
@@ -38,7 +34,7 @@ const FullTitle = styled.div`
   margin-bottom: 10px;
   color: #515151;
 `;
-const FullView = styled.h2`
+const FullView = styled(Link)`
   font-size: 1.5rem;
   margin-bottom: 10px;
   margin-right: 40px;
@@ -54,63 +50,9 @@ const ProductList = styled.div`
 const Main = () => {
   const [productList, setProductList] = useState([]);
 
-<<<<<<< HEAD
-  useEffect(()=> {
-    axios.get("http://localhost:3001/products")
-    .then((data) => setProductList(data.data));
-  }, []);
-  console.log(productList);
-
-return(
-  <Container>
-    <Carousel />
-    <Title>거실</Title>
-    <Hr />
-    <FullTitle name="fullTitle" className="fullTitle">
-      <FullView name="fullView" className="fullView">전체보기 &gt;&gt;</FullView>
-    </FullTitle>
-    <ProductList>
-      {productList.map(product => (
-        <Products 
-          brand={product.brand} 
-          // img={product.img} 
-          name={product.name} 
-          price={product.price}/>
-        )
-      )}
-    </ProductList>
-    <Title>서재</Title>
-    <Hr />
-    <FullTitle name="fullTitle" className="fullTitle">
-      <FullView name="fullView" className="fullView">전체보기 &gt;&gt;</FullView>
-    </FullTitle>
-    <ProductList>
-      <Products />
-      <Products />
-      <Products />
-      <Products />
-    </ProductList>
-    <Title>침실</Title>
-    <Hr />
-    <FullTitle name="fullTitle" className="fullTitle">
-      <FullView name="fullView" className="fullView">전체보기 &gt;&gt;</FullView>
-    </FullTitle>
-    <ProductList>
-      <Products />
-      <Products />
-      <Products />
-      <Products />
-    </ProductList>
-    <Button />
-  </Container>
-)
-}
-
-export default Main;
-=======
   useEffect(() => {
     axios
-      .get("http://localhost:4003/products")
+      .get("http://localhost:3001/products")
       .then((data) => setProductList(data.data));
   }, []);
   console.log(productList);
@@ -121,7 +63,7 @@ export default Main;
       <Title>거실</Title>
       <Hr />
       <FullTitle name="fullTitle" className="fullTitle">
-        <FullView name="fullView" className="fullView">
+        <FullView to="/sub" name="fullView" className="fullView">
           전체보기 &gt;&gt;
         </FullView>
       </FullTitle>
@@ -129,25 +71,32 @@ export default Main;
         {productList.map((product) => (
           <Products
             brand={product.brand}
-            // img={product.img}
+            img={product.img}
             key={product.id}
             name={product.name}
             price={product.price}
+            star={product.star}
           />
         ))}
       </ProductList>
       <Title>서재</Title>
       <Hr />
       <FullTitle name="fullTitle" className="fullTitle">
-        <FullView name="fullView" className="fullView">
+        <FullView to="/sub" name="fullView" className="fullView">
           전체보기 &gt;&gt;
         </FullView>
       </FullTitle>
       <ProductList>
-        <Products />
-        <Products />
-        <Products />
-        <Products />
+        {productList.map((product) => (
+            <Products
+              brand={product.brand}
+              img={product.img}
+              key={product.id}
+              name={product.name}
+              price={product.price}
+              star={product.star}
+            />
+          ))}
       </ProductList>
       <Title>침실</Title>
       <Hr />
@@ -157,10 +106,17 @@ export default Main;
         </FullView>
       </FullTitle>
       <ProductList>
-        <Products />
-        <Products />
-        <Products />
-        <Products />
+        {productList.map((product) => (
+            <Products
+              brand={product.brand}
+              img={product.img}
+              key={product.id}
+              name={product.name}
+              price={product.price}
+              star={product.star}
+              colorChip={product.colorChip}
+            />
+          ))}
       </ProductList>
       <Button />
     </Container>
@@ -168,4 +124,3 @@ export default Main;
 };
 
 export default Main;
->>>>>>> dab95ec5c2f7f888c1e204edffd7f222bea84032
