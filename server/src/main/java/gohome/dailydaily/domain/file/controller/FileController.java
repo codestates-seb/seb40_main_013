@@ -15,9 +15,10 @@ import java.net.MalformedURLException;
 
 @RestController
 @RequiredArgsConstructor
-//@ConditionalOnProperty(value = "env", havingValue = "local")
+@ConditionalOnProperty(value = "env", havingValue = "local")
 public class FileController {
 
+    // 파일을 저장할 URL 을 불러오는 메서드
     @GetMapping("/img")
     public ResponseEntity<Resource> getImg(@RequestParam String imgPath) throws MalformedURLException {
         UrlResource urlResource = new UrlResource("file:" + imgPath);

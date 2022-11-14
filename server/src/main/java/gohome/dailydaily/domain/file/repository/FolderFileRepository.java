@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.UUID;
 
+// 로컬 환경에서 파일을 저장하는 FileRepository 구현클래스
 public class FolderFileRepository implements FileRepository {
 
     @Override

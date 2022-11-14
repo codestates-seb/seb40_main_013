@@ -13,6 +13,7 @@ import java.io.IOException;
 public class FileService {
     private final FileRepository fileRepository;
 
+    // MultipartFile 과 파일경로를 입력받아 저장하는 메서드
     public File storeFile(MultipartFile multipartFile, String path) throws IOException {
         if (multipartFile == null || multipartFile.isEmpty()) {
             return null;
@@ -22,6 +23,7 @@ public class FileService {
         return fileRepository.saveFile(multipartFile, path);
     }
 
+    // 파일 이름과 형식 유효성을 검증하는 메서드
     private void verifiedFilename(String filename) {
         if (filename == null) {
             throw new IllegalStateException("잘못된 형식의 Filename 입니다.");
