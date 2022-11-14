@@ -1,5 +1,6 @@
 package gohome.dailydaily.global.common.security.filter;
 
+import gohome.dailydaily.global.common.security.util.CustomAuthorityUtils;
 import gohome.dailydaily.global.common.security.util.JwtTokenizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
 
     private final JwtTokenizer jwtTokenizer;
-    private final JwtVerificationFilter jwtVerificationFilter;
+    private final CustomAuthorityUtils authorityUtils;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
@@ -29,6 +30,6 @@ public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterC
 
         builder
                 .addFilter(jwtAuthenticationFilter)
-                .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+                .addFilterAfter(new JwtVerificationFilter(jwtTokenizer, authorityUtils), JwtAuthenticationFilter.class);
     }
 }
