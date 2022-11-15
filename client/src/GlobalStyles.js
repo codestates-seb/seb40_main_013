@@ -28,14 +28,14 @@ const GlobalStyles = createGlobalStyle`
       --color-orange : #FFAF51;
       --color-whiteyellow : #FCF9E9;
       --color-navy : #002C6D;
-      --color-gray : #BEBCAF;
+      --color-gray : #AAAAAA;
       --color-star : #FFC007;
       //border-radius 
       --border-radius : 5px;
       //border-color
       --border-navy : #002C6D;
       // center-line
-      --color-center-line : #BEBCAF; 
+      --color-center-line : #AAAAAA; 
     }
 `;
 

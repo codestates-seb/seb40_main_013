@@ -22,7 +22,7 @@ const AllCheck = styled.div`
     padding-left: 23px;
     margin: 10px;
     font-size: 15px;
-    color: #BEBCAF;
+    color: #AAAAAA;
     span{
         margin-left: 5px;
     }
@@ -37,7 +37,7 @@ const CartList = styled.div`
 const Cart = styled.div`
     width: 600px;
     height: 130px;
-    border: 1px solid #BEBCAF;
+    border: 1px solid #AAAAAA;
     border-radius: 5px;
     padding: 24px 10px;
     margin-bottom: 15px;
@@ -53,7 +53,7 @@ const Cart = styled.div`
         flex-direction: column;
         .brand{
             font-size: 11px;
-            color: #BEBCAF;
+            color: #AAAAAA;
             margin-bottom: 3px;
         }
         .product-name{
@@ -78,15 +78,15 @@ const Cart = styled.div`
     `;
 
 const DownCount = styled(IoIosArrowBack)`
-    color: #BEBCAF;
-    border: 1px solid #BEBCAF;
+    color: #AAAAAA;
+    border: 1px solid #AAAAAA;
     border-radius: 3px;
     margin: 5px;
 `;
     
  const UpCount = styled(IoIosArrowForward)`
-    color: #BEBCAF;
-    border: 1px solid #BEBCAF;
+    color: #AAAAAA;
+    border: 1px solid #AAAAAA;
     border-radius: 3px;
     margin: 5px;
 `;
@@ -112,7 +112,7 @@ const PayInfo = styled.div`
     padding: 10px 0px;
     margin: 10px 0px;
     font-size: 13px;
-    color: #BEBCAF;
+    color: #AAAAAA;
     div{
         padding: 8px 0px;
         justify-content: space-between;

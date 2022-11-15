@@ -83,7 +83,7 @@ const FooterSocialBtn = styled.div`
 
 const FooterSeviceAvailble = styled.div`
   font-size: 10px;
-  color: #bebcaf;
+  color: #AAAAAA;
   margin-top: 10px;
 `;
 
@@ -105,7 +105,7 @@ const FooterMenuBtn = styled.div`
 `;
 const FooterDownContentSpace = styled.div`
   font-size: 10px;
-  color: #bebcaf;
+  color: #AAAAAA;
 `;
 const FooterDownContent = styled.div`
   margin: 3px 0px;
