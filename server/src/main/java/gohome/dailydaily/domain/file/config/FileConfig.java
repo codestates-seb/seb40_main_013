@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class FileConfig {
 
     // 로컬 환경일 때 FileRepository 의 구현클래스를 folderFileRepository 로 지정
+
     @Bean
     @ConditionalOnProperty(value = "env", havingValue = "local")
     public FileRepository folderFileRepository() {
