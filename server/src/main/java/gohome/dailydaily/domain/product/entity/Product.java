@@ -28,8 +28,11 @@ public class Product extends BaseTime {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
     private Integer price;
-    private Integer score;
+
+    @Column(nullable = false)
+    private Float score;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
