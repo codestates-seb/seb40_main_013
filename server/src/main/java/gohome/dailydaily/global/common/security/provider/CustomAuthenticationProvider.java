@@ -1,12 +1,14 @@
 package gohome.dailydaily.global.common.security.provider;
 
 import gohome.dailydaily.domain.member.entity.Member;
+import gohome.dailydaily.domain.member.entity.MemberStatus;
 import gohome.dailydaily.domain.member.repository.MemberRepository;
 import gohome.dailydaily.global.common.security.util.CustomAuthorityUtils;
 import gohome.dailydaily.global.common.security.util.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -37,6 +39,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid Email or Password"));
+
+        if (!member.getMemberStatus().equals(MemberStatus.ACTIVE)) {
+            throw new DisabledException("Invalid Email or Password");
+        }
 
         String password = member.getPassword();
         if (!passwordEncoder.matches((String) authToken.getCredentials(), password)) {
