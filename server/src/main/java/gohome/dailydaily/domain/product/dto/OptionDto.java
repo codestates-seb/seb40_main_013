@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class OptionDto {
     private String size;
-    private int price;
+    private Integer price;
     private String color;
-    private int stock;
+    private Integer stock;
 }

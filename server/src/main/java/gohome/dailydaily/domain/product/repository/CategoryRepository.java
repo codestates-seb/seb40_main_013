@@ -10,11 +10,5 @@ import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<Category, String> {
 
-    @Query("select c.id from Category c where c.main =:main ")
-    List<Long> findByMainEquals(String main);
-
-    @Query("select c.id from Category c where c.main =:main and c.sub =:sub ")
-    Long findByMainEqualsAndSubEquals(String main, String sub);
-
     Category findByMainAndSub(String main, String sub);
 }

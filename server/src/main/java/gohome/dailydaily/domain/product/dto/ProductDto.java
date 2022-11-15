@@ -12,14 +12,14 @@ public class ProductDto {
 
     @Getter
     @Setter
-    public static class PostProduct{
-        private long sellerId;
+    public static class PostProduct {
+        private Long sellerId;
         private String title;
         private String content;
         private String img;
-        private List<CategoryDto> categoryList= new ArrayList<>();
-        private int price;
-        private List<OptionDto> optionList = new ArrayList<>();
+        private List<CategoryDto> categoryList;
+        private Integer price;
+        private List<OptionDto> optionList;
     }
 
 }

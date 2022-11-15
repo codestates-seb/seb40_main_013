@@ -18,7 +18,7 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public long findCategoryId(ProductDto.PostProduct postProduct) {
+    public Long findCategoryId(ProductDto.PostProduct postProduct) {
         List<CategoryDto> categoryDtoList = postProduct.getCategoryList();
         Category category = categoryRepository.findByMainAndSub(categoryDtoList.get(0).getMain(), categoryDtoList.get(0).getSub());
         return category.getId();

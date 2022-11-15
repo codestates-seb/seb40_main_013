@@ -10,10 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class Product extends BaseTime {
@@ -34,7 +32,7 @@ public class Product extends BaseTime {
     private Integer price;
 
     @Column(nullable = false)
-    private float score;
+    private Float score;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")

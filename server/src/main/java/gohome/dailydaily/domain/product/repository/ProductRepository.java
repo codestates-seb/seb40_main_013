@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, String> {
 
-    List<Product> findAllBy();
+    Slice<CategoryGetDto> findByCategory_Main(Pageable pageable, String main);
 
-    Slice<CategoryGetDto> findProductByCategory_Id(Pageable pageable, long category_id);
+    Slice<CategoryGetDto> findByCategory_MainAndCategory_Sub(Pageable pageable, String main, String sub);
 
 }

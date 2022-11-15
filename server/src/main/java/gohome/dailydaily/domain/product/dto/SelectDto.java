@@ -7,9 +7,9 @@ import lombok.Setter;
 @Setter
 public class SelectDto {
 
-    private long product_id;
+    private Long productId;
     private String title;
     private String main;
-    private float score;
+    private Float score;
 
 }
