@@ -1,7 +1,7 @@
-import styled from "styled-components/macro";
-import logo from '../imgs/logo.png'
-import { Link } from 'react-router-dom';
-import { BsCart3, BsSearch } from 'react-icons/bs';
+import styled from "styled-components";
+import logo from "../imgs/logo.png";
+import { Link, useNavigate } from "react-router-dom";
+import { BsCart3, BsSearch } from "react-icons/bs";
 
 const HeaderBlock = styled.header`
   width: 100%;
@@ -14,7 +14,10 @@ const HeaderBlock = styled.header`
     justify-content: end;
     margin: 7px 20px 7px 10px;
   }
-`
+  .space {
+    margin-right: 7px;
+  }
+`;
 const Logo = styled.div`
   justify-content: center;
   height: 100px;
@@ -32,6 +35,7 @@ const Serach = styled.div`
 
 
 const Category = styled.div`
+
  display: flex;
  justify-content: space-between;
  border-bottom: 1px solid #AAAAAA;
@@ -81,6 +85,9 @@ const LoginBtn = styled.button`
   }
 `;
 
+const PageMove = styled(Link)`
+  text-decoration: none;
+`;
 
 function Header() {
   //const navigate = useNavigate();
