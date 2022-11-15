@@ -5,8 +5,8 @@ import { BsCart3, BsSearch } from "react-icons/bs";
 
 const HeaderBlock = styled.header`
   width: 100%;
-  height: 215px;
-  color: #bebcaf;
+  height: 230px;
+  color: var(--color-gray);
   div {
     display: flex;
   }
@@ -20,22 +20,40 @@ const HeaderBlock = styled.header`
 `;
 const Logo = styled.div`
   justify-content: center;
-  img {
-    width: 250px;
-    height: 150px;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  div {
+    font-size: 43px;
+    color: var(--color-navy);
   }
 `;
 
 const Serach = styled.div`
-  width: 200px;
-  height: 15px;
-  border: 1px solid #bebcaf;
-  padding: 3px;
-  margin-right: 10px;
-  justify-content: end;
+  margin-right: 8px;
 `;
 
 const Category = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #aaaaaa;
+  padding: 7px;
+  margin: 5px 30px 5px 30px;
+  .space {
+    margin-right: 20px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .cart-count {
+    font-size: 12px;
+  }
+`;
+
+const Nav = styled.nav`
+  background-color: white;
+  border: 1px solid #aaaaaa;
+  width: 60px;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #bebcaf;
@@ -51,10 +69,10 @@ const LoginBtn = styled.button`
   margin-left: 5px;
   padding: 5px;
   white-space: nowrap;
-  color: #797979;
+  color: var(--color-gray);
   border: none;
   background-color: white;
-  &:hover {
+  &:focus {
     cursor: pointer;
     color: #ffaf51;
   }
@@ -65,40 +83,49 @@ const PageMove = styled(Link)`
 `;
 
 function Header() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   return (
     <>
       <HeaderBlock>
         <div className="top">
-          <PageMove to="/users/login">
-            <LoginBtn className="space">로그인/회원가입</LoginBtn>
-          </PageMove>
-          <PageMove to="/users/me/*">
-            <LoginBtn className="space">마이페이지</LoginBtn>
-          </PageMove>
+          <Link to="/users/login">
+            <LoginBtn>로그인/회원가입</LoginBtn>
+          </Link>
+          <Link to="/users/me/*">
+            <LoginBtn>마이페이지</LoginBtn>
+          </Link>
         </div>
-        <Logo>
-          <PageMove to="/">
-            <img src={logo} alt="daily,daily 로고" />
-          </PageMove>
-        </Logo>
+        <Link to="/">
+          <Logo>
+            <div>DAILY DAILY</div>
+          </Logo>
+        </Link>
         <Category>
           <div>
-            <div className="space">서재</div>
-            <div className="space">침실</div>
+            <Link to="/sub">
+              <div className="space">서재</div>
+            </Link>
+            <Link to="/cart">
+              <div className="space">침실</div>
+            </Link>
             <div className="space">거실</div>
             <div className="space">주방</div>
           </div>
           <div>
             <Serach>
-              <BsSearch />
+              <BsSearch size="20" />
             </Serach>
             <div>
-              <BsCart3 />
-              <div> (0)</div>
+              <BsCart3 size="20" />
+              <div className="cart-count">(0)</div>
             </div>
           </div>
         </Category>
+        {/* <Nav>
+              <div>의자</div>
+              <div>책상</div>
+              <div>책장</div>
+            </Nav> */}
       </HeaderBlock>
     </>
   );

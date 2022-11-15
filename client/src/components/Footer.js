@@ -87,9 +87,6 @@ const FooterWrapper = styled.div`
   height: 125px;
   background-color: #fcf9e9;
   padding: 20px 0px 10px 20px;
-  @media screen and (max-width: 400px) {
-    background-color: blue;
-  }
 `;
 
 const FooterTopInformation = styled.div`
@@ -119,7 +116,7 @@ const FooterSocialBtn = styled.div`
 
 const FooterSeviceAvailble = styled.div`
   font-size: 10px;
-  color: #bebcaf;
+  color: #aaaaaa;
   margin-top: 10px;
 `;
 
@@ -141,7 +138,7 @@ const FooterMenuBtn = styled.div`
 `;
 const FooterDownContentSpace = styled.div`
   font-size: 10px;
-  color: #bebcaf;
+  color: #aaaaaa;
 `;
 const FooterDownContent = styled.div`
   margin: 3px 0px;
