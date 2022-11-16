@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/macro";
 import starimg from '../../imgs/star.png'
 
-const ProductList = styled.div`
+const ProductList = styled.section`
   width: 250px;
   margin: 0 10px;
 `;

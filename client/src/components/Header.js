@@ -1,9 +1,8 @@
 import styled from "styled-components/macro";
-import logo from "../imgs/logo.png";
-import { Link } from "react-router-dom";
-import { BsCart3, BsSearch } from "react-icons/bs";
+import { Link } from 'react-router-dom';
+import { BsCart3, BsSearch } from 'react-icons/bs';
 import { useState, useRef, useEffect } from "react";
-import DownSearch from "./search";
+import DownSearch from './search'
 
 const HeaderBlock = styled.header`
   width: 100%;
@@ -86,74 +85,70 @@ const PageMove = styled(Link)`
 
 function Header() {
   //const navigate = useNavigate();
-  const modalRef = useRef();
-  const [closeSearch, setCloseSearch] = useState(false);
+    const modalRef = useRef();
+    const [closeSearch, setCloseSearch] = useState(false)
+    
+    const closeHandler = () => {
+      setCloseSearch(!closeSearch);
+    }
 
-  const closeHandler = () => {
-    setCloseSearch(!closeSearch);
-  };
-
-  const outModalCloseHandler = ({ target }) => {
-    if (closeSearch && !modalRef.current.contains(target))
-      setCloseSearch(false);
-  };
-
-  useEffect(() => {
-    window.addEventListener("click", outModalCloseHandler);
-    return () => {
-      window.removeEventListener("click", outModalCloseHandler); //이벤트 한번만 실행되게 하려고 제거.
+    const outModalCloseHandler = ({ target }) => {
+      if(closeSearch && !modalRef.current.contains(target)) setCloseSearch(false);
     };
-  });
 
-  return (
-    <>
-      <HeaderBlock>
-        <div className="top">
-          <Link to="/users/login">
-            <LoginBtn>로그인/회원가입</LoginBtn>
-          </Link>
-          <Link to="/users/me/*">
-            <LoginBtn>마이페이지</LoginBtn>
-          </Link>
-        </div>
-        <Link to="/">
-          <Logo>
-            <div>DAILY DAILY</div>
-          </Logo>
-        </Link>
-        <Category>
-          <div>
-            <Link to="/sub">
-              <div className="space">서재</div>
-            </Link>
-            <Link to="/cart">
-              <div className="space">침실</div>
-            </Link>
-            <div className="space">거실</div>
-            <div className="space">주방</div>
-          </div>
+    useEffect(() => {
+      window.addEventListener('click', outModalCloseHandler);
+      return () => {
+        window.removeEventListener('click', outModalCloseHandler); //이벤트 한번만 실행되게 하려고 제거.
+      }; 
+    });
 
-          <div>
-            <div ref={modalRef} className="modal">
-              <Serach onClick={closeHandler}>
-                <BsSearch size="20" />
-              </Serach>
-              {closeSearch && (
-                <DownSearch
-                  closeSearch={closeSearch}
-                  closeHandler={closeHandler}
-                />
-              )}
+    return (
+      <>
+        <HeaderBlock>
+            <div className="top">
+                <Link to="/users/login">
+                  <LoginBtn>로그인/회원가입</LoginBtn>
+                </Link>
+                <Link to="/users/me/*">
+                  <LoginBtn>마이페이지</LoginBtn>
+                </Link>
             </div>
-            <div>
-              <BsCart3 size="20" />
-              <div className="cart-count">(0)</div>
-            </div>
-          </div>
-        </Category>
-      </HeaderBlock>
-    </>
-  );
-}
-
-export default Header;
+              <Link to="/">
+                <Logo>
+                  <div>DAILY DAILY</div>
+                </Logo>
+              </Link>
+            <Category>
+                <div>
+                  <Link to='/sub'>
+                    <div className="space">서재</div>
+                  </Link>
+                  <Link to='/cart'>
+                    <div className="space">침실</div>
+                  </Link>
+                    <div className="space">거실</div>
+                    <div className="space">주방</div>
+                </div>
+                
+                <div>
+                    <div ref={modalRef} className='modal'>
+                      <Serach onClick={closeHandler}>
+                       <BsSearch size='20'/>
+                      </Serach>
+                      {closeSearch && 
+                       <DownSearch closeSearch={closeSearch} closeHandler={closeHandler} />
+                      }
+                    </div>
+                    <div>
+                        <BsCart3 size='20'/>
+                        <div className="cart-count">(0)</div>
+                    </div>
+                </div>
+            </Category>
+        </HeaderBlock>
+      </>
+    );
+  }
+  
+  export default Header;
