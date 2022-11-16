@@ -27,7 +27,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'com.google.code.gson:gson'
 	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+	implementation 'org.jsoup:jsoup:1.15.3'
 
+	compileOnly "org.springframework.boot:spring-boot-starter-jdbc"
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 

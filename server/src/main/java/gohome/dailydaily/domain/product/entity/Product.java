@@ -44,5 +44,4 @@ public class Product extends BaseTime {
 
     @OneToMany(mappedBy = "product")
     private final List<Review> reviews = new ArrayList<>();
-
 }
