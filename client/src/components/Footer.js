@@ -5,38 +5,6 @@ import { BsInstagram } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 
 function Footer() {
-  // 반응형 화면 구현중
-  // const [windowSize, setWindowSize] = useState({
-  //   width: window.innerWidth,
-  //   height: window.innerHeight,
-  // });
-  // const [smallDisplay, setSmallDisplay] = useState(false);
-  // const handleResize = () => {
-  //   setWindowSize({
-  //     width: window.innerWidth,
-  //     height: window.innerHeight,
-  //   });
-  //   smallCheck();
-  // };
-  // const smallCheck = () => {
-  //   console.log(windowSize.width < 401);
-  //   if (windowSize.width < Number(401)) {
-  //     console.log(11);
-  //     setSmallDisplay(true);
-  //   } else if (windowSize.width > Number(401)) {
-  //     console.log(2);
-  //     setSmallDisplay(false);
-  //   }
-  // };
-  // console.log(windowSize.width, smallDisplay);
-
-  // useEffect(() => {
-  //   window.addEventListener("resize", handleResize);
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
   return (
     <FooterWrapper>
       <FooterTopInformation>
@@ -83,10 +51,13 @@ function Footer() {
 }
 
 const FooterWrapper = styled.div`
-  width: 100%;
   height: 125px;
   background-color: #fcf9e9;
-  padding: 20px 0px 10px 20px;
+  padding: 10px 0px 10px 20px;
+  @media screen and (max-width: 768px) {
+    min-width: 391px;
+    width: 100%;
+  }
 `;
 
 const FooterTopInformation = styled.div`
@@ -108,6 +79,9 @@ const FooterSocialBtnSpace = styled.div`
   font-weight: bolder;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 const FooterSocialBtn = styled.div`
   font-size: 18px;
@@ -116,32 +90,56 @@ const FooterSocialBtn = styled.div`
 
 const FooterSeviceAvailble = styled.div`
   font-size: 10px;
-  color: #AAAAAA;
-  margin-top: 10px;
+  color: #aaaaaa;
+  margin-top: 15px;
 `;
 
 const FooterMidBtnMenu = styled.div`
-  display: flex;
+  width: 100%;
   align-items: center;
-  width: 99%;
   height: 18px;
+  @media screen and (max-width: 2000px) {
+    display: flex;
+    justify-content: space-between;
+  }
+  @media screen and (max-width: 768px) {
+    min-width: 370px;
+    display: flex;
+  }
 `;
 
 const FooterMenuBtn = styled.div`
   cursor: pointer;
-  margin: 0px 10px;
-  font-size: 10px;
+  margin: 10px 10px 5px 0px;
+  font-size: 15px;
   font-weight: bolder;
-  &:first-child {
-    margin: 0px 10px 0px 0px;
+  margin-top: 10px;
+  &:nth-child(5) {
+    margin-right: 20px;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
   }
 `;
 const FooterDownContentSpace = styled.div`
   font-size: 10px;
-  color: #AAAAAA;
+  color: #aaaaaa;
 `;
 const FooterDownContent = styled.div`
   margin: 3px 0px;
+  @media screen and (max-width: 768px) {
+    &:nth-child(1) {
+      display: none;
+    }
+    &:nth-child(2) {
+      display: none;
+    }
+    &:nth-child(3) {
+      font-size: 15px;
+      margin-top: 20px;
+    }
+  }
 `;
 
 export default Footer;
