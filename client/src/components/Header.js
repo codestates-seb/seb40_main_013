@@ -1,5 +1,4 @@
 import styled from "styled-components/macro";
-import logo from "../imgs/logo.png";
 import { Link } from "react-router-dom";
 import { BsCart3, BsSearch } from "react-icons/bs";
 import { useState, useRef, useEffect } from "react";

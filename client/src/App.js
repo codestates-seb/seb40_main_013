@@ -12,8 +12,10 @@ import SubCategory from "./pages/SubCategory";
 import ShoppingCart from "./pages/ShoppingCart";
 
 const MainContainter = styled.div`
-  /* display: flex;
-  justify-content: center; */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 function App() {
@@ -21,8 +23,8 @@ function App() {
     <BrowserRouter>
       <GlobalStyles />
       <div className="App">
-        <Header />
         <MainContainter>
+          <Header />
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/users/login" element={<Login />} />
@@ -32,8 +34,8 @@ function App() {
             <Route path="/sub" element={<SubCategory />} />
             <Route path="/cart" element={<ShoppingCart />} />
           </Routes>
+          <Footer />
         </MainContainter>
-        <Footer />
       </div>
     </BrowserRouter>
   );
