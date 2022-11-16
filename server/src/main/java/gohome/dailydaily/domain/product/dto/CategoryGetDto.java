@@ -6,10 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class CategoryGetDto {
-//    Long getId();
-//    String getTitle();
-//    Integer getPrice();
-//    Float getScore();
 
     private Long id;
     private String title;
