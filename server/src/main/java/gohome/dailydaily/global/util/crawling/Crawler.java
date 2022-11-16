@@ -1,4 +1,4 @@
-package gohome.dailydaily.domain.product.entity.crawling;
+package gohome.dailydaily.global.util.crawling;
 
 public interface Crawler {
 
