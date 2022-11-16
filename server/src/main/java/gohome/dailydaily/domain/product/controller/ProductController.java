@@ -1,6 +1,7 @@
 package gohome.dailydaily.domain.product.controller;
 
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
+import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.service.ProductService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Validated
@@ -27,27 +29,37 @@ public class ProductController {
     private final ProductMapper mapper;
 
     // 미완성 추가구현 필요
-    @GetMapping("/all")
+    @GetMapping()
     public ResponseEntity getScoreAll() {
         List<Product> products = productService.findProduct();
         return new ResponseEntity(products, HttpStatus.OK);
     }
 
     // 대분류
-    @GetMapping("/main")
-    public ResponseEntity<Slice<CategoryGetDto>> getCategoryMain(@RequestParam(value = "main") String main,
+    @GetMapping("/{main}")
+    public ResponseEntity<Slice<CategoryGetDto>> getCategoryMain(@PathVariable("main") String main,
                                                                  @PageableDefault(size = 20, sort = "createdAt",
                                                                          direction = Sort.Direction.DESC) Pageable pageable) {
         return new ResponseEntity<>(productService.getCategoryList(pageable, main), HttpStatus.OK);
     }
 
     // 소분류
-    @GetMapping("/sub")
-    public ResponseEntity<Slice<CategoryGetDto>> getCategorysub(@RequestParam(value = "main") String main,
-                                                                @RequestParam(value = "sub") String sub,
+    @GetMapping("/{main}/{sub}")
+    public ResponseEntity<Slice<CategoryGetDto>> getCategorySub(@PathVariable("main") String main,
+                                                                @PathVariable("sub") String sub,
                                                                 @PageableDefault(size = 20, sort = "createdAt",
                                                                         direction = Sort.Direction.DESC) Pageable pageable) {
         return new ResponseEntity<>(productService.getCategoryList(pageable, main, sub), HttpStatus.OK);
+    }
+
+    @GetMapping("/details/{product-id}")
+    public ProductDto.Response getProduct(@PathVariable("product-id") Long productId){
+        Product product = productService.getProduct(productId);
+
+        //리뷰 매퍼, 옵션 매퍼
+//        ProductDto.Get productGetDto = new ProductDto.Get(product);
+//        return new ResponseEntity(productGetDto, HttpStatus.OK);
+        return mapper.toResponse(product);
     }
 
 }

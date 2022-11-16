@@ -1,6 +1,7 @@
 package gohome.dailydaily.domain.product.service;
 
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
+import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.product.repository.CategoryRepository;
 import gohome.dailydaily.domain.product.repository.ProductRepository;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -36,5 +38,11 @@ public class ProductService {
 
     public Slice<CategoryGetDto> getCategoryList(Pageable pageable, String main, String sub) {
         return productRepository.findByCategory_MainAndCategory_Sub(pageable, main, sub);
+    }
+
+    public Product getProduct(Long productId) {
+        return productRepository.findById(productId).orElseThrow(
+                () -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+        //return productRepository.findById(productId);
     }
 }

@@ -10,6 +10,6 @@ public class SelectDto {
     private Long productId;
     private String title;
     private String main;
-    private Float score;
+    private Integer score;
 
 }
