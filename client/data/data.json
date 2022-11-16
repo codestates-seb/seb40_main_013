@@ -2,12 +2,12 @@
   "products": [
     {
       "id": 1,
-      "name": "콰트로 에어 1008 데스크",
+      "title": "콰트로 에어 1008 데스크",
       "img": "https://admin.dodot.co.kr/data/dd_goods/dca/33097/main_img.jpg",
       "price": 99000,
       "brand": "dodot",
       "category": "서재",
-      "star": 4.8,
+      "score": 4.8,
       "colorChip": {
         "beige": 1,
         "wood": 5,
@@ -16,12 +16,12 @@
     },
     {
       "id": 2,
-      "name": "콰트로 3단 책상 서랍장",
+      "title": "콰트로 3단 책상 서랍장",
       "img": "https://admin.dodot.co.kr/data/dd_goods/dca/31344/main_img.jpg",
       "price": 104000,
       "brand": "illom",
       "category": "서재",
-      "star": 4.2,
+      "score": 4.2,
       "colorChip": {
         "beige": 3,
         "wood": 2
@@ -29,12 +29,12 @@
     },
     {
       "id": 3,
-      "name": "몰덴 1800 라운드 테이블",
+      "title": "몰덴 1800 라운드 테이블",
       "img": "https://admin.dodot.co.kr/data/dd_goods/dca/31319/main_img.jpg",
       "price": 29000,
       "brand": "포더홈",
       "category": "서재",
-      "star": 5.0,
+      "score": 5.0,
       "colorChip": {
         "white": 2,
         "wood": 10
@@ -42,12 +42,12 @@
     },
     {
       "id": 4,
-      "name": "콰트로 1200 5단 수납형 철제 책장",
+      "title": "콰트로 1200 5단 수납형 철제 책장",
       "img": "https://admin.dodot.co.kr/data/dd_goods/dca/33104/main_img.jpg",
       "price": 49000,
       "brand": "소프시스",
       "category": "서재",
-      "star": 3.7,
+      "score": 3.7,
       "colorChip": {
         "beige": 2,
         "wood": 7
@@ -55,12 +55,467 @@
     },
     {
       "id": 5,
-      "name": "콰트로 800 3단 철제 책장",
+      "title": "콰트로 800 3단 철제 책장",
       "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32054/main_img.jpg",
       "price": 29000,
       "brand": "dodot",
       "category": "서재",
-      "star": 4.6,
+      "score": 4.6,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 6,
+      "title": "페이지 2단 확장형 책장",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/27444/main_img.jpg",
+      "price": 72000,
+      "brand": "dodot",
+      "category": "서재",
+      "score": 4.2,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 7,
+      "title": "콰트로 시리즈 데스크매트",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32954/main_img.jpg",
+      "price": 13000,
+      "brand": "dodot",
+      "category": "서재",
+      "score": 3.9,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 8,
+      "title": "우디 600 사각선반",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/7482/main_img.jpg",
+      "price": 27900,
+      "brand": "dodot",
+      "category": "서재",
+      "score": 3.9,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 9,
+      "title": "모리 전면책장_WO 세트B(2단+2단)",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/29337/main_img.jpg",
+      "price": 47000,
+      "brand": "dodot",
+      "category": "서재",
+      "score": 4.1,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 10,
+      "title": "루아 1205 데스크",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/28698/main_img.jpg",
+      "price": 74000,
+      "brand": "dodot",
+      "category": "서재",
+      "score": 4.8,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 11,
+      "title": "바일레 1000 화장대 세트",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/30822/main_img.gif",
+      "price": 269000,
+      "brand": "dodot",
+      "category": "침실",
+      "score": 4.1,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 12,
+      "title": "바일레 전신거울 행거",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32606/main_img.jpg",
+      "price": 124000,
+      "brand": "dodot",
+      "category": "침실",
+      "score": 4.8,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 13,
+      "title": "디노 수납화장대",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32769/main_img.jpg",
+      "price": 199000,
+      "brand": "dodot",
+      "category": "침실",
+      "score": 4.7,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 14,
+      "title": "바일레 800 수납행거",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32909/main_img.jpg",
+      "price": 199000,
+      "brand": "dodot",
+      "category": "서재",
+      "score": 4.2,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 15,
+      "title": "바일레 드레스룸 멀티 ㅡ자형(1600~3200)",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32916/main_img.jpg",
+      "price": 529000,
+      "brand": "dodot",
+      "category": "침실",
+      "score": 4.8,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 16,
+      "title": "바일레 드레스룸 멀티 ㄱ자형(2400,2800)",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32917/main_img.jpg",
+      "price": 949000,
+      "brand": "dodot",
+      "category": "침실",
+      "score": 3.9,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 17,
+      "title": "마리에 1606 와이드 전신 벽거울",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/6887/main_img.jpg",
+      "price": 65000,
+      "brand": "dodot",
+      "category": "침실",
+      "score": 4.2,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 18,
+      "title": "마틸다 노프레임 거울",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/33000/main_img.jpg",
+      "price": 29000,
+      "brand": "dodot",
+      "category": "서재",
+      "score": 4.9,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 19,
+      "title": "마틸다 전신거울 시리즈",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/31279/main_img.jpg",
+      "price": 49000,
+      "brand": "dodot",
+      "category": "침실",
+      "score": 5.0,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 20,
+      "title": "레이 입식 수납화장대_수납거울형",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/29712/main_img.jpg",
+      "price": 123000,
+      "brand": "dodot",
+      "category": "침실",
+      "score": 5.0,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 21,
+      "title": "바일레 모듈 소파 3인",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32350/main_img.jpg",
+      "price": 559000,
+      "brand": "dodot",
+      "category": "거실",
+      "score": 5.0,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 22,
+      "title": "로프 2.0 2인 소파",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/27243/main_img.jpg",
+      "price": 750000,
+      "brand": "dodot",
+      "category": "거실",
+      "score": 4.2,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 23,
+      "title": "브루노 2인소파",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/29173/main_img.jpg",
+      "price": 550000,
+      "brand": "dodot",
+      "category": "거실",
+      "score": 5.0,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 24,
+      "title": "브루노 3인 소파",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/29172/main_img.jpg",
+      "price": 690000,
+      "brand": "dodot",
+      "category": "거실",
+      "score": 4.3,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 25,
+      "title": "마가렛 소파 3인_카우치형",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32208/main_img.jpg",
+      "price": 1750000,
+      "brand": "dodot",
+      "category": "거실",
+      "score": 4.6,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 26,
+      "title": "마가렛 소파 3인_라운지형",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32209/main_img.jpg",
+      "price": 1600000,
+      "brand": "dodot",
+      "category": "거실",
+      "score": 4.8,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 27,
+      "title": "바일레 900 높은수납거실장",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32258/main_img.gif",
+      "price": 149000,
+      "brand": "dodot",
+      "category": "거실",
+      "score": 5.0,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 28,
+      "title": "바일레 1200 4칸 서랍장",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/30827/main_img.gif",
+      "price": 339000,
+      "brand": "dodot",
+      "category": "거실",
+      "score": 5.0,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 29,
+      "title": "Join Round Sofa Table SET(1200+700)",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/31081/main_img.png",
+      "price": 252000,
+      "brand": "dodot",
+      "category": "거실",
+      "score": 5.0,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 30,
+      "title": "브룬 750 소파테이블 SET(브룬 750 + 600 소파테이블)",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/21322/main_img.jpg",
+      "price": 17000,
+      "brand": "dodot",
+      "category": "거실",
+      "score": 4.3,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 31,
+      "title": "콰트로 1050 원형 테이블",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/31262/main_img.jpg",
+      "price": 119000,
+      "brand": "dodot",
+      "category": "주방",
+      "score": 4.3,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 32,
+      "title": "몰덴 1800 라운드 테이블",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/31319/main_img.jpg",
+      "price": 239000,
+      "brand": "dodot",
+      "category": "주방",
+      "score": 4.6,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 33,
+      "title": "쿠키 1000 주방렌지 수납장",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/7365/main_img.jpg",
+      "price": 159000,
+      "brand": "dodot",
+      "category": "주방",
+      "score": 5.0,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 34,
+      "title": "디오 600 주방수납장_IV/LO",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/22144/main_img.jpg",
+      "price": 99000,
+      "brand": "dodot",
+      "category": "주방",
+      "score": 4.9,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 35,
+      "title": "올리체어",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/33088/main_img.jpg",
+      "price": 54000,
+      "brand": "dodot",
+      "category": "주방",
+      "score": 4.3,
+      "colorChip": {
+        "white": 3,
+        "black": 11
+      }
+    },
+    {
+      "id": 36,
+      "title": "[BEN]모던브릿지 체어 1+1",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/25187/main_img.jpg",
+      "price": 89000,
+      "brand": "dodot",
+      "category": "주방",
+      "score": 4.8,
+      "colorChip": {
+        "gray": 3,
+        "black": 11
+      }
+    },
+    {
+      "id": 37,
+      "title": "[ZEN]케이퍼 체어",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/2870/main_img.jpg",
+      "price": 69000,
+      "brand": "dodot",
+      "category": "거실",
+      "score": 3.8,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 38,
+      "title": "[블라스코]타벤 원목 1200 벤치",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/32835/main_img.jpg",
+      "price": 239000,
+      "brand": "dodot",
+      "category": "주방",
+      "score": 3.4,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 39,
+      "title": "[두닷모노]헤이 매거진랙 반타원 테이블",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/33114/main_img.jpg",
+      "price": 125000,
+      "brand": "dodot",
+      "category": "주방",
+      "score": 4.6,
+      "colorChip": {
+        "beige": 3,
+        "wood": 11
+      }
+    },
+    {
+      "id": 40,
+      "title": "M-80 1600 Table",
+      "img": "https://admin.dodot.co.kr/data/dd_goods/dca/33047/main_img.png",
+      "price": 790000,
+      "brand": "dodot",
+      "category": "주방",
+      "score": 4.6,
       "colorChip": {
         "beige": 3,
         "wood": 11
