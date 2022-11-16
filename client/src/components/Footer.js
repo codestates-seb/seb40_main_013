@@ -87,7 +87,6 @@ const FooterWrapper = styled.div`
   height: 125px;
   background-color: #fcf9e9;
   padding: 20px 0px 10px 20px;
-
 `;
 
 const FooterTopInformation = styled.div`
