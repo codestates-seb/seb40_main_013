@@ -16,7 +16,10 @@ const HeaderBlock = styled.header`
     justify-content: end;
     margin: 7px 20px 7px 10px;
   }
-`
+  .space {
+    margin-right: 7px;
+  }
+`;
 const Logo = styled.div`
   justify-content: center;
   height: 100px;
@@ -34,6 +37,7 @@ const Serach = styled.div`
 
 
 const Category = styled.div`
+
  display: flex;
  justify-content: space-between;
  border-bottom: 1px solid #AAAAAA;
@@ -55,15 +59,10 @@ const Nav =styled.nav`
   border: 1px solid #AAAAAA;
   width: 60px;
   display: flex;
-  flex-direction: column;
-  position: relative;
-  left: 20px;
-  bottom: 10px;
-  div{
-    justify-content: center;
-    padding: 5px;
-  }
-  /* display: none; */
+  justify-content: space-between;
+  border-bottom: 1px solid #bebcaf;
+  padding: 7px;
+  margin: 5px 30px 5px 30px;
 `;
 
 //우측 상단 버튼
@@ -83,6 +82,9 @@ const LoginBtn = styled.button`
   }
 `;
 
+const PageMove = styled(Link)`
+  text-decoration: none;
+`;
 
 function Header() {
   //const navigate = useNavigate();

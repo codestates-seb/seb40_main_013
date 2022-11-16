@@ -10,7 +10,6 @@ import Signup from "./pages/Signup";
 import ArticleDetail from "./pages/detail/ArticleDetail";
 import SubCategory from "./pages/SubCategory";
 import ShoppingCart from "./pages/ShoppingCart";
-import Search from './components/search'
 
 const MainContainter = styled.div`
   /* display: flex;
