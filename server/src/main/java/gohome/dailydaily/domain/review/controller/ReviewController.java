@@ -6,6 +6,7 @@ import gohome.dailydaily.domain.review.mapper.ReviewMapper;
 import gohome.dailydaily.domain.review.service.ReviewService;
 import gohome.dailydaily.global.common.security.resolver.MemberId;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ReviewDto.Response postReview(@MemberId Long memberId,
                                          @Positive @PathVariable("product-id") Long productId,
                                          @Valid @RequestBody ReviewDto.Post post) {
@@ -39,6 +41,7 @@ public class ReviewController {
     }
 
     @DeleteMapping("/{review-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReview(@MemberId Long memberId,
                              @Positive @PathVariable("product-id") Long productId,
                              @Positive @PathVariable("review-id") Long reviewId) {
