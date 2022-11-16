@@ -57,15 +57,10 @@ const Nav =styled.nav`
   border: 1px solid #AAAAAA;
   width: 60px;
   display: flex;
-  flex-direction: column;
-  position: relative;
-  left: 20px;
-  bottom: 10px;
-  div{
-    justify-content: center;
-    padding: 5px;
-  }
-  /* display: none; */
+  justify-content: space-between;
+  border-bottom: 1px solid #bebcaf;
+  padding: 7px;
+  margin: 5px 30px 5px 30px;
 `;
 
 //우측 상단 버튼

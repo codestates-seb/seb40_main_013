@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
 
+let jwtToken = localStorage.getItem("Authorization");
+
 export const signUser = createAsyncThunk(
   "user/signUser",
   async ({ signData, navigate }) => {

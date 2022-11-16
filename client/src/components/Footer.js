@@ -1,9 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import { ImFacebook } from "react-icons/im";
 import { BsInstagram } from "react-icons/bs";
+import { useLocation } from "react-router-dom";
 
 function Footer() {
+  // 반응형 화면 구현중
+  // const [windowSize, setWindowSize] = useState({
+  //   width: window.innerWidth,
+  //   height: window.innerHeight,
+  // });
+  // const [smallDisplay, setSmallDisplay] = useState(false);
+  // const handleResize = () => {
+  //   setWindowSize({
+  //     width: window.innerWidth,
+  //     height: window.innerHeight,
+  //   });
+  //   smallCheck();
+  // };
+  // const smallCheck = () => {
+  //   console.log(windowSize.width < 401);
+  //   if (windowSize.width < Number(401)) {
+  //     console.log(11);
+  //     setSmallDisplay(true);
+  //   } else if (windowSize.width > Number(401)) {
+  //     console.log(2);
+  //     setSmallDisplay(false);
+  //   }
+  // };
+  // console.log(windowSize.width, smallDisplay);
+
+  // useEffect(() => {
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
+
   return (
     <FooterWrapper>
       <FooterTopInformation>
@@ -54,6 +87,7 @@ const FooterWrapper = styled.div`
   height: 125px;
   background-color: #fcf9e9;
   padding: 20px 0px 10px 20px;
+
 `;
 
 const FooterTopInformation = styled.div`
