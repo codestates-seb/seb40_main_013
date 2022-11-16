@@ -53,11 +53,16 @@ function Footer() {
 const FooterWrapper = styled.div`
   height: 125px;
   background-color: #fcf9e9;
+<<<<<<< HEAD
   padding: 10px 0px 10px 20px;
   @media screen and (max-width: 768px) {
     min-width: 391px;
     width: 100%;
   }
+=======
+  padding: 20px 0px 10px 20px;
+
+>>>>>>> b8f0f620faaf7544f15e693d449f73f52c7524be
 `;
 
 const FooterTopInformation = styled.div`
