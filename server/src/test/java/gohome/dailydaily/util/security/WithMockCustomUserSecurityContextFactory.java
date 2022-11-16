@@ -8,6 +8,8 @@ import org.springframework.security.test.context.support.WithSecurityContextFact
 
 import java.util.List;
 
+import static gohome.dailydaily.util.TestConstant.MEMBER;
+
 public class WithMockCustomUserSecurityContextFactory implements WithSecurityContextFactory<WithMockCustomUser> {
 
     @Override
@@ -16,7 +18,7 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
 
         context.setAuthentication(
                 new UsernamePasswordAuthenticationToken(
-                        1L, "password",
+                        MEMBER.getId(), MEMBER.getPassword(),
                         List.of(new SimpleGrantedAuthority("ROLE_USER"))
                 )
         );
