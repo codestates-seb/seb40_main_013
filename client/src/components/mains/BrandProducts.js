@@ -11,6 +11,7 @@ const BrandContainer = styled.div``;
 //tab
 const Tabs = styled.div`
   display: flex;
+  justify-content: center;
   margin: 20px 0;
 `;
 const Tab = styled.div`
@@ -54,13 +55,15 @@ const BPList = styled.div`
 `;
 const BP = styled.div`
   display: flex;
+  align-items: center;
   border: 1px solid var(--color-center-line);
   height: 20%;
 `;
 const Img = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   border-radius: 5px;
+  margin: 0 20px;
 `;
 const Title = styled.h2`
   font-size: 1rem;
