@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import SubCarousel from '../components/subcategories/SubCalousel'
-import Goods from '../components/subcategories/goods'
+import Apis from "../apis/apis";
+import Products from "../components/mains/Product";
 
 import chair from '../imgs/chair.png'
 import chair2 from '../imgs/chair2.png'
@@ -9,6 +11,7 @@ import chair4 from '../imgs/chair4.png'
 import desk from '../imgs/desk.png'
 import shelf from '../imgs/shelf.png'
 import room from '../imgs/room.jpg'
+import Goods from '../components/subcategories/goods'
 
 const SubBlock = styled.div`
     margin: 30px 40px;
@@ -38,7 +41,7 @@ const Sub = styled.div`
     align-items: center;
 `;
 
-const GoodsList = styled.div`
+const ProductList = styled.div`
     width: 100%;
     flex-direction: column;
     .total{
@@ -46,12 +49,19 @@ const GoodsList = styled.div`
         font-weight: 600;
         font-size: 20px;
     }
-    .goods{
+    .products{
         flex-wrap : wrap
     }
 `;
 
 function SubCategory() {
+  const [productList, setProductList] = useState([]);
+
+  useEffect(() => {
+    Apis.get(`products`).then((data) => setProductList(data.data));
+  }, []);
+//   console.log(productList);
+
   return( 
     <SubBlock>
         <SubCarousel/>
@@ -73,16 +83,22 @@ function SubCategory() {
                 <div>의자</div>
             </Sub>
         </div>
-        <GoodsList>
+        <ProductList>
             <div className="total">0 개의 상품이 있습니다</div>
-            <div className="goods">
-                <Goods img={chair}/>
-                <Goods img={chair2}/>
-                <Goods img={chair3}/>
-                <Goods img={chair4}/>
-                <Goods img={chair}/>
+            <div className="products">
+            {productList.map((product) => (
+                <Products
+                   brand={product.brand}
+                   img={product.img}
+                   key={product.id}
+                   name={product.name}
+                   price={product.price}
+                   star={product.star}
+                />
+             ))}
+             <Goods img={chair3}/>
             </div>
-        </GoodsList>
+        </ProductList>
     </SubBlock>
   )
 }

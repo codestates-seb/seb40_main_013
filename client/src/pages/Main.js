@@ -49,22 +49,18 @@ const ProductList = styled.div`
 `;
 
 const Main = () => {
-  const [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState([]);  
 
   useEffect(() => {
-    Apis.get(`products`).then((data) => setProductList(data.data));
+    Apis.get(`products`).then((data) => 
+    setProductList(data.data));
   }, []);
-  console.log(productList);
-
   return (
     <Container>
       <Carousel />
       <Title>Best of Best</Title>
       <Hr />
       <FullTitle name="fullTitle" className="fullTitle">
-        {/* <FullView to="/sub" name="fullView" className="fullView">
-          전체보기 &gt;&gt;
-        </FullView> */}
       </FullTitle>
       <ProductList>
         {productList.filter(product => product.id < 6).map(product =>
@@ -79,7 +75,7 @@ const Main = () => {
         )}
       </ProductList>
       <Title>브랜드별 추천상품</Title>
-      <BrandProducts />
+      <BrandProducts productList={productList.filter(p => p.id < 6)}/>
       <Title>침실</Title>
       <Hr />
       <FullTitle name="fullTitle" className="fullTitle">
