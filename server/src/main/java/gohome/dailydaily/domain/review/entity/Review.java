@@ -6,6 +6,7 @@ import gohome.dailydaily.global.common.BaseTime;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Getter
 @Entity
@@ -27,14 +28,30 @@ public class Review extends BaseTime {
     private String content;
 
     @Column(nullable = false)
-    private Float score;
+    private Integer score;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    public void initInfo(Member member, Product product) {
+        this.member = member;
+        this.product = product;
+    }
+
+    public Review updateReview(Review review) {
+        Optional.ofNullable(review.getTitle())
+                .ifPresent(title -> this.title = title);
+        Optional.ofNullable(review.getContent())
+                .ifPresent(content -> this.content = content);
+        Optional.ofNullable(review.getScore())
+                .ifPresent(score -> this.score = score);
+
+        return this;
+    }
 
 }
