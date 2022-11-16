@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class Category extends BaseTime {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +18,8 @@ public class Category extends BaseTime {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String main;
 
+    @Column(nullable = false)
+    private String sub;
 }

@@ -10,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
+@Table(name = "options")
 public class Option extends BaseTime {
 
     @Id
@@ -21,7 +22,13 @@ public class Option extends BaseTime {
     private Integer price;
 
     @Column(nullable = false)
-    private String content;
+    private String color;
+
+    @Column(nullable = false)
+    private String size;
+
+    @Column(nullable = false)
+    private Long stock;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
