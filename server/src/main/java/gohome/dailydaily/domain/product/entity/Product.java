@@ -1,5 +1,6 @@
 package gohome.dailydaily.domain.product.entity;
 
+import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.review.entity.Review;
 import gohome.dailydaily.global.common.BaseTime;
@@ -27,6 +28,9 @@ public class Product extends BaseTime {
     @Lob
     @Column(nullable = false)
     private String content;
+
+    @Column
+    private File img;
 
     @Column(nullable = false)
     private Integer price;
