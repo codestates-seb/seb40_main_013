@@ -56,9 +56,6 @@ public class ProductController {
     public ProductDto.Response getProduct(@PathVariable("product-id") Long productId){
         Product product = productService.getProduct(productId);
 
-        //리뷰 매퍼, 옵션 매퍼
-//        ProductDto.Get productGetDto = new ProductDto.Get(product);
-//        return new ResponseEntity(productGetDto, HttpStatus.OK);
         return mapper.toResponse(product);
     }
 

@@ -19,5 +19,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     //Optional<ProductDto.ProductGetDto> findById(Long productId);
     @EntityGraph(attributePaths = {"seller", "seller.member", "seller.member.cart", "reviews"})
-    Optional<Product> findById(Long productId);
+    Optional<Product> findProductById(Long productId);
 }

@@ -41,7 +41,7 @@ public class ProductService {
     }
 
     public Product getProduct(Long productId) {
-        return productRepository.findById(productId).orElseThrow(
+        return productRepository.findProductById(productId).orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
         //return productRepository.findById(productId);
     }
