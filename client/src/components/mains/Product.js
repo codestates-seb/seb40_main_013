@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components/macro";
 import starimg from '../../imgs/star.png'
+import { Link } from "react-router-dom";
 
-const ProductList = styled.div`
+const Products = styled(Link)`
   width: 250px;
   margin: 0 10px;
 `;
@@ -20,16 +21,16 @@ const Brand = styled.h5`
   color: var(--font-ligthblack);
 `;
 const Title = styled.h2`
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 500;
 `;
 const Price = styled.h5`
   display: flex;
   justify-content: flex-end;
   padding: 5px;
   margin-right: 10px;
-  font-size: 1.7rem;
-  font-weight: 900;
+  font-size: 1.5rem;
+  font-weight: 700;
 `;
 const Colorchip = styled.div`
   display: flex;
@@ -59,27 +60,27 @@ const Star = styled.img`
 const StarAerage = styled.div`
   display: flex;
 `;
-const Product = ({ img, brand, name, price, star }) => {
+const Product = ({ img, brand, title, price, score }) => {
   return(
-    <ProductList>
+    <Products to="/detail/:id">
       <Img src={img}></Img>
       <Detail>
         <SubDetail>
           <Brand>{brand}</Brand>
           <StarDetail>
             <Star src={starimg}></Star>
-            <StarAerage>{star}</StarAerage>
+            <StarAerage>{score}</StarAerage>
           </StarDetail>
         </SubDetail>
-        <Title>{name}</Title>
+        <Title>{title}</Title>
         <SubDetail>
           <Colorchip>
             <Color />
           </Colorchip>
-          <Price>{price}</Price>
+          <Price>{price.toLocaleString('en-US')}</Price>
         </SubDetail>
       </Detail>
-    </ProductList>
+    </Products>
   );
 }
 
