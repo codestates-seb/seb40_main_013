@@ -2,10 +2,12 @@ import styled from "styled-components/macro";
 import logo from '../imgs/logo.png'
 import { Link } from 'react-router-dom';
 import { BsCart3, BsSearch } from 'react-icons/bs';
+import { useState, useRef, useEffect } from "react";
+import DownSearch from './search'
 
 const HeaderBlock = styled.header`
   width: 100%;
-  height: 230px;
+  height: 173px;
   color: var(--color-gray);
   div{
     display: flex;
@@ -84,6 +86,24 @@ const LoginBtn = styled.button`
 
 function Header() {
   //const navigate = useNavigate();
+    const modalRef = useRef();
+    const [closeSearch, setCloseSearch] = useState(false)
+    
+    const closeHandler = () => {
+      setCloseSearch(!closeSearch);
+    }
+
+    const outModalCloseHandler = ({ target }) => {
+      if(closeSearch && !modalRef.current.contains(target)) setCloseSearch(false);
+    };
+
+    useEffect(() => {
+      window.addEventListener('click', outModalCloseHandler);
+      return () => {
+        window.removeEventListener('click', outModalCloseHandler); //이벤트 한번만 실행되게 하려고 제거.
+      }; 
+    });
+
     return (
       <>
         <HeaderBlock>
@@ -111,24 +131,24 @@ function Header() {
                     <div className="space">거실</div>
                     <div className="space">주방</div>
                 </div>
+                
                 <div>
-                    <Serach>
+                    <div ref={modalRef} className='modal'>
+                      <Serach onClick={closeHandler}>
                        <BsSearch size='20'/>
-                    </Serach>
+                      </Serach>
+                      {closeSearch && 
+                       <DownSearch closeSearch={closeSearch} closeHandler={closeHandler} />
+                      }
+                    </div>
                     <div>
                         <BsCart3 size='20'/>
                         <div className="cart-count">(0)</div>
                     </div>
                 </div>
             </Category>
-            {/* <Nav>
-              <div>의자</div>
-              <div>책상</div>
-              <div>책장</div>
-            </Nav> */}
         </HeaderBlock>
       </>
-  
     );
   }
   
