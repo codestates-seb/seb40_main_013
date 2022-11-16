@@ -1,5 +1,4 @@
 import styled from "styled-components/macro";
-import logo from '../imgs/logo.png'
 import { Link } from 'react-router-dom';
 import { BsCart3, BsSearch } from 'react-icons/bs';
 import { useState, useRef, useEffect } from "react";
@@ -9,7 +8,7 @@ const HeaderBlock = styled.header`
   width: 100%;
   height: 173px;
   color: var(--color-gray);
-  div{
+  div {
     display: flex;
   }
   .top {
@@ -25,7 +24,7 @@ const Logo = styled.div`
   height: 100px;
   justify-content: center;
   align-items: center;
-  div{
+  div {
     font-size: 43px;
     color: var(--color-navy);
   }
@@ -35,28 +34,26 @@ const Serach = styled.div`
   margin-right: 8px;
 `;
 
-
 const Category = styled.div`
-
- display: flex;
- justify-content: space-between;
- border-bottom: 1px solid #AAAAAA;
- padding: 7px;
- margin: 5px 30px 5px 30px;
- .space{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #aaaaaa;
+  padding: 7px;
+  margin: 5px 30px 5px 30px;
+  .space {
     margin-right: 20px;
-  &:hover{
-    cursor: pointer;
+    &:hover {
+      cursor: pointer;
+    }
   }
-  }
-  .cart-count{
+  .cart-count {
     font-size: 12px;
   }
 `;
 
-const Nav =styled.nav`
+const Nav = styled.nav`
   background-color: white;
-  border: 1px solid #AAAAAA;
+  border: 1px solid #aaaaaa;
   width: 60px;
   display: flex;
   justify-content: space-between;
@@ -130,7 +127,9 @@ function Header() {
                   <Link to='/cart'>
                     <div className="space">침실</div>
                   </Link>
+                  <Link to='/detail'>
                     <div className="space">거실</div>
+                  </Link>
                     <div className="space">주방</div>
                 </div>
                 

@@ -4,7 +4,7 @@ import CartItem from '../components/CartItem'
 
 const CartBlock = styled.div`
     width: 100%;
-    height: 100%;
+    height: 100vh;
     /* min-height: 670px; */
     padding: 30px 40px 50px 40px;
     justify-content: center;
@@ -104,9 +104,6 @@ function ShoppingCart() {
                 <CartList>
                     <CartItem/>
                     <CartItem/>
-                    <CartItem/>
-
-
                 </CartList>
                 <Payment>
                     <div className="pay-title">결제정보</div>

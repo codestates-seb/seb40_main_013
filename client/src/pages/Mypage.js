@@ -6,7 +6,6 @@ import { Routes, Route, Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
-  height: 100%;
 `;
 
 //왼쪽 nav bar
