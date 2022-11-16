@@ -62,7 +62,6 @@ function Login() {
               </div>
               <div>로그인 상태 유지</div>
             </LoginCheckSpace>
-            <div>이이디/비밀번호 찾기</div>
           </LoginInformationSpace>
           <LoginRouteSign>
             <div>Don`t have an account?</div>
@@ -77,10 +76,24 @@ function Login() {
 const Wrapper = styled.div`
   width: 100%;
   /* height: 58vh; */
-  height: 100vh;
+  height: 65vh;
   display: flex;
   justify-content: center;
   margin: 45px 0px 30px 0px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border: 1px solid blue;
+    align-items: center;
+  }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border: 1px solid blue;
+    align-items: center;
+  }
 `;
 
 const LoginWrapper = styled.div`
@@ -89,26 +102,50 @@ const LoginWrapper = styled.div`
   border: 1px solid var(--color-gray);
   display: flex;
   border-radius: 7px;
+  @media screen and (max-width: 768px) {
+    width: 60%;
+    height: 90%;
+    min-width: 390px;
+    display: flex;
+    justify-content: center;
+  }
+  @media screen and (max-width: 400px) {
+    width: 300px;
+    height: 90%;
+    min-width: 360px;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const LoginImg = styled.img`
   width: 400px;
   height: 100%;
   margin-right: 20px;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const LoginContentSpace = styled.div`
   width: 480px;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  @media screen and (max-width: 768px) {
+    width: 250px;
+    height: 90%;
+    min-width: 410px;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const LoginTitle = styled.div`
-  width: 100%;
+  width: 90%;
   height: 50px;
-  font-size: 25px;
+  font-size: 40px;
   color: var(--color-navy);
   font-weight: bolder;
   display: flex;
@@ -117,30 +154,32 @@ const LoginTitle = styled.div`
   margin-top: 20px;
 `;
 const LoginInputSpace = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
 `;
 const LoginInput = styled.input`
-  width: 90%;
+  width: 85%;
   height: 60px;
   border: none;
   border-bottom: 1px solid var(--color-gray);
+  font-size: 20px;
   &:nth-child(1) {
     margin-bottom: 10px;
   }
 `;
 
 const LoginButton = styled.button`
-  width: 90%;
+  width: 80%;
   height: 45px;
   background-color: var(--color-navy);
   color: white;
   font-size: 20px;
   font-weight: bolder;
   margin-top: 40px;
+  border-radius: 5px;
 `;
 
 const LoginInformationSpace = styled.div`
@@ -149,18 +188,20 @@ const LoginInformationSpace = styled.div`
   align-items: center;
   width: 90%;
   height: 40px;
-  font-size: 13px;
+  font-size: 20px;
   color: var(--color-gray);
 `;
 const LoginCheckSpace = styled.div`
-  width: 105px;
+  width: 45%;
+  margin-left: 20px;
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 `;
 
 const LoginRouteSign = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
   justify-content: center;
   color: var(--color-gray);
   font-weight: 500;
