@@ -25,6 +25,9 @@ public class Product extends BaseTime {
     @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
+    private File img;
+
     @Lob
     @Column(nullable = false)
     private String content;
@@ -36,7 +39,7 @@ public class Product extends BaseTime {
     private Integer price;
 
     @Column(nullable = false)
-    private Float score;
+    private Integer score;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")

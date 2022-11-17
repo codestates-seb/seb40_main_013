@@ -21,6 +21,29 @@ include::{snippets}/members/signup/request-fields.adoc[]
 .http-response
 include::{snippets}/members/signup/http-response.adoc[]
 
+.response-fields
+[caption=]
+include::{snippets}/members/signup/response-fields.adoc[]
+
+=== 회원 조회
+.curl-request
+include::{snippets}/members/get/curl-request.adoc[]
+
+.http-request
+include::{snippets}/members/get/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/members/get/request-headers.adoc[]
+
+.http-response
+include::{snippets}/members/get/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/members/get/response-fields.adoc[]
+
+
 === 정보 수정
 .curl-request
 include::{snippets}/members/patch/curl-request.adoc[]
@@ -38,6 +61,10 @@ include::{snippets}/members/patch/request-fields.adoc[]
 
 .http-response
 include::{snippets}/members/patch/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/members/patch/response-fields.adoc[]
 
 === 회원 탈퇴
 .curl-request
