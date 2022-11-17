@@ -18,8 +18,7 @@ public enum ExceptionCode {
     EMAIL_ALREADY_EXISTS(409, "Email already exist"),
     NICKNAME_ALREADY_EXISTS(409, "Nickname already exist"),
     MEMBER_EXIST(409, "Member exists"),
-
-    ;
+    OPTION_NOT_FOUND(404, "Option not found");
 
     private final int status;
     private final String message;
