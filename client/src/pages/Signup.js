@@ -132,14 +132,15 @@ function Signup() {
 const Wrapper = styled.div`
   width: 100%;
   /* height: 58vh; */
-  height: 75%;
+  height: 100%;
   margin-top: 14px;
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
+  margin-top: 180px;
 `;
 const SignupWrapper = styled.div`
-  width: 550px;
+  width: 500px;
   height: 100%;
   margin-left: auto;
   margin-right: auto;

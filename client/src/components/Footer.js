@@ -53,6 +53,7 @@ function Footer() {
 const FooterWrapper = styled.div`
   height: 125px;
   background-color: #fcf9e9;
+
   padding: 10px 0px 10px 20px;
   @media screen and (max-width: 768px) {
     min-width: 391px;
@@ -83,10 +84,6 @@ const FooterSocialBtnSpace = styled.div`
     display: none;
   }
 `;
-const FooterSocialBtn = styled.div`
-  font-size: 18px;
-  cursor: pointer;
-`;
 
 const FooterSeviceAvailble = styled.div`
   font-size: 10px;
@@ -99,6 +96,7 @@ const FooterMidBtnMenu = styled.div`
   align-items: center;
   height: 18px;
   @media screen and (max-width: 2000px) {
+    max-width: 800px;
     display: flex;
     justify-content: space-between;
   }
@@ -122,6 +120,14 @@ const FooterMenuBtn = styled.div`
     font-size: 12px;
   }
 `;
+const FooterSocialBtn = styled.div`
+  font-size: 18px;
+  cursor: pointer;
+  &:hover {
+    color: #ffaf51;
+  }
+`;
+
 const FooterDownContentSpace = styled.div`
   font-size: 10px;
   color: #aaaaaa;

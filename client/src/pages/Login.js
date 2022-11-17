@@ -75,29 +75,21 @@ function Login() {
 
 const Wrapper = styled.div`
   width: 100%;
-  /* height: 58vh; */
   height: 65vh;
   display: flex;
   justify-content: center;
   margin: 45px 0px 30px 0px;
+  margin-top: 200px;
   @media screen and (max-width: 768px) {
     width: 100%;
     display: flex;
     justify-content: center;
-    border: 1px solid blue;
-    align-items: center;
-  }
-  @media screen and (max-width: 768px) {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    border: 1px solid blue;
     align-items: center;
   }
 `;
 
 const LoginWrapper = styled.div`
-  width: 900px;
+  width: 740px;
   height: 100%;
   border: 1px solid var(--color-gray);
   display: flex;
@@ -139,6 +131,7 @@ const LoginContentSpace = styled.div`
     min-width: 410px;
     display: flex;
     justify-content: center;
+    margin-top: 20px;
   }
 `;
 
