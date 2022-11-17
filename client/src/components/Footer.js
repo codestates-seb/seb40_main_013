@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
-import { ImFacebook } from "react-icons/im";
-import { BsInstagram } from "react-icons/bs";
-import { useLocation } from "react-router-dom";
+import { BsGithub } from "react-icons/bs";
 
 function Footer() {
   return (
@@ -13,12 +11,8 @@ function Footer() {
           <FooterSeviceContent>02-0000-0000</FooterSeviceContent>
         </div>
         <FooterSocialBtnSpace>
-          <FooterSocialBtn>BLOG</FooterSocialBtn>
-          <FooterSocialBtn>
-            <ImFacebook />
-          </FooterSocialBtn>
-          <FooterSocialBtn>
-            <BsInstagram />
+          <FooterSocialBtn href="https://github.com/codestates-seb/seb40_main_013">
+            <BsGithub />
           </FooterSocialBtn>
         </FooterSocialBtnSpace>
       </FooterTopInformation>
@@ -51,12 +45,13 @@ function Footer() {
 }
 
 const FooterWrapper = styled.div`
-  height: 125px;
+  height: 200px;
   background-color: #fcf9e9;
-  padding: 10px 0px 10px 20px;
+  padding: 20px 0px 10px 20px;
   @media screen and (max-width: 768px) {
     min-width: 391px;
     width: 100%;
+    height: 200px;
   }
 `;
 
@@ -65,11 +60,14 @@ const FooterTopInformation = styled.div`
   justify-content: space-between;
   width: 90%;
   height: 25px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const FooterSeviceContent = styled.div`
   font-size: 15px;
   font-weight: bolder;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 `;
 
 const FooterSocialBtnSpace = styled.div`
@@ -79,27 +77,32 @@ const FooterSocialBtnSpace = styled.div`
   font-weight: bolder;
   justify-content: space-between;
   align-items: center;
-  @media screen and (max-width: 768px) {
-    display: none;
+  @media screen and (max-width: 650px) {
+    width: 35%;
+  }
+  @media screen and (max-width: 560px) {
+    width: 20%;
   }
 `;
 
 const FooterSeviceAvailble = styled.div`
-  font-size: 10px;
+  font-size: 13px;
   color: #aaaaaa;
-  margin-top: 15px;
+  margin: 20px 0px 10px 0px;
 `;
 
 const FooterMidBtnMenu = styled.div`
   width: 100%;
   align-items: center;
   height: 18px;
+  margin-bottom: 20px;
   @media screen and (max-width: 2000px) {
     max-width: 800px;
     display: flex;
     justify-content: space-between;
   }
   @media screen and (max-width: 768px) {
+    max-width: 400px;
     min-width: 370px;
     display: flex;
   }
@@ -109,7 +112,7 @@ const FooterMenuBtn = styled.div`
   cursor: pointer;
   margin: 10px 10px 5px 0px;
   font-size: 15px;
-  font-weight: bolder;
+  font-weight: 500;
   margin-top: 10px;
   &:nth-child(5) {
     margin-right: 20px;
@@ -119,8 +122,8 @@ const FooterMenuBtn = styled.div`
     font-size: 12px;
   }
 `;
-const FooterSocialBtn = styled.div`
-  font-size: 18px;
+const FooterSocialBtn = styled.a`
+  font-size: 30px;
   cursor: pointer;
   &:hover {
     color: #ffaf51;

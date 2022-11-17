@@ -65,13 +65,14 @@ function Signup() {
     if (!pwdCheck(writePwd)) {
       setPwdConfirm(true);
     } else {
-      setPwdConfirm(true);
+      setPwdConfirm(false);
     }
     if (writePwd === writePwdAgainCheck) {
       setPwdAgainConfirm(true);
     } else {
       setPwdAgainConfirm(false);
     }
+
     const signData = {
       email: writeEmail,
       password: writePwd,
@@ -132,18 +133,50 @@ function Signup() {
 const Wrapper = styled.div`
   width: 100%;
   /* height: 58vh; */
-  height: 100%;
+  height: 100vh;
+
   margin-top: 14px;
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
   margin-top: 180px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 100vh;
+    /* min-width: 391px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media screen and (max-width: 768px) {
+    /* min-width: 391px; */
+    width: 90%;
+    height: 150vh;
+    display: flex;
+    justify-content: center;
+    margin-left: 40px;
+  }
+  @media screen and (max-width: 391px) {
+    /* min-width: 391px; */
+    width: 90%;
+    height: 190vh;
+  }
+
 `;
 const SignupWrapper = styled.div`
   width: 500px;
   height: 100%;
+  margin: 50px 0px;
   margin-left: auto;
   margin-right: auto;
+  @media screen and (max-width: 768px) {
+    width: 90%;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 const UserWriteTitle = styled.div`
@@ -152,19 +185,25 @@ const UserWriteTitle = styled.div`
   font-size: 25px;
   font-weight: bold;
   &:nth-child(4) {
-    margin-top: ${(props) => (props.isCheck ? "20px" : "50px")};
+    margin-top: ${(props) => (props.isCheck ? "30px" : "50px")};
   }
   &:nth-child(7) {
-    margin-top: ${(props) => (props.isCheck ? "20px" : "50px")};
+    margin-top: ${(props) => (props.isCheck ? "30px" : "50px")};
   }
   &:nth-child(10) {
-    margin-top: ${(props) => (props.isCheck ? "20px" : "50px")};
+    margin-top: ${(props) => (props.isCheck ? "30px" : "50px")};
   }
 `;
 const UserWriteInput = styled.input`
-  margin-top: 10px;
+  margin-top: 20px;
   width: 98%;
   height: 40px;
+  @media screen and (max-width: 768px) {
+    width: 90%;
+    height: 40px;
+    margin-top: 20px;
+    border: 1px solid black;
+  }
 `;
 
 const UserSubmitBtn = styled.button`
@@ -179,6 +218,9 @@ const UserSubmitBtn = styled.button`
   align-items: center;
   font-size: 22px;
   font-weight: bold;
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
 `;
 
 const ErrorDisplay = styled.div`
