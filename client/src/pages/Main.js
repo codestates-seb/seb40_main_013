@@ -13,6 +13,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 180px;
+  z-index: 1;
 `;
 const Title = styled.h2`
   display: flex;
@@ -33,7 +35,7 @@ const FullTitle = styled.div`
   justify-content: flex-end;
   width: 80%;
   margin-bottom: 10px;
-  color: #AAAAAA;
+  color: #aaaaaa;
 `;
 const FullView = styled(Link)`
   font-size: 1.5rem;
@@ -49,33 +51,33 @@ const ProductList = styled.div`
 `;
 
 const Main = () => {
-  const [productList, setProductList] = useState([]);  
+  const [productList, setProductList] = useState([]);
 
   useEffect(() => {
-    Apis.get(`products`).then((data) => 
-    setProductList(data.data));
+    Apis.get(`products`).then((data) => setProductList(data.data));
   }, []);
   return (
     <Container>
       <Carousel />
       <Title>Best of Best</Title>
       <Hr />
-      <FullTitle name="fullTitle" className="fullTitle">
-      </FullTitle>
+      <FullTitle name="fullTitle" className="fullTitle"></FullTitle>
       <ProductList>
-        {productList.filter(product => product.id < 6).map(product =>
-          <Products
-            brand={product.brand}
-            img={product.img}
-            key={product.id}
-            title={product.title}
-            price={product.price}
-            score={product.score}
-          />
-        )}
+        {productList
+          .filter((product) => product.id < 6)
+          .map((product) => (
+            <Products
+              brand={product.brand}
+              img={product.img}
+              key={product.id}
+              title={product.title}
+              price={product.price}
+              score={product.score}
+            />
+          ))}
       </ProductList>
       <Title>브랜드별 추천상품</Title>
-      <BrandProducts productList={productList.filter(p => p.id < 6)}/>
+      <BrandProducts productList={productList.filter((p) => p.id < 6)} />
       <Title>침실</Title>
       <Hr />
       <FullTitle name="fullTitle" className="fullTitle">

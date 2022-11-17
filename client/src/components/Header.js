@@ -6,7 +6,7 @@ import DownSearch from "./search";
 
 const HeaderBlock = styled.header`
   width: 100%;
-  height: 173px;
+  height: 180px;
   color: var(--color-gray);
   div {
     display: flex;
@@ -18,6 +18,9 @@ const HeaderBlock = styled.header`
   .space {
     margin-right: 7px;
   }
+  position: fixed;
+  background-color: white;
+  z-index: 2;
 `;
 const Logo = styled.div`
   justify-content: center;
