@@ -11,11 +11,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long>, ProductRepositoryCustom {
 
-    Slice<CategoryGetDto> findByCategory_Main(Pageable pageable, String main);
+//    Slice<CategoryGetDto> findByCategory_Main(Pageable pageable, String main);
 
-    Slice<CategoryGetDto> findByCategory_MainAndCategory_Sub(Pageable pageable, String main, String sub);
+//    Slice<CategoryGetDto> findByCategory_MainAndCategory_Sub(Pageable pageable, String main, String sub);
 
     //Optional<ProductDto.ProductGetDto> findById(Long productId);
     @EntityGraph(attributePaths = {"seller", "seller.member", "seller.member.cart", "reviews"})
