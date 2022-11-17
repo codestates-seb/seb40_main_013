@@ -16,6 +16,10 @@ const MainContainter = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+<<<<<<< HEAD
+=======
+  align-items: center;
+>>>>>>> 5e2fd7771fa78761497ce150b2701601f9a78a4a
 `;
 
 function App() {
