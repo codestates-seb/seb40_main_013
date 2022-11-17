@@ -79,3 +79,25 @@ include::{snippets}/members/delete/request-headers.adoc[]
 
 .http-response
 include::{snippets}/members/delete/http-response.adoc[]
+
+=== 회원 리뷰 조회
+.curl-request
+include::{snippets}/members/reviews/curl-request.adoc[]
+
+.http-request
+include::{snippets}/members/reviews/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/members/reviews/request-headers.adoc[]
+
+.request-parameters
+[caption=]
+include::{snippets}/members/reviews/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/members/reviews/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/members/reviews/response-fields.adoc[]
