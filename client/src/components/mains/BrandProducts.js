@@ -48,6 +48,8 @@ const BrandProduct = styled.div`
 
 const BrandImg = styled.img`
   width: 500px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 `;
 const BPList = styled.div`
   display: flex;
@@ -58,6 +60,8 @@ const BP = styled.div`
   align-items: center;
   border: 1px solid var(--color-center-line);
   height: 20%;
+  width: 400px;
+  padding-right: 10px;
 `;
 const Img = styled.img`
   width: 70px;
@@ -65,12 +69,21 @@ const Img = styled.img`
   border-radius: 5px;
   margin: 0 20px;
 `;
+const TP = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const Title = styled.h2`
   font-size: 1rem;
+  margin-bottom: 10px;
+`;
+const Price = styled.h2`
+  font-size: 1.1rem;
+  font-weight: 600;
 `;
 
-const BrandProducts = ({productList}) =>{
-  const [clicked, setClicked] = useState('전체보기');
+const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, deskerList }) =>{
+  const [clicked, setClicked] = useState('두닷');
 
   const onClick = useCallback(e => {
     const text = e.target.innerText;
@@ -78,55 +91,60 @@ const BrandProducts = ({productList}) =>{
   }, []);
   console.log(productList)
   const ProductArr = {
-    "전체보기": <BrandProduct>
-                <BrandImg src={brandImg}></BrandImg>
-                <BPList>
-                {productList.map(p=>
-                    <BP>
-                      <Img src={p.img} />
-                      <Title>{p.title}</Title>
-                    </BP>
-                  )}
-                </BPList>
-              </BrandProduct>,
     "두닷": <BrandProduct>
             <BrandImg src={dodot}></BrandImg>
             <BPList>
-              <BP>첫번째</BP>
-              <BP>두번째</BP>
-              <BP>세번째</BP>
-              <BP>네번째</BP>
-              <BP>다섯번째</BP>
+            {dodotList.map(p=>
+                    <BP>
+                    <Img src={p.img} />
+                    <TP>
+                      <Title>{p.title}</Title>
+                      <Price>{p.price}</Price>
+                    </TP>
+                  </BP>
+                  )}
             </BPList>
           </BrandProduct>,
   "소프시스": <BrandProduct>
               <BrandImg src={sofsys}></BrandImg>
               <BPList>
-                <BP>첫번째</BP>
-                <BP>두번째</BP>
-                <BP>세번째</BP>
-                <BP>네번째</BP>
-                <BP>다섯번째</BP>
+              {sofsysList.map(p=>
+                    <BP>
+                      <Img src={p.img} />
+                      <TP>
+                        <Title>{p.title}</Title>
+                        <Price>{p.price}</Price>
+                      </TP>
+                    </BP>
+                  )}
               </BPList>
             </BrandProduct>,
   "포더홈": <BrandProduct>
               <BrandImg src={forthehome}></BrandImg>
               <BPList>
-                <BP>첫번째</BP>
-                <BP>두번째</BP>
-                <BP>세번째</BP>
-                <BP>네번째</BP>
-                <BP>다섯번째</BP>
+              {forthehomeList.map(p=>
+                    <BP>
+                    <Img src={p.img} />
+                    <TP>
+                      <Title>{p.title}</Title>
+                      <Price>{p.price}</Price>
+                    </TP>
+                  </BP>
+                  )}
               </BPList>
             </BrandProduct>,
   "데스커": <BrandProduct>
             <BrandImg src={desker}></BrandImg>
             <BPList>
-              <BP>첫번째</BP>
-              <BP>두번째</BP>
-              <BP>세번째</BP>
-              <BP>네번째</BP>
-              <BP>다섯번째</BP>
+            {deskerList.map(p=>
+                    <BP>
+                    <Img src={p.img} />
+                    <TP>
+                      <Title>{p.title}</Title>
+                      <Price>{p.price}</Price>
+                    </TP>
+                  </BP>
+                  )}
             </BPList>
           </BrandProduct>,
 }
@@ -135,38 +153,31 @@ const BrandProducts = ({productList}) =>{
     <BrandContainer>
       <Tabs>
           <Tab
-          name="fullVies"
-          className={clicked === '전체보기' ? 'clicked' : ''}
-          onClick={onClick}
-          value="1">
-            전체보기
-          </Tab>
-          <Tab
           name="dodot"
           className={clicked === '두닷' ? 'clicked' : ''}
           onClick={onClick}
-          value="2">
+          value="1">
             두닷
           </Tab>
           <Tab
           name="sofsis"
           className={clicked === '소프시스' ? 'clicked' : ''}
           onClick={onClick}
-          value="3">
+          value="2">
             소프시스
           </Tab>
           <Tab
           name="forTheHome"
           className={clicked === '포더홈' ? 'clicked' : ''}
           onClick={onClick}
-          value="4">
+          value="3">
             포더홈
           </Tab>
           <Tab
           name="illom"
           className={clicked === '데스커' ? 'clicked' : ''}
           onClick={onClick}
-          value="5">
+          value="4">
             데스커
           </Tab>
         </Tabs>

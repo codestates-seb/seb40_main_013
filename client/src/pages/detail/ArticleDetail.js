@@ -17,10 +17,11 @@ function ArticleDetail() {
   ]);
   const dispatch = useDispatch();
   const params = useParams();
-  const detatilArticle = useSelector((state) => state.article.detailArticle);
-  const filterArticle = detatilArticle?.filter(
-    (data) => data.id === Number(params.id)
-  );
+  const detatilArticle = useSelector((state) => state);
+  console.log(detatilArticle);
+  // const filterArticle = detatilArticle?.filter(
+  //   (data) => data.id === Number(params.id)
+  // );
 
   const clickFunction = () => {
     setClickSelect(!clickSelect);
@@ -31,6 +32,7 @@ function ArticleDetail() {
     setSelectOptions(data);
   };
   console.log(selectOptions);
+
   useEffect(() => {
     dispatch(getArticleDetail(Number(params.id)));
   }, []);
@@ -39,11 +41,11 @@ function ArticleDetail() {
     <Wrapper>
       <DetailContents>
         <DetailTopUserSelectSpace>
-          <DetailTopThumbnailImg src={filterArticle[0]?.img} />
+          <DetailTopThumbnailImg />
           <ArticleInformations>
             <DetailArticleNameSpace>
               <div>
-                <DetailArticleName>{filterArticle[0]?.title}</DetailArticleName>
+                <DetailArticleName></DetailArticleName>
                 <DetailArticleStarSpace>
                   <DetailArticleStar>
                     <BsStarFill />
@@ -52,9 +54,7 @@ function ArticleDetail() {
                     <BsStarFill />
                     <BsStarFill />
                   </DetailArticleStar>
-                  <DetailArticleStaAverage>
-                    {filterArticle[0]?.score}점
-                  </DetailArticleStaAverage>
+                  <DetailArticleStaAverage>점</DetailArticleStaAverage>
                 </DetailArticleStarSpace>
               </div>
               <ButtonIcon>
@@ -63,9 +63,7 @@ function ArticleDetail() {
             </DetailArticleNameSpace>
             <DetailArticlePriceSpace>
               <DetailArticlePrice>35%</DetailArticlePrice>
-              <DetailArticlePrice>
-                {filterArticle[0]?.price} 원
-              </DetailArticlePrice>
+              <DetailArticlePrice> 원</DetailArticlePrice>
               <DetailArticlePrice>115,000원</DetailArticlePrice>
             </DetailArticlePriceSpace>
             <DetailArticleOptionSpace>
@@ -119,7 +117,7 @@ function ArticleDetail() {
               </DetailUserQuantitySpace>
               <DetailUserPriceSpace>
                 <DetailUserPrice>총 상품금액</DetailUserPrice>
-                <DetailUserPrice>{filterArticle[0]?.price}</DetailUserPrice>
+                <DetailUserPrice></DetailUserPrice>
                 <DetailUserPrice> 원</DetailUserPrice>
               </DetailUserPriceSpace>
             </DetailUserSubmitPriceSpace>
@@ -129,8 +127,8 @@ function ArticleDetail() {
             </DetailArticlBtnSpace>
           </ArticleInformations>
         </DetailTopUserSelectSpace>
-        <DetailMidImg src={filterArticle[0]?.contentImg} />
-        <Review filterArticle={filterArticle[0]?.reviewList} />
+        <DetailMidImg />
+        <Review />
       </DetailContents>
     </Wrapper>
   );

@@ -13,12 +13,21 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 180px;
+  z-index: 1;
+`;
+
+//best of best
+const SubTitle = styled.h2`
+  color: #AAAAAA;
+  font-size: 1rem;
+  margin-top: 40px;
 `;
 const Title = styled.h2`
   display: flex;
   font-weight: 400;
   font-size: 2rem;
-  margin: 40px 0 10px 0;
+  margin: 10px 0 10px 0;
   color: var(--font-black);
 `;
 const Hr = styled.hr`
@@ -48,6 +57,17 @@ const ProductList = styled.div`
   justify-content: center;
 `;
 
+
+//신상품
+const Table = styled.table`
+  margin-top: 10px;
+`;
+const TD = styled.td`
+  border: 1px solid #AAAAAA;
+  padding: 20px 50px;
+  font-size: 1rem;
+`;
+
 const Main = () => {
   const [productList, setProductList] = useState([]);  
 
@@ -55,15 +75,17 @@ const Main = () => {
     Apis.get(`products`).then((data) => 
     setProductList(data.data));
   }, []);
+
+  // console.log(dodotList)
   return (
     <Container>
       <Carousel />
+      <SubTitle>Best Selling</SubTitle>
       <Title>Best of Best</Title>
-      <Hr />
       <FullTitle name="fullTitle" className="fullTitle">
       </FullTitle>
       <ProductList>
-        {productList.filter(product => product.id < 6).map(product =>
+        {productList.filter(product => product.id < 5).map(product =>
           <Products
             brand={product.brand}
             img={product.img}
@@ -75,9 +97,21 @@ const Main = () => {
         )}
       </ProductList>
       <Title>브랜드별 추천상품</Title>
-      <BrandProducts productList={productList.filter(p => p.id < 6)}/>
-      <Title>침실</Title>
-      <Hr />
+      <BrandProducts
+      dodotList={productList.filter(p => p.brand === 'dodot' && p.id < 9)}
+      sofsysList={productList.filter(p => p.brand === '소프시스')}
+      forthehomeList={productList.filter(p => p.brand === '포더홈')}
+      deskerList={productList.filter(p => p.brand === '데스커')}/>
+      <Title>New Arrival</Title>
+      <Table>
+        <tr>
+          <TD>전체보기</TD>
+          <TD>서재</TD>
+          <TD>침실</TD>
+          <TD>거실</TD>
+          <TD>주방</TD>
+        </tr>
+      </Table>
       <FullTitle name="fullTitle" className="fullTitle">
         <FullView name="fullView" className="fullView">
           전체보기 &gt;&gt;

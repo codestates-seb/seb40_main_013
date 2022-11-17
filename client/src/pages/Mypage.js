@@ -1,12 +1,13 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import PurchaseList from "../components/mypages/PurchaseList";
-import EditProfile from '../components/mypages/EditProfile';
+import EditProfile from "../components/mypages/EditProfile";
 import { Routes, Route, Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
   height: 100%;
+  margin-top: 180px;
 `;
 
 //왼쪽 nav bar
@@ -47,19 +48,19 @@ const NavDetail = styled.nav`
   margin-top: 20px;
   color: var(--font-ligthblack);
   &:hover {
-    color: #FFAF51;
+    color: #ffaf51;
   }
   &.clicked {
-    color: #FFAF51;
+    color: #ffaf51;
   }
   &.clicked::after {
-    color: #FFAF51;
+    color: #ffaf51;
   }
 `;
 const Mypage = () => {
   const [clicked, setClicked] = useState();
 
-  const onClick = useCallback(e => {
+  const onClick = useCallback((e) => {
     const text = e.target.innerText;
     setClicked(text);
   }, []);
@@ -67,28 +68,30 @@ const Mypage = () => {
   return (
     <Container>
       <Left>
-        <ProfileImg 
-        src={`https://avatars.dicebear.com/api/bottts/1.svg?size=20`}
-        alt="avator">
-        </ProfileImg>
+        <ProfileImg
+          src={`https://avatars.dicebear.com/api/bottts/1.svg?size=20`}
+          alt="avator"
+        ></ProfileImg>
         <Hello>안녕하세요,</Hello>
         <Hello>집가구싶다 님</Hello>
         <Nav>
-          <Link to="purchase" style={{ textDecoration: 'none' }}>
-          <NavDetail
-            name="purchaseTab"
-            className={clicked === '구매 내역' ? 'clicked' : ''}
-            onClick={onClick}>
-            구매 내역
+          <Link to="purchase" style={{ textDecoration: "none" }}>
+            <NavDetail
+              name="purchaseTab"
+              className={clicked === "구매 내역" ? "clicked" : ""}
+              onClick={onClick}
+            >
+              구매 내역
             </NavDetail>
           </Link>
-          <Link to="edit" style={{ textDecoration: 'none' }}>
+          <Link to="edit" style={{ textDecoration: "none" }}>
             <NavDetail
-            name="editProfileTab"
-            className={clicked === '정보 수정' ? 'clicked' : ''}
-            onClick={onClick}>
+              name="editProfileTab"
+              className={clicked === "정보 수정" ? "clicked" : ""}
+              onClick={onClick}
+            >
               정보 수정
-              </NavDetail>
+            </NavDetail>
           </Link>
         </Nav>
       </Left>
