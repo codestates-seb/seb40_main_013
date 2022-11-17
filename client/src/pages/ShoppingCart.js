@@ -3,21 +3,30 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import CartItem from "../components/CartItem";
 
 const CartBlock = styled.div`
+  margin-top: 170px;
   width: 100%;
   height: 100%;
   /* min-height: 670px; */
   padding: 30px 40px 50px 40px;
-  margin-top: 180px;
-  display: flex;
   justify-content: center;
+  display: flex;
   div {
     display: flex;
-  }
-  .cart-title {
-    font-size: 28px;
-    padding-left: 20px;
-    margin-bottom: 20px;
-    font-weight: 600;
+    div {
+      display: flex;
+    }
+    .cart-title {
+      font-size: 28px;
+      padding-left: 20px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    @media screen and (max-width: 768px) {
+      .quary {
+        flex-direction: column;
+      }
+    }
   }
 `;
 
@@ -99,7 +108,7 @@ function ShoppingCart() {
           <span>ㅣ</span>
           <span>선택삭제</span>
         </AllCheck>
-        <div>
+        <div className="quary">
           <CartList>
             <CartItem />
             <CartItem />

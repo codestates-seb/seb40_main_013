@@ -14,14 +14,16 @@ import room from "../imgs/room.jpg";
 import Goods from "../components/subcategories/goods";
 
 const SubBlock = styled.div`
-  margin: 210px 40px 30px 40px;
-  div {
-    display: flex;
-  }
-  .sub-menus {
-    margin: 20px 0px;
-    justify-content: space-between;
-  }
+    width: 100%;
+    margin-top: 170px;
+    padding: 30px 40px 30px 40px;
+    div{
+        display: flex;
+    }
+    .sub-menus{
+        margin: 20px 0px;
+        justify-content: space-between;
+    }
 `;
 
 const Sub = styled.div`
@@ -96,7 +98,6 @@ function SubCategory() {
               star={product.star}
             />
           ))}
-          <Goods img={chair3} />
         </div>
       </ProductList>
     </SubBlock>

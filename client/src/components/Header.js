@@ -6,7 +6,7 @@ import DownSearch from "./search";
 
 const HeaderBlock = styled.header`
   width: 100%;
-  height: 180px;
+  height: 170px;
   color: var(--color-gray);
   div {
     display: flex;
@@ -14,9 +14,6 @@ const HeaderBlock = styled.header`
   .top {
     justify-content: end;
     margin: 7px 20px 7px 10px;
-  }
-  .space {
-    margin-right: 7px;
   }
   position: fixed;
   background-color: white;
@@ -31,38 +28,6 @@ const Logo = styled.div`
     font-size: 43px;
     color: var(--color-navy);
   }
-`;
-
-const Serach = styled.div`
-  margin-right: 8px;
-`;
-
-const Category = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #aaaaaa;
-  padding: 7px;
-  margin: 5px 30px 5px 30px;
-  .space {
-    margin-right: 20px;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-  .cart-count {
-    font-size: 12px;
-  }
-`;
-
-const Nav = styled.nav`
-  background-color: white;
-  border: 1px solid #aaaaaa;
-  width: 60px;
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #bebcaf;
-  padding: 7px;
-  margin: 5px 30px 5px 30px;
 `;
 
 //우측 상단 버튼
@@ -82,9 +47,64 @@ const LoginBtn = styled.button`
   }
 `;
 
-const PageMove = styled(Link)`
-  text-decoration: none;
+const Serach = styled.div`
+  margin-right: 8px;
 `;
+
+
+const CategoryList = styled.div`
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #aaaaaa;
+  padding: 0px 7px;
+  margin: 0px 30px 0px 30px;
+  .cart-count {
+    font-size: 12px;
+  }
+  padding-left: 20px;
+  div{
+    height: 100%;
+  }
+`;
+
+const Nav = styled.nav`
+  position: absolute;
+  top: 22px;
+  left: -70px;
+  background-color: white;
+  border: 1px solid #aaaaaa;
+  width: 105px;
+  font-size: 15px;
+
+  justify-content: space-between;
+  border-bottom: 1px solid #bebcaf;
+  padding: 7px;
+  margin: 5px 30px 5px 30px;
+  div{
+    padding: 6px 0px;
+    flex-direction: column;
+    align-items: center;
+  }
+  display: none;
+  &:hover {
+      display: block;
+  }
+`;
+
+const Category = styled.div`
+  position: relative;
+  padding-right: 30px;
+  &:hover {
+    cursor: pointer;
+    ${Nav}{
+      display: block;
+    }
+  }
+`;
+
+
 
 function Header() {
   //const navigate = useNavigate();
@@ -123,16 +143,47 @@ function Header() {
             <div>DAILY DAILY</div>
           </Logo>
         </Link>
-        <Category>
+        <CategoryList>
           <div>
             <Link to="/sub">
-              <div className="space">서재</div>
+              <Category>서재 
+                <Nav className="1">
+                  <div>책상</div>
+                  <div>의자</div>
+                  <div>책장</div>
+                  <div>선반</div>
+                </Nav>
+              </Category>
             </Link>
-            <Link to="/cart">
-              <div className="space">침실</div>
+            <Link to="/sub">
+              <Category>침실  
+                <Nav className="2">
+                  <div>침대/매트리스</div>
+                  <div>행거/옷장</div>
+                  <div>화장대</div>
+                  <div>거울</div>
+                </Nav>
+              </Category>
             </Link>
-            <div className="space">거실</div>
-            <div className="space">주방</div>
+            <Link to="/sub">
+              <Category className="space">거실  
+                <Nav className="3">
+                  <div>소파</div>
+                  <div>거실장</div>
+                  <div>사이드테이블</div>
+                  <div>수납장</div>
+                </Nav>
+              </Category>
+            </Link>
+            <Link to="/sub">
+              <Category className="space">주방
+                <Nav className="4">
+                  <div>식탁/아일랜드</div>
+                  <div>식탁의자</div>
+                  <div>주방수납</div>
+                </Nav>
+              </Category>
+            </Link>
           </div>
 
           <div>
@@ -147,12 +198,15 @@ function Header() {
                 />
               )}
             </div>
-            <div>
-              <BsCart3 size="20" />
-              <div className="cart-count">(0)</div>
-            </div>
+            <Link to="/cart">
+              <div>
+                <BsCart3 size="20" />
+                <div className="cart-count">(0)</div>
+              </div>
+            </Link>
           </div>
-        </Category>
+        </CategoryList>
+       
       </HeaderBlock>
     </>
   );

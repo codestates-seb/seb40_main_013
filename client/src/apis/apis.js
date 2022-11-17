@@ -7,6 +7,8 @@ const Apis = axios.create({
 });
 
 axios.interceptors.request.use(function (config) {
+  console.log(123);
+
   config.withCredentials = true;
   let token = localStorage.getItem("Authorization");
   config.headers["Authorization"] = token;
@@ -25,7 +27,9 @@ Apis.interceptors.response.use(
       err.response.data.message === "Unauthorized"
     ) {
       const originalRequest = err.config;
+      console.log(11);
       try {
+        console.log(22);
         const data = await Apis.post(
           "refresh",
           {},
@@ -39,9 +43,12 @@ Apis.interceptors.response.use(
           localStorage.removeItem("Authorization");
           localStorage.setItem("Authorization", accToken);
           originalRequest.headers["Authorization"] = accToken;
+          // originalRequest.headers["Authorization"] = accToken;
+          // axios.defaults.headers.common.Authorization = accToken;
           originalRequest.headers["Refresh"] = refreshToken;
           console.log(originalRequest);
           return await axios.request(originalRequest);
+          // return 1;
         }
       } catch (err) {
         console.log("토큰 갱신 에러");
