@@ -9,6 +9,8 @@ import gohome.dailydaily.domain.review.repository.ReviewRepository;
 import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +39,11 @@ public class ReviewService {
     public void deleteReview(Long memberId, Long productId, Long reviewId) {
         Review verifiedReview = findVerifiedReview(memberId, productId, reviewId);
         reviewRepository.delete(verifiedReview);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Review> findReviewsByMemberId(Long memberId, Pageable pageable) {
+        return reviewRepository.findByMember_Id(memberId, pageable);
     }
 
     private Review findVerifiedReview(Long memberId, Long productId, Long reviewId) {
