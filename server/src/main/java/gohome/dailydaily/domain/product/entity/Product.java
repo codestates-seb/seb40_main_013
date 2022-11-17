@@ -32,9 +32,6 @@ public class Product extends BaseTime {
     @Column(nullable = false)
     private String content;
 
-    @Column
-    private File img;
-
     @Column(nullable = false)
     private Integer price;
 
