@@ -62,6 +62,8 @@ const EditProfile = ()=>{
       <Input name="email" disabled></Input>
       <Label for="nickname">닉네임</Label>
       <Input name="nickname"></Input>
+      <Label for="password">현재 비밀번호</Label>
+      <Input name="password"></Input>
       <Label for="password">비밀번호</Label>
       <Input name="password"></Input>
       <Label for="confirmPassword">비밀번호 확인</Label>

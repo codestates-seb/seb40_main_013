@@ -47,7 +47,8 @@ function Footer() {
 const FooterWrapper = styled.div`
   height: 200px;
   background-color: #fcf9e9;
-  padding: 20px 0px 10px 20px;
+
+  padding: 10px 0px 10px 20px;
   @media screen and (max-width: 768px) {
     min-width: 391px;
     width: 100%;
@@ -122,8 +123,8 @@ const FooterMenuBtn = styled.div`
     font-size: 12px;
   }
 `;
-const FooterSocialBtn = styled.a`
-  font-size: 30px;
+const FooterSocialBtn = styled.div`
+  font-size: 18px;
   cursor: pointer;
   &:hover {
     color: #ffaf51;
