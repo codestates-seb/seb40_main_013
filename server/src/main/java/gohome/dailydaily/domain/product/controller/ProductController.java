@@ -29,10 +29,10 @@ public class ProductController {
     private final ProductMapper mapper;
 
     // 미완성 추가구현 필요
-    @GetMapping()
+    @GetMapping
     public ResponseEntity getScoreAll() {
         List<Product> products = productService.findProduct();
-        return new ResponseEntity(products, HttpStatus.OK);
+        return null;
     }
 
     // 대분류
@@ -40,7 +40,7 @@ public class ProductController {
     public ResponseEntity<Slice<CategoryGetDto>> getCategoryMain(@PathVariable("main") String main,
                                                                  @PageableDefault(size = 20, sort = "createdAt",
                                                                          direction = Sort.Direction.DESC) Pageable pageable) {
-        return new ResponseEntity<>(productService.getCategoryList(pageable, main), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getCategoryList(pageable,main), HttpStatus.OK);
     }
 
     // 소분류

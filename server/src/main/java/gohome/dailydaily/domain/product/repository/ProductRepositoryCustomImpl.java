@@ -36,7 +36,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom{
 
         List<CategoryGetDto> content = new ArrayList<>();
         for(Product product: result){
-            content.add(new CategoryGetDto(product.getId(),product.getTitle(), product.getPrice(), product.getScore()));
+            content.add(new CategoryGetDto(product.getId(),product.getImg(),product.getTitle(), product.getPrice(), product.getScore()));
         }
         boolean hasNext =false;
         if(content.size() > pageable.getPageSize()){
@@ -59,7 +59,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom{
 
         List<CategoryGetDto> content = new ArrayList<>();
         for(Product product: result){
-            content.add(new CategoryGetDto(product.getId(),product.getTitle(), product.getPrice(), product.getScore()));
+            content.add(new CategoryGetDto(product.getId(),product.getImg(),product.getTitle(), product.getPrice(), product.getScore()));
         }
         boolean hasNext =false;
         if(content.size() > pageable.getPageSize()){

@@ -12,23 +12,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final CategoryRepository categoryRepository;
 
     public List<Product> findProduct() {
-        List<Product> products = productRepository.findAll();
-//        for (int i=0; i< products.size(); i++){
-//            SelectScoreDto s = new SelectScoreDto();
-//            Product product = products.get(i);
-//        }
-        return products;
+        List<List<Product>> products = new ArrayList<>();
+        products.add(productRepository.findTop5By());
+
+        return null;
     }
 
     public Slice<CategoryGetDto> getCategoryList(Pageable pageable, String main) {
@@ -43,6 +40,5 @@ public class ProductService {
     public Product getProduct(Long productId) {
         return productRepository.findProductById(productId).orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
-        //return productRepository.findById(productId);
     }
 }
