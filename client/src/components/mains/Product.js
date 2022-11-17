@@ -4,8 +4,11 @@ import starimg from '../../imgs/star.png'
 import { Link } from "react-router-dom";
 
 const Products = styled(Link)`
-  width: 250px;
+  width: 200px;
   margin: 0 10px;
+  @media screen and (max-width: 390px){
+    width: 150px;
+  }
 `;
 const Img = styled.img`
   width: 100%;
@@ -14,8 +17,11 @@ const Img = styled.img`
 const Detail = styled.div`
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 200px;
   margin-top: 10px;
+  @media screen and (max-width: 390px){
+    width: 150px;
+  }
 `;
 const Brand = styled.h5`
   color: var(--font-ligthblack);
@@ -23,6 +29,10 @@ const Brand = styled.h5`
 const Title = styled.h2`
   font-size: 1.1rem;
   font-weight: 500;
+  @media screen and (max-width: 390px){
+    font-size: 1rem;
+    font-weight: 400;
+  }
 `;
 const Price = styled.h5`
   display: flex;
@@ -31,6 +41,10 @@ const Price = styled.h5`
   margin-right: 10px;
   font-size: 1.5rem;
   font-weight: 700;
+  @media screen and (max-width: 390px){
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
 `;
 const Colorchip = styled.div`
   display: flex;

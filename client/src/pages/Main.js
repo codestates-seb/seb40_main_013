@@ -10,6 +10,7 @@ import Apis from "../apis/apis";
 import BrandProducts from "../components/mains/BrandProducts";
 
 const Container = styled.div`
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,15 +47,24 @@ const FullTitle = styled.div`
 `;
 const FullView = styled(Link)`
   font-size: 1.5rem;
-  margin-bottom: 10px;
-  margin-right: 40px;
+  margin: 20px 40px 5px 0;
   cursor: pointer;
 `;
 const ProductList = styled.div`
-  width: 80%;
+  /* width: 70%; */
   margin: 30px 0;
-  display: flex;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   justify-content: center;
+  @media screen and (max-width: 390px){
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 391px) and (max-width: 768px){
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `;
 
 
@@ -85,7 +95,7 @@ const Main = () => {
       <FullTitle name="fullTitle" className="fullTitle">
       </FullTitle>
       <ProductList>
-        {productList.filter(product => product.id < 5).map(product =>
+        {productList.filter(product => product.id < 6).map(product =>
           <Products
             brand={product.brand}
             img={product.img}
@@ -98,19 +108,21 @@ const Main = () => {
       </ProductList>
       <Title>브랜드별 추천상품</Title>
       <BrandProducts
-      dodotList={productList.filter(p => p.brand === 'dodot' && p.id < 9)}
-      sofsysList={productList.filter(p => p.brand === '소프시스')}
-      forthehomeList={productList.filter(p => p.brand === '포더홈')}
-      deskerList={productList.filter(p => p.brand === '데스커')}/>
+        key={productList.length}
+        dodotList={productList.filter(p => p.brand === 'dodot' && p.id < 9)}
+        sofsysList={productList.filter(p => p.brand === '소프시스')}
+        forthehomeList={productList.filter(p => p.brand === '포더홈')}
+        deskerList={productList.filter(p => p.brand === '데스커')}/>
       <Title>New Arrival</Title>
       <Table>
-        <tr>
-          <TD>전체보기</TD>
-          <TD>서재</TD>
-          <TD>침실</TD>
-          <TD>거실</TD>
-          <TD>주방</TD>
-        </tr>
+        <tbody className="tbody">
+          <tr className="tr">
+            <TD>서재</TD>
+            <TD>침실</TD>
+            <TD>거실</TD>
+            <TD>주방</TD>
+          </tr>
+        </tbody>
       </Table>
       <FullTitle name="fullTitle" className="fullTitle">
         <FullView name="fullView" className="fullView">
@@ -118,11 +130,11 @@ const Main = () => {
         </FullView>
       </FullTitle>
       <ProductList>
-        {productList.map((product) => (
+        {productList.map((product, key) => (
           <Products
             brand={product.brand}
             img={product.img}
-            key={product.id}
+            key={key}
             title={product.title}
             price={product.price}
             score={product.score}

@@ -6,13 +6,33 @@ import sofsys from "../../imgs/sofsys.jpeg"
 import forthehome from "../../imgs/forthehome.png"
 import desker from "../../imgs/desker.png"
 
-const BrandContainer = styled.div``;
+const BrandContainer = styled.div`
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  /* @media screen and (max-width: 390px){
+    height: 100vh;
+  }
+  @media (min-width: 391px) and (max-width: 768px){
+    height: 90%;
+  } */
+`;
 
 //tab
 const Tabs = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px 0;
+  @media screen and (max-width: 390px){
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+  @media (min-width: 391px) and (max-width: 768px){
+  }
+`;
+const SubTab = styled.div`
+  display: flex;
 `;
 const Tab = styled.div`
   background-color: #f8f8f8;
@@ -36,6 +56,9 @@ const Tab = styled.div`
     color: white;
     background-color: #FFAF51;
   }
+  @media screen and (max-width: 390px){
+    margin-bottom: 10px;
+  }
 `;
 //브랜드별 이미지
 const BrandProduct = styled.div`
@@ -44,16 +67,43 @@ const BrandProduct = styled.div`
   border-radius: 10px;
   margin: 20px 0;
   height: 60vh;
+  @media screen and (max-width: 390px){
+    flex-direction: column;
+    width: 80%;
+  }
+  @media (min-width: 391px) and (max-width: 768px){
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+  }
 `;
 
 const BrandImg = styled.img`
   width: 500px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  @media screen and (max-width: 390px){
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0;
+  }
+  @media (min-width: 391px) and (max-width: 768px){
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0;
+  }
 `;
 const BPList = styled.div`
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 390px){
+    width: 100%;
+  }
+  @media (min-width: 391px) and (max-width: 768px){
+    width: 100%;
+  }
 `;
 const BP = styled.div`
   display: flex;
@@ -62,6 +112,14 @@ const BP = styled.div`
   height: 20%;
   width: 400px;
   padding-right: 10px;
+  @media screen and (max-width: 390px){
+    width: 100%;
+    padding: 10px 0;
+  }
+  @media (min-width: 391px) and (max-width: 768px){
+    width: 100%;
+    padding: 10px 0;
+  }
 `;
 const Img = styled.img`
   width: 70px;
@@ -89,17 +147,17 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
     const text = e.target.innerText;
     setClicked(text);
   }, []);
-  console.log(productList)
+
   const ProductArr = {
     "두닷": <BrandProduct>
             <BrandImg src={dodot}></BrandImg>
             <BPList>
-            {dodotList.map(p=>
-                    <BP>
+            {dodotList.map((p, key)=>
+                  <BP key={key}>
                     <Img src={p.img} />
                     <TP>
                       <Title>{p.title}</Title>
-                      <Price>{p.price}</Price>
+                      <Price>{p.price.toLocaleString('en-US')}</Price>
                     </TP>
                   </BP>
                   )}
@@ -108,12 +166,12 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
   "소프시스": <BrandProduct>
               <BrandImg src={sofsys}></BrandImg>
               <BPList>
-              {sofsysList.map(p=>
-                    <BP>
+              {sofsysList.map((p, key)=>
+                  <BP key={key}>
                       <Img src={p.img} />
                       <TP>
                         <Title>{p.title}</Title>
-                        <Price>{p.price}</Price>
+                        <Price>{p.price.toLocaleString('en-US')}</Price>
                       </TP>
                     </BP>
                   )}
@@ -122,12 +180,12 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
   "포더홈": <BrandProduct>
               <BrandImg src={forthehome}></BrandImg>
               <BPList>
-              {forthehomeList.map(p=>
-                    <BP>
+              {forthehomeList.map((p, key)=>
+                  <BP key={key}>
                     <Img src={p.img} />
                     <TP>
                       <Title>{p.title}</Title>
-                      <Price>{p.price}</Price>
+                      <Price>{p.price.toLocaleString('en-US')}</Price>
                     </TP>
                   </BP>
                   )}
@@ -136,12 +194,12 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
   "데스커": <BrandProduct>
             <BrandImg src={desker}></BrandImg>
             <BPList>
-            {deskerList.map(p=>
-                    <BP>
+            {deskerList.map((p, key)=>
+                  <BP key={key}>
                     <Img src={p.img} />
                     <TP>
                       <Title>{p.title}</Title>
-                      <Price>{p.price}</Price>
+                      <Price>{p.price.toLocaleString('en-US')}</Price>
                     </TP>
                   </BP>
                   )}
@@ -152,6 +210,7 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
   return (
     <BrandContainer>
       <Tabs>
+        <SubTab>
           <Tab
           name="dodot"
           className={clicked === '두닷' ? 'clicked' : ''}
@@ -166,20 +225,23 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
           value="2">
             소프시스
           </Tab>
+      </SubTab>
+      <SubTab>
           <Tab
-          name="forTheHome"
-          className={clicked === '포더홈' ? 'clicked' : ''}
-          onClick={onClick}
-          value="3">
-            포더홈
-          </Tab>
-          <Tab
-          name="illom"
-          className={clicked === '데스커' ? 'clicked' : ''}
-          onClick={onClick}
-          value="4">
-            데스커
-          </Tab>
+            name="forTheHome"
+            className={clicked === '포더홈' ? 'clicked' : ''}
+            onClick={onClick}
+            value="3">
+              포더홈
+            </Tab>
+            <Tab
+            name="illom"
+            className={clicked === '데스커' ? 'clicked' : ''}
+            onClick={onClick}
+            value="4">
+              데스커
+            </Tab>
+          </SubTab>
         </Tabs>
         {ProductArr[clicked]}
       </BrandContainer>
