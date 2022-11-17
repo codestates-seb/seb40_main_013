@@ -46,7 +46,7 @@ public class CartService {
     
     public Cart findVerifiedCart(Long memberId) {
         
-        return cartRepository.findByMemberMemberId(memberId)
+        return cartRepository.findByMember_Id(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 }
