@@ -21,7 +21,7 @@ public class CrawlingController {
     @ResponseStatus(HttpStatus.OK)
     public void productName() {
 
-        String url = "https://www.dodot.co.kr/new_shop/shop3.php?cd1=001";
+        String url = "https://ohou.se/store/category?category=0_22";
 
 //        for (String url : urls) {
         log.info("@CrawlingController, productName url : " + url);

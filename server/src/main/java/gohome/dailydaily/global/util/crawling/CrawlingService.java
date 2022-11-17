@@ -44,35 +44,40 @@ public class CrawlingService implements Crawler {
 
         try {
             doc = Jsoup.connect(url).get();
+
+            // <ul class="productList"> 태그 내부의 모든 내용이 담김
+            Elements titleElements = doc.getElementsByClass("production-item__header__name");
+            Elements priceElements = doc.getElementsByClass("production-item-price__price");
+            Elements scoreElements = doc.getElementsByClass("avg");
+//            Elements imageUrlElements = doc.select("ul.productList").select("li.productName");
+//            Elements titleElements = doc.select("ul.productList").select("li.productName");
+//            Elements titleElements = doc.select("ul.productList").select("li.productName");
+
+            for (int i = 0; i < titleElements.size()-1; i++) {
+                String productName = titleElements.get(i).text();
+                String productPrice = priceElements.get(i).text();
+                String productScore = scoreElements.get(i).text();
+                log.info("Product URL: " + productName);
+                log.info("Product URL: " + productPrice);
+                productPrice = productPrice.replace(",","");
+                productPrice = productPrice.replaceAll("\\W", "");
+
+
+                Product postProduct = Product.builder()
+                        .title(productName)
+                        .content("test")
+                        .price(Integer.parseInt(productPrice))
+                        .score(Float.parseFloat(productScore))
+                        .build();
+
+                products.add(postProduct);
+            }
+
+            productRepository.saveAll(products);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // <ul class="productList"> 태그 내부의 모든 내용이 담김
-        Elements elements = doc.select("ul.productList").select("li.productName");
-
-        for (int i = 0; i < elements.size(); i++) {
-            String data = elements.get(i).text();
-            log.info("ProductName: " + data);
-            Product postProduct = Product.builder()
-                    .title(data)
-                    .content("test")
-                    .price(0)
-                    .score(0F)
-                    .build();
-
-            products.add(postProduct);
-        }
-
-        elements = doc.select("ul.productList").select("li.OriginalPrice");
-
-        for (int i = 0; i < elements.size(); i++) {
-            String data = elements.get(i).text().replace(",", "");
-            log.info("ProductPrice: " + data);
-            products.get(i).setPrice(Integer.parseInt(data));
-        }
-
-        productRepository.saveAll(products);
     }
 
     // url 로 이미지 저장
