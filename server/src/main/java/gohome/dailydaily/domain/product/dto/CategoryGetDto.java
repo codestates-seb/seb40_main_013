@@ -1,8 +1,14 @@
 package gohome.dailydaily.domain.product.dto;
 
-public interface CategoryGetDto {
-    Long getId();
-    String getTitle();
-    Integer getPrice();
-    Float getScore();
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public class CategoryGetDto {
+
+    private Long id;
+    private String title;
+    private Integer price;
+    private Integer score;
 }
