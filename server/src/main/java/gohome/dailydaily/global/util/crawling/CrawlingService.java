@@ -20,9 +20,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -59,7 +58,6 @@ public class CrawlingService implements Crawler {
                 String productScore = scoreElements.get(i).text();
                 log.info("Product URL: " + productName);
                 log.info("Product URL: " + productPrice);
-                productPrice = productPrice.replace(",","");
                 productPrice = productPrice.replaceAll("\\W", "");
 
 
