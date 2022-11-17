@@ -79,6 +79,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 305px 0px 120px 0px;
+
   @media screen and (max-width: 768px) {
     width: 100%;
     height: 100vh;
@@ -97,6 +98,7 @@ const Wrapper = styled.div`
     min-width: 391px;
     width: 100%;
     height: 190vh;
+
   }
 `;
 

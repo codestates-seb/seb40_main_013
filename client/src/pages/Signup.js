@@ -134,6 +134,7 @@ const Wrapper = styled.div`
   width: 100%;
   /* height: 58vh; */
   height: 100vh;
+
   margin-top: 14px;
   display: flex;
   justify-content: center;
@@ -162,6 +163,7 @@ const Wrapper = styled.div`
     width: 90%;
     height: 190vh;
   }
+
 `;
 const SignupWrapper = styled.div`
   width: 500px;

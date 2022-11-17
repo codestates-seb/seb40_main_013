@@ -8,6 +8,7 @@ const CartBlock = styled.div`
   /* min-height: 670px; */
   padding: 30px 40px 50px 40px;
   margin-top: 180px;
+
   display: flex;
   justify-content: center;
   div {
