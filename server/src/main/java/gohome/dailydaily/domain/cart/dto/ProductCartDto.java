@@ -7,8 +7,16 @@ import lombok.Getter;
 
 public class ProductCartDto {
 
-    private Long productId;
-    private Integer count;
+    @Getter
+    @AllArgsConstructor
+    public static class Post {
+
+        private Long productId;
+        private Integer count;
+        private Long optionId;
+    }
+
+
 
     @Getter
     @AllArgsConstructor

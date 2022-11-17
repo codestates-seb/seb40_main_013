@@ -10,8 +10,11 @@ public class CartDto {
 
     @Getter
     public static class Post {
+
         private Long memberId;
-        private List<ProductCartDto> productCarts;
+        private Long productId;
+        private Integer count;
+        private Long optionId;
 
     }
 

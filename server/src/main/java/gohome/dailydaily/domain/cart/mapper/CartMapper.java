@@ -18,7 +18,7 @@ public class CartMapper {
 
     private final ProductCartMapper productCartMapper;
 
-    CartDto.Response toResponse(Cart cart) {
+    public CartDto.Response toResponse(Cart cart) {
 
         return new CartDto.Response(
                 cart.getId(),
