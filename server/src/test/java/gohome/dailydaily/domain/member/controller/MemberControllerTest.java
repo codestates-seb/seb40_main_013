@@ -7,6 +7,9 @@ import gohome.dailydaily.domain.member.entity.MemberStatus;
 import gohome.dailydaily.domain.member.mapper.MemberMapper;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
 import gohome.dailydaily.domain.member.service.MemberService;
+import gohome.dailydaily.domain.review.entity.Review;
+import gohome.dailydaily.domain.review.mapper.ReviewMapper;
+import gohome.dailydaily.domain.review.service.ReviewService;
 import gohome.dailydaily.util.Reflection;
 import gohome.dailydaily.util.security.SecurityTestConfig;
 import gohome.dailydaily.util.security.WithMockCustomUser;
@@ -16,11 +19,14 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import java.util.List;
 
 import static gohome.dailydaily.util.TestConstant.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,7 +39,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = {MemberController.class, MemberMapper.class, SellerMapper.class})
+@WebMvcTest(controllers = {MemberController.class, MemberMapper.class, SellerMapper.class, ReviewMapper.class})
 @MockBean(JpaMetamodelMappingContext.class)
 @Import(SecurityTestConfig.class)
 @AutoConfigureRestDocs
@@ -46,6 +52,8 @@ class MemberControllerTest implements Reflection {
     private Gson gson;
     @MockBean
     private MemberService memberService;
+    @MockBean
+    private ReviewService reviewService;
 
     @Test
     public void signup() throws Exception {
@@ -186,6 +194,39 @@ class MemberControllerTest implements Reflection {
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         REQUEST_HEADER_JWT
+                ));
+    }
+
+    @Test
+    public void getReviewsByMemberId() throws Exception {
+        // given
+        Page<Review> reviews = new PageImpl<>(List.of(REVIEW1, REVIEW2), PAGEABLE, 2);
+
+        given(reviewService.findReviewsByMemberId(MEMBER.getId(), PAGEABLE))
+                .willReturn(reviews);
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                get("/members/mypage/reviews")
+                        .param("page", String.valueOf(PAGEABLE.getOffset()))
+                        .param("size", String.valueOf(PAGEABLE.getPageSize()))
+                        .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
+                        .header("Authorization", "JWT")
+        );
+
+        // then
+        actions.andExpect(status().isOk())
+                .andDo(document("members/reviews",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
+                        REQUEST_PARAMETERS_PAGE,
+                        responseFields(
+                                FWP_CONTENT, FWP_CONTENT_REVIEW_ID,
+                                FWP_CONTENT_REVIEW_TITLE, FWP_CONTENT_REVIEW_CONTENT, FWP_CONTENT_REVIEW_SCORE,
+                                FWP_PAGE_INFO, FWP_PAGE_INFO_PAGE, FWP_PAGE_INFO_PAGE, FWP_PAGE_INFO_SIZE,
+                                FWP_PAGE_INFO_TOTAL_ELEMENTS, FWP_PAGE_INFO_TOTAL_PAGES
+                        )
                 ));
     }
 }
