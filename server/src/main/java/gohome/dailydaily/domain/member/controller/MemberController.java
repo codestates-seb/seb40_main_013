@@ -1,6 +1,6 @@
 package gohome.dailydaily.domain.member.controller;
 
-import gohome.dailydaily.domain.member.dto.MemberDto;
+import gohome.dailydaily.domain.member.dto.MemberDto.*;
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.member.mapper.MemberMapper;
@@ -25,21 +25,27 @@ public class MemberController {
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public MemberDto.UserResponse signup(@Valid @RequestBody MemberDto.UserSignup userSignup) {
+    public UserResponse signup(@Valid @RequestBody UserSignup userSignup) {
         Member member = memberService.createMember(memberMapper.toMember(userSignup));
         return memberMapper.toResponse(member);
     }
 
     @PostMapping("/signup/seller")
     @ResponseStatus(HttpStatus.CREATED)
-    public MemberDto.SellerResponse sellerSignup(@Valid @RequestBody MemberDto.SellerSignup sellerSignup) {
+    public SellerResponse sellerSignup(@Valid @RequestBody SellerSignup sellerSignup) {
         Seller seller = memberService.createSeller(sellerMapper.toSeller(sellerSignup));
         return sellerMapper.toResponse(seller);
     }
 
+    @GetMapping("/members/mypage")
+    public UserResponse getMember(@MemberId Long memberId) {
+        Member member = memberService.findVerifiedMember(memberId);
+        return memberMapper.toResponse(member);
+    }
+
     @PatchMapping("/members/mypage")
-    public MemberDto.UserResponse patchMember(@MemberId Long memberId,
-                                              @Valid @RequestBody MemberDto.Patch patch) {
+    public UserResponse patchMember(@MemberId Long memberId,
+                                    @Valid @RequestBody Patch patch) {
         Member member = memberService.updateMember(memberMapper.toMember(patch, memberId));
         return memberMapper.toResponse(member);
     }

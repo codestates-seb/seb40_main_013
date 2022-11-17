@@ -50,7 +50,7 @@ public class TestConstant {
     public static final FieldDescriptor FWP_PASSWORD = fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호");
 
     public static final ResponseFieldsSnippet MEMBER_RESPONSE_FIELDS = responseFields(
-            FWP_MEMBER_ID, FWP_EMAIL, FWP_NICKNAME, FWP_ADDRESS, FWP_PHONE, FWP_MEMBER_STATUS
+            FWP_MEMBER_ID, FWP_NICKNAME, FWP_EMAIL, FWP_ADDRESS, FWP_PHONE, FWP_MEMBER_STATUS
     );
 
     public TestConstant() {

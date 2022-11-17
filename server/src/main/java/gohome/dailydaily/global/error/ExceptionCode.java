@@ -6,14 +6,18 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum ExceptionCode {
-    MEMBER_NOT_FOUND(404, "Member not found"),
-    MEMBER_EXIST(409, "Member exists"),
-    ORDER_NOT_FOUND(404, "Order not found"),
+    ID_DOES_NOT_MATCH(400, "ID does not match"),
+
     CANNOT_CHANGE_ORDER(403, "Order can not change"),
+
+    MEMBER_NOT_FOUND(404, "Member not found"),
+    ORDER_NOT_FOUND(404, "Order not found"),
     PRODUCT_NOT_FOUND(404, "Product not found"),
+    REVIEW_NOT_FOUND(404, "Review not found"),
 
     EMAIL_ALREADY_EXISTS(409, "Email already exist"),
     NICKNAME_ALREADY_EXISTS(409, "Nickname already exist"),
+    MEMBER_EXIST(409, "Member exists"),
 
     ;
 

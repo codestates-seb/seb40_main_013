@@ -25,19 +25,14 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        final ErrorResponse response = ErrorResponse.of(e.getBindingResult());
-
-        return response;
+        return ErrorResponse.of(e.getBindingResult());
     }
 
     // URI 변수로 넘어오는 값의 유효성 검증 에러인 ConstraintViolationException 처리하는 메서드
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleConstraintViolationException(ConstraintViolationException e) {
-
-        final ErrorResponse response = ErrorResponse.of(e.getConstraintViolations());
-
-        return response;
+        return ErrorResponse.of(e.getConstraintViolations());
     }
 
     // 서비스 계층에서 던진 BusinessLogicException 을 Exception Advice 에서 처리
@@ -53,31 +48,21 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public ErrorResponse handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-
-        final ErrorResponse response = ErrorResponse.of(HttpStatus.METHOD_NOT_ALLOWED);
-
-        return response;
+        return ErrorResponse.of(HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     // HttpMessageNotReadableException 을 처리하기 위한 메서드
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleHttpMessageNotReadableException (HttpMessageNotReadableException e) {
-
-        final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST,
-                "Required request body is missing");
-
-        return response;
+        return ErrorResponse.of(HttpStatus.BAD_REQUEST, "Required request body is missing");
     }
 
     // MissingServletRequestParameterException 을 처리하기 위한 메서드
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleMissingServletRequestParameterException (MissingServletRequestParameterException e) {
-
-        final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST, e.getMessage());
-
-        return response;
+        return ErrorResponse.of(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
 
@@ -87,8 +72,6 @@ public class GlobalExceptionAdvice {
     public ErrorResponse handleException(Exception e) {
         log.error("# handle Exception", e);
 
-        final ErrorResponse response = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR);
-
-        return response;
+        return ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 }

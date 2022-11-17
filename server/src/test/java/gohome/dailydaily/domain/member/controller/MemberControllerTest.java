@@ -3,6 +3,7 @@ package gohome.dailydaily.domain.member.controller;
 import com.google.gson.Gson;
 import gohome.dailydaily.domain.member.dto.MemberDto;
 import gohome.dailydaily.domain.member.entity.Member;
+import gohome.dailydaily.domain.member.entity.MemberStatus;
 import gohome.dailydaily.domain.member.mapper.MemberMapper;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
 import gohome.dailydaily.domain.member.service.MemberService;
@@ -17,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -25,12 +27,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = {MemberController.class, MemberMapper.class, SellerMapper.class})
 @MockBean(JpaMetamodelMappingContext.class)
@@ -54,10 +55,17 @@ class MemberControllerTest implements Reflection {
         setField(signup, "email", "test@test.com");
         setField(signup, "password", "test1password!");
 
+        Member member = Member.builder()
+                .id(1L)
+                .nickname(signup.getNickname())
+                .email(signup.getEmail())
+                .memberStatus(MemberStatus.ACTIVE)
+                .build();
+
         String request = gson.toJson(signup);
 
         given(memberService.createMember(any(Member.class)))
-                .willReturn(MEMBER);
+                .willReturn(member);
 
         // when
         ResultActions actions = mockMvc.perform(
@@ -69,18 +77,52 @@ class MemberControllerTest implements Reflection {
 
         // then
         actions.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.memberId").value(MEMBER.getId()))
-                .andExpect(jsonPath("$.email").value(MEMBER.getEmail()))
-                .andExpect(jsonPath("$.nickname").value(MEMBER.getNickname()))
-                .andExpect(jsonPath("$.address").value(MEMBER.getAddress()))
-                .andExpect(jsonPath("$.phone").value(MEMBER.getPhone()))
-                .andExpect(jsonPath("$.memberStatus").value(MEMBER.getMemberStatus().name()))
+                .andExpect(jsonPath("$.memberId").value(member.getId()))
+                .andExpect(jsonPath("$.email").value(member.getEmail()))
+                .andExpect(jsonPath("$.nickname").value(member.getNickname()))
+                .andExpect(jsonPath("$.address").value(member.getAddress()))
+                .andExpect(jsonPath("$.phone").value(member.getPhone()))
+                .andExpect(jsonPath("$.memberStatus").value(member.getMemberStatus().name()))
                 .andDo(document("members/signup",
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         requestFields(
                                 FWP_NICKNAME, FWP_EMAIL, FWP_PASSWORD
                         ),
+                        responseFields(
+                                FWP_MEMBER_ID, FWP_NICKNAME, FWP_EMAIL,
+                                fieldWithPath("address").type(JsonFieldType.NULL).description("주소"),
+                                fieldWithPath("phone").type(JsonFieldType.NULL).description("휴대폰 번호"),
+                                FWP_MEMBER_STATUS
+                        )
+                ));
+    }
+
+    @Test
+    public void getMember() throws Exception {
+        // given
+        given(memberService.findVerifiedMember(MEMBER.getId()))
+                .willReturn(MEMBER);
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                get("/members/mypage")
+                        .header("Authorization", "JWT")
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.memberId").value(MEMBER.getId()))
+                .andExpect(jsonPath("$.email").value(MEMBER.getEmail()))
+                .andExpect(jsonPath("$.nickname").value(MEMBER.getNickname()))
+                .andExpect(jsonPath("$.address").value(MEMBER.getAddress()))
+                .andExpect(jsonPath("$.phone").value(MEMBER.getPhone()))
+                .andExpect(jsonPath("$.memberStatus").value(MEMBER.getMemberStatus().name()))
+                .andDo(document("members/get",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
                         MEMBER_RESPONSE_FIELDS
                 ));
     }

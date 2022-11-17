@@ -46,8 +46,8 @@ public class MemberDto {
     @Builder
     public static class UserResponse {
         private Long memberId;
-        private String email;
         private String nickname;
+        private String email;
         private String address;
         private String phone;
         private MemberStatus memberStatus;
