@@ -27,7 +27,7 @@ public class CartController {
     public ResponseEntity postCart(@PathVariable Long productId,
                                    @MemberId Long memberId,
                                    @RequestBody ProductCartDto.Post productCartDto) {
-        ProductCart productCart = productCartMapper.toProductCart(productCartDto);
+        ProductCart productCart = productCartMapper.toProductCart(productCartDto, productId);
 
         Cart cart = cartService.addCart(productCart, memberId);
 
