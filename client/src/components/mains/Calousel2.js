@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
-import ImgSlider from "../mains/ImgSlider";
+import ImgSlider from "./ImgSlider";
 
 const len = ImgSlider.length - 1;
 
-const SubCarousel = () => {
+const Carousel2 = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(()=>{
@@ -48,7 +48,6 @@ const Container = styled.div`
   position: relative;
   margin: auto;
   overflow: hidden;
-  flex-direction: column;
 `;
 const Arrows = styled.div``;
 const Prev = styled.span`
@@ -130,5 +129,25 @@ const Img = styled.img`
   position: absolute;
   object-fit: cover;
 `;
+// const SlideTitle = styled.h2`
+//   width: 100%;
+//   height: 100%;
+//   color: white;
+//   font-size: 50px;
+//   position: absolute;
+//   text-align: center;
+//   top: 40%;
+//   z-index: 10;
+// `;
+// const SlideText = styled.h3`
+// width: 100%;
+//   height: 100%;
+//   color: white;
+//   font-size: 2rem;
+//   position: absolute;
+//   text-align: center;
+//   top: 65%;
+//   z-index: 10;
+// `;
 
-export default SubCarousel;
+export default Carousel2;

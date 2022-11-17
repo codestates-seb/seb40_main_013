@@ -3,7 +3,7 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "https://true-pears-own-59-20-223-31.loca.lt/",
 });
 
 axios.interceptors.request.use(function (config) {

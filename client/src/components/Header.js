@@ -132,15 +132,12 @@ function Header() {
                   </Link>
                     <div className="space">주방</div>
                 </div>
-                
                 <div>
                     <div ref={modalRef} className='modal'>
                       <Serach onClick={closeHandler}>
                        <BsSearch size='20'/>
                       </Serach>
-                      {closeSearch && 
-                       <DownSearch closeSearch={closeSearch} closeHandler={closeHandler} />
-                      }
+                      <DownSearch closeSearch={closeSearch} closeHandler={closeHandler} />
                     </div>
                     <div>
                         <BsCart3 size='20'/>
