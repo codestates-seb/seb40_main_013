@@ -127,7 +127,7 @@ const Img = styled.img`
   width: 100%;
   height: 100%;
   position: absolute;
-  object-fit: cover;
+  /* object-fit: cover; */
 `;
 // const SlideTitle = styled.h2`
 //   width: 100%;

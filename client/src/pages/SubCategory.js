@@ -14,7 +14,7 @@ import room from '../imgs/room.jpg'
 import Goods from '../components/subcategories/goods'
 
 const SubBlock = styled.div`
-    margin: 30px 40px;
+    margin: 210px 40px 30px 40px;
     div{
         display: flex;
     }
@@ -96,7 +96,6 @@ function SubCategory() {
                    star={product.star}
                 />
              ))}
-             <Goods img={chair3}/>
             </div>
         </ProductList>
     </SubBlock>

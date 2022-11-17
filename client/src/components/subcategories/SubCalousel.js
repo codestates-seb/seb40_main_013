@@ -31,19 +31,19 @@ const SubCarousel = () => {
         <Prev className="prev" onClick={()=> setActiveIndex(activeIndex < 1 ? len : activeIndex - 1)}>&#10094;</Prev>
         <Next className="next" onClick={()=> setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)}>&#10095;</Next>
       </Arrows>
-      <AllDots className="all-dots">
+      {/* <AllDots className="all-dots">
         {ImgSlider.map((slide, index)=> (
           <Dot key={index}
           className={`${activeIndex === index ? "dot active-dot" : "dot"}`}
           onClick={(activeIndex)=> setActiveIndex(activeIndex)}
           />
         ))}
-      </AllDots>
+      </AllDots> */}
     </Container>
     )
   }
 const Container = styled.div`
-  height: 50vh;
+  height: 28vh;
   width: 100%;
   position: relative;
   margin: auto;
@@ -90,7 +90,7 @@ cursor: pointer;
 `;
 const AllDots = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   top: 85%;
   justify-content: center;
