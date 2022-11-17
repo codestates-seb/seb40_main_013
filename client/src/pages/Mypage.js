@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PurchaseList from "../components/mypages/PurchaseList";
 import EditProfile from "../components/mypages/EditProfile";
 import { Routes, Route, Link } from "react-router-dom";
+import MyReview from "../components/mypages/MyReview";
 
 const Container = styled.div`
   display: flex;
@@ -93,12 +94,22 @@ const Mypage = () => {
               정보 수정
             </NavDetail>
           </Link>
+          <Link to="review" style={{ textDecoration: "none" }}>
+            <NavDetail
+              name="reviewListTab"
+              className={clicked === "작성한 리뷰" ? "clicked" : ""}
+              onClick={onClick}
+            >
+              작성한 리뷰
+            </NavDetail>
+          </Link>
         </Nav>
       </Left>
       <Routes>
         <Route path="/*" element={<PurchaseList />}></Route>
         <Route path="/purchase" element={<PurchaseList />}></Route>
         <Route path="/edit" element={<EditProfile />}></Route>
+        <Route path="/review" element={<MyReview />}></Route>
       </Routes>
     </Container>
   );

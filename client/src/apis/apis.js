@@ -3,7 +3,7 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "https://yummy-lands-march-59-20-223-31.loca.lt/",
 });
 
 axios.interceptors.request.use(function (config) {
@@ -20,7 +20,10 @@ Apis.interceptors.response.use(
     return response;
   },
   async function (err) {
-    if (err.response && err.response.data.message === "JWT expired") {
+    if (
+      err.response.data.message === "JWT expired" ||
+      err.response.data.message === "Unauthorized"
+    ) {
       const originalRequest = err.config;
       try {
         const data = await Apis.post(
