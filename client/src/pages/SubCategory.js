@@ -14,7 +14,9 @@ import room from "../imgs/room.jpg";
 import Goods from "../components/subcategories/goods";
 
 const SubBlock = styled.div`
-    margin: 200px 40px 30px 40px;
+    width: 100%;
+    margin-top: 170px;
+    padding: 30px 40px 30px 40px;
     div{
         display: flex;
     }
