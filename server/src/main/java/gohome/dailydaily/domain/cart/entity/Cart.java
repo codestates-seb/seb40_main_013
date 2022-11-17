@@ -27,4 +27,10 @@ public class Cart extends BaseTime {
     @OneToMany(mappedBy = "cart")
     private final List<ProductCart> productCarts = new ArrayList<>();
 
+    public void addProductCart(ProductCart productCart) {
+        this.productCarts.add(productCart);
+        if (productCart.getCart() != this) {
+            productCart.addCart(this);
+        }
+    }
 }

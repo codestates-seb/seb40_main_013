@@ -1,6 +1,7 @@
 package gohome.dailydaily.domain.cart.entity;
 
 
+import gohome.dailydaily.domain.product.entity.Option;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.global.common.BaseTime;
 import lombok.*;
@@ -26,8 +27,25 @@ public class ProductCart extends BaseTime {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "options")
+    private Option option;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
+    public void addCart(Cart cart) {
+        this.cart = cart;
+        if (!this.cart.getProductCarts().contains(this)) {
+            this.cart.getProductCarts().add(this);
+        }
+    }
+
+    public void addProduct(Product product) {
+        this.product = product;
+    }
+    public void addOption(Option option) {
+        this.option = option;
+    }
 }
