@@ -3,7 +3,7 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import CartItem from "../components/CartItem";
 
 const CartBlock = styled.div`
-  margin-top: 180px;
+  margin-top: 170px;
   width: 100%;
   height: 100%;
   /* min-height: 670px; */

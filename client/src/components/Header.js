@@ -6,7 +6,7 @@ import DownSearch from "./search";
 
 const HeaderBlock = styled.header`
   width: 100%;
-  height: 180px;
+  height: 170px;
   color: var(--color-gray);
   div {
     display: flex;
@@ -14,9 +14,6 @@ const HeaderBlock = styled.header`
   .top {
     justify-content: end;
     margin: 7px 20px 7px 10px;
-  }
-  .space {
-    margin-right: 7px;
   }
   position: fixed;
   background-color: white;
@@ -56,7 +53,7 @@ const Serach = styled.div`
 
 
 const CategoryList = styled.div`
-height: 30px;
+  height: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,25 +64,28 @@ height: 30px;
     font-size: 12px;
   }
   padding-left: 20px;
+  div{
+    height: 100%;
+  }
 `;
 
 const Nav = styled.nav`
   position: absolute;
-  top: 16px;
+  top: 22px;
   left: -70px;
   background-color: white;
   border: 1px solid #aaaaaa;
   width: 105px;
   font-size: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
   justify-content: space-between;
   border-bottom: 1px solid #bebcaf;
   padding: 7px;
   margin: 5px 30px 5px 30px;
   div{
     padding: 6px 0px;
+    flex-direction: column;
+    align-items: center;
   }
   display: none;
   &:hover {
@@ -146,7 +146,7 @@ function Header() {
         <CategoryList>
           <div>
             <Link to="/sub">
-              <Category className="space">서재  
+              <Category>서재 
                 <Nav className="1">
                   <div>책상</div>
                   <div>의자</div>
@@ -156,7 +156,7 @@ function Header() {
               </Category>
             </Link>
             <Link to="/sub">
-              <Category className="space">침실  
+              <Category>침실  
                 <Nav className="2">
                   <div>침대/매트리스</div>
                   <div>행거/옷장</div>
