@@ -59,11 +59,11 @@ public class ProductControllerTest implements Reflection {
                 .accept(MediaType.APPLICATION_JSON));
 
         MvcResult result = actions.andExpect(status().isOk())
-                .andDo(document("products/get"
-                        , REQUEST_PREPROCESSOR
-                        , RESPONSE_PREPROCESSOR
-                        , PRODUCT_RESPONSE_FIELDS
-                        , PATH_PARAM_PRODUCT_ID
+                .andDo(document("products/get",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        PRODUCT_RESPONSE_FIELDS,
+                        PATH_PARAM_PRODUCT_ID
                 ))
                 .andExpect(jsonPath("$.productId").value(PRODUCT.getId()))
                 .andExpect(jsonPath("$.title").value(PRODUCT.getTitle()))

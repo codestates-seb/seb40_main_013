@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class ProductRepositoryCustomImpl implements ProductRepositoryCustom{
+public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
-    QProduct product= QProduct.product;
+    QProduct product = QProduct.product;
 
     public ProductRepositoryCustomImpl(JPAQueryFactory queryFactory) {
         this.queryFactory = queryFactory;
@@ -35,15 +35,15 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom{
                 .fetch();
 
         List<CategoryGetDto> content = result.stream().map(p ->
-                new CategoryGetDto(p.getId(), p.getImg(), p.getTitle(), p.getPrice(), p.getScore()))
+                        new CategoryGetDto(p.getId(), p.getImg(), p.getTitle(), p.getPrice(), p.getScore()))
                 .collect(Collectors.toList());
 
-        boolean hasNext =false;
-        if(content.size() > pageable.getPageSize()){
+        boolean hasNext = false;
+        if (content.size() > pageable.getPageSize()) {
             content.remove(pageable.getPageSize());
             hasNext = true;
         }
-        return new SliceImpl<>(content,pageable,hasNext);
+        return new SliceImpl<>(content, pageable, hasNext);
     }
 
     @Override
@@ -61,11 +61,11 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom{
                         new CategoryGetDto(p.getId(), p.getImg(), p.getTitle(), p.getPrice(), p.getScore()))
                 .collect(Collectors.toList());
 
-        boolean hasNext =false;
-        if(content.size() > pageable.getPageSize()){
+        boolean hasNext = false;
+        if (content.size() > pageable.getPageSize()) {
             content.remove(pageable.getPageSize());
             hasNext = true;
         }
-        return new SliceImpl<>(content,pageable,hasNext);
+        return new SliceImpl<>(content, pageable, hasNext);
     }
 }
