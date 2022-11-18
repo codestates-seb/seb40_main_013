@@ -142,21 +142,21 @@ include::{snippets}/reviews/delete/http-request.adoc[]
 [caption=]
 include::{snippets}/reviews/delete/request-headers.adoc[]
 
+.path-parameters
+[caption=]
+include::{snippets}/reviews/delete/path-parameters.adoc[]
+
 .http-response
 include::{snippets}/reviews/delete/http-response.adoc[]
 
 == 장바구니
-=== 상품 추가
+=== 장바구니 상품 추가
 .http-request
 include::{snippets}/carts/post/http-request.adoc[]
 
 .request-headers
 [caption=]
 include::{snippets}/carts/post/request-headers.adoc[]
-
-.path-parameters
-[caption=]
-include::{snippets}/carts/post/path-parameters.adoc[]
 
 .request-fields
 [caption=]
@@ -168,3 +168,18 @@ include::{snippets}/carts/post/http-response.adoc[]
 .response-fields
 [caption=]
 include::{snippets}/carts/post/response-fields.adoc[]
+
+=== 장바구니 상품 삭제
+.http-request
+include::{snippets}/carts/delete/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/carts/delete/request-headers.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/carts/delete/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/carts/delete/http-response.adoc[]

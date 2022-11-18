@@ -16,6 +16,7 @@ public enum ExceptionCode {
     OPTION_NOT_FOUND(404, "Option not found"),
     PRODUCT_NOT_FOUND(404, "Product not found"),
     REVIEW_NOT_FOUND(404, "Review not found"),
+    PRODUCT_CART_NOT_FOUND(404, "Product not found in cart"),
 
     EMAIL_ALREADY_EXISTS(409, "Email already exist"),
     NICKNAME_ALREADY_EXISTS(409, "Nickname already exist"),
