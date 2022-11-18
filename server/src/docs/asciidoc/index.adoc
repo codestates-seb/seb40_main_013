@@ -8,9 +8,6 @@
 ***
 == 회원
 === 회원 가입
-.curl-request
-include::{snippets}/members/signup/curl-request.adoc[]
-
 .http-request
 include::{snippets}/members/signup/http-request.adoc[]
 
@@ -26,9 +23,6 @@ include::{snippets}/members/signup/http-response.adoc[]
 include::{snippets}/members/signup/response-fields.adoc[]
 
 === 회원 조회
-.curl-request
-include::{snippets}/members/get/curl-request.adoc[]
-
 .http-request
 include::{snippets}/members/get/http-request.adoc[]
 
@@ -45,9 +39,6 @@ include::{snippets}/members/get/response-fields.adoc[]
 
 
 === 정보 수정
-.curl-request
-include::{snippets}/members/patch/curl-request.adoc[]
-
 .http-request
 include::{snippets}/members/patch/http-request.adoc[]
 
@@ -67,9 +58,6 @@ include::{snippets}/members/patch/http-response.adoc[]
 include::{snippets}/members/patch/response-fields.adoc[]
 
 === 회원 탈퇴
-.curl-request
-include::{snippets}/members/delete/curl-request.adoc[]
-
 .http-request
 include::{snippets}/members/delete/http-request.adoc[]
 
@@ -79,3 +67,80 @@ include::{snippets}/members/delete/request-headers.adoc[]
 
 .http-response
 include::{snippets}/members/delete/http-response.adoc[]
+
+=== 회원 리뷰 조회
+.http-request
+include::{snippets}/members/reviews/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/members/reviews/request-headers.adoc[]
+
+.request-parameters
+[caption=]
+include::{snippets}/members/reviews/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/members/reviews/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/members/reviews/response-fields.adoc[]
+
+== 리뷰
+=== 리뷰 등록
+.http-request
+include::{snippets}/reviews/post/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/reviews/post/request-headers.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/reviews/post/path-parameters.adoc[]
+
+.request-fields
+[caption=]
+include::{snippets}/reviews/post/request-fields.adoc[]
+
+.http-response
+include::{snippets}/reviews/post/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/reviews/post/response-fields.adoc[]
+
+=== 리뷰 수정
+.http-request
+include::{snippets}/reviews/patch/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/reviews/patch/request-headers.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/reviews/patch/path-parameters.adoc[]
+
+.request-fields
+[caption=]
+include::{snippets}/reviews/patch/request-fields.adoc[]
+
+.http-response
+include::{snippets}/reviews/patch/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/reviews/patch/response-fields.adoc[]
+
+=== 리뷰 삭제
+.http-request
+include::{snippets}/reviews/delete/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/reviews/delete/request-headers.adoc[]
+
+.http-response
+include::{snippets}/reviews/delete/http-response.adoc[]
