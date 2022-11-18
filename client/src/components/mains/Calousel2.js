@@ -22,8 +22,6 @@ const Carousel2 = () => {
           key={index}
           className={index === activeIndex ? "slides active" : "inactive"}>
             <Img className="slide-image" src={slide.urls} alt="" />
-            {/* <SlideTitle className="slide-title">{slide.title}</SlideTitle> */}
-            {/* <SlideText className="slide-text">{slide.description}</SlideText> */}
           </Slides>
         ))
       }
@@ -52,7 +50,7 @@ const Container = styled.div`
 const Arrows = styled.div``;
 const Prev = styled.span`
   cursor: pointer;
-  z-index: 100;
+  z-index: 2;
   position: absolute;
   top: 50%;
   width: auto;
@@ -70,7 +68,7 @@ const Prev = styled.span`
 `;
 const Next = styled.span`
 cursor: pointer;
-  z-index: 100;
+  z-index: 2;
   position: absolute;
   top: 50%;
   right: 0;

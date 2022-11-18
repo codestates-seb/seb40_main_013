@@ -74,10 +74,11 @@ const Star = styled.img`
 const StarAerage = styled.div`
   display: flex;
 `;
-const Product = ({ img, brand, title, price, score, alt }) => {
+const Product = ({ img, brand, title, price, score }) => {
+  // console.log(img);
   return(
     <Products to="/detail/:id">
-      <Img src={`${img}`} alt={alt}></Img>
+      <Img src={img}></Img>
       <Detail>
         <SubDetail>
           <Brand>{brand}</Brand>

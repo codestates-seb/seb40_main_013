@@ -15,7 +15,7 @@ import Goods from "../components/subcategories/goods";
 
 const SubBlock = styled.div`
     width: 100%;
-    margin-top: 160px;
+    margin-top: 170px;
     padding: 30px 40px 30px 40px;
     div{
         display: flex;
@@ -89,7 +89,7 @@ function SubCategory() {
       <ProductList>
         <div className="total">0 개의 상품이 있습니다</div>
         <div className="products">
-          {/* {productList.map((product) => (
+          {productList.map((product) => (
             <Products
               brand={product.brand}
               img={product.img}
@@ -98,7 +98,7 @@ function SubCategory() {
               price={product.price}
               star={product.star}
             />
-          ))} */}
+          ))}
         </div>
       </ProductList>
     </SubBlock>

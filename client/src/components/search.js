@@ -6,7 +6,11 @@ const SearchBlock = styled.div`
   position: fixed; //absolute로 바꿀수도 있음
   width:100%; 
   height:100%; 
+<<<<<<< HEAD
   z-index: 300; 
+=======
+  z-index:200000; 
+>>>>>>> 5c07281d4c70d72e567417205b5b4f72907666f1
   overflow:hidden; 
   transition:0.3s height;  
   top: 180px;

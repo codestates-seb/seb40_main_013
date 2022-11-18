@@ -105,8 +105,6 @@ const Category = styled.div`
   }
 `;
 
-
-
 function Header() {
   //const navigate = useNavigate();
   const modalRef = useRef();

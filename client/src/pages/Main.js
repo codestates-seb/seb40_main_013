@@ -79,13 +79,16 @@ const TD = styled.td`
 `;
 
 const Main = () => {
-  const [productList, setProductList] = useState([]);  
+  const [productList, setProductList] = useState([]); 
+  // const [product, setProduct]=useState({});
 
   useEffect(() => {
-    Apis.get(`products/화장실`).then((data) => 
-    setProductList(data.data.content));
+    Apis.get(`products/침실`).then((data) =>{
+      // setProduct(data.data.content));
+    setProductList(data.data.content)});
   }, []);
-
+  // console.log(product)
+  console.log(productList.map(p => console.log(p.img)));
   return (
     <Container>
       <Carousel />
@@ -94,11 +97,10 @@ const Main = () => {
       <FullTitle name="fullTitle" className="fullTitle">
       </FullTitle>
       <ProductList>
-        {productList.filter(product => product.id < 5).map(product =>
+        {productList.filter((product,idx) => idx < 3).map(product =>
           <Products
             brand={product.brand}
             img={product.img.fullPath}
-            alt={product.img.fileName}
             key={product.id}
             title={product.title}
             price={product.price}
