@@ -20,14 +20,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.List;
-
 import static gohome.dailydaily.util.TestConstant.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -49,10 +47,11 @@ class CartControllerTest implements Reflection {
     private CartService cartService;
 
     @Test
-    void postCart() throws Exception {
+    void postProductCart() throws Exception {
         // given
         ProductCartDto.Post post = newInstance(ProductCartDto.Post.class);
         setField(post, "count", PRODUCT_CART.getCount());
+        setField(post, "productId", PRODUCT.getId());
         setField(post, "optionId", PRODUCT_CART.getOption().getId());
 
         String request = gson.toJson(post);
@@ -62,7 +61,7 @@ class CartControllerTest implements Reflection {
 
         // when
         ResultActions actions = mockMvc.perform(
-                post("/products/{product-id}/carts", PRODUCT_CART.getProduct().getId())
+                post("/carts")
                         .header("Authorization", "JWT")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -78,8 +77,8 @@ class CartControllerTest implements Reflection {
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         REQUEST_HEADER_JWT,
-                        PATH_PARAM_PRODUCT_ID,
                         requestFields(
+                                FWP_PRODUCT_ID,
                                 FWP_COUNT,
                                 FWP_OPTION_ID
                         ),
@@ -87,6 +86,7 @@ class CartControllerTest implements Reflection {
                                 FWP_CART_ID,
                                 FWP_MEMBER_ID,
                                 FWP_PRODUCT_CART_ID,
+                                FWP_PRODUCT_CART_PRODUCT_ID,
                                 FWP_PRODUCT_CART_IMG_NAME,
                                 FWP_PRODUCT_CART_IMG_PATH,
                                 FWP_PRODUCT_CART_TITLE,
@@ -94,6 +94,27 @@ class CartControllerTest implements Reflection {
                                 FWP_PRODUCT_CART_PRICE
                         )
                 ));
+    }
 
+    @Test
+    void deleteProductCart() throws Exception {
+        // given
+//        doNothing().when(cartService).cancelCart(PRODUCT_CART.getId(), MEMBER.getId());
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                delete("/carts/{product-cart-id}",
+                        PRODUCT_CART.getId())
+                        .header("Authorization", "JWT")
+        );
+
+        // then
+        actions.andExpect(status().isNoContent())
+                .andDo(document("carts/delete",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
+                        PATH_PARAM_PRODUCT_CART_ID
+                ));
     }
 }
