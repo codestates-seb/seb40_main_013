@@ -24,7 +24,13 @@ public class Cart extends BaseTime {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.PERSIST)
     private final List<ProductCart> productCarts = new ArrayList<>();
 
+    public void addProductCart(ProductCart productCart) {
+        this.productCarts.add(productCart);
+        if (productCart.getCart() != this) {
+            productCart.addCart(this);
+        }
+    }
 }

@@ -27,6 +27,8 @@ public class ReviewDto {
     @Builder
     public static class Response {
         private Long reviewId;
+        private Long productId;
+        private String productTitle;
         private String title;
         private String content;
         private Float score;

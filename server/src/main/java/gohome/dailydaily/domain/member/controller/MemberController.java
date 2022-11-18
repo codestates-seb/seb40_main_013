@@ -6,8 +6,17 @@ import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.member.mapper.MemberMapper;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
 import gohome.dailydaily.domain.member.service.MemberService;
+import gohome.dailydaily.domain.review.dto.ReviewDto;
+import gohome.dailydaily.domain.review.entity.Review;
+import gohome.dailydaily.domain.review.mapper.ReviewMapper;
+import gohome.dailydaily.domain.review.service.ReviewService;
+import gohome.dailydaily.global.common.dto.PageResponseDto;
 import gohome.dailydaily.global.common.security.resolver.MemberId;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +29,10 @@ import javax.validation.Valid;
 public class MemberController {
 
     private final MemberService memberService;
+    private final ReviewService reviewService;
     private final MemberMapper memberMapper;
     private final SellerMapper sellerMapper;
+    private final ReviewMapper reviewMapper;
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -54,6 +65,14 @@ public class MemberController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMember(@MemberId Long memberId) {
         memberService.deleteMember(memberId);
+    }
+
+    @GetMapping("/members/mypage/reviews")
+    public PageResponseDto<ReviewDto.Response> getReviews(@MemberId Long memberId,
+                                                          @PageableDefault(size = 20, sort = "createdAt",
+                                                                  direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Review> reviews = reviewService.findReviewsByMemberId(memberId, pageable);
+        return PageResponseDto.of(reviews.map(reviewMapper::toResponse));
     }
 
 }

@@ -56,7 +56,8 @@ public class Member extends BaseTime {
 
     public void initInfo(String encodedPassword) {
         this.password = encodedPassword;
-        memberStatus = MemberStatus.ACTIVE;
+        this.memberStatus = MemberStatus.ACTIVE;
+        this.cart = Cart.builder().member(this).build();
     }
 
     public void updateInfo(Member member, String password) {
