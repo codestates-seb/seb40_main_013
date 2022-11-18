@@ -7,35 +7,17 @@ const CartBlock = styled.div`
   height: 100%;
   /* min-height: 670px; */
   padding: 30px 40px 50px 40px;
-  justify-content: center;
+  margin-top: 180px;
   display: flex;
   justify-content: center;
   div {
     display: flex;
-<<<<<<< HEAD
-    div {
-      display: flex;
-    }
-    .cart-title {
-      font-size: 28px;
-      padding-left: 20px;
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-
-    @media screen and (max-width: 768px) {
-      .quary {
-        flex-direction: column;
-      }
-    }
-=======
   }
   .cart-title {
     font-size: 28px;
     padding-left: 20px;
     margin-bottom: 20px;
     font-weight: 600;
->>>>>>> 5c07281d4c70d72e567417205b5b4f72907666f1
   }
 `;
 

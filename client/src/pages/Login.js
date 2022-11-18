@@ -91,6 +91,7 @@ const Wrapper = styled.div`
   @media screen and (max-width: 390px) and (min-height: 844px) {
     min-width: 391px;
     width: 100%;
+    height: 190vh;
   }
 `;
 
