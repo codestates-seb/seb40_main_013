@@ -9,6 +9,21 @@ const Container = styled.form`
   padding: 20px 20px 20px 40px;
   width: 80%;
   border: 1px solid var(--color-center-line);
+  @media screen and (max-width: 390px){
+    width: 100%;
+    padding: 15px;
+    margin: 40px 0;
+  }
+  @media (min-width: 390px) and (max-width: 767px){
+    width: 100%;
+    padding: 15px;
+    margin: 40px 0;
+  }
+  @media (min-width: 768px) and (max-width: 1024px){
+    width: 100%;
+    padding: 15px 30px;
+    margin: 40px 0;
+  }
 `;
 
 const Label = styled.label`
@@ -32,6 +47,21 @@ const Input = styled.input`
       /* border-color: 1px solid #FFAF51; */
       box-shadow: 0px 0px 0px 3px #FFAF51;
     }
+  @media screen and (max-width: 390px){
+    width: 100%;
+    padding: 7px;
+    margin: 5px 0;
+  }
+  @media (min-width: 391px) and (max-width: 767px){
+    width: 100%;
+    padding: 7px;
+    margin: 5px 0;
+  }
+  @media (min-width: 768px) and (max-width: 1024px){
+    width: 100%;
+    padding: 10px 20px;
+    margin: 15px 0;
+  }
 `;
 //버튼
 const Buttons = styled.div`
@@ -39,6 +69,15 @@ const Buttons = styled.div`
   margin-top: 20px;
   width: 400px;
   justify-content: flex-end;
+  @media screen and (max-width: 390px){
+    width: 100%;
+  }
+  @media (min-width: 391px) and (max-width: 767px){
+    width: 100%;
+  }
+  @media (min-width: 768px) and (max-width: 1024px){
+    width: 100%;
+  }
 `;
 
 const Delete = styled.button`
@@ -46,7 +85,10 @@ const Delete = styled.button`
   border: 1px solid var(--color-navy);
   border-radius: 5px;
   padding: 7px 30px;
-  margin-right: 10px;;
+  margin-right: 10px;
+  @media screen and (max-width: 390px){
+    padding: 5px 20px;
+  }
 `;
 const Edit = styled.button`
   color: white;
@@ -54,6 +96,9 @@ const Edit = styled.button`
   border: none;
   border-radius: 5px;
   padding: 7px 30px;
+  @media screen and (max-width: 390px){
+    padding: 5px 20px;
+  }
 `;
 const EditProfile = ()=>{
   return (

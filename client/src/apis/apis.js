@@ -3,7 +3,7 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://early-humans-smell-113-52-194-59.loca.lt/",
+  baseURL: "https://large-masks-worry-59-20-223-31.loca.lt/",
 });
 
 axios.interceptors.request.use(function (config) {
