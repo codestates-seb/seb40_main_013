@@ -1,12 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllReview } from "../../reduxstore/slices/reviewSlice";
 import styled from "styled-components";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
-
+import { postReview } from "../../reduxstore/slices/reviewSlice";
 function MyReview() {
   const dispatch = useDispatch();
-  const userWriteReviews = useSelector((state) => state.review.review.content);
+  const userWriteReviews = useSelector(
+    (state) => state?.review.review?.content
+  );
+  const [userWriteTitle, setUserWriteTitle] = useState("");
+  const [userWriteContent, setUserWriteContent] = useState("");
+  const [userWriteScroe, setUserWriteScroe] = useState("");
+
+  const changeTitle = (e) => {
+    setUserWriteTitle(e.target.value);
+  };
+  const changeContent = (e) => {
+    setUserWriteContent(e.target.value);
+  };
+  const changeScore = (e) => {
+    setUserWriteScroe(e.target.value);
+  };
+
+  const postSubmit = (e) => {
+    e.preventDefault();
+    console.log(11);
+    let postData = {
+      title: userWriteTitle,
+      content: userWriteContent,
+      score: userWriteScroe,
+    };
+    dispatch(postReview({ postData }));
+  };
   useEffect(() => {
     dispatch(getAllReview());
   }, []);
@@ -14,10 +40,10 @@ function MyReview() {
   return (
     <Container>
       {userWriteReviews?.map((data) => (
-        <ReviewContentsSpace key={data.reviewId}>
+        <ReviewContentsSpace key={data?.reviewId}>
           <ReviewContentsLeftSpace>
-            <ReviewContentsNumber>{data.reviewId}</ReviewContentsNumber>
-            <ReviewContentsImg src={data.img}></ReviewContentsImg>
+            <ReviewContentsNumber>{data?.reviewId}</ReviewContentsNumber>
+            <ReviewContentsImg src={data?.img}></ReviewContentsImg>
             <ReviewContentsMainSpace>
               <ReviewStar>
                 <BsStarFill />
@@ -26,22 +52,31 @@ function MyReview() {
                 <BsStarFill />
                 <BsStarFill />
               </ReviewStar>
-              <ReviewMainTitle>{data.productTitle}</ReviewMainTitle>
-              <ReviewMainContent>{data.content}</ReviewMainContent>
+              <ReviewMainTitle>{data?.productTitle}</ReviewMainTitle>
+              <ReviewMainContent>{data?.content}</ReviewMainContent>
             </ReviewContentsMainSpace>
           </ReviewContentsLeftSpace>
           <ReviewContentsRightSpace>
-            <ReviewContentsUser>{data.productId}</ReviewContentsUser>
-            <ReviewContentsBtnSpace>
-              <div>
-                <div></div>
-                <div></div>
-              </div>
+            <ReviewContentsUser>{data?.productId}</ReviewContentsUser>
+            <ReviewContentsSmallBtnSpace>
+              <ReviewContentsBtnSpace>
+                <div>수정</div>
+                <div>삭제</div>
+              </ReviewContentsBtnSpace>
               <ReviewContentsUser>2</ReviewContentsUser>
-            </ReviewContentsBtnSpace>
+            </ReviewContentsSmallBtnSpace>
           </ReviewContentsRightSpace>
         </ReviewContentsSpace>
       ))}
+      {/* <div>
+        <input onChange={changeTitle} />
+        <input onChange={changeContent} />
+        <input onChange={changeScore} />
+        <button
+          style={{ width: "30px", height: "50px" }}
+          onClick={postSubmit}
+        />
+      </div> */}
     </Container>
   );
 }
@@ -116,8 +151,20 @@ const ReviewContentsUser = styled.div`
   font-weight: bolder;
 `;
 
+const ReviewContentsSmallBtnSpace = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid blue;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+`;
 const ReviewContentsBtnSpace = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  border: 1px solid red;
 `;
-
 export default MyReview;

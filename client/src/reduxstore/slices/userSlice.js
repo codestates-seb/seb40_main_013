@@ -9,6 +9,7 @@ export const signUser = createAsyncThunk(
     return Apis.post(`signup`, signData)
       .then((res) => {
         navigate("/users/login");
+        window.alert("회원가입 성공!");
         return res.data;
       })
       .catch((err) => {
@@ -27,6 +28,7 @@ export const loginUser = createAsyncThunk(
         localStorage.setItem("Authorization", jwtToken);
         localStorage.setItem("Refresh", jwtrefreshToken);
         navigate("/");
+        window.alert("로그인 성공!");
         return res.data;
       })
       .catch((err) => {
@@ -39,6 +41,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     users: [],
+    uadateUser: [],
     loading: false,
     error: "",
   },
