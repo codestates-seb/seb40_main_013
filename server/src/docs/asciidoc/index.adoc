@@ -87,6 +87,52 @@ include::{snippets}/members/reviews/http-response.adoc[]
 [caption=]
 include::{snippets}/members/reviews/response-fields.adoc[]
 
+== 상품
+=== 상품 상세 조회
+.http-request
+include::{snippets}/products/get/http-request.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/products/get/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/products/get/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/products/get/response-fields.adoc[]
+
+=== 상품 대분류 조회
+.http-request
+include::{snippets}/products/main/get/http-request.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/products/main/get/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/products/main/get/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/products/main/get/response-fields.adoc[]
+
+=== 상품 소분류 조회
+.http-request
+include::{snippets}/products/main/sub/get/http-request.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/products/main/sub/get/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/products/main/sub/get/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/products/main/sub/get/response-fields.adoc[]
+
 == 리뷰
 === 리뷰 등록
 .http-request
