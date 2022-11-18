@@ -52,8 +52,7 @@ public class Product extends BaseTime {
     @OneToMany(mappedBy = "product")
     private final List<Review> reviews = new ArrayList<>();
 
-    public void addOptions(Option... options){
+    public void addOptions(Option... options) {
         this.options.addAll(List.of(options));
     }
-
 }

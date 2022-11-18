@@ -17,7 +17,11 @@ public class LocalFileRepository implements FileRepository {
         String fullPath = path + storeFilename;
 
         multipartFile.transferTo(new java.io.File(fullPath));
-        return new File(originalFilename, fullPath);
+
+        return File.builder()
+                .fileName(originalFilename)
+                .fullPath(fullPath)
+                .build();
     }
 
     private String getStoreFileName(String originalFilename) {

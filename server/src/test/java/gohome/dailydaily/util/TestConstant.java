@@ -1,5 +1,7 @@
 package gohome.dailydaily.util;
 
+import gohome.dailydaily.domain.cart.entity.Cart;
+import gohome.dailydaily.domain.cart.entity.ProductCart;
 import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberRole;
@@ -19,7 +21,6 @@ import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import org.springframework.restdocs.request.RequestParametersSnippet;
-import org.springframework.web.multipart.MultipartFile;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -39,11 +40,10 @@ public class TestConstant {
             .phone("010-1234-5678")
             .memberStatus(MemberStatus.ACTIVE)
             .build();
-
     public static final Seller SELLER = Seller.builder()
             .id(1L)
+            .brandNumber("53-215-6262463")
             .member(MEMBER)
-            .brandNumber("02-0000-0000")
             .build();
 
     public static final Category CATEGORY = Category.builder()
@@ -51,26 +51,19 @@ public class TestConstant {
             .main("침실")
             .sub("침대")
             .build();
-    public static final Pageable PAGEABLE = PageRequest.of(0, 20, Sort.by("createdAt").descending());
 
-    public static final File IMG = new File("imgName","imgPath");
-    public static final Product PRODUCT1 = Product.builder()
-            .id(1L)
-            .title("상품 이름1")
-            .img(IMG)
-            .content("상품 내용1")
-            .price(123456)
-            .score(3)
-            .seller(SELLER)
-            .category(CATEGORY)
+    public static final File FILE = File.builder()
+            .fileName("fileName")
+            .fullPath("fullPath")
             .build();
-    public static final Product PRODUCT2 = Product.builder()
-            .id(2L)
-            .title("상품 이름2")
-            .img(IMG)
-            .content("상품 내용2")
-            .price(100000)
-            .score(4)
+
+    public static final Product PRODUCT = Product.builder()
+            .id(1L)
+            .title("productTest")
+            .content("test")
+            .img(FILE)
+            .price(10000)
+            .score(45)
             .seller(SELLER)
             .category(CATEGORY)
             .build();
@@ -81,8 +74,46 @@ public class TestConstant {
             .price(0)
             .color("white")
             .stock(1000L)
-            .product(PRODUCT1)
+            .product(PRODUCT)
             .build();
+
+    public static final ProductCart PRODUCT_CART = ProductCart.builder()
+            .id(1L)
+            .count(2)
+            .product(PRODUCT)
+            .option(OPTION)
+            .build();
+
+    public static final Cart CART = Cart.builder()
+            .id(1L)
+            .member(MEMBER)
+            .build();
+
+
+    public static final Pageable PAGEABLE = PageRequest.of(0, 20, Sort.by("createdAt").descending());
+
+    public static final Product PRODUCT1 = Product.builder()
+            .id(1L)
+            .title("상품 이름1")
+            .img(FILE)
+            .content("상품 내용1")
+            .price(123456)
+            .score(3)
+            .seller(SELLER)
+            .category(CATEGORY)
+            .build();
+
+    public static final Product PRODUCT2 = Product.builder()
+            .id(2L)
+            .title("상품 이름2")
+            .img(FILE)
+            .content("상품 내용2")
+            .price(100000)
+            .score(4)
+            .seller(SELLER)
+            .category(CATEGORY)
+            .build();
+
 
     public static final Review REVIEW1 = Review.builder()
             .id(1L)
@@ -140,7 +171,6 @@ public class TestConstant {
             FWP_MEMBER_ID, FWP_NICKNAME, FWP_EMAIL, FWP_ADDRESS, FWP_PHONE, FWP_MEMBER_STATUS
     );
 
-
     public static final FieldDescriptor FWP_CONTENT = fieldWithPath("content").type(ARRAY).description("데이터");
 
     public static final FieldDescriptor FWP_SLICE_INFO = fieldWithPath("sliceInfo").type(OBJECT).description("슬라이스 정보");
@@ -174,6 +204,15 @@ public class TestConstant {
     public static final FieldDescriptor FWP_REVIEW_SCORE = fieldWithPath("score").type(NUMBER).description("리뷰 별점");
 
     public static final FieldDescriptor FWP_PRODUCT_ID = fieldWithPath("productId").type(NUMBER).description("상품 식별자");
+    public static final FieldDescriptor FWP_CART_ID = fieldWithPath("cartId").type(NUMBER).description("장바구니 식별자");
+    public static final FieldDescriptor FWP_OPTION_ID = fieldWithPath("optionId").type(NUMBER).description("상품 옵션 식별자");
+    public static final FieldDescriptor FWP_PRODUCT_CART_ID = fieldWithPath("productCarts[].productCartId").type(NUMBER).description("장바구니 상품 식별자");
+    public static final FieldDescriptor FWP_PRODUCT_CART_IMG_NAME = fieldWithPath("productCarts[].img.fileName").type(STRING).description("장바구니 상품 이미지 이름");
+    public static final FieldDescriptor FWP_PRODUCT_CART_IMG_PATH = fieldWithPath("productCarts[].img.fullPath").type(STRING).description("장바구니 상품 이미지 경로");
+    public static final FieldDescriptor FWP_PRODUCT_CART_TITLE = fieldWithPath("productCarts[].title").type(STRING).description("장바구니 상품명");
+    public static final FieldDescriptor FWP_PRODUCT_CART_COUNT = fieldWithPath("productCarts[].count").type(NUMBER).description("장바구니 상품 수량");
+    public static final FieldDescriptor FWP_PRODUCT_CART_PRICE = fieldWithPath("productCarts[].price").type(NUMBER).description("장바구니 상품 가격");
+    public static final FieldDescriptor FWP_COUNT = fieldWithPath("count").type(NUMBER).description("상품 수량");
     public static final FieldDescriptor FWP_REVIEW_PRODUCT_TITLE = fieldWithPath("productTitle").type(STRING).description("상품 이름");
     public static final FieldDescriptor FWP_PRODUCT_TITLE = fieldWithPath("title").type(STRING).description("상품 이름");
     private static final FieldDescriptor FWP_PRODUCT_CONTENT = fieldWithPath("content").type(STRING).description("상품 내용");
@@ -194,7 +233,7 @@ public class TestConstant {
     public static final FieldDescriptor FWP_SELLER_ADDRESS = fieldWithPath("seller.address").type(STRING).description("주소");
     public static final FieldDescriptor FWP_SELLER_PHONE = fieldWithPath("seller.phone").type(STRING).description("휴대폰 번호");
     public static final FieldDescriptor FWP_SELLER_MEMBER_STATUS = fieldWithPath("seller.memberStatus").type(STRING).description("멤버 상태");
-    public static final FieldDescriptor FWP_OPTION_ID = fieldWithPath("options[].optionId").type(NUMBER).description("옵션 식별자");
+    public static final FieldDescriptor FWP_OPTIONS_OPTION_ID = fieldWithPath("options[].optionId").type(NUMBER).description("옵션 식별자");
     public static final FieldDescriptor FWP_OPTION_COLOR = fieldWithPath("options[].color").type(STRING).description("색상");
     public static final FieldDescriptor FWP_OPTION_SIZE = fieldWithPath("options[].size").type(STRING).description("크기");
     public static final FieldDescriptor FWP_OPTION_PRICE = fieldWithPath("options[].price").type(NUMBER).description("추가 가격");
@@ -205,13 +244,14 @@ public class TestConstant {
     public static final ResponseFieldsSnippet PRODUCT_RESPONSE_FIELDS = responseFields(
             FWP_PRODUCT_ID, FWP_PRODUCT_TITLE, FWP_PRODUCT_CONTENT,FWP_PRODUCT_PRICE, FWP_PRODUCT_IMG_PATH,FWP_PRODUCT_IMG_NAME, FWP_PRODUCT_SCORE,
             FWP_SELLER_SELLER_ID,FWP_SELLER_MEMBER_ID,FWP_SELLER_NICKNAME,FWP_SELLER_BRAND_NUMBER,FWP_SELLER_EMAIL,
-            FWP_SELLER_ADDRESS,FWP_SELLER_PHONE,FWP_SELLER_MEMBER_STATUS,FWP_OPTION_ID,FWP_OPTION_COLOR,FWP_OPTION_SIZE,
+            FWP_SELLER_ADDRESS,FWP_SELLER_PHONE,FWP_SELLER_MEMBER_STATUS,FWP_OPTIONS_OPTION_ID,FWP_OPTION_COLOR,FWP_OPTION_SIZE,
             FWP_OPTION_PRICE,FWP_OPTION_STOCK,FWP_REVIEWS
     );
 
     static {
         MEMBER.addRoles(MemberRole.USER);
-        PRODUCT1.addOptions(OPTION);
+        PRODUCT.addOptions(OPTION);
+        CART.addProductCart(PRODUCT_CART);
     }
 
 }

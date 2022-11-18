@@ -27,10 +27,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.List;
 
 import static gohome.dailydaily.util.TestConstant.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -51,11 +51,11 @@ public class ProductControllerTest implements Reflection {
     @Test
     public void getProduct() throws Exception {
 
-        given(productService.getProduct(PRODUCT1.getId()))
-                .willReturn(PRODUCT1);
+        given(productService.getProduct(PRODUCT.getId()))
+                .willReturn(PRODUCT);
 
         //when
-        ResultActions actions = mockMvc.perform(get("/products/details/{product-id}", PRODUCT1.getId())
+        ResultActions actions = mockMvc.perform(get("/products/details/{product-id}", PRODUCT.getId())
                 .accept(MediaType.APPLICATION_JSON));
 
         MvcResult result = actions.andExpect(status().isOk())
@@ -63,16 +63,17 @@ public class ProductControllerTest implements Reflection {
                         ,REQUEST_PREPROCESSOR
                         ,RESPONSE_PREPROCESSOR
                         ,PRODUCT_RESPONSE_FIELDS
+                        ,PATH_PARAM_PRODUCT_ID
                 ))
-                .andExpect(jsonPath("$.productId").value(PRODUCT1.getId()))
-                .andExpect(jsonPath("$.title").value(PRODUCT1.getTitle()))
-                .andExpect(jsonPath("$.content").value(PRODUCT1.getContent()))
-                .andExpect(jsonPath("$.price").value(PRODUCT1.getPrice()))
-                .andExpect(jsonPath("$.img.fileName").value(PRODUCT1.getImg().getFileName()))
-                .andExpect(jsonPath("$.img.fullPath").value(PRODUCT1.getImg().getFullPath()))
-                .andExpect(jsonPath("$.score").value(PRODUCT1.getScore() / 10F))
-                .andExpect(jsonPath("$.seller.sellerId").value(PRODUCT1.getSeller().getId()))
-                .andExpect(jsonPath("$.seller.memberId").value(PRODUCT1.getSeller().getMember().getId()))
+                .andExpect(jsonPath("$.productId").value(PRODUCT.getId()))
+                .andExpect(jsonPath("$.title").value(PRODUCT.getTitle()))
+                .andExpect(jsonPath("$.content").value(PRODUCT.getContent()))
+                .andExpect(jsonPath("$.price").value(PRODUCT.getPrice()))
+                .andExpect(jsonPath("$.img.fileName").value(PRODUCT.getImg().getFileName()))
+                .andExpect(jsonPath("$.img.fullPath").value(PRODUCT.getImg().getFullPath()))
+                .andExpect(jsonPath("$.score").value(PRODUCT.getScore() / 10F))
+                .andExpect(jsonPath("$.seller.sellerId").value(PRODUCT.getSeller().getId()))
+                .andExpect(jsonPath("$.seller.memberId").value(PRODUCT.getSeller().getMember().getId()))
                 .andReturn();
     }
 
