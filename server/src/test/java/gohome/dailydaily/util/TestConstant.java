@@ -1,22 +1,15 @@
 package gohome.dailydaily.util;
 
-import gohome.dailydaily.domain.cart.entity.Cart;
-import gohome.dailydaily.domain.cart.entity.ProductCart;
-import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberRole;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
-<<<<<<< HEAD
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.product.entity.Option;
-import gohome.dailydaily.domain.product.entity.Product;
-=======
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.review.entity.Review;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
->>>>>>> b6a4c39d779b50d81f300fb2feeb53ea7cf528c3
 import org.springframework.restdocs.headers.RequestHeadersSnippet;
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;
