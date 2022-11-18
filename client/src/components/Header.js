@@ -21,7 +21,7 @@ const HeaderBlock = styled.header`
 `;
 const Logo = styled.div`
   justify-content: center;
-  height: 100px;
+  height: 90px;
   justify-content: center;
   align-items: center;
   div {
@@ -49,6 +49,7 @@ const LoginBtn = styled.button`
 
 const Serach = styled.div`
   margin-right: 8px;
+  z-index: 300;
 `;
 
 
@@ -70,6 +71,7 @@ const CategoryList = styled.div`
 `;
 
 const Nav = styled.nav`
+  z-index: 200;
   position: absolute;
   top: 22px;
   left: -70px;
@@ -77,7 +79,6 @@ const Nav = styled.nav`
   border: 1px solid #aaaaaa;
   width: 105px;
   font-size: 15px;
-
   justify-content: space-between;
   border-bottom: 1px solid #bebcaf;
   padding: 7px;
@@ -118,6 +119,7 @@ function Header() {
   const outModalCloseHandler = ({ target }) => {
     if (closeSearch && !modalRef.current.contains(target))
       setCloseSearch(false);
+      console.log(target.innerHTML);
   };
 
   useEffect(() => {
@@ -146,7 +148,8 @@ function Header() {
         <CategoryList>
           <div>
             <Link to="/sub">
-              <Category>서재 
+              <Category>
+                <div>서재</div> 
                 <Nav className="1">
                   <div>책상</div>
                   <div>의자</div>
@@ -156,7 +159,8 @@ function Header() {
               </Category>
             </Link>
             <Link to="/sub">
-              <Category>침실  
+              <Category>
+              <div>침실</div>  
                 <Nav className="2">
                   <div>침대/매트리스</div>
                   <div>행거/옷장</div>
@@ -166,7 +170,8 @@ function Header() {
               </Category>
             </Link>
             <Link to="/sub">
-              <Category className="space">거실  
+              <Category className="space">
+                <div>거실</div>   
                 <Nav className="3">
                   <div>소파</div>
                   <div>거실장</div>
@@ -176,7 +181,8 @@ function Header() {
               </Category>
             </Link>
             <Link to="/sub">
-              <Category className="space">주방
+              <Category className="space">
+                <div>주방</div> 
                 <Nav className="4">
                   <div>식탁/아일랜드</div>
                   <div>식탁의자</div>
@@ -191,12 +197,10 @@ function Header() {
               <Serach onClick={closeHandler}>
                 <BsSearch size="20" />
               </Serach>
-              {closeSearch && (
                 <DownSearch
                   closeSearch={closeSearch}
                   closeHandler={closeHandler}
                 />
-              )}
             </div>
             <Link to="/cart">
               <div>

@@ -50,10 +50,10 @@ const Container = styled.div`
   overflow: hidden;
   flex-direction: column;
 `;
-const Arrows = styled.div``;
+const Arrows = styled.div`
+`;
 const Prev = styled.span`
   cursor: pointer;
-  z-index: 100;
   position: absolute;
   top: 50%;
   width: auto;
@@ -70,8 +70,7 @@ const Prev = styled.span`
   }
 `;
 const Next = styled.span`
-cursor: pointer;
-  z-index: 100;
+  cursor: pointer;
   position: absolute;
   top: 50%;
   right: 0;
@@ -88,29 +87,29 @@ cursor: pointer;
     transition: all 0.5s ease-in-out;
   }
 `;
-const AllDots = styled.div`
-  width: 100%;
-  /* height: 100%; */
-  display: flex;
-  top: 85%;
-  justify-content: center;
-  z-index: 200;
-`;
-const Dot = styled.span`
-  cursor: pointer;
-  height: 1rem;
-  width: 1rem;
-  margin: 0 3px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
-  display: inline-block;
-  &:hover{
-    background-color: rgba(255, 255, 255, 0.5);
-  }
-  &.active-dot{
-    background-color: rgba(255, 255, 255, 0.5);
-  }
-`;
+// const AllDots = styled.div`
+//   width: 100%;
+//   /* height: 100%; */
+//   display: flex;
+//   top: 85%;
+//   justify-content: center;
+//   z-index: 200;
+// `;
+// const Dot = styled.span`
+//   cursor: pointer;
+//   height: 1rem;
+//   width: 1rem;
+//   margin: 0 3px;
+//   background-color: rgba(0, 0, 0, 0.3);
+//   border-radius: 50%;
+//   display: inline-block;
+//   &:hover{
+//     background-color: rgba(255, 255, 255, 0.5);
+//   }
+//   &.active-dot{
+//     background-color: rgba(255, 255, 255, 0.5);
+//   }
+// `;
 const Slides = styled.div`
   &.active{
     display: inline-block;

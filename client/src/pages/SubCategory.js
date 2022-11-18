@@ -15,7 +15,7 @@ import Goods from "../components/subcategories/goods";
 
 const SubBlock = styled.div`
     width: 100%;
-    margin-top: 170px;
+    margin-top: 160px;
     padding: 30px 40px 30px 40px;
     div{
         display: flex;
@@ -57,12 +57,13 @@ const ProductList = styled.div`
 `;
 
 function SubCategory() {
-  const [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState({});
 
   useEffect(() => {
-    Apis.get(`products`).then((data) => setProductList(data.data));
+    Apis.get(`products/details/5`)
+    .then((data) => setProductList(data.data.content));
   }, []);
-  //   console.log(productList);
+  console.log(productList);
 
   return (
     <SubBlock>
@@ -88,7 +89,7 @@ function SubCategory() {
       <ProductList>
         <div className="total">0 개의 상품이 있습니다</div>
         <div className="products">
-          {productList.map((product) => (
+          {/* {productList.map((product) => (
             <Products
               brand={product.brand}
               img={product.img}
@@ -97,7 +98,7 @@ function SubCategory() {
               price={product.price}
               star={product.star}
             />
-          ))}
+          ))} */}
         </div>
       </ProductList>
     </SubBlock>

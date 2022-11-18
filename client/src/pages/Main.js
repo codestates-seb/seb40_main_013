@@ -14,7 +14,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 170px;
+  margin-top: 160px;
   z-index: 1;
 `;
 
@@ -82,11 +82,10 @@ const Main = () => {
   const [productList, setProductList] = useState([]);  
 
   useEffect(() => {
-    Apis.get(`products`).then((data) => 
-    setProductList(data.data));
+    Apis.get(`products/화장실`).then((data) => 
+    setProductList(data.data.content));
   }, []);
 
-  // console.log(dodotList)
   return (
     <Container>
       <Carousel />
@@ -95,10 +94,11 @@ const Main = () => {
       <FullTitle name="fullTitle" className="fullTitle">
       </FullTitle>
       <ProductList>
-        {productList.filter(product => product.id < 6).map(product =>
+        {productList.filter(product => product.id < 5).map(product =>
           <Products
             brand={product.brand}
-            img={product.img}
+            img={product.img.fullPath}
+            alt={product.img.fileName}
             key={product.id}
             title={product.title}
             price={product.price}
@@ -106,7 +106,7 @@ const Main = () => {
           />
         )}
       </ProductList>
-      <Title>브랜드별 추천상품</Title>
+      {/* <Title>브랜드별 추천상품</Title>
       <BrandProducts
         key={productList.length}
         dodotList={productList.filter(p => p.brand === 'dodot' && p.id < 9)}
@@ -133,7 +133,7 @@ const Main = () => {
         {productList.map((product, key) => (
           <Products
             brand={product.brand}
-            img={product.img}
+            img={product.img.fullPath}
             key={key}
             title={product.title}
             price={product.price}
@@ -141,7 +141,7 @@ const Main = () => {
             colorChip={product.colorChip}
           />
         ))}
-      </ProductList>
+      </ProductList> */}
       <Button />
     </Container>
   );

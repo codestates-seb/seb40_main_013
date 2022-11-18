@@ -7,7 +7,7 @@ import { Routes, Route, Link } from "react-router-dom";
 const Container = styled.div`
   display: flex;
   height: 100%;
-  margin-top: 180px;
+  margin-top: 160px;
 `;
 
 //왼쪽 nav bar

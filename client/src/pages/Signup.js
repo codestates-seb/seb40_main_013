@@ -138,7 +138,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
-  margin-top: 180px;
+  margin-top: 160px;
 `;
 const SignupWrapper = styled.div`
   width: 500px;
