@@ -4,7 +4,7 @@ import Apis from "../../apis/apis";
 export const getArticleDetail = createAsyncThunk(
   "products/detail",
   async (id) => {
-    return Apis.get(`products/detail/${id}`)
+    return Apis.get(`products/details/${id}`)
       .then((res) => {
         console.log(res);
         return res.data;

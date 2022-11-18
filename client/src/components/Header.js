@@ -51,7 +51,6 @@ const Serach = styled.div`
   margin-right: 8px;
 `;
 
-
 const CategoryList = styled.div`
   height: 30px;
   display: flex;
@@ -64,7 +63,7 @@ const CategoryList = styled.div`
     font-size: 12px;
   }
   padding-left: 20px;
-  div{
+  div {
     height: 100%;
   }
 `;
@@ -82,14 +81,14 @@ const Nav = styled.nav`
   border-bottom: 1px solid #bebcaf;
   padding: 7px;
   margin: 5px 30px 5px 30px;
-  div{
+  div {
     padding: 6px 0px;
     flex-direction: column;
     align-items: center;
   }
   display: none;
   &:hover {
-      display: block;
+    display: block;
   }
 `;
 
@@ -98,13 +97,11 @@ const Category = styled.div`
   padding-right: 30px;
   &:hover {
     cursor: pointer;
-    ${Nav}{
+    ${Nav} {
       display: block;
     }
   }
 `;
-
-
 
 function Header() {
   //const navigate = useNavigate();
@@ -146,7 +143,8 @@ function Header() {
         <CategoryList>
           <div>
             <Link to="/sub">
-              <Category>서재 
+              <Category>
+                서재
                 <Nav className="1">
                   <div>책상</div>
                   <div>의자</div>
@@ -156,7 +154,8 @@ function Header() {
               </Category>
             </Link>
             <Link to="/sub">
-              <Category>침실  
+              <Category>
+                침실
                 <Nav className="2">
                   <div>침대/매트리스</div>
                   <div>행거/옷장</div>
@@ -166,7 +165,8 @@ function Header() {
               </Category>
             </Link>
             <Link to="/sub">
-              <Category className="space">거실  
+              <Category className="space">
+                거실
                 <Nav className="3">
                   <div>소파</div>
                   <div>거실장</div>
@@ -176,7 +176,8 @@ function Header() {
               </Category>
             </Link>
             <Link to="/sub">
-              <Category className="space">주방
+              <Category className="space">
+                주방
                 <Nav className="4">
                   <div>식탁/아일랜드</div>
                   <div>식탁의자</div>
@@ -191,10 +192,10 @@ function Header() {
               <Serach onClick={closeHandler}>
                 <BsSearch size="20" />
               </Serach>
-                <DownSearch
-                  closeSearch={closeSearch}
-                  closeHandler={closeHandler}
-                />
+              <DownSearch
+                closeSearch={closeSearch}
+                closeHandler={closeHandler}
+              />
             </div>
             <Link to="/cart">
               <div>
@@ -204,7 +205,6 @@ function Header() {
             </Link>
           </div>
         </CategoryList>
-       
       </HeaderBlock>
     </>
   );

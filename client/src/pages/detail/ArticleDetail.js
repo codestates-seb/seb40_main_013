@@ -17,11 +17,8 @@ function ArticleDetail() {
   ]);
   const dispatch = useDispatch();
   const params = useParams();
-  const detatilArticle = useSelector((state) => state);
-  console.log(detatilArticle);
-  // const filterArticle = detatilArticle?.filter(
-  //   (data) => data.id === Number(params.id)
-  // );
+  const articlesDetail = useSelector((state) => state.article.detailArticle);
+  console.log(articlesDetail);
 
   const clickFunction = () => {
     setClickSelect(!clickSelect);
@@ -45,7 +42,7 @@ function ArticleDetail() {
           <ArticleInformations>
             <DetailArticleNameSpace>
               <div>
-                <DetailArticleName></DetailArticleName>
+                <DetailArticleName>{articlesDetail?.title}</DetailArticleName>
                 <DetailArticleStarSpace>
                   <DetailArticleStar>
                     <BsStarFill />
@@ -54,7 +51,9 @@ function ArticleDetail() {
                     <BsStarFill />
                     <BsStarFill />
                   </DetailArticleStar>
-                  <DetailArticleStaAverage>점</DetailArticleStaAverage>
+                  <DetailArticleStaAverage>
+                    {articlesDetail?.score}점
+                  </DetailArticleStaAverage>
                 </DetailArticleStarSpace>
               </div>
               <ButtonIcon>
@@ -63,7 +62,7 @@ function ArticleDetail() {
             </DetailArticleNameSpace>
             <DetailArticlePriceSpace>
               <DetailArticlePrice>35%</DetailArticlePrice>
-              <DetailArticlePrice> 원</DetailArticlePrice>
+              <DetailArticlePrice>{articlesDetail?.price}원</DetailArticlePrice>
               <DetailArticlePrice>115,000원</DetailArticlePrice>
             </DetailArticlePriceSpace>
             <DetailArticleOptionSpace>
@@ -141,7 +140,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  overflow-y: scroll;
+  margin-top: 170px;
 `;
 
 const DetailContents = styled.div`
