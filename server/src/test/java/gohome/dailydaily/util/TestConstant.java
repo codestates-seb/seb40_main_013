@@ -2,6 +2,7 @@ package gohome.dailydaily.util;
 
 import gohome.dailydaily.domain.cart.entity.Cart;
 import gohome.dailydaily.domain.cart.entity.ProductCart;
+import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberRole;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
@@ -44,10 +45,15 @@ public class TestConstant {
             .member(MEMBER)
             .build();
 
+    public static final File FILE = File.builder()
+            .fileName("fileName")
+            .fullPath("fullPath")
+            .build();
     public static final Product PRODUCT = Product.builder()
             .id(1L)
             .title("productTest")
             .content("test")
+            .img(FILE)
             .price(10000)
             .score(45)
             .seller(SELLER)
@@ -58,16 +64,15 @@ public class TestConstant {
             .price(10000)
             .product(PRODUCT).build();
 
-    public static final Cart CART = Cart.builder()
-            .id(1L)
-            .member(MEMBER)
-            .build();
-
     public static final ProductCart PRODUCT_CART = ProductCart.builder()
             .id(1L)
             .count(2)
-            .product(Product.builder().id(PRODUCT.getId()).build())
-            .option(Option.builder().id(OPTION.getId()).build())
+            .product(PRODUCT)
+            .option(OPTION)
+            .build();
+    public static final Cart CART = Cart.builder()
+            .id(1L)
+            .member(MEMBER)
             .build();
 
     public static final Pageable PAGEABLE = PageRequest.of(0, 20, Sort.by("createdAt").descending());
@@ -99,6 +104,7 @@ public class TestConstant {
             .score(35)
             .product(PRODUCT2)
             .build();
+
 
     public static final OperationRequestPreprocessor REQUEST_PREPROCESSOR =
             preprocessRequest(
@@ -171,12 +177,13 @@ public class TestConstant {
     public static final FieldDescriptor FWP_PRODUCT_TITLE = fieldWithPath("productTitle").type(STRING).description("상품 이름");
     public static final FieldDescriptor FWP_CART_ID = fieldWithPath("cartId").type(NUMBER).description("장바구니 식별자");
     public static final FieldDescriptor FWP_OPTION_ID = fieldWithPath("optionId").type(NUMBER).description("상품 옵션 식별자");
-    public static final FieldDescriptor FWP_PRODUCT_CART_ID = fieldWithPath("productCart[].productCartId").type(NUMBER).description("장바구니 상품 식별자");
-    public static final FieldDescriptor FWP_PRODUCT_CART_TITLE = fieldWithPath("productCart[].title").type(STRING).description("장바구니 상품명");
-    public static final FieldDescriptor FWP_PRODUCT_CART_COUNT = fieldWithPath("productCart[].count").type(NUMBER).description("장바구니 상품 수량");
-    public static final FieldDescriptor FWP_PRODUCT_CART_PRICE = fieldWithPath("productCart[].price").type(NUMBER).description("장바구니 상품 가격");
-    public static final FieldDescriptor FWP_PRODUCT_CART_IMG_NAME = fieldWithPath("productCart[].img.fileName").type(STRING).description("장바구니 상품 이미지 이름");
-    public static final FieldDescriptor FWP_PRODUCT_CART_IMG_PATH = fieldWithPath("productCart[].img.fullPath").type(STRING).description("장바구니 상품 이미지 경로");
+    public static final FieldDescriptor FWP_PRODUCT_CART_ID = fieldWithPath("productCarts[].productCartId").type(NUMBER).description("장바구니 상품 식별자");
+    public static final FieldDescriptor FWP_PRODUCT_CART_IMG_NAME = fieldWithPath("productCarts[].img.fileName").type(STRING).description("장바구니 상품 이미지 이름");
+    public static final FieldDescriptor FWP_PRODUCT_CART_IMG_PATH = fieldWithPath("productCarts[].img.fullPath").type(STRING).description("장바구니 상품 이미지 경로");
+    public static final FieldDescriptor FWP_PRODUCT_CART_TITLE = fieldWithPath("productCarts[].title").type(STRING).description("장바구니 상품명");
+    public static final FieldDescriptor FWP_PRODUCT_CART_COUNT = fieldWithPath("productCarts[].count").type(NUMBER).description("장바구니 상품 수량");
+    public static final FieldDescriptor FWP_PRODUCT_CART_PRICE = fieldWithPath("productCarts[].price").type(NUMBER).description("장바구니 상품 가격");
+    public static final FieldDescriptor FWP_COUNT = fieldWithPath("count").type(NUMBER).description("상품 수량");
 
     public static final ResponseFieldsSnippet REVIEW_RESPONSE_FIELDS = responseFields(
             FWP_REVIEW_ID, FWP_PRODUCT_ID, FWP_PRODUCT_TITLE, FWP_REVIEW_TITLE, FWP_REVIEW_CONTENT, FWP_REVIEW_SCORE
@@ -185,6 +192,7 @@ public class TestConstant {
     static {
         MEMBER.addRoles(MemberRole.USER);
         PRODUCT.addOptions(OPTION);
+        CART.addProductCart(PRODUCT_CART);
     }
 
 }

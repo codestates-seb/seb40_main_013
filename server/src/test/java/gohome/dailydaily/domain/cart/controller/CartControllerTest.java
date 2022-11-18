@@ -2,6 +2,7 @@ package gohome.dailydaily.domain.cart.controller;
 
 import com.google.gson.Gson;
 import gohome.dailydaily.domain.cart.dto.ProductCartDto;
+import gohome.dailydaily.domain.cart.entity.ProductCart;
 import gohome.dailydaily.domain.cart.mapper.CartMapper;
 import gohome.dailydaily.domain.cart.mapper.ProductCartMapper;
 import gohome.dailydaily.domain.cart.service.CartService;
@@ -22,6 +23,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.List;
 
 import static gohome.dailydaily.util.TestConstant.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willReturn;
@@ -55,11 +57,12 @@ class CartControllerTest implements Reflection {
 
         String request = gson.toJson(post);
 
-        given(cartService.addCart(PRODUCT_CART, MEMBER.getId())).willReturn(CART);
+
+        given(cartService.addCart(any(ProductCart.class), eq(MEMBER.getId()))).willReturn(CART);
 
         // when
         ResultActions actions = mockMvc.perform(
-                post("/products/{productId}/cart", PRODUCT_CART.getProduct().getId())
+                post("/products/{product-id}/carts", PRODUCT_CART.getProduct().getId())
                         .header("Authorization", "JWT")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -70,14 +73,14 @@ class CartControllerTest implements Reflection {
         actions.andExpect(status().isCreated())
                 .andExpect(jsonPath("$.cartId").value(CART.getId()))
                 .andExpect(jsonPath("$.memberId").value(MEMBER.getId()))
-                .andExpect(jsonPath("$.productCarts").value(List.of(PRODUCT_CART)))
-                .andDo(document("cart/post",
+                .andExpect(jsonPath("$.productCarts[0].productCartId").value(PRODUCT_CART.getId()))
+                .andDo(document("carts/post",
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         REQUEST_HEADER_JWT,
                         PATH_PARAM_PRODUCT_ID,
                         requestFields(
-                                FWP_PRODUCT_CART_COUNT,
+                                FWP_COUNT,
                                 FWP_OPTION_ID
                         ),
                         responseFields(

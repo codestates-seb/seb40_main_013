@@ -26,7 +26,7 @@ public interface ProductCartMapper {
     default ProductCartDto.Response toResponse(ProductCart productCart) {
 
         return new ProductCartDto.Response(
-                productCart.getProduct().getId(),
+                productCart.getId(),
                 productCart.getProduct().getImg(),
                 productCart.getProduct().getTitle(),
                 productCart.getCount(),

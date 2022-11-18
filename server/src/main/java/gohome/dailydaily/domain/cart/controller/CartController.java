@@ -23,8 +23,8 @@ public class CartController {
     private final CartMapper mapper;
     private final ProductCartMapper productCartMapper;
 
-    @PostMapping("/{productId}/cart")
-    public ResponseEntity postCart(@PathVariable Long productId,
+    @PostMapping("/{product-id}/carts")
+    public ResponseEntity postCart(@PathVariable("product-id") Long productId,
                                    @MemberId Long memberId,
                                    @RequestBody ProductCartDto.Post productCartDto) {
         ProductCart productCart = productCartMapper.toProductCart(productCartDto, productId);
@@ -34,7 +34,7 @@ public class CartController {
         return new ResponseEntity<>(mapper.toResponse(cart), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{productId}/cart")
+    @DeleteMapping("/{productId}/carts")
     public void deleteCart(@PathVariable Long productId,
                            @MemberId Long memberId) {
 

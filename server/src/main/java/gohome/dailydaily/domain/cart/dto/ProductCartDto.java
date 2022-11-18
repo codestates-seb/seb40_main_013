@@ -20,7 +20,7 @@ public class ProductCartDto {
     @AllArgsConstructor
     public static class Response {
 
-        private Long productId;
+        private Long productCartId;
         private File img;
         private String title;
         private Integer count;

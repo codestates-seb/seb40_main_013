@@ -24,9 +24,9 @@ public class CartService {
         Product product = productService.getProduct(productCart.getProduct().getId());
         Option option = findVerifiedOption(product, productCart.getOption().getId());
 
-        productCart.addCart(cart);
         productCart.addProduct(product);
         productCart.addOption(option);
+        cart.addProductCart(productCart);
 
         return cartRepository.save(cart);
     }

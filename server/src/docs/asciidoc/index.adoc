@@ -144,3 +144,27 @@ include::{snippets}/reviews/delete/request-headers.adoc[]
 
 .http-response
 include::{snippets}/reviews/delete/http-response.adoc[]
+
+== 장바구니
+=== 상품 추가
+.http-request
+include::{snippets}/carts/post/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/carts/post/request-headers.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/carts/post/path-parameters.adoc[]
+
+.request-fields
+[caption=]
+include::{snippets}/carts/post/request-fields.adoc[]
+
+.http-response
+include::{snippets}/carts/post/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/carts/post/response-fields.adoc[]
