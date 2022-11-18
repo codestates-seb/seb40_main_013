@@ -461,6 +461,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_리뷰_삭제">2.3. 리뷰 삭제</a></li>
 </ul>
 </li>
+<li><a href="#_상품">3. 상품</a>
+<ul class="sectlevel2">
+<li><a href="#_상품_상세_조회">3.1. 상품 상세 조회</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -482,7 +487,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
 Content-Length: 96
-Host: api.dailydaily.com
+Host: localhost:8080
 
 {
   "nickname" : "닉네임",
@@ -602,7 +607,7 @@ Content-Length: 151
 <pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/mypage HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Authorization: JWT
-Host: api.dailydaily.com</code></pre>
+Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -705,7 +710,7 @@ Content-Type: application/json;charset=UTF-8
 Authorization: JWT
 Accept: application/json
 Content-Length: 119
-Host: api.dailydaily.com
+Host: localhost:8080
 
 {
   "nickname" : "닉네임",
@@ -849,7 +854,7 @@ Content-Length: 166
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /members/mypage HTTP/1.1
 Authorization: JWT
-Host: api.dailydaily.com</code></pre>
+Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -891,7 +896,7 @@ X-Frame-Options: SAMEORIGIN</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/mypage/reviews?page=0&amp;size=20&amp;sort=createdAt%2CDESC HTTP/1.1
 Authorization: JWT
-Host: api.dailydaily.com</code></pre>
+Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1076,7 +1081,7 @@ Content-Type: application/json;charset=UTF-8
 Authorization: JWT
 Accept: application/json
 Content-Length: 85
-Host: api.dailydaily.com
+Host: localhost:8080
 
 {
   "title" : "리뷰 제목1",
@@ -1236,7 +1241,7 @@ Content-Type: application/json;charset=UTF-8
 Authorization: JWT
 Accept: application/json
 Content-Length: 104
-Host: api.dailydaily.com
+Host: localhost:8080
 
 {
   "reviewId" : 1,
@@ -1403,7 +1408,7 @@ Content-Length: 162
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /products/1/reviews/1 HTTP/1.1
 Authorization: JWT
-Host: api.dailydaily.com</code></pre>
+Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1440,11 +1445,34 @@ X-Frame-Options: SAMEORIGIN</code></pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_상품">3. 상품</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_상품_상세_조회">3.1. 상품 상세 조회</h3>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /products/details/1 HTTP/1.1
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">request-headers</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ http GET 'http://localhost:8080/products/details/1' \
+    'Accept:application/json'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-11-17 14:45:15 +0900
+Last updated 2022-11-18 01:32:25 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

@@ -1,10 +1,10 @@
 package gohome.dailydaily.domain.product.controller;
 
-import com.google.gson.Gson;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.mapper.OptionMapper;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
+import gohome.dailydaily.domain.product.repository.ProductRepositoryCustomImpl;
 import gohome.dailydaily.domain.product.service.ProductService;
 import gohome.dailydaily.domain.review.mapper.ReviewMapper;
 import gohome.dailydaily.util.Reflection;
@@ -37,15 +37,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = {ProductController.class, ProductMapper.class, OptionMapper.class, SellerMapper.class, ReviewMapper.class})
 @MockBean(JpaMetamodelMappingContext.class)
-@Import(SecurityTestConfig.class)
+@Import({SecurityTestConfig.class})
 @AutoConfigureRestDocs
 @WithMockCustomUser
 public class ProductControllerTest implements Reflection {
 
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private Gson gson;
+
     @MockBean
     private ProductService productService;
 
@@ -63,14 +62,14 @@ public class ProductControllerTest implements Reflection {
                 .andDo(document("products/get"
                         ,REQUEST_PREPROCESSOR
                         ,RESPONSE_PREPROCESSOR
-                        //,PATH_PARAM_PRODUCT_ID
-                        //,PRODUCT_RESPONSE_FIELDS
+                        ,PRODUCT_RESPONSE_FIELDS
                 ))
                 .andExpect(jsonPath("$.productId").value(PRODUCT1.getId()))
                 .andExpect(jsonPath("$.title").value(PRODUCT1.getTitle()))
                 .andExpect(jsonPath("$.content").value(PRODUCT1.getContent()))
                 .andExpect(jsonPath("$.price").value(PRODUCT1.getPrice()))
-                .andExpect(jsonPath("$.img").value(PRODUCT1.getImg()))
+                .andExpect(jsonPath("$.img.fileName").value(PRODUCT1.getImg().getFileName()))
+                .andExpect(jsonPath("$.img.fullPath").value(PRODUCT1.getImg().getFullPath()))
                 .andExpect(jsonPath("$.score").value(PRODUCT1.getScore() / 10F))
                 .andExpect(jsonPath("$.seller.sellerId").value(PRODUCT1.getSeller().getId()))
                 .andExpect(jsonPath("$.seller.memberId").value(PRODUCT1.getSeller().getMember().getId()))
@@ -102,10 +101,39 @@ public class ProductControllerTest implements Reflection {
                         RESPONSE_PREPROCESSOR,
                         REQUEST_PARAM_PAGE,
                         responseFields(
-                                FWP_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG, FWP_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE,
-                                FWP_PAGE_INFO, FWP_PAGE_INFO_PAGE, FWP_PAGE_INFO_PAGE, FWP_PAGE_INFO_SIZE
-
+                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME,FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE
+                                ,FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE,FWP_SLICE_INFO_SIZE,FWP_SLICE_INFO_HAS_NEXT
                         )));
     }
 
+    @Test
+    public void getCategoryMainSub() throws Exception {
+        Slice<CategoryGetDto> products = new SliceImpl<>(
+                List.of(new CategoryGetDto(PRODUCT1.getId(), PRODUCT1.getImg(), PRODUCT1.getTitle(),
+                                PRODUCT1.getPrice(), PRODUCT1.getScore()),
+                        new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+                                PRODUCT2.getPrice(), PRODUCT2.getScore())), PAGEABLE, true);
+
+        given(productService.getCategoryList(PAGEABLE, CATEGORY.getMain(), CATEGORY.getSub()))
+                .willReturn(products);
+
+        ResultActions actions = mockMvc.perform(
+                get("/products/{main}/{sub}",CATEGORY.getMain(),CATEGORY.getSub())
+                        .accept(MediaType.APPLICATION_JSON)
+                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
+                        .param("size", String.valueOf(PAGEABLE.getPageSize()))
+                        .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
+        );
+
+        actions.andExpect(status().isOk())
+                .andDo(document("products/main/sub/get",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_PARAM_PAGE,
+                        responseFields(
+                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME,FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE
+                                ,FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE,FWP_SLICE_INFO_SIZE,FWP_SLICE_INFO_HAS_NEXT
+
+                        )));
+    }
 }

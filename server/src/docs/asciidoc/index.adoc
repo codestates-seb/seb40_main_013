@@ -144,3 +144,12 @@ include::{snippets}/reviews/delete/request-headers.adoc[]
 
 .http-response
 include::{snippets}/reviews/delete/http-response.adoc[]
+
+== 상품
+=== 상품 상세 조회
+.http-request
+include::{snippets}/products/get/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/products/get/httpie-request.adoc[]

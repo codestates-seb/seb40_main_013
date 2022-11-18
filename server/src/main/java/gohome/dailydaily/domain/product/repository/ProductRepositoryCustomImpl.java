@@ -7,12 +7,12 @@ import gohome.dailydaily.domain.product.entity.QProduct;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
-import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepositoryCustomImpl implements ProductRepositoryCustom{
@@ -34,10 +34,10 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom{
                 .limit(pageable.getPageSize() + 1)
                 .fetch();
 
-        List<CategoryGetDto> content = new ArrayList<>();
-        for(Product product: result){
-            content.add(new CategoryGetDto(product.getId(),product.getImg(),product.getTitle(), product.getPrice(), product.getScore()));
-        }
+        List<CategoryGetDto> content = result.stream().map(p ->
+                new CategoryGetDto(p.getId(), p.getImg(), p.getTitle(), p.getPrice(), p.getScore()))
+                .collect(Collectors.toList());
+
         boolean hasNext =false;
         if(content.size() > pageable.getPageSize()){
             content.remove(pageable.getPageSize());
@@ -57,10 +57,10 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom{
                 .limit(pageable.getPageSize() + 1)
                 .fetch();
 
-        List<CategoryGetDto> content = new ArrayList<>();
-        for(Product product: result){
-            content.add(new CategoryGetDto(product.getId(),product.getImg(),product.getTitle(), product.getPrice(), product.getScore()));
-        }
+        List<CategoryGetDto> content = result.stream().map(p ->
+                        new CategoryGetDto(p.getId(), p.getImg(), p.getTitle(), p.getPrice(), p.getScore()))
+                .collect(Collectors.toList());
+
         boolean hasNext =false;
         if(content.size() > pageable.getPageSize()){
             content.remove(pageable.getPageSize());
