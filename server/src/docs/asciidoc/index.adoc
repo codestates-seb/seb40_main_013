@@ -169,6 +169,21 @@ include::{snippets}/carts/post/http-response.adoc[]
 [caption=]
 include::{snippets}/carts/post/response-fields.adoc[]
 
+=== 장바구니 조회
+.http-request
+include::{snippets}/carts/get/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/carts/get/request-headers.adoc[]
+
+.http-response
+include::{snippets}/carts/get/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/carts/get/response-fields.adoc[]
+
 === 장바구니 상품 삭제
 .http-request
 include::{snippets}/carts/delete/http-request.adoc[]

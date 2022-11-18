@@ -147,9 +147,6 @@ public class TestConstant {
     public static final FieldDescriptor FWP_MEMBER_STATUS = fieldWithPath("memberStatus").type(STRING).description("멤버 상태");
     public static final FieldDescriptor FWP_PASSWORD = fieldWithPath("password").type(STRING).description("비밀번호");
 
-    public static final ResponseFieldsSnippet MEMBER_RESPONSE_FIELDS = responseFields(
-            FWP_MEMBER_ID, FWP_NICKNAME, FWP_EMAIL, FWP_ADDRESS, FWP_PHONE, FWP_MEMBER_STATUS
-    );
 
     public static final FieldDescriptor FWP_CONTENT = fieldWithPath("content").type(ARRAY).description("데이터");
 
@@ -183,6 +180,7 @@ public class TestConstant {
     public static final FieldDescriptor FWP_OPTION_ID = fieldWithPath("optionId").type(NUMBER).description("상품 옵션 식별자");
     public static final FieldDescriptor FWP_PRODUCT_CART_ID = fieldWithPath("productCarts[].productCartId").type(NUMBER).description("장바구니 상품 식별자");
     public static final FieldDescriptor FWP_PRODUCT_CART_PRODUCT_ID = fieldWithPath("productCarts[].productId").type(NUMBER).description("상품 식별자");
+    public static final FieldDescriptor FWP_PRODUCT_CART_BRAND_NAME = fieldWithPath("productCarts[].brandName").type(STRING).description("상품 판매자");
     public static final FieldDescriptor FWP_PRODUCT_CART_IMG_NAME = fieldWithPath("productCarts[].img.fileName").type(STRING).description("상품 이미지 이름");
     public static final FieldDescriptor FWP_PRODUCT_CART_IMG_PATH = fieldWithPath("productCarts[].img.fullPath").type(STRING).description("상품 이미지 경로");
     public static final FieldDescriptor FWP_PRODUCT_CART_TITLE = fieldWithPath("productCarts[].title").type(STRING).description("상품명");
@@ -192,6 +190,13 @@ public class TestConstant {
 
     public static final ResponseFieldsSnippet REVIEW_RESPONSE_FIELDS = responseFields(
             FWP_REVIEW_ID, FWP_PRODUCT_ID, FWP_PRODUCT_TITLE, FWP_REVIEW_TITLE, FWP_REVIEW_CONTENT, FWP_REVIEW_SCORE
+    );
+    public static final ResponseFieldsSnippet MEMBER_RESPONSE_FIELDS = responseFields(
+            FWP_MEMBER_ID, FWP_NICKNAME, FWP_EMAIL, FWP_ADDRESS, FWP_PHONE, FWP_MEMBER_STATUS
+    );
+    public static final ResponseFieldsSnippet CART_RESPONSE_FIELDS = responseFields(
+            FWP_CART_ID, FWP_PRODUCT_CART_ID, FWP_PRODUCT_CART_PRODUCT_ID, FWP_PRODUCT_CART_BRAND_NAME, FWP_PRODUCT_CART_IMG_NAME,
+            FWP_PRODUCT_CART_IMG_PATH, FWP_PRODUCT_CART_TITLE, FWP_PRODUCT_CART_COUNT, FWP_PRODUCT_CART_PRICE
     );
 
     static {

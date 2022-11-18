@@ -3,8 +3,7 @@ package gohome.dailydaily.domain.cart.service;
 import gohome.dailydaily.domain.cart.entity.Cart;
 import gohome.dailydaily.domain.cart.entity.ProductCart;
 import gohome.dailydaily.domain.cart.repository.CartRepository;
-import gohome.dailydaily.domain.member.entity.Member;
-import gohome.dailydaily.domain.member.repository.MemberRepository;
+import gohome.dailydaily.domain.cart.repository.ProductCartRepository;
 import gohome.dailydaily.domain.product.entity.Option;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.product.service.ProductService;
@@ -21,9 +20,7 @@ import java.util.Optional;
 
 import static gohome.dailydaily.util.TestConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,6 +28,8 @@ class CartServiceTest implements Reflection {
 
     @Mock
     private CartRepository cartRepository;
+    @Mock
+    private ProductCartRepository productCartRepository;
     @Mock
     private ProductService productService;
 
@@ -57,9 +56,9 @@ class CartServiceTest implements Reflection {
                 .option(Option.builder().id(OPTION.getId()).build())
                 .build();
 
-        given(cartRepository.save(any(Cart.class))).willAnswer(AdditionalAnswers.returnsFirstArg());
+        given(productCartRepository.save(any(ProductCart.class))).willAnswer(AdditionalAnswers.returnsFirstArg());
         given(productService.getProduct(PRODUCT.getId())).willReturn(PRODUCT);
-        given(cartRepository.findByMember_Id(MEMBER.getId())).willReturn(Optional.ofNullable(cart));
+        given(cartRepository.findCartByMember_Id(MEMBER.getId())).willReturn(Optional.ofNullable(cart));
 
         // when
         cartService.addCart(productCart, MEMBER.getId());
