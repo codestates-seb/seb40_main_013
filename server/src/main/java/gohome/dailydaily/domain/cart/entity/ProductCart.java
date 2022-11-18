@@ -37,9 +37,7 @@ public class ProductCart extends BaseTime {
 
     public void addCart(Cart cart) {
         this.cart = cart;
-        if (!this.cart.getProductCarts().contains(this)) {
-            this.cart.getProductCarts().add(this);
-        }
+        this.cart.getProductCarts().add(this);
     }
 
     public void addProduct(Product product) {

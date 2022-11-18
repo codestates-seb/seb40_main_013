@@ -1,8 +1,14 @@
 package gohome.dailydaily.util;
 
+import gohome.dailydaily.domain.cart.entity.Cart;
+import gohome.dailydaily.domain.cart.entity.ProductCart;
+import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberRole;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
+import gohome.dailydaily.domain.member.entity.Seller;
+import gohome.dailydaily.domain.product.entity.Option;
+import gohome.dailydaily.domain.product.entity.Product;
 import org.springframework.restdocs.headers.RequestHeadersSnippet;
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;
@@ -26,6 +32,25 @@ public class TestConstant {
             .phone("010-1234-5678")
             .memberStatus(MemberStatus.ACTIVE)
             .build();
+    public static final Seller SELLER = Seller.builder()
+            .id(1L)
+            .brandNumber("53-215-6262463")
+            .member(MEMBER)
+            .build();
+
+    public static final Product PRODUCT = Product.builder()
+            .id(1L)
+            .title("productTest")
+            .content("test")
+            .price(10000)
+            .score(45)
+            .seller(SELLER)
+            .build();
+
+    public static final Option OPTION = Option.builder()
+            .id(1L)
+            .price(10000)
+            .product(PRODUCT).build();
 
     public static final OperationRequestPreprocessor REQUEST_PREPROCESSOR =
             preprocessRequest(
@@ -53,8 +78,10 @@ public class TestConstant {
             FWP_MEMBER_ID, FWP_NICKNAME, FWP_EMAIL, FWP_ADDRESS, FWP_PHONE, FWP_MEMBER_STATUS
     );
 
-    public TestConstant() {
+    static {
         MEMBER.addRoles(MemberRole.USER);
+        PRODUCT.addOptions(OPTION);
     }
+
 
 }

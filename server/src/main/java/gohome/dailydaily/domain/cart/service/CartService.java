@@ -28,14 +28,12 @@ public class CartService {
         productCart.addProduct(product);
         productCart.addOption(option);
 
-        cart.addProductCart(productCart);
-
         return cartRepository.save(cart);
     }
 
     public Option findVerifiedOption(Product product, Long optionId) {
         Optional<Option> result = product.getOptions().stream()
-                        .filter(option -> option.getId() == optionId)
+                        .filter(option -> option.getId().equals(optionId))
                 .findFirst();
 
         return result.orElseThrow(() -> new BusinessLogicException(ExceptionCode.OPTION_NOT_FOUND));
@@ -47,6 +45,6 @@ public class CartService {
     public Cart findVerifiedCart(Long memberId) {
         
         return cartRepository.findByMember_Id(memberId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.CART_NOT_FOUND));
     }
 }
