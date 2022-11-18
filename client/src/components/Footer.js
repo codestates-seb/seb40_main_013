@@ -48,6 +48,10 @@ const FooterWrapper = styled.div`
   width: 100%;
   height: 200px;
   background-color: #fcf9e9;
+<<<<<<< HEAD
+
+=======
+>>>>>>> 40a0b9deaaf7b244f455d60bd42a6c2207bc6dad
   padding: 10px 0px 10px 20px;
   @media screen and (max-width: 768px) {
     min-width: 391px;

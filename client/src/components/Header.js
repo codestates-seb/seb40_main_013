@@ -21,7 +21,7 @@ const HeaderBlock = styled.header`
 `;
 const Logo = styled.div`
   justify-content: center;
-  height: 100px;
+  height: 90px;
   justify-content: center;
   align-items: center;
   div {
@@ -134,7 +134,7 @@ function Header() {
           <Link to="/users/login">
             <LoginBtn>로그인/회원가입</LoginBtn>
           </Link>
-          <Link to="/users/me/*">
+          <Link to="/members/mypage/*">
             <LoginBtn>마이페이지</LoginBtn>
           </Link>
         </div>
@@ -191,12 +191,10 @@ function Header() {
               <Serach onClick={closeHandler}>
                 <BsSearch size="20" />
               </Serach>
-              {closeSearch && (
                 <DownSearch
                   closeSearch={closeSearch}
                   closeHandler={closeHandler}
                 />
-              )}
             </div>
             <Link to="/cart">
               <div>
