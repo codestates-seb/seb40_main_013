@@ -21,7 +21,7 @@ public class CrawlingController {
     @ResponseStatus(HttpStatus.OK)
     public void productName() {
 
-        String url = "https://ohou.se/store/category?category=0_22";
+        String url = "https://ohou.se/productions/feed?query=%EB%8D%B0%EC%8A%A4%EC%BB%A4&category_id=10150000";
 
 //        for (String url : urls) {
         log.info("@CrawlingController, productName url : " + url);

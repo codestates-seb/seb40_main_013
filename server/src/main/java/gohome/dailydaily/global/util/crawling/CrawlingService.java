@@ -59,13 +59,14 @@ public class CrawlingService implements Crawler {
                 log.info("Product URL: " + productName);
                 log.info("Product URL: " + productPrice);
                 productPrice = productPrice.replaceAll("\\W", "");
+                productScore = productScore.replaceAll("\\W", "");
 
 
                 Product postProduct = Product.builder()
                         .title(productName)
                         .content("test")
                         .price(Integer.parseInt(productPrice))
-                        .score(Float.parseFloat(productScore))
+                        .score(Integer.parseInt(productScore))
                         .build();
 
                 products.add(postProduct);
