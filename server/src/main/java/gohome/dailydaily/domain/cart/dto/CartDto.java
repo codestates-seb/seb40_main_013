@@ -15,16 +15,15 @@ public class CartDto {
         private Long productId;
         private Integer count;
         private Long optionId;
-
     }
 
     @Getter
     @AllArgsConstructor
     public static class Response {
+
         private Long cartId;
         private Long memberId;
         private List<ProductCartDto.Response> productCarts;
-
     }
 
 }
