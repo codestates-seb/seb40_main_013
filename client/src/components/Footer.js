@@ -28,15 +28,8 @@ function Footer() {
       </FooterMidBtnMenu>
       <FooterDownContentSpace>
         <FooterDownContent>
-          대표:이유섭 개인정보관리책임 이경미 이사 info@dodot.co.kr
-          사업자등록번호 : 114-81-97860 [ 사업자정보확인 ] 통신판매업신고 :
-          2011-서울서초-2172 두닷본사 : 서울 서초구 방배중앙로 29길 7
-        </FooterDownContent>
-        <FooterDownContent>
-          무통장 입금 계좌 : (주) 코다스디자인(두닷) / 국민은행
-          367201-04-073607, 기업은행 233-050895-01-021 현금으로 구매시
-          이지스올더게이트의 에스크로 서비스를 이용할 수 있습니다. [
-          서비스가입사실확인 ]
+          팀장 : 홍승재 <br /> 백엔드 : 김경근, 허준열 <br /> 프론트 : 김서연
+          ,노경민 , 임세영
         </FooterDownContent>
         <FooterDownContent>@ 2014 dodot. All Right Reserved.</FooterDownContent>
       </FooterDownContentSpace>
@@ -48,15 +41,9 @@ const FooterWrapper = styled.div`
   width: 100%;
   height: 200px;
   background-color: #fcf9e9;
-<<<<<<< HEAD
-
-=======
->>>>>>> 40a0b9deaaf7b244f455d60bd42a6c2207bc6dad
-  padding: 10px 0px 10px 20px;
+  padding: 20px 0px 10px 20px;
   @media screen and (max-width: 768px) {
     min-width: 391px;
-    width: 100%;
-    height: 200px;
   }
 `;
 
@@ -77,15 +64,15 @@ const FooterSeviceContent = styled.div`
 
 const FooterSocialBtnSpace = styled.div`
   display: flex;
-  width: 200px;
+  width: 40px;
   height: 100%;
   font-weight: bolder;
   justify-content: space-between;
   align-items: center;
-  @media screen and (max-width: 650px) {
+  /* @media screen and (max-width: 650px) {
     width: 35%;
-  }
-  @media screen and (max-width: 560px) {
+  } */
+  @media screen and (max-width: 360px) {
     width: 20%;
   }
 `;
@@ -127,8 +114,8 @@ const FooterMenuBtn = styled.div`
     font-size: 12px;
   }
 `;
-const FooterSocialBtn = styled.div`
-  font-size: 18px;
+const FooterSocialBtn = styled.a`
+  font-size: 30px;
   cursor: pointer;
   &:hover {
     color: #ffaf51;
