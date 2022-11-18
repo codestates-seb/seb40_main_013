@@ -29,16 +29,24 @@ public class ProductService {
     }
 
     public Slice<CategoryGetDto> getCategoryList(Pageable pageable, String main) {
-        return productRepository.findByCategory_Main(pageable, main);
+        Slice<CategoryGetDto> products = productRepository.findByCategory_Main(pageable, main);
+        if (products.isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND);
+        }
+        return products;
 
     }
 
     public Slice<CategoryGetDto> getCategoryList(Pageable pageable, String main, String sub) {
-        return productRepository.findByCategory_MainAndCategory_Sub(pageable, main, sub);
+        Slice<CategoryGetDto> products = productRepository.findByCategory_MainAndCategory_Sub(pageable, main, sub);
+        if (products.isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND);
+        }
+        return products;
     }
 
     public Product getProduct(Long productId) {
-        return productRepository.findProductById(productId).orElseThrow(
-                () -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+        return productRepository.findProductById(productId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
     }
 }

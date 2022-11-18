@@ -2,26 +2,34 @@ package gohome.dailydaily.domain.product.controller;
 
 import com.google.gson.Gson;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
-import gohome.dailydaily.domain.product.entity.Product;
+import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.mapper.OptionMapper;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.service.ProductService;
 import gohome.dailydaily.domain.review.mapper.ReviewMapper;
 import gohome.dailydaily.util.Reflection;
 import gohome.dailydaily.util.security.SecurityTestConfig;
+import gohome.dailydaily.util.security.WithMockCustomUser;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
+
+import java.util.List;
+
+import static gohome.dailydaily.util.TestConstant.*;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,6 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @MockBean(JpaMetamodelMappingContext.class)
 @Import(SecurityTestConfig.class)
 @AutoConfigureRestDocs
+@WithMockCustomUser
 public class ProductControllerTest implements Reflection {
 
     @Autowired
@@ -41,35 +50,62 @@ public class ProductControllerTest implements Reflection {
     private ProductService productService;
 
     @Test
-    public void getProduct() throws Exception{
-        Product product = newInstance(Product.class);
-        setField(product, "id", 1L);
-        setField(product, "title", "제목");
-        setField(product,"img",null);
-        setField(product,"content","내용");
-        setField(product,"price",100000);
-        setField(product,"score",3);
-        setField(product,"seller","{}");
-        setField(product,"category","{}");
-        setField(product,"options","[id,color,size,stock]");
-        setField(product,"reviews","[id,title,content]");
-        given(productService.getProduct(Mockito.anyLong())).willReturn(product);
+    public void getProduct() throws Exception {
 
-        ResultActions actions = mockMvc.perform(get("/products/1")
+        given(productService.getProduct(PRODUCT1.getId()))
+                .willReturn(PRODUCT1);
+
+        //when
+        ResultActions actions = mockMvc.perform(get("/products/details/{product-id}", PRODUCT1.getId())
                 .accept(MediaType.APPLICATION_JSON));
 
         MvcResult result = actions.andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.productId").value(product.getId()))
-                .andExpect(jsonPath("$.data.title").value(product.getTitle()))
-                .andExpect(jsonPath("$.data.img").value(product.getImg()))
-                .andExpect(jsonPath("$.data.content").value(product.getContent()))
-                .andExpect(jsonPath("$.data.price").value(product.getPrice()))
-                .andExpect(jsonPath("$.data.score").value(product.getScore()))
-                .andExpect(jsonPath("$.data.seller").value(product.getSeller()))
-                .andExpect(jsonPath("$.data.category").value(product.getCategory()))
-                .andExpect(jsonPath("$.data.options").value(product.getOptions()))
-                .andExpect(jsonPath("$.data.reviews").value(product.getReviews()))
+                .andDo(document("products/get"
+                        ,REQUEST_PREPROCESSOR
+                        ,RESPONSE_PREPROCESSOR
+                        //,PATH_PARAM_PRODUCT_ID
+                        //,PRODUCT_RESPONSE_FIELDS
+                ))
+                .andExpect(jsonPath("$.productId").value(PRODUCT1.getId()))
+                .andExpect(jsonPath("$.title").value(PRODUCT1.getTitle()))
+                .andExpect(jsonPath("$.content").value(PRODUCT1.getContent()))
+                .andExpect(jsonPath("$.price").value(PRODUCT1.getPrice()))
+                .andExpect(jsonPath("$.img").value(PRODUCT1.getImg()))
+                .andExpect(jsonPath("$.score").value(PRODUCT1.getScore() / 10F))
+                .andExpect(jsonPath("$.seller.sellerId").value(PRODUCT1.getSeller().getId()))
+                .andExpect(jsonPath("$.seller.memberId").value(PRODUCT1.getSeller().getMember().getId()))
                 .andReturn();
+    }
+
+    @Test
+    public void getCategoryMain() throws Exception {
+        Slice<CategoryGetDto> products = new SliceImpl<>(
+                List.of(new CategoryGetDto(PRODUCT1.getId(), PRODUCT1.getImg(), PRODUCT1.getTitle(),
+                                PRODUCT1.getPrice(), PRODUCT1.getScore()),
+                        new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+                                PRODUCT2.getPrice(), PRODUCT2.getScore())), PAGEABLE, true);
+
+        given(productService.getCategoryList(PAGEABLE, CATEGORY.getMain()))
+                .willReturn(products);
+
+        ResultActions actions = mockMvc.perform(
+                get("/products/{main}",CATEGORY.getMain())
+                        .accept(MediaType.APPLICATION_JSON)
+                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
+                        .param("size", String.valueOf(PAGEABLE.getPageSize()))
+                        .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
+        );
+
+        actions.andExpect(status().isOk())
+                .andDo(document("products/main/get",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_PARAM_PAGE,
+                        responseFields(
+                                FWP_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG, FWP_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE,
+                                FWP_PAGE_INFO, FWP_PAGE_INFO_PAGE, FWP_PAGE_INFO_PAGE, FWP_PAGE_INFO_SIZE
+
+                        )));
     }
 
 }
