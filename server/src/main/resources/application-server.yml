@@ -8,9 +8,9 @@ spring:
     hibernate:
       ddl-auto: update
 
+
 file:
   profileImg: profileImg/
   productImg: productImg/
 
 env: server
-logTracer: true
