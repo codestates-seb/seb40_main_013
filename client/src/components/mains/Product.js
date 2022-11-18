@@ -75,6 +75,7 @@ const StarAerage = styled.div`
   display: flex;
 `;
 const Product = ({ img, brand, title, price, score }) => {
+  // console.log(img);
   return(
     <Products to="/detail/:id">
       <Img src={img}></Img>

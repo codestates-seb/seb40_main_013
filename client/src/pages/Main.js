@@ -14,7 +14,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 170px;
+  margin-top: 160px;
   z-index: 1;
 `;
 
@@ -79,12 +79,16 @@ const TD = styled.td`
 
 const Main = () => {
   const [productList, setProductList] = useState([]);
+  // const [product, setProduct]=useState({});
 
   useEffect(() => {
-    Apis.get(`products`).then((data) => setProductList(data.data));
+    Apis.get(`products/침실`).then((data) => {
+      // setProduct(data.data.content));
+      setProductList(data.data.content);
+    });
   }, []);
-
-  // console.log(dodotList)
+  // console.log(product)
+  console.log(productList.map((p) => console.log(p.img)));
   return (
     <Container>
       <Carousel />
@@ -93,11 +97,11 @@ const Main = () => {
       <FullTitle name="fullTitle" className="fullTitle"></FullTitle>
       <ProductList>
         {productList
-          .filter((product) => product.id < 6)
+          .filter((product, idx) => idx < 3)
           .map((product) => (
             <Products
               brand={product.brand}
-              img={product.img}
+              img={product.img.fullPath}
               key={product.id}
               title={product.title}
               price={product.price}
@@ -133,7 +137,7 @@ const Main = () => {
         {productList.map((product, key) => (
           <Products
             brand={product.brand}
-            img={product.img}
+            img={product.img.fullPath}
             key={key}
             title={product.title}
             price={product.price}

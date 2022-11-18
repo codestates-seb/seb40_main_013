@@ -12,7 +12,7 @@ import SubCategory from "./pages/SubCategory";
 import ShoppingCart from "./pages/ShoppingCart";
 
 const MainContainter = styled.div`
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -29,7 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/users/login" element={<Login />} />
-            <Route path="/users/me/*" element={<MyPage />} />
+            <Route path="/members/mypage/*" element={<MyPage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/detail/:id" element={<ArticleDetail />} />
             <Route path="/sub" element={<SubCategory />} />

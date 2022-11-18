@@ -9,6 +9,7 @@ const SearchBlock = styled.div`
   z-index: 20000;
   overflow: hidden;
   transition: 0.3s height;
+
   top: 180px;
   left: 0;
   background-color: white;
