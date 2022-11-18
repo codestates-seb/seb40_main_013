@@ -5,6 +5,7 @@ import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.service.ProductService;
+import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -29,31 +30,33 @@ public class ProductController {
     private final ProductMapper mapper;
 
     // 미완성 추가구현 필요
-    @GetMapping()
+    @GetMapping
     public ResponseEntity getScoreAll() {
         List<Product> products = productService.findProduct();
-        return new ResponseEntity(products, HttpStatus.OK);
+        return null;
     }
 
     // 대분류
     @GetMapping("/{main}")
-    public ResponseEntity<Slice<CategoryGetDto>> getCategoryMain(@PathVariable("main") String main,
-                                                                 @PageableDefault(size = 20, sort = "createdAt",
-                                                                         direction = Sort.Direction.DESC) Pageable pageable) {
-        return new ResponseEntity<>(productService.getCategoryList(pageable, main), HttpStatus.OK);
+    public SliceResponseDto<CategoryGetDto> getCategoryMain(@PathVariable("main") String main,
+                                                            @PageableDefault(size = 20, sort = "createdAt",
+                                                                    direction = Sort.Direction.DESC) Pageable pageable) {
+        Slice<CategoryGetDto> products = productService.getCategoryList(pageable, main);
+        return SliceResponseDto.of(products.map(mapper::toResponse));
     }
 
     // 소분류
     @GetMapping("/{main}/{sub}")
-    public ResponseEntity<Slice<CategoryGetDto>> getCategorySub(@PathVariable("main") String main,
-                                                                @PathVariable("sub") String sub,
-                                                                @PageableDefault(size = 20, sort = "createdAt",
-                                                                        direction = Sort.Direction.DESC) Pageable pageable) {
-        return new ResponseEntity<>(productService.getCategoryList(pageable, main, sub), HttpStatus.OK);
+    public SliceResponseDto<CategoryGetDto> getCategoryMainSub(@PathVariable("main") String main,
+                                                               @PathVariable("sub") String sub,
+                                                               @PageableDefault(size = 20, sort = "createdAt",
+                                                                       direction = Sort.Direction.DESC) Pageable pageable) {
+        Slice<CategoryGetDto> products = productService.getCategoryList(pageable, main, sub);
+        return SliceResponseDto.of(products.map(mapper::toResponse));
     }
 
     @GetMapping("/details/{product-id}")
-    public ProductDto.Response getProduct(@PathVariable("product-id") Long productId){
+    public ProductDto.Response getProduct(@PathVariable("product-id") Long productId) {
         Product product = productService.getProduct(productId);
 
         return mapper.toResponse(product);

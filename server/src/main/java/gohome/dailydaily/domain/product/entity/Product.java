@@ -55,4 +55,8 @@ public class Product extends BaseTime {
     public void addOptions(Option... options) {
         this.options.addAll(List.of(options));
     }
+
+    public void addReviews(Review... reviews) {
+        this.reviews.addAll(List.of(reviews));
+    }
 }
