@@ -13,6 +13,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @EntityGraph(attributePaths = {"product", "member"})
     Optional<Review> findReviewById(Long reviewId);
 
+    @EntityGraph(attributePaths = "product")
     Page<Review> findByMember_Id(Long id, Pageable pageable);
 
 }
