@@ -8,10 +8,8 @@ import lombok.Getter;
 public class ProductCartDto {
 
     @Getter
-    @AllArgsConstructor
     public static class Post {
 
-        private Long productId;
         private Integer count;
         private Long optionId;
     }
