@@ -39,24 +39,24 @@ public class ProductController {
     // 대분류
     @GetMapping("/{main}")
     public SliceResponseDto<CategoryGetDto> getCategoryMain(@PathVariable("main") String main,
-                                            @PageableDefault(size = 20, sort = "createdAt",
-                                                                         direction = Sort.Direction.DESC) Pageable pageable) {
-        Slice<CategoryGetDto> products = productService.getCategoryList(pageable,main);
+                                                            @PageableDefault(size = 20, sort = "createdAt",
+                                                                    direction = Sort.Direction.DESC) Pageable pageable) {
+        Slice<CategoryGetDto> products = productService.getCategoryList(pageable, main);
         return SliceResponseDto.of(products.map(mapper::toResponse));
     }
 
     // 소분류
     @GetMapping("/{main}/{sub}")
     public SliceResponseDto<CategoryGetDto> getCategoryMainSub(@PathVariable("main") String main,
-                                                   @PathVariable("sub") String sub,
-                                                   @PageableDefault(size = 20, sort = "createdAt",
-                                                                        direction = Sort.Direction.DESC) Pageable pageable) {
-        Slice<CategoryGetDto> products = productService.getCategoryList(pageable,main,sub);
+                                                               @PathVariable("sub") String sub,
+                                                               @PageableDefault(size = 20, sort = "createdAt",
+                                                                       direction = Sort.Direction.DESC) Pageable pageable) {
+        Slice<CategoryGetDto> products = productService.getCategoryList(pageable, main, sub);
         return SliceResponseDto.of(products.map(mapper::toResponse));
     }
 
     @GetMapping("/details/{product-id}")
-    public ProductDto.Response getProduct(@PathVariable("product-id") Long productId){
+    public ProductDto.Response getProduct(@PathVariable("product-id") Long productId) {
         Product product = productService.getProduct(productId);
 
         return mapper.toResponse(product);
