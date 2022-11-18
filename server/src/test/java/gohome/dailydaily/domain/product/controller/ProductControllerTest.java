@@ -60,10 +60,10 @@ public class ProductControllerTest implements Reflection {
 
         MvcResult result = actions.andExpect(status().isOk())
                 .andDo(document("products/get"
-                        ,REQUEST_PREPROCESSOR
-                        ,RESPONSE_PREPROCESSOR
-                        ,PRODUCT_RESPONSE_FIELDS
-                        ,PATH_PARAM_PRODUCT_ID
+                        , REQUEST_PREPROCESSOR
+                        , RESPONSE_PREPROCESSOR
+                        , PRODUCT_RESPONSE_FIELDS
+                        , PATH_PARAM_PRODUCT_ID
                 ))
                 .andExpect(jsonPath("$.productId").value(PRODUCT.getId()))
                 .andExpect(jsonPath("$.title").value(PRODUCT.getTitle()))
@@ -89,7 +89,7 @@ public class ProductControllerTest implements Reflection {
                 .willReturn(products);
 
         ResultActions actions = mockMvc.perform(
-                get("/products/{main}",CATEGORY.getMain())
+                get("/products/{main}", CATEGORY.getMain())
                         .accept(MediaType.APPLICATION_JSON)
                         .param("page", String.valueOf(PAGEABLE.getPageNumber()))
                         .param("size", String.valueOf(PAGEABLE.getPageSize()))
@@ -101,9 +101,10 @@ public class ProductControllerTest implements Reflection {
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         REQUEST_PARAM_PAGE,
+                        PATH_PARAM_CATEGORY_MAIN,
                         responseFields(
-                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME,FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE
-                                ,FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE,FWP_SLICE_INFO_SIZE,FWP_SLICE_INFO_HAS_NEXT
+                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE
+                                , FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
                         )));
     }
 
@@ -119,7 +120,7 @@ public class ProductControllerTest implements Reflection {
                 .willReturn(products);
 
         ResultActions actions = mockMvc.perform(
-                get("/products/{main}/{sub}",CATEGORY.getMain(),CATEGORY.getSub())
+                get("/products/{main}/{sub}", CATEGORY.getMain(), CATEGORY.getSub())
                         .accept(MediaType.APPLICATION_JSON)
                         .param("page", String.valueOf(PAGEABLE.getPageNumber()))
                         .param("size", String.valueOf(PAGEABLE.getPageSize()))
@@ -131,9 +132,10 @@ public class ProductControllerTest implements Reflection {
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         REQUEST_PARAM_PAGE,
+                        PATH_PARAM_CATEGORY_MAIN_SUB,
                         responseFields(
-                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME,FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE
-                                ,FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE,FWP_SLICE_INFO_SIZE,FWP_SLICE_INFO_HAS_NEXT
+                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE
+                                , FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
 
                         )));
     }

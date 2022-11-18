@@ -12,10 +12,10 @@ public interface ProductCartMapper {
 
 //    @Mapping(target = "")
 //    ProductCartDto.Response toResponse(ProductCart productCart);
-    default ProductCart toProductCart(ProductCartDto.Post productCartDto, Long productId) {
+    default ProductCart toProductCart(ProductCartDto.Post productCartDto) {
 
         Option option = Option.builder().id(productCartDto.getOptionId()).build();
-        Product product = Product.builder().id(productId).build();
+        Product product = Product.builder().id(productCartDto.getProductId()).build();
 
         return ProductCart.builder()
                 .count(productCartDto.getCount())
@@ -27,6 +27,7 @@ public interface ProductCartMapper {
 
         return new ProductCartDto.Response(
                 productCart.getId(),
+                productCart.getProduct().getId(),
                 productCart.getProduct().getImg(),
                 productCart.getProduct().getTitle(),
                 productCart.getCount(),
