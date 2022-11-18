@@ -45,13 +45,6 @@ public class CartService {
 
     public void cancelCart(Long productCartId, Long memberId) {
 
-//        Cart cart = findVerifiedCart(memberId);
-//        cart.getProductCarts().stream()
-//                .filter(productCart -> !productCart.getId().equals(productCartId))
-//                .collect(Collectors.toList());
-
-//        cartRepository.save(cart);
-
         ProductCart productCart = productCartRepository.findProductCartById(productCartId).orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.PRODUCT_CART_NOT_FOUND));
 
