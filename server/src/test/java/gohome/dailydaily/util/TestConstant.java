@@ -206,6 +206,7 @@ public class TestConstant {
     public static final FieldDescriptor FWP_CONTENT_REVIEW_SCORE = fieldWithPath("content[].score").type(NUMBER).description("리뷰 별점");
     public static final FieldDescriptor FWP_CONTENT_REVIEW_NICKNAME = fieldWithPath("content[].nickname").type(STRING).description("리뷰 작성자");
     public static final FieldDescriptor FWP_CONTENT_REVIEW_CREATED_AT = fieldWithPath("content[].createdAt").type(STRING).description("리뷰 작성시간");
+    public static final FieldDescriptor FWP_CONTENT_REVIEW_MODIFIED_AT = fieldWithPath("content[].modifiedAt").type(STRING).description("리뷰 수정시간");
 
     public static final FieldDescriptor FWP_CONTENT_PRODUCT_ID = fieldWithPath("content[].productId").type(NUMBER).description("상품 식별자");
     public static final FieldDescriptor FWP_CONTENT_PRODUCT_TITLE = fieldWithPath("content[].productTitle").type(STRING).description("상품 이름");
@@ -222,6 +223,7 @@ public class TestConstant {
     public static final FieldDescriptor FWP_REVIEW_SCORE = fieldWithPath("score").type(NUMBER).description("리뷰 별점");
     public static final FieldDescriptor FWP_REVIEW_NICKNAME = fieldWithPath("nickname").type(STRING).description("리뷰 작성자");
     public static final FieldDescriptor FWP_REVIEW_CREATED_AT = fieldWithPath("createdAt").type(STRING).description("리뷰 작성시간");
+    public static final FieldDescriptor FWP_REVIEW_MODIFIED_AT = fieldWithPath("modifiedAt").type(STRING).description("리뷰 수정시간");
 
     public static final FieldDescriptor FWP_PRODUCT_ID = fieldWithPath("productId").type(NUMBER).description("상품 식별자");
     public static final FieldDescriptor FWP_CART_ID = fieldWithPath("cartId").type(NUMBER).description("장바구니 식별자");
@@ -267,23 +269,24 @@ public class TestConstant {
     public static final FieldDescriptor FWP_REVIEWS_SCORE = fieldWithPath("reviews[].score").type(NUMBER).description("리뷰 별점");
     public static final FieldDescriptor FWP_REVIEWS_NICKNAME = fieldWithPath("reviews[].nickname").type(STRING).description("리뷰 작성자");
     public static final FieldDescriptor FWP_REVIEWS_CREATED_AT = fieldWithPath("reviews[].createdAt").type(STRING).description("리뷰 작성시간");
+    public static final FieldDescriptor FWP_REVIEWS_MODIFIED_AT = fieldWithPath("reviews[].modifiedAt").type(STRING).description("리뷰 수정시간");
 
     public static final ResponseFieldsSnippet PAGE_REVIEW_RESPONSE_FIELDS = responseFields(
             FWP_CONTENT, FWP_CONTENT_REVIEW_ID, FWP_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_TITLE, FWP_CONTENT_REVIEW_NICKNAME,
-            FWP_CONTENT_REVIEW_TITLE, FWP_CONTENT_REVIEW_CONTENT, FWP_CONTENT_REVIEW_SCORE, FWP_CONTENT_REVIEW_CREATED_AT,
+            FWP_CONTENT_REVIEW_TITLE, FWP_CONTENT_REVIEW_CONTENT, FWP_CONTENT_REVIEW_SCORE, FWP_CONTENT_REVIEW_CREATED_AT, FWP_CONTENT_REVIEW_MODIFIED_AT,
             FWP_PAGE_INFO, FWP_PAGE_INFO_PAGE, FWP_PAGE_INFO_SIZE,
             FWP_PAGE_INFO_TOTAL_ELEMENTS, FWP_PAGE_INFO_TOTAL_PAGES
     );
     public static final ResponseFieldsSnippet REVIEW_RESPONSE_FIELDS = responseFields(
             FWP_REVIEW_ID, FWP_PRODUCT_ID, FWP_REVIEW_PRODUCT_TITLE, FWP_REVIEW_NICKNAME,
-            FWP_REVIEW_TITLE, FWP_REVIEW_CONTENT, FWP_REVIEW_SCORE, FWP_REVIEW_CREATED_AT
+            FWP_REVIEW_TITLE, FWP_REVIEW_CONTENT, FWP_REVIEW_SCORE, FWP_REVIEW_CREATED_AT, FWP_REVIEW_MODIFIED_AT
     );
     public static final ResponseFieldsSnippet PRODUCT_RESPONSE_FIELDS = responseFields(
             FWP_PRODUCT_ID, FWP_PRODUCT_TITLE, FWP_PRODUCT_CONTENT, FWP_PRODUCT_PRICE, FWP_PRODUCT_IMG_PATH, FWP_PRODUCT_IMG_NAME, FWP_PRODUCT_SCORE,
             FWP_SELLER_SELLER_ID, FWP_SELLER_MEMBER_ID, FWP_SELLER_NICKNAME, FWP_SELLER_BRAND_NUMBER, FWP_SELLER_EMAIL,
             FWP_SELLER_ADDRESS, FWP_SELLER_PHONE, FWP_SELLER_MEMBER_STATUS, FWP_OPTIONS_OPTION_ID, FWP_OPTION_COLOR, FWP_OPTION_SIZE,
             FWP_OPTION_PRICE, FWP_OPTION_STOCK, FWP_REVIEWS_REVIEW_ID, FWP_REVIEWS_TITLE, FWP_REVIEWS_PRODUCT_ID, FWP_REVIEWS_PRODUCT_TITLE,
-            FWP_REVIEWS_NICKNAME, FWP_REVIEWS_CONTENT, FWP_REVIEWS_SCORE, FWP_REVIEWS_CREATED_AT
+            FWP_REVIEWS_NICKNAME, FWP_REVIEWS_CONTENT, FWP_REVIEWS_SCORE, FWP_REVIEWS_CREATED_AT, FWP_REVIEWS_MODIFIED_AT
     );
     public static final ResponseFieldsSnippet MEMBER_RESPONSE_FIELDS = responseFields(
             FWP_MEMBER_ID, FWP_NICKNAME, FWP_EMAIL, FWP_ADDRESS, FWP_PHONE, FWP_MEMBER_STATUS
@@ -300,6 +303,8 @@ public class TestConstant {
         CART.addProductCart(PRODUCT_CART);
         ReflectionTestUtils.setField(REVIEW1, BaseTime.class, "createdAt", LocalDateTime.now(), LocalDateTime.class);
         ReflectionTestUtils.setField(REVIEW2, BaseTime.class, "createdAt", LocalDateTime.now(), LocalDateTime.class);
+        ReflectionTestUtils.setField(REVIEW1, BaseTime.class, "modifiedAt", LocalDateTime.now(), LocalDateTime.class);
+        ReflectionTestUtils.setField(REVIEW2, BaseTime.class, "modifiedAt", LocalDateTime.now(), LocalDateTime.class);
     }
 
 }

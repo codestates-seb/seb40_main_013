@@ -36,6 +36,7 @@ public class ReviewDto {
         private String content;
         private Float score;
         private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
     }
 
 }
