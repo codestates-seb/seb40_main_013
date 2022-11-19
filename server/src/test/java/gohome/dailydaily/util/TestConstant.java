@@ -24,7 +24,6 @@ import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import org.springframework.restdocs.request.RequestParametersSnippet;
-import org.springframework.restdocs.snippet.Snippet;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
@@ -253,7 +252,7 @@ public class TestConstant {
     public static final FieldDescriptor FWP_PRODUCT_IMG_NAME = fieldWithPath("img.fileName").type(STRING).description("상품 썸네일 이름");
     public static final FieldDescriptor FWP_PRODUCT_IMG_PATH = fieldWithPath("img.fullPath").type(STRING).description("상품 썸네일 경로");
     public static final FieldDescriptor FWP_PRODUCT_SCORE = fieldWithPath("score").type(NUMBER).description("상품 평점");
-    public static final GetProductListByCategoryDTO GETPRODUCTLISTBYCATEGORYDTO = new GetProductListByCategoryDTO(
+    public static final GetProductListByCategoryDTO GET_PRODUCT_LIST_BY_CATEGORY_DTO = new GetProductListByCategoryDTO(
             CATEGORY.getMain(), CATEGORY.getSub()
     );
     private static final FieldDescriptor FWP_SELLER_SELLER_ID = fieldWithPath("seller.sellerId").type(NUMBER).description("판매자 식별자");
@@ -311,8 +310,8 @@ public class TestConstant {
         PRODUCT.addOptions(OPTION);
         PRODUCT.addReviews(REVIEW1);
         CART.addProductCart(PRODUCT_CART);
-        ReflectionTestUtils.setField(GETPRODUCTLISTBYCATEGORYDTO, PagingRequestDto.class, "size", PAGEABLE.getPageSize(), int.class);
-        ReflectionTestUtils.setField(GETPRODUCTLISTBYCATEGORYDTO, PagingRequestDto.class, "page", PAGEABLE.getPageNumber(), int.class);
+        ReflectionTestUtils.setField(GET_PRODUCT_LIST_BY_CATEGORY_DTO, PagingRequestDto.class, "size", PAGEABLE.getPageSize(), int.class);
+        ReflectionTestUtils.setField(GET_PRODUCT_LIST_BY_CATEGORY_DTO, PagingRequestDto.class, "page", PAGEABLE.getPageNumber(), int.class);
         ReflectionTestUtils.setField(REVIEW1, BaseTime.class, "createdAt", LocalDateTime.now(), LocalDateTime.class);
         ReflectionTestUtils.setField(REVIEW2, BaseTime.class, "createdAt", LocalDateTime.now(), LocalDateTime.class);
         ReflectionTestUtils.setField(REVIEW1, BaseTime.class, "modifiedAt", LocalDateTime.now(), LocalDateTime.class);
