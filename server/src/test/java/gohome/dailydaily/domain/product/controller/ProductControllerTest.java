@@ -9,7 +9,6 @@ import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.service.ProductService;
 import gohome.dailydaily.domain.review.mapper.ReviewMapper;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
-import gohome.dailydaily.util.Reflection;
 import gohome.dailydaily.util.security.SecurityTestConfig;
 import gohome.dailydaily.util.security.WithMockCustomUser;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,6 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
@@ -100,8 +98,8 @@ public class ProductControllerTest {
         ResultActions actions = mockMvc.perform(
                 get("/products")
                         .accept(MediaType.APPLICATION_JSON)
-                        .param("main", GETPRODUCTLISTBYCATEGORYDTO.getMain())
-                        .param("sub", GETPRODUCTLISTBYCATEGORYDTO.getSub())
+                        .param("main", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getMain())
+                        .param("sub", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getSub())
                         .param("page", String.valueOf(PAGEABLE.getPageNumber()))
                         .param("size", String.valueOf(PAGEABLE.getPageSize()))
                         .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
