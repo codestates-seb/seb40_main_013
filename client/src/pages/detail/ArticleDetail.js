@@ -7,28 +7,26 @@ import Review from "./Review";
 import { useDispatch, useSelector } from "react-redux";
 import { getArticleDetail } from "../../reduxstore/slices/articleSlice";
 import { useParams } from "react-router-dom";
+import { renderStar } from "../../components/Star";
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
-  const [selectOptions, setSelectOptions] = useState([
-    { id: 1, value: "색상선택 " },
-    { id: 2, value: "화이트" },
-    { id: 3, value: "검은색" },
-    { id: 4, value: "네이비" },
-  ]);
+
   const dispatch = useDispatch();
   const params = useParams();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
-  console.log(articlesDetail);
+  const optionSelect = useSelector(
+    (state) => state.article.detailArticle.options
+  );
 
   const clickFunction = () => {
     setClickSelect(!clickSelect);
   };
 
-  const selectOption = (data) => {
-    console.log(data);
-    setSelectOptions(data);
-  };
-  console.log(selectOptions);
+  // const selectOption = (data) => {
+  //   console.log(data);
+  //   setSelectOptions(data);
+  // };
+  // console.log(selectOptions);
 
   useEffect(() => {
     dispatch(getArticleDetail(Number(params.id)));
@@ -38,19 +36,13 @@ function ArticleDetail() {
     <Wrapper>
       <DetailContents>
         <DetailTopUserSelectSpace>
-          <DetailTopThumbnailImg />
+          <DetailTopThumbnailImg src={articlesDetail?.img?.fullPath} />
           <ArticleInformations>
             <DetailArticleNameSpace>
               <div>
                 <DetailArticleName>{articlesDetail?.title}</DetailArticleName>
                 <DetailArticleStarSpace>
-                  <DetailArticleStar>
-                    <BsStarFill />
-                    <BsStarFill />
-                    <BsStarFill />
-                    <BsStarFill />
-                    <BsStarFill />
-                  </DetailArticleStar>
+                  {renderStar(articlesDetail?.score)}
                   <DetailArticleStaAverage>
                     {articlesDetail?.score}점
                   </DetailArticleStaAverage>
@@ -62,7 +54,9 @@ function ArticleDetail() {
             </DetailArticleNameSpace>
             <DetailArticlePriceSpace>
               <DetailArticlePrice>35%</DetailArticlePrice>
-              <DetailArticlePrice>{articlesDetail?.price}원</DetailArticlePrice>
+              <DetailArticlePrice>
+                {articlesDetail?.price?.toLocaleString("en-US")}원
+              </DetailArticlePrice>
               <DetailArticlePrice>115,000원</DetailArticlePrice>
             </DetailArticlePriceSpace>
             <DetailArticleOptionSpace>
@@ -82,13 +76,16 @@ function ArticleDetail() {
               {clickSelect ? (
                 <>
                   <DetailArticleSelectOption>
-                    {selectOptions?.map((option) => (
+                    {optionSelect?.map((option) => (
                       <DetailArticleSelectOption
-                        key={option.id}
-                        value={option.value}
+                        key={option?.optionId}
+                        value={option?.value}
                         clickSelect={clickSelect}
                       >
-                        {option.value}
+                        색상 : {option?.color}
+                        가격 : {option?.price?.toLocaleString("en-US")}
+                        사이즈 : {option?.size}
+                        남은수량 : {option?.stock}
                       </DetailArticleSelectOption>
                     ))}
                   </DetailArticleSelectOption>
@@ -116,7 +113,9 @@ function ArticleDetail() {
               </DetailUserQuantitySpace>
               <DetailUserPriceSpace>
                 <DetailUserPrice>총 상품금액</DetailUserPrice>
-                <DetailUserPrice></DetailUserPrice>
+                <DetailUserPrice>
+                  {articlesDetail?.price?.toLocaleString("en-US")}
+                </DetailUserPrice>
                 <DetailUserPrice> 원</DetailUserPrice>
               </DetailUserPriceSpace>
             </DetailUserSubmitPriceSpace>
@@ -126,8 +125,8 @@ function ArticleDetail() {
             </DetailArticlBtnSpace>
           </ArticleInformations>
         </DetailTopUserSelectSpace>
-        <DetailMidImg />
-        <Review />
+        <DetailMidImg src={articlesDetail?.content} />
+        <Review articlesDetail={articlesDetail} renderStar={renderStar} />
       </DetailContents>
     </Wrapper>
   );
@@ -185,16 +184,14 @@ const DetailArticleStarSpace = styled.div`
   align-items: center;
   margin: 10px 0px 20px 0px;
 `;
-const DetailArticleStar = styled.div`
-  color: var(--color-star);
-`;
+
 const DetailArticleStaAverage = styled.div`
   margin-left: 10px;
 `;
 
 const DetailMidImg = styled.img`
   width: 600px;
-  margin-top: 20px;
+  margin-top: 100px;
 `;
 const ButtonIcon = styled.button`
   margin-top: 10px;

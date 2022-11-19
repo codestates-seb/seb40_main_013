@@ -3,30 +3,31 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://large-masks-worry-59-20-223-31.loca.lt/",
+  baseURL: "https://nasty-socks-hang-59-20-223-31.loca.lt/",
   headers: {
     "Content-Type": "application/json",
   },
 });
 axios.interceptors.request.use(
   function (config) {
-    let token = localStorage.getItem("Authorization");
-    if (token != undefined) {
-      console.log(111);
-      config.headers["Authorization"] = token;
+    const token = localStorage.getItem("Authorization");
+    if (token) {
+      config.headers["Authorization"] = "Bearer " + token;
       config.headers["Refresh"] = refreshToken;
       config.headers["Content-Type"] = "application/json";
+
       console.log(1, config);
     }
     return config;
   },
   async function (error) {
     // 오류 요청 가공
+    console.log(error);
     return Promise.reject(error);
   }
 );
 
-axios.interceptors.response.use(
+Apis.interceptors.response.use(
   (response) => {
     console.log(1234);
     return response;
@@ -51,9 +52,10 @@ axios.interceptors.response.use(
           const accToken = data.headers.get("Authorization");
           localStorage.removeItem("Authorization");
           localStorage.setItem("Authorization", accToken);
-          originalRequest.headers["Authorization"] = accToken;
-          originalRequest.headers["Refresh"] = refreshToken;
-          originalRequest.headers["Content-Type"] = "application/json";
+          axios.defaults.headers.common["Authorization"] = accToken;
+          // originalRequest.headers["Authorization"] = accToken;
+          // originalRequest.headers["Refresh"] = refreshToken;
+          // originalRequest.headers["Content-Type"] = "application/json";
           console.log("abcd", 2, originalRequest);
           return await axios.request(originalRequest);
           // return 1;
