@@ -208,7 +208,7 @@ class MemberControllerTest implements Reflection {
         // when
         ResultActions actions = mockMvc.perform(
                 get("/members/mypage/reviews")
-                        .param("page", String.valueOf(PAGEABLE.getOffset()))
+                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
                         .param("size", String.valueOf(PAGEABLE.getPageSize()))
                         .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
                         .header("Authorization", "JWT")
