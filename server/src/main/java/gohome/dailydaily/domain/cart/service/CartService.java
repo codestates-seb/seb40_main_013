@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +31,9 @@ public class CartService {
         productCart.addOption(option);
         cart.addProductCart(productCart);
 
-        return cartRepository.save(cart);
+        productCartRepository.save(productCart);
+
+        return cart;
     }
 
     public Option findVerifiedOption(Product product, Long optionId) {
@@ -57,7 +58,12 @@ public class CartService {
 
     public Cart findVerifiedCart(Long memberId) {
 
-        return cartRepository.findByMember_Id(memberId)
+        return cartRepository.findCartByMember_Id(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.CART_NOT_FOUND));
+    }
+
+    public Cart getCart(Long memberId) {
+
+        return findVerifiedCart(memberId);
     }
 }

@@ -25,8 +25,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -71,7 +70,6 @@ class CartControllerTest implements Reflection {
         // then
         actions.andExpect(status().isCreated())
                 .andExpect(jsonPath("$.cartId").value(CART.getId()))
-                .andExpect(jsonPath("$.memberId").value(MEMBER.getId()))
                 .andExpect(jsonPath("$.productCarts[0].productCartId").value(PRODUCT_CART.getId()))
                 .andDo(document("carts/post",
                         REQUEST_PREPROCESSOR,
@@ -82,17 +80,7 @@ class CartControllerTest implements Reflection {
                                 FWP_COUNT,
                                 FWP_OPTION_ID
                         ),
-                        responseFields(
-                                FWP_CART_ID,
-                                FWP_MEMBER_ID,
-                                FWP_PRODUCT_CART_ID,
-                                FWP_PRODUCT_CART_PRODUCT_ID,
-                                FWP_PRODUCT_CART_IMG_NAME,
-                                FWP_PRODUCT_CART_IMG_PATH,
-                                FWP_PRODUCT_CART_TITLE,
-                                FWP_PRODUCT_CART_COUNT,
-                                FWP_PRODUCT_CART_PRICE
-                        )
+                        CART_RESPONSE_FIELDS
                 ));
     }
 
@@ -115,6 +103,27 @@ class CartControllerTest implements Reflection {
                         RESPONSE_PREPROCESSOR,
                         REQUEST_HEADER_JWT,
                         PATH_PARAM_PRODUCT_CART_ID
+                ));
+    }
+
+    @Test
+    void getCart() throws Exception{
+        // given
+        given(cartService.getCart(MEMBER.getId())).willReturn(CART);
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                get("/carts")
+                        .header("Authorization", "JWT")
+        );
+
+        // then
+        actions.andExpect(status().isOk())
+                .andDo(document("carts/get",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
+                        CART_RESPONSE_FIELDS
                 ));
     }
 }

@@ -11,21 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
-//@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-@Component
-@RequiredArgsConstructor
-public class CartMapper {
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = ProductCartMapper.class)
+public interface CartMapper {
 
-    private final ProductCartMapper productCartMapper;
-
-    public CartDto.Response toResponse(Cart cart) {
-
-        return new CartDto.Response(
-                cart.getId(),
-                cart.getMember().getId(),
-                cart.getProductCarts()
-                        .stream()
-                        .map(productCartMapper::toResponse)
-                        .collect(Collectors.toList()));
-    }
+    @Mapping(target = "cartId", source = "id")
+    CartDto.Response toResponse(Cart cart);
 }

@@ -31,6 +31,14 @@ public class CartController {
         return new ResponseEntity<>(mapper.toResponse(cart), HttpStatus.CREATED);
     }
 
+    @GetMapping
+    public ResponseEntity getCart(@MemberId Long memberId) {
+
+        Cart cart = cartService.getCart(memberId);
+
+        return new ResponseEntity<>(mapper.toResponse(cart), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{product-cart-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProductCart(@PathVariable("product-cart-id") Long productCartId,

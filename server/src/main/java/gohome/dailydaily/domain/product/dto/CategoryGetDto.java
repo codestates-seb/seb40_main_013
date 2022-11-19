@@ -2,9 +2,8 @@ package gohome.dailydaily.domain.product.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import gohome.dailydaily.domain.file.entity.File;
-import gohome.dailydaily.domain.product.entity.Option;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -16,7 +15,9 @@ public class CategoryGetDto {
     private String title;
     private Integer price;
     private Integer score;
-    //private List<Option> options;
+
+    @Setter
+    private List<OptionDto.Response> options;
 
     @QueryProjection
     public CategoryGetDto(Long id, File img, String title, Integer price, Integer score) {
@@ -25,6 +26,14 @@ public class CategoryGetDto {
         this.title = title;
         this.price = price;
         this.score = score;
-//        this.options = options;
+    }
+
+    public CategoryGetDto(Long id, File img, String title, Integer price, Integer score, List<OptionDto.Response> options) {
+        this.id = id;
+        this.img = img;
+        this.title = title;
+        this.price = price;
+        this.score = score;
+        this.options = options;
     }
 }
