@@ -11,6 +11,7 @@ import gohome.dailydaily.domain.product.entity.Category;
 import gohome.dailydaily.domain.product.entity.Option;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.review.entity.Review;
+import gohome.dailydaily.global.common.BaseTime;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,7 +22,9 @@ import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import org.springframework.restdocs.request.RequestParametersSnippet;
-import org.springframework.restdocs.snippet.Snippet;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import java.time.LocalDateTime;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -122,6 +125,7 @@ public class TestConstant {
             .content("리뷰 내용1")
             .score(50)
             .product(PRODUCT1)
+            .member(MEMBER)
             .build();
     public static final Review REVIEW2 = Review.builder()
             .id(2L)
@@ -129,6 +133,7 @@ public class TestConstant {
             .content("리뷰 내용2")
             .score(35)
             .product(PRODUCT2)
+            .member(MEMBER)
             .build();
 
     public static final OperationRequestPreprocessor REQUEST_PREPROCESSOR =
@@ -155,11 +160,11 @@ public class TestConstant {
             parameterWithName("product-id").description("상품 식별자")
     );
 
-    public static final PathParametersSnippet PATH_PARAM_CATEGORY_MAIN =  pathParameters(
+    public static final PathParametersSnippet PATH_PARAM_CATEGORY_MAIN = pathParameters(
             parameterWithName("main").description("카테고리 대분류")
     );
 
-    public static final PathParametersSnippet PATH_PARAM_CATEGORY_MAIN_SUB =  pathParameters(
+    public static final PathParametersSnippet PATH_PARAM_CATEGORY_MAIN_SUB = pathParameters(
             parameterWithName("main").description("카테고리 대분류"),
             parameterWithName("sub").description("카테고리 소분류")
     );
@@ -182,7 +187,6 @@ public class TestConstant {
     public static final FieldDescriptor FWP_MEMBER_STATUS = fieldWithPath("memberStatus").type(STRING).description("멤버 상태");
     public static final FieldDescriptor FWP_PASSWORD = fieldWithPath("password").type(STRING).description("비밀번호");
 
-
     public static final FieldDescriptor FWP_CONTENT = fieldWithPath("content").type(ARRAY).description("데이터");
 
     public static final FieldDescriptor FWP_SLICE_INFO = fieldWithPath("sliceInfo").type(OBJECT).description("슬라이스 정보");
@@ -200,6 +204,8 @@ public class TestConstant {
     public static final FieldDescriptor FWP_CONTENT_REVIEW_TITLE = fieldWithPath("content[].title").type(STRING).description("리뷰 제목");
     public static final FieldDescriptor FWP_CONTENT_REVIEW_CONTENT = fieldWithPath("content[].content").type(STRING).description("리뷰 내용");
     public static final FieldDescriptor FWP_CONTENT_REVIEW_SCORE = fieldWithPath("content[].score").type(NUMBER).description("리뷰 별점");
+    public static final FieldDescriptor FWP_CONTENT_REVIEW_NICKNAME = fieldWithPath("content[].nickname").type(STRING).description("리뷰 작성자");
+    public static final FieldDescriptor FWP_CONTENT_REVIEW_CREATED_AT = fieldWithPath("content[].createdAt").type(STRING).description("리뷰 작성시간");
 
     public static final FieldDescriptor FWP_CONTENT_PRODUCT_ID = fieldWithPath("content[].productId").type(NUMBER).description("상품 식별자");
     public static final FieldDescriptor FWP_CONTENT_PRODUCT_TITLE = fieldWithPath("content[].productTitle").type(STRING).description("상품 이름");
@@ -214,6 +220,8 @@ public class TestConstant {
     public static final FieldDescriptor FWP_REVIEW_TITLE = fieldWithPath("title").type(STRING).description("리뷰 제목");
     public static final FieldDescriptor FWP_REVIEW_CONTENT = fieldWithPath("content").type(STRING).description("리뷰 내용");
     public static final FieldDescriptor FWP_REVIEW_SCORE = fieldWithPath("score").type(NUMBER).description("리뷰 별점");
+    public static final FieldDescriptor FWP_REVIEW_NICKNAME = fieldWithPath("nickname").type(STRING).description("리뷰 작성자");
+    public static final FieldDescriptor FWP_REVIEW_CREATED_AT = fieldWithPath("createdAt").type(STRING).description("리뷰 작성시간");
 
     public static final FieldDescriptor FWP_PRODUCT_ID = fieldWithPath("productId").type(NUMBER).description("상품 식별자");
     public static final FieldDescriptor FWP_CART_ID = fieldWithPath("cartId").type(NUMBER).description("장바구니 식별자");
@@ -231,7 +239,6 @@ public class TestConstant {
     public static final FieldDescriptor FWP_PRODUCT_TITLE = fieldWithPath("title").type(STRING).description("상품 이름");
 
     private static final FieldDescriptor FWP_PRODUCT_CONTENT = fieldWithPath("content").type(STRING).description("상품 내용");
-
 
     public static final FieldDescriptor FWP_PRODUCT_PRICE = fieldWithPath("price").type(NUMBER).description("상품 가격");
     public static final FieldDescriptor FWP_PRODUCT_IMG_NAME = fieldWithPath("img.fileName").type(STRING).description("상품 썸네일 이름");
@@ -258,16 +265,25 @@ public class TestConstant {
     public static final FieldDescriptor FWP_REVIEWS_PRODUCT_TITLE = fieldWithPath("reviews[].productTitle").type(STRING).description("상품 제목");
     public static final FieldDescriptor FWP_REVIEWS_CONTENT = fieldWithPath("reviews[].content").type(STRING).description("리뷰 내용");
     public static final FieldDescriptor FWP_REVIEWS_SCORE = fieldWithPath("reviews[].score").type(NUMBER).description("리뷰 별점");
+    public static final FieldDescriptor FWP_REVIEWS_NICKNAME = fieldWithPath("reviews[].nickname").type(STRING).description("리뷰 작성자");
+    public static final FieldDescriptor FWP_REVIEWS_CREATED_AT = fieldWithPath("reviews[].createdAt").type(STRING).description("리뷰 작성시간");
 
+    public static final ResponseFieldsSnippet PAGE_REVIEW_RESPONSE_FIELDS = responseFields(
+            FWP_CONTENT, FWP_CONTENT_REVIEW_ID, FWP_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_TITLE, FWP_CONTENT_REVIEW_NICKNAME,
+            FWP_CONTENT_REVIEW_TITLE, FWP_CONTENT_REVIEW_CONTENT, FWP_CONTENT_REVIEW_SCORE, FWP_CONTENT_REVIEW_CREATED_AT,
+            FWP_PAGE_INFO, FWP_PAGE_INFO_PAGE, FWP_PAGE_INFO_SIZE,
+            FWP_PAGE_INFO_TOTAL_ELEMENTS, FWP_PAGE_INFO_TOTAL_PAGES
+    );
     public static final ResponseFieldsSnippet REVIEW_RESPONSE_FIELDS = responseFields(
-            FWP_REVIEW_ID, FWP_PRODUCT_ID, FWP_REVIEW_PRODUCT_TITLE, FWP_REVIEW_TITLE, FWP_REVIEW_CONTENT, FWP_REVIEW_SCORE
+            FWP_REVIEW_ID, FWP_PRODUCT_ID, FWP_REVIEW_PRODUCT_TITLE, FWP_REVIEW_NICKNAME,
+            FWP_REVIEW_TITLE, FWP_REVIEW_CONTENT, FWP_REVIEW_SCORE, FWP_REVIEW_CREATED_AT
     );
     public static final ResponseFieldsSnippet PRODUCT_RESPONSE_FIELDS = responseFields(
             FWP_PRODUCT_ID, FWP_PRODUCT_TITLE, FWP_PRODUCT_CONTENT, FWP_PRODUCT_PRICE, FWP_PRODUCT_IMG_PATH, FWP_PRODUCT_IMG_NAME, FWP_PRODUCT_SCORE,
             FWP_SELLER_SELLER_ID, FWP_SELLER_MEMBER_ID, FWP_SELLER_NICKNAME, FWP_SELLER_BRAND_NUMBER, FWP_SELLER_EMAIL,
             FWP_SELLER_ADDRESS, FWP_SELLER_PHONE, FWP_SELLER_MEMBER_STATUS, FWP_OPTIONS_OPTION_ID, FWP_OPTION_COLOR, FWP_OPTION_SIZE,
             FWP_OPTION_PRICE, FWP_OPTION_STOCK, FWP_REVIEWS_REVIEW_ID, FWP_REVIEWS_TITLE, FWP_REVIEWS_PRODUCT_ID, FWP_REVIEWS_PRODUCT_TITLE,
-            FWP_REVIEWS_CONTENT, FWP_REVIEWS_SCORE
+            FWP_REVIEWS_NICKNAME, FWP_REVIEWS_CONTENT, FWP_REVIEWS_SCORE, FWP_REVIEWS_CREATED_AT
     );
     public static final ResponseFieldsSnippet MEMBER_RESPONSE_FIELDS = responseFields(
             FWP_MEMBER_ID, FWP_NICKNAME, FWP_EMAIL, FWP_ADDRESS, FWP_PHONE, FWP_MEMBER_STATUS
@@ -282,7 +298,8 @@ public class TestConstant {
         PRODUCT.addOptions(OPTION);
         PRODUCT.addReviews(REVIEW1);
         CART.addProductCart(PRODUCT_CART);
-
+        ReflectionTestUtils.setField(REVIEW1, BaseTime.class, "createdAt", LocalDateTime.now(), LocalDateTime.class);
+        ReflectionTestUtils.setField(REVIEW2, BaseTime.class, "createdAt", LocalDateTime.now(), LocalDateTime.class);
     }
 
 }
