@@ -30,12 +30,13 @@ public class ReviewDto {
     public static class Response {
         private Long reviewId;
         private Long productId;
-        private Long memberId;
         private String productTitle;
+        private String nickname;
         private String title;
         private String content;
         private Float score;
         private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
     }
 
 }

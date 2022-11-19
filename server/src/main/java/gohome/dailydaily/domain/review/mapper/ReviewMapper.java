@@ -19,6 +19,6 @@ public interface ReviewMapper {
     @Mapping(target = "score", expression = "java(review.getScore() / 10F)")
     @Mapping(target = "productId", source = "product.id")
     @Mapping(target = "productTitle", source = "product.title")
-    @Mapping(target = "memberId", source = "member.id")
+    @Mapping(target = "nickname", source = "member.nickname")
     ReviewDto.Response toResponse(Review review);
 }
