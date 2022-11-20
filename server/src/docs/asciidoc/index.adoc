@@ -276,6 +276,29 @@ include::{snippets}/carts/get/http-response.adoc[]
 [caption=]
 include::{snippets}/carts/get/response-fields.adoc[]
 
+=== 장바구니 상품 수정
+.http-request
+include::{snippets}/carts/patch/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/carts/patch/request-headers.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/carts/patch/path-parameters.adoc[]
+
+.request-fields
+[caption=]
+include::{snippets}/carts/patch/request-fields.adoc[]
+
+.http-response
+include::{snippets}/carts/patch/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/carts/patch/response-fields.adoc[]
+
 === 장바구니 상품 삭제
 .http-request
 include::{snippets}/carts/delete/http-request.adoc[]
