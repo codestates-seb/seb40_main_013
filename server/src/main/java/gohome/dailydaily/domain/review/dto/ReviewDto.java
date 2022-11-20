@@ -4,20 +4,27 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 public class ReviewDto {
 
     @Getter
     public static class Post {
+        @NotBlank
         private String title;
+        @NotBlank
         private String content;
+        @Range(min = 0, max = 5)
         private Float score;
     }
 
     @Getter
     public static class Patch {
+        @Positive
         private Long reviewId;
         private String title;
         private String content;
