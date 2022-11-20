@@ -118,20 +118,38 @@ include::{snippets}/products/category/get/http-response.adoc[]
 [caption=]
 include::{snippets}/products/category/get/response-fields.adoc[]
 
-// === 상품 소분류 조회
-// .http-request
-// include::{snippets}/products/main/sub/get/http-request.adoc[]
-//
-// .path-parameters
-// [caption=]
-// include::{snippets}/products/main/sub/get/path-parameters.adoc[]
-//
-// .http-response
-// include::{snippets}/products/main/sub/get/http-response.adoc[]
-//
-// .response-fields
-// [caption=]
-// include::{snippets}/products/main/sub/get/response-fields.adoc[]
+=== 상품 브랜드 Top 5
+.http-request
+include::{snippets}/products/brandList/get/http-request.adoc[]
+
+.http-response
+include::{snippets}/products/brandList/get/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/products/brandList/get/response-fields.adoc[]
+
+=== 상품 best of best 5
+.http-request
+include::{snippets}/products/score/get/http-request.adoc[]
+
+.http-response
+include::{snippets}/products/score/get/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/products/score/get/response-fields.adoc[]
+
+=== 상품 카테고리 별 최신순 top 15
+.http-request
+include::{snippets}/products/categoryCreated/get/http-request.adoc[]
+
+.http-response
+include::{snippets}/products/categoryCreated/get/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/products/categoryCreated/get/response-fields.adoc[]
 
 == 리뷰
 === 리뷰 등록

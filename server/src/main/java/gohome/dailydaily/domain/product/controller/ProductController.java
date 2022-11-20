@@ -1,6 +1,7 @@
 package gohome.dailydaily.domain.product.controller;
 
 import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryDTO;
+import gohome.dailydaily.domain.product.controller.dto.GetProductListByTitleDto;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.entity.Product;
@@ -8,18 +9,12 @@ import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.service.ProductService;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Positive;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @Validated
@@ -32,21 +27,24 @@ public class ProductController {
 
     // 미완성 추가구현 필요
     @GetMapping("/score")
-    public ResponseEntity<List<CategoryGetDto>> getScoreAll() {
-        List<CategoryGetDto> products = productService.findProduct();
-        return null;
+    public ResponseEntity<List<CategoryGetDto>> getScoreTop5() {
+        List<CategoryGetDto> products = productService.getScoreTop5();
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @GetMapping("/brandScore")
-    public ResponseEntity<List<CategoryGetDto>> getBrandScoreAll() {
-        List<CategoryGetDto> products = productService.findProduct();
-        return null;
+    // 5개씩
+    @GetMapping("/brandListLike")
+    public ResponseEntity<List<List<CategoryGetDto>>> getBrandListLikeTop5() {
+        List<List<CategoryGetDto>> products = productService.getBrandListLikeTop5();
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @GetMapping("/categoryScore")
-    public ResponseEntity<List<CategoryGetDto>> getCategoryScoreAll() {
-        List<CategoryGetDto> products = productService.findProduct();
-        return null;
+
+    // 15개씩
+    @GetMapping("/categoryCreated")
+    public ResponseEntity<List<List<CategoryGetDto>>> getCategoryCreatedTop15() {
+        List<List<CategoryGetDto>> products = productService.getCategoryCreatedTop15();
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     // 카테고리 대분류 또는 소분류별 리스트 조회
@@ -56,6 +54,13 @@ public class ProductController {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByCategory(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/title")
+    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByTitle(GetProductListByTitleDto dto) {
+        SliceResponseDto<CategoryGetDto> result = productService.getProductListByTitle(dto);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 
     // 대분류
 //    @GetMapping("/{main}")

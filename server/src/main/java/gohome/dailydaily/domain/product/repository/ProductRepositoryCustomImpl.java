@@ -12,6 +12,8 @@ import gohome.dailydaily.domain.product.entity.QCategory;
 import gohome.dailydaily.domain.product.entity.QProduct;
 import gohome.dailydaily.domain.product.repository.param.CategoryGetParam;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
+import gohome.dailydaily.global.error.BusinessLogicException;
+import gohome.dailydaily.global.error.ExceptionCode;
 import gohome.dailydaily.global.util.Querydsl4RepositorySupport;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -25,9 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static gohome.dailydaily.domain.like.entity.QLike.like;
+import static gohome.dailydaily.domain.member.entity.QSeller.seller;
 import static gohome.dailydaily.domain.product.entity.QCategory.category;
 import static gohome.dailydaily.domain.product.entity.QOption.option;
 import static gohome.dailydaily.domain.product.entity.QProduct.product;
+import static java.lang.Long.sum;
 import static org.springframework.util.StringUtils.hasText;
 
 @Repository
@@ -37,6 +42,54 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
         super(Product.class);
     }
 
+
+    @Override
+    public List<CategoryGetDto> findTop5ByScore() {
+        List<CategoryGetDto> content = select(getCategoryGetDto())
+                .from(product)
+                .orderBy(product.score.desc(),product.reviews.size().desc())
+                .limit(5)
+                .fetch();
+
+        if (content.size() < 1){
+            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
+        }
+
+        return content;
+    }
+
+    @Override
+    public List<CategoryGetDto> findByTop5ByBrand(Long id) {
+
+        List<CategoryGetDto> content = select(getCategoryGetDto())
+                .from(product)
+                .orderBy(product.score.desc(), product.reviews.size().desc())
+                .innerJoin(product.seller, seller)
+                .where(product.seller.id.eq(id))
+                .limit(5)
+                .fetch();
+
+        if (content.size() < 1){
+            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
+        }
+        return content;
+    }
+
+    @Override
+    public List<CategoryGetDto> findByTop15ByCategory(String main) {
+        List<CategoryGetDto> content = select(getCategoryGetDto())
+                .from(product)
+                .orderBy(product.createdAt.asc())
+                .innerJoin(product.category, category)
+                .where(product.category.main.eq(main))
+                .limit(15)
+                .fetch();
+
+        if (content.size() < 1){
+            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
+        }
+        return content;
+    }
 
     @Override
     public SliceResponseDto<CategoryGetDto> findAllByCategory(Pageable pageable, CategoryGetParam param) {
@@ -50,22 +103,25 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
                         .where(whereCondition)
                         .orderBy(product.score.desc(), product.id.asc())); // 일단 평점 내림차순으로 정렬하는 걸로 해둠
 
-        return  SliceResponseDto.of(
-                content.map(p -> {
-                    p.setOptions(findByProduct(p.getId()));
-                    return p;
-                }));
+        return SliceResponseDto.of(content);
+//        return  SliceResponseDto.of(
+//                content.map(p -> {
+//                    p.setOptions(findByProduct(p.getId()));
+//                    return p;
+//                }));
     }
 
-    @Override
-    public List<OptionDto.Response> findByProduct(Long id) {
-        return select(getOptionDtoResponse())
-                .from(option)
-                .innerJoin(option.product, product)
-                .where(product.id.eq(id))
-                .orderBy(option.id.asc())
-                .fetch();
-    }
+
+
+//    @Override
+//    public List<OptionDto.Response> findByProduct(Long id) {
+//        return select(getOptionDtoResponse())
+//                .from(option)
+//                .innerJoin(option.product, product)
+//                .where(product.id.eq(id))
+//                .orderBy(option.id.asc())
+//                .fetch();
+//    }
 
 //    @Override // transactional이 이미 service에 있기 때문에 필요없음
 //    public Slice<CategoryGetDto> findByCategory_Main(Pageable pageable, String main) {
