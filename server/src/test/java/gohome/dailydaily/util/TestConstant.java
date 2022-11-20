@@ -232,9 +232,10 @@ public class TestConstant {
     public static final FieldDescriptor FWP_REVIEW_MODIFIED_AT = fieldWithPath("modifiedAt").type(STRING).description("리뷰 수정시간");
 
     public static final FieldDescriptor FWP_PRODUCT_ID = fieldWithPath("productId").type(NUMBER).description("상품 식별자");
+    public static final FieldDescriptor FWP_PRODUCT_CART_ID = fieldWithPath("productCartId").type(NUMBER).description("장바구니 상품 식별자");
     public static final FieldDescriptor FWP_CART_ID = fieldWithPath("cartId").type(NUMBER).description("장바구니 식별자");
     public static final FieldDescriptor FWP_OPTION_ID = fieldWithPath("optionId").type(NUMBER).description("상품 옵션 식별자");
-    public static final FieldDescriptor FWP_PRODUCT_CART_ID = fieldWithPath("productCarts[].productCartId").type(NUMBER).description("장바구니 상품 식별자");
+    public static final FieldDescriptor FWP_PRODUCT_CARTS_ID = fieldWithPath("productCarts[].productCartId").type(NUMBER).description("장바구니 상품 식별자");
     public static final FieldDescriptor FWP_PRODUCT_CART_PRODUCT_ID = fieldWithPath("productCarts[].productId").type(NUMBER).description("상품 식별자");
     public static final FieldDescriptor FWP_PRODUCT_CART_BRAND_NAME = fieldWithPath("productCarts[].brandName").type(STRING).description("상품 판매자");
     public static final FieldDescriptor FWP_PRODUCT_CART_IMG_NAME = fieldWithPath("productCarts[].img.fileName").type(STRING).description("상품 이미지 이름");
@@ -301,7 +302,7 @@ public class TestConstant {
             FWP_MEMBER_ID, FWP_NICKNAME, FWP_EMAIL, FWP_ADDRESS, FWP_PHONE, FWP_MEMBER_STATUS
     );
     public static final ResponseFieldsSnippet CART_RESPONSE_FIELDS = responseFields(
-            FWP_CART_ID, FWP_PRODUCT_CART_ID, FWP_PRODUCT_CART_PRODUCT_ID, FWP_PRODUCT_CART_BRAND_NAME, FWP_PRODUCT_CART_IMG_NAME,
+            FWP_CART_ID, FWP_PRODUCT_CARTS_ID, FWP_PRODUCT_CART_PRODUCT_ID, FWP_PRODUCT_CART_BRAND_NAME, FWP_PRODUCT_CART_IMG_NAME,
             FWP_PRODUCT_CART_IMG_PATH, FWP_PRODUCT_CART_TITLE, FWP_PRODUCT_CART_COUNT, FWP_PRODUCT_CART_PRICE
     );
 
@@ -309,6 +310,7 @@ public class TestConstant {
         MEMBER.addRoles(MemberRole.USER);
         PRODUCT.addOptions(OPTION);
         PRODUCT.addReviews(REVIEW1);
+        PRODUCT2.addOptions(OPTION);
         CART.addProductCart(PRODUCT_CART);
         ReflectionTestUtils.setField(GET_PRODUCT_LIST_BY_CATEGORY_DTO, PagingRequestDto.class, "size", PAGEABLE.getPageSize(), int.class);
         ReflectionTestUtils.setField(GET_PRODUCT_LIST_BY_CATEGORY_DTO, PagingRequestDto.class, "page", PAGEABLE.getPageNumber(), int.class);

@@ -14,8 +14,14 @@ public class ProductCartDto {
         private Long productId;
         private Integer count;
         private Long optionId;
-    }
 
+    }
+    @Getter
+    public static class Patch {
+        private Long productCartId;
+        private Integer count;
+
+    }
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Builder
@@ -27,6 +33,7 @@ public class ProductCartDto {
         private String brandName;
         private String title;
         private Integer count;
+
         private Integer price;
     }
 }

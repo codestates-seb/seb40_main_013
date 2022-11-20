@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +28,18 @@ public class CartService {
         Product product = productService.getProduct(productCart.getProduct().getId());
         Option option = findVerifiedOption(product, productCart.getOption().getId());
 
-        productCart.addProduct(product);
-        productCart.addOption(option);
+        // 장바구니 추가시 장바구니에 중복되는 옵션+상품이 존재하는지 확인
+        Optional<ProductCart> findProductCart = cart.getProductCarts().stream()
+                .filter(goods -> goods.getOption().getId().equals(option.getId())
+                        && goods.getProduct().getId().equals(product.getId()))
+                .findAny();
+
+        if (findProductCart.isPresent()) {
+            findProductCart.ifPresent(goods -> goods.updateCount(goods.getCount() + productCart.getCount()));
+            return cart;
+        }
+
+        productCart.addProductAndOption(product, option);
         cart.addProductCart(productCart);
 
         productCartRepository.save(productCart);
@@ -65,5 +76,17 @@ public class CartService {
     public Cart getCart(Long memberId) {
 
         return findVerifiedCart(memberId);
+    }
+
+    public Cart updateCart(ProductCart productCart, Long memberId) {
+
+        Cart cart = findVerifiedCart(memberId);
+        ProductCart findProductCart = cart.getProductCarts().stream()
+                .filter(goods -> goods.getId().equals(productCart.getId()))
+                .findAny().orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_CART_NOT_FOUND));
+
+        findProductCart.updateCount(productCart.getCount());
+
+        return cart;
     }
 }

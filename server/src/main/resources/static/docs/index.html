@@ -457,8 +457,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_상품">2. 상품</a>
 <ul class="sectlevel2">
 <li><a href="#_상품_상세_조회">2.1. 상품 상세 조회</a></li>
-<li><a href="#_상품_대분류_조회">2.2. 상품 대분류 조회</a></li>
-<li><a href="#_상품_소분류_조회">2.3. 상품 소분류 조회</a></li>
+<li><a href="#_상품_카테고리_별_조회">2.2. 상품 카테고리 별 조회</a></li>
 </ul>
 </li>
 <li><a href="#_리뷰">3. 리뷰</a>
@@ -472,7 +471,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_장바구니_상품_추가">4.1. 장바구니 상품 추가</a></li>
 <li><a href="#_장바구니_조회">4.2. 장바구니 조회</a></li>
-<li><a href="#_장바구니_상품_삭제">4.3. 장바구니 상품 삭제</a></li>
+<li><a href="#_장바구니_상품_수정">4.3. 장바구니 상품 수정</a></li>
+<li><a href="#_장바구니_상품_삭제">4.4. 장바구니 상품 삭제</a></li>
 </ul>
 </li>
 </ul>
@@ -965,23 +965,29 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 485
+Content-Length: 749
 
 {
   "content" : [ {
     "reviewId" : 1,
     "productId" : 1,
     "productTitle" : "상품 이름1",
+    "nickname" : "닉네임",
     "title" : "리뷰 제목1",
     "content" : "리뷰 내용1",
-    "score" : 5.0
+    "score" : 5.0,
+    "createdAt" : "2022-11-20T20:01:18.0064925",
+    "modifiedAt" : "2022-11-20T20:01:18.0084909"
   }, {
     "reviewId" : 2,
     "productId" : 2,
     "productTitle" : "상품 이름2",
+    "nickname" : "닉네임",
     "title" : "리뷰 제목2",
     "content" : "리뷰 내용2",
-    "score" : 3.5
+    "score" : 3.5,
+    "createdAt" : "2022-11-20T20:01:18.0074922",
+    "modifiedAt" : "2022-11-20T20:01:18.0089565"
   } ],
   "pageInfo" : {
     "page" : 0,
@@ -1028,6 +1034,11 @@ Content-Length: 485
 <td class="tableblock halign-left valign-top"><p class="tableblock">상품 이름</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].nickname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 작성자</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 제목</p></td>
@@ -1041,6 +1052,16 @@ Content-Length: 485
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].score</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 별점</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 작성시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].modifiedAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 수정시간</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo</code></p></td>
@@ -1115,7 +1136,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 772
+Content-Length: 904
 
 {
   "productId" : 1,
@@ -1148,9 +1169,12 @@ Content-Length: 772
     "reviewId" : 1,
     "productId" : 1,
     "productTitle" : "상품 이름1",
+    "nickname" : "닉네임",
     "title" : "리뷰 제목1",
     "content" : "리뷰 내용1",
-    "score" : 5.0
+    "score" : 5.0,
+    "createdAt" : "2022-11-20T20:01:18.0064925",
+    "modifiedAt" : "2022-11-20T20:01:18.0084909"
   } ]
 }</code></pre>
 </div>
@@ -1291,6 +1315,11 @@ Content-Length: 772
 <td class="tableblock halign-left valign-top"><p class="tableblock">상품 제목</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reviews[].nickname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 작성자</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>reviews[].content</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 내용</p></td>
@@ -1300,159 +1329,31 @@ Content-Length: 772
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 별점</p></td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_상품_대분류_조회">2.2. 상품 대분류 조회</h3>
-<div class="listingblock">
-<div class="title">http-request</div>
-<div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /products/%EC%B9%A8%EC%8B%A4?page=0&amp;size=20&amp;sort=createdAt%2CDESC HTTP/1.1
-Accept: application/json
-Host: localhost:8080</code></pre>
-</div>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">/products/{main}</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>main</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">카테고리 대분류</p></td>
-</tr>
-</tbody>
-</table>
-<div class="listingblock">
-<div class="title">http-response</div>
-<div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 1; mode=block
-Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-Pragma: no-cache
-Expires: 0
-X-Frame-Options: SAMEORIGIN
-Content-Length: 468
-
-{
-  "content" : [ {
-    "id" : 1,
-    "img" : {
-      "fileName" : "fileName",
-      "fullPath" : "fullPath"
-    },
-    "title" : "상품 이름1",
-    "price" : 123456,
-    "score" : 3
-  }, {
-    "id" : 2,
-    "img" : {
-      "fileName" : "fileName",
-      "fullPath" : "fullPath"
-    },
-    "title" : "상품 이름2",
-    "price" : 100000,
-    "score" : 4
-  } ],
-  "sliceInfo" : {
-    "page" : 0,
-    "size" : 20,
-    "hasNext" : true
-  }
-}</code></pre>
-</div>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">response-fields</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Path</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">상품 식별자</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].img.fileName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reviews[].createdAt</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">상품 썸네일 이름</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 작성시간</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].img.fullPath</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reviews[].modifiedAt</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">상품 썸네일 경로</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].title</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">상품 이름</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].price</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">상품 가격</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].score</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">상품 별점</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sliceInfo</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">슬라이스 정보</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sliceInfo.page</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">페이지</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sliceInfo.size</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">사이즈</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sliceInfo.hasNext</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">다음 슬라이스 존재 여부</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 수정시간</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_상품_소분류_조회">2.3. 상품 소분류 조회</h3>
+<h3 id="_상품_카테고리_별_조회">2.2. 상품 카테고리 별 조회</h3>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /products/%EC%B9%A8%EC%8B%A4/%EC%B9%A8%EB%8C%80?page=0&amp;size=20&amp;sort=createdAt%2CDESC HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /products?main=%EC%B9%A8%EC%8B%A4&amp;sub=%EC%B9%A8%EB%8C%80&amp;page=0&amp;size=20&amp;sort=createdAt%2CDESC HTTP/1.1
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">/products/{main}/{sub}</caption>
+<caption class="title">request-parameters</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1472,6 +1373,18 @@ Host: localhost:8080</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">카테고리 소분류</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사이즈</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sort</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">정렬</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -1485,7 +1398,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 468
+Content-Length: 751
 
 {
   "content" : [ {
@@ -1494,9 +1407,16 @@ Content-Length: 468
       "fileName" : "fileName",
       "fullPath" : "fullPath"
     },
-    "title" : "상품 이름1",
-    "price" : 123456,
-    "score" : 3
+    "title" : "productTest",
+    "price" : 10000,
+    "score" : 45,
+    "options" : [ {
+      "optionId" : 1,
+      "color" : "white",
+      "size" : "s",
+      "price" : 0,
+      "stock" : 1000
+    } ]
   }, {
     "id" : 2,
     "img" : {
@@ -1505,7 +1425,14 @@ Content-Length: 468
     },
     "title" : "상품 이름2",
     "price" : 100000,
-    "score" : 4
+    "score" : 4,
+    "options" : [ {
+      "optionId" : 1,
+      "color" : "white",
+      "size" : "s",
+      "price" : 0,
+      "stock" : 1000
+    } ]
   } ],
   "sliceInfo" : {
     "page" : 0,
@@ -1559,6 +1486,31 @@ Content-Length: 468
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].score</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">상품 별점</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].options[].optionId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 옵션 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].options[].color</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 옵션 색상</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].options[].size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 옵션 크기</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].options[].price</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 옵션 추가 가격</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].options[].stock</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 옵션 재고</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sliceInfo</code></p></td>
@@ -1688,15 +1640,18 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 162
+Content-Length: 288
 
 {
   "reviewId" : 1,
   "productId" : 1,
   "productTitle" : "상품 이름1",
+  "nickname" : "닉네임",
   "title" : "리뷰 제목1",
   "content" : "리뷰 내용1",
-  "score" : 5.0
+  "score" : 5.0,
+  "createdAt" : "2022-11-20T20:01:18.0064925",
+  "modifiedAt" : "2022-11-20T20:01:18.0084909"
 }</code></pre>
 </div>
 </div>
@@ -1731,6 +1686,11 @@ Content-Length: 162
 <td class="tableblock halign-left valign-top"><p class="tableblock">상품 이름</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nickname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 작성자</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 제목</p></td>
@@ -1744,6 +1704,16 @@ Content-Length: 162
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>score</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 별점</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 작성시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>modifiedAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 수정시간</p></td>
 </tr>
 </tbody>
 </table>
@@ -1858,15 +1828,18 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 162
+Content-Length: 288
 
 {
   "reviewId" : 1,
   "productId" : 1,
   "productTitle" : "상품 이름1",
+  "nickname" : "닉네임",
   "title" : "리뷰 제목1",
   "content" : "리뷰 내용1",
-  "score" : 5.0
+  "score" : 5.0,
+  "createdAt" : "2022-11-20T20:01:18.0064925",
+  "modifiedAt" : "2022-11-20T20:01:18.0084909"
 }</code></pre>
 </div>
 </div>
@@ -1901,6 +1874,11 @@ Content-Length: 162
 <td class="tableblock halign-left valign-top"><p class="tableblock">상품 이름</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nickname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 작성자</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 제목</p></td>
@@ -1914,6 +1892,16 @@ Content-Length: 162
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>score</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 별점</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 작성시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>modifiedAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 수정시간</p></td>
 </tr>
 </tbody>
 </table>
@@ -2002,7 +1990,7 @@ Host: localhost:8080
 
 {
   "productId" : 1,
-  "count" : 2,
+  "count" : 3,
   "optionId" : 1
 }</code></pre>
 </div>
@@ -2082,7 +2070,7 @@ Content-Length: 287
     },
     "brandName" : "닉네임",
     "title" : "productTest",
-    "count" : 2,
+    "count" : 3,
     "price" : 10000
   } ]
 }</code></pre>
@@ -2204,7 +2192,7 @@ Content-Length: 287
     },
     "brandName" : "닉네임",
     "title" : "productTest",
-    "count" : 2,
+    "count" : 3,
     "price" : 10000
   } ]
 }</code></pre>
@@ -2274,7 +2262,183 @@ Content-Length: 287
 </table>
 </div>
 <div class="sect2">
-<h3 id="_장바구니_상품_삭제">4.3. 장바구니 상품 삭제</h3>
+<h3 id="_장바구니_상품_수정">4.3. 장바구니 상품 수정</h3>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /carts/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: JWT
+Accept: application/json
+Content-Length: 43
+Host: localhost:8080
+
+{
+  "productCartId" : 1,
+  "count" : 3
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">/carts/{product-cart-id}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product-cart-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">장바구니 상품 식별자</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">request-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>productCartId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">장바구니 상품 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>count</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 수량</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: SAMEORIGIN
+Content-Length: 287
+
+{
+  "cartId" : 1,
+  "productCarts" : [ {
+    "productCartId" : 1,
+    "productId" : 1,
+    "img" : {
+      "fileName" : "fileName",
+      "fullPath" : "fullPath"
+    },
+    "brandName" : "닉네임",
+    "title" : "productTest",
+    "count" : 3,
+    "price" : 10000
+  } ]
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cartId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">장바구니 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>productCarts[].productCartId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">장바구니 상품 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>productCarts[].productId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>productCarts[].brandName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 판매자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>productCarts[].img.fileName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 이미지 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>productCarts[].img.fullPath</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 이미지 경로</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>productCarts[].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>productCarts[].count</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 수량</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>productCarts[].price</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 가격</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_장바구니_상품_삭제">4.4. 장바구니 상품 삭제</h3>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
@@ -2325,12 +2489,16 @@ Host: localhost:8080</code></pre>
 <div class="title">http-response</div>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 204 No Content
+Content-Type: text/plain;charset=UTF-8
+Content-Length: 25
 X-Content-Type-Options: nosniff
 X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-X-Frame-Options: SAMEORIGIN</code></pre>
+X-Frame-Options: SAMEORIGIN
+
+success deleteProductCart</code></pre>
 </div>
 </div>
 </div>
@@ -2340,7 +2508,7 @@ X-Frame-Options: SAMEORIGIN</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-11-18 21:04:51 +0900
+Last updated 2022-11-20 19:52:33 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
