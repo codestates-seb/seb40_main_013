@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ExceptionCode {
     ID_DOES_NOT_MATCH(400, "ID does not match"),
+    PASSWORD_DOES_NOT_MATCH(400, "Password does not match"),
 
     CANNOT_CHANGE_ORDER(403, "Order can not change"),
 
