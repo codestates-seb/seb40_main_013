@@ -22,7 +22,7 @@ include::{snippets}/auth/refresh/http-response.adoc[]
 [caption=]
 include::{snippets}/auth/refresh/response-fields.adoc[]
 
-== 비밀번호 검증
+=== 비밀번호 검증
 .http-request
 include::{snippets}/auth/password/http-request.adoc[]
 
