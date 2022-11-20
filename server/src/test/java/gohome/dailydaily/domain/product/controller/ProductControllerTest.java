@@ -1,13 +1,14 @@
 package gohome.dailydaily.domain.product.controller;
 
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
+import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryDTO;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
+import gohome.dailydaily.domain.product.dto.OptionDto;
 import gohome.dailydaily.domain.product.mapper.OptionMapper;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
-import gohome.dailydaily.domain.product.repository.ProductRepositoryCustomImpl;
 import gohome.dailydaily.domain.product.service.ProductService;
 import gohome.dailydaily.domain.review.mapper.ReviewMapper;
-import gohome.dailydaily.util.Reflection;
+import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import gohome.dailydaily.util.security.SecurityTestConfig;
 import gohome.dailydaily.util.security.WithMockCustomUser;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,6 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
@@ -24,9 +24,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static gohome.dailydaily.util.TestConstant.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -40,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import({SecurityTestConfig.class})
 @AutoConfigureRestDocs
 @WithMockCustomUser
-public class ProductControllerTest implements Reflection {
+public class ProductControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -78,65 +80,103 @@ public class ProductControllerTest implements Reflection {
     }
 
     @Test
-    public void getCategoryMain() throws Exception {
-        Slice<CategoryGetDto> products = new SliceImpl<>(
-                List.of(new CategoryGetDto(PRODUCT1.getId(), PRODUCT1.getImg(), PRODUCT1.getTitle(),
-                                PRODUCT1.getPrice(), PRODUCT1.getScore()),
-                        new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                                PRODUCT2.getPrice(), PRODUCT2.getScore())), PAGEABLE, true);
+    public void getProductListByCategory() throws Exception {
+        List<OptionDto.Response> options = new ArrayList<>(
+                List.of(new OptionDto.Response(
+                        OPTION.getId(), OPTION.getColor(), OPTION.getSize(), OPTION.getPrice(), OPTION.getStock()
+                )));
 
-        given(productService.getCategoryList(PAGEABLE, CATEGORY.getMain()))
+        SliceResponseDto<CategoryGetDto> products = new SliceResponseDto<>(new SliceImpl<>(
+                List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
+                                PRODUCT.getPrice(), PRODUCT.getScore(),options),
+                        new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+                                PRODUCT2.getPrice(), PRODUCT2.getScore(),options)), PAGEABLE, true));
+
+        given(productService.getProductListByCategory(any(GetProductListByCategoryDTO.class)))
                 .willReturn(products);
 
         ResultActions actions = mockMvc.perform(
-                get("/products/{main}", CATEGORY.getMain())
+                get("/products")
                         .accept(MediaType.APPLICATION_JSON)
+                        .param("main", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getMain())
+                        .param("sub", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getSub())
                         .param("page", String.valueOf(PAGEABLE.getPageNumber()))
                         .param("size", String.valueOf(PAGEABLE.getPageSize()))
                         .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
         );
 
         actions.andExpect(status().isOk())
-                .andDo(document("products/main/get",
+                .andDo(document("products/category/get",
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
-                        REQUEST_PARAM_PAGE,
-                        PATH_PARAM_CATEGORY_MAIN,
+                        REQUEST_PARAM_CATEGORY,
                         responseFields(
-                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE
+                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE,
+                                FWP_CONTENT_PRODUCT_OPTION_ID, FWP_CONTENT_PRODUCT_OPTION_COLOR, FWP_CONTENT_PRODUCT_OPTION_SIZE, FWP_CONTENT_PRODUCT_OPTION_PRICE, FWP_CONTENT_PRODUCT_OPTION_STOCK
                                 , FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
                         )));
     }
 
-    @Test
-    public void getCategoryMainSub() throws Exception {
-        Slice<CategoryGetDto> products = new SliceImpl<>(
-                List.of(new CategoryGetDto(PRODUCT1.getId(), PRODUCT1.getImg(), PRODUCT1.getTitle(),
-                                PRODUCT1.getPrice(), PRODUCT1.getScore()),
-                        new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                                PRODUCT2.getPrice(), PRODUCT2.getScore())), PAGEABLE, true);
-
-        given(productService.getCategoryList(PAGEABLE, CATEGORY.getMain(), CATEGORY.getSub()))
-                .willReturn(products);
-
-        ResultActions actions = mockMvc.perform(
-                get("/products/{main}/{sub}", CATEGORY.getMain(), CATEGORY.getSub())
-                        .accept(MediaType.APPLICATION_JSON)
-                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
-                        .param("size", String.valueOf(PAGEABLE.getPageSize()))
-                        .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
-        );
-
-        actions.andExpect(status().isOk())
-                .andDo(document("products/main/sub/get",
-                        REQUEST_PREPROCESSOR,
-                        RESPONSE_PREPROCESSOR,
-                        REQUEST_PARAM_PAGE,
-                        PATH_PARAM_CATEGORY_MAIN_SUB,
-                        responseFields(
-                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE
-                                , FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
-
-                        )));
-    }
+//    @Test
+//    public void getCategoryMain() throws Exception {
+//        Slice<CategoryGetDto> products = new SliceImpl<>(
+//                List.of(new CategoryGetDto(PRODUCT1.getId(), PRODUCT1.getImg(), PRODUCT1.getTitle(),
+//                                PRODUCT1.getPrice(), PRODUCT1.getScore()),
+//                        new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+//                                PRODUCT2.getPrice(), PRODUCT2.getScore())), PAGEABLE, true);
+//
+//        given(productService.getCategoryList(PAGEABLE, CATEGORY.getMain()))
+//                .willReturn(products);
+//
+//        ResultActions actions = mockMvc.perform(
+//                get("/products/{main}", CATEGORY.getMain())
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
+//                        .param("size", String.valueOf(PAGEABLE.getPageSize()))
+//                        .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
+//        );
+//
+//        actions.andExpect(status().isOk())
+//                .andDo(document("products/main/get",
+//                        REQUEST_PREPROCESSOR,
+//                        RESPONSE_PREPROCESSOR,
+//                        REQUEST_PARAM_PAGE,
+//                        PATH_PARAM_CATEGORY_MAIN,
+//                        responseFields(
+//                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE
+//                                , FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
+//                        )));
+//    }
+//
+//    @Test
+//    public void getCategoryMainSub() throws Exception {
+//        Slice<CategoryGetDto> products = new SliceImpl<>(
+//                List.of(new CategoryGetDto(PRODUCT1.getId(), PRODUCT1.getImg(), PRODUCT1.getTitle(),
+//                                PRODUCT1.getPrice(), PRODUCT1.getScore()),
+//                        new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+//                                PRODUCT2.getPrice(), PRODUCT2.getScore())), PAGEABLE, true);
+//
+//        given(productService.getCategoryList(PAGEABLE, CATEGORY.getMain(), CATEGORY.getSub()))
+//                .willReturn(products);
+//
+//        ResultActions actions = mockMvc.perform(
+//                get("/products/{main}/{sub}", CATEGORY.getMain(), CATEGORY.getSub())
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
+//                        .param("size", String.valueOf(PAGEABLE.getPageSize()))
+//                        .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
+//        );
+//
+//        actions.andExpect(status().isOk())
+//                .andDo(document("products/main/sub/get",
+//                        REQUEST_PREPROCESSOR,
+//                        RESPONSE_PREPROCESSOR,
+//                        REQUEST_PARAM_PAGE,
+//                        PATH_PARAM_CATEGORY_MAIN_SUB,
+//                        responseFields(
+//                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE
+//                                , FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
+//
+//                        )));
+//    }
 }

@@ -15,5 +15,5 @@ public interface ProductMapper {
     @Mapping(target = "score", expression = "java(product.getScore() / 10F)")
     ProductDto.Response toResponse(Product product);
 
-    CategoryGetDto toResponse(CategoryGetDto categoryGetDto);
+//    CategoryGetDto toResponse(CategoryGetDto categoryGetDto);
 }
