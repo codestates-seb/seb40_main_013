@@ -17,7 +17,9 @@ import gohome.dailydaily.global.common.dto.PagingRequestDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.restdocs.headers.HeaderDescriptor;
 import org.springframework.restdocs.headers.RequestHeadersSnippet;
+import org.springframework.restdocs.headers.ResponseHeadersSnippet;
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;
 import org.springframework.restdocs.payload.FieldDescriptor;
@@ -28,8 +30,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
 
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -148,8 +149,19 @@ public class TestConstant {
             );
     public static final OperationResponsePreprocessor RESPONSE_PREPROCESSOR = preprocessResponse(prettyPrint());
 
+    public static final HeaderDescriptor ACCESS_TOKEN_HEADER = headerWithName("Authorization").description("Access 토큰");
+    public static final HeaderDescriptor REFRESH_TOKEN_HEADER = headerWithName("Refresh").description("Refresh 토큰");
+
     public static final RequestHeadersSnippet REQUEST_HEADER_JWT = requestHeaders(
-            headerWithName("Authorization").description("JWT 토큰")
+            ACCESS_TOKEN_HEADER
+    );
+
+    public static final RequestHeadersSnippet REQUEST_HEADER_REFRESH = requestHeaders(
+            REFRESH_TOKEN_HEADER
+    );
+
+    public static final ResponseHeadersSnippet RESPONSE_HEADER_ACCESS_TOKEN = responseHeaders(
+            ACCESS_TOKEN_HEADER
     );
 
     public static final RequestParametersSnippet REQUEST_PARAM_PAGE = requestParameters(
@@ -169,7 +181,7 @@ public class TestConstant {
             parameterWithName("page").description("페이지"),
             parameterWithName("size").description("사이즈"),
             parameterWithName("sort").description("정렬")
-            );
+    );
 
     public static final PathParametersSnippet PATH_PARAM_PRODUCT_CART_ID = pathParameters(
             parameterWithName("product-cart-id").description("장바구니 상품 식별자")
@@ -281,6 +293,9 @@ public class TestConstant {
     public static final FieldDescriptor FWP_REVIEWS_CREATED_AT = fieldWithPath("reviews[].createdAt").type(STRING).description("리뷰 작성시간");
     public static final FieldDescriptor FWP_REVIEWS_MODIFIED_AT = fieldWithPath("reviews[].modifiedAt").type(STRING).description("리뷰 수정시간");
 
+    public static final FieldDescriptor FWP_STATUS = fieldWithPath("status").type(NUMBER).description("상태 코드");
+    public static final FieldDescriptor FWP_MESSAGE = fieldWithPath("message").type(STRING).description("메시지");
+
     public static final ResponseFieldsSnippet PAGE_REVIEW_RESPONSE_FIELDS = responseFields(
             FWP_CONTENT, FWP_CONTENT_REVIEW_ID, FWP_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_TITLE, FWP_CONTENT_REVIEW_NICKNAME,
             FWP_CONTENT_REVIEW_TITLE, FWP_CONTENT_REVIEW_CONTENT, FWP_CONTENT_REVIEW_SCORE, FWP_CONTENT_REVIEW_CREATED_AT, FWP_CONTENT_REVIEW_MODIFIED_AT,
@@ -304,6 +319,10 @@ public class TestConstant {
     public static final ResponseFieldsSnippet CART_RESPONSE_FIELDS = responseFields(
             FWP_CART_ID, FWP_PRODUCT_CARTS_ID, FWP_PRODUCT_CART_PRODUCT_ID, FWP_PRODUCT_CART_BRAND_NAME, FWP_PRODUCT_CART_IMG_NAME,
             FWP_PRODUCT_CART_IMG_PATH, FWP_PRODUCT_CART_TITLE, FWP_PRODUCT_CART_COUNT, FWP_PRODUCT_CART_PRICE
+    );
+
+    public static final ResponseFieldsSnippet AUTH_RESPONSE_FIELDS = responseFields(
+            FWP_STATUS, FWP_MESSAGE
     );
 
     static {

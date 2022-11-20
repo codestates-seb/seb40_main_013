@@ -6,6 +6,52 @@
 :source-highlighter: prettify
 
 ***
+== 인증
+=== 토큰 갱신
+.http-request
+include::{snippets}/auth/refresh/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/auth/refresh/request-headers.adoc[]
+
+.http-response
+include::{snippets}/auth/refresh/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/auth/refresh/response-fields.adoc[]
+
+=== 비밀번호 검증
+.http-request
+include::{snippets}/auth/password/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/auth/password/request-headers.adoc[]
+
+.request-fields
+[caption=]
+include::{snippets}/auth/password/request-fields.adoc[]
+
+.http-response
+include::{snippets}/auth/password/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/auth/password/response-fields.adoc[]
+
+=== 게스트 로그인
+.http-request
+include::{snippets}/auth/guest/http-request.adoc[]
+
+.http-response
+include::{snippets}/auth/guest/http-response.adoc[]
+
+.response-headers
+[caption=]
+include::{snippets}/auth/guest/response-headers.adoc[]
+
 == 회원
 === 회원 가입
 .http-request

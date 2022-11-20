@@ -36,3 +36,16 @@ jwt:
   refresh-token-expiration-minutes: 420
 
 env: local
+
+jpa:
+  properties:
+    hibernate.default_batch_fetch_size: 1000
+
+file:
+  profileImg: C:\Users\KKG\Documents\GitHub\seb40_main_013\server\img\profileImg\
+  productImg: C:\Users\KKG\Documents\GitHub\seb40_main_013\server\img\productImg\
+
+server:
+  servlet:
+    encoding:
+      force-response: true
