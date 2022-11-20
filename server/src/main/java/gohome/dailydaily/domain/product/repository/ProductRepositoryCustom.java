@@ -1,13 +1,22 @@
 package gohome.dailydaily.domain.product.repository;
 
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
+import gohome.dailydaily.domain.product.dto.OptionDto;
+import gohome.dailydaily.domain.product.repository.param.CategoryGetParam;
+import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Repository;
 
-public interface ProductRepositoryCustom {
-    Slice<CategoryGetDto> findByCategory_Main(Pageable pageable, String main);
+import java.util.List;
 
-    Slice<CategoryGetDto> findByCategory_MainAndCategory_Sub(Pageable pageable, String main, String sub);
+public interface ProductRepositoryCustom {
+
+    SliceResponseDto<CategoryGetDto> findAllByCategory(Pageable pageable, CategoryGetParam param);
+
+    List<OptionDto.Response> findByProduct(Long id);
+//    Slice<CategoryGetDto> findByCategory_Main(Pageable pageable, String main);
+//
+//    Slice<CategoryGetDto> findByCategory_MainAndCategory_Sub(Pageable pageable, String main, String sub);
 
 }

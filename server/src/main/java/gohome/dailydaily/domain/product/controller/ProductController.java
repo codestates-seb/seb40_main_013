@@ -1,5 +1,6 @@
 package gohome.dailydaily.domain.product.controller;
 
+import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryDTO;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.entity.Product;
@@ -30,30 +31,51 @@ public class ProductController {
     private final ProductMapper mapper;
 
     // 미완성 추가구현 필요
-    @GetMapping
-    public ResponseEntity getScoreAll() {
-        List<Product> products = productService.findProduct();
+    @GetMapping("/score")
+    public ResponseEntity<List<CategoryGetDto>> getScoreAll() {
+        List<CategoryGetDto> products = productService.findProduct();
         return null;
     }
 
-    // 대분류
-    @GetMapping("/{main}")
-    public SliceResponseDto<CategoryGetDto> getCategoryMain(@PathVariable("main") String main,
-                                                            @PageableDefault(size = 20, sort = "createdAt",
-                                                                    direction = Sort.Direction.DESC) Pageable pageable) {
-        Slice<CategoryGetDto> products = productService.getCategoryList(pageable, main);
-        return SliceResponseDto.of(products.map(mapper::toResponse));
+    @GetMapping("/brandScore")
+    public ResponseEntity<List<CategoryGetDto>> getBrandScoreAll() {
+        List<CategoryGetDto> products = productService.findProduct();
+        return null;
     }
 
-    // 소분류
-    @GetMapping("/{main}/{sub}")
-    public SliceResponseDto<CategoryGetDto> getCategoryMainSub(@PathVariable("main") String main,
-                                                               @PathVariable("sub") String sub,
-                                                               @PageableDefault(size = 20, sort = "createdAt",
-                                                                       direction = Sort.Direction.DESC) Pageable pageable) {
-        Slice<CategoryGetDto> products = productService.getCategoryList(pageable, main, sub);
-        return SliceResponseDto.of(products.map(mapper::toResponse));
+    @GetMapping("/categoryScore")
+    public ResponseEntity<List<CategoryGetDto>> getCategoryScoreAll() {
+        List<CategoryGetDto> products = productService.findProduct();
+        return null;
     }
+
+    // 카테고리 대분류 또는 소분류별 리스트 조회
+    // 역할을 제대로 구분하면 코드는 자연스럽게 클린 코드가 됨
+    @GetMapping
+    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByCategory(GetProductListByCategoryDTO dto) {
+        SliceResponseDto<CategoryGetDto> result = productService.getProductListByCategory(dto);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    // 대분류
+//    @GetMapping("/{main}")
+//    public SliceResponseDto<CategoryGetDto> getCategoryMain(@PathVariable("main") String main,
+//                                                            @PageableDefault(size = 20, sort = "createdAt",
+//                                                                    direction = Sort.Direction.DESC) Pageable pageable) {
+//        Slice<CategoryGetDto> products = productService.getCategoryList(pageable, main);
+//        return SliceResponseDto.of(products.map(mapper::toResponse)); // 매퍼로 변경하고 하는 것들은 모두 서비스 로직에서 끝나야 함
+//        // controller 클래스와 service 클래스의 역할와 책임을 확실히 구분할 것 => OOP
+//    }
+//
+//    // 소분류
+//    @GetMapping("/{main}/{sub}")
+//    public SliceResponseDto<CategoryGetDto> getCategoryMainSub(@PathVariable("main") String main,
+//                                                               @PathVariable("sub") String sub,
+//                                                               @PageableDefault(size = 20, sort = "createdAt",
+//                                                                       direction = Sort.Direction.DESC) Pageable pageable) {
+//        Slice<CategoryGetDto> products = productService.getCategoryList(pageable, main, sub);
+//        return SliceResponseDto.of(products.map(mapper::toResponse));
+//    }
 
     @GetMapping("/details/{product-id}")
     public ProductDto.Response getProduct(@PathVariable("product-id") Long productId) {
