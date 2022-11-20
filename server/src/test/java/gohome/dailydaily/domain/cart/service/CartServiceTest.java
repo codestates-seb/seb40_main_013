@@ -44,6 +44,7 @@ class CartServiceTest implements Reflection {
                 .id(1L)
                 .member(MEMBER)
                 .build();
+        cart.addProductCart(PRODUCT_CART);
     }
 
     @Test
@@ -65,19 +66,35 @@ class CartServiceTest implements Reflection {
 
         // then
         assertThat(cart.getProductCarts()).contains(productCart);
-        assertThat(cart.getProductCarts().size()).isEqualTo(1);
+        assertThat(cart.getProductCarts().size()).isEqualTo(2);
 
 
     }
 
     @Test
     void cancelCart() {
-        // given
 
+    }
+
+    @Test
+    void getCart() {
+
+    }
+
+    @Test
+    void updateCart() {
+        // given
+        ProductCart productCart = ProductCart.builder()
+                .id(1L)
+                .count(3)
+                .build();
+
+        given(cartRepository.findCartByMember_Id(MEMBER.getId())).willReturn(Optional.ofNullable(cart));
 
         // when
-
+        cartService.updateCart(productCart, MEMBER.getId());
 
         // then
+        assertThat(cart.getProductCarts().get(0).getCount()).isEqualTo(3);
     }
 }

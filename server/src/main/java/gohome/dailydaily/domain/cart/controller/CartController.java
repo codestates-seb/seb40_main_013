@@ -31,6 +31,16 @@ public class CartController {
         return new ResponseEntity<>(mapper.toResponse(cart), HttpStatus.CREATED);
     }
 
+    @PatchMapping
+    public ResponseEntity patchProductCart(@MemberId Long memberId,
+                                           @RequestBody ProductCartDto.Patch patch) {
+
+        ProductCart productCart = productCartMapper.toProductCart(patch);
+        Cart cart = cartService.updateCart(productCart, memberId);
+
+        return new ResponseEntity<>(mapper.toResponse(cart), HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity getCart(@MemberId Long memberId) {
 

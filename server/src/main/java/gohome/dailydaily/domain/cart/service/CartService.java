@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -75,5 +76,17 @@ public class CartService {
     public Cart getCart(Long memberId) {
 
         return findVerifiedCart(memberId);
+    }
+
+    public Cart updateCart(ProductCart productCart, Long memberId) {
+
+        Cart cart = findVerifiedCart(memberId);
+        Optional<ProductCart> findProductCart = cart.getProductCarts().stream()
+                .filter(goods -> goods.getId().equals(productCart.getId()))
+                .findAny();
+
+        findProductCart.ifPresent(goods -> goods.updateCount(productCart.getCount()));
+
+        return cart;
     }
 }

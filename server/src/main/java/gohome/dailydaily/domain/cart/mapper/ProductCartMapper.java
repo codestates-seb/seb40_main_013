@@ -14,10 +14,13 @@ public interface ProductCartMapper {
     @Mapping(target = "product", expression = "java(Product.builder().id(post.getProductId()).build())")
     @Mapping(target = "option", expression = "java(Option.builder().id(post.getOptionId()).build())")
     ProductCart toProductCart(ProductCartDto.Post post);
+
+    @Mapping(target = "id", source = "productCartId")
+    ProductCart toProductCart(ProductCartDto.Patch patch);
+
     @Mapping(target = "productCartId", source = "id")
     @Mapping(target = "productId", source = "product.id")
     @Mapping(target = ".", source = "product")
     @Mapping(target = "brandName", source = "product.seller.member.nickname")
     ProductCartDto.Response toResponse(ProductCart productCart);
-
 }
