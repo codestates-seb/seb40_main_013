@@ -41,9 +41,10 @@ public class CartController {
 
     @DeleteMapping("/{product-cart-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProductCart(@PathVariable("product-cart-id") Long productCartId,
+    public String deleteProductCart(@PathVariable("product-cart-id") Long productCartId,
                                   @MemberId Long memberId) {
 
         cartService.cancelCart(productCartId, memberId);
+        return "success deleteProductCart";
     }
 }
