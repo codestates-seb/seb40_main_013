@@ -16,7 +16,7 @@ public interface ProductCartMapper {
     ProductCart toProductCart(ProductCartDto.Post post);
 
     @Mapping(target = "id", source = "productCartId")
-    ProductCart toProductCart(ProductCartDto.Patch patch);
+    ProductCart toProductCart(ProductCartDto.Patch patch, Long productCartId);
 
     @Mapping(target = "productCartId", source = "id")
     @Mapping(target = "productId", source = "product.id")

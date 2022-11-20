@@ -17,7 +17,7 @@ public class ProductCartDto {
 
     }
     @Getter
-    public class Patch {
+    public static class Patch {
         private Long productCartId;
         private Integer count;
 
