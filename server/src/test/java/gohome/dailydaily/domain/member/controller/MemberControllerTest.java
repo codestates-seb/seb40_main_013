@@ -208,7 +208,7 @@ class MemberControllerTest implements Reflection {
         // when
         ResultActions actions = mockMvc.perform(
                 get("/members/mypage/reviews")
-                        .param("page", String.valueOf(PAGEABLE.getOffset()))
+                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
                         .param("size", String.valueOf(PAGEABLE.getPageSize()))
                         .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
                         .header("Authorization", "JWT")
@@ -221,12 +221,7 @@ class MemberControllerTest implements Reflection {
                         RESPONSE_PREPROCESSOR,
                         REQUEST_HEADER_JWT,
                         REQUEST_PARAM_PAGE,
-                        responseFields(
-                                FWP_CONTENT, FWP_CONTENT_REVIEW_ID, FWP_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_TITLE,
-                                FWP_CONTENT_REVIEW_TITLE, FWP_CONTENT_REVIEW_CONTENT, FWP_CONTENT_REVIEW_SCORE,
-                                FWP_PAGE_INFO, FWP_PAGE_INFO_PAGE, FWP_PAGE_INFO_SIZE,
-                                FWP_PAGE_INFO_TOTAL_ELEMENTS, FWP_PAGE_INFO_TOTAL_PAGES
-                        )
+                        PAGE_REVIEW_RESPONSE_FIELDS
                 ));
     }
 }

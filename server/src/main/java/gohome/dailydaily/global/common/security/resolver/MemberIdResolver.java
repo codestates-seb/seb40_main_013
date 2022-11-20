@@ -1,7 +1,8 @@
 package gohome.dailydaily.global.common.security.resolver;
 
+import gohome.dailydaily.global.error.BusinessLogicException;
+import gohome.dailydaily.global.error.ExceptionCode;
 import org.springframework.core.MethodParameter;
-import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class MemberIdResolver implements HandlerMethodArgumentResolver {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
         if (!(principal instanceof Long)) {
-            throw new AuthorizationServiceException("Unauthorized");
+            throw new BusinessLogicException(ExceptionCode.TOKEN_NOT_FOUND);
         }
         return (Long) principal;
     }
