@@ -19,9 +19,9 @@ public class CrawlingController {
 
     @GetMapping("/product")
     @ResponseStatus(HttpStatus.OK)
-    public void productName() {
+    public void productCrawling() {
 
-        String url = "https://ohou.se/productions/feed?query=%EB%8D%B0%EC%8A%A4%EC%BB%A4&category_id=10150000";
+        String url = "https://ohou.se/productions/445617/selling?affect_type=StoreSearchResult&affect_id=1";
 
 //        for (String url : urls) {
         log.info("@CrawlingController, productName url : " + url);
