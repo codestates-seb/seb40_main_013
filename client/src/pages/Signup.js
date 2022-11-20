@@ -133,12 +133,36 @@ function Signup() {
 const Wrapper = styled.div`
   width: 100%;
   /* height: 58vh; */
-  height: 100%;
+  height: 100vh;
   margin-top: 14px;
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
-  margin-top: 160px;
+  margin-top: 180px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 100vh;
+    /* min-width: 391px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media screen and (max-width: 768px) {
+    /* min-width: 391px; */
+    width: 90%;
+    height: 150vh;
+    display: flex;
+    justify-content: center;
+    margin-left: 40px;
+  }
+  @media screen and (max-width: 391px) {
+    /* min-width: 391px; */
+    width: 90%;
+    height: 190vh;
+  }
+
 `;
 const SignupWrapper = styled.div`
   width: 500px;

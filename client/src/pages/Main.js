@@ -20,7 +20,7 @@ const Container = styled.div`
 
 //best of best
 const SubTitle = styled.h2`
-  color: #AAAAAA;
+  color: #aaaaaa;
   font-size: 1rem;
   margin-top: 40px;
 `;
@@ -43,7 +43,7 @@ const FullTitle = styled.div`
   justify-content: flex-end;
   width: 80%;
   margin-bottom: 10px;
-  color: #AAAAAA;
+  color: #aaaaaa;
 `;
 const FullView = styled(Link)`
   font-size: 1.5rem;
@@ -57,64 +57,66 @@ const ProductList = styled.div`
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   justify-content: center;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr;
   }
-  @media (min-width: 391px) and (max-width: 768px){
+  @media (min-width: 391px) and (max-width: 768px) {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr;
   }
 `;
-
 
 //신상품
 const Table = styled.table`
   margin-top: 10px;
 `;
 const TD = styled.td`
-  border: 1px solid #AAAAAA;
+  border: 1px solid #aaaaaa;
   padding: 20px 50px;
   font-size: 1rem;
 `;
 
 const Main = () => {
-  const [productList, setProductList] = useState([]); 
+  const [productList, setProductList] = useState([]);
   // const [product, setProduct]=useState({});
 
   useEffect(() => {
-    Apis.get(`products/침실`).then((data) =>{
+    Apis.get(`products/침실`).then((data) => {
       // setProduct(data.data.content));
-    setProductList(data.data.content)});
+      setProductList(data.data.content);
+    });
   }, []);
   // console.log(product)
-  console.log(productList.map(p => console.log(p.img)));
+  console.log(productList.map((p) => console.log(p.img)));
   return (
     <Container>
       <Carousel />
       <SubTitle>Best Selling</SubTitle>
       <Title>Best of Best</Title>
-      <FullTitle name="fullTitle" className="fullTitle">
-      </FullTitle>
+      <FullTitle name="fullTitle" className="fullTitle"></FullTitle>
       <ProductList>
-        {productList.filter((product,idx) => idx < 3).map(product =>
-          <Products
-            brand={product.brand}
-            img={product.img.fullPath}
-            key={product.id}
-            title={product.title}
-            price={product.price}
-            score={product.score}
-          />
-        )}
+        {productList
+          .filter((product, idx) => idx < 3)
+          .map((product) => (
+            <Products
+              brand={product.brand}
+              img={product.img.fullPath}
+              key={product.id}
+              title={product.title}
+              price={product.price}
+              score={product.score}
+            />
+          ))}
       </ProductList>
       {/* <Title>브랜드별 추천상품</Title>
       <BrandProducts
         key={productList.length}
-        dodotList={productList.filter(p => p.brand === 'dodot' && p.id < 9)}
-        sofsysList={productList.filter(p => p.brand === '소프시스')}
-        forthehomeList={productList.filter(p => p.brand === '포더홈')}
-        deskerList={productList.filter(p => p.brand === '데스커')}/>
+        dodotList={productList.filter((p) => p.brand === "dodot" && p.id < 9)}
+        sofsysList={productList.filter((p) => p.brand === "소프시스")}
+        forthehomeList={productList.filter((p) => p.brand === "포더홈")}
+        deskerList={productList.filter((p) => p.brand === "데스커")}
+      />
       <Title>New Arrival</Title>
       <Table>
         <tbody className="tbody">

@@ -52,7 +52,6 @@ const Serach = styled.div`
   z-index: 300;
 `;
 
-
 const CategoryList = styled.div`
   height: 30px;
   display: flex;
@@ -65,7 +64,7 @@ const CategoryList = styled.div`
     font-size: 12px;
   }
   padding-left: 20px;
-  div{
+  div {
     height: 100%;
   }
 `;
@@ -83,14 +82,14 @@ const Nav = styled.nav`
   border-bottom: 1px solid #bebcaf;
   padding: 7px;
   margin: 5px 30px 5px 30px;
-  div{
+  div {
     padding: 6px 0px;
     flex-direction: column;
     align-items: center;
   }
   display: none;
   &:hover {
-      display: block;
+    display: block;
   }
 `;
 
@@ -99,7 +98,7 @@ const Category = styled.div`
   padding-right: 30px;
   &:hover {
     cursor: pointer;
-    ${Nav}{
+    ${Nav} {
       display: block;
     }
   }
@@ -195,10 +194,10 @@ function Header() {
               <Serach onClick={closeHandler}>
                 <BsSearch size="20" />
               </Serach>
-                <DownSearch
-                  closeSearch={closeSearch}
-                  closeHandler={closeHandler}
-                />
+              <DownSearch
+                closeSearch={closeSearch}
+                closeHandler={closeHandler}
+              />
             </div>
             <Link to="/cart">
               <div>
@@ -208,7 +207,6 @@ function Header() {
             </Link>
           </div>
         </CategoryList>
-       
       </HeaderBlock>
     </>
   );
