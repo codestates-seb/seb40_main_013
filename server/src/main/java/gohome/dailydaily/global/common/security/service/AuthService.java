@@ -17,9 +17,8 @@ public class AuthService {
 
     public void verifyPassword(Long memberId, String password) {
         Member member = memberService.findVerifiedMember(memberId);
-        String encode = passwordEncoder.encode(password);
 
-        if (!member.getPassword().equals(encode)) {
+        if (!passwordEncoder.matches(password, member.getPassword())) {
             throw new BusinessLogicException(ExceptionCode.PASSWORD_DOES_NOT_MATCH);
         }
     }
