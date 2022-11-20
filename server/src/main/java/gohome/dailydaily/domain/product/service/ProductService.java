@@ -15,7 +15,6 @@ import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,6 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Transactional(readOnly = true)
-@Slf4j
 public class ProductService {
 
     private final ProductRepository productRepository;

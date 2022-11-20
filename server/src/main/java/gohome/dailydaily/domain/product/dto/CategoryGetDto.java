@@ -3,9 +3,6 @@ package gohome.dailydaily.domain.product.dto;
 import com.querydsl.core.annotations.QueryProjection;
 import gohome.dailydaily.domain.file.entity.File;
 import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 public class CategoryGetDto {
@@ -27,5 +24,4 @@ public class CategoryGetDto {
         this.price = price;
         this.score = score;
     }
-
 }

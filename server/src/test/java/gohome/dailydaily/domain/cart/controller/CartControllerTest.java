@@ -126,4 +126,42 @@ class CartControllerTest implements Reflection {
                         CART_RESPONSE_FIELDS
                 ));
     }
+
+    @Test
+    void patchProductCart() throws Exception{
+        // given
+        ProductCartDto.Patch patch = newInstance(ProductCartDto.Patch.class);
+        setField(patch, "count", PRODUCT_CART.getCount());
+        setField(patch, "productCartId", PRODUCT_CART.getId());
+
+        String request = gson.toJson(patch);
+
+
+        given(cartService.updateCart(any(ProductCart.class), eq(MEMBER.getId()))).willReturn(CART);
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                patch("/carts/{product-cart-id}", PRODUCT_CART.getId())
+                        .header("Authorization", "JWT")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request)
+        );
+
+        // then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.cartId").value(CART.getId()))
+                .andExpect(jsonPath("$.productCarts[0].productCartId").value(PRODUCT_CART.getId()))
+                .andDo(document("carts/patch",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
+                        PATH_PARAM_PRODUCT_CART_ID,
+                        requestFields(
+                                FWP_PRODUCT_CART_ID,
+                                FWP_COUNT
+                        ),
+                        CART_RESPONSE_FIELDS
+                ));
+    }
 }
