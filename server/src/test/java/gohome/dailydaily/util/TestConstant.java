@@ -17,7 +17,9 @@ import gohome.dailydaily.global.common.dto.PagingRequestDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.restdocs.headers.HeaderDescriptor;
 import org.springframework.restdocs.headers.RequestHeadersSnippet;
+import org.springframework.restdocs.headers.ResponseHeadersSnippet;
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;
 import org.springframework.restdocs.payload.FieldDescriptor;
@@ -28,8 +30,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
 
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -148,12 +149,19 @@ public class TestConstant {
             );
     public static final OperationResponsePreprocessor RESPONSE_PREPROCESSOR = preprocessResponse(prettyPrint());
 
+    public static final HeaderDescriptor ACCESS_TOKEN_HEADER = headerWithName("Authorization").description("Access 토큰");
+    public static final HeaderDescriptor REFRESH_TOKEN_HEADER = headerWithName("Refresh").description("Refresh 토큰");
+
     public static final RequestHeadersSnippet REQUEST_HEADER_JWT = requestHeaders(
-            headerWithName("Authorization").description("JWT 토큰")
+            ACCESS_TOKEN_HEADER
     );
 
     public static final RequestHeadersSnippet REQUEST_HEADER_REFRESH = requestHeaders(
-            headerWithName("Refresh").description("Refresh 토큰")
+            REFRESH_TOKEN_HEADER
+    );
+
+    public static final ResponseHeadersSnippet RESPONSE_HEADER_ACCESS_TOKEN = responseHeaders(
+            ACCESS_TOKEN_HEADER
     );
 
     public static final RequestParametersSnippet REQUEST_PARAM_PAGE = requestParameters(

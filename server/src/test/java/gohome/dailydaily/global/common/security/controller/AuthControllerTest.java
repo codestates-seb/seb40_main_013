@@ -18,9 +18,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static gohome.dailydaily.util.TestConstant.*;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = AuthController.class)
@@ -85,6 +86,26 @@ class AuthControllerTest implements Reflection {
                                 FWP_PASSWORD
                         ),
                         AUTH_RESPONSE_FIELDS
+                ));
+    }
+
+    @Test
+    public void guest() throws Exception {
+        // given
+        given(authService.getGuestAccessToken())
+                .willReturn("AccessToken");
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                post("/guest")
+        );
+
+        // then
+        actions.andExpect(status().isOk())
+                .andDo(document("auth/guest",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        RESPONSE_HEADER_ACCESS_TOKEN
                 ));
     }
 
