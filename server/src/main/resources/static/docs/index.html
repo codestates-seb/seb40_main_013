@@ -449,6 +449,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_토큰_갱신">1.1. 토큰 갱신</a></li>
 <li><a href="#_비밀번호_검증">1.2. 비밀번호 검증</a></li>
+<li><a href="#_게스트_로그인">1.3. 게스트 로그인</a></li>
 </ul>
 </li>
 <li><a href="#_회원">2. 회원</a>
@@ -601,7 +602,7 @@ Host: localhost:8080
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access 토큰</p></td>
 </tr>
 </tbody>
 </table>
@@ -670,6 +671,48 @@ Content-Length: 66
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">메시지</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_게스트_로그인">1.3. 게스트 로그인</h3>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">POST /guest HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Authorization: Bearer AccessToken
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: SAMEORIGIN</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">response-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access 토큰</p></td>
 </tr>
 </tbody>
 </table>
@@ -826,7 +869,7 @@ Host: localhost:8080</code></pre>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access 토큰</p></td>
 </tr>
 </tbody>
 </table>
@@ -936,7 +979,7 @@ Host: localhost:8080
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access 토큰</p></td>
 </tr>
 </tbody>
 </table>
@@ -1073,7 +1116,7 @@ Host: localhost:8080</code></pre>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access 토큰</p></td>
 </tr>
 </tbody>
 </table>
@@ -1115,7 +1158,7 @@ Host: localhost:8080</code></pre>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access 토큰</p></td>
 </tr>
 </tbody>
 </table>
@@ -1157,7 +1200,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 749
+Content-Length: 745
 
 {
   "content" : [ {
@@ -1168,8 +1211,8 @@ Content-Length: 749
     "title" : "리뷰 제목1",
     "content" : "리뷰 내용1",
     "score" : 5.0,
-    "createdAt" : "2022-11-20T19:04:36.3240759",
-    "modifiedAt" : "2022-11-20T19:04:36.3240759"
+    "createdAt" : "2022-11-20T20:14:46.000664",
+    "modifiedAt" : "2022-11-20T20:14:46.000664"
   }, {
     "reviewId" : 2,
     "productId" : 2,
@@ -1178,8 +1221,8 @@ Content-Length: 749
     "title" : "리뷰 제목2",
     "content" : "리뷰 내용2",
     "score" : 3.5,
-    "createdAt" : "2022-11-20T19:04:36.3240759",
-    "modifiedAt" : "2022-11-20T19:04:36.3240759"
+    "createdAt" : "2022-11-20T20:14:46.000664",
+    "modifiedAt" : "2022-11-20T20:14:46.000664"
   } ],
   "pageInfo" : {
     "page" : 0,
@@ -1328,7 +1371,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 904
+Content-Length: 902
 
 {
   "productId" : 1,
@@ -1365,8 +1408,8 @@ Content-Length: 904
     "title" : "리뷰 제목1",
     "content" : "리뷰 내용1",
     "score" : 5.0,
-    "createdAt" : "2022-11-20T19:04:36.3240759",
-    "modifiedAt" : "2022-11-20T19:04:36.3240759"
+    "createdAt" : "2022-11-20T20:14:46.000664",
+    "modifiedAt" : "2022-11-20T20:14:46.000664"
   } ]
 }</code></pre>
 </div>
@@ -1766,7 +1809,7 @@ Host: localhost:8080
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access 토큰</p></td>
 </tr>
 </tbody>
 </table>
@@ -1832,7 +1875,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 288
+Content-Length: 286
 
 {
   "reviewId" : 1,
@@ -1842,8 +1885,8 @@ Content-Length: 288
   "title" : "리뷰 제목1",
   "content" : "리뷰 내용1",
   "score" : 5.0,
-  "createdAt" : "2022-11-20T19:04:36.3240759",
-  "modifiedAt" : "2022-11-20T19:04:36.3240759"
+  "createdAt" : "2022-11-20T20:14:46.000664",
+  "modifiedAt" : "2022-11-20T20:14:46.000664"
 }</code></pre>
 </div>
 </div>
@@ -1945,7 +1988,7 @@ Host: localhost:8080
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access 토큰</p></td>
 </tr>
 </tbody>
 </table>
@@ -2020,7 +2063,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 288
+Content-Length: 286
 
 {
   "reviewId" : 1,
@@ -2030,8 +2073,8 @@ Content-Length: 288
   "title" : "리뷰 제목1",
   "content" : "리뷰 내용1",
   "score" : 5.0,
-  "createdAt" : "2022-11-20T19:04:36.3240759",
-  "modifiedAt" : "2022-11-20T19:04:36.3240759"
+  "createdAt" : "2022-11-20T20:14:46.000664",
+  "modifiedAt" : "2022-11-20T20:14:46.000664"
 }</code></pre>
 </div>
 </div>
@@ -2123,7 +2166,7 @@ Host: localhost:8080</code></pre>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access 토큰</p></td>
 </tr>
 </tbody>
 </table>
@@ -2202,7 +2245,7 @@ Host: localhost:8080
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access 토큰</p></td>
 </tr>
 </tbody>
 </table>
@@ -2356,7 +2399,7 @@ Host: localhost:8080</code></pre>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access 토큰</p></td>
 </tr>
 </tbody>
 </table>
@@ -2478,7 +2521,7 @@ Host: localhost:8080</code></pre>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access 토큰</p></td>
 </tr>
 </tbody>
 </table>
@@ -2520,7 +2563,7 @@ X-Frame-Options: SAMEORIGIN</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-11-20 19:04:19 +0900
+Last updated 2022-11-20 20:11:53 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
