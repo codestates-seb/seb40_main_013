@@ -81,11 +81,11 @@ public class CartService {
     public Cart updateCart(ProductCart productCart, Long memberId) {
 
         Cart cart = findVerifiedCart(memberId);
-        Optional<ProductCart> findProductCart = cart.getProductCarts().stream()
+        ProductCart findProductCart = cart.getProductCarts().stream()
                 .filter(goods -> goods.getId().equals(productCart.getId()))
-                .findAny();
+                .findAny().orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_CART_NOT_FOUND));
 
-        findProductCart.ifPresent(goods -> goods.updateCount(productCart.getCount()));
+        findProductCart.updateCount(productCart.getCount());
 
         return cart;
     }
