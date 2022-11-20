@@ -8,6 +8,9 @@ import MyReview from "../components/mypages/MyReview";
 const Container = styled.div`
   display: flex;
   height: 100%;
+<<<<<<< HEAD
+  margin-top: 160px;
+=======
   margin-top: 180px;
   width: 80%;
   @media screen and (max-width: 390px) {
@@ -16,6 +19,7 @@ const Container = styled.div`
   @media (min-width: 391px) and (max-width: 768px) {
     flex-direction: column;
   }
+>>>>>>> 5c07281d4c70d72e567417205b5b4f72907666f1
 `;
 
 //왼쪽 nav bar

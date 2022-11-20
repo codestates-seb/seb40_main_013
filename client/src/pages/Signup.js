@@ -162,6 +162,7 @@ const Wrapper = styled.div`
     width: 90%;
     height: 190vh;
   }
+
 `;
 const SignupWrapper = styled.div`
   width: 500px;
