@@ -17,7 +17,18 @@ logging:
     org:
       springframework:
         orm:
-          jpa: DEBUG
+          jpa: DEBUG # 로그 단계 설정
+
+cloud:
+  aws:
+    region: # AWS Region 구성
+      static: ap-northeast-2
+    stack: # EC2에서 Spring Cloud 프로젝트를 실행시키면 기본으로 CloudFormation 구성을 시작
+      auto: false
+
+iam:
+  access-key: ${S3_ACCESS_KEY}
+  secret-key: ${S3_SECRET_KEY}
 
 jwt:
   secret-key: ${JWT_SECRET_KEY}
