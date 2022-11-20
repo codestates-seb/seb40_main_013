@@ -75,18 +75,23 @@ function Login() {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 65vh;
+  height: 50vh;
   display: flex;
   justify-content: center;
-  margin: 45px 0px 30px 0px;
-  margin-top: 190px;
+  margin: 305px 0px 120px 0px;
   @media screen and (max-width: 768px) {
     width: 100%;
-    height: 100vh;
     min-width: 391px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media screen and (max-width: 390px) and (min-height: 844px) {
+    min-width: 391px;
+    width: 100%;
+    height: 190vh;
   }
 `;
 
@@ -96,9 +101,13 @@ const LoginWrapper = styled.div`
   border: 1px solid var(--color-gray);
   display: flex;
   border-radius: 7px;
+  @media screen and (max-width: 1024px) {
+    min-width: 391px;
+    width: 72%;
+  }
   @media screen and (max-width: 768px) {
     width: 60%;
-    height: 90%;
+    height: 100%;
     min-width: 390px;
     display: flex;
     justify-content: center;
@@ -113,9 +122,11 @@ const LoginWrapper = styled.div`
 `;
 
 const LoginImg = styled.img`
-  width: 400px;
+  width: 500px;
   height: 100%;
-  margin-right: 20px;
+  /* @media screen and (max-width: 1024px) and (min-width: 768) {
+    width: 50%;
+  } */
   @media screen and (max-width: 768px) {
     display: none;
   }
@@ -129,11 +140,11 @@ const LoginContentSpace = styled.div`
   justify-content: center;
   @media screen and (max-width: 768px) {
     width: 250px;
-    height: 90%;
+    height: 430px;
     min-width: 410px;
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    align-items: center;
   }
 `;
 
@@ -147,6 +158,12 @@ const LoginTitle = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  @media screen and (max-width: 1024px) {
+    font-size: 4vw;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 30px;
+  }
 `;
 const LoginInputSpace = styled.div`
   width: 90%;
@@ -164,6 +181,12 @@ const LoginInput = styled.input`
   &:nth-child(1) {
     margin-bottom: 10px;
   }
+  @media screen and (max-width: 1024px) {
+    font-size: 2vw;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 15px;
+  }
 `;
 
 const LoginButton = styled.button`
@@ -175,6 +198,12 @@ const LoginButton = styled.button`
   font-weight: bolder;
   margin-top: 40px;
   border-radius: 5px;
+  @media screen and (max-width: 1024px) {
+    font-size: 2vw;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 const LoginInformationSpace = styled.div`
@@ -185,13 +214,30 @@ const LoginInformationSpace = styled.div`
   height: 40px;
   font-size: 20px;
   color: var(--color-gray);
+  @media screen and (max-width: 1024px) {
+    font-size: 2vw;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 const LoginCheckSpace = styled.div`
-  width: 45%;
-  margin-left: 20px;
+  width: 53%;
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  margin-left: 50px;
+  @media screen and (max-width: 1024px) {
+    width: 55%;
+    font-size: 2vw;
+  }
+  @media screen and (max-width: 790px) {
+    width: 57%;
+  }
+  @media screen and (max-width: 768px) {
+    width: 45%;
+    font-size: 20px;
+  }
 `;
 
 const LoginRouteSign = styled.div`
@@ -201,6 +247,19 @@ const LoginRouteSign = styled.div`
   color: var(--color-gray);
   font-weight: 500;
   margin-top: 20px;
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+    font-size: 1.5vw;
+  }
+  @media screen and (max-width: 790px) {
+    width: 57%;
+    margin-left: 60px;
+  }
+  @media screen and (max-width: 768px) {
+    width: 45%;
+    font-size: 20px;
+    margin-left: 100px;
+  }
 `;
 
 const LoginSignBtn = styled.div`

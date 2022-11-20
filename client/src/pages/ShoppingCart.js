@@ -1,62 +1,70 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import CartItem from "../components/CartItem";
+import Apis from "../apis/apis";
 
 const CartBlock = styled.div`
   margin-top: 160px;
   width: 100%;
   height: 100%;
-  /* min-height: 670px; */
   padding: 30px 40px 50px 40px;
   justify-content: center;
   display: flex;
   div {
     display: flex;
-    div{
-        display: flex;
-    }
-    .cart-title{
-        font-size: 28px;
-        padding-left: 20px;
-        margin-bottom: 20px;
-        font-weight: 600;
-    }
   }
 `;
 
 const AllCheck = styled.div`
-  padding-left: 13px;
   margin: 10px;
   font-size: 15px;
   color: #aaaaaa;
+  align-items: center;
   span {
     margin-left: 5px;
   }
 `;
 
 const Quary = styled.div`
+  width: 100%;
+  justify-content: center;
+  .cart-title{
+        font-size: 26px;
+        padding-left: 10px;
+        padding-bottom: 10px;
+        font-weight: 600;
+  }
     @media screen and (max-width: 767px) {
             flex-direction: column;
     }
 `;
 
 const CartList = styled.div`
-  padding: 0px 10px;
+  width: 100%;
   flex-direction: column;
+  @media screen and (min-width: 768px) {
+      padding-right:20px;
+      max-width: 700px;
+    }
 `;
 
 //결제정보
 const Payment = styled.section`
+  margin-top: 76px;
   width: 300px;
   height: 300px;
   min-width: 230px;
   border: 1px solid #002c6d;
   border-radius: 5px;
   padding: 20px;
-  margin-left: 10px;
   .pay-title {
     font-weight: 500;
   }
+  @media screen and (max-width: 767px) {
+      width: 100%;
+      margin-top: 0;
+    }
 `;
 const PayInfo = styled.div`
   flex-direction: column;
@@ -98,22 +106,45 @@ const PayButton = styled.button`
   border-radius: 3px;
 `;
 
+
 function ShoppingCart() {
+  let jwtToken = localStorage.getItem("Authorization");
+
+  const [cartItemList, setCartItemList] = useState([]);
+
+  useEffect(() => {
+    Apis.get(`carts`,
+    {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "Content-Type": "application/json"
+      },
+    })
+    .then((data) => {
+      setCartItemList(data.data.productCarts);
+    });
+  }, []);
+  console.log(cartItemList);
+
   return (
     <CartBlock>
-      <section className="center">
-        <div className="cart-title">장바구니</div>
-        <AllCheck>
-          <AiOutlineCheckCircle />
-          <span>전체선택</span>
-          <span>ㅣ</span>
-          <span>선택삭제</span>
-        </AllCheck>
-        <Quary className="quary">
+      {/* <Center> */}
+        <Quary>
           <CartList>
-            <CartItem />
-            <CartItem />
-            <CartItem />
+            <div className="cart-title">장바구니</div>
+            <AllCheck>
+              <AiOutlineCheckCircle size='20'/>
+              <span>전체선택</span>
+              <span>ㅣ</span>
+              <span>선택삭제</span>
+            </AllCheck>
+            {cartItemList.map((item) => (
+              <CartItem 
+                  cartItem={item}
+                  key={item.productCartId}
+              />
+            ))
+            }
           </CartList>
           <Payment>
             <div className="pay-title">결제정보</div>
@@ -142,7 +173,7 @@ function ShoppingCart() {
             <PayButton>구매하기</PayButton>
           </Payment>
         </Quary>
-      </section>
+      {/* </Center> */}
     </CartBlock>
   );
 }

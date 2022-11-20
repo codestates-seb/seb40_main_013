@@ -29,6 +29,10 @@ const Brand = styled.h5`
 const Title = styled.h2`
   font-size: 1.1rem;
   font-weight: 500;
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  height: 34px;
+  word-break:break-all;
   @media screen and (max-width: 390px){
     font-size: 1rem;
     font-weight: 400;
@@ -74,14 +78,15 @@ const Star = styled.img`
 const StarAerage = styled.div`
   display: flex;
 `;
-const Product = ({ img, brand, title, price, score }) => {
+const Product = ({product}) => {
   // console.log(img);
+  const { id, img , brand, title, price, score } = product
   return(
     <Products to="/detail/:id">
-      <Img src={img}></Img>
+      <Img src={img.fullPath}></Img>
       <Detail>
         <SubDetail>
-          <Brand>{brand}</Brand>
+          <Brand>{id}</Brand>
           <StarDetail>
             <Star src={starimg}></Star>
             <StarAerage>{score}</StarAerage>

@@ -1,17 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import SubCarousel from "../components/subcategories/SubCalousel";
 import Apis from "../apis/apis";
 import Products from "../components/mains/Product";
 
 import chair from "../imgs/chair.png";
-import chair2 from "../imgs/chair2.png";
-import chair3 from "../imgs/chair3.png";
-import chair4 from "../imgs/chair4.png";
 import desk from "../imgs/desk.png";
 import shelf from "../imgs/shelf.png";
 import room from "../imgs/room.jpg";
-import Goods from "../components/subcategories/goods";
+import axios from "axios";
 
 const SubBlock = styled.div`
     width: 100%;
@@ -56,14 +53,68 @@ const ProductList = styled.div`
   }
 `;
 
-function SubCategory() {
-  const [productList, setProductList] = useState({});
+function SubCategory({click}) {
+
+  console.log(click);
+
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [prevY, setPrevY] = useState(0);
+  let productsRef = useRef({})
+
+  let loadingRef = useRef(null);
+   let prevYRef = useRef({});
+   let pageRef = useRef({});
+   productsRef.current = products;
+   pageRef.current = page;
+
+   prevYRef.current = prevY
+
+  console.log(`loadingRef:`, loadingRef);
 
   useEffect(() => {
-    Apis.get(`products/details/5`)
-    .then((data) => setProductList(data.data.content));
-  }, []);
-  console.log(productList);
+    getProducts();
+    setPage(pageRef.current + 1);
+    
+    let options ={
+        root: null, //root는 기본적으로 스크롤 가능한 영역, null을 입력하면 전체 브라우저 창이 됨
+        rootMargin: '150px',
+        htreshold: 0.7 //관찰해야 하는 대상 요소의 100%를 의미한다.
+    }
+
+    const observer = new IntersectionObserver(handleObserver, options)
+    observer.observe(loadingRef.current);
+  }, [click]);
+
+  const handleObserver = (entities, observer) => {
+    console.log("time");
+
+    const y = entities[0].boundingClientRect.y;
+
+    if (prevYRef.current > y){
+        console.log(`real get list`);
+        getProducts();
+        setPage(pageRef.current + 1);
+    } else {
+        console.log('loading false');
+    }
+    console.log(`currenty`, y, `prevY`, prevY);
+    setPrevY(y);
+  }
+  
+  const getProducts = async () => {
+    try{
+      let productsRes = await Apis.get(`products?main=${click}&page=${pageRef.current}`
+      );
+      if (productsRes) {
+        setProducts([...productsRef.current, ...productsRes.data.content]);
+        console.log(productsRes.data.content);
+      } 
+    } catch (error) {
+        console.log('ERROR GETTING PRODUCTS');
+    }
+  }
 
   return (
     <SubBlock>
@@ -88,20 +139,52 @@ function SubCategory() {
       </div>
       <ProductList>
         <div className="total">0 개의 상품이 있습니다</div>
-        <div className="products">
-          {productList.map((product) => (
+        <div className="products" >
+          {products.map((product) => ( //{ img, brand, title, price, score }
             <Products
-              brand={product.brand}
-              img={product.img}
+              product={product}
               key={product.id}
-              name={product.name}
-              price={product.price}
-              star={product.star}
             />
           ))}
         </div>
+        <div ref={loadingRef}></div>
       </ProductList>
     </SubBlock>
   );
 }
 export default SubCategory;
+
+
+// export const getPostsPage = async (pageParam = 1, options ={}) => {
+//     const response = await Apis.get(`/posts?_page=${pageParam}`, options)
+// }
+
+// const usePost = (pageNum = 1) => {
+//     const [results, setResults] = useState([]);
+//     const [isLoading, setIsLoading] = useState(false);
+//     const [isError, setIsError] = useState(false);
+//     const [error, setError] = useState({});
+//     const [hasNextPage, setHasNextPage] = useState(false);
+
+//     useEffect(() => {
+//         setIsLoading(true)
+//         setIsError(false)
+//         setError({})
+
+//         const controller = new AbortController()
+//         const {signal} = controller
+
+//         getPostsPage(pageNum, )
+
+//     }, [pageNum])
+
+
+//     return {results, isLoading, isError, error, hasNextPage}
+// }
+
+
+// window.innerHeight : 브라우저에서 실제로 표시되고 있는 영역의 높이 즉, 사용자가 보고있는 영역의 높이
+// window.scrollY : 스크롤이 세로로 얼마나 이동했는지를 px로 나타냄 0부터 시작해서 스크롤을 내릴수록 증가
+// document.body.offsetHeight : 요소의 실제 높이 = 보이는 영역 + 가려진 영역
+// => 표시되는 영역 + 스크롤 값이 콘텐츠 전체높이보다 크면 더이상 내려갈 곳이 없다는 뜻이다. 따라서 그때마다 새로운 요소를 추가해주면 무한스크롤을 구현할 수 있다.
+

@@ -52,7 +52,6 @@ const Serach = styled.div`
   z-index: 300;
 `;
 
-
 const CategoryList = styled.div`
   height: 30px;
   display: flex;
@@ -65,7 +64,7 @@ const CategoryList = styled.div`
     font-size: 12px;
   }
   padding-left: 20px;
-  div{
+  div {
     height: 100%;
   }
 `;
@@ -83,14 +82,14 @@ const Nav = styled.nav`
   border-bottom: 1px solid #bebcaf;
   padding: 7px;
   margin: 5px 30px 5px 30px;
-  div{
+  div {
     padding: 6px 0px;
     flex-direction: column;
     align-items: center;
   }
   display: none;
   &:hover {
-      display: block;
+    display: block;
   }
 `;
 
@@ -99,16 +98,21 @@ const Category = styled.div`
   padding-right: 30px;
   &:hover {
     cursor: pointer;
-    ${Nav}{
+    ${Nav} {
       display: block;
     }
   }
 `;
 
-function Header() {
+function Header({setClick}) {
   //const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
+
+  const clickMenu = ({ target }) => {
+    setClick(target.innerHTML)
+    // console.log(target.innerHTML);
+  }
 
   const closeHandler = () => {
     setCloseSearch(!closeSearch);
@@ -117,7 +121,7 @@ function Header() {
   const outModalCloseHandler = ({ target }) => {
     if (closeSearch && !modalRef.current.contains(target))
       setCloseSearch(false);
-      console.log(target.innerHTML);
+      // console.log(target.innerHTML);
   };
 
   useEffect(() => {
@@ -147,9 +151,9 @@ function Header() {
           <div>
             <Link to="/sub">
               <Category>
-                <div>서재</div> 
+                <div onClick={clickMenu}>서재</div> 
                 <Nav className="1">
-                  <div>책상</div>
+                  <div onClick={clickMenu}>책상</div>
                   <div>의자</div>
                   <div>책장</div>
                   <div>선반</div>
@@ -158,9 +162,9 @@ function Header() {
             </Link>
             <Link to="/sub">
               <Category>
-              <div>침실</div>  
+              <div onClick={clickMenu}>침실</div>  
                 <Nav className="2">
-                  <div>침대/매트리스</div>
+                  <div onClick={clickMenu}>침대</div>
                   <div>행거/옷장</div>
                   <div>화장대</div>
                   <div>거울</div>
@@ -195,10 +199,10 @@ function Header() {
               <Serach onClick={closeHandler}>
                 <BsSearch size="20" />
               </Serach>
-                <DownSearch
-                  closeSearch={closeSearch}
-                  closeHandler={closeHandler}
-                />
+              <DownSearch
+                closeSearch={closeSearch}
+                closeHandler={closeHandler}
+              />
             </div>
             <Link to="/cart">
               <div>
@@ -208,7 +212,6 @@ function Header() {
             </Link>
           </div>
         </CategoryList>
-       
       </HeaderBlock>
     </>
   );

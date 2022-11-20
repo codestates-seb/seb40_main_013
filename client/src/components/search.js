@@ -5,20 +5,16 @@ import { IoMdClose} from 'react-icons/io';
 const SearchBlock = styled.div`
   position: fixed; //absolute로 바꿀수도 있음
   width:100%; 
-  height:100%; 
-<<<<<<< HEAD
+  height:80%; 
   z-index: 300; 
-=======
-  z-index:200000; 
->>>>>>> 5c07281d4c70d72e567417205b5b4f72907666f1
   overflow:hidden; 
   transition:0.3s height;  
-  top: 180px;
+  top: 160px;
   left: 0; 
   background-color: white;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   &.closed{
     height: 0; 
   }
@@ -30,7 +26,12 @@ const SearchBlock = styled.div`
   }
 `;
 
+const FormBlock = styled.div`
+
+`;
+
 const Form = styled.form`
+  margin-top: 20vh;
   display: flex;
   width: 100%;
   height: 60px;
@@ -57,7 +58,10 @@ const Ranking = styled.div`
   flex-direction: column;
   align-items: center;
   /* height: 350px; */
-  padding: 30px 10px 50px 10px;
+  padding-top: 30px;
+  .recent{
+    height: 30px;
+  }
 `;
 
 function DownSearch({closeSearch, closeHandler}){
@@ -73,8 +77,8 @@ function DownSearch({closeSearch, closeHandler}){
                 </SearchInput>
                 <div onClick={closeHandler}><IoMdClose size='32'/></div>
             </Form>
-            <Ranking>
-                <div>최근 검색어</div>
+          <Ranking>
+                <div className="recent">최근 검색어</div>
                 <div>
                     <div>두닷</div>
                     <div>의자</div>
@@ -82,7 +86,7 @@ function DownSearch({closeSearch, closeHandler}){
                     <div>담요</div>
                     <div>쇼파</div>
                 </div>
-            </Ranking>
+          </Ranking>
         </div>
       </SearchBlock>
     )

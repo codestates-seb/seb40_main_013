@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 import PurchaseList from "../components/mypages/PurchaseList";
 import EditProfile from "../components/mypages/EditProfile";
 import { Routes, Route, Link } from "react-router-dom";
+import MyReview from "../components/mypages/MyReview";
 
 const Container = styled.div`
   display: flex;
@@ -12,10 +13,10 @@ const Container = styled.div`
 =======
   margin-top: 180px;
   width: 80%;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     flex-direction: column;
   }
-  @media (min-width: 391px) and (max-width: 768px){
+  @media (min-width: 391px) and (max-width: 768px) {
     flex-direction: column;
   }
 >>>>>>> 5c07281d4c70d72e567417205b5b4f72907666f1
@@ -30,13 +31,13 @@ const Left = styled.div`
   width: 20%;
   padding: 20px;
   border-right: 1px solid var(--color-center-line);
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     justify-content: center;
     width: 100%;
     border-right: none;
     border-bottom: 1px solid var(--color-center-line);
   }
-  @media (min-width: 391px) and (max-width: 768px){
+  @media (min-width: 391px) and (max-width: 768px) {
     justify-content: center;
     width: 100%;
     border-right: none;
@@ -47,11 +48,11 @@ const Reaction = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     flex-direction: row;
     justify-content: center;
   }
-  @media (min-width: 391px) and (max-width: 768px){
+  @media (min-width: 391px) and (max-width: 768px) {
     flex-direction: row;
   }
 `;
@@ -61,7 +62,7 @@ const ProfileImg = styled.img`
   border-radius: 50%;
   margin-bottom: 20px;
   margin-right: 20px;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     width: 60px;
     height: 60px;
   }
@@ -72,7 +73,7 @@ const Hello = styled.h2`
   font-weight: 500;
   font-size: 1.3rem;
   color: var(--font-ligthblack);
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     font-size: 1rem;
   }
 `;
@@ -83,12 +84,12 @@ const Nav = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     border-top: none;
     flex-direction: row;
     justify-content: center;
   }
-  @media (min-width: 391px) and (max-width: 768px){
+  @media (min-width: 391px) and (max-width: 768px) {
     border-top: none;
     flex-direction: row;
     justify-content: center;
@@ -97,7 +98,7 @@ const Nav = styled.div`
 const ReactionDetail = styled.div`
   display: flex;
   flex-direction: column;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     flex-direction: column;
   }
 `;
@@ -118,7 +119,7 @@ const NavDetail = styled.nav`
   &.clicked::after {
     color: #ffaf51;
   }
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     margin-right: 10px;
     background-color: #ecece8;
     padding: 10px 5px;
@@ -129,19 +130,19 @@ const NavDetail = styled.nav`
     justify-content: center;
     white-space: nowrap;
     &:hover {
-    background-color: #AAAAAA;
-    color: white;
+      background-color: #aaaaaa;
+      color: white;
+    }
+    &.clicked {
+      background-color: #ffaf51;
+      color: white;
+    }
+    &.clicked::after {
+      background-color: #ffaf51;
+      color: white;
+    }
   }
-  &.clicked {
-    background-color: #ffaf51;
-    color: white;
-  }
-  &.clicked::after {
-    background-color: #ffaf51;
-    color: white;
-  }
-  }
-  @media (min-width: 391px) and (max-width: 768px){
+  @media (min-width: 391px) and (max-width: 768px) {
     margin-right: 10px;
     background-color: #ecece8;
     padding: 20px 10px;
@@ -151,17 +152,17 @@ const NavDetail = styled.nav`
     justify-content: center;
     white-space: nowrap;
     &:hover {
-    background-color: #AAAAAA;
-    color: white;
-  }
-  &.clicked {
-    background-color: #ffaf51;
-    color: white;
-  }
-  &.clicked::after {
-    background-color: #ffaf51;
-    color: white;
-  }
+      background-color: #aaaaaa;
+      color: white;
+    }
+    &.clicked {
+      background-color: #ffaf51;
+      color: white;
+    }
+    &.clicked::after {
+      background-color: #ffaf51;
+      color: white;
+    }
   }
 `;
 const Mypage = () => {
@@ -229,7 +230,7 @@ const Mypage = () => {
       <Routes>
         <Route path="/*" element={<EditProfile />}></Route>
         <Route path="/purchase" element={<PurchaseList />}></Route>
-        {/* <Route path="/*" element={<EditProfile />}></Route> */}
+        <Route path="/review" element={<MyReview />}></Route>
       </Routes>
     </Container>
   );
