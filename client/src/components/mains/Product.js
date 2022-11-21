@@ -4,10 +4,13 @@ import starimg from "../../imgs/star.png";
 import { Link, useParams } from "react-router-dom";
 
 const Products = styled(Link)`
-  width: 200px;
+  width: 18vw;
   margin: 0 10px;
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 390px){
     width: 150px;
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    width: 17vw;
   }
 `;
 const Img = styled.img`
@@ -17,10 +20,13 @@ const Img = styled.img`
 const Detail = styled.div`
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 18vw;
   margin-top: 10px;
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 390px){
     width: 150px;
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    width: 17vw;
   }
 `;
 const Brand = styled.h5`
@@ -29,13 +35,18 @@ const Brand = styled.h5`
 const Title = styled.h2`
   font-size: 1.1rem;
   font-weight: 500;
-  overflow: hidden; 
   text-overflow: ellipsis; 
   height: 34px;
   word-break:break-all;
   @media screen and (max-width: 390px){
-    font-size: 1rem;
+    font-size: 1.6vw;
     font-weight: 400;
+  }
+  @media (min-width: 391px) and (max-width: 767px) {
+    font-size: 1.5vw;
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    font-size: 1.6vw;
   }
 `;
 const Price = styled.h5`
@@ -45,9 +56,15 @@ const Price = styled.h5`
   margin-right: 10px;
   font-size: 1.5rem;
   font-weight: 700;
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 390px){
     font-size: 1.3rem;
     font-weight: 500;
+  }
+  @media (min-width: 391px) and (max-width: 767px) {
+    font-size: 1.6vw;
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    font-size: 1.7vw;
   }
 `;
 const Colorchip = styled.div`
@@ -86,7 +103,7 @@ const Product = ({ proId, img , brand, title, price, score }) => {
       <Img src={img.fullPath}></Img>
       <Detail>
         <SubDetail>
-          <Brand>{brand}</Brand>
+          <Brand>{nickname}</Brand>
           <StarDetail>
             <Star src={starimg}></Star>
             <StarAerage>{score}</StarAerage>
@@ -97,11 +114,11 @@ const Product = ({ proId, img , brand, title, price, score }) => {
           <Colorchip>
             <Color />
           </Colorchip>
-          <Price>{price.toLocaleString("en-US")}</Price>
+          <Price>{price.toLocaleString('en-US')}</Price>
         </SubDetail>
       </Detail>
     </Products>
   );
-};
+}
 
 export default Product;

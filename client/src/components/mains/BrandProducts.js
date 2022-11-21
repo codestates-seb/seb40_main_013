@@ -154,7 +154,7 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
             <BPList>
             {dodotList.map((p, key)=>
                   <BP key={key}>
-                    <Img src={p.img} />
+                    <Img src={p.img.fullPath} />
                     <TP>
                       <Title>{p.title}</Title>
                       <Price>{p.price.toLocaleString('en-US')}</Price>
