@@ -109,7 +109,7 @@ class CartControllerTest implements Reflection {
     @Test
     void getCart() throws Exception{
         // given
-        given(cartService.getCart(MEMBER.getId())).willReturn(CART);
+        given(cartService.findVerifiedCart(MEMBER.getId())).willReturn(CART);
 
         // when
         ResultActions actions = mockMvc.perform(
@@ -132,7 +132,6 @@ class CartControllerTest implements Reflection {
         // given
         ProductCartDto.Patch patch = newInstance(ProductCartDto.Patch.class);
         setField(patch, "count", PRODUCT_CART.getCount());
-        setField(patch, "productCartId", PRODUCT_CART.getId());
 
         String request = gson.toJson(patch);
 
@@ -158,7 +157,6 @@ class CartControllerTest implements Reflection {
                         REQUEST_HEADER_JWT,
                         PATH_PARAM_PRODUCT_CART_ID,
                         requestFields(
-                                FWP_PRODUCT_CART_ID,
                                 FWP_COUNT
                         ),
                         CART_RESPONSE_FIELDS

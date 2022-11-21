@@ -12,9 +12,15 @@ import java.util.List;
 
 public interface ProductRepositoryCustom {
 
+    List<CategoryGetDto> findTop5ByScore();
+
     SliceResponseDto<CategoryGetDto> findAllByCategory(Pageable pageable, CategoryGetParam param);
 
-    List<OptionDto.Response> findByProduct(Long id);
+    List<CategoryGetDto> findByTop5ByBrand(Long id);
+
+    List<CategoryGetDto> findByTop15ByCategory(String main);
+
+//    List<OptionDto.Response> findByProduct(Long id);
 //    Slice<CategoryGetDto> findByCategory_Main(Pageable pageable, String main);
 //
 //    Slice<CategoryGetDto> findByCategory_MainAndCategory_Sub(Pageable pageable, String main, String sub);

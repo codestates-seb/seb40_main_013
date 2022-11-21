@@ -103,7 +103,7 @@ public abstract class Querydsl4RepositorySupport {
 
         boolean hasNext = false;
         if (content.size() > pageable.getPageSize()) {
-            content.remove(pageable.getPageSize()); // 여기서 지운다매
+            content.remove(pageable.getPageSize());
             hasNext = true;
         }
 

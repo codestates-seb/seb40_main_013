@@ -59,6 +59,13 @@ public class TestConstant {
             .sub("침대")
             .build();
 
+    public static final Category CATEGORY2 = Category.builder()
+            .id(1L)
+            .main("서재")
+            .sub("책상")
+            .build();
+
+
     public static final File FILE = File.builder()
             .fileName("fileName")
             .fullPath("fullPath")
@@ -70,7 +77,7 @@ public class TestConstant {
             .content("test")
             .img(FILE)
             .price(10000)
-            .score(45)
+            .score(4)
             .seller(SELLER)
             .category(CATEGORY)
             .build();
@@ -118,7 +125,7 @@ public class TestConstant {
             .price(100000)
             .score(4)
             .seller(SELLER)
-            .category(CATEGORY)
+            .category(CATEGORY2)
             .build();
 
 
@@ -181,7 +188,7 @@ public class TestConstant {
             parameterWithName("page").description("페이지"),
             parameterWithName("size").description("사이즈"),
             parameterWithName("sort").description("정렬")
-    );
+            );
 
     public static final PathParametersSnippet PATH_PARAM_PRODUCT_CART_ID = pathParameters(
             parameterWithName("product-cart-id").description("장바구니 상품 식별자")
@@ -264,7 +271,7 @@ public class TestConstant {
     public static final FieldDescriptor FWP_PRODUCT_PRICE = fieldWithPath("price").type(NUMBER).description("상품 가격");
     public static final FieldDescriptor FWP_PRODUCT_IMG_NAME = fieldWithPath("img.fileName").type(STRING).description("상품 썸네일 이름");
     public static final FieldDescriptor FWP_PRODUCT_IMG_PATH = fieldWithPath("img.fullPath").type(STRING).description("상품 썸네일 경로");
-    public static final FieldDescriptor FWP_PRODUCT_SCORE = fieldWithPath("score").type(NUMBER).description("상품 평점");
+    public static final FieldDescriptor FWP_PRODUCT_SCORE = fieldWithPath("score").type(NUMBER).description("상품 별점");
     public static final GetProductListByCategoryDTO GET_PRODUCT_LIST_BY_CATEGORY_DTO = new GetProductListByCategoryDTO(
             CATEGORY.getMain(), CATEGORY.getSub()
     );
@@ -292,6 +299,20 @@ public class TestConstant {
     public static final FieldDescriptor FWP_REVIEWS_NICKNAME = fieldWithPath("reviews[].nickname").type(STRING).description("리뷰 작성자");
     public static final FieldDescriptor FWP_REVIEWS_CREATED_AT = fieldWithPath("reviews[].createdAt").type(STRING).description("리뷰 작성시간");
     public static final FieldDescriptor FWP_REVIEWS_MODIFIED_AT = fieldWithPath("reviews[].modifiedAt").type(STRING).description("리뷰 수정시간");
+    public static final FieldDescriptor FWP_SCORE_PRODUCT_ID = fieldWithPath("[].id").type(NUMBER).description("상품 식별자");
+    public static final FieldDescriptor FWP_SCORE_PRODUCT_IMG_PATH = fieldWithPath("[].img.fileName").type(STRING).description("상품 썸네일 이름");
+    public static final FieldDescriptor FWP_SCORE_PRODUCT_IMG_NAME = fieldWithPath("[].img.fullPath").type(STRING).description("상품 썸네일 경로");
+    public static final FieldDescriptor FWP_SCORE_PRODUCT_TITLE = fieldWithPath("[].title").type(STRING).description("상품 제목");
+    public static final FieldDescriptor FWP_SCORE_PRODUCT_PRICE = fieldWithPath("[].price").type(NUMBER).description("상품 가격");
+    public static final FieldDescriptor FWP_SCORE_PRODUCT_SCORE = fieldWithPath("[].score").type(NUMBER).description("상품 별점");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_ID = fieldWithPath("[].[].id").type(NUMBER).description("상품 식별자");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_IMG_PATH = fieldWithPath("[].[].img.fileName").type(STRING).description("상품 썸네일 이름");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_IMG_NAME = fieldWithPath("[].[].img.fullPath").type(STRING).description("상품 썸네일 경로");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_TITLE = fieldWithPath("[].[].title").type(STRING).description("상품 제목");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_PRICE = fieldWithPath("[].[].price").type(NUMBER).description("상품 가격");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_SCORE = fieldWithPath("[].[].score").type(NUMBER).description("상품 별점");
+
+
 
     public static final FieldDescriptor FWP_STATUS = fieldWithPath("status").type(NUMBER).description("상태 코드");
     public static final FieldDescriptor FWP_MESSAGE = fieldWithPath("message").type(STRING).description("메시지");

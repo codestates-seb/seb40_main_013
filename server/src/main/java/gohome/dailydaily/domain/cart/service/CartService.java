@@ -11,11 +11,13 @@ import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CartService {
     private final ProductService productService;
@@ -47,6 +49,7 @@ public class CartService {
         return cart;
     }
 
+    @Transactional(readOnly = true)
     public Option findVerifiedOption(Product product, Long optionId) {
         Optional<Option> result = product.getOptions().stream()
                 .filter(option -> option.getId().equals(optionId))
@@ -67,15 +70,11 @@ public class CartService {
         productCartRepository.delete(productCart);
     }
 
+    @Transactional(readOnly = true)
     public Cart findVerifiedCart(Long memberId) {
 
         return cartRepository.findCartByMember_Id(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.CART_NOT_FOUND));
-    }
-
-    public Cart getCart(Long memberId) {
-
-        return findVerifiedCart(memberId);
     }
 
     public Cart updateCart(ProductCart productCart, Long memberId) {
