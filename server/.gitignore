@@ -4,7 +4,6 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-index.html
 
 ### STS ###
 .apt_generated
@@ -40,4 +39,5 @@ out/
 ### 업로드 파일 ###
 img/
 src/main/resources/application-local.yml
+src/main/resources/static/docs/index.html
 src/main/generated/
