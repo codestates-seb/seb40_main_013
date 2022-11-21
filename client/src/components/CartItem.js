@@ -1,8 +1,9 @@
 import styled from "styled-components/macro";
 import { IoMdClose} from 'react-icons/io';
-import { AiFillCheckCircle} from 'react-icons/ai';
+import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IoIosArrowBack, IoIosArrowForward} from 'react-icons/io';
 import Apis from "../apis/apis";
+import { useState } from "react";
 
 const CartItemBlock = styled.div`
     width: 100%;
@@ -22,6 +23,7 @@ const CartItemBlock = styled.div`
         padding: 0px 10px;
         justify-content: flex-end;
         font-weight: 600;
+        min-width: 110px;
     }
     .count-zone{
         flex-direction: column;
@@ -31,6 +33,11 @@ const CartItemBlock = styled.div`
     }
     .part{
         align-items: center;
+    }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
     }
 `;
 
@@ -53,18 +60,27 @@ const ProductInfo = styled.div`
     }
 `;
 
+const Input = styled.input`
+    width: 30px;
+    height: 20px;
+    margin: 5px 0px;
+    text-align: center;
+`;
+
 const DownCount = styled(IoIosArrowBack)`
     color: #AAAAAA;
     border: 1px solid #AAAAAA;
     border-radius: 3px;
-    margin: 5px;
+    margin: 7px 5px;
+    cursor: pointer;
 `;
     
  const UpCount = styled(IoIosArrowForward)`
     color: #AAAAAA;
     border: 1px solid #AAAAAA;
     border-radius: 3px;
-    margin: 5px;
+    margin: 7px 5px;
+    cursor: pointer;
 `;
 
 const ReCount = styled.button`
@@ -83,13 +99,21 @@ const ItemDelete = styled(IoMdClose)`
     color: gray;
 `;
 
-function CartItem({cartItem}) {
-    let jwtToken = localStorage.getItem("Authorization");
+const EachCheckCircle = styled(AiOutlineCheckCircle)`
+    font-size: 20px;
+    color: #aaaaaa;
+    &.all-check{
+        color: #FFAF51;
+    }
+`;
 
+function CartItem({cartItem, allCheck}) {
+    let jwtToken = localStorage.getItem("Authorization");
     const { brandName, count, img, price, productCartId, productId, title } = cartItem
 
-    const removeCartItem = ({target}) => {
-        console.log(target.current);
+    const [itemCount, setItemCount] = useState(count);
+
+    const removeCartItem = () => {
         Apis.delete(`carts/${productCartId}`,
         { 
           headers: {
@@ -105,11 +129,46 @@ function CartItem({cartItem}) {
         })
     }
 
+    const ReCountHandler = () => {
+        Apis.patch(`carts/${productCartId}`,
+        { 
+          productCartId: `${productCartId}`,
+          count : `${itemCount}`
+        },
+        { headers: {
+            Authorization: `${jwtToken}`
+          }
+        })
+        .then((res) => {
+            console.log(res.data);
+            window.location.reload();
+        })
+        .catch((err) => {
+            alert(err);
+        })
+    } 
+
+    const upCountHandler = () => {
+        setItemCount(itemCount + 1) 
+    };
+
+    const downCountHandler = () => {
+        if(itemCount > 0){
+            setItemCount(itemCount - 1) 
+        } else { 
+            setItemCount(0) 
+        }
+    };
+
+    const onChange = (e) => {
+        setItemCount(e.target.value)
+    }
+
     return(
         <>
             <CartItemBlock>
                 <div className="part">
-                    <AiFillCheckCircle  color="#FFAF51" size="20"/>
+                    <EachCheckCircle className={allCheck? 'all-check' : ''}/>
                     <img src={img.fullPath} alt='장바구니 물건'></img>
                     <ProductInfo>
                         <div className="brand">{brandName}</div>
@@ -121,13 +180,13 @@ function CartItem({cartItem}) {
                 <div className="part">
                     <div className="count-zone">
                         <div>
-                            <DownCount/>
-                            <div className="count">{count}</div>
-                            <UpCount/>
+                            <DownCount onClick={downCountHandler}/>
+                            <Input className="count" type='number' value={itemCount} onChange={onChange}></Input>
+                            <UpCount onClick={upCountHandler}/>
                         </div>
-                        <ReCount>주문수정</ReCount>
+                        <ReCount onClick={ReCountHandler}>주문수정</ReCount>
                     </div>
-                    <div className="product-price">{price}원</div>
+                    <div className="product-price">{itemCount * price}원</div>
                     <ItemDelete onClick={removeCartItem}/>
                 </div>
             </CartItemBlock>

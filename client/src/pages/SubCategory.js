@@ -110,6 +110,7 @@ function SubCategory({click}) {
       if (productsRes) {
         setProducts([...productsRef.current, ...productsRes.data.content]);
         console.log(productsRes.data.content);
+        console.log(`page`,pageRef.current );
       } 
     } catch (error) {
         console.log('ERROR GETTING PRODUCTS');

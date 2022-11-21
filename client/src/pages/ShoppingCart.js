@@ -16,13 +16,24 @@ const CartBlock = styled.div`
   }
 `;
 
-const AllCheck = styled.div`
+const AllCheckBlock = styled.div`
   margin: 10px;
   font-size: 15px;
   color: #aaaaaa;
   align-items: center;
   span {
     margin-left: 5px;
+  }
+  .center{
+    margin-left: 5px;
+    align-items: center;
+  }
+`;
+
+const CheckCircle = styled(AiOutlineCheckCircle)`
+  font-size: 19px;
+  &.all-check{
+    color: #FFAF51;
   }
 `;
 
@@ -111,6 +122,7 @@ function ShoppingCart() {
   let jwtToken = localStorage.getItem("Authorization");
 
   const [cartItemList, setCartItemList] = useState([]);
+  const [allCheck, setAllCheck] = useState(true);
 
   useEffect(() => {
     Apis.get(`carts`,
@@ -126,22 +138,28 @@ function ShoppingCart() {
   }, []);
   console.log(cartItemList);
 
+  const AllCheckHandler = () => {
+    setAllCheck(!allCheck)
+  }
+
   return (
     <CartBlock>
-      {/* <Center> */}
         <Quary>
           <CartList>
             <div className="cart-title">장바구니</div>
-            <AllCheck>
-              <AiOutlineCheckCircle size='20'/>
-              <span>전체선택</span>
+            <AllCheckBlock>
+              <div onClick={AllCheckHandler}>
+                <CheckCircle className={allCheck ? 'all-check' : ''}/>
+                <div className="center" >전체선택</div>
+              </div>
               <span>ㅣ</span>
               <span>선택삭제</span>
-            </AllCheck>
+            </AllCheckBlock>
             {cartItemList.map((item) => (
               <CartItem 
                   cartItem={item}
                   key={item.productCartId}
+                  allCheck={allCheck}
               />
             ))
             }
@@ -173,7 +191,6 @@ function ShoppingCart() {
             <PayButton>구매하기</PayButton>
           </Payment>
         </Quary>
-      {/* </Center> */}
     </CartBlock>
   );
 }
