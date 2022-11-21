@@ -7,10 +7,13 @@ import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberRole;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
 import gohome.dailydaily.domain.member.entity.Seller;
+import gohome.dailydaily.domain.member.repository.MemberRepository;
+import gohome.dailydaily.domain.member.repository.SellerRepository;
 import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.entity.Category;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
+import gohome.dailydaily.domain.product.repository.CategoryRepository;
 import gohome.dailydaily.domain.product.repository.ProductRepository;
 import gohome.dailydaily.domain.review.entity.Review;
 import lombok.RequiredArgsConstructor;
@@ -38,8 +41,8 @@ import java.util.stream.Collectors;
 public class CrawlingService {
 
     private final ProductRepository productRepository;
-    private final ProductMapper mapper;
-    private final FileService fileService;
+    private final SellerRepository sellerRepository;
+    private final CategoryRepository categoryRepository;
 
     @Value("${file.productImg}")
     private String productImgPath;
@@ -52,23 +55,30 @@ public class CrawlingService {
 
         try {
             // 개발 강의 모든 페이징 순회
-            Member member = Member.builder()
-                    .email("hgd@gmail.com")
-                    .nickname("데스커")
-                    .password("비밀번호")
-                    .address("주소")
-                    .phone("010-1234-5678")
-                    .memberStatus(MemberStatus.ACTIVE)
-                    .build();
+//            Member member = Member.builder()
+//                    .email("hgd11@gmail.com")
+//                    .nickname("데스커")
+//                    .password("비밀번호")
+//                    .address("주소")
+//                    .phone("010-1234-5678")
+//                    .memberStatus(MemberStatus.ACTIVE)
+//                    .build();
+//
+//            member.addRoles(MemberRole.USER);
 
-            member.addRoles(MemberRole.USER);
+//            Seller seller = Seller.builder()
+//                    .brandNumber("35-12-315253")
+//                    .member(member)
+//                    .build();
 
-            Seller seller = Seller.builder()
-                    .brandNumber("35-12-315253")
-                    .member(member)
-                    .build();
+//            Category category = Category.builder()
+//                    .main("서재")
+//                    .sub("책상")
+//                    .build();
+            Category category = categoryRepository.findByMainAndSub("서재", "책상");
+            Seller seller = sellerRepository.findById(1L).get();
 
-            for (int i = 0; i <= urls.length; i++) {
+            for (int i = 1; i <= urls.length; i++) {
                 final String url = "https://ohou.se/productions/460766/selling?affect_type=StoreSearchResult&affect_id=1";
                 Document document = Jsoup.connect(url).maxBodySize(0).get();
                 document.outputSettings().prettyPrint(false);
@@ -87,15 +97,16 @@ public class CrawlingService {
                 int setIndex = 0;
                 int getIndex = 0;
 
-                for (Element e : imageUrlElements) {
-                    imageUrls[setIndex++] = e.attr("abs:src");
-                }
+//                for (Element e : imageUrlElements) {
+//                    imageUrls[setIndex++] =
+//                }
                 List<String> contents = new ArrayList<>();
                 for (Element e : contentsElements.select("img")) {
                     contents.add(e.attr("abs:src"));
                 }
 
                 for (int j = 0; j < titleElements.size(); j++) {
+                    final String image = imageUrlElements.attr("abs:src");
                     final String title = titleElements.get(j).text();
                     final String price = priceElements.get(j).text();
                     final int intPrice = toInt(removeNotNumeric(price));
@@ -103,30 +114,27 @@ public class CrawlingService {
                     final String contentsLink = new Gson().toJson(contents);
                     final String options = optionsElements.get(j).text();
 
-                    System.out.println("썸네일: " + imageUrls[j]);
-                    System.out.println("상품명: " + title);
-                    System.out.println("가격: " + intPrice);
-                    System.out.println("판매자: " + sellerName);
-                    System.out.println("\"상품 내용\": " + new Gson().fromJson(contentsLink, List.class));
-                    System.out.println("상품 옵션: " + options);
-
-
-
-                    Category category = Category.builder()
-                            .main("침실")
-                            .sub("책상")
-                            .build();
+//                    System.out.println("썸네일: " + imageUrls[j]);
+//                    System.out.println("상품명: " + title);
+//                    System.out.println("가격: " + intPrice);
+//                    System.out.println("판매자: " + sellerName);
+//                    System.out.println("\"상품 내용\": " + new Gson().fromJson(contentsLink, List.class));
+//                    System.out.println("상품 옵션: " + options);
 
                     Product product = Product.builder()
                             .title(title)
-                            .img(urlDownload(imageUrls[j]))
+                            .img(urlDownload(image))
                             .price(intPrice)
                             .seller(seller)
+                            .score(5)
                             .category(category)
-                            .content(new Gson().toJson(contents))
+                            .content(contentsLink)
                             .build();
+
+                    productRepository.save(product);
                 }
             }
+//            productRepository.saveAll(products);
         } catch (Exception e) {
             e.printStackTrace();
         }

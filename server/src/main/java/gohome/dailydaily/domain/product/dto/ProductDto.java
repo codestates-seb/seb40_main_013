@@ -42,6 +42,7 @@ public class ProductDto {
         private MemberDto.SellerResponse seller;
         private List<OptionDto.Response> options;
         private List<ReviewDto.Response> reviews;
+        private String main;
     }
 
 }

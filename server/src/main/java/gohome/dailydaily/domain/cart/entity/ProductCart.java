@@ -39,10 +39,11 @@ public class ProductCart extends BaseTime {
         this.cart = cart;
     }
 
-    public void addProduct(Product product) {
+    public void addProductAndOption(Product product, Option option) {
         this.product = product;
-    }
-    public void addOption(Option option) {
         this.option = option;
+    }
+    public void updateCount(int count) {
+        this.count = count;
     }
 }

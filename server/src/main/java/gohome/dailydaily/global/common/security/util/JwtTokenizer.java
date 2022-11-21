@@ -1,5 +1,7 @@
 package gohome.dailydaily.global.common.security.util;
 
+import gohome.dailydaily.domain.member.entity.Member;
+import gohome.dailydaily.domain.member.entity.MemberRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -12,9 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class JwtTokenizer {
@@ -30,6 +30,36 @@ public class JwtTokenizer {
     @Getter
     @Value("${jwt.refresh-token-expiration-minutes}")
     private int refreshTokenExpirationMinutes;
+
+    public String getAccessToken(Member member) {
+        HashMap<String, Object> claims = new HashMap<>();
+        claims.put("roles", member.getRoles());
+
+        String subject = String.valueOf(member.getId());
+        Date expiration = getTokenExpiration(getAccessTokenExpirationMinutes());
+        String bases64EncodedSecretKey = encodedBase64SecretKey(getSecretKey());
+
+        return generateAccessToken(claims, subject, expiration, bases64EncodedSecretKey);
+    }
+
+    public String getAccessToken(Long memberId) {
+        HashMap<String, Object> claims = new HashMap<>();
+        claims.put("roles", List.of(MemberRole.USER));
+
+        String subject = String.valueOf(memberId);
+        Date expiration = getTokenExpiration(getAccessTokenExpirationMinutes());
+        String bases64EncodedSecretKey = encodedBase64SecretKey(getSecretKey());
+
+        return generateAccessToken(claims, subject, expiration, bases64EncodedSecretKey);
+    }
+
+    public String getRefreshToken(Long memberId) {
+        String subject = String.valueOf(memberId);
+        Date expiration = getTokenExpiration(getRefreshTokenExpirationMinutes());
+        String bases64EncodedSecretKey = encodedBase64SecretKey(getSecretKey());
+
+        return generateRefreshToken(subject, expiration, bases64EncodedSecretKey);
+    }
 
     public String encodedBase64SecretKey(String secretKey) {
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));

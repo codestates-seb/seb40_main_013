@@ -48,7 +48,6 @@ class ReviewControllerTest implements Reflection {
     void postReview() throws Exception {
         // given
         ReviewDto.Post post = newInstance(ReviewDto.Post.class);
-        setField(post, "title", REVIEW1.getTitle());
         setField(post, "content", REVIEW1.getContent());
         setField(post, "score", REVIEW1.getScore() / 10F);
 
@@ -70,7 +69,6 @@ class ReviewControllerTest implements Reflection {
                 .andExpect(jsonPath("$.reviewId").value(REVIEW1.getId()))
                 .andExpect(jsonPath("$.productId").value(REVIEW1.getProduct().getId()))
                 .andExpect(jsonPath("$.productTitle").value(REVIEW1.getProduct().getTitle()))
-                .andExpect(jsonPath("$.title").value(REVIEW1.getTitle()))
                 .andExpect(jsonPath("$.content").value(REVIEW1.getContent()))
                 .andExpect(jsonPath("$.score").value(REVIEW1.getScore() / 10F))
                 .andDo(document("reviews/post",
@@ -79,7 +77,7 @@ class ReviewControllerTest implements Reflection {
                         REQUEST_HEADER_JWT,
                         PATH_PARAM_PRODUCT_ID,
                         requestFields(
-                                FWP_REVIEW_TITLE, FWP_REVIEW_CONTENT, FWP_REVIEW_SCORE
+                                FWP_REVIEW_CONTENT, FWP_REVIEW_SCORE
                         ),
                         REVIEW_RESPONSE_FIELDS
                 ));
@@ -90,7 +88,6 @@ class ReviewControllerTest implements Reflection {
         // given
         ReviewDto.Patch patch = newInstance(ReviewDto.Patch.class);
         setField(patch, "reviewId", REVIEW1.getId());
-        setField(patch, "title", REVIEW1.getTitle());
         setField(patch, "content", REVIEW1.getContent());
         setField(patch, "score", REVIEW1.getScore() / 10F);
 
@@ -113,7 +110,6 @@ class ReviewControllerTest implements Reflection {
                 .andExpect(jsonPath("$.reviewId").value(REVIEW1.getId()))
                 .andExpect(jsonPath("$.productId").value(REVIEW1.getProduct().getId()))
                 .andExpect(jsonPath("$.productTitle").value(REVIEW1.getProduct().getTitle()))
-                .andExpect(jsonPath("$.title").value(REVIEW1.getTitle()))
                 .andExpect(jsonPath("$.content").value(REVIEW1.getContent()))
                 .andExpect(jsonPath("$.score").value(REVIEW1.getScore() / 10F))
                 .andDo(document("reviews/patch",
@@ -122,7 +118,7 @@ class ReviewControllerTest implements Reflection {
                         REQUEST_HEADER_JWT,
                         PATH_PARAM_PRODUCT_ID_AND_REVIEW_ID,
                         requestFields(
-                                FWP_REVIEW_ID, FWP_REVIEW_TITLE, FWP_REVIEW_CONTENT, FWP_REVIEW_SCORE
+                                FWP_REVIEW_ID, FWP_REVIEW_CONTENT, FWP_REVIEW_SCORE
                         ),
                         REVIEW_RESPONSE_FIELDS
                 ));

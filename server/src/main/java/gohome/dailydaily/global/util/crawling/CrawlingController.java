@@ -20,16 +20,16 @@ public class CrawlingController {
     public void productCrawling() {
 
         String[] urls = {
-                "https://ohou.se/productions/445617/selling?affect_type=StoreSearchResult&affect_id=1",
-                "https://ohou.se/productions/445501/selling?affect_type=StoreSearchResult&affect_id=2",
-                "https://ohou.se/productions/343827/selling?affect_type=StoreSearchResult&affect_id=3",
-                "https://ohou.se/productions/352396/selling?affect_type=StoreSearchResult&affect_id=4",
-                "https://ohou.se/productions/436174/selling?affect_type=StoreSearchResult&affect_id=5",
-                "https://ohou.se/productions/348564/selling?affect_type=StoreSearchResult&affect_id=6",
-                "https://ohou.se/productions/421624/selling?affect_type=StoreSearchResult&affect_id=7",
-                "https://ohou.se/productions/445619/selling?affect_type=StoreSearchResult&affect_id=8",
-                "https://ohou.se/productions/100174/selling?affect_type=StoreSearchResult&affect_id=9",
-                "https://ohou.se/productions/178742/selling?affect_type=StoreSearchResult&affect_id=10"
+                "https://ohou.se/productions/445617/selling?affect_type=StoreSearchResult&affect_id=1"
+//                "https://ohou.se/productions/445501/selling?affect_type=StoreSearchResult&affect_id=2",
+//                "https://ohou.se/productions/343827/selling?affect_type=StoreSearchResult&affect_id=3",
+//                "https://ohou.se/productions/352396/selling?affect_type=StoreSearchResult&affect_id=4",
+//                "https://ohou.se/productions/436174/selling?affect_type=StoreSearchResult&affect_id=5",
+//                "https://ohou.se/productions/348564/selling?affect_type=StoreSearchResult&affect_id=6",
+//                "https://ohou.se/productions/421624/selling?affect_type=StoreSearchResult&affect_id=7",
+//                "https://ohou.se/productions/445619/selling?affect_type=StoreSearchResult&affect_id=8",
+//                "https://ohou.se/productions/100174/selling?affect_type=StoreSearchResult&affect_id=9",
+//                "https://ohou.se/productions/178742/selling?affect_type=StoreSearchResult&affect_id=10"
         };
 
         service.crawling(urls);

@@ -1,6 +1,7 @@
 package gohome.dailydaily.domain.product.mapper;
 
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
+import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.review.mapper.ReviewMapper;
@@ -12,5 +13,8 @@ import org.mapstruct.ReportingPolicy;
 public interface ProductMapper {
     @Mapping(target = "productId", source = "id")
     @Mapping(target = "score", expression = "java(product.getScore() / 10F)")
+    @Mapping(target = "main", source = "category.main")
     ProductDto.Response toResponse(Product product);
+
+//    CategoryGetDto toResponse(CategoryGetDto categoryGetDto);
 }

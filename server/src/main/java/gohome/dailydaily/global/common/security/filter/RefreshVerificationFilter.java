@@ -34,7 +34,7 @@ public class RefreshVerificationFilter extends OncePerRequestFilter {
         try {
             Claims claims = verifyJws(request);
             Member member = verifyMember(claims);
-            String accessToken = delegateAccessToken(claims, member);
+            String accessToken = jwtTokenizer.getAccessToken(member);
             response.setHeader("Authorization", "Bearer " + accessToken);
             setAuthenticationToContext(member);
         } catch (Exception exception) {
@@ -61,15 +61,6 @@ public class RefreshVerificationFilter extends OncePerRequestFilter {
         Long id = Long.parseLong(claims.getSubject());
         return memberRepository.findById(id)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-    }
-
-    private String delegateAccessToken(Claims claims, Member member) {
-        claims.put("roles", member.getRoles());
-
-        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
-        String bases64EncodedSecretKey = jwtTokenizer.encodedBase64SecretKey(jwtTokenizer.getSecretKey());
-
-        return jwtTokenizer.generateAccessToken(claims, claims.getSubject(), expiration, bases64EncodedSecretKey);
     }
 
     private void setAuthenticationToContext(Member member) {

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ExceptionCode {
     ID_DOES_NOT_MATCH(400, "ID does not match"),
+    PASSWORD_DOES_NOT_MATCH(400, "Password does not match"),
 
     CANNOT_CHANGE_ORDER(403, "Order can not change"),
 
@@ -17,6 +18,9 @@ public enum ExceptionCode {
     PRODUCT_NOT_FOUND(404, "Product not found"),
     REVIEW_NOT_FOUND(404, "Review not found"),
     PRODUCT_CART_NOT_FOUND(404, "Product not found in cart"),
+    TOKEN_NOT_FOUND(404, "Token not found"),
+
+    CATEGORY_NOT_FOUND(404, "Category not found"),
 
     EMAIL_ALREADY_EXISTS(409, "Email already exist"),
     NICKNAME_ALREADY_EXISTS(409, "Nickname already exist"),
