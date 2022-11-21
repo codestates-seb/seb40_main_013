@@ -57,12 +57,13 @@ const ProductList = styled.div`
 `;
 
 function SubCategory() {
-  const [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState({});
 
   useEffect(() => {
-    Apis.get(`products`).then((data) => setProductList(data.data));
+    Apis.get(`products/details/5`)
+    .then((data) => setProductList(data.data.content));
   }, []);
-  //   console.log(productList);
+  console.log(productList);
 
   return (
     <SubBlock>

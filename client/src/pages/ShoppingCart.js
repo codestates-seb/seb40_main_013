@@ -3,26 +3,29 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import CartItem from "../components/CartItem";
 
 const CartBlock = styled.div`
+  margin-top: 160px;
   width: 100%;
   height: 100%;
   /* min-height: 670px; */
   padding: 30px 40px 50px 40px;
   margin-top: 180px;
   display: flex;
-  justify-content: center;
   div {
     display: flex;
-  }
-  .cart-title {
-    font-size: 28px;
-    padding-left: 20px;
-    margin-bottom: 20px;
-    font-weight: 600;
+    div{
+        display: flex;
+    }
+    .cart-title{
+        font-size: 28px;
+        padding-left: 20px;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
   }
 `;
 
 const AllCheck = styled.div`
-  padding-left: 23px;
+  padding-left: 13px;
   margin: 10px;
   font-size: 15px;
   color: #aaaaaa;
@@ -31,8 +34,14 @@ const AllCheck = styled.div`
   }
 `;
 
+const Quary = styled.div`
+    @media screen and (max-width: 767px) {
+            flex-direction: column;
+    }
+`;
+
 const CartList = styled.div`
-  padding: 0px 20px;
+  padding: 0px 10px;
   flex-direction: column;
 `;
 
@@ -44,6 +53,7 @@ const Payment = styled.section`
   border: 1px solid #002c6d;
   border-radius: 5px;
   padding: 20px;
+  margin-left: 10px;
   .pay-title {
     font-weight: 500;
   }
@@ -99,7 +109,7 @@ function ShoppingCart() {
           <span>ㅣ</span>
           <span>선택삭제</span>
         </AllCheck>
-        <div>
+        <Quary className="quary">
           <CartList>
             <CartItem />
             <CartItem />
@@ -131,7 +141,7 @@ function ShoppingCart() {
             </TotalPrice>
             <PayButton>구매하기</PayButton>
           </Payment>
-        </div>
+        </Quary>
       </section>
     </CartBlock>
   );

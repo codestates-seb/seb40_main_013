@@ -49,6 +49,7 @@ const LoginBtn = styled.button`
 
 const Serach = styled.div`
   margin-right: 8px;
+  z-index: 300;
 `;
 
 const CategoryList = styled.div`
@@ -69,6 +70,7 @@ const CategoryList = styled.div`
 `;
 
 const Nav = styled.nav`
+  z-index: 200;
   position: absolute;
   top: 22px;
   left: -70px;
@@ -76,7 +78,6 @@ const Nav = styled.nav`
   border: 1px solid #aaaaaa;
   width: 105px;
   font-size: 15px;
-
   justify-content: space-between;
   border-bottom: 1px solid #bebcaf;
   padding: 7px;
@@ -115,6 +116,7 @@ function Header() {
   const outModalCloseHandler = ({ target }) => {
     if (closeSearch && !modalRef.current.contains(target))
       setCloseSearch(false);
+    console.log(target.innerHTML);
   };
 
   useEffect(() => {
@@ -144,7 +146,7 @@ function Header() {
           <div>
             <Link to="/sub">
               <Category>
-                서재
+                <div>서재</div>
                 <Nav className="1">
                   <div>책상</div>
                   <div>의자</div>
@@ -155,7 +157,7 @@ function Header() {
             </Link>
             <Link to="/sub">
               <Category>
-                침실
+                <div>침실</div>
                 <Nav className="2">
                   <div>침대/매트리스</div>
                   <div>행거/옷장</div>
@@ -166,7 +168,7 @@ function Header() {
             </Link>
             <Link to="/sub">
               <Category className="space">
-                거실
+                <div>거실</div>
                 <Nav className="3">
                   <div>소파</div>
                   <div>거실장</div>
@@ -177,7 +179,7 @@ function Header() {
             </Link>
             <Link to="/sub">
               <Category className="space">
-                주방
+                <div>주방</div>
                 <Nav className="4">
                   <div>식탁/아일랜드</div>
                   <div>식탁의자</div>

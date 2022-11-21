@@ -70,6 +70,7 @@ function CartItem() {
                 <div className="product-info">
                     <div className="brand">브랜드</div>
                     <div className="product-name">이름</div>
+                    <div className="brand">옵션 : 빨강</div>
                     <div className="time">2~3일 이내 도착 예정</div>
                 </div>
                 <div>
