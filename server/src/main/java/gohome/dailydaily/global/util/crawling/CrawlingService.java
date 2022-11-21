@@ -46,15 +46,32 @@ public class CrawlingService {
 
     static List<Product> products = new ArrayList<>();
 
-    public void crawling(String[] url) {
+    public void crawling(String[] urls) {
 
         Document doc = null;
 
         try {
             // 개발 강의 모든 페이징 순회
-            for (int i = 0; i <= url.length; i++) {
-                Connection conn = Jsoup.connect(url[i]);
-                Document document = conn.maxBodySize(0).get();
+            Member member = Member.builder()
+                    .email("hgd@gmail.com")
+                    .nickname("데스커")
+                    .password("비밀번호")
+                    .address("주소")
+                    .phone("010-1234-5678")
+                    .memberStatus(MemberStatus.ACTIVE)
+                    .build();
+
+            member.addRoles(MemberRole.USER);
+
+            Seller seller = Seller.builder()
+                    .brandNumber("35-12-315253")
+                    .member(member)
+                    .build();
+
+            for (int i = 0; i <= urls.length; i++) {
+                final String url = "https://ohou.se/productions/460766/selling?affect_type=StoreSearchResult&affect_id=1";
+                Document document = Jsoup.connect(url).maxBodySize(0).get();
+                document.outputSettings().prettyPrint(false);
 
                 // 크롤링 항목 필요 리스트
                 //   - 썸네일 링크, 강의 제목, 가격(할인가격), 평점, 강의자, 강의 링크, 수강자 수, 플랫폼, 강의 세션 개수 + 시간
@@ -64,7 +81,7 @@ public class CrawlingService {
                 Elements sellerElements = document.getElementsByClass("production-selling-header__title__brand");
                 Elements contentsElements = document.getElementsByClass("production-selling-description__content");
                 Elements optionsElements = document.getElementsByTag("select");
-                Elements reviewsElements = document.getElementsByClass("production-review-item");
+
                 String[] imageUrls = new String[imageUrlElements.size()];
 
                 int setIndex = 0;
@@ -73,18 +90,9 @@ public class CrawlingService {
                 for (Element e : imageUrlElements) {
                     imageUrls[setIndex++] = e.attr("abs:src");
                 }
-
                 List<String> contents = new ArrayList<>();
                 for (Element e : contentsElements.select("img")) {
                     contents.add(e.attr("abs:src"));
-                    System.out.println("상품내용 : " + e.attr("abs:src"));
-                }
-
-                List<Review> reviews = new ArrayList<>();
-                for (Element e : reviewsElements) {
-                    Review review = Review.builder()
-                            .content()
-                    reviews.add
                 }
 
                 for (int j = 0; j < titleElements.size(); j++) {
@@ -92,30 +100,17 @@ public class CrawlingService {
                     final String price = priceElements.get(j).text();
                     final int intPrice = toInt(removeNotNumeric(price));
                     final String sellerName = sellerElements.get(j).text();
-                    final String contentsLink = contentsElements.attr("abs:src");
+                    final String contentsLink = new Gson().toJson(contents);
                     final String options = optionsElements.get(j).text();
 
                     System.out.println("썸네일: " + imageUrls[j]);
                     System.out.println("상품명: " + title);
                     System.out.println("가격: " + intPrice);
                     System.out.println("판매자: " + sellerName);
+                    System.out.println("\"상품 내용\": " + new Gson().fromJson(contentsLink, List.class));
                     System.out.println("상품 옵션: " + options);
 
-                    Member member = Member.builder()
-                            .email("hgd@gmail.com")
-                            .nickname(sellerName)
-                            .password("비밀번호")
-                            .address("주소")
-                            .phone("010-1234-5678")
-                            .memberStatus(MemberStatus.ACTIVE)
-                            .build();
 
-                    member.addRoles(MemberRole.USER);
-
-                    Seller seller = Seller.builder()
-                            .brandNumber("35-12-315253")
-                            .member(member)
-                            .build();
 
                     Category category = Category.builder()
                             .main("침실")
