@@ -14,9 +14,7 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long>, ProductRepositoryCustom {
 
-    //@Query(" select p from Product p order by (select r.product_id, sum(r.score) from Review r group by r.product_id)")
-    List<Product> findTop5By();
-
     @EntityGraph(attributePaths = {"seller", "seller.member", "seller.member.cart", "reviews"})
     Optional<Product> findProductById(Long productId);
+
 }

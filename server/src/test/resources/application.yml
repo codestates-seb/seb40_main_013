@@ -36,3 +36,4 @@ jwt:
   refresh-token-expiration-minutes: 420
 
 env: local
+

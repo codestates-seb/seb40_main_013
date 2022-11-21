@@ -31,19 +31,31 @@ public class CartController {
         return new ResponseEntity<>(mapper.toResponse(cart), HttpStatus.CREATED);
     }
 
+    @PatchMapping("/{product-cart-id}")
+    public ResponseEntity patchProductCart(@MemberId Long memberId,
+                                           @PathVariable("product-cart-id") Long productCartId,
+                                           @RequestBody ProductCartDto.Patch patch) {
+
+        ProductCart productCart = productCartMapper.toProductCart(patch, productCartId);
+        Cart cart = cartService.updateCart(productCart, memberId);
+
+        return new ResponseEntity<>(mapper.toResponse(cart), HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity getCart(@MemberId Long memberId) {
 
-        Cart cart = cartService.getCart(memberId);
+        Cart cart = cartService.findVerifiedCart(memberId);
 
         return new ResponseEntity<>(mapper.toResponse(cart), HttpStatus.OK);
     }
 
     @DeleteMapping("/{product-cart-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProductCart(@PathVariable("product-cart-id") Long productCartId,
+    public String deleteProductCart(@PathVariable("product-cart-id") Long productCartId,
                                   @MemberId Long memberId) {
 
         cartService.cancelCart(productCartId, memberId);
+        return "success deleteProductCart";
     }
 }

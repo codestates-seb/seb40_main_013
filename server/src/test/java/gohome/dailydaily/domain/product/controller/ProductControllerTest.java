@@ -81,16 +81,11 @@ public class ProductControllerTest {
 
     @Test
     public void getProductListByCategory() throws Exception {
-        List<OptionDto.Response> options = new ArrayList<>(
-                List.of(new OptionDto.Response(
-                        OPTION.getId(), OPTION.getColor(), OPTION.getSize(), OPTION.getPrice(), OPTION.getStock()
-                )));
-
         SliceResponseDto<CategoryGetDto> products = new SliceResponseDto<>(new SliceImpl<>(
                 List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
-                                PRODUCT.getPrice(), PRODUCT.getScore(),options),
+                                PRODUCT.getPrice(), PRODUCT.getScore()),
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                                PRODUCT2.getPrice(), PRODUCT2.getScore(),options)), PAGEABLE, true));
+                                PRODUCT2.getPrice(), PRODUCT2.getScore())), PAGEABLE, true));
 
         given(productService.getProductListByCategory(any(GetProductListByCategoryDTO.class)))
                 .willReturn(products);
@@ -111,12 +106,97 @@ public class ProductControllerTest {
                         RESPONSE_PREPROCESSOR,
                         REQUEST_PARAM_CATEGORY,
                         responseFields(
-                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE,
-                                FWP_CONTENT_PRODUCT_OPTION_ID, FWP_CONTENT_PRODUCT_OPTION_COLOR, FWP_CONTENT_PRODUCT_OPTION_SIZE, FWP_CONTENT_PRODUCT_OPTION_PRICE, FWP_CONTENT_PRODUCT_OPTION_STOCK
-                                , FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
+                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE,
+                                FWP_CONTENT_PRODUCT_SCORE, FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
                         )));
     }
 
+    @Test
+    public void getScoreTop5() throws Exception {
+        List<CategoryGetDto> products = new ArrayList<>(List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
+                        PRODUCT.getPrice(), PRODUCT.getScore()),
+                new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+                        PRODUCT2.getPrice(), PRODUCT2.getScore())));
+
+        given(productService.getScoreTop5()).willReturn(products);
+
+        ResultActions actions = mockMvc.perform(
+                get("/products/score")
+                        .accept(MediaType.APPLICATION_JSON));
+
+        actions.andExpect(status().isOk())
+                .andDo(document("products/score/get",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        responseFields(
+                                FWP_SCORE_PRODUCT_ID, FWP_SCORE_PRODUCT_IMG_PATH, FWP_SCORE_PRODUCT_IMG_NAME,
+                                FWP_SCORE_PRODUCT_TITLE, FWP_SCORE_PRODUCT_PRICE, FWP_SCORE_PRODUCT_SCORE
+                        )));
+    }
+
+    @Test
+    public void getBrandListLikeTop5() throws Exception{
+        List<CategoryGetDto> brand1 = new ArrayList<>(List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
+                        PRODUCT.getPrice(), PRODUCT.getScore()),
+                new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+                        PRODUCT2.getPrice(), PRODUCT2.getScore())));
+
+        List<CategoryGetDto> brand2 = new ArrayList<>(List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
+                        PRODUCT.getPrice(), PRODUCT.getScore()),
+                new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+                        PRODUCT2.getPrice(), PRODUCT2.getScore())));
+
+        List<List<CategoryGetDto>> products = new ArrayList<>();
+        products.add(brand1);
+        products.add(brand2);
+        given(productService.getBrandListLikeTop5()).willReturn(products);
+
+        ResultActions actions = mockMvc.perform(
+                get("/products/brandListLike")
+                        .accept(MediaType.APPLICATION_JSON));
+
+        actions.andExpect(status().isOk())
+                .andDo(document("products/brandList/get",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        responseFields(
+                                FWP_BRAND_PRODUCT_ID, FWP_BRAND_PRODUCT_IMG_PATH, FWP_BRAND_PRODUCT_IMG_NAME,
+                                FWP_BRAND_PRODUCT_TITLE, FWP_BRAND_PRODUCT_PRICE, FWP_BRAND_PRODUCT_SCORE
+                        )));
+    }
+
+    @Test
+    public void getCategoryCreatedTop15() throws Exception{
+        List<CategoryGetDto> category1 = new ArrayList<>(
+                List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
+                        PRODUCT.getPrice(), PRODUCT.getScore()),
+                new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
+                        PRODUCT.getPrice(), PRODUCT.getScore())));
+
+        List<CategoryGetDto> category2 = new ArrayList<>(
+                List.of(new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+                        PRODUCT2.getPrice(), PRODUCT2.getScore()),
+                new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+                        PRODUCT2.getPrice(), PRODUCT2.getScore())));
+
+        List<List<CategoryGetDto>> products = new ArrayList<>();
+        products.add(category1);
+        products.add(category2);
+        given(productService.getCategoryCreatedTop15()).willReturn(products);
+
+        ResultActions actions = mockMvc.perform(
+                get("/products/categoryCreated")
+                        .accept(MediaType.APPLICATION_JSON));
+
+        actions.andExpect(status().isOk())
+                .andDo(document("products/categoryCreated/get",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        responseFields(
+                                FWP_BRAND_PRODUCT_ID, FWP_BRAND_PRODUCT_IMG_PATH, FWP_BRAND_PRODUCT_IMG_NAME,
+                                FWP_BRAND_PRODUCT_TITLE, FWP_BRAND_PRODUCT_PRICE, FWP_BRAND_PRODUCT_SCORE
+                        )));
+    }
 //    @Test
 //    public void getCategoryMain() throws Exception {
 //        Slice<CategoryGetDto> products = new SliceImpl<>(
