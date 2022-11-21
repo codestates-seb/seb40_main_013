@@ -31,14 +31,7 @@ public class AuthService {
     }
 
     public String getGuestAccessToken() {
-        HashMap<String, Object> claims = new HashMap<>();
-        claims.put("roles", List.of(MemberRole.USER));
-
-        String subject = String.valueOf(1L);
-        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
-        String bases64EncodedSecretKey = jwtTokenizer.encodedBase64SecretKey(jwtTokenizer.getSecretKey());
-
-        return jwtTokenizer.generateAccessToken(claims, subject, expiration, bases64EncodedSecretKey);
+        return jwtTokenizer.getAccessToken(1L);
     }
 
 }
