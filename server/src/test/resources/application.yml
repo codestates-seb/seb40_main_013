@@ -23,8 +23,5 @@ jwt:
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
 
-file:
-  profileImg: C:\Users\wnsdu\Dailydaily\seb40_main_013\server\img\profileImg\
-  productImg: C:\Users\wnsdu\Dailydaily\seb40_main_013\server\img\productImg\
 
 env: local
