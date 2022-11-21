@@ -1,4 +1,7 @@
-import React, { useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
+// import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../reduxstore/slices/userSlice";
 import styled from "styled-components/macro";
 import PurchaseList from "../components/mypages/PurchaseList";
 import EditProfile from "../components/mypages/EditProfile";
@@ -162,31 +165,55 @@ const NavDetail = styled.nav`
   }
 `;
 const Mypage = () => {
-  const [clicked, setClicked] = useState();
+  const dispatch = useDispatch();
+  const getUserdata = useSelector((state) => state.user.users);
+  console.log(getUserdata);
+  const [clicked, setClicked] = useState("");
 
-  const onClick = useCallback((e) => {
+  // const confirm = ({updateNickName, updatePassword, updatePwdCheck, updatePhone}) => {
+  //   const errors = {};
+  //   if(updateNickName === '' || !nickNameCheck(updateNickName)){
+  //     errors.updateNickName = '띄어쓰기 없이 2자이상 8자 이하 영어 또는 숫자 또는 한글로 입력해주세요!'
+  //   }
+  //   if(updatePassword === '' || !pwdCheck(updatePassword)){
+  //     errors.updatePassword = '문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자로 만들어주세요!'
+  //   }
+  //   if(updatePwdCheck === '' || updatePassword !== updatePwdCheck){
+  //     errors.updatePwdCheck = '위에 작성하신 비밀번호와 같은 비밀번호를 입력해주세요!'
+  //   }
+  //   if(!phoneCheck(updatePhone)){
+  //     errors.updatePhone = '숫자, -을 포함해 휴대전화 형식에 맞게 입력해주세요.'
+  //   }
+  // };
+  //user 정보 받아오기
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
+
+  //탭 클릭 이벤트
+  const tabClick = (e) => {
     const text = e.target.innerText;
     setClicked(text);
-  }, []);
+  };
 
   return (
     <Container>
       <Left>
         <Reaction>
           <ProfileImg
-            src={`https://avatars.dicebear.com/api/bottts/1.svg?size=20`}
+            src={`https://avatars.dicebear.com/api/bottts/1.svg?size=15`}
             alt="avator"
           ></ProfileImg>
-          <Hello>안녕하세요,</Hello>
-          <Hello>집가구싶다 님</Hello>
+          <Hello>안녕하세요,&nbsp;</Hello>
+          <Hello>{getUserdata?.nickname}&nbsp;님</Hello>
         </Reaction>
         <Nav>
-          <ReactionDetail>
+          <ReactionDetail path="*">
             <Link to="purchase" style={{ textDecoration: "none" }}>
               <NavDetail
                 name="purchaseTab"
                 className={clicked === "구매 내역" ? "clicked" : ""}
-                onClick={onClick}
+                onClick={tabClick}
               >
                 구매 내역
               </NavDetail>
@@ -195,7 +222,7 @@ const Mypage = () => {
               <NavDetail
                 name="editProfileTab"
                 className={clicked === "정보 수정" ? "clicked" : ""}
-                onClick={onClick}
+                onClick={tabClick}
               >
                 정보 수정
               </NavDetail>
@@ -206,7 +233,7 @@ const Mypage = () => {
               <NavDetail
                 name="like"
                 className={clicked === "좋아요" ? "clicked" : ""}
-                onClick={onClick}
+                onClick={tabClick}
               >
                 좋아요
               </NavDetail>
@@ -215,7 +242,7 @@ const Mypage = () => {
               <NavDetail
                 name="myboard"
                 className={clicked === "작성한 리뷰" ? "clicked" : ""}
-                onClick={onClick}
+                onClick={tabClick}
               >
                 작성한 리뷰
               </NavDetail>
@@ -224,9 +251,12 @@ const Mypage = () => {
         </Nav>
       </Left>
       <Routes>
-        <Route path="/edit" element={<EditProfile />}></Route>
-        <Route path="/purchase" element={<PurchaseList />}></Route>
-        <Route path="/myboard" element={<MyReview />}></Route>
+        <Route
+          path="/*"
+          element={<EditProfile getUserdata={getUserdata} />}
+        ></Route>
+        <Route path="/purchase/*" element={<PurchaseList />}></Route>
+        <Route path="/review" element={<MyReview />}></Route>
       </Routes>
     </Container>
   );

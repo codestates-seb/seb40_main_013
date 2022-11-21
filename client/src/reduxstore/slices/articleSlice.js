@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
+import axios from "axios";
 
 const jwtToken = localStorage.getItem("Authorization");
 
@@ -35,11 +36,34 @@ export const postCart = createAsyncThunk(
   }
 );
 
+export const mainData = createAsyncThunk("products/mainData", async () => {
+  return axios
+    .all([
+      axios.get(
+        `https://brave-donuts-check-113-52-194-59.loca.lt/products/score`
+      ),
+      axios.get(
+        `https://brave-donuts-check-113-52-194-59.loca.lt/products/brandListLike`
+      ),
+    ])
+    .then(
+      axios.spread((res1, res2) => {
+        // console.log(res1, res2)
+        const resBest = res1.data;
+        const resBrand = res2.data;
+        const res = [...resBest, ...resBrand];
+        return res;
+      })
+    )
+    .catch((err) => console.log(2));
+});
+
 const articleSlice = createSlice({
   name: "article",
   initialState: {
     article: [],
     detailArticle: [],
+    mainArticle: [],
     loading: false,
     error: "",
   },
@@ -48,6 +72,21 @@ const articleSlice = createSlice({
     [getArticleDetail.fulfilled]: (state, action) => {
       state.article = [];
       state.detailArticle = action.payload;
+      state.mainArticle = [];
+      state.loading = true;
+      state.error = "";
+    },
+    [postCart.fulfilled]: (state, action) => {
+      state.article = action.payload;
+      state.detailArticle = [];
+      state.mainArticle = [];
+      state.loading = true;
+      state.error = "";
+    },
+    [mainData.fulfilled]: (state, action) => {
+      state.article = [];
+      state.detailArticle = [];
+      state.mainArticle = action.payload;
       state.loading = true;
       state.error = "";
     },
