@@ -42,7 +42,7 @@ public class TestConstant {
             .id(1L)
             .email("test@test.com")
             .nickname("닉네임")
-            .password("비밀번호")
+            .password("password123!@#")
             .address("주소")
             .phone("010-1234-5678")
             .memberStatus(MemberStatus.ACTIVE)

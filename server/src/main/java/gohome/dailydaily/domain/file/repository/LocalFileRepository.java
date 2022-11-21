@@ -32,6 +32,6 @@ public class LocalFileRepository implements FileRepository {
 
     private static String getExt(String originalFilename) {
         int pos = originalFilename.lastIndexOf(".");
-        return originalFilename.substring(pos+1);
+        return originalFilename.substring(pos + 1);
     }
 }

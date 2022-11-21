@@ -32,7 +32,7 @@ public class MemberDto {
         @Email
         private String email;
         @NotBlank
-        @Pattern(regexp = "/(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@!%*#?&])[A-Za-z\\d$@!%*#?&]{8,}/")
+        @Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@!%*#?&])[A-Za-z\\d$@!%*#?&]{8,}")
         private String password;
     }
 
@@ -40,12 +40,12 @@ public class MemberDto {
     public static class Patch {
         private String nickname;
 
-        @Pattern(regexp = "/(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@!%*#?&])[A-Za-z\\d$@!%*#?&]{8,}/")
+        @Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@!%*#?&])[A-Za-z\\d$@!%*#?&]{8,}")
         private String password;
 
         private String address;
 
-        @Pattern(regexp = "/01[016789]-\\d{3,4}-\\d{4}/")
+        @Pattern(regexp = "01[016789]-\\d{3,4}-\\d{4}")
         private String phone;
     }
 
