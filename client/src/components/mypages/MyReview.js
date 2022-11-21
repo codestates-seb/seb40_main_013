@@ -1,37 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllReview } from "../../reduxstore/slices/reviewSlice";
+import {
+  deleteReview,
+  getAllReview,
+} from "../../reduxstore/slices/reviewSlice";
 import styled from "styled-components";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
-import { postReview } from "../../reduxstore/slices/reviewSlice";
+import { FaEdit } from "react-icons/fa";
+import { FiDelete } from "react-icons/fi";
+import { renderStar } from "../Star";
+
 function MyReview() {
   const dispatch = useDispatch();
   const userWriteReviews = useSelector(
     (state) => state?.review.review?.content
   );
-  const [userWriteTitle, setUserWriteTitle] = useState("");
-  const [userWriteContent, setUserWriteContent] = useState("");
-  const [userWriteScroe, setUserWriteScroe] = useState("");
+  console.log(userWriteReviews);
 
-  const changeTitle = (e) => {
-    setUserWriteTitle(e.target.value);
-  };
-  const changeContent = (e) => {
-    setUserWriteContent(e.target.value);
-  };
-  const changeScore = (e) => {
-    setUserWriteScroe(e.target.value);
-  };
-
-  const postSubmit = (e) => {
-    e.preventDefault();
-    console.log(11);
-    let postData = {
-      title: userWriteTitle,
-      content: userWriteContent,
-      score: userWriteScroe,
+  const clickDelete = (productId, reviewId) => {
+    let deleteData = {
+      productId: productId,
+      reviewId: reviewId,
     };
-    dispatch(postReview({ postData }));
+    dispatch(deleteReview({ deleteData }));
   };
   useEffect(() => {
     dispatch(getAllReview());
@@ -45,14 +36,8 @@ function MyReview() {
             <ReviewContentsNumber>{data?.reviewId}</ReviewContentsNumber>
             <ReviewContentsImg src={data?.img}></ReviewContentsImg>
             <ReviewContentsMainSpace>
-              <ReviewStar>
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-              </ReviewStar>
-              <ReviewMainTitle>{data?.productTitle}</ReviewMainTitle>
+              {renderStar(data?.score)}
+              <ReviewMainTitle>{data?.title}</ReviewMainTitle>
               <ReviewMainContent>{data?.content}</ReviewMainContent>
             </ReviewContentsMainSpace>
           </ReviewContentsLeftSpace>
@@ -60,27 +45,30 @@ function MyReview() {
             <ReviewContentsUser>{data?.productId}</ReviewContentsUser>
             <ReviewContentsSmallBtnSpace>
               <ReviewContentsBtnSpace>
-                <div>수정</div>
-                <div>삭제</div>
+                <ReviewContentsBtn>
+                  <FaEdit />
+                </ReviewContentsBtn>
+                <ReviewContentsBtn
+                  onClick={() => clickDelete(data?.productId, data?.reviewId)}
+                >
+                  <FiDelete />
+                </ReviewContentsBtn>
               </ReviewContentsBtnSpace>
-              <ReviewContentsUser>2</ReviewContentsUser>
+              <ReviewContentsUser>
+                {new Date(data.createdAt).getFullYear() +
+                  "." +
+                  [new Date(data.createdAt).getMonth() + 1] +
+                  "." +
+                  new Date(data.createdAt).getDate()}
+              </ReviewContentsUser>
             </ReviewContentsSmallBtnSpace>
           </ReviewContentsRightSpace>
         </ReviewContentsSpace>
       ))}
-      {/* <div>
-        <input onChange={changeTitle} />
-        <input onChange={changeContent} />
-        <input onChange={changeScore} />
-        <button
-          style={{ width: "30px", height: "50px" }}
-          onClick={postSubmit}
-        />
-      </div> */}
     </Container>
   );
 }
-const Container = styled.form`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px 30px;
@@ -155,16 +143,26 @@ const ReviewContentsSmallBtnSpace = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid blue;
+  width: 70px;
   height: 100%;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
+
 const ReviewContentsBtnSpace = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 30px;
-  border: 1px solid red;
+  position: absolute;
+  top: 0px;
+`;
+const ReviewContentsBtn = styled.button`
+  border-radius: 5px;
+  background-color: white;
+  font-size: 25px;
+  margin-right: 5px;
 `;
 export default MyReview;

@@ -3,7 +3,7 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://flat-pandas-pump-113-52-194-59.loca.lt/",
+  baseURL: "https://brave-donuts-check-113-52-194-59.loca.lt/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -26,9 +26,19 @@ axios.interceptors.request.use(
   }
 );
 
-axios.interceptors.response.use(
-  (response) => {
-    console.log(1234);
+axios.interceptors.request.use(function (config) {
+  console.log(123);
+
+  config.withCredentials = true;
+  const token = localStorage.getItem("Authorization");
+  config.headers["Authorization"] = token;
+  config.headers["Refresh"] = refreshToken;
+  config.headers["Content-Type"] = "application/json";
+  return config;
+});
+
+Apis.interceptors.response.use(
+  function (response) {
     return response;
   },
   async (err) => {

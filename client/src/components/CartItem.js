@@ -1,6 +1,5 @@
 import styled from "styled-components/macro";
 import { IoMdClose} from 'react-icons/io';
-import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IoIosArrowBack, IoIosArrowForward} from 'react-icons/io';
 import Apis from "../apis/apis";
 import { useState } from "react";
@@ -99,15 +98,18 @@ const ItemDelete = styled(IoMdClose)`
     color: gray;
 `;
 
-const EachCheckCircle = styled(AiOutlineCheckCircle)`
-    font-size: 20px;
+const EachCheckCircle = styled.input`
+    width: 15px;
+    height: 15px;
     color: #aaaaaa;
+    cursor: pointer;
     &.all-check{
         color: #FFAF51;
     }
 `;
 
-function CartItem({cartItem, allCheck}) {
+function CartItem({cartItem, changeEachCheck, checkList}) {
+    
     let jwtToken = localStorage.getItem("Authorization");
     const { brandName, count, img, price, productCartId, productId, title } = cartItem
 
@@ -153,14 +155,14 @@ function CartItem({cartItem, allCheck}) {
     };
 
     const downCountHandler = () => {
-        if(itemCount > 0){
+        if(itemCount > 1){
             setItemCount(itemCount - 1) 
         } else { 
-            setItemCount(0) 
+            alert('최소 1개 이상 주문 가능합니다.')
         }
     };
 
-    const onChange = (e) => {
+    const onChangeCount = (e) => {
         setItemCount(e.target.value)
     }
 
@@ -168,7 +170,12 @@ function CartItem({cartItem, allCheck}) {
         <>
             <CartItemBlock>
                 <div className="part">
-                    <EachCheckCircle className={allCheck? 'all-check' : ''}/>
+                    <EachCheckCircle 
+                        type='checkbox' 
+                        // className='all-check' 
+                        onChange={e => changeEachCheck(e.target.checked, cartItem)}
+                        checked={checkList.includes(cartItem) ? true : false}
+                    />
                     <img src={img.fullPath} alt='장바구니 물건'></img>
                     <ProductInfo>
                         <div className="brand">{brandName}</div>
@@ -181,12 +188,12 @@ function CartItem({cartItem, allCheck}) {
                     <div className="count-zone">
                         <div>
                             <DownCount onClick={downCountHandler}/>
-                            <Input className="count" type='number' value={itemCount} onChange={onChange}></Input>
+                            <Input className="count" type='number' value={itemCount} onChange={onChangeCount}></Input>
                             <UpCount onClick={upCountHandler}/>
                         </div>
                         <ReCount onClick={ReCountHandler}>주문수정</ReCount>
                     </div>
-                    <div className="product-price">{itemCount * price}원</div>
+                    <div className="product-price">{(itemCount * price).toLocaleString("en-US")}원</div>
                     <ItemDelete onClick={removeCartItem}/>
                 </div>
             </CartItemBlock>

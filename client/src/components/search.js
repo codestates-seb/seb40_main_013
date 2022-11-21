@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
-import { BsSearch } from 'react-icons/bs';
-import { IoMdClose} from 'react-icons/io';
+import { BsSearch } from "react-icons/bs";
+import { IoMdClose } from "react-icons/io";
 
 const SearchBlock = styled.div`
   position: fixed; //absolute로 바꿀수도 있음
@@ -17,7 +17,7 @@ const SearchBlock = styled.div`
   &.closed{
     height: 0; 
   }
-  .search-section{
+  .search-section {
     width: 80%;
     max-width: 800px;
     flex-direction: column;
@@ -34,22 +34,24 @@ const Form = styled.form`
   display: flex;
   width: 100%;
   height: 60px;
-  div{
+  div {
     align-items: center;
   }
 `;
 
 const SearchInput = styled.div`
   width: 100%;
-  border-bottom: 3px solid #002C6D;
+  border-bottom: 3px solid #002c6d;
   margin-right: 15px;
-  input{
+  input {
     border: none;
     width: 100%;
     height: 100%;
     font-size: 30px;
     padding: 10px;
-    &:focus {outline: none;} 
+    &:focus {
+      outline: none;
+    }
   }
 `;
 
@@ -92,4 +94,3 @@ function DownSearch({closeSearch, closeHandler}){
 }
 
 export default DownSearch;
-

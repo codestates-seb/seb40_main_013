@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components/macro";
-import starimg from '../../imgs/star.png'
-import { Link } from "react-router-dom";
+import starimg from "../../imgs/star.png";
+import { Link, useParams } from "react-router-dom";
 
 const Products = styled(Link)`
   width: 200px;
   margin: 0 10px;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     width: 150px;
   }
 `;
@@ -19,7 +19,7 @@ const Detail = styled.div`
   flex-direction: column;
   width: 200px;
   margin-top: 10px;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     width: 150px;
   }
 `;
@@ -45,7 +45,7 @@ const Price = styled.h5`
   margin-right: 10px;
   font-size: 1.5rem;
   font-weight: 700;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     font-size: 1.3rem;
     font-weight: 500;
   }
@@ -78,15 +78,15 @@ const Star = styled.img`
 const StarAerage = styled.div`
   display: flex;
 `;
-const Product = ({product}) => {
-  // console.log(img);
-  const { id, img , brand, title, price, score } = product
+const Product = ({ proId, img , brand, title, price, score }) => {
+  const {id} = useParams();
+
   return(
-    <Products to="/detail/:id">
+    <Products to={`/detail/${proId}`}>
       <Img src={img.fullPath}></Img>
       <Detail>
         <SubDetail>
-          <Brand>{id}</Brand>
+          <Brand>{brand}</Brand>
           <StarDetail>
             <Star src={starimg}></Star>
             <StarAerage>{score}</StarAerage>
@@ -97,11 +97,11 @@ const Product = ({product}) => {
           <Colorchip>
             <Color />
           </Colorchip>
-          <Price>{price.toLocaleString('en-US')}</Price>
+          <Price>{price.toLocaleString("en-US")}</Price>
         </SubDetail>
       </Detail>
     </Products>
   );
-}
+};
 
 export default Product;

@@ -154,9 +154,9 @@ function Header({setClick}) {
                 <div onClick={clickMenu}>서재</div> 
                 <Nav className="1">
                   <div onClick={clickMenu}>책상</div>
-                  <div>의자</div>
-                  <div>책장</div>
-                  <div>선반</div>
+                  <div onClick={clickMenu}>의자</div>
+                  <div onClick={clickMenu}>책장</div>
+                  <div onClick={clickMenu}>선반</div>
                 </Nav>
               </Category>
             </Link>
@@ -165,30 +165,30 @@ function Header({setClick}) {
               <div onClick={clickMenu}>침실</div>  
                 <Nav className="2">
                   <div onClick={clickMenu}>침대</div>
-                  <div>행거/옷장</div>
-                  <div>화장대</div>
-                  <div>거울</div>
+                  <div onClick={clickMenu}>행거/옷장</div>
+                  <div onClick={clickMenu}>화장대</div>
+                  <div onClick={clickMenu}>거울</div>
                 </Nav>
               </Category>
             </Link>
             <Link to="/sub">
               <Category className="space">
-                <div>거실</div>   
+                <div onClick={clickMenu}>거실</div>   
                 <Nav className="3">
-                  <div>소파</div>
-                  <div>거실장</div>
-                  <div>사이드테이블</div>
-                  <div>수납장</div>
+                  <div onClick={clickMenu}>소파</div>
+                  <div onClick={clickMenu}>거실장</div>
+                  <div onClick={clickMenu}>사이드테이블</div>
+                  <div onClick={clickMenu}>수납장</div>
                 </Nav>
               </Category>
             </Link>
             <Link to="/sub">
               <Category className="space">
-                <div>주방</div> 
+                <div onClick={clickMenu}>주방</div> 
                 <Nav className="4">
-                  <div>식탁/아일랜드</div>
-                  <div>식탁의자</div>
-                  <div>주방수납</div>
+                  <div onClick={clickMenu}>식탁/아일랜드</div>
+                  <div onClick={clickMenu}>식탁의자</div>
+                  <div onClick={clickMenu}>주방수납</div>
                 </Nav>
               </Category>
             </Link>

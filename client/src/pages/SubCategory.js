@@ -141,10 +141,15 @@ function SubCategory({click}) {
       <ProductList>
         <div className="total">0 개의 상품이 있습니다</div>
         <div className="products" >
-          {products.map((product) => ( //{ img, brand, title, price, score }
+          {products?.map((product) => ( 
             <Products
-              product={product}
               key={product.id}
+              brand={product.brand}
+              img={product.img}
+              title={product.title}
+              price={product.price}
+              score={product.score}
+              proId={product.id}
             />
           ))}
         </div>
@@ -154,38 +159,3 @@ function SubCategory({click}) {
   );
 }
 export default SubCategory;
-
-
-// export const getPostsPage = async (pageParam = 1, options ={}) => {
-//     const response = await Apis.get(`/posts?_page=${pageParam}`, options)
-// }
-
-// const usePost = (pageNum = 1) => {
-//     const [results, setResults] = useState([]);
-//     const [isLoading, setIsLoading] = useState(false);
-//     const [isError, setIsError] = useState(false);
-//     const [error, setError] = useState({});
-//     const [hasNextPage, setHasNextPage] = useState(false);
-
-//     useEffect(() => {
-//         setIsLoading(true)
-//         setIsError(false)
-//         setError({})
-
-//         const controller = new AbortController()
-//         const {signal} = controller
-
-//         getPostsPage(pageNum, )
-
-//     }, [pageNum])
-
-
-//     return {results, isLoading, isError, error, hasNextPage}
-// }
-
-
-// window.innerHeight : 브라우저에서 실제로 표시되고 있는 영역의 높이 즉, 사용자가 보고있는 영역의 높이
-// window.scrollY : 스크롤이 세로로 얼마나 이동했는지를 px로 나타냄 0부터 시작해서 스크롤을 내릴수록 증가
-// document.body.offsetHeight : 요소의 실제 높이 = 보이는 영역 + 가려진 영역
-// => 표시되는 영역 + 스크롤 값이 콘텐츠 전체높이보다 크면 더이상 내려갈 곳이 없다는 뜻이다. 따라서 그때마다 새로운 요소를 추가해주면 무한스크롤을 구현할 수 있다.
-

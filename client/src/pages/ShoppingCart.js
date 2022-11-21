@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components/macro";
-import { AiOutlineCheckCircle } from "react-icons/ai";
 import CartItem from "../components/CartItem";
 import Apis from "../apis/apis";
 
@@ -9,7 +8,7 @@ const CartBlock = styled.div`
   width: 100%;
   height: 100%;
   padding: 30px 40px 50px 40px;
-  justify-content: center;
+  margin-top: 180px;
   display: flex;
   div {
     display: flex;
@@ -28,10 +27,18 @@ const AllCheckBlock = styled.div`
     margin-left: 5px;
     align-items: center;
   }
+  .cursor{
+    cursor: pointer;
+  }
+  label{
+    cursor: pointer;
+  }
 `;
 
-const CheckCircle = styled(AiOutlineCheckCircle)`
-  font-size: 19px;
+const CheckCircle = styled.input`
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
   &.all-check{
     color: #FFAF51;
   }
@@ -69,6 +76,7 @@ const Payment = styled.section`
   border: 1px solid #002c6d;
   border-radius: 5px;
   padding: 20px;
+  margin-left: 10px;
   .pay-title {
     font-weight: 500;
   }
@@ -121,8 +129,12 @@ const PayButton = styled.button`
 function ShoppingCart() {
   let jwtToken = localStorage.getItem("Authorization");
 
+  const [empty, setEmpty] = useState(false)
+
   const [cartItemList, setCartItemList] = useState([]);
-  const [allCheck, setAllCheck] = useState(true);
+  const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
+  const [numberOfCartList, setNumberOfCartList] = useState([]);
+  
 
   useEffect(() => {
     Apis.get(`carts`,
@@ -133,33 +145,87 @@ function ShoppingCart() {
       },
     })
     .then((data) => {
-      setCartItemList(data.data.productCarts);
+      if(data.data.productCarts.length === 0){
+        setEmpty(true)
+      }else{
+        setEmpty(false)
+        setCartItemList(data.data.productCarts);
+        setNumberOfCartList(data.data.productCarts.length)
+      }
     });
   }, []);
-  console.log(cartItemList);
+  console.log(`checkList`, checkList);
 
-  const AllCheckHandler = () => {
-    setAllCheck(!allCheck)
+  
+  const changeAllCheck = (checked) => {
+    if(checked) {
+      const allCheckBox = [];
+      
+      cartItemList.forEach(el => allCheckBox.push(el));
+      setCheckList(allCheckBox);
+    } else {
+      setCheckList([]);
+    }
+  };
+  
+  const changeEachCheck = (checked, cartItem) => {
+    if(checked) {
+      setCheckList([...checkList, cartItem]);
+    }else {
+      setCheckList(checkList.filter(el => el !== cartItem));
+    }
+  };
+
+  const totalPriceCalculator = checkList.reduce((sum, item) => {
+    return sum + (item.count * item.price);
+  }, 0)
+
+  const totalCountCalculator = checkList.reduce((sum, item) => {
+    return sum + item.count;
+  }, 0)
+
+  const checkRemoveCartItem = () => {
+    checkList.forEach(el => {
+      return  Apis.delete(`carts/${el.productCartId}`,
+      { 
+        headers: {
+          Authorization: `${jwtToken}`
+        },
+      })
+      .then((res) => {
+          console.log(res.data);
+          window.location.reload();
+      })
+      .catch((err) => {
+          console.log(err);
+      })
+    });
   }
 
   return (
     <CartBlock>
+      {empty ? <div> 장바구니에 담긴 상품이 없습니다.</div> :
         <Quary>
           <CartList>
             <div className="cart-title">장바구니</div>
             <AllCheckBlock>
-              <div onClick={AllCheckHandler}>
-                <CheckCircle className={allCheck ? 'all-check' : ''}/>
-                <div className="center" >전체선택</div>
-              </div>
+                <CheckCircle 
+                  id='checkid' 
+                  type='checkbox' 
+                  // className='all-check'
+                  onChange={e => changeAllCheck(e.target.checked)}
+                  checked={checkList.length === numberOfCartList ? true : false }
+                />
+                <label for='checkid' className="center" >전체선택</label>
               <span>ㅣ</span>
-              <span>선택삭제</span>
+              <span className='cursor' onClick={checkRemoveCartItem}>선택삭제</span>
             </AllCheckBlock>
             {cartItemList.map((item) => (
               <CartItem 
                   cartItem={item}
                   key={item.productCartId}
-                  allCheck={allCheck}
+                  changeEachCheck={changeEachCheck}
+                  checkList={checkList}
               />
             ))
             }
@@ -169,11 +235,11 @@ function ShoppingCart() {
             <PayInfo>
               <div>
                 <span>상품수</span>
-                <span>2 개</span>
+                <span>{totalCountCalculator.toLocaleString("en-US")} 개</span>
               </div>
               <div>
                 <span>상품금액</span>
-                <span>475,410 원</span>
+                <span>{totalPriceCalculator.toLocaleString("en-US")} 원</span>
               </div>
               <div>
                 <span>할인금액</span>
@@ -186,11 +252,12 @@ function ShoppingCart() {
             </PayInfo>
             <TotalPrice>
               <span className="small">총 결제금액</span>
-              <span>475,410 원</span>
+              <span>{totalPriceCalculator.toLocaleString("en-US")} 원</span>
             </TotalPrice>
             <PayButton>구매하기</PayButton>
           </Payment>
         </Quary>
+      }
     </CartBlock>
   );
 }
