@@ -191,7 +191,7 @@ const Mypage = () => {
                 구매 내역
               </NavDetail>
             </Link>
-            <Link to="*" style={{ textDecoration: "none" }}>
+            <Link to="edit" style={{ textDecoration: "none" }}>
               <NavDetail
                 name="editProfileTab"
                 className={clicked === "정보 수정" ? "clicked" : ""}
@@ -224,9 +224,9 @@ const Mypage = () => {
         </Nav>
       </Left>
       <Routes>
-        <Route path="/*" element={<EditProfile />}></Route>
+        <Route path="/edit" element={<EditProfile />}></Route>
         <Route path="/purchase" element={<PurchaseList />}></Route>
-        <Route path="/review" element={<MyReview />}></Route>
+        <Route path="/myboard" element={<MyReview />}></Route>
       </Routes>
     </Container>
   );

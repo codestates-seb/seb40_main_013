@@ -40,6 +40,8 @@ export const guestUser = createAsyncThunk(
   async ({ navigate }) => {
     return Apis.post(`guest`)
       .then((res) => {
+        let jwtToken = res.headers.get("Authorization");
+        localStorage.setItem("Authorization", jwtToken);
         navigate("/");
         window.alert("로그인 성공!");
         return res.data;

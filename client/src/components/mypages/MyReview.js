@@ -26,7 +26,7 @@ function MyReview() {
   };
   useEffect(() => {
     dispatch(getAllReview());
-  }, [dispatch]);
+  }, []);
 
   return (
     <Container>
@@ -55,7 +55,6 @@ function MyReview() {
                 </ReviewContentsBtn>
               </ReviewContentsBtnSpace>
               <ReviewContentsUser>
-                {" "}
                 {new Date(data.createdAt).getFullYear() +
                   "." +
                   [new Date(data.createdAt).getMonth() + 1] +
