@@ -11,6 +11,7 @@ import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.product.entity.QCategory;
 import gohome.dailydaily.domain.product.entity.QProduct;
 import gohome.dailydaily.domain.product.repository.param.CategoryGetParam;
+import gohome.dailydaily.domain.product.repository.param.TitleGetParam;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
@@ -89,6 +90,19 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
             throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
         }
         return content;
+    }
+
+    @Override
+    public SliceResponseDto<CategoryGetDto> findAllByTitle(Pageable pageable, TitleGetParam param) {
+        BooleanBuilder whereCondition = getWhereCondition(param);
+
+        Slice<CategoryGetDto> content = applySlicing(pageable, query ->
+                query.select(getCategoryGetDto())
+                        .from(product)
+                        .where(whereCondition)
+                        .orderBy(product.score.desc(), product.id.asc()));
+
+        return SliceResponseDto.of(content);
     }
 
     @Override
@@ -197,6 +211,16 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
 
         if (hasText(param.getSubCategory())) {
             whereCondition.and(category.sub.eq(param.getSubCategory()));
+        }
+
+        return whereCondition;
+    }
+
+    private BooleanBuilder getWhereCondition(TitleGetParam param) {
+        BooleanBuilder whereCondition = new BooleanBuilder();
+
+        if (hasText(param.getTitle())) {
+            whereCondition.and(product.title.contains(param.getTitle()));
         }
 
         return whereCondition;
