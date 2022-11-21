@@ -11,6 +11,7 @@ import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.repository.CategoryRepository;
 import gohome.dailydaily.domain.product.repository.ProductRepository;
 import gohome.dailydaily.domain.product.repository.param.CategoryGetParam;
+import gohome.dailydaily.domain.product.repository.param.TitleGetParam;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
@@ -69,7 +70,12 @@ public class ProductService {
     }
 
     public SliceResponseDto<CategoryGetDto> getProductListByTitle(GetProductListByTitleDto dto) {
-        return null;
+        SliceResponseDto<CategoryGetDto> products =productRepository
+                .findAllByTitle(dto.getPageRequest(), TitleGetParam.valueOf(dto));
+        if (products.getContent().isEmpty()){
+            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
+        }
+        return products;
     }
 
     public List<List<CategoryGetDto>> getBrandListLikeTop5() {

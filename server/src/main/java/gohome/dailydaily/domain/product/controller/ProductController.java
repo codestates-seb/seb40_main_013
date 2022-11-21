@@ -57,7 +57,8 @@ public class ProductController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/title")
+    // 제목으로 상품 리스트 검색
+    @GetMapping("/titles")
     public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByTitle(GetProductListByTitleDto dto) {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByTitle(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
