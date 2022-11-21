@@ -1,5 +1,6 @@
 package gohome.dailydaily.domain.review.dto;
 
+import gohome.dailydaily.domain.file.entity.File;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +16,6 @@ public class ReviewDto {
     @Getter
     public static class Post {
         @NotBlank
-        private String title;
-        @NotBlank
         private String content;
         @Range(min = 0, max = 5)
         private Float score;
@@ -26,7 +25,6 @@ public class ReviewDto {
     public static class Patch {
         @Positive
         private Long reviewId;
-        private String title;
         private String content;
         private Float score;
     }
@@ -39,9 +37,9 @@ public class ReviewDto {
         private Long productId;
         private String productTitle;
         private String nickname;
-        private String title;
         private String content;
         private Float score;
+        private File img;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
     }

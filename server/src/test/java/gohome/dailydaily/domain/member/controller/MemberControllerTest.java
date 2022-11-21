@@ -101,6 +101,7 @@ class MemberControllerTest implements Reflection {
                                 FWP_MEMBER_ID, FWP_NICKNAME, FWP_EMAIL,
                                 fieldWithPath("address").type(JsonFieldType.NULL).description("주소"),
                                 fieldWithPath("phone").type(JsonFieldType.NULL).description("휴대폰 번호"),
+                                fieldWithPath("img").type(JsonFieldType.NULL).description("이미지"),
                                 FWP_MEMBER_STATUS
                         )
                 ));

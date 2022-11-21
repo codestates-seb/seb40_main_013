@@ -12,16 +12,20 @@ public class CategoryGetDto {
     private String title;
     private Integer price;
     private Integer score;
+    private String nickname;
+    private String main;
 
 //    @Setter
 //    private List<OptionDto.Response> options;
 
     @QueryProjection
-    public CategoryGetDto(Long id, File img, String title, Integer price, Integer score) {
+    public CategoryGetDto(Long id, File img, String title, Integer price, Integer score, String nickname,String main) {
         this.id = id;
         this.img = img;
         this.title = title;
         this.price = price;
         this.score = score;
+        this.nickname = nickname;
+        this.main = main;
     }
 }

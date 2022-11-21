@@ -1,6 +1,7 @@
 package gohome.dailydaily.domain.member.entity;
 
 import gohome.dailydaily.domain.cart.entity.Cart;
+import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.review.entity.Review;
 import gohome.dailydaily.global.common.BaseTime;
 import lombok.*;
@@ -21,6 +22,8 @@ public class Member extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
+
+    private File img;
 
     @Column(nullable = false, unique = true)
     private String email;

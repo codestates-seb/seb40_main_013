@@ -1,5 +1,6 @@
 package gohome.dailydaily.domain.review.entity;
 
+import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.global.common.BaseTime;
@@ -20,8 +21,7 @@ public class Review extends BaseTime {
     @Column(name = "review_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String title;
+    private File img;
 
     @Lob
     @Column(nullable = false)
@@ -44,8 +44,6 @@ public class Review extends BaseTime {
     }
 
     public Review updateReview(Review review) {
-        Optional.ofNullable(review.getTitle())
-                .ifPresent(title -> this.title = title);
         Optional.ofNullable(review.getContent())
                 .ifPresent(content -> this.content = content);
         Optional.ofNullable(review.getScore())

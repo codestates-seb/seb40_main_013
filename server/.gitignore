@@ -39,4 +39,5 @@ out/
 ### 업로드 파일 ###
 img/
 src/main/resources/application-local.yml
+src/main/resources/static/docs/index.html
 src/main/generated/
