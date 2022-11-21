@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import starimg from "../../imgs/star.png";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Products = styled(Link)`
   width: 18vw;
@@ -95,12 +95,12 @@ const Star = styled.img`
 const StarAerage = styled.div`
   display: flex;
 `;
-const Product = ({ product }) => {
-  const { img, nickname, title, price, score } = product;
+const Product = ({ proId, img, brand, title, price, score }) => {
+  const { id } = useParams();
 
   return (
-    <Products to="/detail/:id">
-      <Img src={img.fullPath}></Img>
+    <Products to={`/detail/${proId}`}>
+      <Img src={img?.fullPath}></Img>
       <Detail>
         <SubDetail>
           <Brand>{nickname}</Brand>

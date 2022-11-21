@@ -10,9 +10,9 @@ import Signup from "./pages/Signup";
 import ArticleDetail from "./pages/detail/ArticleDetail";
 import SubCategory from "./pages/SubCategory";
 import ShoppingCart from "./pages/ShoppingCart";
+import { useState } from "react";
 
 const MainContainter = styled.div`
-  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -20,19 +20,21 @@ const MainContainter = styled.div`
 `;
 
 function App() {
+  const [click, setClick] = useState('');
+
   return (
     <BrowserRouter>
       <GlobalStyles />
       <div className="App">
         <MainContainter>
-          <Header />
+          <Header setClick={setClick}/>
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/users/login" element={<Login />} />
             <Route path="/members/mypage/*" element={<MyPage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/detail/:id" element={<ArticleDetail />} />
-            <Route path="/sub" element={<SubCategory />} />
+            <Route path="/sub" element={<SubCategory click={click}/>} />
             <Route path="/cart" element={<ShoppingCart />} />
           </Routes>
           <Footer />
