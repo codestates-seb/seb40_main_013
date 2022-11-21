@@ -226,7 +226,7 @@ const Mypage = () => {
       <Routes>
         <Route path="/*" element={<EditProfile />}></Route>
         <Route path="/purchase" element={<PurchaseList />}></Route>
-        <Route path="/myboard" element={<MyReview />}></Route>
+        <Route path="/review" element={<MyReview />}></Route>
       </Routes>
     </Container>
   );

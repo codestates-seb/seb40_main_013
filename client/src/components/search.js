@@ -6,17 +6,14 @@ const SearchBlock = styled.div`
   position: fixed; //absolute로 바꿀수도 있음
   width: 100%;
   height: 100%;
-  z-index: 20000;
+  z-index: 300;
   overflow: hidden;
   transition: 0.3s height;
-
-  top: 180px;
+  top: 160px;
   left: 0;
   background-color: white;
   display: flex;
   justify-content: center;
-  align-items: center;
-
   &.closed {
     height: 0;
   }
@@ -56,7 +53,7 @@ const SearchInput = styled.div`
 const Ranking = styled.div`
   flex-direction: column;
   align-items: center;
-  height: 350px;
+  /* height: 350px; */
   padding: 30px 10px 50px 10px;
 `;
 

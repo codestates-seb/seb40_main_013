@@ -109,7 +109,7 @@ const Main = () => {
             />
           ))}
       </ProductList>
-      <Title>브랜드별 추천상품</Title>
+      {/* <Title>브랜드별 추천상품</Title>
       <BrandProducts
         key={productList.length}
         dodotList={productList.filter((p) => p.brand === "dodot" && p.id < 9)}
@@ -145,7 +145,7 @@ const Main = () => {
             colorChip={product.colorChip}
           />
         ))}
-      </ProductList>
+      </ProductList> */}
       <Button />
     </Container>
   );
