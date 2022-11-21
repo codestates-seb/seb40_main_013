@@ -15,7 +15,7 @@ import java.util.UUID;
 public class S3FileRepository implements FileRepository {
 
     private final AmazonS3Client amazonS3Client;
-    private String S3Bucket = "daily-daily-file";
+    private String S3Bucket = "13-dailydaily";
 
     @Override
     public File saveFile(MultipartFile multipartFile, String path) throws IOException {
