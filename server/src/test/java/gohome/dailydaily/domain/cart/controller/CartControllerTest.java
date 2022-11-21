@@ -109,7 +109,7 @@ class CartControllerTest implements Reflection {
     @Test
     void getCart() throws Exception{
         // given
-        given(cartService.getCart(MEMBER.getId())).willReturn(CART);
+        given(cartService.findVerifiedCart(MEMBER.getId())).willReturn(CART);
 
         // when
         ResultActions actions = mockMvc.perform(

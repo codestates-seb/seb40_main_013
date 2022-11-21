@@ -45,7 +45,7 @@ public class CartController {
     @GetMapping
     public ResponseEntity getCart(@MemberId Long memberId) {
 
-        Cart cart = cartService.getCart(memberId);
+        Cart cart = cartService.findVerifiedCart(memberId);
 
         return new ResponseEntity<>(mapper.toResponse(cart), HttpStatus.OK);
     }

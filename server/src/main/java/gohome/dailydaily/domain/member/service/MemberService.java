@@ -64,6 +64,7 @@ public class MemberService {
         }
     }
 
+    @Transactional(readOnly = true)
     public Member findVerifiedMember(Long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
