@@ -14,7 +14,7 @@ export const emailCheck = (email) => {
 // 이메일 정규식
 
 export const pwdCheck = (pwd) => {
-  let pwdreg = /^(?=.[A-Za-z])(?=.\d)(?=.[$@$!%#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
+  let pwdreg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@!%*#?&]{8,}$/;
 
   return pwdreg.test(pwd);
 };

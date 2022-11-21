@@ -5,19 +5,16 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { renderStar } from "../../components/Star";
 
 function Review({ articlesDetail }) {
+  console.log(articlesDetail);
+  const reviewLength = articlesDetail?.reviews?.length;
+  console.log(reviewLength);
   return (
     <ReviewWrapper>
-      <ReviewTitle>상품 후기 ( OO건 )</ReviewTitle>
+      <ReviewTitle>상품 후기 ( {reviewLength}건 )</ReviewTitle>
       <ReviewStarSpace>
-        <ReviewStar>
-          <BsStarFill />
-          <BsStarFill />
-          <BsStarFill />
-          <BsStarFill />
-          <BsStarFill />
-        </ReviewStar>
+        {renderStar(articlesDetail?.score)}
         <ReviewStaAverage>
-          평균 별점<ReviewNumber> 5</ReviewNumber>점
+          평균 별점<ReviewNumber> {articlesDetail?.score}</ReviewNumber>점
         </ReviewStaAverage>
       </ReviewStarSpace>
       <Boundary />
@@ -26,7 +23,9 @@ function Review({ articlesDetail }) {
         <ReviewContentsSpace key={data.reviewId}>
           <ReviewContentsLeftSpace>
             <ReviewContentsNumber>{data.reviewId}</ReviewContentsNumber>
-            {/* <ReviewContentsImg src={data.img}></ReviewContentsImg> */}
+            <ReviewContentsImg
+              src={articlesDetail?.img.fullPath}
+            ></ReviewContentsImg>
             <ReviewContentsMainSpace>
               {renderStar(data.score)}
               <ReviewMainTitle>{data.title}</ReviewMainTitle>
@@ -61,7 +60,7 @@ function Review({ articlesDetail }) {
 }
 
 const ReviewWrapper = styled.div`
-  width: 600px;
+  width: 700px;
   height: 100%;
 `;
 const ReviewTitle = styled.div`

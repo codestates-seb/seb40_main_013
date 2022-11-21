@@ -5,32 +5,53 @@ import { FiChevronDown } from "react-icons/fi";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import Review from "./Review";
 import { useDispatch, useSelector } from "react-redux";
-import { getArticleDetail } from "../../reduxstore/slices/articleSlice";
-import { useParams } from "react-router-dom";
+import {
+  getArticleDetail,
+  postCart,
+} from "../../reduxstore/slices/articleSlice";
+import { useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
-
+  const [selectOptions, setSelectOptions] = useState("");
+  const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
+  const [cartCount, setCartCount] = useState(1);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const params = useParams();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
   );
-
+  let price = articlesDetail?.price;
   const clickFunction = () => {
     setClickSelect(!clickSelect);
   };
+  const clickUpCart = () => {
+    setCartCount(cartCount + 1);
+  };
+  const clickDownCart = () => {
+    setCartCount(cartCount - 1);
+  };
 
-  // const selectOption = (data) => {
-  //   console.log(data);
-  //   setSelectOptions(data);
-  // };
-  // console.log(selectOptions);
+  const selectOption = (id, color) => {
+    setSelectOptions(id);
+    setSelectOptionColor(color);
+  };
 
   useEffect(() => {
     dispatch(getArticleDetail(Number(params.id)));
   }, []);
+
+  const clickPostCart = (e) => {
+    let postCartData = {
+      productId: articlesDetail?.productId,
+      count: cartCount,
+      optionId: selectOptions,
+    };
+    console.log(postCartData);
+    dispatch(postCart({ postCartData, navigate }));
+  };
 
   return (
     <Wrapper>
@@ -80,7 +101,10 @@ function ArticleDetail() {
                       <DetailArticleSelectOption
                         key={option?.optionId}
                         value={option?.value}
-                        clickSelect={clickSelect}
+                        onClick={() => {
+                          selectOption(option.optionId, option.color),
+                            clickFunction();
+                        }}
                       >
                         색상 : {option?.color}
                         가격 : {option?.price?.toLocaleString("en-US")}
@@ -93,7 +117,7 @@ function ArticleDetail() {
               ) : (
                 <>
                   <DetailArticleSelectOption>
-                    색상선택
+                    {selectOptionColor}
                   </DetailArticleSelectOption>
                 </>
               )}
@@ -104,23 +128,25 @@ function ArticleDetail() {
             <DetailUserSubmitPriceSpace>
               <DetailUserQuantitySpace>
                 <ButtonIcon>
-                  <BiChevronLeft />
+                  <BiChevronLeft onClick={clickDownCart} />
                 </ButtonIcon>
-                <div>1</div>
+                <div>{cartCount}</div>
                 <ButtonIcon>
-                  <BiChevronRight />
+                  <BiChevronRight onClick={clickUpCart} />
                 </ButtonIcon>
               </DetailUserQuantitySpace>
               <DetailUserPriceSpace>
                 <DetailUserPrice>총 상품금액</DetailUserPrice>
                 <DetailUserPrice>
-                  {articlesDetail?.price?.toLocaleString("en-US")}
+                  {(price * cartCount).toLocaleString("en-US")}
                 </DetailUserPrice>
                 <DetailUserPrice> 원</DetailUserPrice>
               </DetailUserPriceSpace>
             </DetailUserSubmitPriceSpace>
             <DetailArticlBtnSpace>
-              <DetailArticlBtn>장바구니</DetailArticlBtn>
+              <DetailArticlBtn onClick={clickPostCart}>
+                장바구니
+              </DetailArticlBtn>
               <DetailArticlBtn>바로구매</DetailArticlBtn>
             </DetailArticlBtnSpace>
           </ArticleInformations>
@@ -190,7 +216,7 @@ const DetailArticleStaAverage = styled.div`
 `;
 
 const DetailMidImg = styled.img`
-  width: 600px;
+  width: 700px;
   margin-top: 100px;
 `;
 const ButtonIcon = styled.button`
@@ -259,6 +285,7 @@ const DetailArticleSelectOption = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  margin-left: 20px;
   &:nth-child(1) {
     border-right: none;
     border-left: none;
