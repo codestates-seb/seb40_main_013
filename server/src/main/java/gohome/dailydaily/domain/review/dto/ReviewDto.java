@@ -15,8 +15,6 @@ public class ReviewDto {
     @Getter
     public static class Post {
         @NotBlank
-        private String title;
-        @NotBlank
         private String content;
         @Range(min = 0, max = 5)
         private Float score;
@@ -26,7 +24,6 @@ public class ReviewDto {
     public static class Patch {
         @Positive
         private Long reviewId;
-        private String title;
         private String content;
         private Float score;
     }
@@ -39,7 +36,6 @@ public class ReviewDto {
         private Long productId;
         private String productTitle;
         private String nickname;
-        private String title;
         private String content;
         private Float score;
         private LocalDateTime createdAt;
