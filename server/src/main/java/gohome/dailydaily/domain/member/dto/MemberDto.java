@@ -8,6 +8,7 @@ import lombok.Getter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public class MemberDto {
 
@@ -27,17 +28,24 @@ public class MemberDto {
         private String nickname;
         @NotBlank
         private String brandNumber;
+        @NotBlank
         @Email
         private String email;
         @NotBlank
+        @Pattern(regexp = "/(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@!%*#?&])[A-Za-z\\d$@!%*#?&]{8,}/")
         private String password;
     }
 
     @Getter
     public static class Patch {
         private String nickname;
+
+        @Pattern(regexp = "/(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@!%*#?&])[A-Za-z\\d$@!%*#?&]{8,}/")
         private String password;
+
         private String address;
+
+        @Pattern(regexp = "/01[016789]-\\d{3,4}-\\d{4}/")
         private String phone;
     }
 
