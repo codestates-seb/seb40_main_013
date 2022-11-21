@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long>, ProductRepositoryCustom {
 
-    @EntityGraph(attributePaths = {"seller", "seller.member", "seller.member.cart", "reviews"})
+    @EntityGraph(attributePaths = {"seller", "seller.member", "seller.member.cart", "reviews","category"})
     Optional<Product> findProductById(Long productId);
 
 }

@@ -83,9 +83,11 @@ public class ProductControllerTest {
     public void getProductListByCategory() throws Exception {
         SliceResponseDto<CategoryGetDto> products = new SliceResponseDto<>(new SliceImpl<>(
                 List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
-                                PRODUCT.getPrice(), PRODUCT.getScore()),
+                                PRODUCT.getPrice(), PRODUCT.getScore(), PRODUCT.getSeller().getMember().getNickname(),
+                                PRODUCT.getCategory().getMain()),
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                                PRODUCT2.getPrice(), PRODUCT2.getScore())), PAGEABLE, true));
+                                PRODUCT2.getPrice(), PRODUCT2.getScore(), PRODUCT.getSeller().getMember().getNickname(),
+                                PRODUCT.getCategory().getMain())), PAGEABLE, true));
 
         given(productService.getProductListByCategory(any(GetProductListByCategoryDTO.class)))
                 .willReturn(products);
@@ -106,17 +108,21 @@ public class ProductControllerTest {
                         RESPONSE_PREPROCESSOR,
                         REQUEST_PARAM_CATEGORY,
                         responseFields(
-                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE,
-                                FWP_CONTENT_PRODUCT_SCORE, FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
+                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH,
+                                FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE,
+                                FWP_CONTENT_PRODUCT_CATEGORY_MAIN, FWP_CONTENT_PRODUCT_SELLER_NICKNAME,
+                                FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
                         )));
     }
 
     @Test
     public void getScoreTop5() throws Exception {
         List<CategoryGetDto> products = new ArrayList<>(List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
-                        PRODUCT.getPrice(), PRODUCT.getScore()),
+                        PRODUCT.getPrice(), PRODUCT.getScore(), PRODUCT.getSeller().getMember().getNickname(),
+                        PRODUCT.getCategory().getMain()),
                 new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                        PRODUCT2.getPrice(), PRODUCT2.getScore())));
+                        PRODUCT2.getPrice(), PRODUCT2.getScore(), PRODUCT.getSeller().getMember().getNickname(),
+                        PRODUCT.getCategory().getMain())));
 
         given(productService.getScoreTop5()).willReturn(products);
 
@@ -130,21 +136,26 @@ public class ProductControllerTest {
                         RESPONSE_PREPROCESSOR,
                         responseFields(
                                 FWP_SCORE_PRODUCT_ID, FWP_SCORE_PRODUCT_IMG_PATH, FWP_SCORE_PRODUCT_IMG_NAME,
+                                FWP_PRODUCTS_SELLER_NICKNAME, FWP_PRODUCTS_CATEGORY_MAIN,
                                 FWP_SCORE_PRODUCT_TITLE, FWP_SCORE_PRODUCT_PRICE, FWP_SCORE_PRODUCT_SCORE
                         )));
     }
 
     @Test
-    public void getBrandListLikeTop5() throws Exception{
+    public void getBrandListLikeTop5() throws Exception {
         List<CategoryGetDto> brand1 = new ArrayList<>(List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
-                        PRODUCT.getPrice(), PRODUCT.getScore()),
+                        PRODUCT.getPrice(), PRODUCT.getScore(), PRODUCT.getSeller().getMember().getNickname(),
+                        PRODUCT.getCategory().getMain()),
                 new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                        PRODUCT2.getPrice(), PRODUCT2.getScore())));
+                        PRODUCT2.getPrice(), PRODUCT2.getScore(), PRODUCT.getSeller().getMember().getNickname(),
+                        PRODUCT.getCategory().getMain())));
 
         List<CategoryGetDto> brand2 = new ArrayList<>(List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
-                        PRODUCT.getPrice(), PRODUCT.getScore()),
+                        PRODUCT.getPrice(), PRODUCT.getScore(), PRODUCT.getSeller().getMember().getNickname(),
+                        PRODUCT.getCategory().getMain()),
                 new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                        PRODUCT2.getPrice(), PRODUCT2.getScore())));
+                        PRODUCT2.getPrice(), PRODUCT2.getScore(), PRODUCT.getSeller().getMember().getNickname(),
+                        PRODUCT.getCategory().getMain())));
 
         List<List<CategoryGetDto>> products = new ArrayList<>();
         products.add(brand1);
@@ -161,23 +172,28 @@ public class ProductControllerTest {
                         RESPONSE_PREPROCESSOR,
                         responseFields(
                                 FWP_BRAND_PRODUCT_ID, FWP_BRAND_PRODUCT_IMG_PATH, FWP_BRAND_PRODUCT_IMG_NAME,
-                                FWP_BRAND_PRODUCT_TITLE, FWP_BRAND_PRODUCT_PRICE, FWP_BRAND_PRODUCT_SCORE
+                                FWP_BRAND_PRODUCT_TITLE, FWP_BRAND_PRODUCT_PRICE, FWP_BRAND_PRODUCT_SCORE,
+                                FWP_BRAND_PRODUCTS_SELLER_NICKNAME, FWP_BRAND_PRODUCTS_CATEGORY_MAIN
                         )));
     }
 
     @Test
-    public void getCategoryCreatedTop15() throws Exception{
+    public void getCategoryCreatedTop15() throws Exception {
         List<CategoryGetDto> category1 = new ArrayList<>(
                 List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
-                        PRODUCT.getPrice(), PRODUCT.getScore()),
-                new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
-                        PRODUCT.getPrice(), PRODUCT.getScore())));
+                                PRODUCT.getPrice(), PRODUCT.getScore(), PRODUCT.getSeller().getMember().getNickname(),
+                                PRODUCT.getCategory().getMain()),
+                        new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
+                                PRODUCT.getPrice(), PRODUCT.getScore(), PRODUCT.getSeller().getMember().getNickname(),
+                                PRODUCT.getCategory().getMain())));
 
         List<CategoryGetDto> category2 = new ArrayList<>(
                 List.of(new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                        PRODUCT2.getPrice(), PRODUCT2.getScore()),
-                new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                        PRODUCT2.getPrice(), PRODUCT2.getScore())));
+                                PRODUCT2.getPrice(), PRODUCT2.getScore(), PRODUCT.getSeller().getMember().getNickname(),
+                                PRODUCT.getCategory().getMain()),
+                        new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+                                PRODUCT2.getPrice(), PRODUCT2.getScore(), PRODUCT.getSeller().getMember().getNickname(),
+                                PRODUCT.getCategory().getMain())));
 
         List<List<CategoryGetDto>> products = new ArrayList<>();
         products.add(category1);
@@ -194,7 +210,8 @@ public class ProductControllerTest {
                         RESPONSE_PREPROCESSOR,
                         responseFields(
                                 FWP_BRAND_PRODUCT_ID, FWP_BRAND_PRODUCT_IMG_PATH, FWP_BRAND_PRODUCT_IMG_NAME,
-                                FWP_BRAND_PRODUCT_TITLE, FWP_BRAND_PRODUCT_PRICE, FWP_BRAND_PRODUCT_SCORE
+                                FWP_BRAND_PRODUCT_TITLE, FWP_BRAND_PRODUCT_PRICE, FWP_BRAND_PRODUCT_SCORE,
+                                FWP_BRAND_PRODUCTS_SELLER_NICKNAME, FWP_BRAND_PRODUCTS_CATEGORY_MAIN
                         )));
     }
 //    @Test
