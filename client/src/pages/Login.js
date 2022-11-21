@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../reduxstore/slices/userSlice";
 import loginImg from "../imgs/chairImage.png";
 import { AiOutlineCheckCircle } from "react-icons/ai";
+import { guestUser } from "../reduxstore/slices/userSlice";
 
 function Login() {
   const [userWriteEmail, setUserWriteEmail] = useState("");
@@ -42,6 +43,9 @@ function Login() {
       dispatch(loginUser({ loginData, navigate }));
     }
   };
+  const clickGuest = () => {
+    dispatch(guestUser({ navigate }));
+  };
   //content
 
   return (
@@ -55,6 +59,7 @@ function Login() {
             <LoginInput placeholder="Password" onChange={writeChangePwd} />
           </LoginInputSpace>
           <LoginButton onClick={clickLogin}>로그인</LoginButton>
+          <LoginButton onClick={clickGuest}>게스트 로그인</LoginButton>
           <LoginInformationSpace>
             <LoginCheckSpace>
               <div>

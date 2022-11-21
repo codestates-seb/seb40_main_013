@@ -116,7 +116,7 @@ function Header() {
   const outModalCloseHandler = ({ target }) => {
     if (closeSearch && !modalRef.current.contains(target))
       setCloseSearch(false);
-      console.log(target.innerHTML);
+    console.log(target.innerHTML);
   };
 
   useEffect(() => {
@@ -133,7 +133,7 @@ function Header() {
           <Link to="/users/login">
             <LoginBtn>로그인/회원가입</LoginBtn>
           </Link>
-          <Link to="/users/me/*">
+          <Link to="/members/mypage/*">
             <LoginBtn>마이페이지</LoginBtn>
           </Link>
         </div>
@@ -146,7 +146,7 @@ function Header() {
           <div>
             <Link to="/sub">
               <Category>
-                <div>서재</div> 
+                <div>서재</div>
                 <Nav className="1">
                   <div>책상</div>
                   <div>의자</div>
@@ -157,7 +157,7 @@ function Header() {
             </Link>
             <Link to="/sub">
               <Category>
-              <div>침실</div>  
+                <div>침실</div>
                 <Nav className="2">
                   <div>침대/매트리스</div>
                   <div>행거/옷장</div>
@@ -168,7 +168,7 @@ function Header() {
             </Link>
             <Link to="/sub">
               <Category className="space">
-                <div>거실</div>   
+                <div>거실</div>
                 <Nav className="3">
                   <div>소파</div>
                   <div>거실장</div>
@@ -179,7 +179,7 @@ function Header() {
             </Link>
             <Link to="/sub">
               <Category className="space">
-                <div>주방</div> 
+                <div>주방</div>
                 <Nav className="4">
                   <div>식탁/아일랜드</div>
                   <div>식탁의자</div>

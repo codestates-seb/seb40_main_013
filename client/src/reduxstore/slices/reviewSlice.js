@@ -5,17 +5,15 @@ import axios from "axios";
 let jwtToken = localStorage.getItem("Authorization");
 
 export const getAllReview = createAsyncThunk("review/allGet", async (id) => {
-  return axios
-    .get(
-      `https://large-masks-worry-59-20-223-31.loca.lt/members/mypage/reviews`,
-      {
-        headers: {
-          // Authorization: `${jwtToken}`,
-          "Content-Type": "application/json",
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjY4NzYxNTQ0LCJleHAiOjE2Njg3NjE2MDQsInJvbGVzIjpbIlVTRVIiXX0.nQgR6AfkwNld3RckeyrsFzj17pAnASRVk7L-9yGgKGQ`,
-        },
-      }
-    )
+  return Apis.get(
+    `members/mypage/reviews?page=0&size=20&sort=createdAt%2CDESC`,
+    {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    }
+  )
     .then((res) => {
       return res.data;
     })
@@ -33,6 +31,45 @@ export const postReview = createAsyncThunk(
     })
       .then((res) => {
         console.log(res);
+        window.location.reload();
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+export const updateReview = createAsyncThunk(
+  "review/update",
+  async ({ updateData }) => {
+    return Apis.patch(`products/1/reviews`, updateData, {
+      headers: {
+        Authorization: `${jwtToken}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+export const deleteReview = createAsyncThunk(
+  "review/delete",
+  async ({ deleteData }) => {
+    return Apis.delete(
+      `products/${deleteData.productId}/reviews/${deleteData.reviewId}`,
+      {
+        headers: {
+          Authorization: `${jwtToken}`,
+        },
+      }
+    )
+      .then((res) => {
+        console.log(res);
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {
@@ -56,6 +93,11 @@ const reviewSlice = createSlice({
       state.error = "";
     },
     [postReview.fulfilled]: (state, action) => {
+      state.review = action.payload;
+      state.loading = true;
+      state.error = "";
+    },
+    [deleteReview.fulfilled]: (state, action) => {
       state.review = action.payload;
       state.loading = true;
       state.error = "";

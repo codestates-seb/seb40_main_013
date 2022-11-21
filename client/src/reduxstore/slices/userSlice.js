@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
 
 let jwtToken = localStorage.getItem("Authorization");
-
 export const signUser = createAsyncThunk(
   "user/signUser",
   async ({ signData, navigate }) => {
@@ -36,6 +35,22 @@ export const loginUser = createAsyncThunk(
       });
   }
 );
+export const guestUser = createAsyncThunk(
+  "user/guestUser",
+  async ({ navigate }) => {
+    return Apis.post(`guest`)
+      .then((res) => {
+        let jwtToken = res.headers.get("Authorization");
+        localStorage.setItem("Authorization", jwtToken);
+        navigate("/");
+        window.alert("로그인 성공!");
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 
 const userSlice = createSlice({
   name: "user",
@@ -53,6 +68,11 @@ const userSlice = createSlice({
       state.error = "";
     },
     [loginUser.fulfilled]: (state, action) => {
+      state.users = action.payload;
+      state.loading = true;
+      state.error = "";
+    },
+    [guestUser.fulfilled]: (state, action) => {
       state.users = action.payload;
       state.loading = true;
       state.error = "";
