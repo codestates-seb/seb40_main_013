@@ -11,7 +11,7 @@ public class CustomUserDetails extends Member implements UserDetails {
     private final CustomAuthorityUtils authorityUtils;
 
     public CustomUserDetails(Member member, CustomAuthorityUtils authorityUtils) {
-        super(member.getId(), member.getEmail(), member.getNickname(),
+        super(member.getId(), member.getImg(), member.getEmail(), member.getNickname(),
                 member.getPassword(), member.getAddress(), member.getPhone(),
                 member.getMemberStatus(), member.getCart());
         this.addRoles(member.getRoles());
