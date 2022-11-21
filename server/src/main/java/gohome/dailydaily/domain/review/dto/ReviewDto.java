@@ -1,5 +1,6 @@
 package gohome.dailydaily.domain.review.dto;
 
+import gohome.dailydaily.domain.file.entity.File;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,6 +39,7 @@ public class ReviewDto {
         private String nickname;
         private String content;
         private Float score;
+        private File img;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
     }
