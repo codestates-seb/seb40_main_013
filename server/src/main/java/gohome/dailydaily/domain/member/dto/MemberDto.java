@@ -1,5 +1,6 @@
 package gohome.dailydaily.domain.member.dto;
 
+import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -59,6 +60,7 @@ public class MemberDto {
         private String address;
         private String phone;
         private MemberStatus memberStatus;
+        private File img;
     }
 
     @Getter
@@ -73,6 +75,7 @@ public class MemberDto {
         private String address;
         private String phone;
         private MemberStatus memberStatus;
+        private File img;
     }
 
 }
