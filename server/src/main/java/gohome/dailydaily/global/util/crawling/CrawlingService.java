@@ -1,8 +1,14 @@
 package gohome.dailydaily.global.util.crawling;
 
+import com.google.gson.Gson;
 import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.file.service.FileService;
+import gohome.dailydaily.domain.member.entity.Member;
+import gohome.dailydaily.domain.member.entity.MemberRole;
+import gohome.dailydaily.domain.member.entity.MemberStatus;
+import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.product.dto.ProductDto;
+import gohome.dailydaily.domain.product.entity.Category;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.repository.ProductRepository;
@@ -28,7 +34,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class CrawlingService implements Crawler {
+public class CrawlingService {
 
     private final ProductRepository productRepository;
     private final ProductMapper mapper;
@@ -75,19 +81,48 @@ public class CrawlingService implements Crawler {
                     final String title = titleElements.get(j).text();
                     final String price = priceElements.get(j).text();
                     final int intPrice = toInt(removeNotNumeric(price));
-                    final String seller = sellerElements.get(j).text();
+                    final String sellerName = sellerElements.get(j).text();
                     final String contentsLink = contentsElements.attr("abs:src");
                     final String options = optionsElements.get(j).text();
 
                     System.out.println("썸네일: " + imageUrls[j]);
                     System.out.println("상품명: " + title);
                     System.out.println("가격: " + intPrice);
-                    System.out.println("판매자: " + seller);
+                    System.out.println("판매자: " + sellerName);
                     System.out.println("상품 옵션: " + options);
 
+                    Member member = Member.builder()
+                            .email("hgd@gmail.com")
+                            .nickname(sellerName)
+                            .password("비밀번호")
+                            .address("주소")
+                            .phone("010-1234-5678")
+                            .memberStatus(MemberStatus.ACTIVE)
+                            .build();
+
+                    member.addRoles(MemberRole.USER);
+
+                    Seller seller = Seller.builder()
+                            .brandNumber("35-12-315253")
+                            .member(member)
+                            .build();
+
+                    Category category = Category.builder()
+                            .main("침실")
+                            .sub("책상")
+                            .build();
+
+                    Product product = Product.builder()
+                            .title(title)
+                            .img(urlDownload(imageUrls[j]))
+                            .price(intPrice)
+                            .seller(seller)
+                            .category(category)
+                            .content(new Gson().toJson(contents))
+                            .build();
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -101,9 +136,8 @@ public class CrawlingService implements Crawler {
     }
 
     // url 로 이미지 저장
-    public void urlDownload(String url) {
+    public File urlDownload(String url) throws Exception {
 
-        try {
             URL imgUrl = new URL(url);
 
             BufferedImage image = ImageIO.read(imgUrl);
@@ -116,8 +150,7 @@ public class CrawlingService implements Crawler {
                     .fullPath(productImgPath)
                     .build();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return productFile;
     }
+
 }

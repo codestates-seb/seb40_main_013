@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.net.MalformedURLException;
+import java.util.Arrays;
 
 @Controller
 @Slf4j
@@ -21,17 +22,14 @@ public class CrawlingController {
     @ResponseStatus(HttpStatus.OK)
     public void productCrawling() {
 
-        String url = "https://ohou.se/productions/445617/selling?affect_type=StoreSearchResult&affect_id=1";
+        String[] urls = {"https://ohou.se/productions/445617/selling?affect_type=StoreSearchResult&affect_id=1"};
 
-//        for (String url : urls) {
-        log.info("@CrawlingController, productName url : " + url);
-        service.crawling(url);
-//        }
+        service.crawling(urls);
     }
 
     @GetMapping("/product/img")
     @ResponseStatus(HttpStatus.OK)
-    public void productImage() {
+    public void productImage() throws Exception{
 
         String url = "https://www.dodot.co.kr/new_shop/shop3.php?cd1=001";
 
