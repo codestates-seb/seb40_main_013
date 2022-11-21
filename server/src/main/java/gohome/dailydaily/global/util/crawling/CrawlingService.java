@@ -12,6 +12,7 @@ import gohome.dailydaily.domain.product.entity.Category;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.repository.ProductRepository;
+import gohome.dailydaily.domain.review.entity.Review;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
@@ -53,7 +54,7 @@ public class CrawlingService {
             // 개발 강의 모든 페이징 순회
             for (int i = 0; i <= url.length; i++) {
                 Connection conn = Jsoup.connect(url[i]);
-                Document document = conn.get();
+                Document document = conn.maxBodySize(0).get();
 
                 // 크롤링 항목 필요 리스트
                 //   - 썸네일 링크, 강의 제목, 가격(할인가격), 평점, 강의자, 강의 링크, 수강자 수, 플랫폼, 강의 세션 개수 + 시간
@@ -63,6 +64,7 @@ public class CrawlingService {
                 Elements sellerElements = document.getElementsByClass("production-selling-header__title__brand");
                 Elements contentsElements = document.getElementsByClass("production-selling-description__content");
                 Elements optionsElements = document.getElementsByTag("select");
+                Elements reviewsElements = document.getElementsByClass("production-review-item");
                 String[] imageUrls = new String[imageUrlElements.size()];
 
                 int setIndex = 0;
@@ -71,10 +73,18 @@ public class CrawlingService {
                 for (Element e : imageUrlElements) {
                     imageUrls[setIndex++] = e.attr("abs:src");
                 }
+
                 List<String> contents = new ArrayList<>();
                 for (Element e : contentsElements.select("img")) {
                     contents.add(e.attr("abs:src"));
                     System.out.println("상품내용 : " + e.attr("abs:src"));
+                }
+
+                List<Review> reviews = new ArrayList<>();
+                for (Element e : reviewsElements) {
+                    Review review = Review.builder()
+                            .content()
+                    reviews.add
                 }
 
                 for (int j = 0; j < titleElements.size(); j++) {
