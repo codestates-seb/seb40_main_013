@@ -8,7 +8,6 @@ import Carousel from "../components/mains/Calousel2";
 import Button from "../components/Button";
 import Products from "../components/mains/Product";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Apis from "../apis/apis";
 import BrandProducts from "../components/mains/BrandProducts";
 
