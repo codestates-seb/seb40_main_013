@@ -331,3 +331,15 @@ include::{snippets}/carts/delete/path-parameters.adoc[]
 
 .http-response
 include::{snippets}/carts/delete/http-response.adoc[]
+
+== 검색
+=== 인기 검색어
+.http-request
+include::{snippets}/search/rank/http-request.adoc[]
+
+.http-response
+include::{snippets}/search/rank/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/search/rank/response-fields.adoc[]
