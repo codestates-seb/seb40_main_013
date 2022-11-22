@@ -138,7 +138,7 @@ function Header({setClick}) {
           <Link to="/users/login">
             <LoginBtn>로그인/회원가입</LoginBtn>
           </Link>
-          <Link to="/users/me/*">
+          <Link to="/members/mypage/*">
             <LoginBtn>마이페이지</LoginBtn>
           </Link>
         </div>
