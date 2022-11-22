@@ -22,7 +22,6 @@ public class SearchRedisRepository {
     @PostConstruct
     public void init() {
         zSetOperations = redisTemplate.opsForZSet();
-        redisTemplate.expire(key, 1, TimeUnit.MINUTES);
     }
 
     public void addSearchCount(String keyword) {
