@@ -141,170 +141,106 @@ function Header({ setClick }) {
 
   return (
     <>
-      {jwtToken ? (
-        <HeaderBlock>
-          <div className="top">
+      <HeaderBlock>
+        <div className="top">
+          {jwtToken ? (
             <Link>
               <LoginBtn onClick={clickLogOut}>로그아웃</LoginBtn>
             </Link>
-            <Link to="/members/mypage/purchase">
-              <LoginBtn>마이페이지</LoginBtn>
-            </Link>
-          </div>
-          <Link to="/">
-            <Logo>
-              <div>DAILY DAILY</div>
-            </Logo>
-          </Link>
-
-          <CategoryList>
-            <div>
-              <Link to="/sub">
-                <Category>
-                  <div onClick={clickMenu}>서재</div>
-                  <Nav className="1">
-                    <div onClick={clickMenu}>책상</div>
-                    <div onClick={clickMenu}>의자</div>
-                    <div onClick={clickMenu}>책장</div>
-                    <div onClick={clickMenu}>선반</div>
-                  </Nav>
-                </Category>
-              </Link>
-              <Link to="/sub">
-                <Category>
-                  <div onClick={clickMenu}>침실</div>
-                  <Nav className="2">
-                    <div onClick={clickMenu}>침대</div>
-                    <div onClick={clickMenu}>행거/옷장</div>
-                    <div onClick={clickMenu}>화장대</div>
-                    <div onClick={clickMenu}>거울</div>
-                  </Nav>
-                </Category>
-              </Link>
-              <Link to="/sub">
-                <Category className="space">
-                  <div onClick={clickMenu}>거실</div>
-                  <Nav className="3">
-                    <div onClick={clickMenu}>소파</div>
-                    <div onClick={clickMenu}>거실장</div>
-                    <div onClick={clickMenu}>사이드테이블</div>
-                    <div onClick={clickMenu}>수납장</div>
-                  </Nav>
-                </Category>
-              </Link>
-              <Link to="/sub">
-                <Category className="space">
-                  <div onClick={clickMenu}>주방</div>
-                  <Nav className="4">
-                    <div onClick={clickMenu}>식탁/아일랜드</div>
-                    <div onClick={clickMenu}>식탁의자</div>
-                    <div onClick={clickMenu}>주방수납</div>
-                  </Nav>
-                </Category>
-              </Link>
-            </div>
-
-            <div>
-              <div ref={modalRef} className="modal">
-                <Serach onClick={closeHandler}>
-                  <BsSearch size="20" />
-                </Serach>
-                <DownSearch
-                  closeSearch={closeSearch}
-                  closeHandler={closeHandler}
-                />
-              </div>
-              <Link to="/cart">
-                <div>
-                  <BsCart3 size="20" />
-                  <div className="cart-count">(0)</div>
-                </div>
-              </Link>
-            </div>
-          </CategoryList>
-        </HeaderBlock>
-      ) : (
-        <HeaderBlock>
-          <div className="top">
+          ) : (
             <Link to="/users/login">
               <LoginBtn>로그인/회원가입</LoginBtn>
             </Link>
-            <Link to="/users/me/*">
+          )}
+          {jwtToken ? (
+            <Link to="/members/mypage/purchase">
               <LoginBtn>마이페이지</LoginBtn>
             </Link>
-          </div>
-          <Link to="/">
-            <Logo>
-              <div>DAILY DAILY</div>
-            </Logo>
-          </Link>
-          <CategoryList>
-            <div>
-              <Link to="/sub">
-                <Category>
-                  <div onClick={clickMenu}>서재</div>
-                  <Nav className="1">
-                    <div onClick={clickMenu}>책상</div>
-                    <div onClick={clickMenu}>의자</div>
-                    <div onClick={clickMenu}>책장</div>
-                    <div onClick={clickMenu}>선반</div>
-                  </Nav>
-                </Category>
-              </Link>
-              <Link to="/sub">
-                <Category>
-                  <div onClick={clickMenu}>침실</div>
-                  <Nav className="2">
-                    <div onClick={clickMenu}>침대</div>
-                    <div onClick={clickMenu}>행거/옷장</div>
-                    <div onClick={clickMenu}>화장대</div>
-                    <div onClick={clickMenu}>거울</div>
-                  </Nav>
-                </Category>
-              </Link>
-              <Link to="/sub">
-                <Category className="space">
-                  <div onClick={clickMenu}>거실</div>
-                  <Nav className="3">
-                    <div onClick={clickMenu}>소파</div>
-                    <div onClick={clickMenu}>거실장</div>
-                    <div onClick={clickMenu}>사이드테이블</div>
-                    <div onClick={clickMenu}>수납장</div>
-                  </Nav>
-                </Category>
-              </Link>
-              <Link to="/sub">
-                <Category className="space">
-                  <div onClick={clickMenu}>주방</div>
-                  <Nav className="4">
-                    <div onClick={clickMenu}>식탁/아일랜드</div>
-                    <div onClick={clickMenu}>식탁의자</div>
-                    <div onClick={clickMenu}>주방수납</div>
-                  </Nav>
-                </Category>
-              </Link>
-            </div>
+          ) : (
+            <Link to="/users/login">
+              <LoginBtn>마이페이지</LoginBtn>
+            </Link>
+          )}
+        </div>
+        <Link to="/">
+          <Logo>
+            <div>DAILY DAILY</div>
+          </Logo>
+        </Link>
 
-            <div>
-              <div ref={modalRef} className="modal">
-                <Serach onClick={closeHandler}>
-                  <BsSearch size="20" />
-                </Serach>
-                <DownSearch
-                  closeSearch={closeSearch}
-                  closeHandler={closeHandler}
-                />
-              </div>
+        <CategoryList>
+          <div>
+            <Link to="/sub">
+              <Category>
+                <div onClick={clickMenu}>서재</div>
+                <Nav className="1">
+                  <div onClick={clickMenu}>책상</div>
+                  <div onClick={clickMenu}>의자</div>
+                  <div onClick={clickMenu}>책장</div>
+                  <div onClick={clickMenu}>선반</div>
+                </Nav>
+              </Category>
+            </Link>
+            <Link to="/sub">
+              <Category>
+                <div onClick={clickMenu}>침실</div>
+                <Nav className="2">
+                  <div onClick={clickMenu}>침대</div>
+                  <div onClick={clickMenu}>행거/옷장</div>
+                  <div onClick={clickMenu}>화장대</div>
+                </Nav>
+              </Category>
+            </Link>
+            <Link to="/sub">
+              <Category className="space">
+                <div onClick={clickMenu}>거실</div>
+                <Nav className="3">
+                  <div onClick={clickMenu}>소파</div>
+                  <div onClick={clickMenu}>거실장</div>
+                  <div onClick={clickMenu}>수납장</div>
+                </Nav>
+              </Category>
+            </Link>
+            <Link to="/sub">
+              <Category className="space">
+                <div onClick={clickMenu}>주방</div>
+                <Nav className="4">
+                  <div onClick={clickMenu}>식탁/아일랜드</div>
+                  <div onClick={clickMenu}>식탁의자</div>
+                  <div onClick={clickMenu}>주방수납</div>
+                </Nav>
+              </Category>
+            </Link>
+          </div>
+
+          <div>
+            <div ref={modalRef} className="modal">
+              <Serach onClick={closeHandler}>
+                <BsSearch size="20" />
+              </Serach>
+              <DownSearch
+                closeSearch={closeSearch}
+                closeHandler={closeHandler}
+              />
+            </div>
+            {jwtToken ? (
               <Link to="/cart">
                 <div>
                   <BsCart3 size="20" />
                   <div className="cart-count">(0)</div>
                 </div>
               </Link>
-            </div>
-          </CategoryList>
-        </HeaderBlock>
-      )}
+            ) : (
+              <Link to="/users/login">
+                <div>
+                  <BsCart3 size="20" />
+                  <div className="cart-count">(0)</div>
+                </div>
+              </Link>
+            )}
+          </div>
+        </CategoryList>
+      </HeaderBlock>
     </>
   );
 }
