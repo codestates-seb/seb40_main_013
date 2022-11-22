@@ -155,6 +155,12 @@ const EditProfile = ({getUserdata})=>{
     if(!updateNickName){
       setUpdatNickName(getUserdata?.nickname)
     }
+    if(!updateAddress){
+      setUpdateAddress(getUserdata?.address)
+    }
+    if(!updatePhone){
+      setUpdatePhone(getUserdata?.phone)
+    }
   })
 
   const handleUpdateNickName = e => {
@@ -243,7 +249,7 @@ const EditProfile = ({getUserdata})=>{
       phone: updatePhone,
     }
     console.log(updatedata)
-    dispatch(updateUser({updatedata}));
+    dispatch(updateUser(updatedata));
   }
 
   const handleDelete = (e) => {
@@ -322,11 +328,13 @@ const EditProfile = ({getUserdata})=>{
       <Label htmlFor="address">주소</Label>
       <Input 
         name="address"
+      value={updateAddress}
         onChange={handleUpdateAddress}
         ></Input>
       <Label htmlFor="phone">휴대폰 번호 ( 예: 010-1234-5678 )</Label>
       <Input 
         name="phone"
+        value={updatePhone}
         onChange={handleUpdatePhone}
       ></Input>
       {!updatePhoneConfirm ? (

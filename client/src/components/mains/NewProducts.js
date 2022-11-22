@@ -1,10 +1,9 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components/macro";
-import brandImg from "../../imgs/brandImg.png"
-import dodot from "../../imgs/dodot.jpeg"
-import sofsys from "../../imgs/sofsys.jpeg"
-import forthehome from "../../imgs/forthehome.png"
-import desker from "../../imgs/desker.png"
+import livingroom from "../../imgs/livingroom.png"
+import library from "../../imgs/library.png"
+import bedroom from "../../imgs/bedroom.png"
+import kitchen from "../../imgs/kitchen.png"
 
 const BrandContainer = styled.div`
   display:flex;
@@ -157,8 +156,8 @@ const Price = styled.h2`
   font-weight: 600;
 `;
 
-const BrandProducts = ({ roomandhomeList, dodotList, sofsysList, forthehomeList, deskerList, marketbeeList, hudoList }) =>{
-  const [clicked, setClicked] = useState('두닷');
+const NewProducts = ({ libraryList, bedList }) =>{
+  const [clicked, setClicked] = useState('서재');
 
   const onClick = useCallback(e => {
     const text = e.target.innerText;
@@ -166,10 +165,10 @@ const BrandProducts = ({ roomandhomeList, dodotList, sofsysList, forthehomeList,
   }, []);
 
   const ProductArr = {
-    "룸앤홈": <BrandProduct>
-            <BrandImg src={dodot}></BrandImg>
+    "서재": <BrandProduct>
+            <BrandImg src={library}></BrandImg>
             <BPList>
-            {roomandhomeList?.map((p)=>
+                {libraryList?.map((p)=>
                   <BP key={p.id}>
                     <Img src={p.img.fullPath} />
                     <TP>
@@ -177,41 +176,13 @@ const BrandProducts = ({ roomandhomeList, dodotList, sofsysList, forthehomeList,
                       <Price>{p.price.toLocaleString('en-US')}</Price>
                     </TP>
                   </BP>
-                  )}
+                )}
             </BPList>
           </BrandProduct>,
-  "소프시스": <BrandProduct>
-              <BrandImg src={sofsys}></BrandImg>
-              <BPList>
-              {sofsysList?.map((p)=>
-                  <BP key={p.id}>
-                      <Img src={p.img.fullPath} />
-                      <TP>
-                        <Title>{p.title}</Title>
-                        <Price>{p.price.toLocaleString('en-US')}</Price>
-                      </TP>
-                    </BP>
-                  )}
-              </BPList>
-            </BrandProduct>,
-  "포더홈": <BrandProduct>
-              <BrandImg src={forthehome}></BrandImg>
-              <BPList>
-              {forthehomeList?.map((p)=>
-                  <BP key={p.id}>
-                    <Img src={p.img.fullPath} />
-                    <TP>
-                      <Title>{p.title}</Title>
-                      <Price>{p.price.toLocaleString('en-US')}</Price>
-                    </TP>
-                  </BP>
-                  )}
-              </BPList>
-            </BrandProduct>,
-  "데스커": <BrandProduct>
-            <BrandImg src={desker}></BrandImg>
+  "침실": <BrandProduct>
+            <BrandImg src={bedroom}></BrandImg>
             <BPList>
-            {deskerList?.map((p)=>
+                {bedList?.map((p)=>
                   <BP key={p.id}>
                     <Img src={p.img.fullPath} />
                     <TP>
@@ -219,13 +190,27 @@ const BrandProducts = ({ roomandhomeList, dodotList, sofsysList, forthehomeList,
                       <Price>{p.price.toLocaleString('en-US')}</Price>
                     </TP>
                   </BP>
-                  )}
+                )}
             </BPList>
           </BrandProduct>,
-  "두닷": <BrandProduct>
-              <BrandImg src={dodot}></BrandImg>
+  "거실": <BrandProduct>
+          <BrandImg src={livingroom}></BrandImg>
+            <BPList>
+                {bedList?.map((p)=>
+                  <BP key={p.id}>
+                    <Img src={p.img.fullPath} />
+                    <TP>
+                      <Title>{p.title}</Title>
+                      <Price>{p.price.toLocaleString('en-US')}</Price>
+                    </TP>
+                  </BP>
+                )}
+            </BPList>
+          </BrandProduct>,
+    "주방": <BrandProduct>
+            <BrandImg src={kitchen}></BrandImg>
               <BPList>
-              {dodotList?.map((p)=>
+                  {bedList?.map((p)=>
                     <BP key={p.id}>
                       <Img src={p.img.fullPath} />
                       <TP>
@@ -233,35 +218,7 @@ const BrandProducts = ({ roomandhomeList, dodotList, sofsysList, forthehomeList,
                         <Price>{p.price.toLocaleString('en-US')}</Price>
                       </TP>
                     </BP>
-                    )}
-              </BPList>
-            </BrandProduct>,
-  "마켓비": <BrandProduct>
-              <BrandImg src={dodot}></BrandImg>
-              <BPList>
-              {marketbeeList?.map((p)=>
-                    <BP key={p.id}>
-                      <Img src={p.img.fullPath} />
-                      <TP>
-                        <Title>{p.title}</Title>
-                        <Price>{p.price.toLocaleString('en-US')}</Price>
-                      </TP>
-                    </BP>
-                    )}
-              </BPList>
-            </BrandProduct>,
-  "휴도": <BrandProduct>
-              <BrandImg src={dodot}></BrandImg>
-              <BPList>
-              {hudoList?.map((p)=>
-                    <BP key={p.id}>
-                      <Img src={p.img.fullPath} />
-                      <TP>
-                        <Title>{p.title}</Title>
-                        <Price>{p.price.toLocaleString('en-US')}</Price>
-                      </TP>
-                    </BP>
-                    )}
+                  )}
               </BPList>
             </BrandProduct>,
 }
@@ -271,59 +228,34 @@ const BrandProducts = ({ roomandhomeList, dodotList, sofsysList, forthehomeList,
       <Tabs>
         <SubTab>
           <Tab
-          name="dodot"
-          className={clicked === '룸앤홈' ? 'clicked' : ''}
+          name="library"
+          className={clicked === '서재' ? 'clicked' : ''}
           onClick={onClick}
           value="1">
-            룸앤홈
+            서재
           </Tab>
           <Tab
-          name="sofsis"
-          className={clicked === '소프시스' ? 'clicked' : ''}
+          name="bedroom"
+          className={clicked === '침실' ? 'clicked' : ''}
           onClick={onClick}
           value="2">
-            소프시스
+            침실
           </Tab>
         </SubTab>
         <SubTab>
           <Tab
-            name="forTheHome"
-            className={clicked === '포더홈' ? 'clicked' : ''}
+            name="livingroom"
+            className={clicked === '거실' ? 'clicked' : ''}
             onClick={onClick}
             value="3">
-              포더홈
+              거실
             </Tab>
             <Tab
-            name="illom"
-            className={clicked === '데스커' ? 'clicked' : ''}
+            name="kitchen"
+            className={clicked === '주방' ? 'clicked' : ''}
             onClick={onClick}
             value="4">
-              데스커
-            </Tab>
-          </SubTab>
-          <SubTab>
-          <Tab
-            name="forTheHome"
-            className={clicked === '휴도' ? 'clicked' : ''}
-            onClick={onClick}
-            value="3">
-              휴도
-            </Tab>
-            <Tab
-            name="illom"
-            className={clicked === '마켓비' ? 'clicked' : ''}
-            onClick={onClick}
-            value="4">
-              마켓비
-            </Tab>
-          </SubTab>
-          <SubTab>
-          <Tab
-            name="forTheHome"
-            className={clicked === '두닷' ? 'clicked' : ''}
-            onClick={onClick}
-            value="3">
-              두닷
+              주방
             </Tab>
           </SubTab>
         </Tabs>
@@ -332,4 +264,4 @@ const BrandProducts = ({ roomandhomeList, dodotList, sofsysList, forthehomeList,
   )
 }
 
-export default BrandProducts;
+export default NewProducts;

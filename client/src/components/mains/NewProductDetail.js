@@ -14,8 +14,7 @@ const Img = styled.img`
 const Title = styled.h2`
   font-size: 1rem;
 `;
-const BrandProductDetail = ({productList}) => {
-  console.log(productList);
+const NewProductDetail = ({productList}) => {
 
   return(
     <Container>
@@ -28,4 +27,4 @@ const BrandProductDetail = ({productList}) => {
     </Container>
   )
 }
-export default BrandProductDetail;
+export default NewProductDetail;

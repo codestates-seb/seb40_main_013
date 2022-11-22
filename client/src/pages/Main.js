@@ -3,13 +3,14 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bestOfBest, topBrand, mainData } from "../reduxstore/slices/articleSlice";
 import { newData } from "../reduxstore/slices/mainSlice";
+import { categoryData } from "../reduxstore/slices/categorySlice";
 import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
 import Button from "../components/Button";
 import Products from "../components/mains/Product";
 import { Link } from "react-router-dom";
 import Apis from "../apis/apis";
-import BrandProducts from "../components/mains/BrandProducts";
+import NewProducts from "../components/mains/NewProducts";
 
 const Container = styled.div`
   width: 100vw;
@@ -89,20 +90,21 @@ const TD = styled.td`
 
 const Main = () => {
   const dispatch = useDispatch();
-  const bestData = useSelector((state)=> state.article.mainArticle?.filter((p,idx)=>idx < 5));
-  const brandData = useSelector((state)=>state.article.mainArticle?.filter((p,idx)=>idx >= 5));
-  const categoryData = useSelector((state)=>state.main.main)
-
-  const roomandhomeData = brandData[0]
-  const deskerData = brandData[1]
-  const dodotData = brandData[2]
-  const forthehomeData = brandData[3]
-  const marketbeeData = brandData[4]
-  const hudoData = brandData[5]
-  const sofsysData = brandData[6]
-  console.log(sofsysData)
-  const libraryData = categoryData[1]
-  const bedroomData = categoryData[0]
+  const bestData = useSelector((state)=> state.article.mainArticle);
+  const libraryData = useSelector((state)=>state.category.category[1]);
+  const bedData = useSelector((state)=>state.category.category[0]);
+  const brandData = useSelector((state)=>state.main.main)
+console.log(brandData)
+  // const roomandhomeData = brandData[0]
+  // const deskerData = brandData[1]
+  // const dodotData = brandData[2]
+  // const forthehomeData = brandData[3]
+  // const marketbeeData = brandData[4]
+  // const hudoData = brandData[5]
+  // const sofsysData = brandData[6]
+  // console.log(sofsysData)
+  // const libraryData = categoryData[1]
+  // const bedroomData = categoryData[0]
   // console.log(brandData)
   // console.log(categoryData)
 
@@ -168,6 +170,7 @@ const Main = () => {
   //best of best
   useEffect(()=>{
     dispatch(mainData());
+    dispatch(categoryData());
     dispatch(newData());
   }, [])
 
@@ -187,18 +190,18 @@ const Main = () => {
             />
           ))}
       </ProductList>
-      <Title>브랜드별 추천상품</Title>
-      <BrandProducts
-        key={brandData.length}
-        roomandhomeList={roomandhomeData}
-        dodotList = {dodotData}
-        forthehomeList={forthehomeData}
-        deskerList={deskerData}
-        marketbeeList={marketbeeData}
-        hudoList={hudoData}
-        sofsysList={sofsysData}
-      />
       <Title>New Arrival</Title>
+      <NewProducts
+        key={libraryData?.length}
+        libraryList={libraryData}
+        bedList = {bedData}
+        // forthehomeList={forthehomeData}
+        // deskerList={deskerData}
+        // marketbeeList={marketbeeData}
+        // hudoList={hudoData}
+        // sofsysList={sofsysData}
+      />
+      <Title>브랜드별 추천상품</Title>
       <Table>
         <tbody className="tbody">
           <tr className="tr">
@@ -217,13 +220,13 @@ const Main = () => {
         </FullView>
       </FullTitle>
       <ProductList>
-        {libraryData?.map((product) => (
+        {/* {libraryData?.map((product) => (
             <Products
             key={product.id}
             proId={product.id}
             product={product}
             />
-          ))}
+          ))} */}
       </ProductList>
       <SubTitle ref={bedroomRef}>Bedroom</SubTitle>
       <Title>침실</Title>
@@ -233,13 +236,13 @@ const Main = () => {
         </FullView>
       </FullTitle>
       <ProductList>
-        {bedroomData?.map((product) => (
+        {/* {bedroomData?.map((product) => (
           <Products
           key={product.id}
           proId={product.id}
           product={product}
           />
-        ))}
+        ))} */}
       </ProductList>
       <SubTitle ref={livingroomRef}>Living room</SubTitle>
       <Title>거실</Title>

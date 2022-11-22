@@ -13,6 +13,7 @@ import ShoppingCart from "./pages/ShoppingCart";
 import { useState } from "react";
 
 const MainContainter = styled.div`
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

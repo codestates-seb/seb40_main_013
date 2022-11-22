@@ -102,7 +102,7 @@ const Product = ({ proId, product }) => {
 
   return(
     <Products to={`/detail/${proId}`}>
-      <Img src={img.fullPath}></Img>
+      <Img src={img?.fullPath}></Img>
       <Detail>
         <SubDetail>
           <Brand>{nickname}</Brand>
@@ -113,7 +113,7 @@ const Product = ({ proId, product }) => {
         </SubDetail>
         <Title>{title}</Title>
         <SubDetail>
-          <Price>{price.toLocaleString('en-US')}</Price>
+          <Price>{price?.toLocaleString('en-US')}</Price>
         </SubDetail>
       </Detail>
     </Products>
