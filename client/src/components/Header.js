@@ -147,7 +147,7 @@ function Header({ setClick }) {
             <Link>
               <LoginBtn onClick={clickLogOut}>로그아웃</LoginBtn>
             </Link>
-            <Link to="/users/me/*">
+            <Link to="/members/mypage/purchase">
               <LoginBtn>마이페이지</LoginBtn>
             </Link>
           </div>

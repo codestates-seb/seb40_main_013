@@ -20,11 +20,10 @@ function PostReview({ clickModal }) {
   const postSubmit = (e) => {
     e.preventDefault();
     let postData = {
-      title: userWriteTitle,
       content: userWriteContent,
       score: userWriteScroe,
     };
-    dispatch(postReview({ postData }));
+    dispatch(postReview(postData));
   };
 
   return (
@@ -52,11 +51,6 @@ function PostReview({ clickModal }) {
         </PostReviewContentDownSpace>
       </PostReviewTopSpace>
       <PostReviewDownSpace>
-        <PostReviewDownTitle>리뷰 제목</PostReviewDownTitle>
-        <PostReviewDownInput
-          placeholder="리뷰의 제목을 입력해주세요!"
-          onChange={changeTitle}
-        />
         <PostReviewDownTitle>리뷰 내용</PostReviewDownTitle>
         <PostReviewDownInput
           placeholder="리뷰의 내용을 입력해주세요!"
@@ -153,7 +147,7 @@ const PostReviewDownSpace = styled.div`
 
 const PostReviewDownTitle = styled.div`
   font-size: 15px;
-  margin-top: 5px;
+  margin-top: 10px;
   &:nth-child(1) {
     margin-top: 15px;
   }

@@ -21,28 +21,26 @@ export const getAllReview = createAsyncThunk("review/allGet", async (id) => {
       console.log(err);
     });
 });
-export const postReview = createAsyncThunk(
-  "review/post",
-  async ({ postData }) => {
-    return Apis.post(`products/1/reviews`, postData, {
-      headers: {
-        Authorization: `${jwtToken}`,
-      },
+export const postReview = createAsyncThunk("review/post", async (postData) => {
+  console.log(postData);
+  return Apis.post(`products/1/reviews`, postData, {
+    headers: {
+      Authorization: `${jwtToken}`,
+    },
+  })
+    .then((res) => {
+      console.log(res);
+      window.location.reload();
+      return res.data;
     })
-      .then((res) => {
-        console.log(res);
-        window.location.reload();
-        return res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-);
+    .catch((err) => {
+      console.log(err);
+    });
+});
 export const updateReview = createAsyncThunk(
   "review/update",
   async ({ updateData }) => {
-    return Apis.patch(`products/1/reviews`, updateData, {
+    return Apis.patch(`products/3/reviews`, updateData, {
       headers: {
         Authorization: `${jwtToken}`,
       },

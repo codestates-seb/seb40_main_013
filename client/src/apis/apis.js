@@ -4,33 +4,15 @@ const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
   baseURL: "https://full-tips-watch-125-134-111-237.loca.lt/",
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
-axios.interceptors.request.use(
-  function (config) {
-    let token = localStorage.getItem("Authorization");
-    if (token != undefined) {
-      config.headers["Authorization"] = token;
-      config.headers["Refresh"] = refreshToken;
-      config.headers["Content-Type"] = "application/json";
-    }
-    return config;
-  },
-  async function (error) {
-    // 오류 요청 가공
-    return Promise.reject(error);
-  }
-);
 
 axios.interceptors.request.use(function (config) {
-
-  config.withCredentials = true;
-  const token = localStorage.getItem("Authorization");
-  config.headers["Authorization"] = token;
-  config.headers["Refresh"] = refreshToken;
-  config.headers["Content-Type"] = "application/json";
+  // config.withCredentials = true;
+  // const token = localStorage.getItem("Authorization");
+  // console.log(token);
+  // config.headers["Authorization"] = token;
+  // config.headers["Refresh"] = refreshToken;
+  // config.headers["Content-Type"] = "application/json";
   return config;
 });
 
@@ -58,11 +40,18 @@ Apis.interceptors.response.use(
           const accToken = data.headers.get("Authorization");
           localStorage.removeItem("Authorization");
           localStorage.setItem("Authorization", accToken);
-          originalRequest.headers["Authorization"] = accToken;
-          originalRequest.headers["Refresh"] = refreshToken;
+          // originalRequest.headers["Refresh"] = refreshToken;
           originalRequest.headers["Content-Type"] = "application/json";
           console.log("abcd", 2, originalRequest);
-          return await axios.request(originalRequest);
+          // return axios.request(originalRequest);
+          return Apis({
+            ...originalRequest,
+            headers: {
+              ...originalRequest.headers,
+              Authorization: `${accToken}`,
+            },
+            sent: true,
+          });
           // return 1;
         }
       } catch (err) {

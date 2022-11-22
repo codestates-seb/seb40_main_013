@@ -251,7 +251,7 @@ const Mypage = () => {
           element={<EditProfile getUserdata={getUserdata} />}
         ></Route>
         <Route path="/purchase/*" element={<PurchaseList />}></Route>
-        <Route path="/review" element={<MyReview />}></Route>
+        <Route path="/myboard" element={<MyReview />}></Route>
         <Route path="/recent" element={<Recent />}></Route>
       </Routes>
     </Container>
