@@ -52,43 +52,39 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
                 .limit(5)
                 .fetch();
 
-        if (content.size() < 1){
-            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
-        }
-
         return content;
     }
 
     @Override
-    public List<CategoryGetDto> findByTop5ByBrand(Long id) {
+    public List<CategoryGetDto> findByTop15ByBrand(Long id) {
 
         List<CategoryGetDto> content = select(getCategoryGetDto())
                 .from(product)
                 .orderBy(product.score.desc(), product.reviews.size().desc())
-                .innerJoin(product.seller, seller)
+                .innerJoin(product.seller)
                 .where(product.seller.id.eq(id))
-                .limit(5)
+                .limit(15)
                 .fetch();
 
-        if (content.size() < 1){
-            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
-        }
+//        if (content.size() < 1){
+//            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
+//        }
         return content;
     }
 
     @Override
-    public List<CategoryGetDto> findByTop15ByCategory(String main) {
+    public List<CategoryGetDto> findByTop5ByCategory(String main) {
         List<CategoryGetDto> content = select(getCategoryGetDto())
                 .from(product)
                 .orderBy(product.createdAt.asc())
                 .innerJoin(product.category, category)
                 .where(product.category.main.eq(main))
-                .limit(15)
+                .limit(5)
                 .fetch();
-
-        if (content.size() < 1){
-            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
-        }
+//
+//        if (content.size() < 1){
+//            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
+//        }
         return content;
     }
 
@@ -115,7 +111,6 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
                         .from(product)
                         .innerJoin(product.category, category)
                         .where(whereCondition));
-                        //.orderBy(product.score.desc(), product.id.asc())); // 일단 평점 내림차순으로 정렬하는 걸로 해둠
 
         return SliceResponseDto.of(content);
 //        return  SliceResponseDto.of(

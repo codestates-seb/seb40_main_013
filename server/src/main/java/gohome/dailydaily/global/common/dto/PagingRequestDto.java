@@ -20,12 +20,19 @@ public class PagingRequestDto {
 
     private String sortType = "createdAt";
     private Sort sort1 = Sort.by(sortType).descending();
+    private String order = "desc";
     private Sort sort2 = Sort.by("createdAt").descending();
     private Sort sortAll;
 
     public Pageable getPageRequest() {
-        this.sort1 = Sort.by(sortType).descending();
-        this.sortAll = sort1.and(sort2);
+        if (this.order.equals("asc")){
+            this.sort1 = Sort.by(sortType).ascending();
+            this.sortAll = sort1.and(sort2);
+        }
+        else {
+            this.sort1 = Sort.by(sortType).descending();
+            this.sortAll = sort1.and(sort2);
+        }
         return PageRequest.of(this.page, this.size, this.sortAll);
     }
 

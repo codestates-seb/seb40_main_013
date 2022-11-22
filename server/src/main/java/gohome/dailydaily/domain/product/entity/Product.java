@@ -38,6 +38,9 @@ public class Product extends BaseTime {
     @Column(nullable = false)
     private Integer score;
 
+    @Column(nullable = false)
+    private Integer sale;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private Seller seller;

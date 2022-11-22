@@ -88,8 +88,7 @@ public class ProductControllerTest {
                                 PRODUCT.getCategory().getMain()),
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
                                 PRODUCT2.getPrice(), PRODUCT2.getScore(), PRODUCT.getSeller().getMember().getNickname(),
-                                PRODUCT.getCategory().getMain())), PAGEABLE, true));
-
+                                PRODUCT.getCategory().getMain())),PAGEABLE, true));
         given(productService.getProductListByCategory(any(GetProductListByCategoryDTO.class)))
                 .willReturn(products);
 
@@ -100,7 +99,9 @@ public class ProductControllerTest {
                         .param("sub", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getSub())
                         .param("page", String.valueOf(PAGEABLE.getPageNumber()))
                         .param("size", String.valueOf(PAGEABLE.getPageSize()))
-                        .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
+                        .param("sortType", String.valueOf(PAGEABLE.getSort()).replaceAll(":[^0-9]*", ""))
+                        .param("order", String.valueOf(PAGEABLE.getSort()).replaceAll("[^0-9]*: ", ""))
+
         );
 
         actions.andExpect(status().isOk())
@@ -143,7 +144,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void getBrandListLikeTop5() throws Exception {
+    public void getBrandListLikeTop15() throws Exception {
         List<CategoryGetDto> brand1 = new ArrayList<>(List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                         PRODUCT.getPrice(), PRODUCT.getScore(), PRODUCT.getSeller().getMember().getNickname(),
                         PRODUCT.getCategory().getMain()),
@@ -161,7 +162,7 @@ public class ProductControllerTest {
         List<List<CategoryGetDto>> products = new ArrayList<>();
         products.add(brand1);
         products.add(brand2);
-        given(productService.getBrandListLikeTop5()).willReturn(products);
+        given(productService.getBrandListLikeTop15()).willReturn(products);
 
         ResultActions actions = mockMvc.perform(
                 get("/products/brandListLike")
@@ -179,7 +180,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void getCategoryCreatedTop15() throws Exception {
+    public void getCategoryCreatedTop5() throws Exception {
         List<CategoryGetDto> category1 = new ArrayList<>(
                 List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                                 PRODUCT.getPrice(), PRODUCT.getScore(), PRODUCT.getSeller().getMember().getNickname(),
@@ -199,7 +200,7 @@ public class ProductControllerTest {
         List<List<CategoryGetDto>> products = new ArrayList<>();
         products.add(category1);
         products.add(category2);
-        given(productService.getCategoryCreatedTop15()).willReturn(products);
+        given(productService.getCategoryCreatedTop5()).willReturn(products);
 
         ResultActions actions = mockMvc.perform(
                 get("/products/categoryCreated")

@@ -12,10 +12,13 @@ import gohome.dailydaily.domain.product.repository.CategoryRepository;
 import gohome.dailydaily.domain.product.repository.ProductRepository;
 import gohome.dailydaily.domain.product.repository.param.CategoryGetParam;
 import gohome.dailydaily.domain.product.repository.param.TitleGetParam;
+import gohome.dailydaily.global.common.dto.PagingRequestDto;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,23 +50,6 @@ public class ProductService {
         return products;
     }
 
-//    public Slice<CategoryGetDto> getCategoryList(Pageable pageable, String main) {
-//        Slice<CategoryGetDto> products = productRepository.findByCategory_Main(pageable, main);
-//        if (products.isEmpty()) {
-//            throw new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND);
-//        }
-//        return products;
-//
-//    }
-//
-//    public Slice<CategoryGetDto> getCategoryList(Pageable pageable, String main, String sub) {
-//        Slice<CategoryGetDto> products = productRepository.findByCategory_MainAndCategory_Sub(pageable, main, sub);
-//        if (products.isEmpty()) {
-//            throw new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND);
-//        }
-//        return products;
-//    }
-
     public Product getProduct(Long productId) {
         return productRepository.findProductById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
@@ -78,22 +64,32 @@ public class ProductService {
         return products;
     }
 
-    public List<List<CategoryGetDto>> getBrandListLikeTop5() {
+    public List<List<CategoryGetDto>> getBrandListLikeTop15() {
 
-        List<List<CategoryGetDto>> product = new ArrayList<>();
+        List<List<CategoryGetDto>> products = new ArrayList<>();
         List<Seller> brandList = sellerRepository.findAll();
         for(Seller s : brandList){
-            product.add(productRepository.findByTop5ByBrand(s.getId()));
+            if (productRepository.findByTop15ByBrand(s.getId()).isEmpty()){
+                products.add(null);
+            }
+            else {
+                products.add(productRepository.findByTop15ByBrand(s.getId()));
+            }
         }
-        return product;
+        return products;
     }
 
-    public List<List<CategoryGetDto>> getCategoryCreatedTop15() {
-        List<List<CategoryGetDto>> product = new ArrayList<>();
+    public List<List<CategoryGetDto>> getCategoryCreatedTop5() {
+        List<List<CategoryGetDto>> products = new ArrayList<>();
         List<Category> categoryList = categoryRepository.findByGroupByMain();
         for(Category c : categoryList){
-            product.add(productRepository.findByTop15ByCategory(c.getMain()));
+            if (productRepository.findByTop5ByCategory(c.getMain()).isEmpty()){
+                products.add(null);
+            }
+            else {
+                products.add(productRepository.findByTop5ByCategory(c.getMain()));
+            }
         }
-        return product;
+        return products;
     }
 }
