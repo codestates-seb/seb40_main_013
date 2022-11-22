@@ -11,6 +11,7 @@ import {
 } from "../../reduxstore/slices/articleSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
+
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
   const [selectOptions, setSelectOptions] = useState("");
@@ -18,7 +19,7 @@ function ArticleDetail() {
   const [cartCount, setCartCount] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
@@ -60,10 +61,10 @@ function ArticleDetail() {
     } else {
       get_local = JSON.parse(get_local);
     }
-    console.log(get_local)
-    get_local.push()
+    console.log(get_local);
+    get_local.push();
   }, []);
-  console.log(articlesDetail)
+  console.log(articlesDetail);
 
   return (
     <Wrapper>
@@ -163,7 +164,9 @@ function ArticleDetail() {
             </DetailArticlBtnSpace>
           </ArticleInformations>
         </DetailTopUserSelectSpace>
-        <DetailMidImg src={articlesDetail?.content} />
+        {articlesDetail?.content?.map((data) => (
+          <DetailMidImg src={data} />
+        ))}
         <Review articlesDetail={articlesDetail} renderStar={renderStar} />
       </DetailContents>
     </Wrapper>

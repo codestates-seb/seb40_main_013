@@ -6,7 +6,7 @@ import { Link, useParams } from "react-router-dom";
 const Products = styled(Link)`
   width: 18vw;
   margin: 0 10px;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     width: 150px;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
@@ -22,7 +22,7 @@ const Detail = styled.div`
   flex-direction: column;
   width: 18vw;
   margin-top: 10px;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     width: 150px;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
@@ -35,10 +35,10 @@ const Brand = styled.h5`
 const Title = styled.h2`
   font-size: 1.1rem;
   font-weight: 500;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
   height: 34px;
-  word-break:break-all;
-  @media screen and (max-width: 390px){
+  word-break: break-all;
+  @media screen and (max-width: 390px) {
     font-size: 1.6vw;
     font-weight: 400;
   }
@@ -56,7 +56,7 @@ const Price = styled.h5`
   margin-right: 10px;
   font-size: 1.5rem;
   font-weight: 700;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     font-size: 1.3rem;
     font-weight: 500;
   }
@@ -96,13 +96,13 @@ const StarAerage = styled.div`
   display: flex;
 `;
 const Product = ({ proId, product }) => {
-  const {id} = useParams();
+  const { id } = useParams();
 
-  const { img, nickname, score, title, price} = product;
+  const { img, nickname, score, title, price } = product;
 
-  return(
+  return (
     <Products to={`/detail/${proId}`}>
-      <Img src={img.fullPath}></Img>
+      <Img src={img?.fullPath}></Img>
       <Detail>
         <SubDetail>
           <Brand>{nickname}</Brand>
@@ -113,11 +113,11 @@ const Product = ({ proId, product }) => {
         </SubDetail>
         <Title>{title}</Title>
         <SubDetail>
-          <Price>{price.toLocaleString('en-US')}</Price>
+          <Price>{price.toLocaleString("en-US")}</Price>
         </SubDetail>
       </Detail>
     </Products>
   );
-}
+};
 
 export default Product;
