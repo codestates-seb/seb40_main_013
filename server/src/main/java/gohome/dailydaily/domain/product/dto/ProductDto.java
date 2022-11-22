@@ -1,5 +1,6 @@
 package gohome.dailydaily.domain.product.dto;
 
+import com.google.gson.Gson;
 import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.dto.MemberDto;
 import gohome.dailydaily.domain.member.entity.Seller;
@@ -35,7 +36,7 @@ public class ProductDto {
     public static class Response {
         private Long productId;
         private String title;
-        private String content;
+        private List<String> content;
         private File img;
         private Integer price;
         private Float score;
