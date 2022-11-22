@@ -27,10 +27,11 @@ function Footer() {
         <FooterMenuBtn>공지 사항</FooterMenuBtn>
       </FooterMidBtnMenu>
       <FooterDownContentSpace>
-        <FooterDownContent>
-          팀장 : 홍승재 <br /> 백엔드 : 김경근, 허준열 <br /> 프론트 : 김서연
-          ,노경민 , 임세영
-        </FooterDownContent>
+        <FooterDownContentSpan>팀장 : 홍승재</FooterDownContentSpan>
+        <FooterDownContentSpan>백엔드 : 김경근, 허준열 </FooterDownContentSpan>
+        <FooterDownContentSpan>
+          프론트 : 김서연 ,노경민 , 임세영
+        </FooterDownContentSpan>
         <FooterDownContent>@ 2014 dodot. All Right Reserved.</FooterDownContent>
       </FooterDownContentSpace>
     </FooterWrapper>
@@ -127,15 +128,20 @@ const FooterDownContentSpace = styled.div`
   font-size: 10px;
   color: #aaaaaa;
 `;
-const FooterDownContent = styled.div`
-  margin: 3px 0px;
+
+const FooterDownContentSpan = styled.span`
+  margin: 7px;
+  &:nth-child(1) {
+    margin: 7px 7px 7px 0px;
+  }
   @media screen and (max-width: 768px) {
-    &:nth-child(1) {
-      display: none;
-    }
-    &:nth-child(2) {
-      display: none;
-    }
+    font-size: 15px;
+    margin-top: 20px;
+  }
+`;
+const FooterDownContent = styled.div`
+  margin: 10px 0px;
+  @media screen and (max-width: 768px) {
     &:nth-child(3) {
       font-size: 15px;
       margin-top: 20px;

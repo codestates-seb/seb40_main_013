@@ -12,6 +12,7 @@ export const signUser = createAsyncThunk(
         return res.data;
       })
       .catch((err) => {
+        window.alert("회원가입에 실패했습니다!");
         console.log(err);
       });
   }
@@ -31,11 +32,46 @@ export const loginUser = createAsyncThunk(
         // return res.data;
       })
       .catch((err) => {
+        window.alert("로그인에 실패했습니다!");
         console.log(err);
       });
   }
 );
 
+export const getUser = createAsyncThunk("user/getUser", async () => {
+  return Apis.get(`members/mypage`, {
+    headers: {
+      Authorization: `${jwtToken}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      console.log(res);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+export const updateUser = createAsyncThunk(
+  "user/updateUser",
+  async (updateData) => {
+    console.log(updateData);
+    return Apis.patch(`members/mypage`, updateData, {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 export const guestUser = createAsyncThunk(
   "user/guestUser",
   async ({ navigate }) => {
@@ -45,43 +81,6 @@ export const guestUser = createAsyncThunk(
         localStorage.setItem("Authorization", jwtToken);
         navigate("/");
         window.alert("로그인 성공!");
-        return res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-);
-export const getUser = createAsyncThunk(
-  "user/getUser",
-  async () => {
-    return Apis.get(`members/mypage`, {
-      headers: {
-        Authorization: `${jwtToken}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        console.log(res);
-        return res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-);
-export const updateUser = createAsyncThunk(
-  "user/updateUser",
-  async (updateData) => {
-    console.log(updateData)
-    return Apis.patch(`members/mypage`, updateData, {
-      headers: {
-        Authorization: `${jwtToken}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        console.log(res);
         return res.data;
       })
       .catch((err) => {
@@ -127,6 +126,11 @@ const userSlice = createSlice({
     [updateUser.fulfilled]: (state, action) => {
       state.users = [];
       state.updateUser = action.payload;
+      state.loading = true;
+      state.error = "";
+    },
+    [guestUser.fulfilled]: (state, action) => {
+      state.users = action.payload;
       state.loading = true;
       state.error = "";
     },

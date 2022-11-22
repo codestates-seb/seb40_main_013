@@ -39,10 +39,10 @@ export const mainData = createAsyncThunk("products/mainData", async () => {
   return axios
     .all([
       axios.get(
-        `https://full-tips-watch-125-134-111-237.loca.lt/products/score`
+        `https://weak-papers-buy-125-134-111-237.loca.lt/products/score`
       ),
       axios.get(
-        `https://full-tips-watch-125-134-111-237.loca.lt/products/brandListLike`
+        `https://weak-papers-buy-125-134-111-237.loca.lt/products/brandListLike`
       ),
     ])
     .then(
@@ -59,6 +59,21 @@ export const mainData = createAsyncThunk("products/mainData", async () => {
 
 export const getSubCategory = createAsyncThunk( //비동기처리를 도와주는애(자동으로 지원해줌)
   "getSubCategory",// 이름정하는데, 의미없음
+  async ({click, pageCurrent}) => {
+    console.log(`click`, click, `pageCurren`, pageCurrent);
+    return Apis.get(`products?main=${click}&page=${pageCurrent}`)
+      .then((res) => {
+        console.log(res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);//action 객체, action실행함수 등등....
+
+export const getShoppingCart = createAsyncThunk( //비동기처리를 도와주는애(자동으로 지원해줌)
+  "getShoppingCart",// 이름정하는데, 의미없음
   async ({click, pageCurrent}) => {
     console.log(`click`, click, `pageCurren`, pageCurrent);
     return Apis.get(`products?main=${click}&page=${pageCurrent}`)

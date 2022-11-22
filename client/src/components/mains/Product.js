@@ -6,7 +6,7 @@ import { Link, useParams } from "react-router-dom";
 const Products = styled(Link)`
   width: 18vw;
   margin: 0 10px;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     width: 150px;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
@@ -22,7 +22,7 @@ const Detail = styled.div`
   flex-direction: column;
   width: 18vw;
   margin-top: 10px;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     width: 150px;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
@@ -37,7 +37,7 @@ const Title = styled.h2`
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis; 
-  height: 20%;
+  height: 20%; //수정필요...
   word-break:break-all;
   @media screen and (max-width: 390px){
     font-size: 1.6vw;
@@ -57,7 +57,7 @@ const Price = styled.h5`
   margin-right: 10px;
   font-size: 1.5rem;
   font-weight: 700;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     font-size: 1.3rem;
     font-weight: 500;
   }
@@ -96,13 +96,13 @@ const Star = styled.img`
 const StarAerage = styled.div`
   display: flex;
 `;
-const Product = ({porId, product}) => {
-  const {id} = useParams();
+const Product = ({ proId, product }) => {
+  const { id } = useParams();
 
-  const { img , nickname, title, price, score } = product
+  const { img, nickname, score, title, price } = product;
 
-  return(
-    <Products to={`/detail/${porId}`}>
+  return (
+    <Products to={`/detail/${proId}`}>
       <Img src={img?.fullPath}></Img>
       <Detail>
         <SubDetail>
@@ -119,6 +119,6 @@ const Product = ({porId, product}) => {
       </Detail>
     </Products>
   );
-}
+};
 
 export default Product;

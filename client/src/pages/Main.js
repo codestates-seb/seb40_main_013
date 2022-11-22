@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 //import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { bestOfBest, topBrand, mainData } from "../reduxstore/slices/articleSlice";
+import {
+  bestOfBest,
+  topBrand,
+  mainData,
+} from "../reduxstore/slices/articleSlice";
 import { newData } from "../reduxstore/slices/mainSlice";
 import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
@@ -82,27 +86,31 @@ const TD = styled.td`
   padding: 20px 50px;
   font-size: 1rem;
   cursor: pointer;
-  &:hover{
-    border: 3px solid #FFAF51;
+  &:hover {
+    border: 3px solid #ffaf51;
   }
 `;
 
 const Main = () => {
   const dispatch = useDispatch();
-  const bestData = useSelector((state)=> state.article.mainArticle?.filter((p,idx)=>idx < 5));
-  const brandData = useSelector((state)=>state.article.mainArticle?.filter((p,idx)=>idx >= 5));
-  const categoryData = useSelector((state)=>state.main.main)
+  const bestData = useSelector((state) =>
+    state.article.mainArticle?.filter((p, idx) => idx < 5)
+  );
+  const brandData = useSelector((state) =>
+    state.article.mainArticle?.filter((p, idx) => idx >= 5)
+  );
+  const categoryData = useSelector((state) => state.main.main);
 
-  const roomandhomeData = brandData[0]
-  const deskerData = brandData[1]
-  const dodotData = brandData[2]
-  const forthehomeData = brandData[3]
-  const marketbeeData = brandData[4]
-  const hudoData = brandData[5]
-  const sofsysData = brandData[6]
-  console.log(sofsysData)
-  const libraryData = categoryData[1]
-  const bedroomData = categoryData[0]
+  const roomandhomeData = brandData[0];
+  const deskerData = brandData[1];
+  const dodotData = brandData[2];
+  const forthehomeData = brandData[3];
+  const marketbeeData = brandData[4];
+  const hudoData = brandData[5];
+  const sofsysData = brandData[6];
+  console.log(sofsysData);
+  const libraryData = categoryData[1];
+  const bedroomData = categoryData[0];
   // console.log(brandData)
   // console.log(categoryData)
 
@@ -113,25 +121,25 @@ const Main = () => {
   const kitchenRef = useRef();
 
   const handleLibrary = () => {
-    libraryRef.current?.scrollIntoView({ behavior: 'smooth'})
-  }
+    libraryRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleBedroom = () => {
-    bedroomRef.current?.scrollIntoView({ behavior: 'smooth'})
-  }
+    bedroomRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleLivingroom = () => {
-    livingroomRef.current?.scrollIntoView({ behavior: 'smooth'})
-  }
-  const handleKitchen= () => {
-    kitchenRef.current?.scrollIntoView({ behavior: 'smooth'})
-  }
+    livingroomRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  const handleKitchen = () => {
+    kitchenRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   //자동스크롤시 탭 헤더 밑으로 고정시키기
-  // useEffect(() => { 
+  // useEffect(() => {
   //   document.getElementById('app')?.scrollTo(0, -170); // 첫 렌더시 스크롤이 최상단 고정된다
   //  }, []);
-   
+
   // useEffect(() => {
   //   window.addEventListener('scroll', handleScroll, { capture: true }); // 스크롤 이벤트 등록
   //   return () => {
@@ -145,7 +153,7 @@ const Main = () => {
   //   }
   //   // 스크롤의 실시간 위치
   //   const scrollTop = document.getElementById('app')?.scrollTop; // 최상단 div 기준으로 스크롤 위치를 감지
-      
+
   //     // 스크롤 위치가 tabRef(하위메뉴 탭)의 위치보다 아래이면
   //     if (scrollTop >= tabRef.current.offsetTop) {
   //       fixTab.current = true;   // fixTab 변수는 트루
@@ -156,20 +164,19 @@ const Main = () => {
   //     // 스크롤 위치가 detailRef(하위메뉴 2번)의 위치보다 위이면
   //     if (scrollTop < detailRef.current.offsetTop - offset) {
   //       setTab(0); // 하위메뉴 탭은 자동으로 인덱스 0을 보여주자
-  //     } 
+  //     }
   //     // 스크롤 위치가 detailRef(하위메뉴 2번)의 위치이거나 아래이면
   //     else if (scrollTop >= detailRef.current.offsetTop - offset) {
   //       setTab(1); // 하위메뉴 탭은 자동으로 인덱스 0을 보여주자
-  //     } 
+  //     }
 
-    
   // }, [tabRef.current, detailRef.current]);
 
   //best of best
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(mainData());
     dispatch(newData());
-  }, [])
+  }, []);
 
   // console.log(productList.map((p) => console.log(p.img)));
   return (
@@ -180,18 +187,14 @@ const Main = () => {
       <FullTitle name="fullTitle" className="fullTitle"></FullTitle>
       <ProductList>
         {bestData?.map((product) => (
-            <Products
-            key={product.id}
-            proId={product.id}
-            product={product}
-            />
-          ))}
+          <Products key={product.id} proId={product.id} product={product} />
+        ))}
       </ProductList>
       <Title>브랜드별 추천상품</Title>
       <BrandProducts
         key={brandData.length}
         roomandhomeList={roomandhomeData}
-        dodotList = {dodotData}
+        dodotList={dodotData}
         forthehomeList={forthehomeData}
         deskerList={deskerData}
         marketbeeList={marketbeeData}
@@ -218,12 +221,8 @@ const Main = () => {
       </FullTitle>
       <ProductList>
         {libraryData?.map((product) => (
-            <Products
-            key={product.id}
-            proId={product.id}
-            product={product}
-            />
-          ))}
+          <Products key={product.id} proId={product.id} product={product} />
+        ))}
       </ProductList>
       <SubTitle ref={bedroomRef}>Bedroom</SubTitle>
       <Title>침실</Title>
@@ -234,11 +233,7 @@ const Main = () => {
       </FullTitle>
       <ProductList>
         {bedroomData?.map((product) => (
-          <Products
-          key={product.id}
-          proId={product.id}
-          product={product}
-          />
+          <Products key={product.id} proId={product.id} product={product} />
         ))}
       </ProductList>
       <SubTitle ref={livingroomRef}>Living room</SubTitle>
