@@ -17,17 +17,17 @@ import java.util.List;
 public class SearchController {
 
     private final SearchMapper searchMapper;
-    private final SearchRedisRepository searchService;
+    private final SearchRedisRepository searchRedisRepository;
 
     // 테스트용
     @GetMapping
     public void search(@PathParam("keyword") String keyword) {
-        searchService.addSearchCount(keyword);
+        searchRedisRepository.addSearchCount(keyword);
     }
 
     @GetMapping("/rank")
     public List<SearchDto.RankResponse> getRank() {
-        return searchMapper.toResponse(searchService.getRankTop20());
+        return searchMapper.toResponse(searchRedisRepository.getRankTop20());
     }
 
 }
