@@ -114,8 +114,8 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
                 query.select(getCategoryGetDto())
                         .from(product)
                         .innerJoin(product.category, category)
-                        .where(whereCondition)
-                        .orderBy(product.score.desc(), product.id.asc())); // 일단 평점 내림차순으로 정렬하는 걸로 해둠
+                        .where(whereCondition));
+                        //.orderBy(product.score.desc(), product.id.asc())); // 일단 평점 내림차순으로 정렬하는 걸로 해둠
 
         return SliceResponseDto.of(content);
 //        return  SliceResponseDto.of(
