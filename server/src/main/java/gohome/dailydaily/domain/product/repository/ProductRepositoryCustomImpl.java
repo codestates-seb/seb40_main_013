@@ -165,9 +165,7 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
             product.img,
             product.title,
             product.price,
-            product.score,
-            product.seller.member.nickname,
-            product.category.main
+            product.score
         );
     }
 
