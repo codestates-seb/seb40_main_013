@@ -1,15 +1,10 @@
 package gohome.dailydaily.domain.product.repository;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.jpa.impl.JPAQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
-import gohome.dailydaily.domain.product.dto.OptionDto;
 import gohome.dailydaily.domain.product.dto.QCategoryGetDto;
 import gohome.dailydaily.domain.product.dto.QOptionDto_Response;
 import gohome.dailydaily.domain.product.entity.Product;
-import gohome.dailydaily.domain.product.entity.QCategory;
-import gohome.dailydaily.domain.product.entity.QProduct;
 import gohome.dailydaily.domain.product.repository.param.CategoryGetParam;
 import gohome.dailydaily.domain.product.repository.param.TitleGetParam;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
@@ -18,22 +13,14 @@ import gohome.dailydaily.global.error.ExceptionCode;
 import gohome.dailydaily.global.util.Querydsl4RepositorySupport;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
-import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static gohome.dailydaily.domain.like.entity.QLike.like;
 import static gohome.dailydaily.domain.member.entity.QSeller.seller;
 import static gohome.dailydaily.domain.product.entity.QCategory.category;
 import static gohome.dailydaily.domain.product.entity.QOption.option;
 import static gohome.dailydaily.domain.product.entity.QProduct.product;
-import static java.lang.Long.sum;
 import static org.springframework.util.StringUtils.hasText;
 
 @Repository
@@ -48,11 +35,11 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
     public List<CategoryGetDto> findTop5ByScore() {
         List<CategoryGetDto> content = select(getCategoryGetDto())
                 .from(product)
-                .orderBy(product.score.desc(),product.reviews.size().desc())
+                .orderBy(product.score.desc(), product.reviews.size().desc())
                 .limit(5)
                 .fetch();
 
-        if (content.size() < 1){
+        if (content.size() < 1) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
         }
 
@@ -70,7 +57,7 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
                 .limit(5)
                 .fetch();
 
-        if (content.size() < 1){
+        if (content.size() < 1) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
         }
         return content;
@@ -86,7 +73,7 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
                 .limit(15)
                 .fetch();
 
-        if (content.size() < 1){
+        if (content.size() < 1) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
         }
         return content;
@@ -126,7 +113,6 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
     }
 
 
-
 //    @Override
 //    public List<OptionDto.Response> findByProduct(Long id) {
 //        return select(getOptionDtoResponse())
@@ -161,11 +147,13 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
 
     private QCategoryGetDto getCategoryGetDto() {
         return new QCategoryGetDto(
-            product.id,
-            product.img,
-            product.title,
-            product.price,
-            product.score
+                product.id,
+                product.img,
+                product.title,
+                product.price,
+                product.score,
+                product.seller.member.nickname,
+                product.category.main
         );
     }
 

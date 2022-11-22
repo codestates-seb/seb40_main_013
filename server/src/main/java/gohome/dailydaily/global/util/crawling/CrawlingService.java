@@ -50,8 +50,8 @@ public class CrawlingService {
         try {
             // 개발 강의 모든 페이징 순회
 
-            Category category = categoryRepository.findByMainAndSub("서재", "책상");
-            Seller seller = sellerRepository.findById(1L).get();
+            Category category = categoryRepository.findByMainAndSub("서재", "의자");
+            Seller seller = sellerRepository.findById(3L).get();
 
             for (int i = 0; i < urls.length; i++) {
                 final String url = urls[i];
@@ -62,10 +62,10 @@ public class CrawlingService {
                 //   - 썸네일 링크, 강의 제목, 가격(할인가격), 평점, 강의자, 강의 링크, 수강자 수, 플랫폼, 강의 세션 개수 + 시간
                 Elements imageUrlElements = document.getElementsByClass("production-selling-cover-image__entry__image");
                 Elements titleElements = document.getElementsByClass("production-selling-header__title__name");
-                Elements priceElements = document.getElementsByClass("production-selling-header__price__original");
+                Elements priceElements = document.getElementsByClass("production-selling-header__price__price");
                 Elements sellerElements = document.getElementsByClass("production-selling-header__title__brand");
                 Elements contentsElements = document.getElementsByClass("production-selling-description__content");
-                Elements optionsElements = document.getElementsByTag("select");
+//                Elements optionsElements = document.getElementsByTag("select");
 
                 String[] imageUrls = new String[imageUrlElements.size()];
 
@@ -88,7 +88,7 @@ public class CrawlingService {
                     final int intPrice = toInt(removeNotNumeric(price));
                     final String sellerName = sellerElements.get(j).text();
                     final String contentsLink = new Gson().toJson(contents);
-                    final String options = optionsElements.get(j).text();
+//                    final String options = optionsElements.get(j).text();
 
 //                    System.out.println("썸네일: " + imageUrls[j]);
 //                    System.out.println("상품명: " + title);
@@ -136,7 +136,7 @@ public class CrawlingService {
 
         File productFile = File.builder()
                 .fileName(filename)
-                .fullPath("https://13-dailydaily.s3.ap-northeast-2.amazonaws.com/img/productImg")
+                .fullPath("https://13-dailydaily.s3.ap-northeast-2.amazonaws.com/img/productImg/" + filename)
                 .build();
 
         return productFile;
