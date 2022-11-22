@@ -39,10 +39,10 @@ export const mainData = createAsyncThunk("products/mainData", async () => {
   return axios
     .all([
       axios.get(
-        `https://brave-donuts-check-113-52-194-59.loca.lt/products/score`
+        `https://full-tips-watch-125-134-111-237.loca.lt/products/score`
       ),
       axios.get(
-        `https://brave-donuts-check-113-52-194-59.loca.lt/products/brandListLike`
+        `https://full-tips-watch-125-134-111-237.loca.lt/products/brandListLike`
       ),
     ])
     .then(

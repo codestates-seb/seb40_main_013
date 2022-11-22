@@ -18,7 +18,7 @@ function ArticleDetail() {
   const [cartCount, setCartCount] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const params = useParams();
+  const {id} = useParams();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
@@ -40,7 +40,7 @@ function ArticleDetail() {
   };
 
   useEffect(() => {
-    dispatch(getArticleDetail(Number(params.id)));
+    dispatch(getArticleDetail(Number(id)));
   }, []);
 
   const clickPostCart = (e) => {
@@ -52,6 +52,18 @@ function ArticleDetail() {
     console.log(postCartData);
     dispatch(postCart({ postCartData, navigate }));
   };
+
+  useEffect(() => {
+    let get_local = localStorage.getItem("product");
+    if (get_local == null) {
+      get_local = [];
+    } else {
+      get_local = JSON.parse(get_local);
+    }
+    console.log(get_local)
+    get_local.push()
+  }, []);
+  console.log(articlesDetail)
 
   return (
     <Wrapper>

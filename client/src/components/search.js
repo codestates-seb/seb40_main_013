@@ -4,18 +4,18 @@ import { IoMdClose } from "react-icons/io";
 
 const SearchBlock = styled.div`
   position: fixed; //absolute로 바꿀수도 있음
-  width: 100%;
-  height: 100%;
-  z-index: 300;
-  overflow: hidden;
-  transition: 0.3s height;
+  width:100%; 
+  height:100%; 
+  z-index: 300; 
+  overflow:hidden; 
+  transition:0.3s height;  
   top: 160px;
-  left: 0;
+  left: 0; 
   background-color: white;
   display: flex;
   justify-content: center;
-  &.closed {
-    height: 0;
+  &.closed{
+    height: 0; 
   }
   .search-section {
     width: 80%;
@@ -25,7 +25,12 @@ const SearchBlock = styled.div`
   }
 `;
 
+const FormBlock = styled.div`
+
+`;
+
 const Form = styled.form`
+  margin-top: 20vh;
   display: flex;
   width: 100%;
   height: 60px;
@@ -54,37 +59,38 @@ const Ranking = styled.div`
   flex-direction: column;
   align-items: center;
   /* height: 350px; */
-  padding: 30px 10px 50px 10px;
+  padding-top: 30px;
+  .recent{
+    height: 30px;
+  }
 `;
 
-function DownSearch({ closeSearch, closeHandler }) {
-  return (
-    <SearchBlock className={closeSearch ? "" : "closed"}>
-      <div className="search-section">
-        <Form>
-          <SearchInput>
-            <input type="text"></input>
-            <div>
-              <BsSearch color="#002C6D" size="26" />
-            </div>
-          </SearchInput>
-          <div onClick={closeHandler}>
-            <IoMdClose size="32" />
-          </div>
-        </Form>
-        <Ranking>
-          <div>최근 검색어</div>
-          <div>
-            <div>두닷</div>
-            <div>의자</div>
-            <div>책상</div>
-            <div>담요</div>
-            <div>쇼파</div>
-          </div>
-        </Ranking>
-      </div>
-    </SearchBlock>
-  );
+function DownSearch({closeSearch, closeHandler}){
+    return(
+      <SearchBlock className={ closeSearch ? '' : 'closed'}>
+        <div className="search-section">
+            <Form >
+                <SearchInput >
+                    <input type="text"></input>
+                    <div>
+                        <BsSearch color="#002C6D" size='26'/>
+                    </div>
+                </SearchInput>
+                <div onClick={closeHandler}><IoMdClose size='32'/></div>
+            </Form>
+          <Ranking>
+                <div className="recent">최근 검색어</div>
+                <div>
+                    <div>두닷</div>
+                    <div>의자</div>
+                    <div>책상</div>
+                    <div>담요</div>
+                    <div>쇼파</div>
+                </div>
+          </Ranking>
+        </div>
+      </SearchBlock>
+    )
 }
 
 export default DownSearch;

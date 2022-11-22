@@ -16,6 +16,9 @@ const GlobalStyles = createGlobalStyle`
         border: 0;
         outline: 0;
     }
+    input{
+        outline: 0;
+    }
     :root{
       // font-color
       --font-red : #FF2323;

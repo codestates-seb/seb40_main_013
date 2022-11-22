@@ -1,17 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import SubCarousel from "../components/subcategories/SubCalousel";
 import Apis from "../apis/apis";
 import Products from "../components/mains/Product";
 
 import chair from "../imgs/chair.png";
-import chair2 from "../imgs/chair2.png";
-import chair3 from "../imgs/chair3.png";
-import chair4 from "../imgs/chair4.png";
 import desk from "../imgs/desk.png";
 import shelf from "../imgs/shelf.png";
 import room from "../imgs/room.jpg";
-import Goods from "../components/subcategories/goods";
+import axios from "axios";
 
 const SubBlock = styled.div`
     width: 100%;
@@ -56,14 +53,69 @@ const ProductList = styled.div`
   }
 `;
 
-function SubCategory() {
-  const [productList, setProductList] = useState({});
+function SubCategory({click}) {
+
+  console.log(click);
+
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [prevY, setPrevY] = useState(0);
+  let productsRef = useRef({})
+
+  let loadingRef = useRef(null);
+   let prevYRef = useRef({});
+   let pageRef = useRef({});
+   productsRef.current = products;
+   pageRef.current = page;
+
+   prevYRef.current = prevY
+
+  console.log(`loadingRef:`, loadingRef);
 
   useEffect(() => {
-    Apis.get(`products/details/5`)
-    .then((data) => setProductList(data.data.content));
-  }, []);
-  console.log(productList);
+    getProducts();
+    setPage(pageRef.current + 1);
+    
+    let options ={
+        root: null, //root는 기본적으로 스크롤 가능한 영역, null을 입력하면 전체 브라우저 창이 됨
+        rootMargin: '150px',
+        htreshold: 0.7 //관찰해야 하는 대상 요소의 100%를 의미한다.
+    }
+
+    const observer = new IntersectionObserver(handleObserver, options)
+    observer.observe(loadingRef.current);
+  }, [click]);
+
+  const handleObserver = (entities, observer) => {
+    console.log("time");
+
+    const y = entities[0].boundingClientRect.y;
+
+    if (prevYRef.current > y){
+        console.log(`real get list`);
+        getProducts();
+        setPage(pageRef.current + 1);
+    } else {
+        console.log('loading false');
+    }
+    console.log(`currenty`, y, `prevY`, prevY);
+    setPrevY(y);
+  }
+  
+  const getProducts = async () => {
+    try{
+      let productsRes = await Apis.get(`products?main=${click}&page=${pageRef.current}`
+      );
+      if (productsRes) {
+        setProducts([...productsRef.current, ...productsRes.data.content]);
+        console.log(productsRes.data.content);
+        console.log(`page`,pageRef.current );
+      } 
+    } catch (error) {
+        console.log('ERROR GETTING PRODUCTS');
+    }
+  }
 
   return (
     <SubBlock>
@@ -88,18 +140,20 @@ function SubCategory() {
       </div>
       <ProductList>
         <div className="total">0 개의 상품이 있습니다</div>
-        <div className="products">
-          {productList.map((product) => (
+        <div className="products" >
+          {products?.map((product) => ( 
             <Products
+              key={product.id}
               brand={product.brand}
               img={product.img}
-              key={product.id}
-              name={product.name}
+              title={product.title}
               price={product.price}
-              star={product.star}
+              score={product.score}
+              proId={product.id}
             />
           ))}
         </div>
+        <div ref={loadingRef}></div>
       </ProductList>
     </SubBlock>
   );
