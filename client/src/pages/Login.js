@@ -80,7 +80,7 @@ function Login() {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 50vh;
+  height: 60vh;
   display: flex;
   justify-content: center;
   margin: 305px 0px 120px 0px;

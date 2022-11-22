@@ -3,7 +3,7 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://brave-donuts-check-113-52-194-59.loca.lt/",
+  baseURL: "https://full-tips-watch-125-134-111-237.loca.lt/",
   headers: {
     "Content-Type": "application/json",
   },

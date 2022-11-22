@@ -93,17 +93,17 @@ const TD = styled.td`
 
 const Main = () => {
   const dispatch = useDispatch();
-  const bestData = useSelector((state) =>
-    state.article.mainArticle.filter((p, idx) => idx < 5)
-  );
+  const bestData = useSelector((state) => state?.article.mainArticle);
   // const brandData = useSelector((state)=>state.article.mainArticle[5])
   const categoryData = useSelector((state) => state.main.main);
   const allData = useSelector((state) => state);
   console.log(allData);
   // const oneData = brandData.filter(p =>p.nickname ==='heojunyeol')
 
-  const libraryData = categoryData[1];
-  const bedroomData = categoryData[0];
+  const libraryData = bestData?.filter((p, idx) => idx < 5);
+  const bedroomData = bestData?.filter((p, idx) => idx > 5);
+
+  console.log(libraryData, bedroomData);
   // console.log(brandData)
   // console.log(categoryData)
 
@@ -179,8 +179,8 @@ const Main = () => {
       <Title>Best of Best</Title>
       <FullTitle name="fullTitle" className="fullTitle"></FullTitle>
       <ProductList>
-        {bestData.map((product) => (
-          <Products key={product.id} product={product} />
+        {bestData?.map((product) => (
+          <Products porId={product.id} product={product} key={product.id} />
         ))}
       </ProductList>
       <Title>브랜드별 추천상품</Title>
@@ -211,7 +211,7 @@ const Main = () => {
       </FullTitle>
       <ProductList>
         {libraryData?.map((product, key) => (
-          <Products key={key} product={product} />
+          <Products porId={product.id} product={product} key={product.id} />
         ))}
       </ProductList>
       <SubTitle ref={bedroomRef}>Bedroom</SubTitle>
@@ -223,7 +223,7 @@ const Main = () => {
       </FullTitle>
       <ProductList>
         {bedroomData?.map((product, key) => (
-          <Products key={key} product={product} />
+          <Products porId={product.id} product={product} key={product.id} />
         ))}
       </ProductList>
       <SubTitle ref={livingroomRef}>Living room</SubTitle>

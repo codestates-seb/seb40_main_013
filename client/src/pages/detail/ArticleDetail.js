@@ -11,6 +11,7 @@ import {
 } from "../../reduxstore/slices/articleSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
+
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
   const [selectOptions, setSelectOptions] = useState("");

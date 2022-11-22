@@ -12,6 +12,7 @@ export const signUser = createAsyncThunk(
         return res.data;
       })
       .catch((err) => {
+        window.alert("회원가입에 실패했습니다!");
         console.log(err);
       });
   }
@@ -31,6 +32,7 @@ export const loginUser = createAsyncThunk(
         // return res.data;
       })
       .catch((err) => {
+        window.alert("로그인에 실패했습니다!");
         console.log(err);
       });
   }

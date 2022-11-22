@@ -252,7 +252,7 @@ const Mypage = () => {
       </Left>
       <Routes>
         <Route
-          path="/*"
+          path="/edit"
           element={<EditProfile getUserdata={getUserdata} />}
         ></Route>
         <Route path="/purchase/*" element={<PurchaseList />}></Route>
