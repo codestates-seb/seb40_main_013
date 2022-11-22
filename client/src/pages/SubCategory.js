@@ -8,7 +8,9 @@ import chair from "../imgs/chair.png";
 import desk from "../imgs/desk.png";
 import shelf from "../imgs/shelf.png";
 import room from "../imgs/room.jpg";
-import axios from "axios";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getSubCategory } from "../reduxstore/slices/articleSlice";
 
 const SubBlock = styled.div`
     width: 100%;
@@ -54,8 +56,9 @@ const ProductList = styled.div`
 `;
 
 function SubCategory({click}) {
-
-  console.log(click);
+ const dispatch = useDispatch();
+ const subSeletor = useSelector((state) => state.article.subCategoryInitial[0]?.content)
+  console.log(subSeletor);
 
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
@@ -66,8 +69,10 @@ function SubCategory({click}) {
   let loadingRef = useRef(null);
    let prevYRef = useRef({});
    let pageRef = useRef({});
-   productsRef.current = products;
+   productsRef.current = subSeletor;
    pageRef.current = page;
+   let pageCurrent = pageRef.current;
+   console.log(`pageCurren`, pageCurrent, `page`, page);
 
    prevYRef.current = prevY
 
@@ -85,7 +90,7 @@ function SubCategory({click}) {
 
     const observer = new IntersectionObserver(handleObserver, options)
     observer.observe(loadingRef.current);
-  }, [click]);
+  }, []);
 
   const handleObserver = (entities, observer) => {
     console.log("time");
@@ -105,8 +110,7 @@ function SubCategory({click}) {
   
   const getProducts = async () => {
     try{
-      let productsRes = await Apis.get(`products?main=${click}&page=${pageRef.current}`
-      );
+      let productsRes =  dispatch(getSubCategory({click, pageCurrent}));//asyncthunk는 첫번째인자는 변경할 수 있는데, 두번째 인자는 변경할 수 없어 {}로 묶어서 하나의 인자로 첫번쨰로만 보냄
       if (productsRes) {
         setProducts([...productsRef.current, ...productsRes.data.content]);
         console.log(productsRes.data.content);
@@ -141,15 +145,11 @@ function SubCategory({click}) {
       <ProductList>
         <div className="total">0 개의 상품이 있습니다</div>
         <div className="products" >
-          {products?.map((product) => ( 
+          {subSeletor?.map((product) => ( //{ img, brand, title, price, score }
             <Products
+              porId={product.id}
+              product={product}
               key={product.id}
-              brand={product.brand}
-              img={product.img}
-              title={product.title}
-              price={product.price}
-              score={product.score}
-              proId={product.id}
             />
           ))}
         </div>

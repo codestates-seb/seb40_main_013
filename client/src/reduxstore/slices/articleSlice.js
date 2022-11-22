@@ -39,10 +39,10 @@ export const mainData = createAsyncThunk("products/mainData", async () => {
   return axios
     .all([
       axios.get(
-        `https://brave-donuts-check-113-52-194-59.loca.lt/products/score`
+        `https://full-tips-watch-125-134-111-237.loca.lt/products/score`
       ),
       axios.get(
-        `https://brave-donuts-check-113-52-194-59.loca.lt/products/brandListLike`
+        `https://full-tips-watch-125-134-111-237.loca.lt/products/brandListLike`
       ),
     ])
     .then(
@@ -57,21 +57,38 @@ export const mainData = createAsyncThunk("products/mainData", async () => {
     .catch((err) => console.log(2));
 });
 
+export const getSubCategory = createAsyncThunk( //비동기처리를 도와주는애(자동으로 지원해줌)
+  "getSubCategory",// 이름정하는데, 의미없음
+  async ({click, pageCurrent}) => {
+    console.log(`click`, click, `pageCurren`, pageCurrent);
+    return Apis.get(`products?main=${click}&page=${pageCurrent}`)
+      .then((res) => {
+        console.log(res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);//action 객체, action실행함수 등등....
+
 const articleSlice = createSlice({
   name: "article",
   initialState: {
     article: [],
     detailArticle: [],
     mainArticle: [],
+    subCategoryInitial: [],
     loading: false,
     error: "",
   },
   reducers: {},
-  extraReducers: {
+  extraReducers: { //비동기처리를 해주는경우 여기서 사용해줘야함
     [getArticleDetail.fulfilled]: (state, action) => {
       state.article = [];
       state.detailArticle = action.payload;
       state.mainArticle = [];
+      state.subCategoryInitial = [];
       state.loading = true;
       state.error = "";
     },
@@ -79,6 +96,7 @@ const articleSlice = createSlice({
       state.article = action.payload;
       state.detailArticle = [];
       state.mainArticle = [];
+      state.subCategoryInitial = [];
       state.loading = true;
       state.error = "";
     },
@@ -86,6 +104,15 @@ const articleSlice = createSlice({
       state.article = [];
       state.detailArticle = [];
       state.mainArticle = action.payload;
+      state.subCategoryInitial = [];
+      state.loading = true;
+      state.error = "";
+    },
+    [getSubCategory.fulfilled]: (state, action) => {
+      state.article = [];
+      state.detailArticle = [];
+      state.mainArticle = [];
+      state.subCategoryInitial = [...state.subCategoryInitial, action.payload];
       state.loading = true;
       state.error = "";
     },

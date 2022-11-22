@@ -22,7 +22,6 @@ const HeaderBlock = styled.header`
 const Logo = styled.div`
   justify-content: center;
   height: 90px;
-  justify-content: center;
   align-items: center;
   div {
     font-size: 43px;
@@ -138,15 +137,15 @@ function Header({setClick}) {
           <Link to="/users/login">
             <LoginBtn>로그인/회원가입</LoginBtn>
           </Link>
-          <Link to="/users/me/*">
+          <Link to="/members/mypage/*">
             <LoginBtn>마이페이지</LoginBtn>
           </Link>
         </div>
-        <Link to="/">
           <Logo>
-            <div>DAILY DAILY</div>
+            <Link to="/">
+              <div>DAILY DAILY</div>
+            </Link>
           </Logo>
-        </Link>
         <CategoryList>
           <div>
             <Link to="/sub">
@@ -167,7 +166,7 @@ function Header({setClick}) {
                   <div onClick={clickMenu}>침대</div>
                   <div onClick={clickMenu}>행거/옷장</div>
                   <div onClick={clickMenu}>화장대</div>
-                  <div onClick={clickMenu}>거울</div>
+                  {/* <div onClick={clickMenu}>거울</div> */}
                 </Nav>
               </Category>
             </Link>
@@ -177,7 +176,7 @@ function Header({setClick}) {
                 <Nav className="3">
                   <div onClick={clickMenu}>소파</div>
                   <div onClick={clickMenu}>거실장</div>
-                  <div onClick={clickMenu}>사이드테이블</div>
+                  {/* <div onClick={clickMenu}>사이드테이블</div> */}
                   <div onClick={clickMenu}>수납장</div>
                 </Nav>
               </Category>

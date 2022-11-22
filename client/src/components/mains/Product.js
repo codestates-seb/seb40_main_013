@@ -95,12 +95,14 @@ const Star = styled.img`
 const StarAerage = styled.div`
   display: flex;
 `;
-const Product = ({ proId, img , brand, title, price, score }) => {
+const Product = ({porId, product}) => {
   const {id} = useParams();
 
+  const { img , nickname, title, price, score } = product
+
   return(
-    <Products to={`/detail/${proId}`}>
-      <Img src={img.fullPath}></Img>
+    <Products to={`/detail/${porId}`}>
+      <Img src={img?.fullPath}></Img>
       <Detail>
         <SubDetail>
           <Brand>{nickname}</Brand>
@@ -111,10 +113,7 @@ const Product = ({ proId, img , brand, title, price, score }) => {
         </SubDetail>
         <Title>{title}</Title>
         <SubDetail>
-          <Colorchip>
-            <Color />
-          </Colorchip>
-          <Price>{price.toLocaleString('en-US')}</Price>
+          <Price>{price?.toLocaleString('en-US')}</Price>
         </SubDetail>
       </Detail>
     </Products>

@@ -38,10 +38,10 @@ const AllCheckBlock = styled.div`
 const CheckCircle = styled.input`
     width: 15px;
     height: 15px;
-    cursor: pointer;
-  &.all-check{
-    color: #FFAF51;
-  }
+    cursor: pointer; 
+    &.all-check{
+      color: #FFAF51;
+    }
 `;
 
 const Quary = styled.div`
@@ -152,7 +152,13 @@ function ShoppingCart() {
         setCartItemList(data.data.productCarts);
         setNumberOfCartList(data.data.productCarts.length)
       }
-    });
+    })
+    // .catch((err) => {
+    //   console.log(err);
+    //   if(err.response.data.message === "Cart not found"){
+    //     setEmpty(true)
+    //   }
+    // })
   }, []);
   console.log(`checkList`, checkList);
 
@@ -216,7 +222,7 @@ function ShoppingCart() {
                   onChange={e => changeAllCheck(e.target.checked)}
                   checked={checkList.length === numberOfCartList ? true : false }
                 />
-                <label for='checkid' className="center" >전체선택</label>
+                <label htmlFor='checkid' className="center" >전체선택</label>
               <span>ㅣ</span>
               <span className='cursor' onClick={checkRemoveCartItem}>선택삭제</span>
             </AllCheckBlock>

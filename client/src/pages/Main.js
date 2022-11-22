@@ -89,7 +89,7 @@ const TD = styled.td`
 
 const Main = () => {
   const dispatch = useDispatch();
-  const bestData = useSelector((state)=> state.article.mainArticle.filter((p,idx)=>idx < 5));
+  const bestData = useSelector((state)=> state.article.mainArticle?.filter((p,idx)=>idx < 5));
   // const brandData = useSelector((state)=>state.article.mainArticle[5])
   const categoryData = useSelector((state)=>state.main.main)
   const allData = useSelector((state)=>state)
@@ -175,9 +175,10 @@ const Main = () => {
       <FullTitle name="fullTitle" className="fullTitle"></FullTitle>
       <ProductList>
         {bestData
-          .map((product) => (
+          ?.map((product) => (
             <Products
-            key={product.id}
+              porId={product.id}
+              key={product.id}
               product={product}
             />
           ))}
@@ -209,9 +210,10 @@ const Main = () => {
         </FullView>
       </FullTitle>
       <ProductList>
-        {libraryData.map((product, key) => (
+        {libraryData?.map((product) => (
             <Products
-              key={key}
+              porId={product.id}
+              key={product.id}
               product={product}
             />
           ))}
@@ -224,8 +226,9 @@ const Main = () => {
         </FullView>
       </FullTitle>
       <ProductList>
-        {bedroomData.map((product, key) => (
+        {bedroomData?.map((product, key) => (
           <Products
+            porId={product.id}
             key={key}
             product={product}
           />
