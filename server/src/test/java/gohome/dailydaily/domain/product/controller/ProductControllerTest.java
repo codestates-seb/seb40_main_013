@@ -1,5 +1,6 @@
 package gohome.dailydaily.domain.product.controller;
 
+import com.google.gson.Gson;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
 import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryDTO;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
@@ -69,7 +70,7 @@ public class ProductControllerTest {
                 ))
                 .andExpect(jsonPath("$.productId").value(PRODUCT.getId()))
                 .andExpect(jsonPath("$.title").value(PRODUCT.getTitle()))
-                .andExpect(jsonPath("$.content").value(PRODUCT.getContent()))
+                .andExpect(jsonPath("$.content").value(new Gson().fromJson(PRODUCT.getContent(), List.class)))
                 .andExpect(jsonPath("$.price").value(PRODUCT.getPrice()))
                 .andExpect(jsonPath("$.img.fileName").value(PRODUCT.getImg().getFileName()))
                 .andExpect(jsonPath("$.img.fullPath").value(PRODUCT.getImg().getFullPath()))
