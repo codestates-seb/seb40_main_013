@@ -2,59 +2,66 @@ import { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import CartItem from "../components/CartItem";
 import Apis from "../apis/apis";
+import { useDispatch, useSelector } from "react-redux";
 
 const CartBlock = styled.div`
-  margin-top: 160px;
-  width: 100%;
-  height: 100%;
-  padding: 30px 40px 50px 40px;
-  margin-top: 180px;
-  display: flex;
-  div {
+    margin-top: 160px;
+    width: 100%;
+    height: 100%;
+    padding: 30px 40px 50px 40px;
+    margin-top: 180px;
     display: flex;
-  }
+    div {
+      display: flex;
+    }
 `;
 
 const AllCheckBlock = styled.div`
-  margin: 10px;
-  font-size: 15px;
-  color: #aaaaaa;
-  align-items: center;
-  span {
-    margin-left: 5px;
-  }
-  .center{
-    margin-left: 5px;
+    margin: 10px;
+    font-size: 15px;
+    color: #aaaaaa;
     align-items: center;
-  }
-  .cursor{
-    cursor: pointer;
-  }
-  label{
-    cursor: pointer;
-  }
+    span {
+      margin-left: 5px;
+    }
+    .center{
+      margin-left: 5px;
+      align-items: center;
+    }
+    .cursor{
+      cursor: pointer;
+    }
+    label{
+      cursor: pointer;
+    }
 `;
 
 const CheckCircle = styled.input`
-    width: 15px;
-    height: 15px;
-    cursor: pointer; 
-    &.all-check{
-      color: #FFAF51;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 1px solid #999;
+    appearance: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    &:checked {
+        background: #ffaf51;
+        border: none;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
     }
 `;
 
 const Quary = styled.div`
-  width: 100%;
-  justify-content: center;
-  .cart-title{
+    width: 100%;
+    justify-content: center;
+    .cart-title{
         font-size: 26px;
         padding-left: 10px;
         padding-bottom: 10px;
         font-weight: 600;
-  }
+    }
     @media screen and (max-width: 767px) {
-            flex-direction: column;
+          flex-direction: column;
     }
 `;
 
@@ -76,7 +83,6 @@ const Payment = styled.section`
   border: 1px solid #002c6d;
   border-radius: 5px;
   padding: 20px;
-  margin-left: 10px;
   .pay-title {
     font-weight: 500;
   }
@@ -125,11 +131,13 @@ const PayButton = styled.button`
   border-radius: 3px;
 `;
 
-
 function ShoppingCart() {
   let jwtToken = localStorage.getItem("Authorization");
-
+  
   const [empty, setEmpty] = useState(false)
+  const dispatch = useDispatch();
+  const cartSeletor = useSelector((state) => state)
+  console.log(cartSeletor);
 
   const [cartItemList, setCartItemList] = useState([]);
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가

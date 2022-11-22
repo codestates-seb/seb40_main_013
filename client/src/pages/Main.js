@@ -90,12 +90,17 @@ const TD = styled.td`
 const Main = () => {
   const dispatch = useDispatch();
   const bestData = useSelector((state)=> state.article.mainArticle?.filter((p,idx)=>idx < 5));
-  // const brandData = useSelector((state)=>state.article.mainArticle[5])
+  const brandData = useSelector((state)=>state.article.mainArticle?.filter((p,idx)=>idx >= 5));
   const categoryData = useSelector((state)=>state.main.main)
-  const allData = useSelector((state)=>state)
-  console.log(allData)
-  // const oneData = brandData.filter(p =>p.nickname ==='heojunyeol')
 
+  const roomandhomeData = brandData[0]
+  const deskerData = brandData[1]
+  const dodotData = brandData[2]
+  const forthehomeData = brandData[3]
+  const marketbeeData = brandData[4]
+  const hudoData = brandData[5]
+  const sofsysData = brandData[6]
+  console.log(sofsysData)
   const libraryData = categoryData[1]
   const bedroomData = categoryData[0]
   // console.log(brandData)
@@ -174,23 +179,25 @@ const Main = () => {
       <Title>Best of Best</Title>
       <FullTitle name="fullTitle" className="fullTitle"></FullTitle>
       <ProductList>
-        {bestData
-          ?.map((product) => (
+        {bestData?.map((product) => (
             <Products
-              porId={product.id}
-              key={product.id}
-              product={product}
+            key={product.id}
+            proId={product.id}
+            product={product}
             />
           ))}
       </ProductList>
       <Title>브랜드별 추천상품</Title>
-      {/* <BrandProducts
-        key={oneData.length}
-        dodotList={oneData}
-        sofsysList={brandData.filter((p) => p.nickname === "소프시스")}
-        forthehomeList={brandData.filter((p) => p.nickname === "포더홈")}
-        deskerList={brandData.filter((p) => p.nickname === "데스커")}
-      /> */}
+      <BrandProducts
+        key={brandData.length}
+        roomandhomeList={roomandhomeData}
+        dodotList = {dodotData}
+        forthehomeList={forthehomeData}
+        deskerList={deskerData}
+        marketbeeList={marketbeeData}
+        hudoList={hudoData}
+        sofsysList={sofsysData}
+      />
       <Title>New Arrival</Title>
       <Table>
         <tbody className="tbody">
@@ -212,9 +219,9 @@ const Main = () => {
       <ProductList>
         {libraryData?.map((product) => (
             <Products
-              porId={product.id}
-              key={product.id}
-              product={product}
+            key={product.id}
+            proId={product.id}
+            product={product}
             />
           ))}
       </ProductList>
@@ -226,11 +233,11 @@ const Main = () => {
         </FullView>
       </FullTitle>
       <ProductList>
-        {bedroomData?.map((product, key) => (
+        {bedroomData?.map((product) => (
           <Products
-            porId={product.id}
-            key={key}
-            product={product}
+          key={product.id}
+          proId={product.id}
+          product={product}
           />
         ))}
       </ProductList>

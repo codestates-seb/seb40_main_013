@@ -22,7 +22,7 @@ const CartItemBlock = styled.div`
         padding: 0px 10px;
         justify-content: flex-end;
         font-weight: 600;
-        min-width: 110px;
+        min-width: 6.5rem;
     }
     .count-zone{
         flex-direction: column;
@@ -33,6 +33,7 @@ const CartItemBlock = styled.div`
     .part{
         align-items: center;
     }
+    //input 화살표 지우는 방법
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -99,12 +100,17 @@ const ItemDelete = styled(IoMdClose)`
 `;
 
 const EachCheckCircle = styled.input`
-    width: 15px;
-    height: 15px;
-    color: #aaaaaa;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 1px solid #999;
+    appearance: none;
     cursor: pointer;
-    &.all-check{
-        color: #FFAF51;
+    transition: background 0.2s;
+    &:checked {
+        background: #ffaf51;
+        border: none;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
     }
 `;
 
@@ -151,12 +157,12 @@ function CartItem({cartItem, changeEachCheck, checkList}) {
     } 
 
     const upCountHandler = () => {
-        setItemCount(itemCount + 1) 
+        setItemCount(parseInt(itemCount) + 1) 
     };
 
     const downCountHandler = () => {
-        if(itemCount > 1){
-            setItemCount(itemCount - 1) 
+        if(parseInt(itemCount) > 1){
+            setItemCount(parseInt(itemCount) - 1) 
         } else { 
             alert('최소 1개 이상 주문 가능합니다.')
         }

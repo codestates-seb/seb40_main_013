@@ -23,16 +23,23 @@ const Tabs = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px 0;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 767px){
     flex-direction: column;
     align-items: center;
     margin: 0;
   }
-  @media (min-width: 391px) and (max-width: 768px){
+  @media (min-width: 768px) and (max-width: 1024px){
+    flex-direction: column;
   }
 `;
 const SubTab = styled.div`
   display: flex;
+  @media screen and (max-width: 767px){
+    margin-bottom: 10px;
+  }
+  @media (min-width: 768px) and (max-width: 1024px){
+    margin-bottom: 10px;
+  }
 `;
 const Tab = styled.div`
   background-color: #f8f8f8;
@@ -71,10 +78,14 @@ const BrandProduct = styled.div`
     flex-direction: column;
     width: 80%;
   }
-  @media (min-width: 391px) and (max-width: 768px){
+  @media (min-width: 391px) and (max-width: 767px){
     flex-direction: column;
     align-items: center;
     width: 80%;
+  }
+  @media (min-width: 768px) and (max-width: 1024px){
+    width: 80%;
+    justify-content: center;
   }
 `;
 
@@ -88,11 +99,14 @@ const BrandImg = styled.img`
     border-top-right-radius: 10px;
     border-bottom-left-radius: 0;
   }
-  @media (min-width: 391px) and (max-width: 768px){
+  @media (min-width: 391px) and (max-width: 767px){
     width: 100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 0;
+  }
+  @media (min-width: 768px) and (max-width: 1024px){
+    width: 50vw;
   }
 `;
 const BPList = styled.div`
@@ -103,6 +117,9 @@ const BPList = styled.div`
   }
   @media (min-width: 391px) and (max-width: 768px){
     width: 100%;
+  }
+  @media (min-width: 768px) and (max-width: 1024px){
+    width: 50vw;
   }
 `;
 const BP = styled.div`
@@ -140,7 +157,7 @@ const Price = styled.h2`
   font-weight: 600;
 `;
 
-const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, deskerList }) =>{
+const BrandProducts = ({ roomandhomeList, dodotList, sofsysList, forthehomeList, deskerList, marketbeeList, hudoList }) =>{
   const [clicked, setClicked] = useState('두닷');
 
   const onClick = useCallback(e => {
@@ -149,11 +166,11 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
   }, []);
 
   const ProductArr = {
-    "두닷": <BrandProduct>
+    "룸앤홈": <BrandProduct>
             <BrandImg src={dodot}></BrandImg>
             <BPList>
-            {dodotList.map((p, key)=>
-                  <BP key={key}>
+            {roomandhomeList?.map((p)=>
+                  <BP key={p.id}>
                     <Img src={p.img.fullPath} />
                     <TP>
                       <Title>{p.title}</Title>
@@ -166,9 +183,9 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
   "소프시스": <BrandProduct>
               <BrandImg src={sofsys}></BrandImg>
               <BPList>
-              {sofsysList.map((p, key)=>
-                  <BP key={key}>
-                      <Img src={p.img} />
+              {sofsysList?.map((p)=>
+                  <BP key={p.id}>
+                      <Img src={p.img.fullPath} />
                       <TP>
                         <Title>{p.title}</Title>
                         <Price>{p.price.toLocaleString('en-US')}</Price>
@@ -180,9 +197,9 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
   "포더홈": <BrandProduct>
               <BrandImg src={forthehome}></BrandImg>
               <BPList>
-              {forthehomeList.map((p, key)=>
-                  <BP key={key}>
-                    <Img src={p.img} />
+              {forthehomeList?.map((p)=>
+                  <BP key={p.id}>
+                    <Img src={p.img.fullPath} />
                     <TP>
                       <Title>{p.title}</Title>
                       <Price>{p.price.toLocaleString('en-US')}</Price>
@@ -194,9 +211,9 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
   "데스커": <BrandProduct>
             <BrandImg src={desker}></BrandImg>
             <BPList>
-            {deskerList.map((p, key)=>
-                  <BP key={key}>
-                    <Img src={p.img} />
+            {deskerList?.map((p)=>
+                  <BP key={p.id}>
+                    <Img src={p.img.fullPath} />
                     <TP>
                       <Title>{p.title}</Title>
                       <Price>{p.price.toLocaleString('en-US')}</Price>
@@ -205,6 +222,48 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
                   )}
             </BPList>
           </BrandProduct>,
+  "두닷": <BrandProduct>
+              <BrandImg src={dodot}></BrandImg>
+              <BPList>
+              {dodotList?.map((p)=>
+                    <BP key={p.id}>
+                      <Img src={p.img.fullPath} />
+                      <TP>
+                        <Title>{p.title}</Title>
+                        <Price>{p.price.toLocaleString('en-US')}</Price>
+                      </TP>
+                    </BP>
+                    )}
+              </BPList>
+            </BrandProduct>,
+  "마켓비": <BrandProduct>
+              <BrandImg src={dodot}></BrandImg>
+              <BPList>
+              {marketbeeList?.map((p)=>
+                    <BP key={p.id}>
+                      <Img src={p.img.fullPath} />
+                      <TP>
+                        <Title>{p.title}</Title>
+                        <Price>{p.price.toLocaleString('en-US')}</Price>
+                      </TP>
+                    </BP>
+                    )}
+              </BPList>
+            </BrandProduct>,
+  "휴도": <BrandProduct>
+              <BrandImg src={dodot}></BrandImg>
+              <BPList>
+              {hudoList?.map((p)=>
+                    <BP key={p.id}>
+                      <Img src={p.img.fullPath} />
+                      <TP>
+                        <Title>{p.title}</Title>
+                        <Price>{p.price.toLocaleString('en-US')}</Price>
+                      </TP>
+                    </BP>
+                    )}
+              </BPList>
+            </BrandProduct>,
 }
 
   return (
@@ -213,10 +272,10 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
         <SubTab>
           <Tab
           name="dodot"
-          className={clicked === '두닷' ? 'clicked' : ''}
+          className={clicked === '룸앤홈' ? 'clicked' : ''}
           onClick={onClick}
           value="1">
-            두닷
+            룸앤홈
           </Tab>
           <Tab
           name="sofsis"
@@ -225,8 +284,8 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
           value="2">
             소프시스
           </Tab>
-      </SubTab>
-      <SubTab>
+        </SubTab>
+        <SubTab>
           <Tab
             name="forTheHome"
             className={clicked === '포더홈' ? 'clicked' : ''}
@@ -240,6 +299,31 @@ const BrandProducts = ({ productList, dodotList, sofsysList, forthehomeList, des
             onClick={onClick}
             value="4">
               데스커
+            </Tab>
+          </SubTab>
+          <SubTab>
+          <Tab
+            name="forTheHome"
+            className={clicked === '휴도' ? 'clicked' : ''}
+            onClick={onClick}
+            value="3">
+              휴도
+            </Tab>
+            <Tab
+            name="illom"
+            className={clicked === '마켓비' ? 'clicked' : ''}
+            onClick={onClick}
+            value="4">
+              마켓비
+            </Tab>
+          </SubTab>
+          <SubTab>
+          <Tab
+            name="forTheHome"
+            className={clicked === '두닷' ? 'clicked' : ''}
+            onClick={onClick}
+            value="3">
+              두닷
             </Tab>
           </SubTab>
         </Tabs>

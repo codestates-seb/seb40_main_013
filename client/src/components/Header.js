@@ -166,7 +166,6 @@ function Header({setClick}) {
                   <div onClick={clickMenu}>침대</div>
                   <div onClick={clickMenu}>행거/옷장</div>
                   <div onClick={clickMenu}>화장대</div>
-                  {/* <div onClick={clickMenu}>거울</div> */}
                 </Nav>
               </Category>
             </Link>
@@ -176,7 +175,6 @@ function Header({setClick}) {
                 <Nav className="3">
                   <div onClick={clickMenu}>소파</div>
                   <div onClick={clickMenu}>거실장</div>
-                  {/* <div onClick={clickMenu}>사이드테이블</div> */}
                   <div onClick={clickMenu}>수납장</div>
                 </Nav>
               </Category>

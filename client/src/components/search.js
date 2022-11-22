@@ -79,13 +79,8 @@ function DownSearch({closeSearch, closeHandler}){
                 <div onClick={closeHandler}><IoMdClose size='32'/></div>
             </Form>
           <Ranking>
-                <div className="recent">인기 검색어</div>
+                <div className="recent">최근 검색어</div>
                 <div>
-                    <div>두닷</div>
-                    <div>의자</div>
-                    <div>책상</div>
-                    <div>담요</div>
-                    <div>쇼파</div>
                     <div>두닷</div>
                     <div>의자</div>
                     <div>책상</div>

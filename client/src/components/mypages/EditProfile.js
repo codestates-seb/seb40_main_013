@@ -138,6 +138,7 @@ const EditProfile = ({getUserdata})=>{
   const [showPswd, setShowPswd] = useState(false);
 
   const [updateNickName, setUpdatNickName] = useState('');
+  // setUpdatNickName(getUserdata.nickname)
   const [curpwd, setCurpwd] = useState('');
   const [updatePassword, setUpdatePassword] = useState('');
   const [updatePwdCheck, setUpdatePwdCheck] = useState('');
@@ -148,6 +149,13 @@ const EditProfile = ({getUserdata})=>{
   const [passwordConfirm, setPasswordConfirm] = useState(false);
   const [updatePwdCheckConfirm, setUpdatePwdCheckConfirm] = useState(false);
   const [updatePhoneConfirm, setUpdatePhoneConfirm] = useState(false);
+
+  //닉네임 저장하기
+  useEffect(()=>{
+    if(!updateNickName){
+      setUpdatNickName(getUserdata?.nickname)
+    }
+  })
 
   const handleUpdateNickName = e => {
     setUpdatNickName(e.target.value);
@@ -222,20 +230,14 @@ const EditProfile = ({getUserdata})=>{
 
   //정보수정하기
   const updateInform = e => {
-    let nick = '';
     let pwd = '';
-    if(updateNickName === ''){
-      nick = getUserdata?.nickname;
-    }else {
-      nick = updateNickName
-    }
     if(updatePassword === ''){
       pwd = curpwd
     }else {
       pwd = updatePassword
     }
     const updatedata = {
-      nickname: nick,
+      nickname: updateNickName,
       password: pwd,
       address: updateAddress,
       phone: updatePhone,
@@ -243,6 +245,25 @@ const EditProfile = ({getUserdata})=>{
     console.log(updatedata)
     dispatch(updateUser({updatedata}));
   }
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    if(window.confirm('확인을 누르면 회원 정보가 삭제됩니다.')){
+      Apis.delete(`/members/mypage`,{
+        headers: {
+          Authorization: initialToken
+        },
+      }
+      ).then(()=>{
+        localStorage.clear();
+        window.alert('그동안 이용해주셔서 감사합니다.');
+        navigate('/');
+      })
+      .catch((err)=>alert(err.response.data.message));
+    }else{
+      return;
+    }
+  };
 
   return (
     <Container>
@@ -254,8 +275,7 @@ const EditProfile = ({getUserdata})=>{
         disabled></Input>
       <Label htmlFor="nickname">닉네임</Label>
       <Input 
-        name="UpdateNickName" 
-        placeholder={getUserdata?.nickname}
+        name="UpdateNickName"
         value={updateNickName}
         onChange={handleUpdateNickName}
         required></Input>
@@ -264,10 +284,11 @@ const EditProfile = ({getUserdata})=>{
             띄어쓰기 없이 2자이상 8자 이하 영어 또는 숫자 또는 한글로 입력해주세요!
           </ErrorDisplay>
         ) : null}
-      <Label htmlFor="password">현재 비밀번호 ( * 필수입력 )</Label>
+      <Label htmlFor="password">현재 비밀번호 ( * 필수입력 : 대/소문자 구분 )</Label>
       <CurInputBtn>
         <Input 
           name="Password"
+          type={showPswd ? "text" : "password"} 
           onChange={handlecurPassword}
           required></Input>
           <CurPwdBtn 
@@ -290,6 +311,7 @@ const EditProfile = ({getUserdata})=>{
       <Label htmlFor="confirmPassword">비밀번호 확인</Label>
       <Input 
       name="confirmPassword"
+      type={showPswd ? "text" : "password"} 
       onChange={handleUpdatePwdCheck}
       required></Input>
       {!updatePwdCheckConfirm ? (
@@ -297,12 +319,12 @@ const EditProfile = ({getUserdata})=>{
             위에 작성하신 비밀번호와 같은 비밀번호를 입력해주세요!
           </ErrorDisplay>
         ) : null}
-      <Label htmlFor="address" required>주소</Label>
+      <Label htmlFor="address">주소</Label>
       <Input 
         name="address"
         onChange={handleUpdateAddress}
         ></Input>
-      <Label htmlFor="phone" required>휴대폰 번호 ( 예: 010-1234-5678 )</Label>
+      <Label htmlFor="phone">휴대폰 번호 ( 예: 010-1234-5678 )</Label>
       <Input 
         name="phone"
         onChange={handleUpdatePhone}
@@ -313,7 +335,7 @@ const EditProfile = ({getUserdata})=>{
           </ErrorDisplay>
         ) : null}
       <Buttons>
-        <Delete>회원탈퇴</Delete>
+        <Delete onClick={handleDelete}>회원탈퇴</Delete>
         <Edit onClick={updateInform}>정보수정</Edit>
       </Buttons>
     </Container>

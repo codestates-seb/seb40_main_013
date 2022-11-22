@@ -35,8 +35,9 @@ const Brand = styled.h5`
 const Title = styled.h2`
   font-size: 1.1rem;
   font-weight: 500;
+  overflow: hidden;
   text-overflow: ellipsis; 
-  height: 34px;
+  height: 20%;
   word-break:break-all;
   @media screen and (max-width: 390px){
     font-size: 1.6vw;
