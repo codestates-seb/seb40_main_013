@@ -7,6 +7,7 @@ import PurchaseList from "../components/mypages/PurchaseList";
 import EditProfile from "../components/mypages/EditProfile";
 import { Routes, Route, Link } from "react-router-dom";
 import MyReview from "../components/mypages/MyReview";
+import Recent from "../components/mypages/Recent";
 
 const Container = styled.div`
   display: flex;
@@ -167,24 +168,9 @@ const NavDetail = styled.nav`
 const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
-  console.log(getUserdata);
+  const id = getUserdata?.id;
   const [clicked, setClicked] = useState("");
 
-  // const confirm = ({updateNickName, updatePassword, updatePwdCheck, updatePhone}) => {
-  //   const errors = {};
-  //   if(updateNickName === '' || !nickNameCheck(updateNickName)){
-  //     errors.updateNickName = '띄어쓰기 없이 2자이상 8자 이하 영어 또는 숫자 또는 한글로 입력해주세요!'
-  //   }
-  //   if(updatePassword === '' || !pwdCheck(updatePassword)){
-  //     errors.updatePassword = '문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자로 만들어주세요!'
-  //   }
-  //   if(updatePwdCheck === '' || updatePassword !== updatePwdCheck){
-  //     errors.updatePwdCheck = '위에 작성하신 비밀번호와 같은 비밀번호를 입력해주세요!'
-  //   }
-  //   if(!phoneCheck(updatePhone)){
-  //     errors.updatePhone = '숫자, -을 포함해 휴대전화 형식에 맞게 입력해주세요.'
-  //   }
-  // };
   //user 정보 받아오기
   useEffect(() => {
     dispatch(getUser());
@@ -201,7 +187,7 @@ const Mypage = () => {
       <Left>
         <Reaction>
           <ProfileImg
-            src={`https://avatars.dicebear.com/api/bottts/1.svg?size=15`}
+            src={`https://avatars.dicebear.com/api/bottts/${id}.svg?size=15`}
             alt="avator"
           ></ProfileImg>
           <Hello>안녕하세요,&nbsp;</Hello>
@@ -247,6 +233,15 @@ const Mypage = () => {
                 작성한 리뷰
               </NavDetail>
             </Link>
+            <Link to="recent" style={{ textDecoration: "none" }}>
+              <NavDetail
+                name="recent"
+                className={clicked === "최근본 상품" ? "clicked" : ""}
+                onClick={tabClick}
+              >
+                최근본 상품
+              </NavDetail>
+            </Link>
           </ReactionDetail>
         </Nav>
       </Left>
@@ -257,6 +252,7 @@ const Mypage = () => {
         ></Route>
         <Route path="/purchase/*" element={<PurchaseList />}></Route>
         <Route path="/review" element={<MyReview />}></Route>
+        <Route path="/recent" element={<Recent />}></Route>
       </Routes>
     </Container>
   );

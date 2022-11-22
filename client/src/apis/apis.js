@@ -12,11 +12,9 @@ axios.interceptors.request.use(
   function (config) {
     let token = localStorage.getItem("Authorization");
     if (token != undefined) {
-      console.log(111);
       config.headers["Authorization"] = token;
       config.headers["Refresh"] = refreshToken;
       config.headers["Content-Type"] = "application/json";
-      console.log(1, config);
     }
     return config;
   },
@@ -27,7 +25,6 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.request.use(function (config) {
-  console.log(123);
 
   config.withCredentials = true;
   const token = localStorage.getItem("Authorization");
