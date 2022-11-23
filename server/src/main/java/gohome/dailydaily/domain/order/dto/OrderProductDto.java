@@ -12,7 +12,7 @@ public class OrderProductDto {
     public static class Post {
 
         private Long productId;
-        private Integer optionId;
+        private Long optionId;
         private Integer count;
     }
 

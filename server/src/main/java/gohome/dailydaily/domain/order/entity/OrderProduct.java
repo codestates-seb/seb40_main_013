@@ -36,7 +36,6 @@ public class OrderProduct extends BaseTime {
 
     public void addOrder(Order order) {
         this.order = order;
-        this.order.getOrderProducts().add(this);
     }
 
     public void addProduct(Product product) {

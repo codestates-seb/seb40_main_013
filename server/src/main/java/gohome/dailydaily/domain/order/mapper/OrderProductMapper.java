@@ -12,8 +12,8 @@ import org.mapstruct.ReportingPolicy;
 public interface OrderProductMapper {
 
     @Mapping(target = "id", source = "productId")
-    @Mapping(target = "option", expression = "java(Option.builder().id(post.getOptionId()).build()")
-    @Mapping(target = "product", expression = "java(Product.builder().id(post.getProductId()).build()")
+    @Mapping(target = "option", expression = "java(Option.builder().id(post.getOptionId()).build())")
+    @Mapping(target = "product", expression = "java(Product.builder().id(post.getProductId()).build())")
     OrderProduct toOrderProduct(OrderProductDto.Post post);
 
     OrderProduct toOrderProduct(OrderProductDto.Patch patch);

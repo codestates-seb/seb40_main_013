@@ -7,11 +7,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = OrderProductMapper.class)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = OrderProductMapper.class, imports = Member.class)
 public interface OrderMapper {
 
 
-    Order toOrder(OrderDto.Post post);
+    @Mapping(target = "member", expression = "java(Member.builder().id(memberId).build())")
+    Order toOrder(OrderDto.Post post, Long memberId);
 
     @Mapping(target = "orderId", source = "id")
     OrderDto.Response toResponse(Order order);

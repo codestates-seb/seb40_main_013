@@ -23,7 +23,8 @@ public class OrderController {
     @PostMapping
     public ResponseEntity postOrder(@MemberId Long memberId,
                                     @RequestBody OrderDto.Post post) {
-        Order order = mapper.toOrder(post);
+
+        Order order = orderService.createOrder(mapper.toOrder(post, memberId));
 
         return new ResponseEntity<>(mapper.toResponse(order), HttpStatus.CREATED);
     }

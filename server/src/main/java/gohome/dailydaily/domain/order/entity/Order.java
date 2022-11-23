@@ -31,4 +31,11 @@ public class Order extends BaseTime {
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public void addOrderProduct(OrderProduct... orderProducts) {
+        this.orderProducts.addAll(List.of(orderProducts));
+    }
 }
