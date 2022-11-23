@@ -107,7 +107,6 @@ const Category = styled.div`
 `;
 
 function Header({ setClick }) {
-  //const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
   const jwtToken = localStorage.getItem("Authorization");
@@ -121,10 +120,11 @@ function Header({ setClick }) {
     setCloseSearch(!closeSearch);
   };
 
-  const clickLogOut = () => {
+  const clickLogOut = (e) => {
+    e.preventDefault();
     localStorage.clear();
-    window.alert("로그아웃에 성공하셨습니다!");
     navigate("/");
+    window.alert("로그아웃에 성공하셨습니다!");
   };
   const outModalCloseHandler = ({ target }) => {
     if (closeSearch && !modalRef.current.contains(target))

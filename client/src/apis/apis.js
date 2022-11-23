@@ -3,7 +3,11 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
+<<<<<<< HEAD
+  baseURL: "https://mighty-lemons-chew-125-134-111-237.loca.lt/",
+=======
   baseURL: "https://cool-shoes-cross-113-52-194-59.loca.lt/",
+>>>>>>> 697753dd6d991fa7b1845ef4c4a5a2b80c43cd84
 });
 
 axios.interceptors.request.use(function (config) {
