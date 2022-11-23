@@ -4,7 +4,7 @@ import articleSlice from "./slices/articleSlice";
 import userSlice from "./slices/userSlice";
 import reviewSlice from "./slices/reviewSlice";
 import mainSlice from "./slices/mainSlice";
-import categorySlice from "./slices/categorySlice";
+import mainCategorySlice from "./slices/mainCategorySlice";
 import subCategorySlice from "./slices/subCategorySlice";
 
 const rootReducer = combineReducers({
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   user: userSlice,
   review: reviewSlice,
   main: mainSlice,
-  category: categorySlice,
+  maincategory: mainCategorySlice,
   subcategory :subCategorySlice
 });
 

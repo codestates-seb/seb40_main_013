@@ -8,11 +8,12 @@ import chair from "../imgs/chair.png";
 import desk from "../imgs/desk.png";
 import shelf from "../imgs/shelf.png";
 import room from "../imgs/room.jpg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getBedroom, getKitchen, getLibrary, getLivingRoom, getSubCategory } from "../reduxstore/slices/subCategorySlice";
 
 const SubBlock = styled.div`
   width: 100%;
-  margin-top: 170px;
+  margin-top: 160px;
   padding: 30px 40px 30px 40px;
   div {
     display: flex;

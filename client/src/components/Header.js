@@ -6,7 +6,7 @@ import DownSearch from "./search";
 
 const HeaderBlock = styled.header`
   width: 100%;
-  height: 170px;
+  height: 160px;
   color: var(--color-gray);
   div {
     display: flex;
@@ -169,7 +169,6 @@ function Header({ setClick }) {
             <div>DAILY DAILY</div>
           </Logo>
         </Link>
-
         <CategoryList>
           <div>
             <Link to="/sub">
@@ -214,7 +213,6 @@ function Header({ setClick }) {
               </Category>
             </Link>
           </div>
-
           <div>
             <div ref={modalRef} className="modal">
               <Serach onClick={closeHandler}>
@@ -225,21 +223,10 @@ function Header({ setClick }) {
                 closeHandler={closeHandler}
               />
             </div>
-            {jwtToken ? (
-              <Link to="/cart">
                 <div>
-                  <BsCart3 size="20" />
-                  <div className="cart-count">(0)</div>
+                    <BsCart3 size="20" />
+                   <div className="cart-count">(0)</div>
                 </div>
-              </Link>
-            ) : (
-              <Link to="/users/login">
-                <div>
-                  <BsCart3 size="20" />
-                  <div className="cart-count">(0)</div>
-                </div>
-              </Link>
-            )}
           </div>
         </CategoryList>
       </HeaderBlock>

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from
 import { useDispatch, useSelector } from "react-redux";
 import { bestOfBest, topBrand, mainData } from "../reduxstore/slices/articleSlice";
 import { newData } from "../reduxstore/slices/mainSlice";
-import { categoryData } from "../reduxstore/slices/categorySlice";
+import { categoryData } from "../reduxstore/slices/mainCategorySlice";
 import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
 import Button from "../components/Button";
@@ -102,7 +102,7 @@ const Main = () => {
   const bestData = useSelector((state)=> state.article.mainArticle);
 
   // 신상품
-  const newArivalData = useSelector((state)=> state.category.category);
+  const newArivalData = useSelector((state)=> state.maincategory.category);
 
   //브랜드리스트
   const brandData = useSelector((state)=>state.main.main);

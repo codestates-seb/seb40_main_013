@@ -6,7 +6,6 @@ import { deleteShoppingCart } from "../reduxstore/slices/articleSlice";
 import { useDispatch } from "react-redux";
 import { reCountCartItem } from "../reduxstore/slices/articleSlice";
 
-
 const CartItemBlock = styled.div`
     width: 100%;
     height: 130px;

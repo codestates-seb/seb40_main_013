@@ -101,30 +101,25 @@ const userSlice = createSlice({
   extraReducers: {
     [signUser.fulfilled]: (state, action) => {
       state.users = action.payload;
-      state.updateUser = [];
       state.loading = true;
       state.error = "";
     },
     [loginUser.fulfilled]: (state, action) => {
       state.users = action.payload;
-      state.updateUser = [];
       state.loading = true;
       state.error = "";
     },
     [guestUser.fulfilled]: (state, action) => {
       state.users = action.payload;
-      state.updateUser = [];
       state.loading = true;
       state.error = "";
     },
     [getUser.fulfilled]: (state, action) => {
       state.users = action.payload;
-      state.updateUser = [];
       state.loading = true;
       state.error = "";
     },
     [updateUser.fulfilled]: (state, action) => {
-      state.users = [];
       state.updateUser = action.payload;
       state.loading = true;
       state.error = "";
