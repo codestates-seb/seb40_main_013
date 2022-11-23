@@ -7,6 +7,7 @@ import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberRole;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
 import gohome.dailydaily.domain.member.entity.Seller;
+import gohome.dailydaily.domain.member.repository.MemberRepository;
 import gohome.dailydaily.domain.member.repository.SellerRepository;
 import gohome.dailydaily.domain.product.entity.Category;
 import gohome.dailydaily.domain.product.entity.Product;
@@ -36,6 +37,7 @@ public class CrawlingService {
 
     private final ProductRepository productRepository;
     private final SellerRepository sellerRepository;
+    private final MemberRepository memberRepository;
     private final CategoryRepository categoryRepository;
 
     @Value("${file.productImg}")
@@ -50,8 +52,8 @@ public class CrawlingService {
         try {
             // 개발 강의 모든 페이징 순회
 
-            Category category = categoryRepository.findByMainAndSub("서재", "의자");
-            Seller seller = sellerRepository.findById(3L).get();
+            Category category = categoryRepository.findByMainAndSub("침실", "화장대");
+            Seller seller = sellerRepository.findById(8L).get();
 
             for (int i = 0; i < urls.length; i++) {
                 final String url = urls[i];
@@ -105,6 +107,7 @@ public class CrawlingService {
                             .score(5)
                             .category(category)
                             .content(contentsLink)
+                            .sale(0)
                             .build();
 
                     productRepository.save(product);
