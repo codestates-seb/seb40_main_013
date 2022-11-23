@@ -16,20 +16,21 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.*;
 
+@Getter
 @Component
 public class JwtTokenizer {
 
-    @Getter
     @Value("${jwt.secret-key}")
     private String secretKey;
 
-    @Getter
     @Value("${jwt.access-token-expiration-minutes}")
     private int accessTokenExpirationMinutes;
 
-    @Getter
     @Value("${jwt.refresh-token-expiration-minutes}")
     private int refreshTokenExpirationMinutes;
+
+    @Value("${jwt.keep-state-refresh-token-expiration-minutes}")
+    private int keepStateRefreshTokenExpirationMinutes;
 
     public String getAccessToken(Member member) {
         HashMap<String, Object> claims = new HashMap<>();
@@ -42,11 +43,11 @@ public class JwtTokenizer {
         return generateAccessToken(claims, subject, expiration, bases64EncodedSecretKey);
     }
 
-    public String getAccessToken(Long memberId) {
+    public String getGuestAccessToken() {
         HashMap<String, Object> claims = new HashMap<>();
-        claims.put("roles", List.of(MemberRole.USER));
+        claims.put("roles", List.of(MemberRole.USER, MemberRole.SELLER));
 
-        String subject = String.valueOf(memberId);
+        String subject = "9";
         Date expiration = getTokenExpiration(getAccessTokenExpirationMinutes());
         String bases64EncodedSecretKey = encodedBase64SecretKey(getSecretKey());
 
@@ -56,6 +57,14 @@ public class JwtTokenizer {
     public String getRefreshToken(Long memberId) {
         String subject = String.valueOf(memberId);
         Date expiration = getTokenExpiration(getRefreshTokenExpirationMinutes());
+        String bases64EncodedSecretKey = encodedBase64SecretKey(getSecretKey());
+
+        return generateRefreshToken(subject, expiration, bases64EncodedSecretKey);
+    }
+
+    public String getKeepStateRefreshToken(Long memberId) {
+        String subject = String.valueOf(memberId);
+        Date expiration = getTokenExpiration(getKeepStateRefreshTokenExpirationMinutes());
         String bases64EncodedSecretKey = encodedBase64SecretKey(getSecretKey());
 
         return generateRefreshToken(subject, expiration, bases64EncodedSecretKey);
