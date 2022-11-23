@@ -174,7 +174,6 @@ function ShoppingCart() {
   const checkRemoveCartItem = () => {
     checkList.forEach(el => {
       dispatch(deleteShoppingCart(el.productCartId))
-      window.location.reload();
     });
   }
 
