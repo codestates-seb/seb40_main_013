@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import javax.validation.constraints.Min;
 
@@ -17,8 +18,22 @@ public class PagingRequestDto {
     @Range(min = 1, max = 1000)
     private int size = 20;
 
+    private String sortType = "createdAt";
+    private Sort sort1 = Sort.by(sortType).descending();
+    private String order = "desc";
+    private Sort sort2 = Sort.by("createdAt").descending();
+    private Sort sortAll;
+
     public Pageable getPageRequest() {
-        return PageRequest.of(this.page, this.size);
+        if (this.order.equals("asc")){
+            this.sort1 = Sort.by(sortType).ascending();
+            this.sortAll = sort1.and(sort2);
+        }
+        else {
+            this.sort1 = Sort.by(sortType).descending();
+            this.sortAll = sort1.and(sort2);
+        }
+        return PageRequest.of(this.page, this.size, this.sortAll);
     }
 
 }

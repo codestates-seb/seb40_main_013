@@ -36,16 +36,16 @@ public class ProductController {
 
     // 5개씩
     @GetMapping("/brandListLike")
-    public ResponseEntity<List<List<CategoryGetDto>>> getBrandListLikeTop5() {
-        List<List<CategoryGetDto>> products = productService.getBrandListLikeTop5();
+    public ResponseEntity<List<List<CategoryGetDto>>> getBrandListLikeTop15() {
+        List<List<CategoryGetDto>> products = productService.getBrandListLikeTop15();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
 
     // 15개씩
     @GetMapping("/categoryCreated")
-    public ResponseEntity<List<List<CategoryGetDto>>> getCategoryCreatedTop15() {
-        List<List<CategoryGetDto>> products = productService.getCategoryCreatedTop15();
+    public ResponseEntity<List<List<CategoryGetDto>>> getCategoryCreatedTop5() {
+        List<List<CategoryGetDto>> products = productService.getCategoryCreatedTop5();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
@@ -58,7 +58,7 @@ public class ProductController {
     }
 
     // 제목으로 상품 리스트 검색
-    @GetMapping("/titles")
+    @GetMapping("/search")
     public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByTitle(GetProductListByTitleDto dto) {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByTitle(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);

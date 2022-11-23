@@ -4,6 +4,7 @@ import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryD
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.Sort;
 
 @Setter
 @Getter
