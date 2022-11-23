@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -64,31 +65,25 @@ public class ProductService {
         return products;
     }
 
-    public List<List<CategoryGetDto>> getBrandListLikeTop15() {
+    public HashMap<String,List<CategoryGetDto>> getBrandListLikeTop15() {
 
-        List<List<CategoryGetDto>> products = new ArrayList<>();
         List<Seller> brandList = sellerRepository.findAll();
+        HashMap<String, List<CategoryGetDto>> products = new HashMap<>();
+        List<CategoryGetDto> tmp;
         for(Seller s : brandList){
-            if (productRepository.findByTop15ByBrand(s.getId()).isEmpty()){
-                products.add(null);
-            }
-            else {
-                products.add(productRepository.findByTop15ByBrand(s.getId()));
-            }
+             tmp = productRepository.findByTop15ByBrand(s.getId());
+             products.put(tmp.get(2).getNickname(),tmp);
         }
         return products;
     }
 
-    public List<List<CategoryGetDto>> getCategoryCreatedTop5() {
-        List<List<CategoryGetDto>> products = new ArrayList<>();
+    public HashMap<String,List<CategoryGetDto>> getCategoryCreatedTop5() {
         List<Category> categoryList = categoryRepository.findByGroupByMain();
-        for(Category c : categoryList){
-            if (productRepository.findByTop5ByCategory(c.getMain()).isEmpty()){
-                products.add(null);
-            }
-            else {
-                products.add(productRepository.findByTop5ByCategory(c.getMain()));
-            }
+        HashMap<String, List<CategoryGetDto>> products = new HashMap<>();
+        List<CategoryGetDto> tmp;
+        for(Category c : categoryList) {
+            tmp = productRepository.findByTop5ByCategory(c.getMain());
+            products.put(tmp.get(0).getMain(), tmp);
         }
         return products;
     }

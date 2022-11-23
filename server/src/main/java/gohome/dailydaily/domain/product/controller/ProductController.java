@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,16 +37,16 @@ public class ProductController {
 
     // 5개씩
     @GetMapping("/brandListLike")
-    public ResponseEntity<List<List<CategoryGetDto>>> getBrandListLikeTop15() {
-        List<List<CategoryGetDto>> products = productService.getBrandListLikeTop15();
+    public ResponseEntity<HashMap<String,List<CategoryGetDto>>> getBrandListLikeTop15() {
+        HashMap<String,List<CategoryGetDto>> products = productService.getBrandListLikeTop15();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
 
     // 15개씩
     @GetMapping("/categoryCreated")
-    public ResponseEntity<List<List<CategoryGetDto>>> getCategoryCreatedTop5() {
-        List<List<CategoryGetDto>> products = productService.getCategoryCreatedTop5();
+    public ResponseEntity<HashMap<String,List<CategoryGetDto>>> getCategoryCreatedTop5() {
+        HashMap<String,List<CategoryGetDto>> products = productService.getCategoryCreatedTop5();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
