@@ -48,8 +48,6 @@ export const mainData = createAsyncThunk(
       });
   }
 );
-<<<<<<< HEAD
-=======
 
 export const getSubCategory = createAsyncThunk( //비동기처리를 도와주는애(자동으로 지원해줌)
   "getSubCategory",// 이름정하는데, 의미없음
@@ -106,7 +104,6 @@ export const deleteShoppingCart = createAsyncThunk(
   }
 );
 
->>>>>>> 0bf6bb421221c7c4b0a000d21a4e61f3d16a51e3
 
 const articleSlice = createSlice({
   name: "article",
