@@ -188,7 +188,8 @@ public class TestConstant {
             parameterWithName("sub").description("카테고리 소분류"),
             parameterWithName("page").description("페이지"),
             parameterWithName("size").description("사이즈"),
-            parameterWithName("sort").description("정렬")
+            parameterWithName("sortType").description("정렬 요소"),
+            parameterWithName("order").description("내림차순 or 오름차순")
     );
 
     public static final PathParametersSnippet PATH_PARAM_PRODUCT_CART_ID = pathParameters(

@@ -5,6 +5,7 @@ import gohome.dailydaily.domain.product.dto.OptionDto;
 import gohome.dailydaily.domain.product.repository.param.CategoryGetParam;
 import gohome.dailydaily.domain.product.repository.param.TitleGetParam;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Repository;
@@ -17,9 +18,9 @@ public interface ProductRepositoryCustom {
 
     SliceResponseDto<CategoryGetDto> findAllByCategory(Pageable pageable, CategoryGetParam param);
 
-    List<CategoryGetDto> findByTop5ByBrand(Long id);
+    List<CategoryGetDto> findByTop15ByBrand(Long id);
 
-    List<CategoryGetDto> findByTop15ByCategory(String main);
+    List<CategoryGetDto> findByTop5ByCategory(String main);
 
     SliceResponseDto<CategoryGetDto> findAllByTitle(Pageable pageRequest, TitleGetParam valueOf);
 
