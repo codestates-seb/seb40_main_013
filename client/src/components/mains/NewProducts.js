@@ -164,6 +164,9 @@ const BP = styled(Link)`
   height: 20%;
   width: 400px;
   padding-right: 10px;
+  &:hover{
+    opacity: 0.7;
+  }
   @media screen and (max-width: 390px){
     width: 100%;
     padding: 10px 0;
@@ -192,7 +195,7 @@ const Price = styled.h2`
   font-weight: 600;
 `;
 
-const NewProducts = ({ libraryList, bedList }) =>{
+const NewProducts = ({ newArivalList }) =>{
   const [clicked, setClicked] = useState('서재');
 
   const onClick = useCallback(e => {
@@ -207,7 +210,7 @@ const NewProducts = ({ libraryList, bedList }) =>{
               <p className="hover_text">서재 전체보기</p>
             </TI>
             <BPList>
-                {libraryList?.map((p)=>
+                {newArivalList.서재?.map((p)=>
                   <BP key={p.id} to={`/detail/${p.id}`}>
                     <Img src={p.img.fullPath} />
                     <TP>
@@ -224,7 +227,7 @@ const NewProducts = ({ libraryList, bedList }) =>{
               <p className="hover_text">침실 전체보기</p>
             </TI>
               <BPList>
-                  {bedList?.map((p)=>
+                  {newArivalList.침실?.map((p)=>
                     <BP key={p.id} to={`/detail/${p.id}`}>
                       <Img src={p.img.fullPath} />
                       <TP>
@@ -241,7 +244,7 @@ const NewProducts = ({ libraryList, bedList }) =>{
               <p className="hover_text">거실 전체보기</p>
             </TI>
               <BPList>
-                  {bedList?.map((p)=>
+                  {newArivalList.거실?.map((p)=>
                     <BP key={p.id} to={`/detail/${p.id}`}>
                       <Img src={p.img.fullPath} />
                       <TP>
@@ -258,7 +261,7 @@ const NewProducts = ({ libraryList, bedList }) =>{
               <p className="hover_text">주방 전체보기</p>
             </TI>
               <BPList>
-                  {bedList?.map((p)=>
+                  {newArivalList.주방?.map((p)=>
                     <BP key={p.id} to={`/detail/${p.id}`}>
                       <Img src={p.img.fullPath} />
                       <TP>

@@ -29,11 +29,11 @@ const Button = () => {
 
   const handleFollow = () => {
     setScrollY(window.pageYOffset); // window 스크롤 값을 ScrollY에 저장
-    if (ScrollY > 200) {
-      // 200 이상이면 버튼이 보이게
+    if (ScrollY > 170) {
+      // 170 이상이면 버튼이 보이게
       setBtnStatus(!BtnStatus);
     } else {
-      // 200 이하면 버튼이 사라지게
+      // 170 이하면 버튼이 사라지게
       setBtnStatus(false);
     }
   };
