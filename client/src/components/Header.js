@@ -19,10 +19,11 @@ const HeaderBlock = styled.header`
   background-color: white;
   z-index: 2;
 `;
+
 const Logo = styled.div`
   height: 90px;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   div {
     font-size: 43px;
     color: var(--color-navy);
@@ -107,10 +108,11 @@ const Category = styled.div`
 `;
 
 function Header({ setClick }) {
-  const modalRef = useRef();
-  const [closeSearch, setCloseSearch] = useState(false);
   const jwtToken = localStorage.getItem("Authorization");
   const navigate = useNavigate();
+  const modalRef = useRef();
+  const [closeSearch, setCloseSearch] = useState(false);
+
   const clickMenu = ({ target }) => {
     setClick(target.innerHTML);
     // console.log(target.innerHTML);
@@ -137,7 +139,7 @@ function Header({ setClick }) {
     return () => {
       window.removeEventListener("click", outModalCloseHandler); //이벤트 한번만 실행되게 하려고 제거.
     };
-  });
+  },[]);
 
   return (
     <>

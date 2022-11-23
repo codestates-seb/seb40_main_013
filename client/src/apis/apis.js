@@ -4,33 +4,9 @@ const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
   baseURL: "https://mighty-lemons-chew-125-134-111-237.loca.lt/",
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
-axios.interceptors.request.use(
-  function (config) {
-    let token = localStorage.getItem("Authorization");
-    if (token != undefined) {
-      config.headers["Authorization"] = token;
-      config.headers["Refresh"] = refreshToken;
-      config.headers["Content-Type"] = "application/json";
-    }
-    return config;
-  },
-  async function (error) {
-    // 오류 요청 가공
-    return Promise.reject(error);
-  }
-);
 
 axios.interceptors.request.use(function (config) {
-
-  config.withCredentials = true;
-  const token = localStorage.getItem("Authorization");
-  config.headers["Authorization"] = token;
-  config.headers["Refresh"] = refreshToken;
-  config.headers["Content-Type"] = "application/json";
   return config;
 });
 
