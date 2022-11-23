@@ -33,7 +33,7 @@ public class AuthService {
     }
 
     public String getGuestAccessToken() {
-        return jwtTokenizer.getAccessToken(1L);
+        return jwtTokenizer.getGuestAccessToken();
     }
 
 }
