@@ -17,7 +17,7 @@ export const newData = createAsyncThunk(
 const mainSlice = createSlice({
   name: "main",
   initialState: {
-    main: [],
+    main: {},
     loading: false,
     error: "",
   },
