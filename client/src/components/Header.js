@@ -122,28 +122,29 @@ function Header({ setClick }) {
     setCloseSearch(!closeSearch);
   };
 
+  const outModalCloseHandler = (e) => {
+    if (closeSearch && !modalRef.current.contains(e.target))
+    setCloseSearch(false);
+    // console.log(target.innerHTML);
+  };
+  
+  // useEffect(() => {
+  //   window.addEventListener("click", outModalCloseHandler);
+  //   return () => {
+  //     window.removeEventListener("click", outModalCloseHandler); //이벤트 한번만 실행되게 하려고 제거.
+  //   };
+  // },[]);
+  
   const clickLogOut = (e) => {
     e.preventDefault();
     localStorage.clear();
     navigate("/");
     window.alert("로그아웃에 성공하셨습니다!");
   };
-  const outModalCloseHandler = ({ target }) => {
-    if (closeSearch && !modalRef.current.contains(target))
-      setCloseSearch(false);
-    // console.log(target.innerHTML);
-  };
-
-  useEffect(() => {
-    window.addEventListener("click", outModalCloseHandler);
-    return () => {
-      window.removeEventListener("click", outModalCloseHandler); //이벤트 한번만 실행되게 하려고 제거.
-    };
-  },[]);
-
+  
   return (
     <>
-      <HeaderBlock>
+      <HeaderBlock onClick={outModalCloseHandler}>
         <div className="top">
           {jwtToken ? (
             <Link>
@@ -169,6 +170,7 @@ function Header({ setClick }) {
             <div>DAILY DAILY</div>
           </Logo>
         </Link>
+
         <CategoryList>
           <div>
             <Link to="/sub">
@@ -213,6 +215,7 @@ function Header({ setClick }) {
               </Category>
             </Link>
           </div>
+
           <div>
             <div ref={modalRef} className="modal">
               <Serach onClick={closeHandler}>
@@ -223,10 +226,21 @@ function Header({ setClick }) {
                 closeHandler={closeHandler}
               />
             </div>
+            {jwtToken ? (
+              <Link to="/cart">
                 <div>
-                    <BsCart3 size="20" />
-                   <div className="cart-count">(0)</div>
+                  <BsCart3 size="20" />
+                  <div className="cart-count">(0)</div>
                 </div>
+              </Link>
+            ) : (
+              <Link to="/users/login">
+                <div>
+                  <BsCart3 size="20" />
+                  <div className="cart-count">(0)</div>
+                </div>
+              </Link>
+            )}
           </div>
         </CategoryList>
       </HeaderBlock>
