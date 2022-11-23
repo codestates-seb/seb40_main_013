@@ -50,7 +50,6 @@ const Container = styled.div`
 const Arrows = styled.div``;
 const Prev = styled.span`
   cursor: pointer;
-  z-index: 2;
   position: absolute;
   top: 50%;
   width: auto;
@@ -68,7 +67,6 @@ const Prev = styled.span`
 `;
 const Next = styled.span`
 cursor: pointer;
-  z-index: 2;
   position: absolute;
   top: 50%;
   right: 0;
