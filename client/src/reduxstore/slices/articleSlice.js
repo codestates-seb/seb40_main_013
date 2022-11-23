@@ -36,27 +36,18 @@ export const postCart = createAsyncThunk(
   }
 );
 
-export const mainData = createAsyncThunk("products/mainData", async () => {
-  return axios
-    .all([
-      axios.get(
-        `https://mighty-lemons-chew-125-134-111-237.loca.lt/products/score`
-      ),
-      axios.get(
-        `https://mighty-lemons-chew-125-134-111-237.loca.lt/products/brandListLike`
-      ),
-    ])
-    .then(
-      axios.spread((res1, res2) => {
-        // console.log(res1, res2)
-        const resBest = res1.data;
-        const resBrand = res2.data;
-        const res = [...resBest, ...resBrand];
-        return res;
+export const mainData = createAsyncThunk(
+  "mainData",
+  async () => {
+    return Apis.get(`products/score`)
+      .then((res) => {
+        return res.data;
       })
-    )
-    .catch((err) => console.log(2));
-});
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 
 const articleSlice = createSlice({
   name: "article",

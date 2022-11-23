@@ -1,4 +1,5 @@
-import React, { useNavigate } from "react";
+import React, { useNavigate, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 
 const Review = () =>{
@@ -7,22 +8,19 @@ const Review = () =>{
   // const ls = localStorage.getItem("saw");
   // const lsArr = JSON.parse(ls).reverse();
 
-  // useEffect(() => {
-  //   let arr = JSON.parse(ls);
-  //   if (!arr.includes(shoe[0].id)) {
-  //     if (arr.length === 5) {
-  //       arr.shift();
-  //     }
-  //     arr.push(shoe[0].id);
-  //   } else {
-  //     arr = arr.filter((el) => {
-  //       return el !== shoe[0].id;
-  //     });
-  //     arr.push(shoe[0].id);
-  //   }
-  //   //최근본 상품 저장
-  //   localStorage.setItem("saw", JSON.stringify(arr));
-  // })
+  useEffect(() => {
+    const articlesDetail = useSelector((state) => state.article.detailArticle);
+    let get_local = localStorage.getItem("product");
+    if (get_local == null) {
+      get_local = [];
+    } else {
+      get_local = JSON.parse(get_local);
+    }
+    console.log(get_local)
+    get_local.push(articlesDetail.productId);
+    get_local = [...get_local];
+    localStorage.setItem("product", JSON.stringify(get_local))
+  }, []);
   return(
     <div>
     <div>최근본상품</div>
