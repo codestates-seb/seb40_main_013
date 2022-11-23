@@ -108,7 +108,6 @@ const TI = styled.a`
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.3);
-    z-index: 10;
   }
   &:hover img{
     transform: scale(1.1);
@@ -117,12 +116,24 @@ const TI = styled.a`
   .hover_text{
     display: none;
     position: absolute;
-    top: 170px;
-    left: 160px;
+    top: 160px;
+    left: 150px;
     color: #fff;
-    z-index: 20;
+    z-index: 1;
     font-weight: 500;
     font-size: 35px;
+    background:#fff;
+    color: #AAAAAA; 
+    transition: all 0.5s;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  @media (min-width: 768px) and (max-width: 1024px){
+    .hover_text{
+      top: 20px;
+      left: 20px;
+      font-size: 20px;
+    }
   }
 `;
 
@@ -207,7 +218,7 @@ const NewProducts = ({ newArivalList }) =>{
     "서재": <CategoryProduct>
             <TI>
               <CategoryImg src={library}></CategoryImg>
-              <p className="hover_text">서재 전체보기</p>
+              <p className="hover_text">More view</p>
             </TI>
             <BPList>
                 {newArivalList.서재?.map((p)=>
@@ -224,7 +235,7 @@ const NewProducts = ({ newArivalList }) =>{
     "침실": <CategoryProduct>
               <TI>
               <CategoryImg src={bedroom}></CategoryImg>
-              <p className="hover_text">침실 전체보기</p>
+              <p className="hover_text">More view</p>
             </TI>
               <BPList>
                   {newArivalList.침실?.map((p)=>
@@ -241,7 +252,7 @@ const NewProducts = ({ newArivalList }) =>{
     "거실": <CategoryProduct>
             <TI>
               <CategoryImg src={livingroom}></CategoryImg>
-              <p className="hover_text">거실 전체보기</p>
+              <p className="hover_text">More view</p>
             </TI>
               <BPList>
                   {newArivalList.거실?.map((p)=>
@@ -258,7 +269,7 @@ const NewProducts = ({ newArivalList }) =>{
     "주방": <CategoryProduct>
             <TI>
               <CategoryImg src={kitchen}></CategoryImg>
-              <p className="hover_text">주방 전체보기</p>
+              <p className="hover_text">More view</p>
             </TI>
               <BPList>
                   {newArivalList.주방?.map((p)=>

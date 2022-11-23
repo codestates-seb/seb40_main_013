@@ -5,7 +5,15 @@ import { Link, useParams } from "react-router-dom";
 
 const Products = styled(Link)`
   width: 18vw;
-  margin: 0 10px;
+  padding-top: 10px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow .3s;
+  &:hover{
+    box-shadow: 0 0 11px #AAAAAA; 
+  }
   @media screen and (max-width: 390px) {
     width: 150px;
   }
@@ -14,13 +22,14 @@ const Products = styled(Link)`
   }
 `;
 const Img = styled.img`
-  width: 100%;
+  width: 13vw;
   display: flex;
+  border-radius: 5px;
 `;
 const Detail = styled.div`
   display: flex;
   flex-direction: column;
-  width: 18vw;
+  width: 13vw;
   margin-top: 10px;
   @media screen and (max-width: 390px) {
     width: 150px;

@@ -119,46 +119,26 @@ const articleSlice = createSlice({
   reducers: {},
   extraReducers: { //비동기처리를 해주는경우 여기서 사용해줘야함
     [getArticleDetail.fulfilled]: (state, action) => {
-      state.article = [];
       state.detailArticle = action.payload;
-      state.mainArticle = [];
-      state.subCategoryInitial = [];
-      state.shoppingCartInitial = [];
       state.loading = true;
       state.error = "";
     },
     [postCart.fulfilled]: (state, action) => {
       state.article = action.payload;
-      state.detailArticle = [];
-      state.mainArticle = [];
-      state.subCategoryInitial = [];
-      state.shoppingCartInitial = [];
       state.loading = true;
       state.error = "";
     },
     [mainData.fulfilled]: (state, action) => {
-      state.article = [];
-      state.detailArticle = [];
       state.mainArticle = action.payload;
-      state.subCategoryInitial = [];
-      state.shoppingCartInitial = [];
       state.loading = true;
       state.error = "";
     },
     [getSubCategory.fulfilled]: (state, action) => {
-      state.article = [];
-      state.detailArticle = [];
-      state.mainArticle = [];
       state.subCategoryInitial = [...state.subCategoryInitial, action.payload];
-      state.shoppingCartInitial = [];
       state.loading = true;
       state.error = "";
     },
     [getShoppingCart.fulfilled]: (state, action) => {
-      state.article = [];
-      state.detailArticle = [];
-      state.mainArticle = [];
-      state.subCategoryInitial = [];
       state.shoppingCartInitial = action.payload.productCarts;
       state.loading = true;
       state.error = "";

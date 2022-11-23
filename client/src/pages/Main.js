@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from
 import { useDispatch, useSelector } from "react-redux";
 import { bestOfBest, topBrand, mainData } from "../reduxstore/slices/articleSlice";
 import { newData } from "../reduxstore/slices/mainSlice";
-import { categoryData } from "../reduxstore/slices/categorySlice";
+import { categoryData } from "../reduxstore/slices/mainCategorySlice";
 import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
 import Button from "../components/Button";
@@ -67,6 +67,17 @@ const BrandTab = styled.div`
   margin-bottom: 30px;
   border-radius: 5px;
   display: flex;
+  width: 80%;
+`;
+const TD = styled.div`
+  border: 1px solid #aaaaaa;
+  padding: 20px 50px;
+  font-size: 1rem;
+  white-space: nowrap;
+  cursor: pointer;
+  &:hover{
+    border: 3px solid #FFAF51;
+  }
 `;
 const BrandTitle = styled.div`
   display: flex;
@@ -82,17 +93,7 @@ const FullView = styled(Link)`
   color: #AAAAAA;
   cursor: pointer;
 `;
-const TD = styled.div`
-  border: 1px solid #aaaaaa;
-  padding: 20px 50px;
-  font-size: 1rem;
-  cursor: pointer;
-  &:hover{
-    border: 3px solid #FFAF51;
-  }
-`;
 
-//브랜드 리스트
 const BrandProduct = styled.div``;
 
 const Main = () => {
@@ -102,7 +103,7 @@ const Main = () => {
   const bestData = useSelector((state)=> state.article.mainArticle);
 
   // 신상품
-  const newArivalData = useSelector((state)=> state.category.category);
+  const newArivalData = useSelector((state)=> state.maincategory.category);
 
   //브랜드리스트
   const brandData = useSelector((state)=>state.main.main);
@@ -117,22 +118,8 @@ const Main = () => {
   const hudoRef = useRef();
   const sofsysRef = useRef();
   
-  const handle포더홈 = () => {
-    포더홈Ref.current?.scrollIntoView({ behavior: 'smooth'})
-  }
-
-  const handledesker = () => {
-    deskerRef.current?.scrollIntoView({ behavior: 'smooth'})
-  }
-
-  const handleforthehome = () => {
-    forthehomeRef.current?.scrollIntoView({ behavior: 'smooth'})
-  }
-  const handlehudo= () => {
-    hudoRef.current?.scrollIntoView({ behavior: 'smooth'})
-  }
-  const handlesofsys= () => {
-    sofsysRef.current?.scrollIntoView({ behavior: 'smooth'})
+  const handleClick = (e)=>{
+    `${e}Ref`.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   //자동스크롤시 탭 헤더 밑으로 고정시키기
@@ -213,10 +200,11 @@ const Main = () => {
         <MainTitle>브랜드별 추천상품</MainTitle>
       </Title>
       <BrandTab>
-          {brandTab?.filter(tab => tab !== 'guest')?.map(tab => 
-          <TD key={tab} onClick={()=>{`handle${tab}`}}>{tab}</TD>)}
+          {brandTab?.filter(t => t !== 'guest')?.map(tab => 
+          <TD key={tab} onClick={()=>handleClick(tab)}>{tab}</TD>)}
       </BrandTab>
-        {Object?.entries(brandData)?.filter(key => key[0] !== 'guest')?.map(([key,value]) => (
+        {Object?.entries(brandData)?.filter(key => key[0] !== 'guest')
+            ?.map(([key,value]) => (
             <BrandProduct key={key}>
               <BrandTitle>
                 <MainTitle>{key}</MainTitle>
