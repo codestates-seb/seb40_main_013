@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bestOfBest, topBrand, mainData } from "../reduxstore/slices/articleSlice";
 import { newData } from "../reduxstore/slices/mainSlice";
-import { categoryData } from "../reduxstore/slices/mainCategorySlice";
+import { categoryData } from "../reduxstore/slices/categorySlice";
 import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
 import Button from "../components/Button";

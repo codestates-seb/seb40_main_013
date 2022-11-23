@@ -4,7 +4,7 @@ import articleSlice from "./slices/articleSlice";
 import userSlice from "./slices/userSlice";
 import reviewSlice from "./slices/reviewSlice";
 import mainSlice from "./slices/mainSlice";
-import mainCategorySlice from "./slices/mainCategorySlice";
+import categorySlice from "./slices/categorySlice";
 import subCategorySlice from "./slices/subCategorySlice";
 
 const rootReducer = combineReducers({
@@ -12,8 +12,8 @@ const rootReducer = combineReducers({
   user: userSlice,
   review: reviewSlice,
   main: mainSlice,
-  maincategory: mainCategorySlice,
-  subcategory: subCategorySlice
+  category: categorySlice,
+  subcategory :subCategorySlice
 });
 
 const store = configureStore({ reducer: rootReducer });
