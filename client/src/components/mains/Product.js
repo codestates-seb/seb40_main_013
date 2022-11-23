@@ -35,10 +35,11 @@ const Brand = styled.h5`
 const Title = styled.h2`
   font-size: 1.1rem;
   font-weight: 500;
-  text-overflow: ellipsis;
-  height: 34px;
-  word-break: break-all;
-  @media screen and (max-width: 390px) {
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  height: 20%; //수정필요...
+  word-break:break-all;
+  @media screen and (max-width: 390px){
     font-size: 1.6vw;
     font-weight: 400;
   }
@@ -96,11 +97,11 @@ const StarAerage = styled.div`
   display: flex;
 `;
 const Product = ({ proId, product }) => {
-  const { id } = useParams();
+  const {id} = useParams();
 
-  const { img, nickname, score, title, price } = product;
+  const { img, nickname, score, title, price} = product;
 
-  return (
+  return(
     <Products to={`/detail/${proId}`}>
       <Img src={img?.fullPath}></Img>
       <Detail>
@@ -113,7 +114,7 @@ const Product = ({ proId, product }) => {
         </SubDetail>
         <Title>{title}</Title>
         <SubDetail>
-          <Price>{price.toLocaleString("en-US")}</Price>
+          <Price>{price?.toLocaleString('en-US')}</Price>
         </SubDetail>
       </Detail>
     </Products>

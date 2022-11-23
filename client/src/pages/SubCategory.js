@@ -8,7 +8,7 @@ import chair from "../imgs/chair.png";
 import desk from "../imgs/desk.png";
 import shelf from "../imgs/shelf.png";
 import room from "../imgs/room.jpg";
-import axios from "axios";
+import { useSelector } from "react-redux";
 
 const SubBlock = styled.div`
   width: 100%;
@@ -55,13 +55,11 @@ const ProductList = styled.div`
 
 function SubCategory({ click }) {
   console.log(click);
-
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [prevY, setPrevY] = useState(0);
   let productsRef = useRef({});
-  console.log(products);
 
   let loadingRef = useRef(null);
   let prevYRef = useRef({});
@@ -76,13 +74,11 @@ function SubCategory({ click }) {
   useEffect(() => {
     getProducts();
     setPage(pageRef.current + 1);
-
     let options = {
       root: null, //root는 기본적으로 스크롤 가능한 영역, null을 입력하면 전체 브라우저 창이 됨
       rootMargin: "150px",
       htreshold: 0.7, //관찰해야 하는 대상 요소의 100%를 의미한다.
     };
-
     const observer = new IntersectionObserver(handleObserver, options);
     observer.observe(loadingRef.current);
   }, [click]);
@@ -118,6 +114,7 @@ function SubCategory({ click }) {
     }
   };
 
+  console.log(products);
   return (
     <SubBlock>
       <SubCarousel />
@@ -143,7 +140,7 @@ function SubCategory({ click }) {
         <div className="total">0 개의 상품이 있습니다</div>
         <div className="products">
           {products?.map((product) => (
-            <Products key={product.id} product={product} proId={product.id} />
+            <Products porId={product.id} product={product} key={product.id} />
           ))}
         </div>
         <div ref={loadingRef}></div>
