@@ -172,7 +172,6 @@ function Header({ setClick }) {
             <div>DAILY DAILY</div>
           </Logo>
         </Link>
-
         <CategoryList>
           <div>
             <Link to="/sub">
@@ -217,7 +216,6 @@ function Header({ setClick }) {
               </Category>
             </Link>
           </div>
-
           <div>
             <div ref={modalRef} className="modal">
               <Serach onClick={closeHandler}>
@@ -232,7 +230,7 @@ function Header({ setClick }) {
               <Link to="/cart">
                 <div>
                   <BsCart3 size="20" />
-                  <div className="cart-count">({ddd.length})</div>
+                  <div className="cart-count">(0)</div>
                 </div>
               </Link>
             ) : (

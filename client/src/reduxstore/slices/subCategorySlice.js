@@ -3,8 +3,9 @@ import Apis from "../../apis/apis";
 
 export const getSubCategory = createAsyncThunk(
   "getSubCategory",
-  async ({ click, pageNum }) => {
-    return Apis.get(`products?main=${click}&page=${pageNum}`)
+  async ({ click, page }) => {
+    console.log(1231);
+    return Apis.get(`products?main=${click}&page=${page}`)
       .then((res) => {
         console.log(`shopslice`, res.data);
         return res.data;
@@ -17,8 +18,8 @@ export const getSubCategory = createAsyncThunk(
 
 export const getLibrary = createAsyncThunk(
   "getLibrary",
-  async ({ click, pageNum }) => {
-    return Apis.get(`products?main=침실&sub=${click}&page=${pageNum}`)
+  async ({ click, page }) => {
+    return Apis.get(`products?main=서재&sub=${click}&page=${page}`)
       .then((res) => {
         console.log(`shopslice`, res.data);
         return res.data;
@@ -31,8 +32,8 @@ export const getLibrary = createAsyncThunk(
 
 export const getBedroom = createAsyncThunk(
   "getBedroom",
-  async ({ click, pageNum }) => {
-    return Apis.get(`products?main=침실&sub=${click}&page=${pageNum}`)
+  async ({ click, page }) => {
+    return Apis.get(`products?main=침실&sub=${click}&page=${page}`)
       .then((res) => {
         console.log(`shopslice`, res.data);
         return res.data;
@@ -72,13 +73,13 @@ export const getKitchen = createAsyncThunk(
 );
 
 const subCategorySlice = createSlice({
-  name: "article",
+  name: "subcategory",
   initialState: {
-    subCategoryInitial: [],
-    libraryInitial: [],
-    bedroomInitial: [],
-    livingRoomInitial: [],
-    kitchenInitial: [],
+    subCategoryInitial: {},
+    libraryInitial: {},
+    bedroomInitial: {},
+    livingRoomInitial: {},
+    kitchenInitial: {},
     loading: false,
     error: "",
   },
@@ -90,22 +91,22 @@ const subCategorySlice = createSlice({
       state.error = "";
     },
     [getLibrary.fulfilled]: (state, action) => {
-      state.subCategoryInitial = action.payload;
+      state.libraryInitial = action.payload;
       state.loading = true;
       state.error = "";
     },
     [getBedroom.fulfilled]: (state, action) => {
-      state.subCategoryInitial = action.payload;
+      state.bedroomInitial = action.payload;
       state.loading = true;
       state.error = "";
     },
     [getLivingRoom.fulfilled]: (state, action) => {
-      state.subCategoryInitial = action.payload;
+      state.livingRoomInitial = action.payload;
       state.loading = true;
       state.error = "";
     },
     [getKitchen.fulfilled]: (state, action) => {
-      state.subCategoryInitial = action.payload;
+      state.kitchenInitial = action.payload;
       state.loading = true;
       state.error = "";
     },

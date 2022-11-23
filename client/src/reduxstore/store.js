@@ -4,7 +4,7 @@ import articleSlice from "./slices/articleSlice";
 import userSlice from "./slices/userSlice";
 import reviewSlice from "./slices/reviewSlice";
 import mainSlice from "./slices/mainSlice";
-import mainCategorySlice from "./slices/mainCategorySlice,";
+import mainCategorySlice from "./slices/mainCategorySlice";
 import subCategorySlice from "./slices/subCategorySlice";
 
 const rootReducer = combineReducers({
