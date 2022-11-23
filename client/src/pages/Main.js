@@ -74,11 +74,13 @@ const ProductList = styled.div`
 `;
 
 //신상품
-const Table = styled.table`
+const BrandTab = styled.div`
   margin-top: 10px;
   border-radius: 5px;
+  display: flex;
 `;
-const TD = styled.td`
+const BrandData = styled.div``;
+const TD = styled.div`
   border: 1px solid #aaaaaa;
   padding: 20px 50px;
   font-size: 1rem;
@@ -90,43 +92,48 @@ const TD = styled.td`
 
 const Main = () => {
   const dispatch = useDispatch();
+
   const bestData = useSelector((state)=> state.article.mainArticle);
+
   const libraryData = useSelector((state)=>state.category.category[1]);
   const bedData = useSelector((state)=>state.category.category[0]);
-  const brandData = useSelector((state)=>state.main.main)
-console.log(brandData)
-  // const roomandhomeData = brandData[0]
-  // const deskerData = brandData[1]
-  // const dodotData = brandData[2]
-  // const forthehomeData = brandData[3]
-  // const marketbeeData = brandData[4]
-  // const hudoData = brandData[5]
-  // const sofsysData = brandData[6]
-  // console.log(sofsysData)
-  // const libraryData = categoryData[1]
-  // const bedroomData = categoryData[0]
-  // console.log(brandData)
-  // console.log(categoryData)
+
+  const brandData = useSelector((state)=>state.main.main);
+  const brandTab = brandData?.map(brand => brand[0]?.nickname)
+  const marketbeeData = useSelector((state)=>state.main.main[0]);
+  const deskerData = useSelector((state)=>state.main.main[1]);
+  const forthehomeData = useSelector((state)=>state.main.main[3]);
+  const hudoData = useSelector((state)=>state.main.main[5]);
+  const sofsysData = useSelector((state)=>state.main.main[6]);
+
+  console.log(brandData)
+  console.log(brandData?.map(brand => brand[0]?.nickname))
+  console.log(marketbeeData)
+  // console.log(marketbeeData[0]?.nickname)
 
   //자동스크롤 이벤트
-  const libraryRef = useRef();
-  const bedroomRef = useRef();
-  const livingroomRef = useRef();
-  const kitchenRef = useRef();
+  const marketbeeRef = useRef();
+  const deskerRef = useRef();
+  const forthehomeRef = useRef();
+  const hudoRef = useRef();
+  const sofsysRef = useRef();
 
-  const handleLibrary = () => {
-    libraryRef.current?.scrollIntoView({ behavior: 'smooth'})
+  const handlemarketbee = () => {
+    marketbeeRef.current?.scrollIntoView({ behavior: 'smooth'})
   }
 
-  const handleBedroom = () => {
-    bedroomRef.current?.scrollIntoView({ behavior: 'smooth'})
+  const handledesker = () => {
+    deskerRef.current?.scrollIntoView({ behavior: 'smooth'})
   }
 
-  const handleLivingroom = () => {
-    livingroomRef.current?.scrollIntoView({ behavior: 'smooth'})
+  const handleforthehome = () => {
+    forthehomeRef.current?.scrollIntoView({ behavior: 'smooth'})
   }
-  const handleKitchen= () => {
-    kitchenRef.current?.scrollIntoView({ behavior: 'smooth'})
+  const handlehudo= () => {
+    hudoRef.current?.scrollIntoView({ behavior: 'smooth'})
+  }
+  const handlesofsys= () => {
+    sofsysRef.current?.scrollIntoView({ behavior: 'smooth'})
   }
 
   //자동스크롤시 탭 헤더 밑으로 고정시키기
@@ -167,17 +174,18 @@ console.log(brandData)
     
   // }, [tabRef.current, detailRef.current]);
 
-  //best of best
+  // 데이터 받아오기
   useEffect(()=>{
     dispatch(mainData());
     dispatch(categoryData());
     dispatch(newData());
   }, [])
 
-  // console.log(productList.map((p) => console.log(p.img)));
   return (
     <Container id="app">
+      {/* 캐러셀 */}
       <Carousel />
+      {/* Best of Best */}
       <SubTitle>Best Selling</SubTitle>
       <Title>Best of Best</Title>
       <FullTitle name="fullTitle" className="fullTitle"></FullTitle>
@@ -190,99 +198,114 @@ console.log(brandData)
             />
           ))}
       </ProductList>
-      <Title>New Arrival</Title>
+      {/* 카테고리별 신상품 */}
+      <SubTitle>New Arrival</SubTitle>
+      <Title>신상품</Title>
       <NewProducts
         key={libraryData?.length}
         libraryList={libraryData}
         bedList = {bedData}
-        // forthehomeList={forthehomeData}
-        // deskerList={deskerData}
-        // marketbeeList={marketbeeData}
-        // hudoList={hudoData}
-        // sofsysList={sofsysData}
+        // kitchenList={kitchenData}
       />
+      {/* 브랜드별 추천상품 */}
+      <SubTitle>Recommendation by brand</SubTitle>
       <Title>브랜드별 추천상품</Title>
-      <Table>
-        <tbody className="tbody">
-          <tr className="tr">
-            <TD onClick={handleLibrary}>서재</TD>
-            <TD onClick={handleBedroom}>침실</TD>
-            <TD onClick={handleLivingroom}>거실</TD>
-            <TD onClick={handleKitchen}>주방</TD>
-          </tr>
-        </tbody>
-      </Table>
-      <SubTitle ref={libraryRef}>Library</SubTitle>
-      <Title>서재</Title>
+      <BrandTab>
+        <TD onClick={handlemarketbee}>{brandTab[0]}</TD>
+        <TD onClick={handledesker}>{brandTab[2]}</TD>
+        <TD onClick={handleforthehome}>{brandTab[3]}</TD>
+        <TD onClick={handlehudo}>{brandTab[5]}</TD>
+        <TD onClick={handlesofsys}>{brandTab[6]}</TD>
+      </BrandTab>
+      <SubTitle ref={marketbeeRef}>marketbee</SubTitle>
+      <Title>{brandTab[0]}</Title>
       <FullTitle name="fullTitle" className="fullTitle">
-        <FullView name="fullView" className="fullView">
+        <FullView 
+          name="fullView" 
+          className="fullView">
           전체보기 &gt;&gt;
         </FullView>
       </FullTitle>
       <ProductList>
-        {/* {libraryData?.map((product) => (
+        {marketbeeData?.map((product) => (
             <Products
             key={product.id}
             proId={product.id}
             product={product}
             />
-          ))} */}
+          ))}
       </ProductList>
-      <SubTitle ref={bedroomRef}>Bedroom</SubTitle>
-      <Title>침실</Title>
+      <SubTitle ref={deskerRef}>marketbee</SubTitle>
+      <Title>{brandTab[1]}</Title>
       <FullTitle name="fullTitle" className="fullTitle">
-        <FullView name="fullView" className="fullView">
+        <FullView 
+          name="fullView" 
+          className="fullView">
           전체보기 &gt;&gt;
         </FullView>
       </FullTitle>
       <ProductList>
-        {/* {bedroomData?.map((product) => (
-          <Products
-          key={product.id}
-          proId={product.id}
-          product={product}
-          />
-        ))} */}
+        {deskerData?.map((product) => (
+            <Products
+            key={product.id}
+            proId={product.id}
+            product={product}
+            />
+          ))}
       </ProductList>
-      <SubTitle ref={livingroomRef}>Living room</SubTitle>
-      <Title>거실</Title>
+      <SubTitle ref={forthehomeRef}>marketbee</SubTitle>
+      <Title>{brandTab[3]}</Title>
       <FullTitle name="fullTitle" className="fullTitle">
-        <FullView name="fullView" className="fullView">
+        <FullView 
+          name="fullView" 
+          className="fullView">
           전체보기 &gt;&gt;
         </FullView>
       </FullTitle>
       <ProductList>
-        {/* {productList.filter((product, idx) => idx < 15).map((product, key) => (
-          <Products
-            brand={product.brand}
-            img={product.img.fullPath}
-            key={key}
-            title={product.title}
-            price={product.price}
-            score={product.score}
-            colorChip={product.colorChip}
-          />
-        ))} */}
+        {forthehomeData?.map((product) => (
+            <Products
+            key={product.id}
+            proId={product.id}
+            product={product}
+            />
+          ))}
       </ProductList>
-      <SubTitle ref={kitchenRef}>Kitchen</SubTitle>
-      <Title>주방</Title>
+      <SubTitle ref={hudoRef}>marketbee</SubTitle>
+      <Title>{brandTab[5]}</Title>
       <FullTitle name="fullTitle" className="fullTitle">
-        <FullView name="fullView" className="fullView">
+        <FullView 
+          name="fullView" 
+          className="fullView">
           전체보기 &gt;&gt;
         </FullView>
       </FullTitle>
       <ProductList>
-        {/* {productList.filter((product, idx) => idx < 15).map((product, key) => (
-          <Products
-            brand={product.brand}
-            img={product.img.fullPath}
-            key={key}
-            title={product.title}
-            price={product.price}
-            score={product.score}
-            colorChip={product.colorChip}
-          />
-        ))} */}
+        {hudoData?.map((product) => (
+            <Products
+            key={product.id}
+            proId={product.id}
+            product={product}
+            />
+          ))}
+      </ProductList>
+      <SubTitle ref={sofsysRef}>marketbee</SubTitle>
+      <Title>{brandTab[6]}</Title>
+      <FullTitle name="fullTitle" className="fullTitle">
+        <FullView 
+          name="fullView" 
+          className="fullView">
+          전체보기 &gt;&gt;
+        </FullView>
+      </FullTitle>
+      <ProductList>
+        {sofsysData?.map((product) => (
+            <Products
+            key={product.id}
+            proId={product.id}
+            product={product}
+            />
+          ))}
       </ProductList>
       <Button />
     </Container>

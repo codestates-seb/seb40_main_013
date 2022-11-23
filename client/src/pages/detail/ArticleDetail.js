@@ -53,18 +53,6 @@ function ArticleDetail() {
     dispatch(postCart({ postCartData, navigate }));
   };
 
-  useEffect(() => {
-    let get_local = localStorage.getItem("product");
-    if (get_local == null) {
-      get_local = [];
-    } else {
-      get_local = JSON.parse(get_local);
-    }
-    console.log(get_local)
-    get_local.push()
-  }, []);
-  console.log(articlesDetail)
-
   return (
     <Wrapper>
       <DetailContents>

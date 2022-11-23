@@ -3,7 +3,7 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://weak-papers-buy-125-134-111-237.loca.lt/",
+  baseURL: "https://mighty-lemons-chew-125-134-111-237.loca.lt/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -58,12 +58,18 @@ Apis.interceptors.response.use(
           const accToken = data.headers.get("Authorization");
           localStorage.removeItem("Authorization");
           localStorage.setItem("Authorization", accToken);
-          originalRequest.headers["Authorization"] = accToken;
-          originalRequest.headers["Refresh"] = refreshToken;
+          // originalRequest.headers["Refresh"] = refreshToken;
           originalRequest.headers["Content-Type"] = "application/json";
           console.log("abcd", 2, originalRequest);
-          return await axios.request(originalRequest);
-          // return 1;
+          // return axios.request(originalRequest);
+          return Apis({
+            ...originalRequest,
+            headers: {
+              ...originalRequest.headers,
+              Authorization: `${accToken}`,
+            },
+            sent: true,
+          });
         }
       } catch (err) {
         console.log("abc", "토큰 갱신 에러");

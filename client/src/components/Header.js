@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { BsCart3, BsSearch } from "react-icons/bs";
 import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
@@ -20,7 +20,6 @@ const HeaderBlock = styled.header`
   z-index: 2;
 `;
 const Logo = styled.div`
-  justify-content: center;
   height: 90px;
   justify-content: center;
   align-items: center;
@@ -41,8 +40,11 @@ const LoginBtn = styled.button`
   color: var(--color-gray);
   border: none;
   background-color: white;
-  &:focus {
+  &:hover {
     cursor: pointer;
+    color: #ffaf51;
+  }
+  &:focus {
     color: #ffaf51;
   }
 `;
@@ -104,24 +106,30 @@ const Category = styled.div`
   }
 `;
 
-function Header({setClick}) {
-  //const navigate = useNavigate();
+function Header({ setClick }) {
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
-
+  const jwtToken = localStorage.getItem("Authorization");
+  const navigate = useNavigate();
   const clickMenu = ({ target }) => {
-    setClick(target.innerHTML)
+    setClick(target.innerHTML);
     // console.log(target.innerHTML);
-  }
+  };
 
   const closeHandler = () => {
     setCloseSearch(!closeSearch);
   };
 
+  const clickLogOut = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    navigate("/");
+    window.alert("로그아웃에 성공하셨습니다!");
+  };
   const outModalCloseHandler = ({ target }) => {
     if (closeSearch && !modalRef.current.contains(target))
       setCloseSearch(false);
-      // console.log(target.innerHTML);
+    // console.log(target.innerHTML);
   };
 
   useEffect(() => {
@@ -135,23 +143,36 @@ function Header({setClick}) {
     <>
       <HeaderBlock>
         <div className="top">
-          <Link to="/users/login">
-            <LoginBtn>로그인/회원가입</LoginBtn>
-          </Link>
-          <Link to="/members/mypage/*">
-            <LoginBtn>마이페이지</LoginBtn>
-          </Link>
+          {jwtToken ? (
+            <Link>
+              <LoginBtn onClick={clickLogOut}>로그아웃</LoginBtn>
+            </Link>
+          ) : (
+            <Link to="/users/login">
+              <LoginBtn>로그인/회원가입</LoginBtn>
+            </Link>
+          )}
+          {jwtToken ? (
+            <Link to="/members/mypage/purchase">
+              <LoginBtn>마이페이지</LoginBtn>
+            </Link>
+          ) : (
+            <Link to="/users/login">
+              <LoginBtn>마이페이지</LoginBtn>
+            </Link>
+          )}
         </div>
         <Link to="/">
           <Logo>
             <div>DAILY DAILY</div>
           </Logo>
         </Link>
+
         <CategoryList>
           <div>
             <Link to="/sub">
               <Category>
-                <div onClick={clickMenu}>서재</div> 
+                <div onClick={clickMenu}>서재</div>
                 <Nav className="1">
                   <div onClick={clickMenu}>책상</div>
                   <div onClick={clickMenu}>의자</div>
@@ -162,29 +183,27 @@ function Header({setClick}) {
             </Link>
             <Link to="/sub">
               <Category>
-              <div onClick={clickMenu}>침실</div>  
+                <div onClick={clickMenu}>침실</div>
                 <Nav className="2">
                   <div onClick={clickMenu}>침대</div>
                   <div onClick={clickMenu}>행거/옷장</div>
                   <div onClick={clickMenu}>화장대</div>
-                  <div onClick={clickMenu}>거울</div>
                 </Nav>
               </Category>
             </Link>
             <Link to="/sub">
               <Category className="space">
-                <div onClick={clickMenu}>거실</div>   
+                <div onClick={clickMenu}>거실</div>
                 <Nav className="3">
                   <div onClick={clickMenu}>소파</div>
                   <div onClick={clickMenu}>거실장</div>
-                  <div onClick={clickMenu}>사이드테이블</div>
                   <div onClick={clickMenu}>수납장</div>
                 </Nav>
               </Category>
             </Link>
             <Link to="/sub">
               <Category className="space">
-                <div onClick={clickMenu}>주방</div> 
+                <div onClick={clickMenu}>주방</div>
                 <Nav className="4">
                   <div onClick={clickMenu}>식탁/아일랜드</div>
                   <div onClick={clickMenu}>식탁의자</div>
@@ -204,12 +223,21 @@ function Header({setClick}) {
                 closeHandler={closeHandler}
               />
             </div>
-            <Link to="/cart">
-              <div>
-                <BsCart3 size="20" />
-                <div className="cart-count">(0)</div>
-              </div>
-            </Link>
+            {jwtToken ? (
+              <Link to="/cart">
+                <div>
+                  <BsCart3 size="20" />
+                  <div className="cart-count">(0)</div>
+                </div>
+              </Link>
+            ) : (
+              <Link to="/users/login">
+                <div>
+                  <BsCart3 size="20" />
+                  <div className="cart-count">(0)</div>
+                </div>
+              </Link>
+            )}
           </div>
         </CategoryList>
       </HeaderBlock>

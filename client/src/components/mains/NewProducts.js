@@ -4,6 +4,7 @@ import livingroom from "../../imgs/livingroom.png"
 import library from "../../imgs/library.png"
 import bedroom from "../../imgs/bedroom.png"
 import kitchen from "../../imgs/kitchen.png"
+import { Link, useParams } from "react-router-dom";
 
 const BrandContainer = styled.div`
   display:flex;
@@ -66,8 +67,8 @@ const Tab = styled.div`
     margin-bottom: 10px;
   }
 `;
-//브랜드별 이미지
-const BrandProduct = styled.div`
+//카테고리별 이미지
+const CategoryProduct = styled.div`
   display: flex;
   /* border: 1px solid red; */
   border-radius: 10px;
@@ -87,11 +88,46 @@ const BrandProduct = styled.div`
     justify-content: center;
   }
 `;
-
-const BrandImg = styled.img`
-  width: 500px;
+const TI = styled.a`
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  cursor: pointer;
+  &:hover::after,
+  &:hover > .hover_text{
+    display: block;
+  }
+  &::after{
+    display: none;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 10;
+  }
+  &:hover img{
+    transform: scale(1.1);
+    transition: 1s;
+  }
+  .hover_text{
+    display: none;
+    position: absolute;
+    top: 170px;
+    left: 160px;
+    color: #fff;
+    z-index: 20;
+    font-weight: 500;
+    font-size: 35px;
+  }
+`;
+
+const CategoryImg = styled.img`
+  width: 500px;
   @media screen and (max-width: 390px){
     width: 100%;
     border-top-left-radius: 10px;
@@ -121,7 +157,7 @@ const BPList = styled.div`
     width: 50vw;
   }
 `;
-const BP = styled.div`
+const BP = styled(Link)`
   display: flex;
   align-items: center;
   border: 1px solid var(--color-center-line);
@@ -165,11 +201,14 @@ const NewProducts = ({ libraryList, bedList }) =>{
   }, []);
 
   const ProductArr = {
-    "서재": <BrandProduct>
-            <BrandImg src={library}></BrandImg>
+    "서재": <CategoryProduct>
+            <TI>
+              <CategoryImg src={library}></CategoryImg>
+              <p className="hover_text">서재 전체보기</p>
+            </TI>
             <BPList>
                 {libraryList?.map((p)=>
-                  <BP key={p.id}>
+                  <BP key={p.id} to={`/detail/${p.id}`}>
                     <Img src={p.img.fullPath} />
                     <TP>
                       <Title>{p.title}</Title>
@@ -178,40 +217,15 @@ const NewProducts = ({ libraryList, bedList }) =>{
                   </BP>
                 )}
             </BPList>
-          </BrandProduct>,
-  "침실": <BrandProduct>
-            <BrandImg src={bedroom}></BrandImg>
-            <BPList>
-                {bedList?.map((p)=>
-                  <BP key={p.id}>
-                    <Img src={p.img.fullPath} />
-                    <TP>
-                      <Title>{p.title}</Title>
-                      <Price>{p.price.toLocaleString('en-US')}</Price>
-                    </TP>
-                  </BP>
-                )}
-            </BPList>
-          </BrandProduct>,
-  "거실": <BrandProduct>
-          <BrandImg src={livingroom}></BrandImg>
-            <BPList>
-                {bedList?.map((p)=>
-                  <BP key={p.id}>
-                    <Img src={p.img.fullPath} />
-                    <TP>
-                      <Title>{p.title}</Title>
-                      <Price>{p.price.toLocaleString('en-US')}</Price>
-                    </TP>
-                  </BP>
-                )}
-            </BPList>
-          </BrandProduct>,
-    "주방": <BrandProduct>
-            <BrandImg src={kitchen}></BrandImg>
+          </CategoryProduct>,
+    "침실": <CategoryProduct>
+              <TI>
+              <CategoryImg src={bedroom}></CategoryImg>
+              <p className="hover_text">침실 전체보기</p>
+            </TI>
               <BPList>
                   {bedList?.map((p)=>
-                    <BP key={p.id}>
+                    <BP key={p.id} to={`/detail/${p.id}`}>
                       <Img src={p.img.fullPath} />
                       <TP>
                         <Title>{p.title}</Title>
@@ -220,48 +234,82 @@ const NewProducts = ({ libraryList, bedList }) =>{
                     </BP>
                   )}
               </BPList>
-            </BrandProduct>,
+            </CategoryProduct>,
+    "거실": <CategoryProduct>
+            <TI>
+              <CategoryImg src={livingroom}></CategoryImg>
+              <p className="hover_text">거실 전체보기</p>
+            </TI>
+              <BPList>
+                  {bedList?.map((p)=>
+                    <BP key={p.id} to={`/detail/${p.id}`}>
+                      <Img src={p.img.fullPath} />
+                      <TP>
+                        <Title>{p.title}</Title>
+                        <Price>{p.price.toLocaleString('en-US')}</Price>
+                      </TP>
+                    </BP>
+                  )}
+              </BPList>
+            </CategoryProduct>,
+    "주방": <CategoryProduct>
+            <TI>
+              <CategoryImg src={kitchen}></CategoryImg>
+              <p className="hover_text">주방 전체보기</p>
+            </TI>
+              <BPList>
+                  {bedList?.map((p)=>
+                    <BP key={p.id} to={`/detail/${p.id}`}>
+                      <Img src={p.img.fullPath} />
+                      <TP>
+                        <Title>{p.title}</Title>
+                        <Price>{p.price.toLocaleString('en-US')}</Price>
+                      </TP>
+                    </BP>
+                  )}
+              </BPList>
+            </CategoryProduct>,
 }
 
-  return (
-    <BrandContainer>
-      <Tabs>
-        <SubTab>
-          <Tab
-          name="library"
-          className={clicked === '서재' ? 'clicked' : ''}
+return (
+  <BrandContainer>
+    <Tabs>
+      <SubTab>
+        <Tab
+        name="library"
+        className={clicked === '서재' ? 'clicked' : ''}
+        onClick={onClick}
+        value="1">
+          서재
+        </Tab>
+        <Tab
+        name="bedroom"
+        className={clicked === '침실' ? 'clicked' : ''}
+        onClick={onClick}
+        value="2">
+          침실
+        </Tab>
+      </SubTab>
+      <SubTab>
+        <Tab
+          name="livingroom"
+          className={clicked === '거실' ? 'clicked' : ''}
           onClick={onClick}
-          value="1">
-            서재
+          value="3">
+            거실
           </Tab>
           <Tab
-          name="bedroom"
-          className={clicked === '침실' ? 'clicked' : ''}
+          name="kitchen"
+          className={clicked === '주방' ? 'clicked' : ''}
           onClick={onClick}
-          value="2">
-            침실
+          value="4">
+            주방
           </Tab>
         </SubTab>
-        <SubTab>
-          <Tab
-            name="livingroom"
-            className={clicked === '거실' ? 'clicked' : ''}
-            onClick={onClick}
-            value="3">
-              거실
-            </Tab>
-            <Tab
-            name="kitchen"
-            className={clicked === '주방' ? 'clicked' : ''}
-            onClick={onClick}
-            value="4">
-              주방
-            </Tab>
-          </SubTab>
-        </Tabs>
-        {ProductArr[clicked]}
-      </BrandContainer>
-  )
+      </Tabs>
+      {ProductArr[clicked]}
+    </BrandContainer>
+)
 }
 
 export default NewProducts;

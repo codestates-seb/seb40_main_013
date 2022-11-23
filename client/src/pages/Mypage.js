@@ -7,8 +7,7 @@ import PurchaseList from "../components/mypages/PurchaseList";
 import EditProfile from "../components/mypages/EditProfile";
 import { Routes, Route, Link } from "react-router-dom";
 import MyReview from "../components/mypages/MyReview";
-import Recent from '../components/mypages/Recent'
-
+import Recent from "../components/mypages/Recent";
 
 const Container = styled.div`
   display: flex;
@@ -168,13 +167,13 @@ const NavDetail = styled.nav`
 `;
 const Mypage = () => {
   const dispatch = useDispatch();
-  const getUserdata = useSelector((state)=>state.user.users);
-  const id = getUserdata?.id
-  const [clicked, setClicked] = useState('');
+  const getUserdata = useSelector((state) => state.user.users);
+  const id = getUserdata?.id;
+  const [clicked, setClicked] = useState("");
 
   //user 정보 받아오기
   useEffect(() => {
-    dispatch(getUser())
+    dispatch(getUser());
   }, []);
 
   //탭 클릭 이벤트
@@ -205,7 +204,7 @@ const Mypage = () => {
                 구매 내역
               </NavDetail>
             </Link>
-            <Link to="*" style={{ textDecoration: "none" }}>
+            <Link to="edit" style={{ textDecoration: "none" }}>
               <NavDetail
                 name="editProfileTab"
                 className={clicked === "정보 수정" ? "clicked" : ""}
@@ -247,13 +246,12 @@ const Mypage = () => {
         </Nav>
       </Left>
       <Routes>
-        <Route path="/*" 
-        element={
-          <EditProfile 
-            getUserdata={getUserdata}
-            />}></Route>
+        <Route
+          path="/edit"
+          element={<EditProfile getUserdata={getUserdata} />}
+        ></Route>
         <Route path="/purchase/*" element={<PurchaseList />}></Route>
-        <Route path="/review" element={<MyReview />}></Route>
+        <Route path="/myboard" element={<MyReview />}></Route>
         <Route path="/recent" element={<Recent />}></Route>
       </Routes>
     </Container>
