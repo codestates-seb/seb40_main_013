@@ -11,11 +11,9 @@ import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.service.ProductService;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
-import gohome.dailydaily.global.common.security.resolver.MemberId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
