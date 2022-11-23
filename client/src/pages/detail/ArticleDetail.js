@@ -165,7 +165,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin-top: 170px;
+  margin-top: 160px;
 `;
 
 const DetailContents = styled.div`

@@ -1,9 +1,19 @@
-import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useLayoutEffect,
+} from "react";
 //import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { bestOfBest, topBrand, mainData } from "../reduxstore/slices/articleSlice";
+import {
+  bestOfBest,
+  topBrand,
+  mainData,
+} from "../reduxstore/slices/articleSlice";
 import { newData } from "../reduxstore/slices/mainSlice";
-import { categoryData } from "../reduxstore/slices/categorySlice";
+import { categoryData } from "../reduxstore/slices/mainCategorySlice";
 import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
 import Button from "../components/Button";
@@ -11,7 +21,6 @@ import Products from "../components/mains/Product";
 import { Link } from "react-router-dom";
 import Apis from "../apis/apis";
 import NewProducts from "../components/mains/NewProducts";
-
 
 const Container = styled.div`
   width: 100vw;
@@ -79,7 +88,7 @@ const FullView = styled(Link)`
   align-items: flex-end;
   font-size: 1rem;
   margin: 20px 40px 0 0;
-  color: #AAAAAA;
+  color: #aaaaaa;
   cursor: pointer;
 `;
 const TD = styled.div`
@@ -87,8 +96,8 @@ const TD = styled.div`
   padding: 20px 50px;
   font-size: 1rem;
   cursor: pointer;
-  &:hover{
-    border: 3px solid #FFAF51;
+  &:hover {
+    border: 3px solid #ffaf51;
   }
 `;
 
@@ -99,47 +108,47 @@ const Main = () => {
   const dispatch = useDispatch();
 
   //best of best
-  const bestData = useSelector((state)=> state.article.mainArticle);
+  const bestData = useSelector((state) => state.article.mainArticle);
 
   // 신상품
-  const newArivalData = useSelector((state)=> state.category.category);
+  const newArivalData = useSelector((state) => state.maincategory.category);
 
   //브랜드리스트
-  const brandData = useSelector((state)=>state.main.main);
-  const brandTab = Object.keys(brandData)
+  const brandData = useSelector((state) => state?.main.main);
+  const brandTab = Object.keys(brandData);
 
-  console.log(brandData)
-  console.log(brandTab)
+  console.log(brandData);
+  console.log(brandTab);
   //자동스크롤 이벤트
   const 포더홈Ref = useRef();
   const deskerRef = useRef();
   const forthehomeRef = useRef();
   const hudoRef = useRef();
   const sofsysRef = useRef();
-  
+
   const handle포더홈 = () => {
-    포더홈Ref.current?.scrollIntoView({ behavior: 'smooth'})
-  }
+    포더홈Ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handledesker = () => {
-    deskerRef.current?.scrollIntoView({ behavior: 'smooth'})
-  }
+    deskerRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleforthehome = () => {
-    forthehomeRef.current?.scrollIntoView({ behavior: 'smooth'})
-  }
-  const handlehudo= () => {
-    hudoRef.current?.scrollIntoView({ behavior: 'smooth'})
-  }
-  const handlesofsys= () => {
-    sofsysRef.current?.scrollIntoView({ behavior: 'smooth'})
-  }
+    forthehomeRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  const handlehudo = () => {
+    hudoRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  const handlesofsys = () => {
+    sofsysRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   //자동스크롤시 탭 헤더 밑으로 고정시키기
-  // useEffect(() => { 
+  // useEffect(() => {
   //   document.getElementById('app')?.scrollTo(0, -170); // 첫 렌더시 스크롤이 최상단 고정된다
   //  }, []);
-   
+
   // useEffect(() => {
   //   window.addEventListener('scroll', handleScroll, { capture: true }); // 스크롤 이벤트 등록
   //   return () => {
@@ -153,7 +162,7 @@ const Main = () => {
   //   }
   //   // 스크롤의 실시간 위치
   //   const scrollTop = document.getElementById('app')?.scrollTop; // 최상단 div 기준으로 스크롤 위치를 감지
-      
+
   //     // 스크롤 위치가 tabRef(하위메뉴 탭)의 위치보다 아래이면
   //     if (scrollTop >= tabRef.current.offsetTop) {
   //       fixTab.current = true;   // fixTab 변수는 트루
@@ -164,21 +173,20 @@ const Main = () => {
   //     // 스크롤 위치가 detailRef(하위메뉴 2번)의 위치보다 위이면
   //     if (scrollTop < detailRef.current.offsetTop - offset) {
   //       setTab(0); // 하위메뉴 탭은 자동으로 인덱스 0을 보여주자
-  //     } 
+  //     }
   //     // 스크롤 위치가 detailRef(하위메뉴 2번)의 위치이거나 아래이면
   //     else if (scrollTop >= detailRef.current.offsetTop - offset) {
   //       setTab(1); // 하위메뉴 탭은 자동으로 인덱스 0을 보여주자
-  //     } 
+  //     }
 
-    
   // }, [tabRef.current, detailRef.current]);
 
   // 데이터 받아오기
-  useLayoutEffect(()=>{
+  useLayoutEffect(() => {
     dispatch(mainData());
     dispatch(categoryData());
     dispatch(newData());
-  }, [])
+  }, []);
 
   return (
     <Container id="app">
@@ -191,12 +199,8 @@ const Main = () => {
       </Title>
       <ProductList>
         {bestData?.map((product) => (
-            <Products
-            key={product.id}
-            proId={product.id}
-            product={product}
-            />
-          ))}
+          <Products key={product.id} proId={product.id} product={product} />
+        ))}
       </ProductList>
       {/* 카테고리별 신상품 */}
       <Title>
@@ -213,28 +217,40 @@ const Main = () => {
         <MainTitle>브랜드별 추천상품</MainTitle>
       </Title>
       <BrandTab>
-          {brandTab?.filter(tab => tab !== 'guest')?.map(tab => 
-          <TD key={tab} onClick={()=>{`handle${tab}`}}>{tab}</TD>)}
-      </BrandTab>
-        {Object?.entries(brandData)?.filter(key => key[0] !== 'guest')?.map(([key,value]) => (
-            <BrandProduct key={key}>
-              <BrandTitle>
-                <MainTitle>{key}</MainTitle>
-                <FullView name="fullView" className="fullView">
-                  전체보기 &gt;&gt;
-                </FullView>
-              </BrandTitle>
-              <ProductList>
-                {value?.map((product) => (
-                    <Products
-                    key={product.id}
-                    proId={product.id}
-                    product={product}
-                    />
+        {brandTab
+          ?.filter((tab) => tab !== "guest")
+          ?.map((tab) => (
+            <TD
+              key={tab}
+              onClick={() => {
+                `handle${tab}`;
+              }}
+            >
+              {tab}
+            </TD>
           ))}
-      </ProductList>
-    </BrandProduct>
-    ))}
+      </BrandTab>
+      {Object?.entries(brandData)
+        ?.filter((key) => key[0] !== "guest")
+        ?.map(([key, value]) => (
+          <BrandProduct key={key}>
+            <BrandTitle>
+              <MainTitle>{key}</MainTitle>
+              <FullView name="fullView" className="fullView">
+                전체보기 &gt;&gt;
+              </FullView>
+            </BrandTitle>
+            <ProductList>
+              {value?.map((product) => (
+                <Products
+                  key={product.id}
+                  proId={product.id}
+                  product={product}
+                />
+              ))}
+            </ProductList>
+          </BrandProduct>
+        ))}
       <Button />
     </Container>
   );

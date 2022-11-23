@@ -10,7 +10,9 @@ import Signup from "./pages/Signup";
 import ArticleDetail from "./pages/detail/ArticleDetail";
 import SubCategory from "./pages/SubCategory";
 import ShoppingCart from "./pages/ShoppingCart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getShoppingCart } from "./reduxstore/slices/articleSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const MainContainter = styled.div`
   height: 100vh;
@@ -23,7 +25,13 @@ const MainContent = styled.div`
 
 function App() {
   const [click, setClick] = useState("");
+  const dispatch = useDispatch();
+  const cartLength = useSelector((state) => state);
+  console.log(cartLength);
 
+  // useEffect(() => {
+  //   dispatch(getShoppingCart());
+  // }, []);
   return (
     <BrowserRouter>
       <GlobalStyles />

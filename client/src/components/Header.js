@@ -3,10 +3,11 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { BsCart3, BsSearch } from "react-icons/bs";
 import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
+import { useSelector } from "react-redux";
 
 const HeaderBlock = styled.header`
   width: 100%;
-  height: 170px;
+  height: 160px;
   color: var(--color-gray);
   div {
     display: flex;
@@ -112,6 +113,8 @@ function Header({ setClick }) {
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
+  const ddd = useSelector((state) => state?.article.shoppingCartInitial);
+  console.log(ddd);
 
   const clickMenu = ({ target }) => {
     setClick(target.innerHTML);
@@ -229,7 +232,7 @@ function Header({ setClick }) {
               <Link to="/cart">
                 <div>
                   <BsCart3 size="20" />
-                  <div className="cart-count">(0)</div>
+                  <div className="cart-count">({ddd.length})</div>
                 </div>
               </Link>
             ) : (
