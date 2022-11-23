@@ -2,15 +2,20 @@ package gohome.dailydaily.domain.product.service;
 
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.member.repository.SellerRepository;
+import gohome.dailydaily.domain.product.controller.dto.GetProductListByBrandDTO;
 import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryDTO;
+import gohome.dailydaily.domain.product.controller.dto.GetProductListByDto;
 import gohome.dailydaily.domain.product.controller.dto.GetProductListByTitleDto;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
+import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.entity.Category;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.repository.CategoryRepository;
 import gohome.dailydaily.domain.product.repository.ProductRepository;
+import gohome.dailydaily.domain.product.repository.param.BrandGetParam;
 import gohome.dailydaily.domain.product.repository.param.CategoryGetParam;
+import gohome.dailydaily.domain.product.repository.param.ProductGetParam;
 import gohome.dailydaily.domain.product.repository.param.TitleGetParam;
 import gohome.dailydaily.domain.search.repository.SearchRedisRepository;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
@@ -71,8 +76,12 @@ public class ProductService {
         HashMap<String, List<CategoryGetDto>> products = new HashMap<>();
         List<CategoryGetDto> tmp;
         for(Seller s : brandList){
-             tmp = productRepository.findByTop15ByBrand(s.getId());
-             products.put(tmp.get(2).getNickname(),tmp);
+             if(productRepository.findByTop15ByBrand(s.getId()).isEmpty())
+                products.put("guest",null);
+             else {
+                 tmp =productRepository.findByTop15ByBrand(s.getId());
+                 products.put(tmp.get(2).getNickname(),tmp);
+             }
         }
         return products;
     }
@@ -84,6 +93,22 @@ public class ProductService {
         for(Category c : categoryList) {
             tmp = productRepository.findByTop5ByCategory(c.getMain());
             products.put(tmp.get(0).getMain(), tmp);
+        }
+        return products;
+    }
+
+    public String postProduct(ProductDto.PostProduct product) {
+        //Product productResult = mapper.toProduct(product);
+        //productRepository.save(productResult);
+
+        return "상품 등록 완료";
+    }
+
+    public SliceResponseDto<CategoryGetDto> getProductListByBrand(GetProductListByBrandDTO dto) {
+        SliceResponseDto<CategoryGetDto> products = productRepository
+                .findAllByBrand(dto.getPageRequest(), BrandGetParam.valueOf(dto));
+        if (products.getContent().isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
         }
         return products;
     }

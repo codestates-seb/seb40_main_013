@@ -3,6 +3,7 @@ package gohome.dailydaily.domain.product.controller;
 import com.google.gson.Gson;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
 import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryDTO;
+import gohome.dailydaily.domain.product.controller.dto.GetProductListByDto;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.dto.OptionDto;
 import gohome.dailydaily.domain.product.mapper.OptionMapper;
@@ -31,6 +32,7 @@ import java.util.List;
 
 import static gohome.dailydaily.util.TestConstant.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;

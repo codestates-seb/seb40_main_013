@@ -2,6 +2,7 @@ package gohome.dailydaily.domain.product.repository;
 
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.dto.OptionDto;
+import gohome.dailydaily.domain.product.repository.param.BrandGetParam;
 import gohome.dailydaily.domain.product.repository.param.CategoryGetParam;
 import gohome.dailydaily.domain.product.repository.param.TitleGetParam;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
@@ -23,6 +24,8 @@ public interface ProductRepositoryCustom {
     List<CategoryGetDto> findByTop5ByCategory(String main);
 
     SliceResponseDto<CategoryGetDto> findAllByTitle(Pageable pageRequest, TitleGetParam valueOf);
+
+    SliceResponseDto<CategoryGetDto> findAllByBrand(Pageable pageRequest, BrandGetParam valueOf);
 
 //    List<OptionDto.Response> findByProduct(Long id);
 //    Slice<CategoryGetDto> findByCategory_Main(Pageable pageable, String main);

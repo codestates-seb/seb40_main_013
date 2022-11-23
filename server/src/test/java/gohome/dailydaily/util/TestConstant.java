@@ -85,8 +85,6 @@ public class TestConstant {
 
     public static final Option OPTION = Option.builder()
             .id(1L)
-            .size("s")
-            .price(0)
             .color("white")
             .stock(1000L)
             .product(PRODUCT)
@@ -293,8 +291,6 @@ public class TestConstant {
     public static final FieldDescriptor FWP_SELLER_IMG_PATH = fieldWithPath("seller.img.fullPath").type(STRING).description("멤버 썸네일 경로");
     public static final FieldDescriptor FWP_OPTIONS_OPTION_ID = fieldWithPath("options[].optionId").type(NUMBER).description("옵션 식별자");
     public static final FieldDescriptor FWP_OPTION_COLOR = fieldWithPath("options[].color").type(STRING).description("색상");
-    public static final FieldDescriptor FWP_OPTION_SIZE = fieldWithPath("options[].size").type(STRING).description("크기");
-    public static final FieldDescriptor FWP_OPTION_PRICE = fieldWithPath("options[].price").type(NUMBER).description("추가 가격");
     public static final FieldDescriptor FWP_OPTION_STOCK = fieldWithPath("options[].stock").type(NUMBER).description("재고");
 
     public static final FieldDescriptor FWP_REVIEWS_REVIEW_ID = fieldWithPath("reviews[].reviewId").type(NUMBER).description("리뷰 식별자");
@@ -352,8 +348,7 @@ public class TestConstant {
             FWP_PRODUCT_ID, FWP_PRODUCT_TITLE, FWP_PRODUCT_CONTENTS, FWP_PRODUCT_PRICE, FWP_PRODUCT_IMG_PATH, FWP_PRODUCT_IMG_NAME, FWP_PRODUCT_SCORE, FWP_PRODUCT_CATEGORY_MAIN,
             FWP_SELLER_SELLER_ID, FWP_SELLER_MEMBER_ID, FWP_SELLER_NICKNAME, FWP_SELLER_BRAND_NUMBER, FWP_SELLER_EMAIL,
             FWP_SELLER_ADDRESS, FWP_SELLER_PHONE, FWP_SELLER_MEMBER_STATUS, FWP_SELLER_IMG_NAME, FWP_SELLER_IMG_PATH,
-            FWP_OPTIONS_OPTION_ID, FWP_OPTION_COLOR, FWP_OPTION_SIZE,
-            FWP_OPTION_PRICE, FWP_OPTION_STOCK, FWP_REVIEWS_REVIEW_ID, FWP_REVIEWS_PRODUCT_ID, FWP_REVIEWS_PRODUCT_TITLE, FWP_REVIEWS_NICKNAME,
+            FWP_OPTIONS_OPTION_ID, FWP_OPTION_COLOR, FWP_OPTION_STOCK, FWP_REVIEWS_REVIEW_ID, FWP_REVIEWS_PRODUCT_ID, FWP_REVIEWS_PRODUCT_TITLE, FWP_REVIEWS_NICKNAME,
             FWP_REVIEWS_CONTENT, FWP_REVIEWS_SCORE, FWP_REVIEWS_IMG_NAME, FWP_REVIEWS_IMG_PATH, FWP_REVIEWS_CREATED_AT, FWP_REVIEWS_MODIFIED_AT
     );
     public static final ResponseFieldsSnippet MEMBER_RESPONSE_FIELDS = responseFields(

@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: local
   h2:
     console:
       enabled: true
@@ -34,6 +36,7 @@ jwt:
   secret-key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
+
 
 
 env: local
