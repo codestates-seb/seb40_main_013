@@ -23,7 +23,9 @@ import org.springframework.restdocs.headers.ResponseHeadersSnippet;
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
+import org.springframework.restdocs.request.ParameterDescriptor;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import org.springframework.restdocs.request.RequestParametersSnippet;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -33,8 +35,7 @@ import java.time.LocalDateTime;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 
 public class TestConstant {
@@ -170,6 +171,11 @@ public class TestConstant {
 
     public static final ResponseHeadersSnippet RESPONSE_HEADER_ACCESS_TOKEN = responseHeaders(
             ACCESS_TOKEN_HEADER
+    );
+
+    public static final ResponseHeadersSnippet RESPONSE_HEADER_ACCESS_AND_REFRESH_TOKEN = responseHeaders(
+            ACCESS_TOKEN_HEADER,
+            REFRESH_TOKEN_HEADER
     );
 
     public static final RequestParametersSnippet REQUEST_PARAM_PAGE = requestParameters(
@@ -327,6 +333,7 @@ public class TestConstant {
 
     public static final FieldDescriptor FWP_STATUS = fieldWithPath("status").type(NUMBER).description("상태 코드");
     public static final FieldDescriptor FWP_MESSAGE = fieldWithPath("message").type(STRING).description("메시지");
+    public static final FieldDescriptor FWP_KEEP_STATE = fieldWithPath("keepState").type(BOOLEAN).description("상태 유지 여부");
 
     public static final ResponseFieldsSnippet PAGE_REVIEW_RESPONSE_FIELDS = responseFields(
             FWP_CONTENT, FWP_CONTENT_REVIEW_ID, FWP_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_TITLE, FWP_CONTENT_REVIEW_NICKNAME,
