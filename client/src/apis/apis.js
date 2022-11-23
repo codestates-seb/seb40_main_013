@@ -4,9 +4,12 @@ const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
   baseURL: "https://mighty-lemons-chew-125-134-111-237.loca.lt/",
+<<<<<<< HEAD
   headers: {
     "Content-Type": "application/json",
   },
+=======
+>>>>>>> 0bf6bb421221c7c4b0a000d21a4e61f3d16a51e3
 });
 axios.interceptors.request.use(
   function (config) {
