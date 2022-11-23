@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
-import axios from "axios";
 
 const jwtToken = localStorage.getItem("Authorization");
 
@@ -27,7 +26,7 @@ export const postCart = createAsyncThunk(
     })
       .then((res) => {
         window.alert("해당 상품이 추가되었습니다!");
-        navigate("/");
+        navigate("/cart");
         return res.data;
       })
       .catch((err) => {
@@ -46,14 +45,18 @@ export const mainData = createAsyncThunk("mainData", async () => {
     });
 });
 
-export const getSubCategory = createAsyncThunk(
+export const getShoppingCart = createAsyncThunk(
   //비동기처리를 도와주는애(자동으로 지원해줌)
-  "getSubCategory", // 이름정하는데, 의미없음
-  async ({ click, pageCurrent }) => {
-    console.log(`click`, click, `pageCurren`, pageCurrent);
-    return Apis.get(`products?main=${click}&page=${pageCurrent}`)
+  "getShoppingCart",
+  async () => {
+    return Apis.get(`carts`, {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => {
-        console.log(res.data);
+        console.log(`shopslice`, res.data);
         return res.data;
       })
       .catch((err) => {
@@ -61,22 +64,6 @@ export const getSubCategory = createAsyncThunk(
       });
   }
 ); //action 객체, action실행함수 등등....
-
-export const getShoppingCart = createAsyncThunk("getShoppingCart", async () => {
-  return Apis.get(`carts`, {
-    headers: {
-      Authorization: `${jwtToken}`,
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => {
-      console.log(`shopslice`, res.data);
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
 
 export const deleteShoppingCart = createAsyncThunk(
   "getShoppingCart",
@@ -98,13 +85,38 @@ export const deleteShoppingCart = createAsyncThunk(
   }
 );
 
+export const reCountCartItem = createAsyncThunk(
+  "getShoppingCart",
+  async ({ productCartId, itemCount }) => {
+    return Apis.patch(
+      `carts/${productCartId}`,
+      {
+        productCartId: `${productCartId}`,
+        count: `${itemCount}`,
+      },
+      {
+        headers: {
+          Authorization: `${jwtToken}`,
+        },
+      }
+    )
+      .then((res) => {
+        console.log(`shopslice`, res.data);
+        window.location.reload();
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
 const articleSlice = createSlice({
   name: "article",
   initialState: {
     article: [],
     detailArticle: [],
     mainArticle: [],
-    subCategoryInitial: [],
     shoppingCartInitial: [],
     loading: false,
     error: "",
@@ -127,13 +139,9 @@ const articleSlice = createSlice({
       state.loading = true;
       state.error = "";
     },
-    [getSubCategory.fulfilled]: (state, action) => {
-      state.subCategoryInitial = [...state.subCategoryInitial, action.payload];
-      state.loading = true;
-      state.error = "";
-    },
     [getShoppingCart.fulfilled]: (state, action) => {
-      state.shoppingCartInitial = action.payload.productCarts;
+      console.log(action);
+      state.shoppingCartInitial = action.payload?.productCarts;
       state.loading = true;
       state.error = "";
     },

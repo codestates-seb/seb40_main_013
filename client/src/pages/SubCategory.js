@@ -55,66 +55,49 @@ const ProductList = styled.div`
 
 function SubCategory({ click }) {
   console.log(click);
-  const [products, setProducts] = useState([]);
+
+  const dispatch = useDispatch();
+  const allSelector = useSelector(
+    (state) => state.subcategory.subCategoryInitial.content
+  );
+  console.log(`allSelector`, allSelector);
+
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [prevY, setPrevY] = useState(0);
-  let productsRef = useRef({});
-
-  let loadingRef = useRef(null);
-  let prevYRef = useRef({});
-  let pageRef = useRef({});
-  productsRef.current = products;
-  pageRef.current = page;
-
-  prevYRef.current = prevY;
-
-  console.log(`loadingRef:`, loadingRef);
+  const [isClick, setIsClick] = useState(click);
 
   useEffect(() => {
-    getProducts();
-    setPage(pageRef.current + 1);
-    let options = {
-      root: null, //root는 기본적으로 스크롤 가능한 영역, null을 입력하면 전체 브라우저 창이 됨
-      rootMargin: "150px",
-      htreshold: 0.7, //관찰해야 하는 대상 요소의 100%를 의미한다.
-    };
-    const observer = new IntersectionObserver(handleObserver, options);
-    observer.observe(loadingRef.current);
+    if (
+      click === "서재" ||
+      click === "침실" ||
+      click === "거실" ||
+      click === "주방"
+    ) {
+      dispatch(getSubCategory({ click, page }));
+    } else if (
+      click === "책상" ||
+      click === "의자" ||
+      click === "책장" ||
+      click === "선반"
+    ) {
+      dispatch(getLibrary({ click, page }));
+    } else if (
+      click === "침대" ||
+      click === "행거/옷장" ||
+      click === "화장대"
+    ) {
+      dispatch(getBedroom({ click, page }));
+    } else if (click === "소파" || click === "거실장" || click === "수납장") {
+      dispatch(getLivingRoom({ click, page }));
+    } else if (
+      click === "식탁/아일랜드" ||
+      click === "식탁의자" ||
+      click === "주방수납"
+    ) {
+      dispatch(getKitchen({ click, page }));
+    }
+    // dispatch(getSubCategory({click,page}))
   }, [click]);
 
-  const handleObserver = (entities, observer) => {
-    console.log("time");
-
-    const y = entities[0].boundingClientRect.y;
-
-    if (prevYRef.current > y) {
-      console.log(`real get list`);
-      getProducts();
-      setPage(pageRef.current + 1);
-    } else {
-      console.log("loading false");
-    }
-    console.log(`currenty`, y, `prevY`, prevY);
-    setPrevY(y);
-  };
-
-  const getProducts = async () => {
-    try {
-      let productsRes = await Apis.get(
-        `products?main=${click}&page=${pageRef.current}`
-      );
-      if (productsRes) {
-        setProducts([...productsRef.current, ...productsRes.data.content]);
-        console.log(productsRes.data.content);
-        console.log(`page`, pageRef.current);
-      }
-    } catch (error) {
-      console.log("ERROR GETTING PRODUCTS");
-    }
-  };
-
-  console.log(products);
   return (
     <SubBlock>
       <SubCarousel />
@@ -139,11 +122,11 @@ function SubCategory({ click }) {
       <ProductList>
         <div className="total">0 개의 상품이 있습니다</div>
         <div className="products">
-          {products?.map((product) => (
+          {allSelector?.map((product) => (
             <Products proId={product.id} product={product} key={product.id} />
           ))}
         </div>
-        <div ref={loadingRef}></div>
+        {/* <div ref={loadingRef}></div> */}
       </ProductList>
     </SubBlock>
   );
