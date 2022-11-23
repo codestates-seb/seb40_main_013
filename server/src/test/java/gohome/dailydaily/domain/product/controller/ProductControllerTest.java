@@ -212,9 +212,9 @@ public class ProductControllerTest {
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         responseFields(
-                                FWP_BRAND_PRODUCT_ID, FWP_BRAND_PRODUCT_IMG_PATH, FWP_BRAND_PRODUCT_IMG_NAME,
-                                FWP_BRAND_PRODUCT_TITLE, FWP_BRAND_PRODUCT_PRICE, FWP_BRAND_PRODUCT_SCORE,
-                                FWP_BRAND_PRODUCTS_SELLER_NICKNAME, FWP_BRAND_PRODUCTS_CATEGORY_MAIN
+                                FWP_CATEGORY_PRODUCT_ID, FWP_CATEGORY_PRODUCT_IMG_PATH, FWP_CATEGORY_PRODUCT_IMG_NAME,
+                                FWP_CATEGORY_PRODUCT_TITLE, FWP_CATEGORY_PRODUCT_PRICE, FWP_CATEGORY_PRODUCT_SCORE,
+                                FWP_CATEGORY_PRODUCTS_SELLER_NICKNAME, FWP_CATEGORY_PRODUCTS_CATEGORY_MAIN
                         )));
     }
 

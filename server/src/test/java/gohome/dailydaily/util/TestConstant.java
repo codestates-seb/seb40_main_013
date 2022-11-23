@@ -316,14 +316,23 @@ public class TestConstant {
     public static final FieldDescriptor FWP_SCORE_PRODUCT_SCORE = fieldWithPath("[].score").type(NUMBER).description("상품 별점");
     public static final FieldDescriptor FWP_PRODUCTS_SELLER_NICKNAME = fieldWithPath("[].nickname").type(STRING).description("상품 브랜드 이름");
     public static final FieldDescriptor FWP_PRODUCTS_CATEGORY_MAIN = fieldWithPath("[].main").type(STRING).description("상품 대분류 카테고리");
-    public static final FieldDescriptor FWP_BRAND_PRODUCT_ID = fieldWithPath("[].[].id").type(NUMBER).description("상품 식별자");
-    public static final FieldDescriptor FWP_BRAND_PRODUCT_IMG_PATH = fieldWithPath("[].[].img.fileName").type(STRING).description("상품 썸네일 이름");
-    public static final FieldDescriptor FWP_BRAND_PRODUCT_IMG_NAME = fieldWithPath("[].[].img.fullPath").type(STRING).description("상품 썸네일 경로");
-    public static final FieldDescriptor FWP_BRAND_PRODUCT_TITLE = fieldWithPath("[].[].title").type(STRING).description("상품 제목");
-    public static final FieldDescriptor FWP_BRAND_PRODUCT_PRICE = fieldWithPath("[].[].price").type(NUMBER).description("상품 가격");
-    public static final FieldDescriptor FWP_BRAND_PRODUCT_SCORE = fieldWithPath("[].[].score").type(NUMBER).description("상품 별점");
-    public static final FieldDescriptor FWP_BRAND_PRODUCTS_SELLER_NICKNAME = fieldWithPath("[].[].nickname").type(STRING).description("상품 브랜드 이름");
-    public static final FieldDescriptor FWP_BRAND_PRODUCTS_CATEGORY_MAIN = fieldWithPath("[].[].main").type(STRING).description("상품 대분류 카테고리");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_ID = fieldWithPath("nickname.[].id").type(NUMBER).description("상품 식별자");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_IMG_PATH = fieldWithPath("nickname.[].img.fileName").type(STRING).description("상품 썸네일 이름");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_IMG_NAME = fieldWithPath("nickname.[].img.fullPath").type(STRING).description("상품 썸네일 경로");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_TITLE = fieldWithPath("nickname.[].title").type(STRING).description("상품 제목");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_PRICE = fieldWithPath("nickname.[].price").type(NUMBER).description("상품 가격");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_SCORE = fieldWithPath("nickname.[].score").type(NUMBER).description("상품 별점");
+    public static final FieldDescriptor FWP_BRAND_PRODUCTS_SELLER_NICKNAME = fieldWithPath("nickname.[].nickname").type(STRING).description("상품 브랜드 이름");
+    public static final FieldDescriptor FWP_BRAND_PRODUCTS_CATEGORY_MAIN = fieldWithPath("nickname.[].main").type(STRING).description("상품 대분류 카테고리");
+
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_ID = fieldWithPath("categoryMain.[].id").type(NUMBER).description("상품 식별자");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_IMG_PATH = fieldWithPath("categoryMain.[].img.fileName").type(STRING).description("상품 썸네일 이름");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_IMG_NAME = fieldWithPath("categoryMain.[].img.fullPath").type(STRING).description("상품 썸네일 경로");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_TITLE = fieldWithPath("categoryMain.[].title").type(STRING).description("상품 제목");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_PRICE = fieldWithPath("categoryMain.[].price").type(NUMBER).description("상품 가격");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_SCORE = fieldWithPath("categoryMain.[].score").type(NUMBER).description("상품 별점");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCTS_SELLER_NICKNAME = fieldWithPath("categoryMain.[].nickname").type(STRING).description("상품 브랜드 이름");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCTS_CATEGORY_MAIN = fieldWithPath("categoryMain.[].main").type(STRING).description("상품 대분류 카테고리");
 
     public static final FieldDescriptor FWP_STATUS = fieldWithPath("status").type(NUMBER).description("상태 코드");
     public static final FieldDescriptor FWP_MESSAGE = fieldWithPath("message").type(STRING).description("메시지");
