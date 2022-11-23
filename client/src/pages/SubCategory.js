@@ -66,10 +66,7 @@ function SubCategory({ click }) {
   let pageRef = useRef({});
   productsRef.current = products;
   pageRef.current = page;
-
   prevYRef.current = prevY;
-
-  console.log(`loadingRef:`, loadingRef);
 
   useEffect(() => {
     getProducts();
@@ -84,8 +81,6 @@ function SubCategory({ click }) {
   }, [click]);
 
   const handleObserver = (entities, observer) => {
-    console.log("time");
-
     const y = entities[0].boundingClientRect.y;
 
     if (prevYRef.current > y) {
@@ -100,21 +95,42 @@ function SubCategory({ click }) {
   };
 
   const getProducts = async () => {
-    try {
-      let productsRes = await Apis.get(
-        `products?main=${click}&page=${pageRef.current}`
-      );
-      if (productsRes) {
-        setProducts([...productsRef.current, ...productsRes.data.content]);
-        console.log(productsRes.data.content);
-        console.log(`page`, pageRef.current);
+      if( click === '서재' || click === '침실' || click === '거실' || click === '주방' ){
+        let productsRes = await Apis.get(
+          `products?main=${click}&page=${pageRef.current}`
+        );
+        console.log(`productsRes`, productsRes.data.content);
+      }else if(click === '책상' || click === '의자' || click === '책장' || click === '선반'){
+        let productsRes = await Apis.get(
+          `products?main=서재&sub=${click}&page=${pageRef.current}`
+        );
+        console.log(`productsRes`, productsRes.data.content);
+      }else if(click === '침대' || click === '행거/옷장' || click === '화장대'){
+        let productsRes = await Apis.get(
+          `products?main=침실&sub=${click}&page=${pageRef.current}`
+        );
+        console.log(`productsRes`, productsRes.data.content);
+      }else if(click === '소파' || click === '거실장' || click === '수납장'){
+        let productsRes = await Apis.get(
+          `products?main=거실&sub=${click}&page=${pageRef.current}`
+        );
+        console.log(`productsRes`, productsRes.data.content);
+      }else if(click === '식탁/아일랜드' || click === '식탁의자' || click === '주방수납'){
+        let productsRes = await Apis.get(
+          `products?main=주방&sub=${click}&page=${pageRef.current}`
+        );
+        console.log(`productsRes`, productsRes.data.content);
       }
-    } catch (error) {
-      console.log("ERROR GETTING PRODUCTS");
-    }
+      // let productsRes = await Apis.get(
+      //   `products?main=${click}&page=${pageRef.current}`
+      // );
+      // if (productsRes) {
+      //   setProducts([...productsRef.current, ...productsRes.data.content]);
+      //   console.log(productsRes.data.content);
+      //   console.log(`page`, pageRef.current);
+      // }
   };
 
-  console.log(products)
   return (
     <SubBlock>
       <SubCarousel />
@@ -140,7 +156,7 @@ function SubCategory({ click }) {
         <div className="total">0 개의 상품이 있습니다</div>
         <div className="products">
           {products?.map((product) => (
-            <Products porId={product.id} product={product} key={product.id} />
+            <Products proId={product.id} product={product} key={product.id} />
           ))}
         </div>
         <div ref={loadingRef}></div>

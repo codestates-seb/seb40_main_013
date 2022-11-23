@@ -1,11 +1,10 @@
 import styled from "styled-components/macro";
 import { IoMdClose} from 'react-icons/io';
 import { IoIosArrowBack, IoIosArrowForward} from 'react-icons/io';
-import Apis from "../apis/apis";
 import { useState } from "react";
 import { deleteShoppingCart } from "../reduxstore/slices/articleSlice";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { reCountCartItem } from "../reduxstore/slices/articleSlice";
 
 const CartItemBlock = styled.div`
     width: 100%;
@@ -119,36 +118,17 @@ const EachCheckCircle = styled.input`
 useDispatch
 
 function CartItem({cartItem, changeEachCheck, checkList}) {
-    // const navigate = useNavigate();
     const dispatch = useDispatch();
-    let jwtToken = localStorage.getItem("Authorization");
     const { brandName, count, img, price, productCartId, productId, title } = cartItem
 
     const [itemCount, setItemCount] = useState(count);
 
     const removeCartItem = () => {
         dispatch(deleteShoppingCart(productCartId))
-        // navigate('/cart')
-        // window.location.reload();
     };
 
     const ReCountHandler = () => {
-        Apis.patch(`carts/${productCartId}`,
-        { 
-          productCartId: `${productCartId}`,
-          count : `${itemCount}`
-        },
-        { headers: {
-            Authorization: `${jwtToken}`
-          }
-        })
-        .then((res) => {
-            console.log(res.data);
-            window.location.reload();
-        })
-        .catch((err) => {
-            alert(err);
-        })
+        dispatch(reCountCartItem({productCartId, itemCount}))
     };
 
     const upCountHandler = () => {
@@ -173,7 +153,6 @@ function CartItem({cartItem, changeEachCheck, checkList}) {
                 <div className="part">
                     <EachCheckCircle 
                         type='checkbox' 
-                        // className='all-check' 
                         onChange={e => changeEachCheck(e.target.checked, cartItem)}
                         checked={checkList.includes(cartItem) ? true : false}
                     />

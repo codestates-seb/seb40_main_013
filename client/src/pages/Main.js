@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bestOfBest, topBrand, mainData } from "../reduxstore/slices/articleSlice";
 import { newData } from "../reduxstore/slices/mainSlice";
-import { categoryData } from "../reduxstore/slices/categorySlice";
+import { categoryData } from "../reduxstore/slices/mainCategorySlice";
 import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
 import Button from "../components/Button";
@@ -99,7 +99,7 @@ const Main = () => {
   const bedData = useSelector((state)=>state.category.category[0]);
 
   const brandData = useSelector((state)=>state.main.main);
-  const brandTab = brandData?.map(brand => brand[0]?.nickname)
+  // const brandTab = brandData?.map(brand => brand[0]?.nickname)
   const marketbeeData = useSelector((state)=>state.main.main[0]);
   const deskerData = useSelector((state)=>state.main.main[1]);
   const forthehomeData = useSelector((state)=>state.main.main[3]);
@@ -107,7 +107,7 @@ const Main = () => {
   const sofsysData = useSelector((state)=>state.main.main[6]);
 
   console.log(brandData)
-  console.log(brandData?.map(brand => brand[0]?.nickname))
+  // console.log(brandData?.map(brand => brand[0]?.nickname))
   console.log(marketbeeData)
   // console.log(marketbeeData[0]?.nickname)
 
@@ -211,14 +211,14 @@ const Main = () => {
       <SubTitle>Recommendation by brand</SubTitle>
       <Title>브랜드별 추천상품</Title>
       <BrandTab>
-        <TD onClick={handlemarketbee}>{brandTab[0]}</TD>
+        {/* <TD onClick={handlemarketbee}>{brandTab[0]}</TD>
         <TD onClick={handledesker}>{brandTab[2]}</TD>
         <TD onClick={handleforthehome}>{brandTab[3]}</TD>
         <TD onClick={handlehudo}>{brandTab[5]}</TD>
-        <TD onClick={handlesofsys}>{brandTab[6]}</TD>
+        <TD onClick={handlesofsys}>{brandTab[6]}</TD> */}
       </BrandTab>
       <SubTitle ref={marketbeeRef}>marketbee</SubTitle>
-      <Title>{brandTab[0]}</Title>
+      {/* <Title>{brandTab[0]}</Title> */}
       <FullTitle name="fullTitle" className="fullTitle">
         <FullView 
           name="fullView" 
@@ -236,7 +236,7 @@ const Main = () => {
           ))}
       </ProductList>
       <SubTitle ref={deskerRef}>marketbee</SubTitle>
-      <Title>{brandTab[1]}</Title>
+      {/* <Title>{brandTab[1]}</Title> */}
       <FullTitle name="fullTitle" className="fullTitle">
         <FullView 
           name="fullView" 
@@ -254,7 +254,7 @@ const Main = () => {
           ))}
       </ProductList>
       <SubTitle ref={forthehomeRef}>marketbee</SubTitle>
-      <Title>{brandTab[3]}</Title>
+      {/* <Title>{brandTab[3]}</Title> */}
       <FullTitle name="fullTitle" className="fullTitle">
         <FullView 
           name="fullView" 
@@ -272,7 +272,7 @@ const Main = () => {
           ))}
       </ProductList>
       <SubTitle ref={hudoRef}>marketbee</SubTitle>
-      <Title>{brandTab[5]}</Title>
+      {/* <Title>{brandTab[5]}</Title> */}
       <FullTitle name="fullTitle" className="fullTitle">
         <FullView 
           name="fullView" 
@@ -290,7 +290,7 @@ const Main = () => {
           ))}
       </ProductList>
       <SubTitle ref={sofsysRef}>marketbee</SubTitle>
-      <Title>{brandTab[6]}</Title>
+      {/* <Title>{brandTab[6]}</Title> */}
       <FullTitle name="fullTitle" className="fullTitle">
         <FullView 
           name="fullView" 

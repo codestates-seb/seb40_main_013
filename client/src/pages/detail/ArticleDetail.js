@@ -151,7 +151,9 @@ function ArticleDetail() {
             </DetailArticlBtnSpace>
           </ArticleInformations>
         </DetailTopUserSelectSpace>
-        <DetailMidImg src={articlesDetail?.content} />
+        {articlesDetail?.content?.map((data) => (
+          <DetailMidImg src={data} />
+        ))}
         <Review articlesDetail={articlesDetail} renderStar={renderStar} />
       </DetailContents>
     </Wrapper>
