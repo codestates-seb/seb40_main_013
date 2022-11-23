@@ -76,6 +76,17 @@ const BrandTab = styled.div`
   margin-bottom: 30px;
   border-radius: 5px;
   display: flex;
+  width: 80%;
+`;
+const TD = styled.div`
+  border: 1px solid #aaaaaa;
+  padding: 20px 50px;
+  font-size: 1rem;
+  white-space: nowrap;
+  cursor: pointer;
+  &:hover {
+    border: 3px solid #ffaf51;
+  }
 `;
 const BrandTitle = styled.div`
   display: flex;
@@ -91,17 +102,7 @@ const FullView = styled(Link)`
   color: #aaaaaa;
   cursor: pointer;
 `;
-const TD = styled.div`
-  border: 1px solid #aaaaaa;
-  padding: 20px 50px;
-  font-size: 1rem;
-  cursor: pointer;
-  &:hover {
-    border: 3px solid #ffaf51;
-  }
-`;
 
-//브랜드 리스트
 const BrandProduct = styled.div``;
 
 const Main = () => {
@@ -126,22 +127,8 @@ const Main = () => {
   const hudoRef = useRef();
   const sofsysRef = useRef();
 
-  const handle포더홈 = () => {
-    포더홈Ref.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handledesker = () => {
-    deskerRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleforthehome = () => {
-    forthehomeRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-  const handlehudo = () => {
-    hudoRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-  const handlesofsys = () => {
-    sofsysRef.current?.scrollIntoView({ behavior: "smooth" });
+  const handleClick = (e) => {
+    `${e}Ref`.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   //자동스크롤시 탭 헤더 밑으로 고정시키기
@@ -218,14 +205,9 @@ const Main = () => {
       </Title>
       <BrandTab>
         {brandTab
-          ?.filter((tab) => tab !== "guest")
+          ?.filter((t) => t !== "guest")
           ?.map((tab) => (
-            <TD
-              key={tab}
-              onClick={() => {
-                `handle${tab}`;
-              }}
-            >
+            <TD key={tab} onClick={() => handleClick(tab)}>
               {tab}
             </TD>
           ))}

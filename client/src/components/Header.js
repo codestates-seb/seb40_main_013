@@ -136,6 +136,14 @@ function Header({ setClick }) {
       setCloseSearch(false);
     // console.log(target.innerHTML);
   };
+
+  // useEffect(() => {
+  //   window.addEventListener("click", outModalCloseHandler);
+  //   return () => {
+  //     window.removeEventListener("click", outModalCloseHandler); //이벤트 한번만 실행되게 하려고 제거.
+  //   };
+  // },[]);
+
   return (
     <>
       <HeaderBlock onClick={outModalCloseHandler}>

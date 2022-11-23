@@ -357,9 +357,9 @@ const EditProfile = ({ getUserdata }) => {
         value={updatePhone}
         onChange={handleUpdatePhone}
       ></Input>
-      {!updatePwdCheckConfirm ? (
+      {!updatePhoneConfirm ? (
         <ErrorDisplay>
-          위에 작성하신 비밀번호와 같은 비밀번호를 입력해주세요!
+          위의 양식에 맞게 - 와 숫자를 함께 적어주세요.
         </ErrorDisplay>
       ) : null}
       <Buttons>
