@@ -8,7 +8,7 @@ import chair from "../imgs/chair.png";
 import desk from "../imgs/desk.png";
 import shelf from "../imgs/shelf.png";
 import room from "../imgs/room.jpg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SubBlock = styled.div`
   width: 100%;
