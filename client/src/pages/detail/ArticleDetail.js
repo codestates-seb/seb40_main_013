@@ -18,7 +18,7 @@ function ArticleDetail() {
   const [cartCount, setCartCount] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
@@ -107,8 +107,6 @@ function ArticleDetail() {
                         }}
                       >
                         색상 : {option?.color}
-                        가격 : {option?.price?.toLocaleString("en-US")}
-                        사이즈 : {option?.size}
                         남은수량 : {option?.stock}
                       </DetailArticleSelectOption>
                     ))}
@@ -151,7 +149,9 @@ function ArticleDetail() {
             </DetailArticlBtnSpace>
           </ArticleInformations>
         </DetailTopUserSelectSpace>
-        <DetailMidImg src={articlesDetail?.content} />
+        {articlesDetail?.content?.map((data) => (
+          <DetailMidImg src={data} />
+        ))}
         <Review articlesDetail={articlesDetail} renderStar={renderStar} />
       </DetailContents>
     </Wrapper>

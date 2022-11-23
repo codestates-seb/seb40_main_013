@@ -89,6 +89,7 @@ export const deleteShoppingCart = createAsyncThunk(
     })
       .then((res) => {
         console.log(`shopslice`, res.data);
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {

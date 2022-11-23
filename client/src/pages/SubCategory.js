@@ -140,7 +140,7 @@ function SubCategory({ click }) {
         <div className="total">0 개의 상품이 있습니다</div>
         <div className="products">
           {products?.map((product) => (
-            <Products porId={product.id} product={product} key={product.id} />
+            <Products proId={product.id} product={product} key={product.id} />
           ))}
         </div>
         <div ref={loadingRef}></div>
