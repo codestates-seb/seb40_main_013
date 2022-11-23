@@ -20,4 +20,5 @@ jwt:
   secret-key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
+  keep-state-refresh-token-expiration-minutes: 1440
 
