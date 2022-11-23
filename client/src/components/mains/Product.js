@@ -97,6 +97,7 @@ const StarAerage = styled.div`
 `;
 const Product = ({ proId, product }) => {
   const { id } = useParams();
+
   const { img, nickname, score, title, price } = product;
 
   return (
@@ -112,7 +113,7 @@ const Product = ({ proId, product }) => {
         </SubDetail>
         <Title>{title}</Title>
         <SubDetail>
-          <Price>{price?.toLocaleString("en-US")}</Price>
+          <Price>{price.toLocaleString("en-US")}</Price>
         </SubDetail>
       </Detail>
     </Products>
