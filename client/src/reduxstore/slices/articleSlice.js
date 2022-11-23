@@ -142,7 +142,6 @@ const articleSlice = createSlice({
       state.error = "";
     },
     [getShoppingCart.fulfilled]: (state, action) => {
-      console.log(action);
       state.shoppingCartInitial = action.payload?.productCarts;
       state.loading = true;
       state.error = "";
