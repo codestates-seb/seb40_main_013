@@ -342,30 +342,6 @@ const EditProfile = ({ getUserdata }) => {
           문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자로 만들어주세요!
         </ErrorDisplay>
       ) : null}
-      <Label htmlFor="confirmPassword">비밀번호 확인</Label>
-      <Input
-        name="confirmPassword"
-        onChange={handleUpdatePwdCheck}
-        required
-      ></Input>
-      {!updatePwdCheckConfirm ? (
-        <ErrorDisplay>
-          위에 작성하신 비밀번호와 같은 비밀번호를 입력해주세요!
-        </ErrorDisplay>
-      ) : null}
-      <Label htmlFor="address" required>
-        주소
-      </Label>
-      <Input name="address" onChange={handleUpdateAddress}></Input>
-      <Label htmlFor="phone" required>
-        휴대폰 번호 ( 예: 010-1234-5678 )
-      </Label>
-      <Input name="phone" onChange={handleUpdatePhone}></Input>
-      {!updatePhoneConfirm ? (
-        <ErrorDisplay>
-          숫자, -을 포함해 휴대전화 형식에 맞게 입력해주세요.
-        </ErrorDisplay>
-      ) : null}
       <Buttons>
         <Delete onClick={handleDelete}>회원탈퇴</Delete>
         <Edit onClick={updateInform}>정보수정</Edit>

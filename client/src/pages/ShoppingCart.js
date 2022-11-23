@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import CartItem from "../components/CartItem";
-import Apis from "../apis/apis";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteShoppingCart, getShoppingCart } from "../reduxstore/slices/articleSlice";
 
 const CartBlock = styled.div`
     margin-top: 160px;
@@ -66,116 +66,89 @@ const Quary = styled.div`
 `;
 
 const CartList = styled.div`
-  width: 100%;
-  flex-direction: column;
-  @media screen and (min-width: 768px) {
-      padding-right:20px;
-      max-width: 700px;
-    }
+    width: 100%;
+    flex-direction: column;
+    @media screen and (min-width: 768px) {
+        padding-right:20px;
+        max-width: 700px;
+      }
 `;
 
 //결제정보
 const Payment = styled.section`
-  margin-top: 76px;
-  width: 300px;
-  height: 300px;
-  min-width: 230px;
-  border: 1px solid #002c6d;
-  border-radius: 5px;
-  padding: 20px;
-  .pay-title {
-    font-weight: 500;
-  }
-  @media screen and (max-width: 767px) {
-      width: 100%;
-      margin-top: 0;
+    margin-top: 71.5px;
+    width: 300px;
+    height: 300px;
+    min-width: 230px;
+    border: 1px solid #002c6d;
+    border-radius: 5px;
+    padding: 20px;
+    .pay-title {
+      font-weight: 500;
     }
+    @media screen and (max-width: 767px) {
+        width: 100%;
+        margin-top: 0;
+      }
 `;
+
 const PayInfo = styled.div`
-  flex-direction: column;
-  width: auto;
-  height: auto;
-  border-top: 1px solid #002c6d;
-  border-bottom: 1px solid #002c6d;
-  padding: 10px 0px;
-  margin: 10px 0px;
-  font-size: 13px;
-  color: #aaaaaa;
-  div {
-    padding: 8px 0px;
-    justify-content: space-between;
-  }
-  .sale {
-    color: #ffaf51;
-  }
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    border-top: 1px solid #002c6d;
+    border-bottom: 1px solid #002c6d;
+    padding: 10px 0px;
+    margin: 10px 0px;
+    font-size: 13px;
+    color: #aaaaaa;
+    div {
+      padding: 8px 0px;
+      justify-content: space-between;
+    }
+    .sale {
+      color: #ffaf51;
+    }
 `;
 
 const TotalPrice = styled.div`
-  padding: 8px 0px 15px 0px;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 20px;
-  font-weight: 700;
-  .small {
-    font-size: 16px;
-  }
+    padding: 8px 0px 15px 0px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 700;
+    .small {
+      font-size: 16px;
+    }
 `;
 
 const PayButton = styled.button`
-  width: 100%;
-  height: 40px;
-  background-color: #002c6d;
-  color: white;
-  font-size: 16px;
-  font-weight: 500;
-  border-radius: 3px;
+    width: 100%;
+    height: 40px;
+    background-color: #002c6d;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 3px;
 `;
 
 function ShoppingCart() {
-  let jwtToken = localStorage.getItem("Authorization");
-  
-  const [empty, setEmpty] = useState(false)
   const dispatch = useDispatch();
-  const cartSeletor = useSelector((state) => state)
-  console.log(cartSeletor);
+  const cartSeletor = useSelector((state) => (state.article.shoppingCartInitial))
+  const cartSeletorLength = cartSeletor?.length
+  // console.log(`cartSeletor.length`,cartSeletorLength);
 
-  const [cartItemList, setCartItemList] = useState([]);
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
-  const [numberOfCartList, setNumberOfCartList] = useState([]);
-  
 
   useEffect(() => {
-    Apis.get(`carts`,
-    {
-      headers: {
-        Authorization: `${jwtToken}`,
-        "Content-Type": "application/json"
-      },
-    })
-    .then((data) => {
-      if(data.data.productCarts.length === 0){
-        setEmpty(true)
-      }else{
-        setEmpty(false)
-        setCartItemList(data.data.productCarts);
-        setNumberOfCartList(data.data.productCarts.length)
-      }
-    })
-    // .catch((err) => {
-    //   console.log(err);
-    //   if(err.response.data.message === "Cart not found"){
-    //     setEmpty(true)
-    //   }
-    // })
+    dispatch(getShoppingCart());
   }, []);
-  console.log(`checkList`, checkList);
-
   
   const changeAllCheck = (checked) => {
     if(checked) {
       const allCheckBox = [];
       
-      cartItemList.forEach(el => allCheckBox.push(el));
+      cartSeletor.forEach(el => allCheckBox.push(el));
       setCheckList(allCheckBox);
     } else {
       setCheckList([]);
@@ -200,25 +173,14 @@ function ShoppingCart() {
 
   const checkRemoveCartItem = () => {
     checkList.forEach(el => {
-      return  Apis.delete(`carts/${el.productCartId}`,
-      { 
-        headers: {
-          Authorization: `${jwtToken}`
-        },
-      })
-      .then((res) => {
-          console.log(res.data);
-          window.location.reload();
-      })
-      .catch((err) => {
-          console.log(err);
-      })
+      dispatch(deleteShoppingCart(el.productCartId))
+      window.location.reload();
     });
   }
 
   return (
     <CartBlock>
-      {empty ? <div> 장바구니에 담긴 상품이 없습니다.</div> :
+      {cartSeletorLength === 0 ? <div> 장바구니에 담긴 상품이 없습니다.</div> :
         <Quary>
           <CartList>
             <div className="cart-title">장바구니</div>
@@ -228,13 +190,13 @@ function ShoppingCart() {
                   type='checkbox' 
                   // className='all-check'
                   onChange={e => changeAllCheck(e.target.checked)}
-                  checked={checkList.length === numberOfCartList ? true : false }
+                  checked={checkList.length === cartSeletorLength ? true : false }
                 />
                 <label htmlFor='checkid' className="center" >전체선택</label>
               <span>ㅣ</span>
               <span className='cursor' onClick={checkRemoveCartItem}>선택삭제</span>
             </AllCheckBlock>
-            {cartItemList.map((item) => (
+            {cartSeletor?.map((item) => (
               <CartItem 
                   cartItem={item}
                   key={item.productCartId}

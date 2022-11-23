@@ -8,21 +8,19 @@ import chair from "../imgs/chair.png";
 import desk from "../imgs/desk.png";
 import shelf from "../imgs/shelf.png";
 import room from "../imgs/room.jpg";
-
-import { useDispatch, useSelector } from "react-redux";
-import { getSubCategory } from "../reduxstore/slices/articleSlice";
+import { useSelector } from "react-redux";
 
 const SubBlock = styled.div`
-    width: 100%;
-    margin-top: 170px;
-    padding: 30px 40px 30px 40px;
-    div{
-        display: flex;
-    }
-    .sub-menus{
-        margin: 20px 0px;
-        justify-content: space-between;
-    }
+  width: 100%;
+  margin-top: 170px;
+  padding: 30px 40px 30px 40px;
+  div {
+    display: flex;
+  }
+  .sub-menus {
+    margin: 20px 0px;
+    justify-content: space-between;
+  }
 `;
 
 const Sub = styled.div`
@@ -55,72 +53,68 @@ const ProductList = styled.div`
   }
 `;
 
-function SubCategory({click}) {
- const dispatch = useDispatch();
- const subSeletor = useSelector((state) => state.article.subCategoryInitial[0]?.content)
-  console.log(subSeletor);
-
+function SubCategory({ click }) {
+  console.log(click);
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [prevY, setPrevY] = useState(0);
-  let productsRef = useRef({})
+  let productsRef = useRef({});
 
   let loadingRef = useRef(null);
-   let prevYRef = useRef({});
-   let pageRef = useRef({});
-   productsRef.current = subSeletor;
-   pageRef.current = page;
-   let pageCurrent = pageRef.current;
-   console.log(`pageCurren`, pageCurrent, `page`, page);
+  let prevYRef = useRef({});
+  let pageRef = useRef({});
+  productsRef.current = products;
+  pageRef.current = page;
 
-   prevYRef.current = prevY
+  prevYRef.current = prevY;
 
   console.log(`loadingRef:`, loadingRef);
 
   useEffect(() => {
     getProducts();
     setPage(pageRef.current + 1);
-    
-    let options ={
-        root: null, //root는 기본적으로 스크롤 가능한 영역, null을 입력하면 전체 브라우저 창이 됨
-        rootMargin: '150px',
-        htreshold: 0.7 //관찰해야 하는 대상 요소의 100%를 의미한다.
-    }
-
-    const observer = new IntersectionObserver(handleObserver, options)
+    let options = {
+      root: null, //root는 기본적으로 스크롤 가능한 영역, null을 입력하면 전체 브라우저 창이 됨
+      rootMargin: "150px",
+      htreshold: 0.7, //관찰해야 하는 대상 요소의 100%를 의미한다.
+    };
+    const observer = new IntersectionObserver(handleObserver, options);
     observer.observe(loadingRef.current);
-  }, []);
+  }, [click]);
 
   const handleObserver = (entities, observer) => {
     console.log("time");
 
     const y = entities[0].boundingClientRect.y;
 
-    if (prevYRef.current > y){
-        console.log(`real get list`);
-        getProducts();
-        setPage(pageRef.current + 1);
+    if (prevYRef.current > y) {
+      console.log(`real get list`);
+      getProducts();
+      setPage(pageRef.current + 1);
     } else {
-        console.log('loading false');
+      console.log("loading false");
     }
     console.log(`currenty`, y, `prevY`, prevY);
     setPrevY(y);
-  }
-  
+  };
+
   const getProducts = async () => {
-    try{
-      let productsRes =  dispatch(getSubCategory({click, pageCurrent}));//asyncthunk는 첫번째인자는 변경할 수 있는데, 두번째 인자는 변경할 수 없어 {}로 묶어서 하나의 인자로 첫번쨰로만 보냄
+    try {
+      let productsRes = await Apis.get(
+        `products?main=${click}&page=${pageRef.current}`
+      );
       if (productsRes) {
         setProducts([...productsRef.current, ...productsRes.data.content]);
         console.log(productsRes.data.content);
-        console.log(`page`,pageRef.current );
-      } 
+        console.log(`page`, pageRef.current);
+      }
     } catch (error) {
-        console.log('ERROR GETTING PRODUCTS');
+      console.log("ERROR GETTING PRODUCTS");
     }
-  }
+  };
 
+  console.log(products)
   return (
     <SubBlock>
       <SubCarousel />
@@ -144,13 +138,9 @@ function SubCategory({click}) {
       </div>
       <ProductList>
         <div className="total">0 개의 상품이 있습니다</div>
-        <div className="products" >
-          {subSeletor?.map((product) => ( //{ img, brand, title, price, score }
-            <Products
-              porId={product.id}
-              product={product}
-              key={product.id}
-            />
+        <div className="products">
+          {products?.map((product) => (
+            <Products porId={product.id} product={product} key={product.id} />
           ))}
         </div>
         <div ref={loadingRef}></div>

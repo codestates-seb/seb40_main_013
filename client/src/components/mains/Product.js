@@ -98,6 +98,7 @@ const StarAerage = styled.div`
 `;
 const Product = ({ proId, product }) => {
   const { id } = useParams();
+  console.log(`id`,id);
 
   const { img, nickname, score, title, price } = product;
 

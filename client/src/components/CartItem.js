@@ -3,6 +3,9 @@ import { IoMdClose} from 'react-icons/io';
 import { IoIosArrowBack, IoIosArrowForward} from 'react-icons/io';
 import Apis from "../apis/apis";
 import { useState } from "react";
+import { deleteShoppingCart } from "../reduxstore/slices/articleSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CartItemBlock = styled.div`
     width: 100%;
@@ -113,29 +116,21 @@ const EachCheckCircle = styled.input`
         background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
     }
 `;
+useDispatch
 
 function CartItem({cartItem, changeEachCheck, checkList}) {
-    
+    // const navigate = useNavigate();
+    const dispatch = useDispatch();
     let jwtToken = localStorage.getItem("Authorization");
     const { brandName, count, img, price, productCartId, productId, title } = cartItem
 
     const [itemCount, setItemCount] = useState(count);
 
     const removeCartItem = () => {
-        Apis.delete(`carts/${productCartId}`,
-        { 
-          headers: {
-            Authorization: `${jwtToken}`
-          },
-        })
-        .then((res) => {
-            console.log(res.data);
-            window.location.reload();
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    }
+        dispatch(deleteShoppingCart(productCartId))
+        // navigate('/cart')
+        // window.location.reload();
+    };
 
     const ReCountHandler = () => {
         Apis.patch(`carts/${productCartId}`,
@@ -154,7 +149,7 @@ function CartItem({cartItem, changeEachCheck, checkList}) {
         .catch((err) => {
             alert(err);
         })
-    } 
+    };
 
     const upCountHandler = () => {
         setItemCount(parseInt(itemCount) + 1) 

@@ -26,6 +26,7 @@ export const postCart = createAsyncThunk(
       },
     })
       .then((res) => {
+        window.alert("해당 상품이 추가되었습니다!");
         navigate("/");
         return res.data;
       })
@@ -39,10 +40,10 @@ export const mainData = createAsyncThunk("products/mainData", async () => {
   return axios
     .all([
       axios.get(
-        `https://weak-papers-buy-125-134-111-237.loca.lt/products/score`
+        `https://mighty-lemons-chew-125-134-111-237.loca.lt/products/score`
       ),
       axios.get(
-        `https://weak-papers-buy-125-134-111-237.loca.lt/products/brandListLike`
+        `https://mighty-lemons-chew-125-134-111-237.loca.lt/products/brandListLike`
       ),
     ])
     .then(
@@ -72,20 +73,46 @@ export const getSubCategory = createAsyncThunk( //비동기처리를 도와주�
   }
 );//action 객체, action실행함수 등등....
 
-export const getShoppingCart = createAsyncThunk( //비동기처리를 도와주는애(자동으로 지원해줌)
-  "getShoppingCart",// 이름정하는데, 의미없음
-  async ({click, pageCurrent}) => {
-    console.log(`click`, click, `pageCurren`, pageCurrent);
-    return Apis.get(`products?main=${click}&page=${pageCurrent}`)
-      .then((res) => {
-        console.log(res.data);
-        return res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+export const getShoppingCart = createAsyncThunk( 
+  "getShoppingCart",
+  async () => {
+    return Apis.get(`carts`,
+    {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "Content-Type": "application/json"
+      },
+    })
+    .then((res) => {
+      console.log(`shopslice`, res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
-);//action 객체, action실행함수 등등....
+);
+
+export const deleteShoppingCart = createAsyncThunk( 
+  "getShoppingCart",
+  async (elId) => {
+    return Apis.delete(`carts/${elId}`,
+    {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "Content-Type": "application/json"
+      },
+    })
+    .then((res) => {
+      console.log(`shopslice`, res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+);
+
 
 const articleSlice = createSlice({
   name: "article",
@@ -94,6 +121,7 @@ const articleSlice = createSlice({
     detailArticle: [],
     mainArticle: [],
     subCategoryInitial: [],
+    shoppingCartInitial: [],
     loading: false,
     error: "",
   },
@@ -104,6 +132,7 @@ const articleSlice = createSlice({
       state.detailArticle = action.payload;
       state.mainArticle = [];
       state.subCategoryInitial = [];
+      state.shoppingCartInitial = [];
       state.loading = true;
       state.error = "";
     },
@@ -112,6 +141,7 @@ const articleSlice = createSlice({
       state.detailArticle = [];
       state.mainArticle = [];
       state.subCategoryInitial = [];
+      state.shoppingCartInitial = [];
       state.loading = true;
       state.error = "";
     },
@@ -120,6 +150,7 @@ const articleSlice = createSlice({
       state.detailArticle = [];
       state.mainArticle = action.payload;
       state.subCategoryInitial = [];
+      state.shoppingCartInitial = [];
       state.loading = true;
       state.error = "";
     },
@@ -128,6 +159,16 @@ const articleSlice = createSlice({
       state.detailArticle = [];
       state.mainArticle = [];
       state.subCategoryInitial = [...state.subCategoryInitial, action.payload];
+      state.shoppingCartInitial = [];
+      state.loading = true;
+      state.error = "";
+    },
+    [getShoppingCart.fulfilled]: (state, action) => {
+      state.article = [];
+      state.detailArticle = [];
+      state.mainArticle = [];
+      state.subCategoryInitial = [];
+      state.shoppingCartInitial = action.payload.productCarts;
       state.loading = true;
       state.error = "";
     },

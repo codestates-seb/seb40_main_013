@@ -3,16 +3,10 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://weak-papers-buy-125-134-111-237.loca.lt/",
+  baseURL: "https://mighty-lemons-chew-125-134-111-237.loca.lt/",
 });
 
 axios.interceptors.request.use(function (config) {
-  // config.withCredentials = true;
-  // const token = localStorage.getItem("Authorization");
-  // console.log(token);
-  // config.headers["Authorization"] = token;
-  // config.headers["Refresh"] = refreshToken;
-  // config.headers["Content-Type"] = "application/json";
   return config;
 });
 
@@ -52,7 +46,6 @@ Apis.interceptors.response.use(
             },
             sent: true,
           });
-          // return 1;
         }
       } catch (err) {
         console.log("abc", "토큰 갱신 에러");
