@@ -97,12 +97,11 @@ const StarAerage = styled.div`
   display: flex;
 `;
 const Product = ({ proId, product }) => {
-  const { id } = useParams();
-  console.log(`id`,id);
+  const {id} = useParams();
 
-  const { img, nickname, score, title, price } = product;
+  const { img, nickname, score, title, price} = product;
 
-  return (
+  return(
     <Products to={`/detail/${proId}`}>
       <Img src={img?.fullPath}></Img>
       <Detail>

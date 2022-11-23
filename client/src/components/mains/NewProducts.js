@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components/macro";
-import brandImg from "../../imgs/brandImg.png"
-import dodot from "../../imgs/dodot.jpeg"
-import sofsys from "../../imgs/sofsys.jpeg"
-import forthehome from "../../imgs/forthehome.png"
-import desker from "../../imgs/desker.png"
+import livingroom from "../../imgs/livingroom.png"
+import library from "../../imgs/library.png"
+import bedroom from "../../imgs/bedroom.png"
+import kitchen from "../../imgs/kitchen.png"
+import { Link, useParams } from "react-router-dom";
 
 const BrandContainer = styled.div`
   display:flex;
@@ -67,8 +67,8 @@ const Tab = styled.div`
     margin-bottom: 10px;
   }
 `;
-//브랜드별 이미지
-const BrandProduct = styled.div`
+//카테고리별 이미지
+const CategoryProduct = styled.div`
   display: flex;
   /* border: 1px solid red; */
   border-radius: 10px;
@@ -88,11 +88,46 @@ const BrandProduct = styled.div`
     justify-content: center;
   }
 `;
-
-const BrandImg = styled.img`
-  width: 500px;
+const TI = styled.a`
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  cursor: pointer;
+  &:hover::after,
+  &:hover > .hover_text{
+    display: block;
+  }
+  &::after{
+    display: none;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 10;
+  }
+  &:hover img{
+    transform: scale(1.1);
+    transition: 1s;
+  }
+  .hover_text{
+    display: none;
+    position: absolute;
+    top: 170px;
+    left: 160px;
+    color: #fff;
+    z-index: 20;
+    font-weight: 500;
+    font-size: 35px;
+  }
+`;
+
+const CategoryImg = styled.img`
+  width: 500px;
   @media screen and (max-width: 390px){
     width: 100%;
     border-top-left-radius: 10px;
@@ -122,7 +157,7 @@ const BPList = styled.div`
     width: 50vw;
   }
 `;
-const BP = styled.div`
+const BP = styled(Link)`
   display: flex;
   align-items: center;
   border: 1px solid var(--color-center-line);
@@ -157,8 +192,8 @@ const Price = styled.h2`
   font-weight: 600;
 `;
 
-const BrandProducts = ({ roomandhomeList, dodotList, sofsysList, forthehomeList, deskerList, marketbeeList, hudoList }) =>{
-  const [clicked, setClicked] = useState('두닷');
+const NewProducts = ({ libraryList, bedList }) =>{
+  const [clicked, setClicked] = useState('서재');
 
   const onClick = useCallback(e => {
     const text = e.target.innerText;
@@ -166,25 +201,31 @@ const BrandProducts = ({ roomandhomeList, dodotList, sofsysList, forthehomeList,
   }, []);
 
   const ProductArr = {
-    "룸앤홈": <BrandProduct>
-            <BrandImg src={dodot}></BrandImg>
+    "서재": <CategoryProduct>
+            <TI>
+              <CategoryImg src={library}></CategoryImg>
+              <p className="hover_text">서재 전체보기</p>
+            </TI>
             <BPList>
-            {roomandhomeList?.map((p)=>
-                  <BP key={p.id}>
+                {libraryList?.map((p)=>
+                  <BP key={p.id} to={`/detail/${p.id}`}>
                     <Img src={p.img.fullPath} />
                     <TP>
                       <Title>{p.title}</Title>
                       <Price>{p.price.toLocaleString('en-US')}</Price>
                     </TP>
                   </BP>
-                  )}
+                )}
             </BPList>
-          </BrandProduct>,
-  "소프시스": <BrandProduct>
-              <BrandImg src={sofsys}></BrandImg>
+          </CategoryProduct>,
+    "침실": <CategoryProduct>
+              <TI>
+              <CategoryImg src={bedroom}></CategoryImg>
+              <p className="hover_text">침실 전체보기</p>
+            </TI>
               <BPList>
-              {sofsysList?.map((p)=>
-                  <BP key={p.id}>
+                  {bedList?.map((p)=>
+                    <BP key={p.id} to={`/detail/${p.id}`}>
                       <Img src={p.img.fullPath} />
                       <TP>
                         <Title>{p.title}</Title>
@@ -193,143 +234,82 @@ const BrandProducts = ({ roomandhomeList, dodotList, sofsysList, forthehomeList,
                     </BP>
                   )}
               </BPList>
-            </BrandProduct>,
-  "포더홈": <BrandProduct>
-              <BrandImg src={forthehome}></BrandImg>
+            </CategoryProduct>,
+    "거실": <CategoryProduct>
+            <TI>
+              <CategoryImg src={livingroom}></CategoryImg>
+              <p className="hover_text">거실 전체보기</p>
+            </TI>
               <BPList>
-              {forthehomeList?.map((p)=>
-                  <BP key={p.id}>
-                    <Img src={p.img.fullPath} />
-                    <TP>
-                      <Title>{p.title}</Title>
-                      <Price>{p.price.toLocaleString('en-US')}</Price>
-                    </TP>
-                  </BP>
+                  {bedList?.map((p)=>
+                    <BP key={p.id} to={`/detail/${p.id}`}>
+                      <Img src={p.img.fullPath} />
+                      <TP>
+                        <Title>{p.title}</Title>
+                        <Price>{p.price.toLocaleString('en-US')}</Price>
+                      </TP>
+                    </BP>
                   )}
               </BPList>
-            </BrandProduct>,
-  "데스커": <BrandProduct>
-            <BrandImg src={desker}></BrandImg>
-            <BPList>
-            {deskerList?.map((p)=>
-                  <BP key={p.id}>
-                    <Img src={p.img.fullPath} />
-                    <TP>
-                      <Title>{p.title}</Title>
-                      <Price>{p.price.toLocaleString('en-US')}</Price>
-                    </TP>
-                  </BP>
+            </CategoryProduct>,
+    "주방": <CategoryProduct>
+            <TI>
+              <CategoryImg src={kitchen}></CategoryImg>
+              <p className="hover_text">주방 전체보기</p>
+            </TI>
+              <BPList>
+                  {bedList?.map((p)=>
+                    <BP key={p.id} to={`/detail/${p.id}`}>
+                      <Img src={p.img.fullPath} />
+                      <TP>
+                        <Title>{p.title}</Title>
+                        <Price>{p.price.toLocaleString('en-US')}</Price>
+                      </TP>
+                    </BP>
                   )}
-            </BPList>
-          </BrandProduct>,
-  "두닷": <BrandProduct>
-              <BrandImg src={dodot}></BrandImg>
-              <BPList>
-              {dodotList?.map((p)=>
-                    <BP key={p.id}>
-                      <Img src={p.img.fullPath} />
-                      <TP>
-                        <Title>{p.title}</Title>
-                        <Price>{p.price.toLocaleString('en-US')}</Price>
-                      </TP>
-                    </BP>
-                    )}
               </BPList>
-            </BrandProduct>,
-  "마켓비": <BrandProduct>
-              <BrandImg src={dodot}></BrandImg>
-              <BPList>
-              {marketbeeList?.map((p)=>
-                    <BP key={p.id}>
-                      <Img src={p.img.fullPath} />
-                      <TP>
-                        <Title>{p.title}</Title>
-                        <Price>{p.price.toLocaleString('en-US')}</Price>
-                      </TP>
-                    </BP>
-                    )}
-              </BPList>
-            </BrandProduct>,
-  "휴도": <BrandProduct>
-              <BrandImg src={dodot}></BrandImg>
-              <BPList>
-              {hudoList?.map((p)=>
-                    <BP key={p.id}>
-                      <Img src={p.img.fullPath} />
-                      <TP>
-                        <Title>{p.title}</Title>
-                        <Price>{p.price.toLocaleString('en-US')}</Price>
-                      </TP>
-                    </BP>
-                    )}
-              </BPList>
-            </BrandProduct>,
+            </CategoryProduct>,
 }
 
-  return (
-    <BrandContainer>
-      <Tabs>
-        <SubTab>
-          <Tab
-          name="dodot"
-          className={clicked === '룸앤홈' ? 'clicked' : ''}
+return (
+  <BrandContainer>
+    <Tabs>
+      <SubTab>
+        <Tab
+        name="library"
+        className={clicked === '서재' ? 'clicked' : ''}
+        onClick={onClick}
+        value="1">
+          서재
+        </Tab>
+        <Tab
+        name="bedroom"
+        className={clicked === '침실' ? 'clicked' : ''}
+        onClick={onClick}
+        value="2">
+          침실
+        </Tab>
+      </SubTab>
+      <SubTab>
+        <Tab
+          name="livingroom"
+          className={clicked === '거실' ? 'clicked' : ''}
           onClick={onClick}
-          value="1">
-            룸앤홈
+          value="3">
+            거실
           </Tab>
           <Tab
-          name="sofsis"
-          className={clicked === '소프시스' ? 'clicked' : ''}
+          name="kitchen"
+          className={clicked === '주방' ? 'clicked' : ''}
           onClick={onClick}
-          value="2">
-            소프시스
+          value="4">
+            주방
           </Tab>
         </SubTab>
-        <SubTab>
-          <Tab
-            name="forTheHome"
-            className={clicked === '포더홈' ? 'clicked' : ''}
-            onClick={onClick}
-            value="3">
-              포더홈
-            </Tab>
-            <Tab
-            name="illom"
-            className={clicked === '데스커' ? 'clicked' : ''}
-            onClick={onClick}
-            value="4">
-              데스커
-            </Tab>
-          </SubTab>
-          <SubTab>
-          <Tab
-            name="forTheHome"
-            className={clicked === '휴도' ? 'clicked' : ''}
-            onClick={onClick}
-            value="3">
-              휴도
-            </Tab>
-            <Tab
-            name="illom"
-            className={clicked === '마켓비' ? 'clicked' : ''}
-            onClick={onClick}
-            value="4">
-              마켓비
-            </Tab>
-          </SubTab>
-          <SubTab>
-          <Tab
-            name="forTheHome"
-            className={clicked === '두닷' ? 'clicked' : ''}
-            onClick={onClick}
-            value="3">
-              두닷
-            </Tab>
-          </SubTab>
-        </Tabs>
-        {ProductArr[clicked]}
-      </BrandContainer>
-  )
+      </Tabs>
+      {ProductArr[clicked]}
+    </BrandContainer>
+)
 }
 
-export default BrandProducts;
+export default NewProducts;

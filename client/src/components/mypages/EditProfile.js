@@ -137,27 +137,35 @@ const EditProfile = ({ getUserdata }) => {
   const initialToken = localStorage.getItem("Authorization");
   const [showPswd, setShowPswd] = useState(false);
 
-  const [updateNickName, setUpdatNickName] = useState("");
-  // setUpdatNickName(getUserdata.nickname)
-  const [curpwd, setCurpwd] = useState("");
-  const [updatePassword, setUpdatePassword] = useState("");
-  const [updatePwdCheck, setUpdatePwdCheck] = useState("");
-  const [updateAddress, setUpdateAddress] = useState("");
-  const [updatePhone, setUpdatePhone] = useState("");
+  const [updateNickName, setUpdatNickName] = useState('');
+  const [curpwd, setCurpwd] = useState('');
+  const [updatePassword, setUpdatePassword] = useState('');
+  const [updatePwdCheck, setUpdatePwdCheck] = useState('');
+  const [updateAddress, setUpdateAddress] = useState('');
+  const [updatePhone, setUpdatePhone] = useState('');
 
   const [nicknameConfirm, setNicknameConfirm] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState(false);
   const [updatePwdCheckConfirm, setUpdatePwdCheckConfirm] = useState(false);
   const [updatePhoneConfirm, setUpdatePhoneConfirm] = useState(false);
 
-  //닉네임 저장하기
-  useEffect(() => {
-    if (!updateNickName) {
-      setUpdatNickName(getUserdata?.nickname);
-    }
-  });
+  //비밀번호 일치 확인
+  const [curpwdConform, setCurpwdConform] = useState(false);
 
-  const handleUpdateNickName = (e) => {
+  //닉네임 저장하기
+  useEffect(()=>{
+    if(!updateNickName){
+      setUpdatNickName(getUserdata?.nickname)
+    }
+    if(!updateAddress){
+      setUpdateAddress(getUserdata?.address)
+    }
+    if(!updatePhone){
+      setUpdatePhone(getUserdata?.phone)
+    }
+  })
+
+  const handleUpdateNickName = e => {
     setUpdatNickName(e.target.value);
   };
   const handlecurPassword = (e) => {
@@ -222,6 +230,7 @@ const EditProfile = ({ getUserdata }) => {
     )
       .then((res) => {
         console.log(res);
+        setCurpwdConform(true)
         alert("비밀번호가 일치합니다!");
       })
       .catch((err) => {
@@ -229,16 +238,17 @@ const EditProfile = ({ getUserdata }) => {
         if (err.response.data.message === "Password does not match") {
           alert("입력하신 비밀번호가 일치하지않습니다.");
         }
+        setCurpwdConform(false)
       });
   };
 
   //정보수정하기
-  const updateInform = (e) => {
-    let pwd = "";
-    if (updatePassword === "") {
-      pwd = curpwd;
-    } else {
-      pwd = updatePassword;
+  const updateInform = e => {
+    let pwd = '';
+    if(updatePassword === ''){
+      pwd = curpwd
+    }else {
+      pwd = updatePassword
     }
     const updatedata = {
       nickname: updateNickName,
@@ -247,24 +257,27 @@ const EditProfile = ({ getUserdata }) => {
       phone: updatePhone,
     };
     console.log(updatedata);
-    dispatch(updateUser(updatedata));
+    if(curpwdConform === true){
+      dispatch(updateUser(updatedata));
+      navigate('/members/mypage/purchase')
+    }
   };
 
   const handleDelete = (e) => {
     e.preventDefault();
-    if (window.confirm("확인을 누르면 회원 정보가 삭제됩니다.")) {
-      Apis.delete(`/members/mypage`, {
+    if(window.confirm('확인을 누르면 회원 정보가 삭제됩니다.')){
+      Apis.delete(`/members/mypage`,{
         headers: {
-          Authorization: initialToken,
+          Authorization: initialToken
         },
+      }
+      ).then(()=>{
+        localStorage.clear();
+        window.alert('그동안 이용해주셔서 감사합니다.');
+        navigate('/');
       })
-        .then(() => {
-          localStorage.clear();
-          window.alert("그동안 이용해주셔서 감사합니다.");
-          navigate("/");
-        })
-        .catch((err) => alert(err.response.data.message));
-    } else {
+      .catch((err)=>alert(err.response.data.message));
+    }else{
       return;
     }
   };
@@ -322,24 +335,31 @@ const EditProfile = ({ getUserdata }) => {
         </ErrorDisplay>
       ) : null}
       <Label htmlFor="confirmPassword">비밀번호 확인</Label>
-      <Input
-        name="confirmPassword"
-        type={showPswd ? "text" : "password"}
-        onChange={handleUpdatePwdCheck}
-        required
+      <Input 
+      name="confirmPassword"
+      type={showPswd ? "text" : "password"} 
+      onChange={handleUpdatePwdCheck}
+      required></Input>
+      {!updatePwdCheckConfirm ? (
+          <ErrorDisplay>
+            위에 작성하신 비밀번호와 같은 비밀번호를 입력해주세요!
+          </ErrorDisplay>
+        ) : null}
+      <Label htmlFor="address">주소</Label>
+      <Input 
+        name="address"
+        value={updateAddress}
+        onChange={handleUpdateAddress}
+        ></Input>
+      <Label htmlFor="phone">휴대폰 번호 ( 예: 010-1234-5678 )</Label>
+      <Input 
+        name="phone"
+        value={updatePhone}
+        onChange={handleUpdatePhone}
       ></Input>
       {!updatePwdCheckConfirm ? (
         <ErrorDisplay>
           위에 작성하신 비밀번호와 같은 비밀번호를 입력해주세요!
-        </ErrorDisplay>
-      ) : null}
-      <Label htmlFor="address">주소</Label>
-      <Input name="address" onChange={handleUpdateAddress}></Input>
-      <Label htmlFor="phone">휴대폰 번호 ( 예: 010-1234-5678 )</Label>
-      <Input name="phone" onChange={handleUpdatePhone}></Input>
-      {!passwordConfirm ? (
-        <ErrorDisplay>
-          문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자로 만들어주세요!
         </ErrorDisplay>
       ) : null}
       <Buttons>

@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { BsCart3, BsSearch } from "react-icons/bs";
 import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";

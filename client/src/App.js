@@ -13,30 +13,34 @@ import ShoppingCart from "./pages/ShoppingCart";
 import { useState } from "react";
 
 const MainContainter = styled.div`
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+`;
+const MainContent = styled.div`
+  flex: 1;
 `;
 
 function App() {
-  const [click, setClick] = useState('');
+  const [click, setClick] = useState("");
 
   return (
     <BrowserRouter>
       <GlobalStyles />
       <div className="App">
         <MainContainter>
-          <Header setClick={setClick}/>
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/users/login" element={<Login />} />
-            <Route path="/members/mypage/*" element={<MyPage />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/detail/:id" element={<ArticleDetail />} />
-            <Route path="/sub" element={<SubCategory click={click}/>} />
-            <Route path="/cart" element={<ShoppingCart />} />
-          </Routes>
+          <MainContent>
+            <Header setClick={setClick} />
+            <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="/users/login" element={<Login />} />
+              <Route path="/members/mypage/*" element={<MyPage />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/detail/:id" element={<ArticleDetail />} />
+              <Route path="/sub" element={<SubCategory click={click} />} />
+              <Route path="/cart" element={<ShoppingCart />} />
+            </Routes>
+          </MainContent>
           <Footer />
         </MainContainter>
       </div>

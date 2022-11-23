@@ -36,27 +36,18 @@ export const postCart = createAsyncThunk(
   }
 );
 
-export const mainData = createAsyncThunk("products/mainData", async () => {
-  return axios
-    .all([
-      axios.get(
-        `https://mighty-lemons-chew-125-134-111-237.loca.lt/products/score`
-      ),
-      axios.get(
-        `https://mighty-lemons-chew-125-134-111-237.loca.lt/products/brandListLike`
-      ),
-    ])
-    .then(
-      axios.spread((res1, res2) => {
-        // console.log(res1, res2)
-        const resBest = res1.data;
-        const resBrand = res2.data;
-        const res = [...resBest, ...resBrand];
-        return res;
+export const mainData = createAsyncThunk(
+  "mainData",
+  async () => {
+    return Apis.get(`products/score`)
+      .then((res) => {
+        return res.data;
       })
-    )
-    .catch((err) => console.log(2));
-});
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 
 export const getSubCategory = createAsyncThunk( //비동기처리를 도와주는애(자동으로 지원해줌)
   "getSubCategory",// 이름정하는데, 의미없음
