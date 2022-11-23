@@ -40,10 +40,10 @@ export const mainData = createAsyncThunk("products/mainData", async () => {
   return axios
     .all([
       axios.get(
-        `https://cool-shoes-cross-113-52-194-59.loca.lt/products/score`
+        `https://mighty-lemons-chew-125-134-111-237.loca.lt/products/score`
       ),
       axios.get(
-        `https://cool-shoes-cross-113-52-194-59.loca.lt/products/brandListLike`
+        `https://mighty-lemons-chew-125-134-111-237.loca.lt/products/brandListLike`
       ),
     ])
     .then(
