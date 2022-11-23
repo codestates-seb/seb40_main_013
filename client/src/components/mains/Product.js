@@ -17,14 +17,20 @@ const Products = styled(Link)`
   @media screen and (max-width: 390px) {
     width: 150px;
   }
+  @media (min-width: 391px) and (max-width: 767px) {
+    width: 18vw;
+  }
   @media (min-width: 768px) and (max-width: 1024px) {
-    width: 17vw;
+    width: 20vw;
   }
 `;
 const Img = styled.img`
   width: 13vw;
   display: flex;
   border-radius: 5px;
+  @media (min-width: 391px) and (max-width: 767px) {
+    width: 15vw;
+  }
 `;
 const Detail = styled.div`
   display: flex;
@@ -36,10 +42,14 @@ const Detail = styled.div`
   }
   @media (min-width: 768px) and (max-width: 1024px) {
     width: 17vw;
+    padding: 0 10px;
   }
 `;
 const Brand = styled.h5`
   color: var(--font-ligthblack);
+  @media (min-width: 768px) and (max-width: 1024px) {
+    font-size: 1.3vw;
+  }
 `;
 const Title = styled.h2`
   font-size: 1.1rem;
@@ -48,12 +58,13 @@ const Title = styled.h2`
   text-overflow: ellipsis; 
   height: 20%; //수정필요...
   word-break:break-all;
+  height: 30px;
   @media screen and (max-width: 390px){
     font-size: 1.6vw;
     font-weight: 400;
   }
   @media (min-width: 391px) and (max-width: 767px) {
-    font-size: 1.5vw;
+    font-size: 1.8vw;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
     font-size: 1.6vw;
@@ -71,22 +82,11 @@ const Price = styled.h5`
     font-weight: 500;
   }
   @media (min-width: 391px) and (max-width: 767px) {
-    font-size: 1.6vw;
+    font-size: 1.8vw;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
     font-size: 1.7vw;
   }
-`;
-const Colorchip = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 10px;
-`;
-const Color = styled.div`
-  border-radius: 50%;
-  background-color: orange;
-  width: 8px;
-  height: 8px;
 `;
 const SubDetail = styled.div`
   display: flex;

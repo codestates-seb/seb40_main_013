@@ -3,7 +3,6 @@ import styled from "styled-components/macro";
 import SubCarousel from "../components/subcategories/SubCalousel";
 import Apis from "../apis/apis";
 import Products from "../components/mains/Product";
-import { getSubCategory } from "../reduxstore/slices/subCategorySlice";
 
 import chair from "../imgs/chair.png";
 import desk from "../imgs/desk.png";
