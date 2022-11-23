@@ -1,5 +1,6 @@
 package gohome.dailydaily.domain.order.entity;
 
+import gohome.dailydaily.domain.product.entity.Option;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.global.common.BaseTime;
 import lombok.*;
@@ -21,6 +22,10 @@ public class ProductOrder extends BaseTime {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "options")
+    private Option option;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
