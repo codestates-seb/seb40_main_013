@@ -7,6 +7,9 @@ import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberRole;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
 import gohome.dailydaily.domain.member.entity.Seller;
+import gohome.dailydaily.domain.order.entity.Order;
+import gohome.dailydaily.domain.order.entity.OrderProduct;
+import gohome.dailydaily.domain.order.entity.OrderStatus;
 import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryDTO;
 import gohome.dailydaily.domain.product.entity.Category;
 import gohome.dailydaily.domain.product.entity.Option;
@@ -145,6 +148,28 @@ public class TestConstant {
             .product(PRODUCT2)
             .member(MEMBER)
             .img(FILE)
+            .build();
+
+    public static final Order ORDER = Order.builder()
+            .id(1L)
+            .status(OrderStatus.ORDER_PROCESSING)
+            .member(MEMBER)
+            .build();
+
+    public static final OrderProduct ORDER_PRODUCT1 = OrderProduct.builder()
+            .id(1L)
+            .product(PRODUCT1)
+            .option(OPTION)
+            .count(2)
+            .order(ORDER)
+            .build();
+
+    public static final OrderProduct ORDER_PRODUCT2 = OrderProduct.builder()
+            .id(2L)
+            .product(PRODUCT2)
+            .option(OPTION)
+            .count(2)
+            .order(ORDER)
             .build();
 
     public static final OperationRequestPreprocessor REQUEST_PREPROCESSOR =
@@ -364,6 +389,7 @@ public class TestConstant {
         PRODUCT.addOptions(OPTION);
         PRODUCT.addReviews(REVIEW1);
         PRODUCT2.addOptions(OPTION);
+        ORDER.addOrderProduct(ORDER_PRODUCT1, ORDER_PRODUCT2);
         CART.addProductCart(PRODUCT_CART);
         ReflectionTestUtils.setField(GET_PRODUCT_LIST_BY_CATEGORY_DTO, PagingRequestDto.class, "size", PAGEABLE.getPageSize(), int.class);
         ReflectionTestUtils.setField(GET_PRODUCT_LIST_BY_CATEGORY_DTO, PagingRequestDto.class, "page", PAGEABLE.getPageNumber(), int.class);
@@ -371,6 +397,6 @@ public class TestConstant {
         ReflectionTestUtils.setField(REVIEW2, BaseTime.class, "createdAt", LocalDateTime.now(), LocalDateTime.class);
         ReflectionTestUtils.setField(REVIEW1, BaseTime.class, "modifiedAt", LocalDateTime.now(), LocalDateTime.class);
         ReflectionTestUtils.setField(REVIEW2, BaseTime.class, "modifiedAt", LocalDateTime.now(), LocalDateTime.class);
+        ReflectionTestUtils.setField(ORDER, BaseTime.class, "createdAt", LocalDateTime.now(), LocalDateTime.class);
     }
-
 }

@@ -1,4 +1,9 @@
 spring:
+  profiles:
+    active: local
+  redis:
+    host: localhost
+    port: 6379
   h2:
     console:
       enabled: true
@@ -18,7 +23,6 @@ logging:
       springframework:
         orm:
           jpa: DEBUG # 로그 단계 설정
-
 cloud:
   aws:
     region: # AWS Region 구성
@@ -27,14 +31,14 @@ cloud:
       auto: false
 
 iam:
-  access-key: ${S3_ACCESS_KEY}
-  secret-key: ${S3_SECRET_KEY}
+  access-key: test123412341234123412341234123412341234!@#$
+  secret-key: test123412341234123412341234123412341234!@#$
 
 jwt:
-  secret-key: ${JWT_SECRET_KEY}
+  secret-key: test123412341234123412341234123412341234!@#$
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
+  keep-state-refresh-token-expiration-minutes: 1440
 
 
 env: local
-
