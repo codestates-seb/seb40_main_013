@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
 //import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { bestOfBest, topBrand, mainData } from "../reduxstore/slices/articleSlice";
 import { newData } from "../reduxstore/slices/mainSlice";
-import { categoryData } from "../reduxstore/slices/categorySlice";
+import { categoryData } from "../reduxstore/slices/mainCategorySlice";
 import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
 import Button from "../components/Button";
@@ -11,6 +11,7 @@ import Products from "../components/mains/Product";
 import { Link } from "react-router-dom";
 import Apis from "../apis/apis";
 import NewProducts from "../components/mains/NewProducts";
+
 
 const Container = styled.div`
   width: 100vw;
@@ -22,35 +23,22 @@ const Container = styled.div`
 `;
 
 //best of best
+const Title = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 const SubTitle = styled.h2`
   color: #aaaaaa;
   font-size: 1rem;
   margin-top: 30px;
 `;
-const Title = styled.h2`
+const MainTitle = styled.h2`
   display: flex;
   font-weight: 400;
   font-size: 2rem;
   margin: 10px 0 10px 0;
   color: var(--font-black);
-`;
-const Hr = styled.hr`
-  height: 7px;
-  width: 70px;
-  background-color: var(--font-black);
-  margin-bottom: 10px;
-  color: var(--font-black);
-`;
-const FullTitle = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  width: 80%;
-  color: #aaaaaa;
-`;
-const FullView = styled(Link)`
-  font-size: 1.1rem;
-  margin: 20px 40px 0 0;
-  cursor: pointer;
 `;
 const ProductList = styled.div`
   /* width: 70%; */
@@ -73,13 +61,27 @@ const ProductList = styled.div`
   }
 `;
 
-//신상품
+//브랜드 리스트
 const BrandTab = styled.div`
   margin-top: 10px;
+  margin-bottom: 30px;
   border-radius: 5px;
   display: flex;
 `;
-const BrandData = styled.div``;
+const BrandTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 0 30px;
+`;
+const FullView = styled(Link)`
+  display: flex;
+  align-items: flex-end;
+  font-size: 1rem;
+  margin: 20px 40px 0 0;
+  color: #AAAAAA;
+  cursor: pointer;
+`;
 const TD = styled.div`
   border: 1px solid #aaaaaa;
   padding: 20px 50px;
@@ -90,36 +92,33 @@ const TD = styled.div`
   }
 `;
 
+//브랜드 리스트
+const BrandProduct = styled.div``;
+
 const Main = () => {
   const dispatch = useDispatch();
 
+  //best of best
   const bestData = useSelector((state)=> state.article.mainArticle);
 
-  const libraryData = useSelector((state)=>state.category.category[1]);
-  const bedData = useSelector((state)=>state.category.category[0]);
+  // 신상품
+  const newArivalData = useSelector((state)=> state.maincategory.category);
 
+  //브랜드리스트
   const brandData = useSelector((state)=>state.main.main);
-  // const brandTab = brandData?.map(brand => brand[0]?.nickname)
-  const marketbeeData = useSelector((state)=>state.main.main[0]);
-  const deskerData = useSelector((state)=>state.main.main[1]);
-  const forthehomeData = useSelector((state)=>state.main.main[3]);
-  const hudoData = useSelector((state)=>state.main.main[5]);
-  const sofsysData = useSelector((state)=>state.main.main[6]);
+  const brandTab = Object.keys(brandData)
 
   console.log(brandData)
-  // console.log(brandData?.map(brand => brand[0]?.nickname))
-  console.log(marketbeeData)
-  // console.log(marketbeeData[0]?.nickname)
-
+  console.log(brandTab)
   //자동스크롤 이벤트
-  const marketbeeRef = useRef();
+  const 포더홈Ref = useRef();
   const deskerRef = useRef();
   const forthehomeRef = useRef();
   const hudoRef = useRef();
   const sofsysRef = useRef();
-
-  const handlemarketbee = () => {
-    marketbeeRef.current?.scrollIntoView({ behavior: 'smooth'})
+  
+  const handle포더홈 = () => {
+    포더홈Ref.current?.scrollIntoView({ behavior: 'smooth'})
   }
 
   const handledesker = () => {
@@ -175,7 +174,7 @@ const Main = () => {
   // }, [tabRef.current, detailRef.current]);
 
   // 데이터 받아오기
-  useEffect(()=>{
+  useLayoutEffect(()=>{
     dispatch(mainData());
     dispatch(categoryData());
     dispatch(newData());
@@ -186,9 +185,10 @@ const Main = () => {
       {/* 캐러셀 */}
       <Carousel />
       {/* Best of Best */}
-      <SubTitle>Best Selling</SubTitle>
-      <Title>Best of Best</Title>
-      <FullTitle name="fullTitle" className="fullTitle"></FullTitle>
+      <Title>
+        <SubTitle>Best Selling</SubTitle>
+        <MainTitle>Best of Best</MainTitle>
+      </Title>
       <ProductList>
         {bestData?.map((product) => (
             <Products
@@ -199,114 +199,42 @@ const Main = () => {
           ))}
       </ProductList>
       {/* 카테고리별 신상품 */}
-      <SubTitle>New Arrival</SubTitle>
-      <Title>신상품</Title>
+      <Title>
+        <SubTitle>New Arrival</SubTitle>
+        <MainTitle>신상품</MainTitle>
+      </Title>
       <NewProducts
-        key={libraryData?.length}
-        libraryList={libraryData}
-        bedList = {bedData}
-        // kitchenList={kitchenData}
+        key={newArivalData.침실?.length}
+        newArivalList={newArivalData}
       />
       {/* 브랜드별 추천상품 */}
-      <SubTitle>Recommendation by brand</SubTitle>
-      <Title>브랜드별 추천상품</Title>
+      <Title>
+        <SubTitle>Recommendation by brand</SubTitle>
+        <MainTitle>브랜드별 추천상품</MainTitle>
+      </Title>
       <BrandTab>
-        {/* <TD onClick={handlemarketbee}>{brandTab[0]}</TD>
-        <TD onClick={handledesker}>{brandTab[2]}</TD>
-        <TD onClick={handleforthehome}>{brandTab[3]}</TD>
-        <TD onClick={handlehudo}>{brandTab[5]}</TD>
-        <TD onClick={handlesofsys}>{brandTab[6]}</TD> */}
+          {brandTab?.filter(tab => tab !== 'guest')?.map(tab => 
+          <TD key={tab} onClick={()=>{`handle${tab}`}}>{tab}</TD>)}
       </BrandTab>
-      <SubTitle ref={marketbeeRef}>marketbee</SubTitle>
-      {/* <Title>{brandTab[0]}</Title> */}
-      <FullTitle name="fullTitle" className="fullTitle">
-        <FullView 
-          name="fullView" 
-          className="fullView">
-          전체보기 &gt;&gt;
-        </FullView>
-      </FullTitle>
-      <ProductList>
-        {marketbeeData?.map((product) => (
-            <Products
-            key={product.id}
-            proId={product.id}
-            product={product}
-            />
+        {Object?.entries(brandData)?.filter(key => key[0] !== 'guest')?.map(([key,value]) => (
+            <BrandProduct key={key}>
+              <BrandTitle>
+                <MainTitle>{key}</MainTitle>
+                <FullView name="fullView" className="fullView">
+                  전체보기 &gt;&gt;
+                </FullView>
+              </BrandTitle>
+              <ProductList>
+                {value?.map((product) => (
+                    <Products
+                    key={product.id}
+                    proId={product.id}
+                    product={product}
+                    />
           ))}
       </ProductList>
-      <SubTitle ref={deskerRef}>marketbee</SubTitle>
-      {/* <Title>{brandTab[1]}</Title> */}
-      <FullTitle name="fullTitle" className="fullTitle">
-        <FullView 
-          name="fullView" 
-          className="fullView">
-          전체보기 &gt;&gt;
-        </FullView>
-      </FullTitle>
-      <ProductList>
-        {deskerData?.map((product) => (
-            <Products
-            key={product.id}
-            proId={product.id}
-            product={product}
-            />
-          ))}
-      </ProductList>
-      <SubTitle ref={forthehomeRef}>marketbee</SubTitle>
-      {/* <Title>{brandTab[3]}</Title> */}
-      <FullTitle name="fullTitle" className="fullTitle">
-        <FullView 
-          name="fullView" 
-          className="fullView">
-          전체보기 &gt;&gt;
-        </FullView>
-      </FullTitle>
-      <ProductList>
-        {forthehomeData?.map((product) => (
-            <Products
-            key={product.id}
-            proId={product.id}
-            product={product}
-            />
-          ))}
-      </ProductList>
-      <SubTitle ref={hudoRef}>marketbee</SubTitle>
-      {/* <Title>{brandTab[5]}</Title> */}
-      <FullTitle name="fullTitle" className="fullTitle">
-        <FullView 
-          name="fullView" 
-          className="fullView">
-          전체보기 &gt;&gt;
-        </FullView>
-      </FullTitle>
-      <ProductList>
-        {hudoData?.map((product) => (
-            <Products
-            key={product.id}
-            proId={product.id}
-            product={product}
-            />
-          ))}
-      </ProductList>
-      <SubTitle ref={sofsysRef}>marketbee</SubTitle>
-      {/* <Title>{brandTab[6]}</Title> */}
-      <FullTitle name="fullTitle" className="fullTitle">
-        <FullView 
-          name="fullView" 
-          className="fullView">
-          전체보기 &gt;&gt;
-        </FullView>
-      </FullTitle>
-      <ProductList>
-        {sofsysData?.map((product) => (
-            <Products
-            key={product.id}
-            proId={product.id}
-            product={product}
-            />
-          ))}
-      </ProductList>
+    </BrandProduct>
+    ))}
       <Button />
     </Container>
   );
