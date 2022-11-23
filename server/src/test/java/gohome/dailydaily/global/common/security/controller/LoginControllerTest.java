@@ -2,8 +2,10 @@ package gohome.dailydaily.global.common.security.controller;
 
 
 import com.google.gson.Gson;
+import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.repository.MemberRepository;
 import gohome.dailydaily.global.common.security.dto.LoginDto;
+import gohome.dailydaily.global.common.security.util.JwtTokenizer;
 import gohome.dailydaily.util.Reflection;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.Optional;
 
 import static gohome.dailydaily.util.TestConstant.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -40,6 +41,8 @@ public class LoginControllerTest implements Reflection {
     private MemberRepository memberRepository;
     @MockBean
     private PasswordEncoder passwordEncoder;
+    @MockBean
+    private JwtTokenizer jwtTokenizer;
 
     @Test
     public void login() throws Exception {
@@ -55,6 +58,10 @@ public class LoginControllerTest implements Reflection {
                 .willReturn(Optional.of(MEMBER));
         given(passwordEncoder.matches(any(), any()))
                 .willReturn(true);
+        given(jwtTokenizer.getAccessToken(any(Member.class)))
+                .willReturn("AccessToken");
+        given(jwtTokenizer.getKeepStateRefreshToken(anyLong()))
+                .willReturn("RefreshToken");
 
         // when
         ResultActions actions = mockMvc.perform(
