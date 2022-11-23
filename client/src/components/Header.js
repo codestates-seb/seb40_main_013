@@ -131,22 +131,14 @@ function Header({ setClick }) {
     navigate("/");
     window.alert("로그아웃에 성공하셨습니다!");
   };
-  const outModalCloseHandler = ({ target }) => {
-    if (closeSearch && !modalRef.current.contains(target))
+  const outModalCloseHandler = (e) => {
+    if (closeSearch && !modalRef.current.contains(e.target))
       setCloseSearch(false);
     // console.log(target.innerHTML);
   };
-
-  useEffect(() => {
-    window.addEventListener("click", outModalCloseHandler);
-    return () => {
-      window.removeEventListener("click", outModalCloseHandler); //이벤트 한번만 실행되게 하려고 제거.
-    };
-  }, []);
-
   return (
     <>
-      <HeaderBlock>
+      <HeaderBlock onClick={outModalCloseHandler}>
         <div className="top">
           {jwtToken ? (
             <Link>

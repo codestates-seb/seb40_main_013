@@ -25,13 +25,8 @@ const MainContent = styled.div`
 
 function App() {
   const [click, setClick] = useState("");
-  const dispatch = useDispatch();
   const cartLength = useSelector((state) => state);
-  console.log(cartLength);
 
-  // useEffect(() => {
-  //   dispatch(getShoppingCart());
-  // }, []);
   return (
     <BrowserRouter>
       <GlobalStyles />

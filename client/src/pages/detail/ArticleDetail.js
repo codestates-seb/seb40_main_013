@@ -38,12 +38,26 @@ function ArticleDetail() {
     setSelectOptions(id);
     setSelectOptionColor(color);
   };
+  // let get_local = localStorage.getItem("product");
+  // console.log(get_local);
 
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
+    // let get_local = [];
+    // if (!articlesDetail) {
+    //   localStorage.setItem("product", get_local);
+    // } else if (articlesDetail) {
+    //   let local = localStorage.getItem("product");
+    //   let get_local = [articlesDetail.productId];
+    //   if (local) {
+    //     local = JSON.parse(local);
+    //     get_local = [articlesDetail.productId, ...local];
+    //   }
+    //   localStorage.setItem("product", JSON.stringify(get_local));
+    // }
   }, []);
 
-  const clickPostCart = (e) => {
+  const clickPostCart = () => {
     let postCartData = {
       productId: articlesDetail?.productId,
       count: cartCount,
