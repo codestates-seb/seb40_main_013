@@ -29,7 +29,7 @@ public class Order extends BaseTime {
     private Member member;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
-    private List<OrderProduct> orderProducts = new ArrayList<>();
+    private final List<OrderProduct> orderProducts = new ArrayList<>();
 
     public void setMember(Member member) {
         this.member = member;

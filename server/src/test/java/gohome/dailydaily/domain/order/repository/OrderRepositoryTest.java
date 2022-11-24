@@ -2,22 +2,16 @@ package gohome.dailydaily.domain.order.repository;
 
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
-import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.order.entity.Order;
 import gohome.dailydaily.domain.order.entity.OrderProduct;
 import gohome.dailydaily.domain.product.entity.Product;
-import gohome.dailydaily.util.TestConstant;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static gohome.dailydaily.util.TestConstant.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static gohome.dailydaily.util.TestConstant.FILE;
 
 @DataJpaTest
 class OrderRepositoryTest {
@@ -65,9 +59,10 @@ class OrderRepositoryTest {
                 .build();
 
         Order order = Order.builder()
-                .orderProducts(new ArrayList<>(List.of(orderProduct1, orderProduct2)))
                 .member(member)
                 .build();
+
+        order.addOrderProduct(orderProduct1, orderProduct2);
 
         em.persist(member);
         em.persist(product1);
@@ -77,8 +72,8 @@ class OrderRepositoryTest {
                 .forEach(orderProduct -> {
                     orderProduct.addProduct(
                             Product.builder()
-                            .id(product1.getId())
-                            .build());
+                                    .id(product1.getId())
+                                    .build());
                     orderProduct.addOrder(
                             order);
                 });

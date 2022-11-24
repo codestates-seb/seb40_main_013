@@ -19,13 +19,7 @@ public class Option extends BaseTime {
     private Long id;
 
     @Column(nullable = false)
-    private Integer price;
-
-    @Column(nullable = false)
     private String color;
-
-    @Column(nullable = false)
-    private String size;
 
     @Column(nullable = false)
     private Long stock;
