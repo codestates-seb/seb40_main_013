@@ -8,6 +8,10 @@ const GlobalStyles = createGlobalStyle`
         margin: 0;
         padding: 0;
         list-style : inside;
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none
     }
     a{
          text-decoration: none;

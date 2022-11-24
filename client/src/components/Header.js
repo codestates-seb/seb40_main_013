@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
 
 const HeaderBlock = styled.header`
-  width: 100%;
+  width: 100vw;
   height: 160px;
   color: var(--color-gray);
   div {
@@ -79,7 +79,7 @@ const Nav = styled.nav`
   left: -70px;
   background-color: white;
   border: 1px solid #aaaaaa;
-  width: 105px;
+  width: 6.9em;
   font-size: 15px;
   justify-content: space-between;
   border-bottom: 1px solid #bebcaf;
@@ -122,25 +122,26 @@ function Header({ setClick }) {
     setCloseSearch(!closeSearch);
   };
 
-  const clickLogOut = (e) => {
-    e.preventDefault();
-    localStorage.clear();
-    navigate("/");
-    window.alert("로그아웃에 성공하셨습니다!");
-  };
   const outModalCloseHandler = (e) => {
     if (closeSearch && !modalRef.current.contains(e.target))
-      setCloseSearch(false);
+    setCloseSearch(false);
     // console.log(target.innerHTML);
   };
-
+  
   // useEffect(() => {
   //   window.addEventListener("click", outModalCloseHandler);
   //   return () => {
   //     window.removeEventListener("click", outModalCloseHandler); //이벤트 한번만 실행되게 하려고 제거.
   //   };
   // },[]);
-
+  
+  const clickLogOut = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    navigate("/");
+    window.alert("로그아웃에 성공하셨습니다!");
+  };
+  
   return (
     <>
       <HeaderBlock onClick={outModalCloseHandler}>
@@ -186,7 +187,7 @@ function Header({ setClick }) {
               <Category>
                 <div onClick={clickMenu}>침실</div>
                 <Nav className="2">
-                  <div onClick={clickMenu}>침대</div>
+                  <div onClick={clickMenu}>침대/매트리스</div>
                   <div onClick={clickMenu}>행거/옷장</div>
                   <div onClick={clickMenu}>화장대</div>
                 </Nav>
