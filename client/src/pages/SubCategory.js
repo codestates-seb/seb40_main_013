@@ -52,6 +52,13 @@ const Sub = styled.div`
   align-items: center;
 `;
 
+const FilterBlock = styled.div`
+  width: 100%;
+  padding: 0 2em;
+  display: flex;
+  justify-content: space-between;
+`;
+
 const ProductList = styled.div`
   display: grid;
   grid-template-rows: 1fr;
@@ -123,7 +130,10 @@ function SubCategory({ click }) {
             <div>의자</div>
           </Sub>
         </div>
-        <div className="total">0 개의 상품이 있습니다</div>
+        <FilterBlock>
+          <div className="total">0 개의 상품이 있습니다</div>
+          <div>인기순</div>
+        </FilterBlock>
         <ProductList>
           {/* <div className="products"> */}
             {allSelector?.map((product) => (
