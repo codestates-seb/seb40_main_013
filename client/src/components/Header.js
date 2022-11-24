@@ -130,6 +130,7 @@ function Header({ setClick }) {
     localStorage.clear();
     navigate("/");
     window.alert("로그아웃에 성공하셨습니다!");
+    window.location.reload();
   };
   const outModalCloseHandler = (e) => {
     if (closeSearch && !modalRef.current.contains(e.target))

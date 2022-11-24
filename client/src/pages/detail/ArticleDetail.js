@@ -9,11 +9,10 @@ import {
   getArticleDetail,
   postCart,
 } from "../../reduxstore/slices/articleSlice";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
+import ScrollToTop from "../../components/ScrollToTop";
 function ArticleDetail() {
-  const { pathname } = useLocation();
-
   const [clickSelect, setClickSelect] = useState(false);
   const [selectOptions, setSelectOptions] = useState("");
   const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
@@ -47,13 +46,9 @@ function ArticleDetail() {
   };
   // let get_local = localStorage.getItem("product");
   // console.log(get_local);
-
+  ScrollToTop();
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
     // let get_local = [];
     // if (!articlesDetail) {
     //   localStorage.setItem("product", get_local);
@@ -66,7 +61,7 @@ function ArticleDetail() {
     //   }
     //   localStorage.setItem("product", JSON.stringify(get_local));
     // }
-  }, [pathname]);
+  }, []);
 
   const clickPostCart = () => {
     let postCartData = {
@@ -245,6 +240,7 @@ const DetailMidImg = styled.img`
 `;
 const ButtonIcon = styled.button`
   margin-top: 10px;
+  height: 10px;
   font-size: 20px;
   border: none;
   background-color: white;
@@ -252,7 +248,7 @@ const ButtonIcon = styled.button`
     margin-top: 0px;
   }
   &:nth-child(2) {
-    margin-bottom: 7px;
+    margin-bottom: 30px;
   }
 
   &:nth-child(3) {
@@ -293,7 +289,6 @@ const DetailArticleOptionContents = styled.div`
 const DetailArticleOptionSpace = styled.div`
   height: 45px;
   width: 100%;
-  border: 1px solid red;
   display: flex;
   align-items: center;
   border-top: 2px solid var(--border-navy);
@@ -307,11 +302,10 @@ const DetailArticleSelectOption = styled.div`
   display: flex;
   align-items: center;
   padding-left: 10px;
-  border: 1px solid blue;
-
   &:nth-child(1) {
     border-right: none;
     border-left: none;
+    border-top: none;
     width: 95%;
   }
   &:nth-child(2) {
@@ -322,7 +316,7 @@ const DetailArticleSelectOption = styled.div`
     left: -1px;
     background-color: white;
     &:hover {
-      background-color: aqua;
+      background-color: #aaaaaa;
     }
   }
   &:nth-child(3) {
@@ -332,6 +326,9 @@ const DetailArticleSelectOption = styled.div`
     top: 64px;
     left: -1px;
     background-color: white;
+    &:hover {
+      background-color: #aaaaaa;
+    }
   }
   &:nth-child(4) {
     margin-right: 2px;

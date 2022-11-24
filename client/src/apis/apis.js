@@ -3,7 +3,7 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://hot-facts-like-113-52-194-59.loca.lt/",
+  baseURL: "https://tame-ducks-talk-113-52-194-59.loca.lt/",
 });
 
 axios.interceptors.request.use(function (config) {
@@ -55,6 +55,10 @@ Apis.interceptors.response.use(
         console.log(err);
       }
       return Promise.reject(err);
+    } else if (err.response.data.status === 401) {
+      window.alert("다시 로그인 해주세요!");
+    } else if (err.response.data.status === 404) {
+      window.alert("로그인후 이용 가능합니다!");
     }
     return Promise.reject(err);
   }
