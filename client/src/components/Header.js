@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
 
 const HeaderBlock = styled.header`
-  width: 100%;
+  width: 100vw;
   height: 160px;
   color: var(--color-gray);
   div {
@@ -73,13 +73,13 @@ const CategoryList = styled.div`
 `;
 
 const Nav = styled.nav`
-  z-index: 200;
+  z-index: 400;
   position: absolute;
   top: 22px;
   left: -70px;
   background-color: white;
   border: 1px solid #aaaaaa;
-  width: 105px;
+  width: 6.9em;
   font-size: 15px;
   justify-content: space-between;
   border-bottom: 1px solid #bebcaf;
@@ -170,7 +170,6 @@ function Header({ setClick }) {
             <div>DAILY DAILY</div>
           </Logo>
         </Link>
-
         <CategoryList>
           <div>
             <Link to="/sub">
@@ -215,7 +214,6 @@ function Header({ setClick }) {
               </Category>
             </Link>
           </div>
-
           <div>
             <div ref={modalRef} className="modal">
               <Serach onClick={closeHandler}>
@@ -229,18 +227,18 @@ function Header({ setClick }) {
             {jwtToken ? (
               <Link to="/cart">
                 <div>
-                  <BsCart3 size="20" />
-                  <div className="cart-count">(0)</div>
+                <BsCart3 size="20" />
+                <div className="cart-count">(0)</div>
                 </div>
-              </Link>
-            ) : (
-              <Link to="/users/login">
+                </Link>
+                ) : (
+                <Link to="/users/login">
                 <div>
-                  <BsCart3 size="20" />
-                  <div className="cart-count">(0)</div>
+                <BsCart3 size="20" />
+                <div className="cart-count">(0)</div>
                 </div>
               </Link>
-            )}
+              )}
           </div>
         </CategoryList>
       </HeaderBlock>

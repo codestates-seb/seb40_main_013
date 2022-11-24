@@ -14,13 +14,13 @@ import { getBedroom, getKitchen, getLibrary, getLivingRoom, getSubCategory } fro
 const SubBlock = styled.div`
   width: 100%;
   margin-top: 160px;
-  padding: 30px 40px 30px 40px;
+  padding: 6vh 4vw;
   div {
     display: flex;
   }
   .sub-menus {
     margin: 20px 0px;
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
 `;
 
@@ -51,6 +51,7 @@ const ProductList = styled.div`
   }
   .products {
     flex-wrap: wrap;
+    justify-content: center;
   }
 `;
 

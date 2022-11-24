@@ -7,7 +7,6 @@ import { deleteShoppingCart, getShoppingCart } from "../reduxstore/slices/articl
 const CartBlock = styled.div`
     margin-top: 160px;
     width: 100%;
-    height: 100%;
     padding: 30px 40px 50px 40px;
     margin-top: 160px;
     display: flex;
@@ -37,8 +36,8 @@ const AllCheckBlock = styled.div`
 `;
 
 const CheckCircle = styled.input`
-    width: 1rem;
-    height: 1rem;
+    width: 1em;
+    height: 1em;
     border-radius: 50%;
     border: 1px solid #999;
     appearance: none;
@@ -136,7 +135,7 @@ function ShoppingCart() {
   const dispatch = useDispatch();
   const cartSeletor = useSelector((state) => (state.article.shoppingCartInitial))
   const cartSeletorLength = cartSeletor?.length
-  // console.log(`cartSeletor.length`,cartSeletorLength);
+  console.log(`cartSeletor.length`,cartSeletor);
 
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
 
