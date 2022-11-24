@@ -169,11 +169,33 @@ const Quantity = styled.h2`
     margin: 0 5px;
   }
 `;
+const Btns = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const ReviewBtn = styled.button`
   padding: 10px 50px;
   height: 50px;
   background-color: #002c6d;
   color: white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: #ffaf51;
+  }
+  @media screen and (max-width: 390px) {
+    display: none;
+  }
+  @media (min-width: 391px) and (max-width: 768px) {
+    padding: 8px 30px;
+  }
+`;
+const CancleBtn = styled.button`
+  padding: 10px 50px;
+  height: 50px;
+  border: 1px solid red;
+  color: red;
   border-radius: 10px;
   cursor: pointer;
   &:hover {
@@ -278,7 +300,10 @@ const PurchaseList = () => {
                     <Quantity>1개</Quantity>
                   </SubDetail>
                 </ReactionSubDetail>
-                <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
+                <Btns>
+                  <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
+                  <CancleBtn onClick={clickModal}>주문취소</CancleBtn>
+                </Btns>
               </Detail>
               <ReactionSpace>
                 <ReactionReviewBtn>구매후기</ReactionReviewBtn>
@@ -318,7 +343,10 @@ const PurchaseList = () => {
                   <Quantity>1개</Quantity>
                 </SubDetail>
               </ReactionSubDetail>
-              <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
+              <Btns>
+                  <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
+                  <CancleBtn onClick={clickModal}>주문취소</CancleBtn>
+                </Btns>
             </Detail>
             <ReactionSpace>
               <ReactionReviewBtn>구매후기</ReactionReviewBtn>

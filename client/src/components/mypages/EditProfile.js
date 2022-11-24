@@ -4,6 +4,7 @@ import styled from "styled-components/macro";
 import { nickNameCheck, pwdCheck, phoneCheck } from "../effectivenessCheck";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../reduxstore/slices/userSlice";
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import Apis from "../../apis/apis";
 
 const EditContainter = styled.div`
@@ -215,7 +216,21 @@ const EditProfile = ({ getUserdata }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const initialToken = localStorage.getItem("Authorization");
-  const [showPswd, setShowPswd] = useState(false);
+
+  //비빌번호 타입 변경
+  const [passwordType, setPasswordType] = useState({
+    type: 'password',
+    visible: false
+  });
+  //password type 변경하는 함수
+    const handlePasswordType = e => {
+        setPasswordType(() => {
+            if (!passwordType.visible) {
+                return { type: 'text', visible: true };
+            }
+            return { type: 'password', visible: false };
+        })
+    }
 
   const [updateNickName, setUpdatNickName] = useState('');
   const [curpwd, setCurpwd] = useState('');
@@ -396,13 +411,18 @@ const EditProfile = ({ getUserdata }) => {
             입력해주세요!
           </ErrorDisplay>
         ) : null}
-        <Label htmlFor="password">
-          현재 비밀번호 ( * 필수입력 : 대/소문자 구분 )
-        </Label>
+        <div>
+          <Label htmlFor="password">
+            현재 비밀번호 ( * 필수입력 : 대/소문자 구분 )
+          </Label>
+          <span onClick={handlePasswordType}>
+            {  passwordType.visible ? <AiFillEyeInvisible /> : <AiFillEye />  }
+          </span>
+        </div>
         <CurInputBtn>
           <Input
             name="Password"
-            type={showPswd ? "text" : "password"}
+            type={passwordType.type}
             onChange={handlecurPassword}
             required
           ></Input>
@@ -414,10 +434,15 @@ const EditProfile = ({ getUserdata }) => {
             확인
           </CurPwdBtn>
         </CurInputBtn>
-        <Label htmlFor="password">비밀번호</Label>
+        <div>
+          <Label htmlFor="password">비밀번호</Label>
+          <span onClick={handlePasswordType}>
+            {  passwordType.visible ? <AiFillEyeInvisible /> : <AiFillEye />  }
+          </span>
+        </div>
         <Input
           name="password"
-          type={showPswd ? "text" : "password"}
+          type={passwordType.type}
           onChange={handleUpdatePassword}
           required
         ></Input>
@@ -426,10 +451,15 @@ const EditProfile = ({ getUserdata }) => {
             문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자로 만들어주세요!
           </ErrorDisplay>
         ) : null}
-        <Label htmlFor="confirmPassword">비밀번호 확인</Label>
+        <div>
+          <Label htmlFor="confirmPassword">비밀번호 확인</Label>
+          <span onClick={handlePasswordType}>
+            {  passwordType.visible ? <AiFillEyeInvisible /> : <AiFillEye />  }
+          </span>
+        </div>
         <Input 
         name="confirmPassword"
-        type={showPswd ? "text" : "password"} 
+        type={passwordType.type}
         onChange={handleUpdatePwdCheck}
         required></Input>
         {!updatePwdCheckConfirm ? (
