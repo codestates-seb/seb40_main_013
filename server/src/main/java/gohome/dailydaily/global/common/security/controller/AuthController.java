@@ -4,6 +4,7 @@ import gohome.dailydaily.global.common.security.dto.PasswordDto;
 import gohome.dailydaily.global.common.security.dto.RefreshDto;
 import gohome.dailydaily.global.common.security.resolver.MemberId;
 import gohome.dailydaily.global.common.security.service.AuthService;
+import gohome.dailydaily.global.common.security.util.JwtTokenizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthController {
 
     private final AuthService authService;
+    private final JwtTokenizer jwtTokenizer;
 
     @PostMapping("/refresh")
     public RefreshDto refresh() {
@@ -30,8 +32,10 @@ public class AuthController {
 
     @PostMapping("/guest")
     public void guest(HttpServletResponse response) {
-        String accessToken = authService.getGuestAccessToken();
+        String accessToken = jwtTokenizer.getGuestAccessToken();
+        String refreshToken = jwtTokenizer.getGuestRefreshToken();
         response.setHeader("Authorization", "Bearer " + accessToken);
+        response.setHeader("Refresh", refreshToken);
     }
 
 }

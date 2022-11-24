@@ -3,6 +3,7 @@ package gohome.dailydaily.global.common.security.controller;
 import com.google.gson.Gson;
 import gohome.dailydaily.global.common.security.dto.PasswordDto;
 import gohome.dailydaily.global.common.security.service.AuthService;
+import gohome.dailydaily.global.common.security.util.JwtTokenizer;
 import gohome.dailydaily.util.Reflection;
 import gohome.dailydaily.util.security.SecurityTestConfig;
 import gohome.dailydaily.util.security.WithMockCustomUser;
@@ -37,6 +38,8 @@ class AuthControllerTest implements Reflection {
     private Gson gson;
     @MockBean
     private AuthService authService;
+    @MockBean
+    private JwtTokenizer jwtTokenizer;
 
     @Test
     public void refresh() throws Exception {
@@ -92,8 +95,10 @@ class AuthControllerTest implements Reflection {
     @Test
     public void guest() throws Exception {
         // given
-        given(authService.getGuestAccessToken())
+        given(jwtTokenizer.getGuestAccessToken())
                 .willReturn("AccessToken");
+        given(jwtTokenizer.getGuestRefreshToken())
+                .willReturn("RefreshToken");
 
         // when
         ResultActions actions = mockMvc.perform(
@@ -105,7 +110,7 @@ class AuthControllerTest implements Reflection {
                 .andDo(document("auth/guest",
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
-                        RESPONSE_HEADER_ACCESS_TOKEN
+                        RESPONSE_HEADER_ACCESS_AND_REFRESH_TOKEN
                 ));
     }
 
