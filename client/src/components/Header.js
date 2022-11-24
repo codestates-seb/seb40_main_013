@@ -73,7 +73,7 @@ const CategoryList = styled.div`
 `;
 
 const Nav = styled.nav`
-  z-index: 200;
+  z-index: 400;
   position: absolute;
   top: 22px;
   left: -70px;

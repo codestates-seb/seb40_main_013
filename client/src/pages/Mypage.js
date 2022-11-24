@@ -11,7 +11,7 @@ import Recent from "../components/mypages/Recent";
 
 const Container = styled.div`
   display: flex;
-  height: 100%;
+  /* height: 100%; */
   margin-top: 180px;
   width: 80%;
   @media screen and (max-width: 390px) {
