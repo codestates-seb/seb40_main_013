@@ -15,9 +15,6 @@ public class CategoryGetDto {
     private String nickname;
     private String main;
 
-//    @Setter
-//    private List<OptionDto.Response> options;
-
     @QueryProjection
     public CategoryGetDto(Long id, File img, String title, Integer price, Integer score, String nickname,String main) {
         this.id = id;

@@ -33,4 +33,11 @@ public class CrawlingController {
 
         service.crawlingSetting();
     }
+
+    @GetMapping("/product/img")
+    @ResponseStatus(HttpStatus.OK)
+    public void productImg() throws Exception {
+
+        service.changeImg();
+    }
 }

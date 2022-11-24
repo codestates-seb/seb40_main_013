@@ -16,14 +16,13 @@ public class FileConfig {
 
     // 로컬 환경일 때 FileRepository 의 구현클래스를 folderFileRepository 로 지정
     @Bean
-    @ConditionalOnProperty(value = "env", havingValue = "local")
     public FileRepository localFileRepository() {
         return new LocalFileRepository();
     }
 
-    @Bean
-    @ConditionalOnProperty(value = "env", havingValue = "server")
-    public FileRepository S3FileRepository() {
-        return new S3FileRepository(amazonS3Client);
-    }
+//    @Bean
+//    @ConditionalOnProperty(value = "env", havingValue = "server")
+//    public FileRepository S3FileRepository() {
+//        return new S3FileRepository(amazonS3Client);
+//    }
 }

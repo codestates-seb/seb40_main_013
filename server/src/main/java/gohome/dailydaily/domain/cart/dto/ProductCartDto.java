@@ -32,7 +32,7 @@ public class ProductCartDto {
         private String brandName;
         private String title;
         private Integer count;
-
         private Integer price;
+        private String color;
     }
 }

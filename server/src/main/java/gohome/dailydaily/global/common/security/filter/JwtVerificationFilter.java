@@ -47,6 +47,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         return jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
     }
 
+    @SuppressWarnings("unchecked")
     private void setAuthenticationToContext(Claims claims) {
         Long id = Long.parseLong(claims.getSubject());
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List<String>) claims.get("roles"));

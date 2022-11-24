@@ -16,46 +16,63 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.*;
 
+@Getter
 @Component
 public class JwtTokenizer {
 
-    @Getter
     @Value("${jwt.secret-key}")
     private String secretKey;
 
-    @Getter
     @Value("${jwt.access-token-expiration-minutes}")
     private int accessTokenExpirationMinutes;
 
-    @Getter
     @Value("${jwt.refresh-token-expiration-minutes}")
     private int refreshTokenExpirationMinutes;
+
+    @Value("${jwt.keep-state-refresh-token-expiration-minutes}")
+    private int keepStateRefreshTokenExpirationMinutes;
 
     public String getAccessToken(Member member) {
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("roles", member.getRoles());
 
         String subject = String.valueOf(member.getId());
-        Date expiration = getTokenExpiration(getAccessTokenExpirationMinutes());
-        String bases64EncodedSecretKey = encodedBase64SecretKey(getSecretKey());
-
-        return generateAccessToken(claims, subject, expiration, bases64EncodedSecretKey);
-    }
-
-    public String getAccessToken(Long memberId) {
-        HashMap<String, Object> claims = new HashMap<>();
-        claims.put("roles", List.of(MemberRole.USER));
-
-        String subject = String.valueOf(memberId);
-        Date expiration = getTokenExpiration(getAccessTokenExpirationMinutes());
-        String bases64EncodedSecretKey = encodedBase64SecretKey(getSecretKey());
+        Date expiration = getTokenExpiration(accessTokenExpirationMinutes);
+        String bases64EncodedSecretKey = encodedBase64SecretKey(secretKey);
 
         return generateAccessToken(claims, subject, expiration, bases64EncodedSecretKey);
     }
 
     public String getRefreshToken(Long memberId) {
         String subject = String.valueOf(memberId);
-        Date expiration = getTokenExpiration(getRefreshTokenExpirationMinutes());
+        Date expiration = getTokenExpiration(refreshTokenExpirationMinutes);
+        String bases64EncodedSecretKey = encodedBase64SecretKey(secretKey);
+
+        return generateRefreshToken(subject, expiration, bases64EncodedSecretKey);
+    }
+
+    public String getKeepStateRefreshToken(Long memberId) {
+        String subject = String.valueOf(memberId);
+        Date expiration = getTokenExpiration(keepStateRefreshTokenExpirationMinutes);
+        String bases64EncodedSecretKey = encodedBase64SecretKey(secretKey);
+
+        return generateRefreshToken(subject, expiration, bases64EncodedSecretKey);
+    }
+
+    public String getGuestAccessToken() {
+        HashMap<String, Object> claims = new HashMap<>();
+        claims.put("roles", List.of(MemberRole.USER, MemberRole.SELLER));
+
+        String subject = "9";
+        Date expiration = getTokenExpiration(accessTokenExpirationMinutes);
+        String bases64EncodedSecretKey = encodedBase64SecretKey(getSecretKey());
+
+        return generateAccessToken(claims, subject, expiration, bases64EncodedSecretKey);
+    }
+
+    public String getGuestRefreshToken() {
+        String subject = "9";
+        Date expiration = getTokenExpiration(refreshTokenExpirationMinutes);
         String bases64EncodedSecretKey = encodedBase64SecretKey(getSecretKey());
 
         return generateRefreshToken(subject, expiration, bases64EncodedSecretKey);

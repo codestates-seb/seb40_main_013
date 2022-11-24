@@ -6,4 +6,5 @@ import lombok.Getter;
 public class LoginDto {
     private String email;
     private String password;
+    private boolean keepState;
 }

@@ -1,4 +1,7 @@
 spring:
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${RDS_URL}
@@ -8,8 +11,9 @@ spring:
     hibernate:
       ddl-auto: update
 
+
 file:
-  profileImg: \C:\Users\Hong\Desktop\seb40_main_013\server\img\profileImg\
-  productImg: \C:\Users\Hong\Desktop\seb40_main_013\server\img\productImg\
+  profileImg: /home/ec2-user/dailydaily/seb40_main_013/server/img/profileImg
+  productImg: /home/ec2-user/dailydaily/seb40_main_013/server/img/productImg
 
 env: server

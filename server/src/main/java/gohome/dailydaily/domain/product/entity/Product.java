@@ -2,6 +2,7 @@ package gohome.dailydaily.domain.product.entity;
 
 import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.entity.Seller;
+import gohome.dailydaily.domain.order.entity.OrderProduct;
 import gohome.dailydaily.domain.review.entity.Review;
 import gohome.dailydaily.global.common.BaseTime;
 import lombok.*;
@@ -39,7 +40,7 @@ public class Product extends BaseTime {
     @Column(nullable = false)
     private Integer score;
 
-    @Column
+    @Column(nullable = false)
     private Integer sale;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -56,11 +57,18 @@ public class Product extends BaseTime {
     @OneToMany(mappedBy = "product")
     private final List<Review> reviews = new ArrayList<>();
 
+    @OneToMany(mappedBy = "product")
+    private final List<OrderProduct> orderProducts = new ArrayList<>();
+
     public void addOptions(Option... options) {
         this.options.addAll(List.of(options));
     }
 
     public void addReviews(Review... reviews) {
         this.reviews.addAll(List.of(reviews));
+    }
+
+    public void addOrderProducts(OrderProduct... orderProducts) {
+        this.orderProducts.addAll(List.of(orderProducts));
     }
 }

@@ -10,16 +10,12 @@ public class OptionDto {
     public static class Response{
         private Long optionId;
         private String color;
-        private String size;
-        private Integer price;
         private Long stock;
 
         @QueryProjection
-        public Response(Long optionId, String color, String size, Integer price, Long stock) {
+        public Response(Long optionId, String color, Long stock) {
             this.optionId = optionId;
             this.color = color;
-            this.size = size;
-            this.price = price;
             this.stock = stock;
         }
     }

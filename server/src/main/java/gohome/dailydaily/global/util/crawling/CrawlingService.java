@@ -337,4 +337,15 @@ public class CrawlingService {
 
     }
 
+    public void changeImg() {
+
+        List<Product> productList = productRepository.findAll();
+
+        for (Product product : productList) {
+            product.setImg(File.builder()
+                    .fullPath(product.getImg().getFullPath())
+                    .fileName(product.getImg().getFileName())
+                    .build());
+        }
+    }
 }
