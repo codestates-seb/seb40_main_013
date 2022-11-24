@@ -1,7 +1,17 @@
-import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useLayoutEffect,
+} from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { bestOfBest, topBrand, mainData } from "../reduxstore/slices/articleSlice";
+import {
+  bestOfBest,
+  topBrand,
+  mainData,
+} from "../reduxstore/slices/articleSlice";
 import { newData } from "../reduxstore/slices/mainSlice";
 import { categoryData } from "../reduxstore/slices/mainCategorySlice";
 import styled from "styled-components/macro";
@@ -10,7 +20,6 @@ import Button from "../components/Button";
 import Products from "../components/mains/Product";
 import Apis from "../apis/apis";
 import NewProducts from "../components/mains/NewProducts";
-
 
 const Container = styled.div`
   width: 100vw;
@@ -78,7 +87,7 @@ const BrandTab = styled.table`
   }
 `;
 const TH = styled.tr`
-  display:flex;
+  display: flex;
 `;
 const TD = styled.td`
   display: flex;
@@ -89,8 +98,8 @@ const TD = styled.td`
   width: 50px;
   white-space: nowrap;
   cursor: pointer;
-  &:hover{
-    border: 3px solid #FFAF51;
+  &:hover {
+    border: 3px solid #ffaf51;
   }
 `;
 const BrandTitle = styled.div`
@@ -104,7 +113,7 @@ const FullView = styled(Link)`
   align-items: flex-end;
   font-size: 1rem;
   margin: 20px 40px 0 0;
-  color: #AAAAAA;
+  color: #aaaaaa;
   cursor: pointer;
 `;
 
@@ -114,25 +123,25 @@ const Main = () => {
   const dispatch = useDispatch();
 
   //best of best
-  const bestData = useSelector((state)=> state.article.mainArticle);
+  const bestData = useSelector((state) => state.article.mainArticle);
 
   // 신상품
-  const newArivalData = useSelector((state)=> state.maincategory.category);
-console.log(newArivalData)
+  const newArivalData = useSelector((state) => state.maincategory.category);
+  console.log(newArivalData);
   //브랜드리스트
-  const brandData = useSelector((state)=>state.main.main);
-  const brandTab = Object.keys(brandData)
+  const brandData = useSelector((state) => state?.main.main);
+  const brandTab = Object.keys(brandData);
 
   //자동스크롤 이벤트
   const myRefs = useRef({});
   const onMoveToElement = (key) => {
-    myRefs.current[key]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    myRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   // Object?.entries(brandData)?.filter(key => key[0] !== 'guest')
   //           ?.map(([key,value]) => console.log(key))
   //자동스크롤시 탭 헤더 밑으로 고정시키기
-   
+
   // useEffect(() => {
   //   window.addEventListener('scroll', handleScroll, { capture: true }); // 스크롤 이벤트 등록
   //   return () => {
@@ -146,7 +155,7 @@ console.log(newArivalData)
   //   }
   //   // 스크롤의 실시간 위치
   //   const scrollTop = document.getElementById('app')?.scrollTop; // 최상단 div 기준으로 스크롤 위치를 감지
-      
+
   //     // 스크롤 위치가 tabRef(하위메뉴 탭)의 위치보다 아래이면
   //     if (scrollTop >= tabRef.current.offsetTop) {
   //       fixTab.current = true;   // fixTab 변수는 트루
@@ -157,21 +166,20 @@ console.log(newArivalData)
   //     // 스크롤 위치가 detailRef(하위메뉴 2번)의 위치보다 위이면
   //     if (scrollTop < detailRef.current.offsetTop - offset) {
   //       setTab(0); // 하위메뉴 탭은 자동으로 인덱스 0을 보여주자
-  //     } 
+  //     }
   //     // 스크롤 위치가 detailRef(하위메뉴 2번)의 위치이거나 아래이면
   //     else if (scrollTop >= detailRef.current.offsetTop - offset) {
   //       setTab(1); // 하위메뉴 탭은 자동으로 인덱스 0을 보여주자
-  //     } 
+  //     }
 
-    
   // }, [tabRef.current, detailRef.current]);
 
   // 데이터 받아오기
-  useLayoutEffect(()=>{
+  useLayoutEffect(() => {
     dispatch(mainData());
     dispatch(categoryData());
     dispatch(newData());
-  }, [])
+  }, []);
 
   return (
     <Container id="app">
@@ -184,12 +192,8 @@ console.log(newArivalData)
       </Title>
       <ProductList>
         {bestData?.map((product) => (
-            <Products
-            key={product.id}
-            proId={product.id}
-            product={product}
-            />
-          ))}
+          <Products key={product.id} proId={product.id} product={product} />
+        ))}
       </ProductList>
       {/* 카테고리별 신상품 */}
       <Title>
@@ -208,37 +212,48 @@ console.log(newArivalData)
       <BrandTab>
         <tbody>
           <TH>
-            {brandTab?.filter((t,i) => t !== 'guest' && i <= 3)?.map(tab => 
-              <TD key={tab} onClick={()=>onMoveToElement(tab)}>{tab}</TD>
-            )}
+            {brandTab
+              ?.filter((t, i) => t !== "guest" && i <= 3)
+              ?.map((tab) => (
+                <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                  {tab}
+                </TD>
+              ))}
           </TH>
           <TH>
-            {brandTab?.filter((t,i) => t !== 'guest' && i > 3)?.map(tab => 
-              <TD key={tab} onClick={()=>onMoveToElement(tab)}>{tab}</TD>
-            )}
+            {brandTab
+              ?.filter((t, i) => t !== "guest" && i > 3)
+              ?.map((tab) => (
+                <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                  {tab}
+                </TD>
+              ))}
           </TH>
         </tbody>
       </BrandTab>
-        {Object?.entries(brandData)?.filter(key => key[0] !== 'guest')
-            ?.map(([key,value]) => (
-            <BrandProduct key={key}>
-              <BrandTitle>
-                <MainTitle ref={(element) => myRefs.current[key] = element}>{key}</MainTitle>
-                <FullView name="fullView" className="fullView">
-                  전체보기 &gt;&gt;
-                </FullView>
-              </BrandTitle>
-              <ProductList>
-                {value?.map((product) => (
-                    <Products
-                    key={product.id}
-                    proId={product.id}
-                    product={product}
-                    />
-          ))}
-      </ProductList>
-    </BrandProduct>
-    ))}
+      {Object?.entries(brandData)
+        ?.filter((key) => key[0] !== "guest")
+        ?.map(([key, value]) => (
+          <BrandProduct key={key}>
+            <BrandTitle>
+              <MainTitle ref={(element) => (myRefs.current[key] = element)}>
+                {key}
+              </MainTitle>
+              <FullView name="fullView" className="fullView">
+                전체보기 &gt;&gt;
+              </FullView>
+            </BrandTitle>
+            <ProductList>
+              {value?.map((product) => (
+                <Products
+                  key={product.id}
+                  proId={product.id}
+                  product={product}
+                />
+              ))}
+            </ProductList>
+          </BrandProduct>
+        ))}
       <Button />
     </Container>
   );
