@@ -108,6 +108,10 @@ const CurPwdBtn = styled.button`
 
   }
 `;
+//비밀번호 숨기기
+const PwdHide = styled.div`
+  margin-top: 10px;
+`;
 //버튼
 const Buttons = styled.div`
   display: flex;
@@ -411,14 +415,14 @@ const EditProfile = ({ getUserdata }) => {
             입력해주세요!
           </ErrorDisplay>
         ) : null}
-        <div>
+        <PwdHide>
           <Label htmlFor="password">
             현재 비밀번호 ( * 필수입력 : 대/소문자 구분 )
           </Label>
           <span onClick={handlePasswordType}>
             {  passwordType.visible ? <AiFillEyeInvisible /> : <AiFillEye />  }
           </span>
-        </div>
+        </PwdHide>
         <CurInputBtn>
           <Input
             name="Password"
@@ -434,12 +438,12 @@ const EditProfile = ({ getUserdata }) => {
             확인
           </CurPwdBtn>
         </CurInputBtn>
-        <div>
+        <PwdHide>
           <Label htmlFor="password">비밀번호</Label>
           <span onClick={handlePasswordType}>
             {  passwordType.visible ? <AiFillEyeInvisible /> : <AiFillEye />  }
           </span>
-        </div>
+        </PwdHide>
         <Input
           name="password"
           type={passwordType.type}
@@ -451,12 +455,12 @@ const EditProfile = ({ getUserdata }) => {
             문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자로 만들어주세요!
           </ErrorDisplay>
         ) : null}
-        <div>
+        <PwdHide>
           <Label htmlFor="confirmPassword">비밀번호 확인</Label>
           <span onClick={handlePasswordType}>
             {  passwordType.visible ? <AiFillEyeInvisible /> : <AiFillEye />  }
           </span>
-        </div>
+        </PwdHide>
         <Input 
         name="confirmPassword"
         type={passwordType.type}
