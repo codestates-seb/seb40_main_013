@@ -297,7 +297,6 @@ public class TestConstant {
 
     public static final FieldDescriptor FWP_PRODUCT_CONTENT = fieldWithPath("content").type(STRING).description("상품 내용");
     public static final FieldDescriptor FWP_PRODUCT_CONTENTS = fieldWithPath("content").type(ARRAY).description("상품 내용");
-
     public static final FieldDescriptor FWP_PRODUCT_PRICE = fieldWithPath("price").type(NUMBER).description("상품 가격");
     public static final FieldDescriptor FWP_PRODUCT_IMG_NAME = fieldWithPath("img.fileName").type(STRING).description("상품 썸네일 이름");
     public static final FieldDescriptor FWP_PRODUCT_IMG_PATH = fieldWithPath("img.fullPath").type(STRING).description("상품 썸네일 경로");
@@ -349,7 +348,22 @@ public class TestConstant {
     public static final FieldDescriptor FWP_BRAND_PRODUCT_SCORE = fieldWithPath("[].[].score").type(NUMBER).description("상품 별점");
     public static final FieldDescriptor FWP_BRAND_PRODUCTS_SELLER_NICKNAME = fieldWithPath("[].[].nickname").type(STRING).description("상품 브랜드 이름");
     public static final FieldDescriptor FWP_BRAND_PRODUCTS_CATEGORY_MAIN = fieldWithPath("[].[].main").type(STRING).description("상품 대분류 카테고리");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_ID = fieldWithPath("orderProducts[].productId").type(NUMBER).description("주문 상품 식별자");
+    public static final FieldDescriptor FWP_ORDER_OPTION_ID = fieldWithPath("orderProducts[].optionId").type(NUMBER).description("주문 상품 옵션 식별자");
+    public static final FieldDescriptor FWP_ORDER_COUNT = fieldWithPath("orderProducts[].count").type(NUMBER).description("주문 상품 수량");
+    public static final FieldDescriptor FWP_ORDER_ID = fieldWithPath("orderId").type(NUMBER).description("주문 식별자");
+    public static final FieldDescriptor FWP_ORDER_STATUS = fieldWithPath("status").type(STRING).description("주문 상태");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_BRAND_NAME = fieldWithPath("orderProducts[].brandName").type(STRING).description("주문 상태");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_TITLE = fieldWithPath("orderProducts[].title").type(STRING).description("주문 상품명");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_IMG_NAME = fieldWithPath("orderProducts[].img.fileName").type(STRING).description("주문 상품 썸네일 이름");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_IMG_PATH = fieldWithPath("orderProducts[].img.fullPath").type(STRING).description("주문 상품 썸네일 경로");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_PRICE = fieldWithPath("orderProducts[].price").type(NUMBER).description("주문 상품 가격");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_COLOR = fieldWithPath("orderProducts[].color").type(STRING).description("주문 상품 옵션");
 
+    public static final ResponseFieldsSnippet ORDER_RESPONSE_FIELDS = responseFields(
+            FWP_ORDER_ID, FWP_ORDER_PRODUCT_ID, FWP_ORDER_STATUS, FWP_ORDER_PRODUCT_BRAND_NAME, FWP_ORDER_PRODUCT_TITLE,
+            FWP_ORDER_PRODUCT_IMG_NAME, FWP_ORDER_PRODUCT_IMG_PATH, FWP_ORDER_COUNT, FWP_ORDER_PRODUCT_PRICE, FWP_ORDER_PRODUCT_COLOR
+    );
     public static final FieldDescriptor FWP_STATUS = fieldWithPath("status").type(NUMBER).description("상태 코드");
     public static final FieldDescriptor FWP_MESSAGE = fieldWithPath("message").type(STRING).description("메시지");
 
