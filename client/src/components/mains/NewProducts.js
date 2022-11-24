@@ -4,7 +4,7 @@ import livingroom from "../../imgs/livingroom.png"
 import library from "../../imgs/library.png"
 import bedroom from "../../imgs/bedroom.png"
 import kitchen from "../../imgs/kitchen.png"
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const BrandContainer = styled.div`
   display:flex;
@@ -97,7 +97,7 @@ const TI = styled.a`
   cursor: pointer;
   &:hover::after,
   &:hover > .hover_text{
-    display: block;
+    /* display: block; */
   }
   &::after{
     display: none;
@@ -128,6 +128,11 @@ const TI = styled.a`
     padding: 10px;
     border-radius: 10px;
   }
+  @media (min-width: 391px) and (max-width: 767px){
+    display: flex;
+    width: 100%;
+    border-bottom-left-radius: 0;
+  }
   @media (min-width: 768px) and (max-width: 1024px){
     .hover_text{
       top: 20px;
@@ -139,6 +144,7 @@ const TI = styled.a`
 
 const CategoryImg = styled.img`
   width: 500px;
+  height: 100%;
   @media screen and (max-width: 390px){
     width: 100%;
     border-top-left-radius: 10px;
@@ -151,30 +157,18 @@ const CategoryImg = styled.img`
     border-top-right-radius: 10px;
     border-bottom-left-radius: 0;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
-    width: 50vw;
-  }
 `;
 const BPList = styled.div`
   display: flex;
   flex-direction: column;
-  @media screen and (max-width: 390px){
-    width: 100%;
-  }
-  @media (min-width: 391px) and (max-width: 768px){
-    width: 100%;
-  }
-  @media (min-width: 768px) and (max-width: 1024px){
-    width: 50vw;
-  }
 `;
 const BP = styled(Link)`
   display: flex;
   align-items: center;
-  border: 1px solid var(--color-center-line);
+  border: 0.1rem solid var(--color-center-line);
   height: 20%;
   width: 400px;
-  padding-right: 10px;
+  padding: 10px 10px 10px 0;
   &:hover{
     opacity: 0.7;
   }
@@ -185,6 +179,9 @@ const BP = styled(Link)`
   @media (min-width: 391px) and (max-width: 768px){
     width: 100%;
     padding: 10px 0;
+  }
+  @media (min-width: 768px) and (max-width: 1024px){
+    /* height: auto; */
   }
 `;
 const Img = styled.img`
@@ -200,6 +197,7 @@ const TP = styled.div`
 const Title = styled.h2`
   font-size: 1rem;
   margin-bottom: 10px;
+  padding-right: 10px;
 `;
 const Price = styled.h2`
   font-size: 1.1rem;
@@ -223,11 +221,11 @@ const NewProducts = ({ newArivalList }) =>{
             <BPList>
                 {newArivalList.서재?.map((p)=>
                   <BP key={p.id} to={`/detail/${p.id}`}>
-                    <Img src={p.img.fullPath} />
-                    <TP>
-                      <Title>{p.title}</Title>
-                      <Price>{p.price.toLocaleString('en-US')}</Price>
-                    </TP>
+                      <Img src={p.img.fullPath} />
+                      <TP>
+                        <Title>{p.title}</Title>
+                        <Price>{p.price.toLocaleString('en-US')}</Price>
+                      </TP>
                   </BP>
                 )}
             </BPList>
@@ -238,13 +236,13 @@ const NewProducts = ({ newArivalList }) =>{
               <p className="hover_text">More view</p>
             </TI>
               <BPList>
-                  {newArivalList.침실?.map((p)=>
+                {newArivalList.침실?.map((p)=>
                     <BP key={p.id} to={`/detail/${p.id}`}>
-                      <Img src={p.img.fullPath} />
-                      <TP>
-                        <Title>{p.title}</Title>
-                        <Price>{p.price.toLocaleString('en-US')}</Price>
-                      </TP>
+                        <Img src={p.img.fullPath} />
+                        <TP>
+                          <Title>{p.title}</Title>
+                          <Price>{p.price.toLocaleString('en-US')}</Price>
+                        </TP>
                     </BP>
                   )}
               </BPList>
@@ -255,15 +253,15 @@ const NewProducts = ({ newArivalList }) =>{
               <p className="hover_text">More view</p>
             </TI>
               <BPList>
-                  {newArivalList.거실?.map((p)=>
+                {newArivalList.거실?.map((p)=>
                     <BP key={p.id} to={`/detail/${p.id}`}>
-                      <Img src={p.img.fullPath} />
-                      <TP>
-                        <Title>{p.title}</Title>
-                        <Price>{p.price.toLocaleString('en-US')}</Price>
-                      </TP>
+                        <Img src={p.img.fullPath} />
+                        <TP>
+                          <Title>{p.title}</Title>
+                          <Price>{p.price.toLocaleString('en-US')}</Price>
+                        </TP>
                     </BP>
-                  )}
+                  )}  
               </BPList>
             </CategoryProduct>,
     "주방": <CategoryProduct>
@@ -272,15 +270,15 @@ const NewProducts = ({ newArivalList }) =>{
               <p className="hover_text">More view</p>
             </TI>
               <BPList>
-                  {newArivalList.주방?.map((p)=>
+                {newArivalList.주방?.map((p)=>
                     <BP key={p.id} to={`/detail/${p.id}`}>
-                      <Img src={p.img.fullPath} />
-                      <TP>
-                        <Title>{p.title}</Title>
-                        <Price>{p.price.toLocaleString('en-US')}</Price>
-                      </TP>
+                        <Img src={p.img.fullPath} />
+                        <TP>
+                          <Title>{p.title}</Title>
+                          <Price>{p.price.toLocaleString('en-US')}</Price>
+                        </TP>
                     </BP>
-                  )}
+                  )}  
               </BPList>
             </CategoryProduct>,
 }

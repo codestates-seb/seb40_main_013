@@ -187,7 +187,7 @@ function Header({ setClick }) {
               <Category>
                 <div onClick={clickMenu}>침실</div>
                 <Nav className="2">
-                  <div onClick={clickMenu}>침대</div>
+                  <div onClick={clickMenu}>침대/매트리스</div>
                   <div onClick={clickMenu}>행거/옷장</div>
                   <div onClick={clickMenu}>화장대</div>
                 </Nav>
