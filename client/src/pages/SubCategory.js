@@ -35,16 +35,18 @@ const SubBlock = styled.div`
 
 const Sub = styled.div`
   display: flex;
-  width: 200px;
-  height: 120px;
+  max-width: 230px;
+  max-height: 130px;
+  width: 20vw;
+  height: 14vh;
   background-color: #f6f4e7;
   margin: 0 1em;
   &:hover {
     background-color: #e1dfce;
   }
   img {
-    width: 70px;
-    height: 70px;
+    width: 5em;
+    height: 5em;
     margin-bottom: 7px;
   }
   flex-direction: column;
@@ -54,9 +56,12 @@ const Sub = styled.div`
 
 const FilterBlock = styled.div`
   width: 100%;
-  padding: 0 2em;
+  padding: 0 2.5em;
   display: flex;
   justify-content: space-between;
+  div{
+    white-space: nowrap;
+  }
 `;
 
 const ProductList = styled.div`
@@ -132,7 +137,7 @@ function SubCategory({ click }) {
         </div>
         <FilterBlock>
           <div className="total">0 개의 상품이 있습니다</div>
-          <div>인기순</div>
+          <div>최신순</div>
         </FilterBlock>
         <ProductList>
           {/* <div className="products"> */}

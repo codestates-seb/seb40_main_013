@@ -14,7 +14,7 @@ import { useState } from "react";
 import ScrollToTop from './components/ScrollToTop';
 
 const MainContainter = styled.div`
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
 `;
