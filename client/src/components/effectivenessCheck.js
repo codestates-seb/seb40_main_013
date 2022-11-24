@@ -14,9 +14,15 @@ export const emailCheck = (email) => {
 // 이메일 정규식
 
 export const pwdCheck = (pwd) => {
-  let pwdreg = /^(?=.[A-Za-z])(?=.\d)(?=.[$@$!%#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
+  let pwdreg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@!%*#?&]{8,}$/;
 
   return pwdreg.test(pwd);
 };
 
 //최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
+
+export const phoneCheck = (phone) => {
+  let phonereg = /01[016789]-[0-9]{3,4}-[0-9]{4}/;
+
+  return phonereg.test(phone);
+};

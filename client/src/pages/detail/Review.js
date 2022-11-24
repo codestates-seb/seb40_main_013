@@ -2,45 +2,45 @@ import React from "react";
 import styled from "styled-components/macro";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import { renderStar } from "../../components/Star";
 
-function Review({ filterArticle }) {
-  console.log(filterArticle);
+function Review({ articlesDetail }) {
+  console.log(articlesDetail);
+  const reviewLength = articlesDetail?.reviews?.length;
+  console.log(reviewLength);
   return (
     <ReviewWrapper>
-      <ReviewTitle>상품 후기 ( OO건 )</ReviewTitle>
+      <ReviewTitle>상품 후기 ( {reviewLength}건 )</ReviewTitle>
       <ReviewStarSpace>
-        <ReviewStar>
-          <BsStarFill />
-          <BsStarFill />
-          <BsStarFill />
-          <BsStarFill />
-          <BsStarFill />
-        </ReviewStar>
+        {renderStar(articlesDetail?.score)}
         <ReviewStaAverage>
-          평균 별점<ReviewNumber> 5</ReviewNumber>점
+          평균 별점<ReviewNumber> {articlesDetail?.score}</ReviewNumber>점
         </ReviewStaAverage>
       </ReviewStarSpace>
       <Boundary />
-      {filterArticle?.map((data) => (
+
+      {articlesDetail?.reviews?.map((data) => (
         <ReviewContentsSpace key={data.reviewId}>
           <ReviewContentsLeftSpace>
             <ReviewContentsNumber>{data.reviewId}</ReviewContentsNumber>
-            <ReviewContentsImg src={data.img}></ReviewContentsImg>
+            <ReviewContentsImg
+              src={articlesDetail?.img.fullPath}
+            ></ReviewContentsImg>
             <ReviewContentsMainSpace>
-              <ReviewStar>
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-              </ReviewStar>
+              {renderStar(data.score)}
               <ReviewMainTitle>{data.title}</ReviewMainTitle>
               <ReviewMainContent>{data.content}</ReviewMainContent>
             </ReviewContentsMainSpace>
           </ReviewContentsLeftSpace>
           <ReviewContentsRightSpace>
-            <ReviewContentsUser>{data.nickname}</ReviewContentsUser>
-            <ReviewContentsUser>{data.craeateAt}</ReviewContentsUser>
+            <ReviewContentsUser>사용자</ReviewContentsUser>
+            <ReviewContentsUser>
+              {new Date(data.createdAt).getFullYear() +
+                "." +
+                [new Date(data.createdAt).getMonth() + 1] +
+                "." +
+                new Date(data.createdAt).getDate()}
+            </ReviewContentsUser>
           </ReviewContentsRightSpace>
         </ReviewContentsSpace>
       ))}
@@ -58,14 +58,9 @@ function Review({ filterArticle }) {
     </ReviewWrapper>
   );
 }
-const Display = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid blue;
-`;
 
 const ReviewWrapper = styled.div`
-  width: 600px;
+  width: 700px;
   height: 100%;
 `;
 const ReviewTitle = styled.div`
@@ -140,6 +135,7 @@ const ReviewContentsImg = styled.img`
 const ReviewMainTitle = styled.div`
   font-weight: bold;
   font-size: 16px;
+  margin-top: 10px;
 `;
 
 const ReviewMainContent = styled.div`

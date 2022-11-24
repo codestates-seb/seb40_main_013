@@ -3,17 +3,11 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://large-masks-worry-59-20-223-31.loca.lt/",
+  baseURL: "https://hot-facts-like-113-52-194-59.loca.lt/",
 });
 
 axios.interceptors.request.use(function (config) {
-  console.log(123);
 
-  config.withCredentials = true;
-  let token = localStorage.getItem("Authorization");
-  config.headers["Authorization"] = token;
-  config.headers["Refresh"] = refreshToken;
-  config.headers["Content-Type"] = "application/json";
   return config;
 });
 
@@ -21,13 +15,14 @@ Apis.interceptors.response.use(
   function (response) {
     return response;
   },
-  async function (err) {
-    console.log(err);
-    if (err.response && err.response.data.message === "JWT expired") {
-      const originalRequest = err.config;
-      console.log(11);
+  async (err) => {
+    console.log("abc", err);
+
+    if (err.response.data.message === "JWT expired") {
+      let originalRequest = err.config;
+      console.log("abc", 11);
       try {
-        console.log(22);
+        console.log("abc", 22);
         const data = await Apis.post(
           "refresh",
           {},
@@ -36,20 +31,26 @@ Apis.interceptors.response.use(
           }
         );
         if (data) {
-          console.log(data);
-          const accToken = data.headers.get("authorization");
+          console.log("abc", data);
+          const accToken = data.headers.get("Authorization");
           localStorage.removeItem("Authorization");
           localStorage.setItem("Authorization", accToken);
-          originalRequest.headers["Authorization"] = accToken;
-          // originalRequest.headers["Authorization"] = accToken;
-          // axios.defaults.headers.common.Authorization = accToken;
-          originalRequest.headers["Refresh"] = refreshToken;
-          console.log(originalRequest);
-          return await axios.request(originalRequest);
-          // return 1;
+          // originalRequest.headers["Refresh"] = refreshToken;
+          originalRequest.headers["Content-Type"] = "application/json";
+          console.log("abcd", 2, originalRequest);
+          // return axios.request(originalRequest);
+          return Apis({
+            ...originalRequest,
+            headers: {
+              ...originalRequest.headers,
+              Authorization: `${accToken}`,
+            },
+            sent: true,
+          });
         }
       } catch (err) {
-        console.log("토큰 갱신 에러");
+        console.log("abc", "토큰 갱신 에러");
+        console.log(err);
       }
       return Promise.reject(err);
     }
