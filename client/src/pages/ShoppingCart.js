@@ -37,8 +37,8 @@ const AllCheckBlock = styled.div`
 `;
 
 const CheckCircle = styled.input`
-  width: 1rem;
-  height: 1rem;
+  width: 1em;
+  height: 1em;
   border-radius: 50%;
   border: 1px solid #999;
   appearance: none;
@@ -136,7 +136,7 @@ function ShoppingCart() {
   const dispatch = useDispatch();
   const cartSeletor = useSelector((state) => state.article.shoppingCartInitial);
   const cartSeletorLength = cartSeletor?.length;
-  // console.log(`cartSeletor.length`,cartSeletorLength);
+  console.log(`cartSeletor.length`, cartSeletor);
 
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
 
