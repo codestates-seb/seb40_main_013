@@ -230,6 +230,10 @@ public class TestConstant {
             parameterWithName("product-cart-id").description("장바구니 상품 식별자")
     );
 
+    public static final PathParametersSnippet PATH_PARAM_ORDER_ID = pathParameters(
+            parameterWithName("order-id").description("주문 식별자")
+    );
+
     public static final PathParametersSnippet PATH_PARAM_PRODUCT_ID_AND_REVIEW_ID = pathParameters(
             parameterWithName("product-id").description("상품 식별자"),
             parameterWithName("review-id").description("리뷰 식별자")

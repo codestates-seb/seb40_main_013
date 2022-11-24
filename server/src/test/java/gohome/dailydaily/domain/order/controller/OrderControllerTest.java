@@ -31,9 +31,9 @@ import java.util.List;
 import static gohome.dailydaily.util.TestConstant.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -137,5 +137,27 @@ class OrderControllerTest implements Reflection {
                         PAGE_ORDER_RESPONSE_FIELDS
                 ));
 
+    }
+
+    @Test
+    void cancelOrder() throws Exception {
+        // given
+        doNothing().when(orderService).cancelOrder(MEMBER.getId(), ORDER.getId());
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                delete("/orders/{order-id}",
+                        ORDER.getId())
+                        .header("Authorization", "JWT")
+        );
+
+        // then
+        actions.andExpect(status().isNoContent())
+                .andDo(document("orders/delete",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
+                        PATH_PARAM_ORDER_ID
+                ));
     }
 }

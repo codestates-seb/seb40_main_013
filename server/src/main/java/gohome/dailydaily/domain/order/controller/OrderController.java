@@ -48,4 +48,12 @@ public class OrderController {
 
         return new ResponseEntity<>(PageResponseDto.of(orders.map(mapper::toResponse)), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{order-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public String cancelOrder(@MemberId Long memberId,
+                                      @PathVariable("order-id") Long orderId) {
+        orderService.cancelOrder(memberId, orderId);
+        return "Cancel order";
+    }
 }

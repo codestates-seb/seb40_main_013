@@ -31,11 +31,17 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    private Order findVerifiedOrder(Long orderId) {
+    private Order findVerifiedOrder(Long memberId, Long orderId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
 
-        return optionalOrder.orElseThrow(() ->
+        Order order = optionalOrder.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
+
+        if (!order.getMember().getId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.ORDER_DOES_NOT_MATCH);
+        }
+
+        return order;
     }
 
     private void verifyOrder(Order order) {
@@ -53,5 +59,16 @@ public class OrderService {
     public Page<Order> findByMember_Id(Long memberId, Pageable pageable) {
 
         return orderRepository.findOrderByMember_Id(memberId, pageable);
+    }
+
+    public void cancelOrder(Long memberId, Long orderId) {
+
+        Order order = findVerifiedOrder(memberId, orderId);
+
+        if (!order.getStatus().equals(OrderStatus.ORDER_RECEPTION)) {
+            throw new BusinessLogicException(ExceptionCode.CANNOT_CANCEL_ORDER);
+        }
+
+        orderRepository.delete(order);
     }
 }
