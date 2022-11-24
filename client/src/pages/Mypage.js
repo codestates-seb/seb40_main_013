@@ -13,12 +13,14 @@ const Container = styled.div`
   display: flex;
   /* height: 100%; */
   margin-top: 180px;
-  width: 80%;
+  width: 100%;
   @media screen and (max-width: 390px) {
     flex-direction: column;
   }
   @media (min-width: 391px) and (max-width: 768px) {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
@@ -168,7 +170,8 @@ const NavDetail = styled.nav`
 const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
-  const id = getUserdata?.id;
+  const id = getUserdata?.memberId;
+  console.log(getUserdata)
   const [clicked, setClicked] = useState("");
 
   //user 정보 받아오기
