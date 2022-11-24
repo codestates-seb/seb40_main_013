@@ -28,11 +28,15 @@ function Footer() {
       </FooterMidBtnMenu>
       <FooterDownContentSpace>
         <FooterDownContentSpan>팀장 : 홍승재</FooterDownContentSpan>
-        <FooterDownContentSpan>백엔드 : 김경근, 허준열 </FooterDownContentSpan>
+        <FooterDownContentSpan>
+          백엔드 : 홍승재, 김경근, 허준열
+        </FooterDownContentSpan>
         <FooterDownContentSpan>
           프론트 : 김서연 ,노경민 , 임세영
         </FooterDownContentSpan>
-        <FooterDownContent>@ 2014 dodot. All Right Reserved.</FooterDownContent>
+        <FooterDownContent>
+          @ 2022 집 가고 싶다. All Right Reserved.
+        </FooterDownContent>
       </FooterDownContentSpace>
     </FooterWrapper>
   );

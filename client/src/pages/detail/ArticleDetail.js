@@ -9,9 +9,11 @@ import {
   getArticleDetail,
   postCart,
 } from "../../reduxstore/slices/articleSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
 function ArticleDetail() {
+  const { pathname } = useLocation();
+
   const [clickSelect, setClickSelect] = useState(false);
   const [selectOptions, setSelectOptions] = useState("");
   const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
@@ -21,7 +23,7 @@ function ArticleDetail() {
   const { id } = useParams();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const optionSelect = useSelector(
-    (state) => state.article.detailArticle.options
+    (state) => state.article.detailArticle?.options
   );
   let price = articlesDetail?.price;
   const clickFunction = () => {
@@ -31,8 +33,13 @@ function ArticleDetail() {
     setCartCount(cartCount + 1);
   };
   const clickDownCart = () => {
-    setCartCount(cartCount - 1);
+    if (cartCount <= 0) {
+      setCartCount(0);
+    } else {
+      setCartCount(cartCount - 1);
+    }
   };
+  console.log(optionSelect);
 
   const selectOption = (id, color) => {
     setSelectOptions(id);
@@ -43,6 +50,10 @@ function ArticleDetail() {
 
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     // let get_local = [];
     // if (!articlesDetail) {
     //   localStorage.setItem("product", get_local);
@@ -55,7 +66,7 @@ function ArticleDetail() {
     //   }
     //   localStorage.setItem("product", JSON.stringify(get_local));
     // }
-  }, []);
+  }, [pathname]);
 
   const clickPostCart = () => {
     let postCartData = {
@@ -109,29 +120,25 @@ function ArticleDetail() {
             </DetailArticleOptionSpace>
             <DetailArticleOptionSpace clickSelect={clickSelect}>
               {clickSelect ? (
-                <>
-                  <DetailArticleSelectOption>
-                    {optionSelect?.map((option) => (
-                      <DetailArticleSelectOption
-                        key={option?.optionId}
-                        value={option?.value}
-                        onClick={() => {
-                          selectOption(option.optionId, option.color),
-                            clickFunction();
-                        }}
-                      >
-                        색상 : {option?.color}
-                        남은수량 : {option?.stock}
-                      </DetailArticleSelectOption>
-                    ))}
-                  </DetailArticleSelectOption>
-                </>
+                <UL>
+                  {optionSelect?.map((option) => (
+                    <DetailArticleSelectOption
+                      key={option?.optionId}
+                      value={option?.value}
+                      optionSelect={optionSelect}
+                      onClick={() => {
+                        selectOption(option.optionId, option.color),
+                          clickFunction();
+                      }}
+                    >
+                      {option?.color}
+                    </DetailArticleSelectOption>
+                  ))}
+                </UL>
               ) : (
-                <>
-                  <DetailArticleSelectOption>
-                    {selectOptionColor}
-                  </DetailArticleSelectOption>
-                </>
+                <DetailArticleSelectOption>
+                  {selectOptionColor}
+                </DetailArticleSelectOption>
               )}
               <ButtonIcon onClick={clickFunction}>
                 <FiChevronDown />
@@ -273,60 +280,103 @@ const DetailArticlePrice = styled.div`
     margin-left: 15px;
   }
 `;
-const DetailArticleOptionSpace = styled.div`
-  height: 45px;
-  border: none;
-  display: flex;
-  align-items: center;
-  border-top: 2px solid var(--border-navy);
 
-  &:nth-child(5) {
-    height: 35px;
-    justify-content: space-between;
-    border: 2px solid var(--border-navy);
-  }
-`;
 const DetailArticleOptionContents = styled.div`
   margin-left: 10px;
   &:nth-child(2) {
     margin-left: 80px;
   }
 `;
-const DetailArticleSelectOption = styled.div`
-  height: 35px;
-  width: 107.5%;
-  border: 2px solid var(--border-navy);
-  position: relative;
+const DetailArticleOptionSpace = styled.div`
+  height: 45px;
+  width: 100%;
+  border: 1px solid red;
   display: flex;
   align-items: center;
-  margin-left: 20px;
-  &:nth-child(1) {
-    border-right: none;
-    border-left: none;
-    background-color: white;
-  }
-  &:nth-child(2) {
+  border-top: 2px solid var(--border-navy);
+  /* position: relative;
+  width: 200px;
+  padding: 8px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  align-self: center;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  &::before {
+    content: "⌵";
     position: absolute;
-    top: 32px;
-    left: -2px;
-    background-color: white;
-  }
-  &:nth-child(3) {
-    margin-right: 2px;
-    position: absolute;
-    top: 64px;
-    left: -2px;
-    background-color: white;
-  }
-  &:nth-child(4) {
-    margin-right: 2px;
-    position: absolute;
-    top: 96px;
-    left: -2px;
-    background-color: white;
-  }
+    top: 1px;
+    right: 8px;
+    color: #49c181;
+    font-size: 20px;
+  } */
 `;
 
+// const DetailArticleSelectOption = styled.li`
+//   height: 35px;
+//   width: 107.5%;
+//   border: 2px solid var(--border-navy);
+//   position: relative;
+//   display: flex;
+//   align-items: center;
+//   padding-left: 10px;
+//   border: 1px solid blue;
+
+//   &:nth-child(1) {
+//     border-right: none;
+//     border-left: none;
+//     background-color: red;
+//     width: 95%;
+//   }
+//   &:nth-child(2) {
+//     position: absolute;
+//     padding-left: 20px;
+//     width: 105%;
+//     top: 32px;
+//     left: -1px;
+//     background-color: white;
+//     &:hover {
+//       background-color: aqua;
+//     }
+//   }
+//   &:nth-child(3) {
+//     margin-right: 2px;
+//     position: absolute;
+//     top: 64px;
+//     left: -2px;
+//     background-color: white;
+//   }
+//   &:nth-child(4) {
+//     margin-right: 2px;
+//     position: absolute;
+//     top: 96px;
+//     left: -2px;
+//     background-color: white;
+//   }
+// `;
+const UL = styled.ul`
+  position: absolute;
+  list-style: none;
+  top: 18px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  height: 90px;
+  padding: 0;
+  border-radius: 8px;
+  background-color: #222222;
+  color: #fefefe;
+  max-height: ${(props) => (props.optionSelect ? "none" : "0")};
+`;
+const DetailArticleSelectOption = styled.li`
+  height: 30px;
+  font-size: 14px;
+  padding: 6px 8px;
+  transition: background-color 0.2s ease-in;
+  &:hover {
+    background-color: #595959;
+  }
+`;
 const DetailUserSubmitPriceSpace = styled.div`
   width: 100%;
   height: 50px;
@@ -356,7 +406,6 @@ const DetailUserPrice = styled.div`
   font-weight: 700;
   &:nth-child(2) {
     font-size: 35px;
-    margin-right: -37px;
     color: var(--color-navy);
   }
 `;

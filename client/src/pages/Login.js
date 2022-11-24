@@ -34,6 +34,7 @@ function Login() {
     let loginData = {
       email: userWriteEmail,
       password: userWritePwd,
+      keepState: true,
     };
     if (
       userWriteEmail !== "" &&
@@ -56,7 +57,11 @@ function Login() {
           <LoginTitle>Log In</LoginTitle>
           <LoginInputSpace>
             <LoginInput placeholder="Email" onChange={writeChangeEmail} />
-            <LoginInput placeholder="Password" onChange={writeChangePwd} />
+            <LoginInput
+              placeholder="Password"
+              type="password"
+              onChange={writeChangePwd}
+            />
           </LoginInputSpace>
           <LoginButton onClick={clickLogin}>로그인</LoginButton>
           <LoginButton onClick={clickGuest}>게스트 로그인</LoginButton>
@@ -83,7 +88,7 @@ const Wrapper = styled.div`
   height: 60vh;
   display: flex;
   justify-content: center;
-  margin: 145px 0px 120px 0px;
+  margin: 300px 0px 120px 0px;
   @media screen and (max-width: 768px) {
     width: 100%;
     min-width: 391px;
@@ -203,6 +208,9 @@ const LoginButton = styled.button`
   font-weight: bolder;
   margin-top: 40px;
   border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+  }
   @media screen and (max-width: 1024px) {
     font-size: 2vw;
   }

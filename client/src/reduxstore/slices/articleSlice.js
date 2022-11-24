@@ -26,7 +26,6 @@ export const postCart = createAsyncThunk(
     })
       .then((res) => {
         window.alert("해당 상품이 추가되었습니다!");
-        navigate("/cart");
         return res.data;
       })
       .catch((err) => {
