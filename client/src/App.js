@@ -11,6 +11,7 @@ import ArticleDetail from "./pages/detail/ArticleDetail";
 import SubCategory from "./pages/SubCategory";
 import ShoppingCart from "./pages/ShoppingCart";
 import { useState } from "react";
+import ScrollToTop from './components/ScrollToTop';
 
 const MainContainter = styled.div`
   height: 100vh;
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <GlobalStyles />
       <div className="App">
         <MainContainter>

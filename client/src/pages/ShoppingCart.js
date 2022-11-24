@@ -7,7 +7,6 @@ import { deleteShoppingCart, getShoppingCart } from "../reduxstore/slices/articl
 const CartBlock = styled.div`
     margin-top: 160px;
     width: 100%;
-    height: 100%;
     padding: 30px 40px 50px 40px;
     margin-top: 160px;
     display: flex;

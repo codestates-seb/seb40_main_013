@@ -56,7 +56,7 @@ const Title = styled.h2`
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis; 
-  height: 20%; //수정필요...
+  /* height: 3vh; //수정필요... */
   word-break:break-all;
   height: 30px;
   @media screen and (max-width: 390px){
@@ -73,7 +73,7 @@ const Title = styled.h2`
 const Price = styled.h5`
   display: flex;
   justify-content: flex-end;
-  padding: 5px;
+  padding: 5px 0;
   margin-right: 10px;
   font-size: 1.5rem;
   font-weight: 700;
@@ -121,7 +121,7 @@ const Product = ({ proId, product }) => {
             <StarAerage>{score}</StarAerage>
           </StarDetail>
         </SubDetail>
-        <Title>{title}</Title>
+        <Title>{title.length > 22 ? title.slice(0, 19) : title}</Title>
         <SubDetail>
           <Price>{price?.toLocaleString('en-US')}</Price>
         </SubDetail>
