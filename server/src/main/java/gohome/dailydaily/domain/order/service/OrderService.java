@@ -4,12 +4,16 @@ import gohome.dailydaily.domain.member.service.MemberService;
 import gohome.dailydaily.domain.order.entity.Order;
 import gohome.dailydaily.domain.order.repository.OrderRepository;
 import gohome.dailydaily.domain.product.service.ProductService;
+import gohome.dailydaily.domain.review.entity.Review;
 import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,5 +46,10 @@ public class OrderService {
                     orderProduct.addOrder(order);
                 });
 
+    }
+
+    public Page<Order> findByMember_Id(Long memberId, Pageable pageable) {
+
+        return orderRepository.findByMember_Id(memberId, pageable);
     }
 }

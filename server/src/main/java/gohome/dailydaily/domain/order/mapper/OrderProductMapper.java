@@ -21,5 +21,6 @@ public interface OrderProductMapper {
     @Mapping(target = "productId", source = "product.id")
     @Mapping(target = "brandName", source = "product.seller.member.nickname")
     @Mapping(target = ".", source = "product")
+    @Mapping(target = "color", source = "option.color")
     OrderProductDto.Response toResponse(OrderProduct orderProduct);
 }

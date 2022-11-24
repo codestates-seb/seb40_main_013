@@ -30,5 +30,6 @@ public class OrderProductDto {
         private File img;
         private Integer count;
         private Integer price;
+        private String color;
     }
 }

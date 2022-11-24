@@ -166,14 +166,12 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
         );
     }
 
-    private QOptionDto_Response getOptionDtoResponse() {
-        return new QOptionDto_Response(
-                option.id,
-                option.color,
-                option.size,
-                option.price,
-                option.stock);
-    }
+//    private QOptionDto_Response getOptionDtoResponse() {
+//        return new QOptionDto_Response(
+//                option.id,
+//                option.color,
+//                option.stock);
+//    }
 
 //    @Override
 //    public Slice<CategoryGetDto> findByCategory_MainAndCategory_Sub(Pageable pageable, String main, String sub) {

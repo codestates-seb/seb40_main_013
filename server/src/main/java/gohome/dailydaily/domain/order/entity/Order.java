@@ -38,4 +38,8 @@ public class Order extends BaseTime {
     public void addOrderProduct(OrderProduct... orderProducts) {
         this.orderProducts.addAll(List.of(orderProducts));
     }
+
+    public void addOrderProduct(List<OrderProduct> orderProducts) {
+        this.orderProducts.addAll(orderProducts);
+    }
 }

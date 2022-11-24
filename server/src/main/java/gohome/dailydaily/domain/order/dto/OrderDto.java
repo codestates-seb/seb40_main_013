@@ -21,7 +21,7 @@ public class OrderDto {
     @Builder
     public static class Response {
         private Long orderId;
-        private OrderStatus status;
+        private String status;
         private List<OrderProductDto.Response> orderProducts;
     }
 }
