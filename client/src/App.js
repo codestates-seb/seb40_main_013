@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components/macro";
 import ScrollToTop from "./components/ScrollToTop";
 const MainContainter = styled.div`
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
 `;
