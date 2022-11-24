@@ -7,6 +7,9 @@ import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberRole;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
 import gohome.dailydaily.domain.member.entity.Seller;
+import gohome.dailydaily.domain.order.entity.Order;
+import gohome.dailydaily.domain.order.entity.OrderProduct;
+import gohome.dailydaily.domain.order.entity.OrderStatus;
 import gohome.dailydaily.domain.product.controller.dto.GetProductListByDto;
 import gohome.dailydaily.domain.product.entity.Category;
 import gohome.dailydaily.domain.product.entity.Option;
@@ -33,7 +36,8 @@ import java.time.LocalDateTime;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 
 public class TestConstant {
@@ -142,6 +146,34 @@ public class TestConstant {
             .product(PRODUCT2)
             .member(MEMBER)
             .img(FILE)
+            .build();
+
+    public static final Order ORDER = Order.builder()
+            .id(1L)
+            .status(OrderStatus.ORDER_RECEPTION)
+            .member(MEMBER)
+            .build();
+
+    public static final Order ORDER1 = Order.builder()
+            .id(2L)
+            .status(OrderStatus.ORDER_RECEPTION)
+            .member(MEMBER)
+            .build();
+
+    public static final OrderProduct ORDER_PRODUCT1 = OrderProduct.builder()
+            .id(1L)
+            .product(PRODUCT1)
+            .option(OPTION)
+            .count(2)
+            .order(ORDER)
+            .build();
+
+    public static final OrderProduct ORDER_PRODUCT2 = OrderProduct.builder()
+            .id(2L)
+            .product(PRODUCT2)
+            .option(OPTION)
+            .count(2)
+            .order(ORDER)
             .build();
 
     public static final OperationRequestPreprocessor REQUEST_PREPROCESSOR =
@@ -268,13 +300,13 @@ public class TestConstant {
     public static final FieldDescriptor FWP_PRODUCT_CART_TITLE = fieldWithPath("productCarts[].title").type(STRING).description("상품명");
     public static final FieldDescriptor FWP_PRODUCT_CART_COUNT = fieldWithPath("productCarts[].count").type(NUMBER).description("상품 수량");
     public static final FieldDescriptor FWP_PRODUCT_CART_PRICE = fieldWithPath("productCarts[].price").type(NUMBER).description("상품 가격");
+    public static final FieldDescriptor FWP_PRODUCT_CART_COLOR = fieldWithPath("productCarts[].color").type(STRING).description("상품 옵션");
     public static final FieldDescriptor FWP_COUNT = fieldWithPath("count").type(NUMBER).description("상품 수량");
     public static final FieldDescriptor FWP_REVIEW_PRODUCT_TITLE = fieldWithPath("productTitle").type(STRING).description("상품 이름");
     public static final FieldDescriptor FWP_PRODUCT_TITLE = fieldWithPath("title").type(STRING).description("상품 이름");
 
     public static final FieldDescriptor FWP_PRODUCT_CONTENT = fieldWithPath("content").type(STRING).description("상품 내용");
     public static final FieldDescriptor FWP_PRODUCT_CONTENTS = fieldWithPath("content").type(ARRAY).description("상품 내용");
-
     public static final FieldDescriptor FWP_PRODUCT_PRICE = fieldWithPath("price").type(NUMBER).description("상품 가격");
     public static final FieldDescriptor FWP_PRODUCT_IMG_NAME = fieldWithPath("img.fileName").type(STRING).description("상품 썸네일 이름");
     public static final FieldDescriptor FWP_PRODUCT_IMG_PATH = fieldWithPath("img.fullPath").type(STRING).description("상품 썸네일 경로");
@@ -333,7 +365,33 @@ public class TestConstant {
     public static final FieldDescriptor FWP_CATEGORY_PRODUCT_SCORE = fieldWithPath("categoryMain.[].score").type(NUMBER).description("상품 별점");
     public static final FieldDescriptor FWP_CATEGORY_PRODUCTS_SELLER_NICKNAME = fieldWithPath("categoryMain.[].nickname").type(STRING).description("상품 브랜드 이름");
     public static final FieldDescriptor FWP_CATEGORY_PRODUCTS_CATEGORY_MAIN = fieldWithPath("categoryMain.[].main").type(STRING).description("상품 대분류 카테고리");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_ID = fieldWithPath("orderProducts[].productId").type(NUMBER).description("주문 상품 식별자");
+    public static final FieldDescriptor FWP_ORDER_OPTION_ID = fieldWithPath("orderProducts[].optionId").type(NUMBER).description("주문 상품 옵션 식별자");
+    public static final FieldDescriptor FWP_ORDER_COUNT = fieldWithPath("orderProducts[].count").type(NUMBER).description("주문 상품 수량");
+    public static final FieldDescriptor FWP_ORDER_ID = fieldWithPath("orderId").type(NUMBER).description("주문 식별자");
+    public static final FieldDescriptor FWP_ORDER_STATUS = fieldWithPath("status").type(STRING).description("주문 상태");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_BRAND_NAME = fieldWithPath("orderProducts[].brandName").type(STRING).description("주문 상태");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_TITLE = fieldWithPath("orderProducts[].title").type(STRING).description("주문 상품명");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_IMG_NAME = fieldWithPath("orderProducts[].img.fileName").type(STRING).description("주문 상품 썸네일 이름");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_IMG_PATH = fieldWithPath("orderProducts[].img.fullPath").type(STRING).description("주문 상품 썸네일 경로");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_PRICE = fieldWithPath("orderProducts[].price").type(NUMBER).description("주문 상품 가격");
+    public static final FieldDescriptor FWP_ORDER_PRODUCT_COLOR = fieldWithPath("orderProducts[].color").type(STRING).description("주문 상품 옵션");
 
+    public static final FieldDescriptor FWP_CONTENT_ORDER_ID = fieldWithPath("content[].orderId").type(NUMBER).description("주문 식별자");
+    public static final FieldDescriptor FWP_CONTENT_ORDER_STATUS = fieldWithPath("content[].status").type(STRING).description("주문 상태");
+    public static final FieldDescriptor FWP_CONTENT_ORDER_PRODUCT_BRAND_NAME = fieldWithPath("content[].orderProducts[].brandName").type(STRING).description("주문 상태");
+    public static final FieldDescriptor FWP_CONTENT_ORDER_PRODUCT_TITLE = fieldWithPath("content[].orderProducts[].title").type(STRING).description("주문 상품명");
+    public static final FieldDescriptor FWP_CONTENT_ORDER_PRODUCT_IMG_NAME = fieldWithPath("content[].orderProducts[].img.fileName").type(STRING).description("주문 상품 썸네일 이름");
+    public static final FieldDescriptor FWP_CONTENT_ORDER_PRODUCT_IMG_PATH = fieldWithPath("content[].orderProducts[].img.fullPath").type(STRING).description("주문 상품 썸네일 경로");
+    public static final FieldDescriptor FWP_CONTENT_ORDER_PRODUCT_PRICE = fieldWithPath("content[].orderProducts[].price").type(NUMBER).description("주문 상품 가격");
+    public static final FieldDescriptor FWP_CONTENT_ORDER_PRODUCT_COLOR = fieldWithPath("content[].orderProducts[].color").type(STRING).description("주문 상품 옵션");
+    public static final FieldDescriptor FWP_CONTENT_ORDER_COUNT = fieldWithPath("content[].orderProducts[].count").type(NUMBER).description("주문 상품 수량");
+    public static final FieldDescriptor FWP_CONTENT_ORDER_PRODUCT_ID = fieldWithPath("content[].orderProducts[].productId").type(NUMBER).description("주문 상품 식별자");
+
+    public static final ResponseFieldsSnippet ORDER_RESPONSE_FIELDS = responseFields(
+            FWP_ORDER_ID, FWP_ORDER_PRODUCT_ID, FWP_ORDER_STATUS, FWP_ORDER_PRODUCT_BRAND_NAME, FWP_ORDER_PRODUCT_TITLE,
+            FWP_ORDER_PRODUCT_IMG_NAME, FWP_ORDER_PRODUCT_IMG_PATH, FWP_ORDER_COUNT, FWP_ORDER_PRODUCT_PRICE, FWP_ORDER_PRODUCT_COLOR
+    );
     public static final FieldDescriptor FWP_STATUS = fieldWithPath("status").type(NUMBER).description("상태 코드");
     public static final FieldDescriptor FWP_MESSAGE = fieldWithPath("message").type(STRING).description("메시지");
     public static final FieldDescriptor FWP_KEEP_STATE = fieldWithPath("keepState").type(BOOLEAN).description("상태 유지 여부");
@@ -342,6 +400,12 @@ public class TestConstant {
             FWP_CONTENT, FWP_CONTENT_REVIEW_ID, FWP_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_TITLE, FWP_CONTENT_REVIEW_NICKNAME,
             FWP_CONTENT_REVIEW_CONTENT, FWP_CONTENT_REVIEW_SCORE,
             FWP_CONTENT_REVIEW_IMG_NAME, FWP_CONTENT_REVIEW_IMG_PATH, FWP_CONTENT_REVIEW_CREATED_AT, FWP_CONTENT_REVIEW_MODIFIED_AT,
+            FWP_PAGE_INFO, FWP_PAGE_INFO_PAGE, FWP_PAGE_INFO_SIZE,
+            FWP_PAGE_INFO_TOTAL_ELEMENTS, FWP_PAGE_INFO_TOTAL_PAGES
+    );
+    public static final ResponseFieldsSnippet PAGE_ORDER_RESPONSE_FIELDS = responseFields(
+            FWP_CONTENT_ORDER_ID, FWP_CONTENT_ORDER_STATUS, FWP_CONTENT_ORDER_PRODUCT_ID, FWP_CONTENT_ORDER_PRODUCT_BRAND_NAME, FWP_CONTENT_ORDER_PRODUCT_TITLE,
+            FWP_CONTENT_ORDER_PRODUCT_IMG_NAME, FWP_CONTENT_ORDER_PRODUCT_IMG_PATH, FWP_CONTENT_ORDER_COUNT, FWP_CONTENT_ORDER_PRODUCT_PRICE, FWP_CONTENT_ORDER_PRODUCT_COLOR,
             FWP_PAGE_INFO, FWP_PAGE_INFO_PAGE, FWP_PAGE_INFO_SIZE,
             FWP_PAGE_INFO_TOTAL_ELEMENTS, FWP_PAGE_INFO_TOTAL_PAGES
     );
@@ -361,7 +425,7 @@ public class TestConstant {
     );
     public static final ResponseFieldsSnippet CART_RESPONSE_FIELDS = responseFields(
             FWP_CART_ID, FWP_PRODUCT_CARTS_ID, FWP_PRODUCT_CART_PRODUCT_ID, FWP_PRODUCT_CART_BRAND_NAME, FWP_PRODUCT_CART_IMG_NAME,
-            FWP_PRODUCT_CART_IMG_PATH, FWP_PRODUCT_CART_TITLE, FWP_PRODUCT_CART_COUNT, FWP_PRODUCT_CART_PRICE
+            FWP_PRODUCT_CART_IMG_PATH, FWP_PRODUCT_CART_TITLE, FWP_PRODUCT_CART_COUNT, FWP_PRODUCT_CART_PRICE, FWP_PRODUCT_CART_COLOR
     );
 
     public static final ResponseFieldsSnippet AUTH_RESPONSE_FIELDS = responseFields(
@@ -373,6 +437,8 @@ public class TestConstant {
         PRODUCT.addOptions(OPTION);
         PRODUCT.addReviews(REVIEW1);
         PRODUCT2.addOptions(OPTION);
+        ORDER.addOrderProduct(ORDER_PRODUCT1, ORDER_PRODUCT2);
+        ORDER1.addOrderProduct(ORDER_PRODUCT1, ORDER_PRODUCT2);
         CART.addProductCart(PRODUCT_CART);
         ReflectionTestUtils.setField(GET_PRODUCT_LIST_BY_CATEGORY_DTO, PagingRequestDto.class, "size", PAGEABLE.getPageSize(), int.class);
         ReflectionTestUtils.setField(GET_PRODUCT_LIST_BY_CATEGORY_DTO, PagingRequestDto.class, "page", PAGEABLE.getPageNumber(), int.class);
@@ -380,6 +446,7 @@ public class TestConstant {
         ReflectionTestUtils.setField(REVIEW2, BaseTime.class, "createdAt", LocalDateTime.now(), LocalDateTime.class);
         ReflectionTestUtils.setField(REVIEW1, BaseTime.class, "modifiedAt", LocalDateTime.now(), LocalDateTime.class);
         ReflectionTestUtils.setField(REVIEW2, BaseTime.class, "modifiedAt", LocalDateTime.now(), LocalDateTime.class);
+        ReflectionTestUtils.setField(ORDER, BaseTime.class, "createdAt", LocalDateTime.now(), LocalDateTime.class);
     }
 
 }
