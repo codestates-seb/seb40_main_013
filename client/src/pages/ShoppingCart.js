@@ -8,12 +8,11 @@ import {
 } from "../reduxstore/slices/articleSlice";
 
 const CartBlock = styled.div`
-    margin-top: 160px;
-    width: 100%;
-    padding: 30px 40px 50px 40px;
-    margin-top: 160px;
-    display: flex;
-  }
+  margin-top: 160px;
+  width: 100%;
+  padding: 30px 40px 50px 40px;
+  margin-top: 160px;
+  display: flex;
 `;
 
 const AllCheckBlock = styled.div`
@@ -39,11 +38,13 @@ const AllCheckBlock = styled.div`
 const CheckCircle = styled.input`
   width: 1em;
   height: 1em;
+  min-width: 1rem;
+  min-height: 1rem;
   border-radius: 50%;
   border: 1px solid #999;
   appearance: none;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
   &:checked {
     background: #ffaf51;
     border: none;
