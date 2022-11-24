@@ -49,6 +49,6 @@ public class OrderController {
 
         Page<Order> orders = orderService.findByMember_Id(memberId, pageable);
 
-        return new ResponseEntity<>(PageResponseDto.of(orders), HttpStatus.OK);
+        return new ResponseEntity<>(PageResponseDto.of(orders.map(mapper::toResponse)), HttpStatus.OK);
     }
 }

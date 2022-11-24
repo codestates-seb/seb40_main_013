@@ -18,6 +18,8 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,6 +33,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -108,5 +111,33 @@ class OrderControllerTest implements Reflection {
                         ),
                         ORDER_RESPONSE_FIELDS
                 ));
+    }
+
+    @Test
+    void getOrders() throws Exception {
+        // given
+        Page<Order> orders = new PageImpl<>(List.of(ORDER, ORDER1), PAGEABLE, 2);
+
+        given(orderService.findByMember_Id(MEMBER.getId(), PAGEABLE))
+                .willReturn(orders);
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                get("/orders")
+                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
+                        .param("size", String.valueOf(PAGEABLE.getPageSize()))
+                        .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
+                        .header("Authorization", "JWT")
+        );
+
+        // then
+        actions.andExpect(status().isOk())
+                .andDo(document("orders/get",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
+                        PAGE_ORDER_RESPONSE_FIELDS
+                ));
+
     }
 }
