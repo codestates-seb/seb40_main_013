@@ -58,6 +58,7 @@ const Title = styled.h2`
   text-overflow: ellipsis; 
   /* height: 3vh; //수정필요... */
   word-break:break-all;
+  height: 30px;
   @media screen and (max-width: 390px){
     font-size: 1.6vw;
     font-weight: 400;
