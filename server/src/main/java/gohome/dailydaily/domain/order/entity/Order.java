@@ -5,6 +5,8 @@ import gohome.dailydaily.global.common.BaseTime;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -26,4 +28,22 @@ public class Order extends BaseTime {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
+    private final List<OrderProduct> orderProducts = new ArrayList<>();
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public void addOrderProduct(OrderProduct... orderProducts) {
+        this.orderProducts.addAll(List.of(orderProducts));
+    }
+
+    public void addOrderProduct(List<OrderProduct> orderProducts) {
+        this.orderProducts.addAll(orderProducts);
+    }
+
+    public void updateOrderStatus(OrderStatus orderStatus) {
+        this.status = orderStatus;
+    }
 }
