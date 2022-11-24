@@ -4,7 +4,6 @@ import Apis from "../../apis/apis";
 export const getSubCategory = createAsyncThunk( 
   "getSubCategory",
   async ({click,page}) => {
-      console.log(1231)
     return Apis.get(
         `products?main=${click}&page=${page}`
       )

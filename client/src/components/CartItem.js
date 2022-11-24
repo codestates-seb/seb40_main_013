@@ -5,6 +5,7 @@ import { useState } from "react";
 import { deleteShoppingCart } from "../reduxstore/slices/articleSlice";
 import { useDispatch } from "react-redux";
 import { reCountCartItem } from "../reduxstore/slices/articleSlice";
+import { Link } from "react-router-dom";
 
 const CartItemBlock = styled.div`
     width: 100%;
@@ -55,6 +56,7 @@ const ProductInfo = styled.div`
     .product-name{
         font-weight: 600;
         margin-bottom: 5px;
+        max-width: 19em;
     }
     .time{
         font-size: 13px;
@@ -67,6 +69,10 @@ const Input = styled.input`
     height: 20px;
     margin: 5px 0px;
     text-align: center;
+`;
+
+const DetailLink = styled(Link)`
+    display: flex;
 `;
 
 const DownCount = styled(IoIosArrowBack)`
@@ -104,6 +110,8 @@ const ItemDelete = styled(IoMdClose)`
 const EachCheckCircle = styled.input`
     width: 1rem;
     height: 1rem;
+    min-width: 1rem;
+    min-height: 1rem;
     border-radius: 50%;
     border: 1px solid #999;
     appearance: none;
@@ -115,11 +123,10 @@ const EachCheckCircle = styled.input`
         background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
     }
 `;
-useDispatch
 
 function CartItem({cartItem, changeEachCheck, checkList}) {
     const dispatch = useDispatch();
-    const { brandName, count, img, price, productCartId, productId, title } = cartItem
+    const { brandName, count, img, price, productCartId, productId, title, color } = cartItem
 
     const [itemCount, setItemCount] = useState(count);
 
@@ -156,13 +163,15 @@ function CartItem({cartItem, changeEachCheck, checkList}) {
                         onChange={e => changeEachCheck(e.target.checked, cartItem)}
                         checked={checkList.includes(cartItem) ? true : false}
                     />
-                    <img src={img.fullPath} alt='장바구니 물건'></img>
-                    <ProductInfo>
-                        <div className="brand">{brandName}</div>
-                        <div className="product-name">{title}</div>
-                        <div className="brand">옵션 : 빨강</div>
-                        <div className="time">2~3일 이내 도착 예정</div>
-                    </ProductInfo>
+                    <DetailLink to={`/detail/${productId}`}>
+                        <img src={img.fullPath} alt='장바구니 물건'></img>
+                        <ProductInfo>
+                            <div className="brand">{brandName}</div>
+                            <div className="product-name">{title}</div>
+                            <div className="brand">옵션 : {color}</div>
+                            <div className="time">2~3일 이내 도착 예정</div>
+                        </ProductInfo>
+                    </DetailLink>
                 </div>
                 <div className="part">
                     <div className="count-zone">
