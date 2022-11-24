@@ -26,7 +26,6 @@ export const postCart = createAsyncThunk(
     })
       .then((res) => {
         window.alert("해당 상품이 추가되었습니다!");
-        navigate("/cart");
         return res.data;
       })
       .catch((err) => {
@@ -35,84 +34,81 @@ export const postCart = createAsyncThunk(
   }
 );
 
-export const mainData = createAsyncThunk(
-  "mainData",
-  async () => {
-    return Apis.get(`products/score`)
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-);
-
-export const getShoppingCart = createAsyncThunk( //비동기처리를 도와주는애(자동으로 지원해줌)
-  "getShoppingCart",
-  async () => {
-    return Apis.get(`carts`,
-    {
-      headers: {
-        Authorization: `${jwtToken}`,
-        "Content-Type": "application/json"
-      },
-    })
+export const mainData = createAsyncThunk("mainData", async () => {
+  return Apis.get(`products/score`)
     .then((res) => {
-      console.log(`shopslice`, res.data);
       return res.data;
     })
     .catch((err) => {
       console.log(err);
     });
-  }
-);//action 객체, action실행함수 등등....
+});
 
-export const deleteShoppingCart = createAsyncThunk( 
+export const getShoppingCart = createAsyncThunk(
+  //비동기처리를 도와주는애(자동으로 지원해줌)
+  "getShoppingCart",
+  async () => {
+    return Apis.get(`carts`, {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log(`shopslice`, res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+); //action 객체, action실행함수 등등....
+
+export const deleteShoppingCart = createAsyncThunk(
   "getShoppingCart",
   async (elId) => {
-    return Apis.delete(`carts/${elId}`,
-    {
+    return Apis.delete(`carts/${elId}`, {
       headers: {
         Authorization: `${jwtToken}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
     })
-    .then((res) => {
-      console.log(`shopslice`, res.data);
-      window.location.reload();
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((res) => {
+        console.log(`shopslice`, res.data);
+        window.location.reload();
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 );
 
-export const reCountCartItem = createAsyncThunk( 
+export const reCountCartItem = createAsyncThunk(
   "getShoppingCart",
-  async ({productCartId, itemCount}) => {
-    return Apis.patch(`carts/${productCartId}`,
-    { 
-      productCartId: `${productCartId}`,
-      count : `${itemCount}`
-    },
-    { headers: {
-        Authorization: `${jwtToken}`
+  async ({ productCartId, itemCount }) => {
+    return Apis.patch(
+      `carts/${productCartId}`,
+      {
+        productCartId: `${productCartId}`,
+        count: `${itemCount}`,
+      },
+      {
+        headers: {
+          Authorization: `${jwtToken}`,
+        },
       }
-    })
-    .then((res) => {
-      console.log(`shopslice`, res.data);
-      window.location.reload();
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    )
+      .then((res) => {
+        console.log(`shopslice`, res.data);
+        window.location.reload();
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 );
-
-
 
 const articleSlice = createSlice({
   name: "article",
@@ -125,7 +121,8 @@ const articleSlice = createSlice({
     error: "",
   },
   reducers: {},
-  extraReducers: { //비동기처리를 해주는경우 여기서 사용해줘야함
+  extraReducers: {
+    //비동기처리를 해주는경우 여기서 사용해줘야함
     [getArticleDetail.fulfilled]: (state, action) => {
       state.detailArticle = action.payload;
       state.loading = true;

@@ -6,13 +6,13 @@ import { Link, useParams } from "react-router-dom";
 const Products = styled(Link)`
   width: 18vw;
   padding-top: 10px;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: box-shadow .3s;
-  &:hover{
-    box-shadow: 0 0 11px #AAAAAA; 
+  transition: box-shadow 0.3s;
+  &:hover {
+    box-shadow: 0 0 11px #aaaaaa;
   }
   @media screen and (max-width: 390px) {
     width: 150px;
@@ -55,11 +55,11 @@ const Title = styled.h2`
   font-size: 1.1rem;
   font-weight: 500;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
   /* height: 3vh; //수정필요... */
-  word-break:break-all;
+  word-break: break-all;
   height: 30px;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     font-size: 1.6vw;
     font-weight: 400;
   }
@@ -106,11 +106,8 @@ const StarAerage = styled.div`
   display: flex;
 `;
 const Product = ({ proId, product }) => {
-  const {id} = useParams();
-
-  const { img, nickname, score, title, price} = product;
-
-  return(
+  const { img, nickname, score, title, price } = product;
+  return (
     <Products to={`/detail/${proId}`}>
       <Img src={img?.fullPath}></Img>
       <Detail>
@@ -123,7 +120,7 @@ const Product = ({ proId, product }) => {
         </SubDetail>
         <Title>{title.length > 22 ? title.slice(0, 19) : title}</Title>
         <SubDetail>
-          <Price>{price?.toLocaleString('en-US')}</Price>
+          <Price>{price?.toLocaleString("en-US")}</Price>
         </SubDetail>
       </Detail>
     </Products>

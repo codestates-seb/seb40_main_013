@@ -67,7 +67,7 @@ function Signup() {
     } else {
       setPwdConfirm(false);
     }
-    if (writePwd === writePwdAgainCheck) {
+    if (writePwd !== writePwdAgainCheck) {
       setPwdAgainConfirm(true);
     } else {
       setPwdAgainConfirm(false);
@@ -109,7 +109,7 @@ function Signup() {
           <ErrorDisplay>이메일의 형식에 맞게 작성해주세요!</ErrorDisplay>
         ) : null}
         <UserWriteTitle isCheck={pwdConfirm}>비밀번호</UserWriteTitle>
-        <UserWriteInput onChange={writeChangePwd} />
+        <UserWriteInput type="password" onChange={writeChangePwd} />
         {pwdConfirm ? (
           <ErrorDisplay>
             문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자로 만들어주세요!
@@ -118,7 +118,7 @@ function Signup() {
         <UserWriteTitle isCheck={pwdAgainConfirm}>
           비밀번호 재확인
         </UserWriteTitle>
-        <UserWriteInput onChange={writeChangePwdAgainCheck} />
+        <UserWriteInput type="password" onChange={writeChangePwdAgainCheck} />
         {pwdAgainConfirm ? (
           <ErrorDisplay>
             위에 작성하신 비밀번호와 같은 비밀번호를 입력해주세요!
@@ -138,7 +138,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
-  margin-top: 180px;
+  margin-top: 160px;
   @media screen and (max-width: 768px) {
     width: 100%;
     height: 100vh;

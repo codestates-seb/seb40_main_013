@@ -33,7 +33,7 @@ function Review({ articlesDetail }) {
             </ReviewContentsMainSpace>
           </ReviewContentsLeftSpace>
           <ReviewContentsRightSpace>
-            <ReviewContentsUser>사용자</ReviewContentsUser>
+            <ReviewContentsUser>{data.nickname}</ReviewContentsUser>
             <ReviewContentsUser>
               {new Date(data.createdAt).getFullYear() +
                 "." +
@@ -129,7 +129,7 @@ const ReviewContentsNumber = styled.div`
 const ReviewContentsImg = styled.img`
   width: 80px;
   height: 90px;
-  margin-right: 20px;
+  margin: 0px 20px;
 `;
 
 const ReviewMainTitle = styled.div`
