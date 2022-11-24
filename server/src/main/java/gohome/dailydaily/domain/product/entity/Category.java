@@ -1,6 +1,6 @@
 package gohome.dailydaily.domain.product.entity;
 
-import gohome.dailydaily.global.common.BaseTime;
+
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,3 +1,6 @@
+spring:
+  profiles:
+    include: local
 logging:
   level:
     org:
@@ -13,8 +16,8 @@ cloud:
       auto: false
 
 iam:
-  access-key: ${S3_ACCESS_KEY}
-  secret-key: ${S3_SECRET_KEY}
+  access-key: test123124123121231241231314123
+  secret-key: test123124123121231241231314123
 
 jwt:
   secret-key: ${JWT_SECRET_KEY}

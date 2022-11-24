@@ -1,10 +1,6 @@
 package gohome.dailydaily.domain.product.controller;
 
-import gohome.dailydaily.domain.product.controller.dto.GetProductListByBrandDTO;
-import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryDTO;
 import gohome.dailydaily.domain.product.controller.dto.GetProductListByDto;
-import gohome.dailydaily.domain.product.controller.dto.GetProductListByTitleDto;
-import gohome.dailydaily.domain.product.dto.CategoryDto;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.entity.Product;
@@ -17,10 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Positive;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @Validated
@@ -56,14 +51,14 @@ public class ProductController {
     // 카테고리 대분류 또는 소분류별 리스트 조회
     // 역할을 제대로 구분하면 코드는 자연스럽게 클린 코드가 됨
     @GetMapping
-    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByCategory(GetProductListByCategoryDTO dto) {
+    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByCategory(GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByCategory(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     // 제목으로 상품 리스트 검색
     @GetMapping("/search")
-    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByTitle(GetProductListByTitleDto dto) {
+    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByTitle(GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByTitle(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -76,13 +71,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity postProduct(ProductDto.PostProduct product) {
+    public ResponseEntity postProduct(ProductDto.PostProduct product) throws IOException {
         String result = productService.postProduct(product);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
     @GetMapping("/brand/{sellerId}")
-    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByBrand(GetProductListByBrandDTO dto) {
+    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByBrand(GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByBrand(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

@@ -2,10 +2,8 @@ package gohome.dailydaily.domain.product.controller;
 
 import com.google.gson.Gson;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
-import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryDTO;
 import gohome.dailydaily.domain.product.controller.dto.GetProductListByDto;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
-import gohome.dailydaily.domain.product.dto.OptionDto;
 import gohome.dailydaily.domain.product.mapper.OptionMapper;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.service.ProductService;
@@ -92,7 +90,7 @@ public class ProductControllerTest {
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
                                 PRODUCT2.getPrice(), PRODUCT2.getScore(), PRODUCT.getSeller().getMember().getNickname(),
                                 PRODUCT.getCategory().getMain())),PAGEABLE, true));
-        given(productService.getProductListByCategory(any(GetProductListByCategoryDTO.class)))
+        given(productService.getProductListByCategory(any(GetProductListByDto.class)))
                 .willReturn(products);
 
         ResultActions actions = mockMvc.perform(

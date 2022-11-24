@@ -1,13 +1,9 @@
 package gohome.dailydaily.domain.product.dto;
 
-import com.google.gson.Gson;
+
 import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.dto.MemberDto;
-import gohome.dailydaily.domain.member.entity.Seller;
-import gohome.dailydaily.domain.product.entity.Option;
-import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.review.dto.ReviewDto;
-import gohome.dailydaily.domain.review.entity.Review;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +11,6 @@ import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProductDto {
 

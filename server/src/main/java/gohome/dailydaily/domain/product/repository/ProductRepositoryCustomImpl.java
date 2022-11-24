@@ -3,11 +3,8 @@ package gohome.dailydaily.domain.product.repository;
 import com.querydsl.core.BooleanBuilder;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.dto.QCategoryGetDto;
-import gohome.dailydaily.domain.product.dto.QOptionDto_Response;
 import gohome.dailydaily.domain.product.entity.Product;
-import gohome.dailydaily.domain.product.repository.param.BrandGetParam;
-import gohome.dailydaily.domain.product.repository.param.CategoryGetParam;
-import gohome.dailydaily.domain.product.repository.param.TitleGetParam;
+import gohome.dailydaily.domain.product.repository.param.ProductGetParam;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import gohome.dailydaily.global.util.Querydsl4RepositorySupport;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static gohome.dailydaily.domain.member.entity.QMember.member;
-import static gohome.dailydaily.domain.member.entity.QSeller.seller;
 import static gohome.dailydaily.domain.product.entity.QCategory.category;
-import static gohome.dailydaily.domain.product.entity.QOption.option;
 import static gohome.dailydaily.domain.product.entity.QProduct.product;
 import static org.springframework.util.StringUtils.hasText;
 
@@ -73,7 +68,7 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
     }
 
     @Override
-    public SliceResponseDto<CategoryGetDto> findAllByTitle(Pageable pageable, TitleGetParam param) {
+    public SliceResponseDto<CategoryGetDto> findAllByTitle(Pageable pageable, ProductGetParam param) {
         BooleanBuilder whereCondition = getWhereCondition(param);
 
         Slice<CategoryGetDto> content = applySlicing(pageable, query ->
@@ -88,7 +83,7 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
     }
 
     @Override
-    public SliceResponseDto<CategoryGetDto> findAllByBrand(Pageable pageable, BrandGetParam param) {
+    public SliceResponseDto<CategoryGetDto> findAllByBrand(Pageable pageable, ProductGetParam param) {
         BooleanBuilder whereCondition = getWhereCondition(param);
 
         Slice<CategoryGetDto> content = applySlicing(pageable, query ->
@@ -102,7 +97,7 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
     }
 
     @Override
-    public SliceResponseDto<CategoryGetDto> findAllByCategory(Pageable pageable, CategoryGetParam param) {
+    public SliceResponseDto<CategoryGetDto> findAllByCategory(Pageable pageable, ProductGetParam param) {
 
         BooleanBuilder whereCondition = getWhereCondition(param);
 
@@ -128,63 +123,20 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
         );
     }
 
-//    private QOptionDto_Response getOptionDtoResponse() {
-//        return new QOptionDto_Response(
-//                option.id,
-//                option.color,
-//                option.stock);
-//    }
-
     // 조건문 -> 동적 할당
-//        private BooleanBuilder getWhereCondition(ProductGetParam param) {
-//        BooleanBuilder whereCondition = new BooleanBuilder();
-//
-//        if (hasText(param.getMainCategory())) {
-//            whereCondition.and(category.main.eq(param.getMainCategory()));
-//        }
-//
-//        if (hasText(param.getSubCategory())) {
-//            whereCondition.and(category.sub.eq(param.getSubCategory()));
-//        }
-//
-//        if (hasText(param.getTitle())) {
-//            whereCondition.and(product.title.contains(param.getTitle()));
-//        }
-//
-//        if (param.getSellerId() > 0) {
-//            whereCondition.and(product.seller.id.eq(param.getSellerId()));
-//        }
-//        return whereCondition;
-//    }
-
-    private BooleanBuilder getWhereCondition(CategoryGetParam param) {
+    private BooleanBuilder getWhereCondition(ProductGetParam param) {
         BooleanBuilder whereCondition = new BooleanBuilder();
 
         if (hasText(param.getMainCategory())) {
             whereCondition.and(category.main.eq(param.getMainCategory()));
         }
-
         if (hasText(param.getSubCategory())) {
             whereCondition.and(category.sub.eq(param.getSubCategory()));
         }
-
-        return whereCondition;
-    }
-
-    private BooleanBuilder getWhereCondition(TitleGetParam param) {
-        BooleanBuilder whereCondition = new BooleanBuilder();
-
         if (hasText(param.getTitle())) {
             whereCondition.and(product.title.contains(param.getTitle()));
         }
-
-        return whereCondition;
-    }
-
-    private BooleanBuilder getWhereCondition(BrandGetParam param) {
-        BooleanBuilder whereCondition = new BooleanBuilder();
-
-        if (param.getSellerId() > 0) {
+        if (param.getSellerId() != null) {
             whereCondition.and(product.seller.id.eq(param.getSellerId()));
         }
 
