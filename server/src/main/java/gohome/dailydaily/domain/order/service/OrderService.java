@@ -26,7 +26,7 @@ public class OrderService {
     public Order createOrder(Order order) {
         verifyOrder(order);
         order.updateOrderStatus(OrderStatus.ORDER_RECEPTION);
-        // 상품 옵션 재고 감소
+        // 상품 옵션 재고 감소 + 상품 판매수 증가
 
         return orderRepository.save(order);
     }

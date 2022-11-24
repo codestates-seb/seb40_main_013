@@ -67,7 +67,7 @@ public class Product extends BaseTime {
         this.reviews.addAll(List.of(reviews));
     }
 
-    public void addOrderProduct(OrderProduct orderProduct) {
-        this.orderProducts.add(orderProduct);
+    public void addOrderProducts(OrderProduct... orderProducts) {
+        this.orderProducts.addAll(List.of(orderProducts));
     }
 }
