@@ -19,6 +19,7 @@ public class OrderProductDto {
     @Getter
     public static class Patch {
     }
+
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Builder

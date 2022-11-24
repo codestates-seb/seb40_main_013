@@ -22,7 +22,7 @@ public class Order extends BaseTime {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status = OrderStatus.ORDER_PROCESSING;
+    private OrderStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -41,5 +41,9 @@ public class Order extends BaseTime {
 
     public void addOrderProduct(List<OrderProduct> orderProducts) {
         this.orderProducts.addAll(orderProducts);
+    }
+
+    public void updateOrderStatus(OrderStatus orderStatus) {
+        this.status = orderStatus;
     }
 }

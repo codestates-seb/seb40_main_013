@@ -7,6 +7,25 @@
 
 ***
 == 인증
+=== 로그인
+.http-request
+include::{snippets}/auth/login/http-request.adoc[]
+
+.request-fields
+[caption=]
+include::{snippets}/auth/login/request-fields.adoc[]
+
+.http-response
+include::{snippets}/auth/login/http-response.adoc[]
+
+.response-headers
+[caption=]
+include::{snippets}/auth/login/response-headers.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/auth/login/response-fields.adoc[]
+
 === 토큰 갱신
 .http-request
 include::{snippets}/auth/refresh/http-request.adoc[]

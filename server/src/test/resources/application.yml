@@ -23,6 +23,7 @@ logging:
       springframework:
         orm:
           jpa: DEBUG # 로그 단계 설정
+
 cloud:
   aws:
     region: # AWS Region 구성
@@ -41,4 +42,6 @@ jwt:
   keep-state-refresh-token-expiration-minutes: 1440
 
 
+
 env: local
+

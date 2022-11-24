@@ -35,6 +35,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
 
+        if (loginDto.isKeepState()) {
+            request.setAttribute("keepState", true);
+        }
+
         return authenticationManager.authenticate(authenticationToken);
     }
 
@@ -44,7 +48,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         Member member = (Member) authResult.getPrincipal();
 
         String accessToken = jwtTokenizer.getAccessToken(member);
-        String refreshToken = jwtTokenizer.getRefreshToken(member.getId());
+
+        Boolean keepState = (Boolean) request.getAttribute("keepState");
+
+        String refreshToken;
+        if (keepState == null) {
+            refreshToken = jwtTokenizer.getRefreshToken(member.getId());
+        } else {
+            refreshToken = jwtTokenizer.getKeepStateRefreshToken(member.getId());
+        }
 
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);

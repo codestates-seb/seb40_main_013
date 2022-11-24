@@ -2,6 +2,7 @@ package gohome.dailydaily.domain.order.service;
 
 import gohome.dailydaily.domain.member.service.MemberService;
 import gohome.dailydaily.domain.order.entity.Order;
+import gohome.dailydaily.domain.order.entity.OrderStatus;
 import gohome.dailydaily.domain.order.repository.OrderRepository;
 import gohome.dailydaily.domain.product.service.ProductService;
 import gohome.dailydaily.global.error.BusinessLogicException;
@@ -24,10 +25,12 @@ public class OrderService {
 
     public Order createOrder(Order order) {
         verifyOrder(order);
+        order.updateOrderStatus(OrderStatus.ORDER_RECEPTION);
         // 상품 옵션 재고 감소
 
         return orderRepository.save(order);
     }
+
     private Order findVerifiedOrder(Long orderId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
 
@@ -45,6 +48,7 @@ public class OrderService {
                 });
 
     }
+
     @Transactional(readOnly = true)
     public Page<Order> findByMember_Id(Long memberId, Pageable pageable) {
 

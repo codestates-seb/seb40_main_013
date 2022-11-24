@@ -1,6 +1,5 @@
 package gohome.dailydaily.domain.order.dto;
 
-import gohome.dailydaily.domain.order.entity.OrderStatus;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
