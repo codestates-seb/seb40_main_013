@@ -13,12 +13,14 @@ const Container = styled.div`
   display: flex;
   /* height: 100%; */
   margin-top: 180px;
-  width: 80%;
+  width: 100%;
   @media screen and (max-width: 390px) {
     flex-direction: column;
   }
   @media (min-width: 391px) and (max-width: 768px) {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
@@ -29,7 +31,7 @@ const Left = styled.div`
   align-items: center;
   flex-direction: column;
   width: 20%;
-  padding: 20px;
+  padding: 20px 0;
   border-right: 1px solid var(--color-center-line);
   @media screen and (max-width: 390px) {
     justify-content: center;
@@ -46,6 +48,8 @@ const Left = styled.div`
 `;
 const Reaction = styled.div`
   display: flex;
+  width: 100%;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   @media screen and (max-width: 390px) {
@@ -61,7 +65,7 @@ const ProfileImg = styled.img`
   height: 100px;
   border-radius: 50%;
   margin-bottom: 20px;
-  margin-right: 20px;
+  padding: 10px;
   @media screen and (max-width: 390px) {
     width: 60px;
     height: 60px;
@@ -84,6 +88,7 @@ const Nav = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   @media screen and (max-width: 390px) {
     border-top: none;
     flex-direction: row;
@@ -117,6 +122,9 @@ const NavDetail = styled.nav`
     color: #ffaf51;
   }
   &.clicked::after {
+    color: #ffaf51;
+  }
+  &:active{
     color: #ffaf51;
   }
   @media screen and (max-width: 390px) {
@@ -168,7 +176,7 @@ const NavDetail = styled.nav`
 const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
-  const id = getUserdata?.id;
+  console.log(getUserdata)
   const [clicked, setClicked] = useState("");
 
   //user 정보 받아오기
@@ -187,7 +195,7 @@ const Mypage = () => {
       <Left>
         <Reaction>
           <ProfileImg
-            src={`https://avatars.dicebear.com/api/bottts/${id}.svg?size=15`}
+            src={`https://source.boringavatars.com/beam/120/daily?colors=FFAF51,FFC007,AAAAAA,0C8F8F,002C6D`}
             alt="avator"
           ></ProfileImg>
           <Hello>안녕하세요,&nbsp;</Hello>
