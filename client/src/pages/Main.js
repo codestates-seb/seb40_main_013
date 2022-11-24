@@ -5,7 +5,7 @@ import React, {
   useCallback,
   useLayoutEffect,
 } from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   bestOfBest,
@@ -18,7 +18,6 @@ import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
 import Button from "../components/Button";
 import Products from "../components/mains/Product";
-import { Link } from "react-router-dom";
 import Apis from "../apis/apis";
 import NewProducts from "../components/mains/NewProducts";
 
@@ -48,6 +47,7 @@ const MainTitle = styled.h2`
   font-size: 2rem;
   margin: 10px 0 10px 0;
   color: var(--font-black);
+  scroll-margin-top: 170px;
 `;
 const ProductList = styled.div`
   /* width: 70%; */
@@ -71,17 +71,31 @@ const ProductList = styled.div`
 `;
 
 //브랜드 리스트
-const BrandTab = styled.div`
+const BrandTab = styled.table`
   margin-top: 10px;
   margin-bottom: 30px;
   border-radius: 5px;
   display: flex;
   width: 80%;
+  align-items: center;
+  justify-content: center;
+  @media (min-width: 391px) and (max-width: 767px) {
+    flex-direction: column;
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
-const TD = styled.div`
+const TH = styled.tr`
+  display: flex;
+`;
+const TD = styled.td`
+  display: flex;
+  justify-content: center;
   border: 1px solid #aaaaaa;
   padding: 20px 50px;
   font-size: 1rem;
+  width: 50px;
   white-space: nowrap;
   cursor: pointer;
   &:hover {
@@ -113,28 +127,20 @@ const Main = () => {
 
   // 신상품
   const newArivalData = useSelector((state) => state.maincategory.category);
-
+  console.log(newArivalData);
   //브랜드리스트
   const brandData = useSelector((state) => state?.main.main);
   const brandTab = Object.keys(brandData);
 
-  console.log(brandData);
-  console.log(brandTab);
   //자동스크롤 이벤트
-  const 포더홈Ref = useRef();
-  const deskerRef = useRef();
-  const forthehomeRef = useRef();
-  const hudoRef = useRef();
-  const sofsysRef = useRef();
-
-  const handleClick = (e) => {
-    `${e}Ref`.current?.scrollIntoView({ behavior: "smooth" });
+  const myRefs = useRef({});
+  const onMoveToElement = (key) => {
+    myRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  // Object?.entries(brandData)?.filter(key => key[0] !== 'guest')
+  //           ?.map(([key,value]) => console.log(key))
   //자동스크롤시 탭 헤더 밑으로 고정시키기
-  // useEffect(() => {
-  //   document.getElementById('app')?.scrollTo(0, -170); // 첫 렌더시 스크롤이 최상단 고정된다
-  //  }, []);
 
   // useEffect(() => {
   //   window.addEventListener('scroll', handleScroll, { capture: true }); // 스크롤 이벤트 등록
@@ -192,7 +198,7 @@ const Main = () => {
       {/* 카테고리별 신상품 */}
       <Title>
         <SubTitle>New Arrival</SubTitle>
-        <MainTitle>신상품</MainTitle>
+        <MainTitle>카테고리별 신상품</MainTitle>
       </Title>
       <NewProducts
         key={newArivalData.침실?.length}
@@ -204,20 +210,35 @@ const Main = () => {
         <MainTitle>브랜드별 추천상품</MainTitle>
       </Title>
       <BrandTab>
-        {brandTab
-          ?.filter((t) => t !== "guest")
-          ?.map((tab) => (
-            <TD key={tab} onClick={() => handleClick(tab)}>
-              {tab}
-            </TD>
-          ))}
+        <tbody>
+          <TH>
+            {brandTab
+              ?.filter((t, i) => t !== "guest" && i <= 3)
+              ?.map((tab) => (
+                <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                  {tab}
+                </TD>
+              ))}
+          </TH>
+          <TH>
+            {brandTab
+              ?.filter((t, i) => t !== "guest" && i > 3)
+              ?.map((tab) => (
+                <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                  {tab}
+                </TD>
+              ))}
+          </TH>
+        </tbody>
       </BrandTab>
       {Object?.entries(brandData)
         ?.filter((key) => key[0] !== "guest")
         ?.map(([key, value]) => (
           <BrandProduct key={key}>
             <BrandTitle>
-              <MainTitle>{key}</MainTitle>
+              <MainTitle ref={(element) => (myRefs.current[key] = element)}>
+                {key}
+              </MainTitle>
               <FullView name="fullView" className="fullView">
                 전체보기 &gt;&gt;
               </FullView>

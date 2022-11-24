@@ -8,12 +8,10 @@ import {
 } from "../reduxstore/slices/articleSlice";
 
 const CartBlock = styled.div`
-  margin-top: 160px;
-  width: 100%;
-  padding: 30px 40px 50px 40px;
-  margin-top: 180px;
-  display: flex;
-  div {
+    margin-top: 160px;
+    width: 100%;
+    padding: 30px 40px 50px 40px;
+    margin-top: 160px;
     display: flex;
   }
 `;

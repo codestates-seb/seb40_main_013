@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import GlobalStyles from "./GlobalStyles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components/macro";
-
+import ScrollToTop from "./components/ScrollToTop";
 const MainContainter = styled.div`
   height: 100vh;
   display: flex;
@@ -28,6 +28,7 @@ function App() {
   return (
     <BrowserRouter>
       <Suspense fallback={<div>Loading....!</div>}>
+        <ScrollToTop />
         <GlobalStyles />
         <div className="App">
           <MainContainter>
