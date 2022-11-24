@@ -7,7 +7,7 @@ import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberRole;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
 import gohome.dailydaily.domain.member.entity.Seller;
-import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryDTO;
+import gohome.dailydaily.domain.product.controller.dto.GetProductListByDto;
 import gohome.dailydaily.domain.product.entity.Category;
 import gohome.dailydaily.domain.product.entity.Option;
 import gohome.dailydaily.domain.product.entity.Product;
@@ -23,9 +23,7 @@ import org.springframework.restdocs.headers.ResponseHeadersSnippet;
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;
 import org.springframework.restdocs.payload.FieldDescriptor;
-import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
-import org.springframework.restdocs.request.ParameterDescriptor;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import org.springframework.restdocs.request.RequestParametersSnippet;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -86,8 +84,6 @@ public class TestConstant {
 
     public static final Option OPTION = Option.builder()
             .id(1L)
-            .size("s")
-            .price(0)
             .color("white")
             .stock(1000L)
             .product(PRODUCT)
@@ -284,8 +280,8 @@ public class TestConstant {
     public static final FieldDescriptor FWP_PRODUCT_IMG_PATH = fieldWithPath("img.fullPath").type(STRING).description("상품 썸네일 경로");
     public static final FieldDescriptor FWP_PRODUCT_SCORE = fieldWithPath("score").type(NUMBER).description("상품 별점");
     public static final FieldDescriptor FWP_PRODUCT_CATEGORY_MAIN = fieldWithPath("main").type(STRING).description("대분류 카테고리");
-    public static final GetProductListByCategoryDTO GET_PRODUCT_LIST_BY_CATEGORY_DTO = new GetProductListByCategoryDTO(
-            CATEGORY.getMain(), CATEGORY.getSub()
+    public static final GetProductListByDto GET_PRODUCT_LIST_BY_CATEGORY_DTO = new GetProductListByDto(
+            CATEGORY.getMain(), CATEGORY.getSub(), SELLER.getId(), PRODUCT.getTitle()
     );
     public static final FieldDescriptor FWP_SELLER_SELLER_ID = fieldWithPath("seller.sellerId").type(NUMBER).description("판매자 식별자");
     public static final FieldDescriptor FWP_SELLER_MEMBER_ID = fieldWithPath("seller.memberId").type(NUMBER).description("멤버 식별자");
@@ -299,8 +295,6 @@ public class TestConstant {
     public static final FieldDescriptor FWP_SELLER_IMG_PATH = fieldWithPath("seller.img.fullPath").type(STRING).description("멤버 썸네일 경로");
     public static final FieldDescriptor FWP_OPTIONS_OPTION_ID = fieldWithPath("options[].optionId").type(NUMBER).description("옵션 식별자");
     public static final FieldDescriptor FWP_OPTION_COLOR = fieldWithPath("options[].color").type(STRING).description("색상");
-    public static final FieldDescriptor FWP_OPTION_SIZE = fieldWithPath("options[].size").type(STRING).description("크기");
-    public static final FieldDescriptor FWP_OPTION_PRICE = fieldWithPath("options[].price").type(NUMBER).description("추가 가격");
     public static final FieldDescriptor FWP_OPTION_STOCK = fieldWithPath("options[].stock").type(NUMBER).description("재고");
 
     public static final FieldDescriptor FWP_REVIEWS_REVIEW_ID = fieldWithPath("reviews[].reviewId").type(NUMBER).description("리뷰 식별자");
@@ -322,14 +316,23 @@ public class TestConstant {
     public static final FieldDescriptor FWP_SCORE_PRODUCT_SCORE = fieldWithPath("[].score").type(NUMBER).description("상품 별점");
     public static final FieldDescriptor FWP_PRODUCTS_SELLER_NICKNAME = fieldWithPath("[].nickname").type(STRING).description("상품 브랜드 이름");
     public static final FieldDescriptor FWP_PRODUCTS_CATEGORY_MAIN = fieldWithPath("[].main").type(STRING).description("상품 대분류 카테고리");
-    public static final FieldDescriptor FWP_BRAND_PRODUCT_ID = fieldWithPath("[].[].id").type(NUMBER).description("상품 식별자");
-    public static final FieldDescriptor FWP_BRAND_PRODUCT_IMG_PATH = fieldWithPath("[].[].img.fileName").type(STRING).description("상품 썸네일 이름");
-    public static final FieldDescriptor FWP_BRAND_PRODUCT_IMG_NAME = fieldWithPath("[].[].img.fullPath").type(STRING).description("상품 썸네일 경로");
-    public static final FieldDescriptor FWP_BRAND_PRODUCT_TITLE = fieldWithPath("[].[].title").type(STRING).description("상품 제목");
-    public static final FieldDescriptor FWP_BRAND_PRODUCT_PRICE = fieldWithPath("[].[].price").type(NUMBER).description("상품 가격");
-    public static final FieldDescriptor FWP_BRAND_PRODUCT_SCORE = fieldWithPath("[].[].score").type(NUMBER).description("상품 별점");
-    public static final FieldDescriptor FWP_BRAND_PRODUCTS_SELLER_NICKNAME = fieldWithPath("[].[].nickname").type(STRING).description("상품 브랜드 이름");
-    public static final FieldDescriptor FWP_BRAND_PRODUCTS_CATEGORY_MAIN = fieldWithPath("[].[].main").type(STRING).description("상품 대분류 카테고리");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_ID = fieldWithPath("nickname.[].id").type(NUMBER).description("상품 식별자");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_IMG_PATH = fieldWithPath("nickname.[].img.fileName").type(STRING).description("상품 썸네일 이름");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_IMG_NAME = fieldWithPath("nickname.[].img.fullPath").type(STRING).description("상품 썸네일 경로");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_TITLE = fieldWithPath("nickname.[].title").type(STRING).description("상품 제목");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_PRICE = fieldWithPath("nickname.[].price").type(NUMBER).description("상품 가격");
+    public static final FieldDescriptor FWP_BRAND_PRODUCT_SCORE = fieldWithPath("nickname.[].score").type(NUMBER).description("상품 별점");
+    public static final FieldDescriptor FWP_BRAND_PRODUCTS_SELLER_NICKNAME = fieldWithPath("nickname.[].nickname").type(STRING).description("상품 브랜드 이름");
+    public static final FieldDescriptor FWP_BRAND_PRODUCTS_CATEGORY_MAIN = fieldWithPath("nickname.[].main").type(STRING).description("상품 대분류 카테고리");
+
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_ID = fieldWithPath("categoryMain.[].id").type(NUMBER).description("상품 식별자");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_IMG_PATH = fieldWithPath("categoryMain.[].img.fileName").type(STRING).description("상품 썸네일 이름");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_IMG_NAME = fieldWithPath("categoryMain.[].img.fullPath").type(STRING).description("상품 썸네일 경로");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_TITLE = fieldWithPath("categoryMain.[].title").type(STRING).description("상품 제목");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_PRICE = fieldWithPath("categoryMain.[].price").type(NUMBER).description("상품 가격");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_SCORE = fieldWithPath("categoryMain.[].score").type(NUMBER).description("상품 별점");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCTS_SELLER_NICKNAME = fieldWithPath("categoryMain.[].nickname").type(STRING).description("상품 브랜드 이름");
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCTS_CATEGORY_MAIN = fieldWithPath("categoryMain.[].main").type(STRING).description("상품 대분류 카테고리");
 
     public static final FieldDescriptor FWP_STATUS = fieldWithPath("status").type(NUMBER).description("상태 코드");
     public static final FieldDescriptor FWP_MESSAGE = fieldWithPath("message").type(STRING).description("메시지");
@@ -350,8 +353,7 @@ public class TestConstant {
             FWP_PRODUCT_ID, FWP_PRODUCT_TITLE, FWP_PRODUCT_CONTENTS, FWP_PRODUCT_PRICE, FWP_PRODUCT_IMG_PATH, FWP_PRODUCT_IMG_NAME, FWP_PRODUCT_SCORE, FWP_PRODUCT_CATEGORY_MAIN,
             FWP_SELLER_SELLER_ID, FWP_SELLER_MEMBER_ID, FWP_SELLER_NICKNAME, FWP_SELLER_BRAND_NUMBER, FWP_SELLER_EMAIL,
             FWP_SELLER_ADDRESS, FWP_SELLER_PHONE, FWP_SELLER_MEMBER_STATUS, FWP_SELLER_IMG_NAME, FWP_SELLER_IMG_PATH,
-            FWP_OPTIONS_OPTION_ID, FWP_OPTION_COLOR, FWP_OPTION_SIZE,
-            FWP_OPTION_PRICE, FWP_OPTION_STOCK, FWP_REVIEWS_REVIEW_ID, FWP_REVIEWS_PRODUCT_ID, FWP_REVIEWS_PRODUCT_TITLE, FWP_REVIEWS_NICKNAME,
+            FWP_OPTIONS_OPTION_ID, FWP_OPTION_COLOR, FWP_OPTION_STOCK, FWP_REVIEWS_REVIEW_ID, FWP_REVIEWS_PRODUCT_ID, FWP_REVIEWS_PRODUCT_TITLE, FWP_REVIEWS_NICKNAME,
             FWP_REVIEWS_CONTENT, FWP_REVIEWS_SCORE, FWP_REVIEWS_IMG_NAME, FWP_REVIEWS_IMG_PATH, FWP_REVIEWS_CREATED_AT, FWP_REVIEWS_MODIFIED_AT
     );
     public static final ResponseFieldsSnippet MEMBER_RESPONSE_FIELDS = responseFields(

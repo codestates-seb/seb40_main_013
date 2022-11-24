@@ -6,13 +6,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class GetProductListByCategoryDTO extends PagingRequestDto {
+public class GetProductListByDto extends PagingRequestDto {
 
     private String main;
     private String sub;
+    private Long sellerId;
+    private String title;
 
-    public GetProductListByCategoryDTO(String main, String sub) {
+    public GetProductListByDto(String main, String sub, Long sellerId, String title) {
         this.main = main;
         this.sub = sub;
+        this.sellerId = sellerId;
+        this.title = title;
     }
 }

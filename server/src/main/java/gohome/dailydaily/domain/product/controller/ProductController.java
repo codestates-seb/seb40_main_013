@@ -1,7 +1,6 @@
 package gohome.dailydaily.domain.product.controller;
 
-import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryDTO;
-import gohome.dailydaily.domain.product.controller.dto.GetProductListByTitleDto;
+import gohome.dailydaily.domain.product.controller.dto.GetProductListByDto;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.entity.Product;
@@ -14,9 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Positive;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @Validated
@@ -36,60 +35,50 @@ public class ProductController {
 
     // 5개씩
     @GetMapping("/brandListLike")
-    public ResponseEntity<List<List<CategoryGetDto>>> getBrandListLikeTop15() {
-        List<List<CategoryGetDto>> products = productService.getBrandListLikeTop15();
+    public ResponseEntity<HashMap<String, List<CategoryGetDto>>> getBrandListLikeTop15() {
+        HashMap<String, List<CategoryGetDto>> products = productService.getBrandListLikeTop15();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
 
     // 15개씩
     @GetMapping("/categoryCreated")
-    public ResponseEntity<List<List<CategoryGetDto>>> getCategoryCreatedTop5() {
-        List<List<CategoryGetDto>> products = productService.getCategoryCreatedTop5();
+    public ResponseEntity<HashMap<String, List<CategoryGetDto>>> getCategoryCreatedTop5() {
+        HashMap<String, List<CategoryGetDto>> products = productService.getCategoryCreatedTop5();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     // 카테고리 대분류 또는 소분류별 리스트 조회
     // 역할을 제대로 구분하면 코드는 자연스럽게 클린 코드가 됨
     @GetMapping
-    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByCategory(GetProductListByCategoryDTO dto) {
+    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByCategory(GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByCategory(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     // 제목으로 상품 리스트 검색
     @GetMapping("/search")
-    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByTitle(GetProductListByTitleDto dto) {
+    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByTitle(GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByTitle(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-
-    // 대분류
-//    @GetMapping("/{main}")
-//    public SliceResponseDto<CategoryGetDto> getCategoryMain(@PathVariable("main") String main,
-//                                                            @PageableDefault(size = 20, sort = "createdAt",
-//                                                                    direction = Sort.Direction.DESC) Pageable pageable) {
-//        Slice<CategoryGetDto> products = productService.getCategoryList(pageable, main);
-//        return SliceResponseDto.of(products.map(mapper::toResponse)); // 매퍼로 변경하고 하는 것들은 모두 서비스 로직에서 끝나야 함
-//        // controller 클래스와 service 클래스의 역할와 책임을 확실히 구분할 것 => OOP
-//    }
-//
-//    // 소분류
-//    @GetMapping("/{main}/{sub}")
-//    public SliceResponseDto<CategoryGetDto> getCategoryMainSub(@PathVariable("main") String main,
-//                                                               @PathVariable("sub") String sub,
-//                                                               @PageableDefault(size = 20, sort = "createdAt",
-//                                                                       direction = Sort.Direction.DESC) Pageable pageable) {
-//        Slice<CategoryGetDto> products = productService.getCategoryList(pageable, main, sub);
-//        return SliceResponseDto.of(products.map(mapper::toResponse));
-//    }
-
     @GetMapping("/details/{product-id}")
-    public ProductDto.Response getProduct(@PathVariable("product-id") Long productId) {
+    public ResponseEntity<ProductDto.Response> getProduct(@PathVariable("product-id") Long productId) {
         Product product = productService.getProduct(productId);
 
-        return mapper.toResponse(product);
+        return new ResponseEntity<>(mapper.toResponse(product), HttpStatus.OK);
     }
 
+    @PostMapping
+    public ResponseEntity postProduct(ProductDto.PostProduct product) throws IOException {
+        String result = productService.postProduct(product);
+        return new ResponseEntity(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/brand/{sellerId}")
+    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByBrand(GetProductListByDto dto) {
+        SliceResponseDto<CategoryGetDto> result = productService.getProductListByBrand(dto);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

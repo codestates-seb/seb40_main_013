@@ -2,9 +2,8 @@ package gohome.dailydaily.domain.product.controller;
 
 import com.google.gson.Gson;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
-import gohome.dailydaily.domain.product.controller.dto.GetProductListByCategoryDTO;
+import gohome.dailydaily.domain.product.controller.dto.GetProductListByDto;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
-import gohome.dailydaily.domain.product.dto.OptionDto;
 import gohome.dailydaily.domain.product.mapper.OptionMapper;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.service.ProductService;
@@ -26,10 +25,12 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static gohome.dailydaily.util.TestConstant.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -89,7 +90,7 @@ public class ProductControllerTest {
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
                                 PRODUCT2.getPrice(), PRODUCT2.getScore(), PRODUCT.getSeller().getMember().getNickname(),
                                 PRODUCT.getCategory().getMain())),PAGEABLE, true));
-        given(productService.getProductListByCategory(any(GetProductListByCategoryDTO.class)))
+        given(productService.getProductListByCategory(any(GetProductListByDto.class)))
                 .willReturn(products);
 
         ResultActions actions = mockMvc.perform(
@@ -159,9 +160,9 @@ public class ProductControllerTest {
                         PRODUCT2.getPrice(), PRODUCT2.getScore(), PRODUCT.getSeller().getMember().getNickname(),
                         PRODUCT.getCategory().getMain())));
 
-        List<List<CategoryGetDto>> products = new ArrayList<>();
-        products.add(brand1);
-        products.add(brand2);
+        HashMap<String ,List<CategoryGetDto>> products = new HashMap<>();
+        products.put("nickname",brand1);
+        products.put("nickname",brand2);
         given(productService.getBrandListLikeTop15()).willReturn(products);
 
         ResultActions actions = mockMvc.perform(
@@ -197,9 +198,9 @@ public class ProductControllerTest {
                                 PRODUCT2.getPrice(), PRODUCT2.getScore(), PRODUCT.getSeller().getMember().getNickname(),
                                 PRODUCT.getCategory().getMain())));
 
-        List<List<CategoryGetDto>> products = new ArrayList<>();
-        products.add(category1);
-        products.add(category2);
+        HashMap<String,List<CategoryGetDto>> products = new HashMap<>();
+        products.put("categoryMain",category1);
+        products.put("categoryMain",category2);
         given(productService.getCategoryCreatedTop5()).willReturn(products);
 
         ResultActions actions = mockMvc.perform(
@@ -211,71 +212,10 @@ public class ProductControllerTest {
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         responseFields(
-                                FWP_BRAND_PRODUCT_ID, FWP_BRAND_PRODUCT_IMG_PATH, FWP_BRAND_PRODUCT_IMG_NAME,
-                                FWP_BRAND_PRODUCT_TITLE, FWP_BRAND_PRODUCT_PRICE, FWP_BRAND_PRODUCT_SCORE,
-                                FWP_BRAND_PRODUCTS_SELLER_NICKNAME, FWP_BRAND_PRODUCTS_CATEGORY_MAIN
+                                FWP_CATEGORY_PRODUCT_ID, FWP_CATEGORY_PRODUCT_IMG_PATH, FWP_CATEGORY_PRODUCT_IMG_NAME,
+                                FWP_CATEGORY_PRODUCT_TITLE, FWP_CATEGORY_PRODUCT_PRICE, FWP_CATEGORY_PRODUCT_SCORE,
+                                FWP_CATEGORY_PRODUCTS_SELLER_NICKNAME, FWP_CATEGORY_PRODUCTS_CATEGORY_MAIN
                         )));
     }
-//    @Test
-//    public void getCategoryMain() throws Exception {
-//        Slice<CategoryGetDto> products = new SliceImpl<>(
-//                List.of(new CategoryGetDto(PRODUCT1.getId(), PRODUCT1.getImg(), PRODUCT1.getTitle(),
-//                                PRODUCT1.getPrice(), PRODUCT1.getScore()),
-//                        new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-//                                PRODUCT2.getPrice(), PRODUCT2.getScore())), PAGEABLE, true);
-//
-//        given(productService.getCategoryList(PAGEABLE, CATEGORY.getMain()))
-//                .willReturn(products);
-//
-//        ResultActions actions = mockMvc.perform(
-//                get("/products/{main}", CATEGORY.getMain())
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
-//                        .param("size", String.valueOf(PAGEABLE.getPageSize()))
-//                        .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
-//        );
-//
-//        actions.andExpect(status().isOk())
-//                .andDo(document("products/main/get",
-//                        REQUEST_PREPROCESSOR,
-//                        RESPONSE_PREPROCESSOR,
-//                        REQUEST_PARAM_PAGE,
-//                        PATH_PARAM_CATEGORY_MAIN,
-//                        responseFields(
-//                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE
-//                                , FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
-//                        )));
-//    }
-//
-//    @Test
-//    public void getCategoryMainSub() throws Exception {
-//        Slice<CategoryGetDto> products = new SliceImpl<>(
-//                List.of(new CategoryGetDto(PRODUCT1.getId(), PRODUCT1.getImg(), PRODUCT1.getTitle(),
-//                                PRODUCT1.getPrice(), PRODUCT1.getScore()),
-//                        new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-//                                PRODUCT2.getPrice(), PRODUCT2.getScore())), PAGEABLE, true);
-//
-//        given(productService.getCategoryList(PAGEABLE, CATEGORY.getMain(), CATEGORY.getSub()))
-//                .willReturn(products);
-//
-//        ResultActions actions = mockMvc.perform(
-//                get("/products/{main}/{sub}", CATEGORY.getMain(), CATEGORY.getSub())
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
-//                        .param("size", String.valueOf(PAGEABLE.getPageSize()))
-//                        .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
-//        );
-//
-//        actions.andExpect(status().isOk())
-//                .andDo(document("products/main/sub/get",
-//                        REQUEST_PREPROCESSOR,
-//                        RESPONSE_PREPROCESSOR,
-//                        REQUEST_PARAM_PAGE,
-//                        PATH_PARAM_CATEGORY_MAIN_SUB,
-//                        responseFields(
-//                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH, FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE
-//                                , FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
-//
-//                        )));
-//    }
+
 }
