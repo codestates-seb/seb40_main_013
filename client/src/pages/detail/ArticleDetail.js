@@ -23,7 +23,7 @@ function ArticleDetail() {
   const { id } = useParams();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const optionSelect = useSelector(
-    (state) => state.article.detailArticle?.options
+    (state) => state.article.detailArticle.options
   );
   let price = articlesDetail?.price;
   const clickFunction = () => {
@@ -120,21 +120,24 @@ function ArticleDetail() {
             </DetailArticleOptionSpace>
             <DetailArticleOptionSpace clickSelect={clickSelect}>
               {clickSelect ? (
-                <UL>
+                <DetailArticleSelectOption>
+                  <DetailArticleSelectOption>
+                    {selectOptionColor}
+                  </DetailArticleSelectOption>
                   {optionSelect?.map((option) => (
                     <DetailArticleSelectOption
                       key={option?.optionId}
                       value={option?.value}
-                      optionSelect={optionSelect}
                       onClick={() => {
                         selectOption(option.optionId, option.color),
                           clickFunction();
                       }}
                     >
-                      {option?.color}
+                      색상 : {option?.color}
+                      남은수량 : {option?.stock}
                     </DetailArticleSelectOption>
                   ))}
-                </UL>
+                </DetailArticleSelectOption>
               ) : (
                 <DetailArticleSelectOption>
                   {selectOptionColor}
@@ -294,89 +297,51 @@ const DetailArticleOptionSpace = styled.div`
   display: flex;
   align-items: center;
   border-top: 2px solid var(--border-navy);
-  /* position: relative;
-  width: 200px;
-  padding: 8px;
-  border-radius: 12px;
-  background-color: #ffffff;
-  align-self: center;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
-  &::before {
-    content: "⌵";
+`;
+
+const DetailArticleSelectOption = styled.div`
+  height: 35px;
+  width: 107.5%;
+  border: 2px solid var(--border-navy);
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  border: 1px solid blue;
+
+  &:nth-child(1) {
+    border-right: none;
+    border-left: none;
+    width: 95%;
+  }
+  &:nth-child(2) {
     position: absolute;
-    top: 1px;
-    right: 8px;
-    color: #49c181;
-    font-size: 20px;
-  } */
-`;
-
-// const DetailArticleSelectOption = styled.li`
-//   height: 35px;
-//   width: 107.5%;
-//   border: 2px solid var(--border-navy);
-//   position: relative;
-//   display: flex;
-//   align-items: center;
-//   padding-left: 10px;
-//   border: 1px solid blue;
-
-//   &:nth-child(1) {
-//     border-right: none;
-//     border-left: none;
-//     background-color: red;
-//     width: 95%;
-//   }
-//   &:nth-child(2) {
-//     position: absolute;
-//     padding-left: 20px;
-//     width: 105%;
-//     top: 32px;
-//     left: -1px;
-//     background-color: white;
-//     &:hover {
-//       background-color: aqua;
-//     }
-//   }
-//   &:nth-child(3) {
-//     margin-right: 2px;
-//     position: absolute;
-//     top: 64px;
-//     left: -2px;
-//     background-color: white;
-//   }
-//   &:nth-child(4) {
-//     margin-right: 2px;
-//     position: absolute;
-//     top: 96px;
-//     left: -2px;
-//     background-color: white;
-//   }
-// `;
-const UL = styled.ul`
-  position: absolute;
-  list-style: none;
-  top: 18px;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  height: 90px;
-  padding: 0;
-  border-radius: 8px;
-  background-color: #222222;
-  color: #fefefe;
-  max-height: ${(props) => (props.optionSelect ? "none" : "0")};
-`;
-const DetailArticleSelectOption = styled.li`
-  height: 30px;
-  font-size: 14px;
-  padding: 6px 8px;
-  transition: background-color 0.2s ease-in;
-  &:hover {
-    background-color: #595959;
+    padding-left: 20px;
+    width: 106%;
+    top: 32px;
+    left: -1px;
+    background-color: white;
+    &:hover {
+      background-color: aqua;
+    }
+  }
+  &:nth-child(3) {
+    width: 106%;
+    position: absolute;
+    padding-left: 20px;
+    top: 64px;
+    left: -1px;
+    background-color: white;
+  }
+  &:nth-child(4) {
+    margin-right: 2px;
+    position: absolute;
+    top: 96px;
+    left: -2px;
+    background-color: white;
   }
 `;
+
 const DetailUserSubmitPriceSpace = styled.div`
   width: 100%;
   height: 50px;

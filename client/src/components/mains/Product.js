@@ -55,15 +55,9 @@ const Title = styled.h2`
   font-size: 1.1rem;
   font-weight: 500;
   overflow: hidden;
-<<<<<<< HEAD
   text-overflow: ellipsis;
-  height: 20%; //수정필요...
-  word-break: break-all;
-=======
-  text-overflow: ellipsis; 
   /* height: 3vh; //수정필요... */
-  word-break:break-all;
->>>>>>> de3ad7b8ae8bab1d51ad514dd0038a85d128ed3d
+  word-break: break-all;
   height: 30px;
   @media screen and (max-width: 390px) {
     font-size: 1.6vw;
