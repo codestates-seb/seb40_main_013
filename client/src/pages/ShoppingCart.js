@@ -13,6 +13,9 @@ const CartBlock = styled.div`
   padding: 30px 40px 50px 40px;
   margin-top: 160px;
   display: flex;
+  div {
+    display: flex;
+  }
 `;
 
 const AllCheckBlock = styled.div`
@@ -39,7 +42,7 @@ const CheckCircle = styled.input`
   width: 1em;
   height: 1em;
   min-width: 1rem;
-  min-height: 1rem;
+  min-width: 1rem;
   border-radius: 50%;
   border: 1px solid #999;
   appearance: none;
