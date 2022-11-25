@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../reduxstore/slices/userSlice";
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import Apis from "../../apis/apis";
+import Swal from 'sweetalert2';
 import Alert from "../Alert";
 
 const EditContainter = styled.div`
@@ -375,21 +376,54 @@ const EditProfile = ({ getUserdata }) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    if(Alert( 'warning', '확인을 누르면 회원 정보가 삭제됩니다.')){
-      Apis.delete(`/members/mypage`,{
-        headers: {
-          Authorization: initialToken
-        },
-      }
-      ).then(()=>{
-        localStorage.clear();
-        window.alert('그동안 이용해주셔서 감사합니다.');
-        navigate('/');
-      })
-      .catch((err)=>alert(err.response.data.message));
-    }else{
-      return;
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: true
+    })
+    Apis.delete(`/members/mypage`,{
+      headers: {
+        Authorization: initialToken
+      },
     }
+    ).then(()=>{
+      if(curpwdConform === true){
+        swalWithBootstrapButtons.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          confirmButtonColor: 'red',
+          cancelButtonText: 'No, cancel!',
+          cancelButtonColor: '#aaaaaa',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            localStorage.clear();
+            swalWithBootstrapButtons.fire(
+              'Deleted!',
+              '그동안 이용해주셔서 감사합니다.',
+              'success'
+            )
+            navigate('/');
+          } 
+          // else if (
+          //   /* Read more about handling dismissals below */
+          //   result.dismiss === Swal.DismissReason.cancel
+          // ) {
+          //   swalWithBootstrapButtons.fire(
+          //     'Cancelled',
+          //     '탈퇴가 취소되었습니다.',
+          //     'error'
+          //   )
+          // }
+        })
+      }        
+    })
+    .catch((err)=>alert(err.response.data.message));
   };
 
   return (
@@ -506,7 +540,7 @@ const EditProfile = ({ getUserdata }) => {
       </Container>
       <HowtoEdit>
         <h2 className="editTitle">How to Edit</h2>
-        <Warning>현재 비밀번호 입력후, 일치확인을 하셔야 정보수정이 가능합니다.</Warning>
+        <Warning>현재 비밀번호 입력후, 일치확인을 하셔야 정보수정 및 탈퇴가 가능합니다.</Warning>
         <ul>
           <li className="explain">닉네임: 수정하지 않으면 기존 닉네임이 유지됩니다.</li>
           <li className="explain">현재비밀번호(필수): 반드시 입력해야합니다.</li>

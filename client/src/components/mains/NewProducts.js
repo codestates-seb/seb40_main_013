@@ -150,12 +150,14 @@ const CategoryImg = styled.img`
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 0;
+    display: none;
   }
   @media (min-width: 391px) and (max-width: 767px){
     width: 100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 0;
+    display: none;
   }
 `;
 const BPList = styled.div`
@@ -165,7 +167,7 @@ const BPList = styled.div`
 const BP = styled(Link)`
   display: flex;
   align-items: center;
-  border: 0.1rem solid var(--color-center-line);
+  /* border: 0.1rem solid var(--color-center-line); */
   height: 20%;
   width: 400px;
   padding: 10px 10px 10px 0;

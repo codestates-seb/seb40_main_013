@@ -1,24 +1,13 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useLayoutEffect,
-} from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  bestOfBest,
-  topBrand,
-  mainData,
-} from "../reduxstore/slices/articleSlice";
+import { mainData } from "../reduxstore/slices/articleSlice";
 import { newData } from "../reduxstore/slices/mainSlice";
 import { categoryData } from "../reduxstore/slices/mainCategorySlice";
 import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
 import Button from "../components/Button";
 import Products from "../components/mains/Product";
-import Apis from "../apis/apis";
 import NewProducts from "../components/mains/NewProducts";
 
 const Container = styled.div`
@@ -39,28 +28,28 @@ const Title = styled.div`
 const SubTitle = styled.h2`
   color: #aaaaaa;
   font-size: 1rem;
-  margin-top: 30px;
+  margin-top: 20px;
 `;
 const MainTitle = styled.h2`
   display: flex;
   font-weight: 400;
   font-size: 2rem;
-  margin: 10px 0 10px 0;
+  margin-top: 10px;
   color: var(--font-black);
   scroll-margin-top: 170px;
 `;
 const ProductList = styled.div`
   /* width: 70%; */
-  margin: 30px 0;
+  margin: 10px 0;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   justify-content: center;
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 479px) {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr;
   }
-  @media (min-width: 391px) and (max-width: 767px) {
+  @media (min-width: 480px) and (max-width: 767px) {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -92,14 +81,15 @@ const TH = styled.tr`
 const TD = styled.td`
   display: flex;
   justify-content: center;
-  border: 1px solid #aaaaaa;
+  border: 3px solid #ECECE8;
   padding: 20px 50px;
   font-size: 1rem;
   width: 50px;
   white-space: nowrap;
   cursor: pointer;
   &:hover {
-    border: 3px solid #ffaf51;
+    background-color: #ffaf51;
+    color: white;
   }
 `;
 const BrandTitle = styled.div`
@@ -193,7 +183,7 @@ const Main = () => {
       <ProductList>
         {bestData?.map((product) => (
           <Products key={product.id} proId={product.id} product={product} />
-        ))}
+          ))}
       </ProductList>
       {/* 카테고리별 신상품 */}
       <Title>
