@@ -11,6 +11,7 @@ import {
 } from "../../reduxstore/slices/articleSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
+import ScrollToTop from "../../components/ScrollToTop";
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
   const [selectOptions, setSelectOptions] = useState("");
@@ -18,7 +19,7 @@ function ArticleDetail() {
   const [cartCount, setCartCount] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
@@ -31,19 +32,38 @@ function ArticleDetail() {
     setCartCount(cartCount + 1);
   };
   const clickDownCart = () => {
-    setCartCount(cartCount - 1);
+    if (cartCount <= 0) {
+      setCartCount(0);
+    } else {
+      setCartCount(cartCount - 1);
+    }
   };
+  console.log(optionSelect);
 
   const selectOption = (id, color) => {
     setSelectOptions(id);
     setSelectOptionColor(color);
   };
-
+  // let get_local = localStorage.getItem("product");
+  // console.log(get_local);
+  ScrollToTop();
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
+    // let get_local = [];
+    // if (!articlesDetail) {
+    //   localStorage.setItem("product", get_local);
+    // } else if (articlesDetail) {
+    //   let local = localStorage.getItem("product");
+    //   let get_local = [articlesDetail.productId];
+    //   if (local) {
+    //     local = JSON.parse(local);
+    //     get_local = [articlesDetail.productId, ...local];
+    //   }
+    //   localStorage.setItem("product", JSON.stringify(get_local));
+    // }
   }, []);
 
-  const clickPostCart = (e) => {
+  const clickPostCart = () => {
     let postCartData = {
       productId: articlesDetail?.productId,
       count: cartCount,
@@ -95,31 +115,28 @@ function ArticleDetail() {
             </DetailArticleOptionSpace>
             <DetailArticleOptionSpace clickSelect={clickSelect}>
               {clickSelect ? (
-                <>
-                  <DetailArticleSelectOption>
-                    {optionSelect?.map((option) => (
-                      <DetailArticleSelectOption
-                        key={option?.optionId}
-                        value={option?.value}
-                        onClick={() => {
-                          selectOption(option.optionId, option.color),
-                            clickFunction();
-                        }}
-                      >
-                        색상 : {option?.color}
-                        가격 : {option?.price?.toLocaleString("en-US")}
-                        사이즈 : {option?.size}
-                        남은수량 : {option?.stock}
-                      </DetailArticleSelectOption>
-                    ))}
-                  </DetailArticleSelectOption>
-                </>
-              ) : (
-                <>
+                <DetailArticleSelectOption>
                   <DetailArticleSelectOption>
                     {selectOptionColor}
                   </DetailArticleSelectOption>
-                </>
+                  {optionSelect?.map((option) => (
+                    <DetailArticleSelectOption
+                      key={option?.optionId}
+                      value={option?.value}
+                      onClick={() => {
+                        selectOption(option.optionId, option.color),
+                          clickFunction();
+                      }}
+                    >
+                      색상 : {option?.color}
+                      남은수량 : {option?.stock}
+                    </DetailArticleSelectOption>
+                  ))}
+                </DetailArticleSelectOption>
+              ) : (
+                <DetailArticleSelectOption>
+                  {selectOptionColor}
+                </DetailArticleSelectOption>
               )}
               <ButtonIcon onClick={clickFunction}>
                 <FiChevronDown />
@@ -167,7 +184,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin-top: 170px;
+  margin-top: 160px;
 `;
 
 const DetailContents = styled.div`
@@ -223,6 +240,7 @@ const DetailMidImg = styled.img`
 `;
 const ButtonIcon = styled.button`
   margin-top: 10px;
+  height: 10px;
   font-size: 20px;
   border: none;
   background-color: white;
@@ -230,7 +248,7 @@ const ButtonIcon = styled.button`
     margin-top: 0px;
   }
   &:nth-child(2) {
-    margin-bottom: 7px;
+    margin-bottom: 30px;
   }
 
   &:nth-child(3) {
@@ -261,25 +279,21 @@ const DetailArticlePrice = styled.div`
     margin-left: 15px;
   }
 `;
-const DetailArticleOptionSpace = styled.div`
-  height: 45px;
-  border: none;
-  display: flex;
-  align-items: center;
-  border-top: 2px solid var(--border-navy);
 
-  &:nth-child(5) {
-    height: 35px;
-    justify-content: space-between;
-    border: 2px solid var(--border-navy);
-  }
-`;
 const DetailArticleOptionContents = styled.div`
   margin-left: 10px;
   &:nth-child(2) {
     margin-left: 80px;
   }
 `;
+const DetailArticleOptionSpace = styled.div`
+  height: 45px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-top: 2px solid var(--border-navy);
+`;
+
 const DetailArticleSelectOption = styled.div`
   height: 35px;
   width: 107.5%;
@@ -287,24 +301,34 @@ const DetailArticleSelectOption = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  margin-left: 20px;
+  padding-left: 10px;
   &:nth-child(1) {
     border-right: none;
     border-left: none;
-    background-color: white;
+    border-top: none;
+    width: 95%;
   }
   &:nth-child(2) {
     position: absolute;
+    padding-left: 20px;
+    width: 106%;
     top: 32px;
-    left: -2px;
+    left: -1px;
     background-color: white;
+    &:hover {
+      background-color: #aaaaaa;
+    }
   }
   &:nth-child(3) {
-    margin-right: 2px;
+    width: 106%;
     position: absolute;
+    padding-left: 20px;
     top: 64px;
-    left: -2px;
+    left: -1px;
     background-color: white;
+    &:hover {
+      background-color: #aaaaaa;
+    }
   }
   &:nth-child(4) {
     margin-right: 2px;
@@ -344,7 +368,6 @@ const DetailUserPrice = styled.div`
   font-weight: 700;
   &:nth-child(2) {
     font-size: 35px;
-    margin-right: -37px;
     color: var(--color-navy);
   }
 `;

@@ -29,7 +29,8 @@ export const loginUser = createAsyncThunk(
         localStorage.setItem("Refresh", jwtrefreshToken);
         navigate("/");
         window.alert("로그인 성공!");
-        // return res.data;
+        window.location.reload();
+        return res.data;
       })
       .catch((err) => {
         window.alert("로그인에 실패했습니다!");
@@ -78,9 +79,12 @@ export const guestUser = createAsyncThunk(
     return Apis.post(`guest`)
       .then((res) => {
         let jwtToken = res.headers.get("Authorization");
+        let jwtrefreshToken = res.headers.get("Refresh");
         localStorage.setItem("Authorization", jwtToken);
+        localStorage.setItem("Refresh", jwtrefreshToken);
         navigate("/");
         window.alert("로그인 성공!");
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {

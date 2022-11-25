@@ -7,27 +7,40 @@ const len = ImgSlider.length - 1;
 const Carousel2 = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(()=>{
-    const interval = setInterval(()=>{
-      setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex(activeIndex === len ? 0 : activeIndex + 1);
     }, 5000);
     return () => clearInterval(interval);
   }, [activeIndex]);
-  
-  return(
+
+  return (
     <Container>
-      {
-        ImgSlider.map((slide, index)=>(
-          <Slides
+      {ImgSlider.map((slide, index) => (
+        <Slides
           key={index}
-          className={index === activeIndex ? "slides active" : "inactive"}>
-            <Img className="slide-image" src={slide.urls} alt="" />
-          </Slides>
-        ))
-      }
+          className={index === activeIndex ? "slides active" : "inactive"}
+        >
+          <Img className="slide-image" src={slide.urls} alt="" />
+        </Slides>
+      ))}
       <Arrows className="arrows">
-        <Prev className="prev" onClick={()=> setActiveIndex(activeIndex < 1 ? len : activeIndex - 1)}>&#10094;</Prev>
-        <Next className="next" onClick={()=> setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)}>&#10095;</Next>
+        <Prev
+          className="prev"
+          onClick={() =>
+            setActiveIndex(activeIndex < 1 ? len : activeIndex - 1)
+          }
+        >
+          &#10094;
+        </Prev>
+        <Next
+          className="next"
+          onClick={() =>
+            setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)
+          }
+        >
+          &#10095;
+        </Next>
       </Arrows>
       {/* <AllDots className="all-dots">
         {ImgSlider.map((slide, index)=> (
@@ -38,8 +51,8 @@ const Carousel2 = () => {
         ))}
       </AllDots> */}
     </Container>
-    )
-  }
+  );
+};
 const Container = styled.div`
   height: 50vh;
   width: 100%;
@@ -59,14 +72,14 @@ const Prev = styled.span`
   font-size: 30px;
   font-weight: bold;
   border-radius: 0 5px 5px 0;
-  &:hover{
+  &:hover {
     color: white;
     background-color: rgba(0, 0, 0, 0.6);
     transition: all 0.5s ease-in-out;
   }
 `;
 const Next = styled.span`
-cursor: pointer;
+  cursor: pointer;
   position: absolute;
   top: 50%;
   right: 0;
@@ -77,7 +90,7 @@ cursor: pointer;
   font-size: 30px;
   font-weight: bold;
   border-radius: 5px 0 0 5px;
-  &:hover{
+  &:hover {
     color: white;
     background-color: rgba(0, 0, 0, 0.6);
     transition: all 0.5s ease-in-out;
@@ -107,13 +120,13 @@ cursor: pointer;
 //   }
 // `;
 const Slides = styled.div`
-  &.active{
+  &.active {
     display: inline-block;
   }
-  &.inactive{
+  &.inactive {
     display: none;
   }
-  &.slides{
+  &.slides {
     height: 50vh;
     width: 100%;
     position: relative;

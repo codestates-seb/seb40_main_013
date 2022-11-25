@@ -3,10 +3,11 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { BsCart3, BsSearch } from "react-icons/bs";
 import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
+import { useSelector } from "react-redux";
 
 const HeaderBlock = styled.header`
-  width: 100%;
-  height: 160px;
+  width: 100vw;
+  height: 127.5px;
   color: var(--color-gray);
   div {
     display: flex;
@@ -21,7 +22,7 @@ const HeaderBlock = styled.header`
 `;
 
 const Logo = styled.div`
-  height: 90px;
+  height: 64px;
   align-items: center;
   justify-content: center;
   div {
@@ -56,7 +57,7 @@ const Serach = styled.div`
 `;
 
 const CategoryList = styled.div`
-  height: 30px;
+  height: 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -79,7 +80,7 @@ const Nav = styled.nav`
   left: -70px;
   background-color: white;
   border: 1px solid #aaaaaa;
-  width: 105px;
+  width: 6.9em;
   font-size: 15px;
   justify-content: space-between;
   border-bottom: 1px solid #bebcaf;
@@ -112,6 +113,8 @@ function Header({ setClick }) {
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
+  const ddd = useSelector((state) => state?.article.shoppingCartInitial);
+  console.log(ddd);
 
   const clickMenu = ({ target }) => {
     setClick(target.innerHTML);
@@ -122,12 +125,6 @@ function Header({ setClick }) {
     setCloseSearch(!closeSearch);
   };
 
-  const clickLogOut = (e) => {
-    e.preventDefault();
-    localStorage.clear();
-    navigate("/");
-    window.alert("로그아웃에 성공하셨습니다!");
-  };
   const outModalCloseHandler = (e) => {
     if (closeSearch && !modalRef.current.contains(e.target))
       setCloseSearch(false);
@@ -140,6 +137,13 @@ function Header({ setClick }) {
   //     window.removeEventListener("click", outModalCloseHandler); //이벤트 한번만 실행되게 하려고 제거.
   //   };
   // },[]);
+
+  const clickLogOut = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    navigate("/");
+    window.alert("로그아웃에 성공하셨습니다!");
+  };
 
   return (
     <>
@@ -186,7 +190,7 @@ function Header({ setClick }) {
               <Category>
                 <div onClick={clickMenu}>침실</div>
                 <Nav className="2">
-                  <div onClick={clickMenu}>침대</div>
+                  <div onClick={clickMenu}>침대/매트리스</div>
                   <div onClick={clickMenu}>행거/옷장</div>
                   <div onClick={clickMenu}>화장대</div>
                 </Nav>
@@ -226,18 +230,18 @@ function Header({ setClick }) {
             {jwtToken ? (
               <Link to="/cart">
                 <div>
-                <BsCart3 size="20" />
-                <div className="cart-count">(0)</div>
-                </div>
-                </Link>
-                ) : (
-                <Link to="/users/login">
-                <div>
-                <BsCart3 size="20" />
-                <div className="cart-count">(0)</div>
+                  <BsCart3 size="20" />
+                  <div className="cart-count">(0)</div>
                 </div>
               </Link>
-              )}
+            ) : (
+              <Link to="/users/login">
+                <div>
+                  <BsCart3 size="20" />
+                  <div className="cart-count">(0)</div>
+                </div>
+              </Link>
+            )}
           </div>
         </CategoryList>
       </HeaderBlock>
