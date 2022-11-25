@@ -61,9 +61,10 @@ public class MemberController {
         Member member = memberService.updateMember(memberMapper.toMember(patch, memberId));
         return memberMapper.toResponse(member);
     }
+
     @PatchMapping("/members/img")
     public UserResponse patchMemberImg(@MemberId Long memberId,
-                                    @Valid @ModelAttribute ImgRegistration imgPatch) throws IOException {
+                                       @Valid @ModelAttribute ImgRegistration imgPatch) throws IOException {
         Member member = memberService.updateMemberImg(imgPatch, memberId);
         return memberMapper.toResponse(member);
     }
