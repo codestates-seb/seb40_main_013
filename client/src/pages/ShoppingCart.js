@@ -11,8 +11,11 @@ const CartBlock = styled.div`
   margin-top: 160px;
   width: 100%;
   padding: 30px 40px 50px 40px;
-  margin-top: 160px;
+  margin-top: 16vh;
   display: flex;
+  div {
+    display: flex;
+  }
 `;
 
 const AllCheckBlock = styled.div`
@@ -36,20 +39,20 @@ const AllCheckBlock = styled.div`
 `;
 
 const CheckCircle = styled.input`
-  width: 1em;
-  height: 1em;
-  min-width: 1rem;
-  min-height: 1rem;
-  border-radius: 50%;
-  border: 1px solid #999;
-  appearance: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  &:checked {
-    background: #ffaf51;
-    border: none;
-    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
-  }
+    width: 1em;
+    height: 1em;
+    min-width: 1rem;
+    min-height: 1rem;
+    border-radius: 50%;
+    border: 1px solid #999;
+    appearance: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    &:checked {
+        background-color: #ffaf51;
+        border: none;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+    }
 `;
 
 const Quary = styled.div`
