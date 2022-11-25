@@ -13,7 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
 import ScrollToTop from "../../components/ScrollToTop";
 function ArticleDetail() {
-  const [clickSelect, setClickSelect] = useState(false);
+  const [clickSelect, setClickSelect] = useState("1");
   const [selectOptions, setSelectOptions] = useState("");
   const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
   const [cartCount, setCartCount] = useState(1);
@@ -25,8 +25,9 @@ function ArticleDetail() {
     (state) => state.article.detailArticle.options
   );
   let price = articlesDetail?.price;
-  const clickFunction = () => {
-    setClickSelect(!clickSelect);
+  const clickFunction = (e) => {
+    const { optionId } = e.target;
+    setClickSelect(optionId);
   };
   const clickUpCart = () => {
     setCartCount(cartCount + 1);
@@ -45,22 +46,20 @@ function ArticleDetail() {
     setSelectOptionColor(color);
   };
   // let get_local = localStorage.getItem("product");
-  // console.log(get_local);
   ScrollToTop();
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
-    // let get_local = [];
-    // if (!articlesDetail) {
-    //   localStorage.setItem("product", get_local);
-    // } else if (articlesDetail) {
-    //   let local = localStorage.getItem("product");
-    //   let get_local = [articlesDetail.productId];
-    //   if (local) {
-    //     local = JSON.parse(local);
-    //     get_local = [articlesDetail.productId, ...local];
-    //   }
-    //   localStorage.setItem("product", JSON.stringify(get_local));
+
+    // console.log("aaa", 2);
+    // let local = localStorage.getItem("product");
+    // let get_local = [articlesDetail.productId];
+    // if (local) {
+    //   local = JSON.parse(local);
+    //   get_local = [articlesDetail.productId, ...local];
     // }
+    // localStorage.setItem("product", JSON.stringify(get_local));
+    // let localaa = localStorage.getItem("product");
+    // console.log("product_else_if", localaa);
   }, []);
 
   const clickPostCart = () => {
@@ -113,8 +112,19 @@ function ArticleDetail() {
                 옵션 선택
               </DetailArticleOptionContents>
             </DetailArticleOptionSpace>
-            <DetailArticleOptionSpace clickSelect={clickSelect}>
-              {clickSelect ? (
+            <DetailArticleSelectOptionSpace
+              onClick={clickFunction}
+              value={clickSelect}
+            >
+              {optionSelect.map((option) => (
+                <DetailArticleSelectOption
+                  key={option.optionId}
+                  value={option.optionId}
+                >
+                  색상 : {option.color}
+                </DetailArticleSelectOption>
+              ))}
+              {/* {clickSelect ? (
                 <DetailArticleSelectOption>
                   <DetailArticleSelectOption>
                     {selectOptionColor}
@@ -137,11 +147,11 @@ function ArticleDetail() {
                 <DetailArticleSelectOption>
                   {selectOptionColor}
                 </DetailArticleSelectOption>
-              )}
-              <ButtonIcon onClick={clickFunction}>
+              )} */}
+              {/* <ButtonIcon onClick={clickFunction}>
                 <FiChevronDown />
-              </ButtonIcon>
-            </DetailArticleOptionSpace>
+              </ButtonIcon> */}
+            </DetailArticleSelectOptionSpace>
             <DetailUserSubmitPriceSpace>
               <DetailUserQuantitySpace>
                 <ButtonIcon>
@@ -293,8 +303,15 @@ const DetailArticleOptionSpace = styled.div`
   align-items: center;
   border-top: 2px solid var(--border-navy);
 `;
+const DetailArticleSelectOptionSpace = styled.select`
+  height: 45px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-top: 2px solid var(--border-navy);
+`;
 
-const DetailArticleSelectOption = styled.div`
+const DetailArticleSelectOption = styled.option`
   height: 35px;
   width: 107.5%;
   border: 2px solid var(--border-navy);

@@ -132,7 +132,7 @@ function SubCategory({ click }) {
     ) {
       dispatch(getKitchen({ click, page }));
     }
-    // dispatch(getSubCategory({click,page}))
+    dispatch(getSubCategory({ click, page }));
   }, [click]);
 
   return (
