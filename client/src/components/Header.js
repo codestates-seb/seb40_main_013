@@ -3,10 +3,11 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { BsCart3, BsSearch } from "react-icons/bs";
 import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
+import { useSelector } from "react-redux";
 
 const HeaderBlock = styled.header`
   width: 100vw;
-  height: 160px;
+  height: 16vh;
   color: var(--color-gray);
   div {
     display: flex;
@@ -21,7 +22,7 @@ const HeaderBlock = styled.header`
 `;
 
 const Logo = styled.div`
-  height: 90px;
+  height: 8vh;
   align-items: center;
   justify-content: center;
   div {
@@ -56,7 +57,7 @@ const Serach = styled.div`
 `;
 
 const CategoryList = styled.div`
-  height: 30px;
+  height: 3vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -112,6 +113,8 @@ function Header({ setClick }) {
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
+  const ddd = useSelector((state) => state?.article.shoppingCartInitial);
+  console.log(ddd);
 
   const clickMenu = ({ target }) => {
     setClick(target.innerHTML);
@@ -124,24 +127,24 @@ function Header({ setClick }) {
 
   const outModalCloseHandler = (e) => {
     if (closeSearch && !modalRef.current.contains(e.target))
-    setCloseSearch(false);
+      setCloseSearch(false);
     // console.log(target.innerHTML);
   };
-  
+
   // useEffect(() => {
   //   window.addEventListener("click", outModalCloseHandler);
   //   return () => {
   //     window.removeEventListener("click", outModalCloseHandler); //이벤트 한번만 실행되게 하려고 제거.
   //   };
   // },[]);
-  
+
   const clickLogOut = (e) => {
     e.preventDefault();
     localStorage.clear();
     navigate("/");
     window.alert("로그아웃에 성공하셨습니다!");
   };
-  
+
   return (
     <>
       <HeaderBlock onClick={outModalCloseHandler}>
@@ -227,18 +230,18 @@ function Header({ setClick }) {
             {jwtToken ? (
               <Link to="/cart">
                 <div>
-                <BsCart3 size="20" />
-                <div className="cart-count">(0)</div>
-                </div>
-                </Link>
-                ) : (
-                <Link to="/users/login">
-                <div>
-                <BsCart3 size="20" />
-                <div className="cart-count">(0)</div>
+                  <BsCart3 size="20" />
+                  <div className="cart-count">(0)</div>
                 </div>
               </Link>
-              )}
+            ) : (
+              <Link to="/users/login">
+                <div>
+                  <BsCart3 size="20" />
+                  <div className="cart-count">(0)</div>
+                </div>
+              </Link>
+            )}
           </div>
         </CategoryList>
       </HeaderBlock>

@@ -9,13 +9,19 @@ import desk from "../imgs/desk.png";
 import shelf from "../imgs/shelf.png";
 import room from "../imgs/room.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { getBedroom, getKitchen, getLibrary, getLivingRoom, getSubCategory } from "../reduxstore/slices/subCategorySlice";
+import {
+  getBedroom,
+  getKitchen,
+  getLibrary,
+  getLivingRoom,
+  getSubCategory,
+} from "../reduxstore/slices/subCategorySlice";
 
 const SubBlock = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 160px;
+  margin-top: 16vh;
   padding: 3vh 4vw;
   align-items: center;
   .sub-menus {
@@ -84,20 +90,62 @@ const ProductList = styled.div`
 `;
 
 function SubCategory({ click }) {
-    console.log(click);
+  console.log(click);
 
-    const dispatch = useDispatch();
-    const allSelector = useSelector((state) => (state.subcategory.subCategoryInitial.content))
-    const librarySelector = useSelector((state) => (state.subcategory.libraryInitial.content)) //
-    const bedroomSelector = useSelector((state) => (state.subcategory.bedroomInitial.content)) //
-    const livingroomSelector = useSelector((state) => (state.subcategory.livingRoomInitial.content)) //
-    const kitchemSelector = useSelector((state) => (state.subcategory.kitchenInitial.content)) //
+  const dispatch = useDispatch();
+  const allSelector = useSelector(
+    (state) => state.subcategory.subCategoryInitial.content
+  );
+  const librarySelector = useSelector(
+    (state) => state.subcategory.libraryInitial.content
+  ); //
+  const bedroomSelector = useSelector(
+    (state) => state.subcategory.bedroomInitial.content
+  ); //
+  const livingroomSelector = useSelector(
+    (state) => state.subcategory.livingRoomInitial.content
+  ); //
+  const kitchemSelector = useSelector(
+    (state) => state.subcategory.kitchenInitial.content
+  ); //
 
+  console.log(`allSelector`, allSelector?.length);
 
-    console.log(`allSelector`,allSelector?.length);
+  const [page, setPage] = useState(0);
+  const [isClick, setIsClick] = useState(click);
 
-    const [page, setPage] = useState(0);
-    const [isClick, setIsClick] = useState(click);
+  useEffect(() => {
+    if (
+      click === "서재" ||
+      click === "침실" ||
+      click === "거실" ||
+      click === "주방"
+    ) {
+      dispatch(getSubCategory({ click, page }));
+    } else if (
+      click === "책상" ||
+      click === "의자" ||
+      click === "책장" ||
+      click === "선반"
+    ) {
+      dispatch(getLibrary({ click, page }));
+    } else if (
+      click === "침대/매트리스" ||
+      click === "행거/옷장" ||
+      click === "화장대"
+    ) {
+      dispatch(getBedroom({ click, page }));
+    } else if (click === "소파" || click === "거실장" || click === "수납장") {
+      dispatch(getLivingRoom({ click, page }));
+    } else if (
+      click === "식탁/아일랜드" ||
+      click === "식탁의자" ||
+      click === "주방수납"
+    ) {
+      dispatch(getKitchen({ click, page }));
+    }
+    // dispatch(getSubCategory({click,page}))
+  }, [click]);
 
     useEffect(() => {
       if (click === '서재' || click === '침실' || click === '거실' || click === '주방'){
@@ -156,11 +204,10 @@ function SubCategory({ click }) {
               {kitchemSelector?.map((product) => (
               <Products proId={product.id} product={product} key={product.id} />
             ))} */}
-          {/* </div> */}
-          {/* <div ref={loadingRef}></div> */}
-        </ProductList>
-      </SubBlock>
-    );
+        {/* </div> */}
+        {/* <div ref={loadingRef}></div> */}
+      </ProductList>
+    </SubBlock>
+  );
 }
 export default SubCategory;
-

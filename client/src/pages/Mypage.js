@@ -12,7 +12,7 @@ import Recent from "../components/mypages/Recent";
 const Container = styled.div`
   display: flex;
   /* height: 100%; */
-  margin-top: 180px;
+  margin-top: 16vh;
   width: 100%;
   @media screen and (max-width: 390px) {
     flex-direction: column;

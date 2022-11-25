@@ -11,9 +11,9 @@ function Login() {
   const [userWriteEmail, setUserWriteEmail] = useState("");
   const [userWritePwd, setUserWritePwd] = useState("");
   const [userWriteInput, setUserWriteInput] = useState(false);
+  const [userStateCheck, setUserStateCheck] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const routeSignup = () => {
     navigate("/signup");
   };
@@ -24,17 +24,30 @@ function Login() {
     setUserWritePwd(e.target.value);
   };
 
+  const clickState = () => {
+    setUserStateCheck(!userStateCheck);
+  };
+
   const clickLogin = () => {
+    let loginData = {};
     if (userWriteEmail === "" || userWritePwd === "") {
       setUserWriteInput(true);
     } else {
       setUserWriteInput(false);
     }
+    if (userStateCheck === true) {
+      loginData = {
+        email: userWriteEmail,
+        password: userWritePwd,
+        keepState: true,
+      };
+    } else if (userStateCheck === false) {
+      loginData = {
+        email: userWriteEmail,
+        password: userWritePwd,
+      };
+    }
 
-    let loginData = {
-      email: userWriteEmail,
-      password: userWritePwd,
-    };
     if (
       userWriteEmail !== "" &&
       userWritePwd !== "" &&
@@ -43,9 +56,7 @@ function Login() {
       dispatch(loginUser({ loginData, navigate }));
     }
   };
-  const clickGuest = () => {
-    dispatch(guestUser({ navigate }));
-  };
+
   //content
 
   return (
@@ -56,16 +67,19 @@ function Login() {
           <LoginTitle>Log In</LoginTitle>
           <LoginInputSpace>
             <LoginInput placeholder="Email" onChange={writeChangeEmail} />
-            <LoginInput placeholder="Password" onChange={writeChangePwd} />
+            <LoginInput
+              placeholder="Password"
+              type="password"
+              onChange={writeChangePwd}
+            />
           </LoginInputSpace>
           <LoginButton onClick={clickLogin}>로그인</LoginButton>
-          <LoginButton onClick={clickGuest}>게스트 로그인</LoginButton>
           <LoginInformationSpace>
             <LoginCheckSpace>
-              <div>
+              <LoginState isCheck={userStateCheck} onClick={clickState}>
                 <AiOutlineCheckCircle />
-              </div>
-              <div>로그인 상태 유지</div>
+              </LoginState>
+              <LoginStateContent>로그인 상태 유지</LoginStateContent>
             </LoginCheckSpace>
           </LoginInformationSpace>
           <LoginRouteSign>
@@ -80,10 +94,11 @@ function Login() {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 60vh;
+  height: 65vh;
   display: flex;
   justify-content: center;
-  margin: 305px 0px 120px 0px;
+  margin-bottom: 120px;
+  margin-top: 24.5vh;
   @media screen and (max-width: 768px) {
     width: 100%;
     min-width: 391px;
@@ -162,7 +177,7 @@ const LoginTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 40px;
   @media screen and (max-width: 1024px) {
     font-size: 4vw;
   }
@@ -203,6 +218,10 @@ const LoginButton = styled.button`
   font-weight: bolder;
   margin-top: 40px;
   border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+  }
+
   @media screen and (max-width: 1024px) {
     font-size: 2vw;
   }
@@ -235,13 +254,31 @@ const LoginCheckSpace = styled.div`
   @media screen and (max-width: 1024px) {
     width: 55%;
     font-size: 2vw;
+    margin-left: 40px;
   }
   @media screen and (max-width: 790px) {
-    width: 57%;
+    width: 60%;
+    margin-left: 30px;
   }
   @media screen and (max-width: 768px) {
-    width: 45%;
+    width: 60%;
     font-size: 20px;
+    margin-left: 20px;
+  }
+`;
+const LoginState = styled.div`
+  color: ${(state) => (state.isCheck ? "#FFAF51" : "#AAAAAA")};
+`;
+const LoginStateContent = styled.div`
+  font-size: 20px;
+  @media screen and (max-width: 1024px) {
+    font-size: 15px;
+  }
+  @media screen and (max-width: 790px) {
+    font-size: 12px;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 11px;
   }
 `;
 
@@ -252,18 +289,19 @@ const LoginRouteSign = styled.div`
   color: var(--color-gray);
   font-weight: 500;
   margin-top: 20px;
+  margin-bottom: 20px;
   @media screen and (max-width: 1024px) {
     width: 100%;
     font-size: 1.5vw;
   }
   @media screen and (max-width: 790px) {
-    width: 57%;
+    width: 60%;
     margin-left: 60px;
   }
   @media screen and (max-width: 768px) {
-    width: 45%;
+    width: 70%;
     font-size: 20px;
-    margin-left: 100px;
+    margin-right: 50px;
   }
 `;
 

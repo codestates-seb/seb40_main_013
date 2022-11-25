@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   review: reviewSlice,
   main: mainSlice,
   maincategory: mainCategorySlice,
-  subcategory :subCategorySlice
+  subcategory: subCategorySlice,
 });
 
 const store = configureStore({ reducer: rootReducer });

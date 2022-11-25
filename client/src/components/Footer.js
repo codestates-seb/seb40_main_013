@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import { BsGithub } from "react-icons/bs";
-
+import { IoMdPerson } from "react-icons/io";
+import { guestUser } from "../reduxstore/slices/userSlice";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 function Footer() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const clickGuest = () => {
+    dispatch(guestUser({ navigate }));
+  };
+
   return (
     <FooterWrapper>
       <FooterTopInformation>
@@ -13,6 +22,9 @@ function Footer() {
         <FooterSocialBtnSpace>
           <FooterSocialBtn href="https://github.com/codestates-seb/seb40_main_013">
             <BsGithub />
+          </FooterSocialBtn>
+          <FooterSocialBtn onClick={clickGuest}>
+            <IoMdPerson />
           </FooterSocialBtn>
         </FooterSocialBtnSpace>
       </FooterTopInformation>
@@ -28,11 +40,15 @@ function Footer() {
       </FooterMidBtnMenu>
       <FooterDownContentSpace>
         <FooterDownContentSpan>팀장 : 홍승재</FooterDownContentSpan>
-        <FooterDownContentSpan>백엔드 : 김경근, 허준열 </FooterDownContentSpan>
+        <FooterDownContentSpan>
+          백엔드 : 홍승재, 김경근, 허준열
+        </FooterDownContentSpan>
         <FooterDownContentSpan>
           프론트 : 김서연 ,노경민 , 임세영
         </FooterDownContentSpan>
-        <FooterDownContent>@ 2014 dodot. All Right Reserved.</FooterDownContent>
+        <FooterDownContent>
+          @ 2022 집 가고 싶다. All Right Reserved.
+        </FooterDownContent>
       </FooterDownContentSpace>
     </FooterWrapper>
   );
@@ -55,7 +71,7 @@ const FooterTopInformation = styled.div`
   height: 25px;
 
   @media screen and (max-width: 768px) {
-    width: 100%;
+    width: 80%;
   }
 `;
 const FooterSeviceContent = styled.div`
@@ -119,8 +135,8 @@ const FooterMenuBtn = styled.div`
 const FooterSocialBtn = styled.a`
   font-size: 30px;
   cursor: pointer;
-  &:hover {
-    color: #ffaf51;
+  &:nth-child(1) {
+    margin-right: 20px;
   }
 `;
 
