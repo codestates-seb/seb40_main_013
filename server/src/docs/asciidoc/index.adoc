@@ -351,6 +351,41 @@ include::{snippets}/carts/delete/path-parameters.adoc[]
 .http-response
 include::{snippets}/carts/delete/http-response.adoc[]
 
+== 주문
+=== 주문 생성
+.http-request
+include::{snippets}/orders/post/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/orders/post/request-headers.adoc[]
+
+.request-fields
+[caption=]
+include::{snippets}/orders/post/request-fields.adoc[]
+
+.http-response
+include::{snippets}/orders/post/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/orders/post/response-fields.adoc[]
+
+=== 주문 전체 조회
+.http-request
+include::{snippets}/orders/get/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/orders/get/request-headers.adoc[]
+
+.http-response
+include::{snippets}/orders/get/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/orders/get/response-fields.adoc[]
+
 == 검색
 === 인기 검색어
 .http-request
