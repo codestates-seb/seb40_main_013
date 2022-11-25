@@ -24,17 +24,12 @@ import java.util.stream.Collectors;
 public class OrderController {
     private final OrderService orderService;
     private final OrderMapper mapper;
-    private final OrderProductMapper orderProductMapper;
 
     @PostMapping
     public ResponseEntity postOrder(@MemberId Long memberId,
                                     @RequestBody OrderDto.Post post) {
-        Order order = mapper.toOrder(post, memberId);
-        order.addOrderProduct(post.getOrderProducts().stream()
-                .map(orderProductMapper::toOrderProduct)
-                .collect(Collectors.toList()));
 
-        Order saveOrder = orderService.createOrder(order);
+        Order saveOrder = orderService.createOrder(mapper.toOrder(post, memberId));
 
         return new ResponseEntity<>(mapper.toResponse(saveOrder), HttpStatus.CREATED);
     }

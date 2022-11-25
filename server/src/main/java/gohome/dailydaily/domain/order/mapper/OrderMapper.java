@@ -13,7 +13,6 @@ import org.mapstruct.ReportingPolicy;
         builder = @Builder(disableBuilder = true))
 public interface OrderMapper {
 
-
     @Mapping(target = "member", expression = "java(Member.builder().id(memberId).build())")
     Order toOrder(OrderDto.Post post, Long memberId);
 

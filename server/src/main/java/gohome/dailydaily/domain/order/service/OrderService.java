@@ -2,6 +2,7 @@ package gohome.dailydaily.domain.order.service;
 
 import gohome.dailydaily.domain.member.service.MemberService;
 import gohome.dailydaily.domain.order.entity.Order;
+import gohome.dailydaily.domain.order.entity.OrderProduct;
 import gohome.dailydaily.domain.order.entity.OrderStatus;
 import gohome.dailydaily.domain.order.repository.OrderRepository;
 import gohome.dailydaily.domain.product.service.ProductService;
@@ -50,9 +51,17 @@ public class OrderService {
         order.getOrderProducts()
                 .forEach(orderProduct -> {
                     productService.getProduct(orderProduct.getProduct().getId());
+                    updateSaleAndStock(orderProduct);
                     orderProduct.addOrder(order);
                 });
+    }
 
+    private void updateSaleAndStock(OrderProduct orderProduct) {
+        if (orderProduct.getOption().getStock() < orderProduct.getCount()) {
+            throw new BusinessLogicException(ExceptionCode.OUT_OF_STOCK);
+        }
+        orderProduct.getProduct().updateSale(orderProduct.getCount());
+        orderProduct.getOption().updateStock(orderProduct.getCount());
     }
 
     @Transactional(readOnly = true)

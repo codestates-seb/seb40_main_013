@@ -12,7 +12,7 @@ public enum ExceptionCode {
 
     CANNOT_CHANGE_ORDER(403, "Order can not change"),
     CANNOT_CANCEL_ORDER(403, "Order can not cancel"),
-
+    OUT_OF_STOCK(403, "Out of stock"),
     MEMBER_NOT_FOUND(404, "Member not found"),
     CART_NOT_FOUND(404, "Cart not found"),
     ORDER_NOT_FOUND(404, "Order not found"),
