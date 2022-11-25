@@ -25,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -225,4 +226,43 @@ class MemberControllerTest implements Reflection {
                         PAGE_REVIEW_RESPONSE_FIELDS
                 ));
     }
+
+//    @Test
+//    void patchMemberImg() throws Exception{
+//        // given
+//        MemberDto.ImgRegistration imgRegistration = newInstance(MemberDto.ImgRegistration.class);
+//        setField(imgRegistration, "img", );
+//
+//        String request = gson.toJson(imgRegistration);
+//
+//        given(memberService.updateMember(any(Member.class)))
+//                .willReturn(MEMBER);
+//
+//        // when
+//        ResultActions actions = mockMvc.perform(
+//                patch("/members/mypage")
+//                        .header("Authorization", "JWT")
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(request)
+//        );
+//
+//        // then
+//        actions.andExpect(status().isOk())
+//                .andExpect(jsonPath("$.memberId").value(MEMBER.getId()))
+//                .andExpect(jsonPath("$.email").value(MEMBER.getEmail()))
+//                .andExpect(jsonPath("$.nickname").value(MEMBER.getNickname()))
+//                .andExpect(jsonPath("$.address").value(MEMBER.getAddress()))
+//                .andExpect(jsonPath("$.phone").value(MEMBER.getPhone()))
+//                .andExpect(jsonPath("$.memberStatus").value(MEMBER.getMemberStatus().name()))
+//                .andDo(document("members/patch",
+//                        REQUEST_PREPROCESSOR,
+//                        RESPONSE_PREPROCESSOR,
+//                        REQUEST_HEADER_JWT,
+//                        requestFields(
+//                                FWP_NICKNAME, FWP_PASSWORD, FWP_ADDRESS, FWP_PHONE
+//                        ),
+//                        MEMBER_RESPONSE_FIELDS
+//                ));
+//    }
 }

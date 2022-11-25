@@ -114,6 +114,7 @@ public class TestConstant {
             .img(FILE)
             .content("상품 내용1")
             .price(123456)
+            .sale(0)
             .score(3)
             .seller(SELLER)
             .category(CATEGORY)
@@ -125,6 +126,7 @@ public class TestConstant {
             .img(FILE)
             .content("상품 내용2")
             .price(100000)
+            .sale(0)
             .score(4)
             .seller(SELLER)
             .category(CATEGORY2)
@@ -228,6 +230,10 @@ public class TestConstant {
 
     public static final PathParametersSnippet PATH_PARAM_PRODUCT_CART_ID = pathParameters(
             parameterWithName("product-cart-id").description("장바구니 상품 식별자")
+    );
+
+    public static final PathParametersSnippet PATH_PARAM_ORDER_ID = pathParameters(
+            parameterWithName("order-id").description("주문 식별자")
     );
 
     public static final PathParametersSnippet PATH_PARAM_PRODUCT_ID_AND_REVIEW_ID = pathParameters(

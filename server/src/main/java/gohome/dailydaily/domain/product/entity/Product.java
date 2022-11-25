@@ -70,4 +70,8 @@ public class Product extends BaseTime {
     public void addOrderProducts(OrderProduct... orderProducts) {
         this.orderProducts.addAll(List.of(orderProducts));
     }
+
+    public void updateSale(int count) {
+        this.sale += count;
+    }
 }
