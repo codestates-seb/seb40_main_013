@@ -26,7 +26,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 16vh;
+  margin-top: 127.5px;
   z-index: 1;
 `;
 

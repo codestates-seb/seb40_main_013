@@ -1,21 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
-import SubCarousel from "../components/subcategories/SubCalousel";
-import Apis from "../apis/apis";
-import Products from "../components/mains/Product";
+import SubCarousel from "../../components/subcategories/SubCalousel";
+import Products from "../../components/mains/Product";
 
-import chair from "../imgs/chair.png";
-import desk from "../imgs/desk.png";
-import shelf from "../imgs/shelf.png";
-import room from "../imgs/room.jpg";
+import chair from "../../imgs/chair.png";
+import desk from "../../imgs/desk.png";
+import shelf from "../../imgs/shelf.png";
+import room from "../../imgs/room.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getBedroom,
-  getKitchen,
-  getLibrary,
-  getLivingRoom,
-  getSubCategory,
-} from "../reduxstore/slices/subCategorySlice";
+import { getLibrary } from "../../reduxstore/slices/subCategorySlice";
 
 const SubBlock = styled.div`
   display: flex;
@@ -89,7 +82,7 @@ const ProductList = styled.div`
   }
 `;
 
-function SubCategory({ click }) {
+function Bedroom({ click }) {
   console.log(click);
 
   const dispatch = useDispatch();
@@ -210,4 +203,4 @@ function SubCategory({ click }) {
     </SubBlock>
   );
 }
-export default SubCategory;
+export default Bedroom;

@@ -134,7 +134,7 @@ const Wrapper = styled.div`
   width: 100%;
   /* height: 58vh; */
   height: 100vh;
-  margin-top: 14px;
+  margin-top: 127.5px;
   display: flex;
   justify-content: center;
   margin-bottom: 40px;

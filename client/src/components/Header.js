@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const HeaderBlock = styled.header`
   width: 100vw;
-  height: 16vh;
+  height: 127.5px;
   color: var(--color-gray);
   div {
     display: flex;
@@ -22,7 +22,7 @@ const HeaderBlock = styled.header`
 `;
 
 const Logo = styled.div`
-  height: 8vh;
+  height: 64px;
   align-items: center;
   justify-content: center;
   div {
@@ -57,7 +57,7 @@ const Serach = styled.div`
 `;
 
 const CategoryList = styled.div`
-  height: 3vh;
+  height: 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -76,7 +76,7 @@ const CategoryList = styled.div`
 const Nav = styled.nav`
   z-index: 400;
   position: absolute;
-  top: 22px;
+  top: 19px;
   left: -70px;
   background-color: white;
   border: 1px solid #aaaaaa;

@@ -21,6 +21,10 @@ const Signup = lazy(() => import("./pages/Signup"));
 const ArticleDetail = lazy(() => import("./pages/detail/ArticleDetail"));
 const SubCategory = lazy(() => import("./pages/SubCategory"));
 const ShoppingCart = lazy(() => import("./pages/ShoppingCart"));
+const Library = lazy(() => import("./pages/sub/Library"));
+const Bedroom = lazy(() => import("./pages/sub/Bedroom"));
+const Kitchen = lazy(() => import("./pages/sub/Kitchen"));
+const LivingRoom = lazy(() => import("./pages/sub/LivingRoom"));
 
 function App() {
   const [click, setClick] = useState("");
