@@ -30,6 +30,7 @@ export const loginUser = createAsyncThunk(
         localStorage.setItem("Refresh", jwtrefreshToken);
         navigate("/");
         window.alert("로그인 성공!");
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {

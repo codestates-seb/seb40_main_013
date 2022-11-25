@@ -139,7 +139,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
-  margin-top: 160px;
+  margin-top: 16vh;
   @media screen and (max-width: 768px) {
     width: 100%;
     height: 100vh;
