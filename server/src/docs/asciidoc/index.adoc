@@ -386,6 +386,21 @@ include::{snippets}/orders/get/http-response.adoc[]
 [caption=]
 include::{snippets}/orders/get/response-fields.adoc[]
 
+=== 주문 취소
+.http-request
+include::{snippets}/orders/delete/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/orders/delete/request-headers.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/orders/delete/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/orders/delete/http-response.adoc[]
+
 == 검색
 === 인기 검색어
 .http-request
