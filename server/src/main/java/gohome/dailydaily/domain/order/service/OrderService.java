@@ -33,9 +33,7 @@ public class OrderService {
     }
 
     private Order findVerifiedOrder(Long memberId, Long orderId) {
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-
-        Order order = optionalOrder.orElseThrow(() ->
+        Order order = orderRepository.findById(orderId).orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
 
         if (!order.getMember().getId().equals(memberId)) {
