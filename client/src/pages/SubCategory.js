@@ -15,7 +15,7 @@ import {
   getLibrary,
   getLivingRoom,
   getSubCategory,
-} from "../reduxstore/slices/subCategorySlice";
+} from "../reduxstore/slices/sub/subCategorySlice";
 
 const SubBlock = styled.div`
   display: flex;
@@ -159,7 +159,7 @@ function SubCategory({ click }) {
       } else if (click === '식탁/아일랜드' || click === '식탁의자' || click === '주방수납'){
         dispatch(getKitchen({click,page}))
       }
-      // dispatch(getSubCategory({click,page}))
+      dispatch(getSubCategory({click,page}))
     }, [click]);
 
     return (

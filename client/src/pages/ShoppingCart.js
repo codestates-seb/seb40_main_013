@@ -219,24 +219,24 @@ function ShoppingCart() {
             <PayInfo>
               <div>
                 <span>상품수</span>
-                <span>{totalCountCalculator.toLocaleString("en-US")} 개</span>
+                <span>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</span>
               </div>
               <div>
                 <span>상품금액</span>
-                <span>{totalPriceCalculator.toLocaleString("en-US")} 원</span>
+                <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
               </div>
               <div>
                 <span>할인금액</span>
-                <span className="sale">0 원</span>
+                <span className="sale">0&nbsp;원</span>
               </div>
               <div>
                 <span>배송비</span>
-                <span>0 원</span>
+                <span>0&nbsp;원</span>
               </div>
             </PayInfo>
             <TotalPrice>
-              <span className="small">총 결제금액</span>
-              <span>{totalPriceCalculator.toLocaleString("en-US")} 원</span>
+              <span className="small">총&nbsp;결제금액</span>
+              <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
             </TotalPrice>
             <PayButton>구매하기</PayButton>
           </Payment>

@@ -3,7 +3,7 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://bitter-geese-occur-125-134-111-237.loca.lt/",
+  baseURL: "https://open-goats-lose-125-134-111-237.loca.lt/",
 });
 
 axios.interceptors.request.use(function (config) {
@@ -57,9 +57,10 @@ Apis.interceptors.response.use(
       return Promise.reject(err);
     } else if (err.response.data.status === 401) {
       window.alert("다시 로그인 해주세요!");
-    } else if (err.response.data.status === 404) {
-      window.alert("로그인후 이용 가능합니다!");
-    }
+    } 
+    // else if (err.response.data.status === 404) {
+    //   window.alert("로그인후 이용 가능합니다!");
+    // }
     return Promise.reject(err);
   }
 );

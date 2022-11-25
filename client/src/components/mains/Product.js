@@ -56,9 +56,9 @@ const Title = styled.h2`
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* height: 3vh; //수정필요... */
-  word-break: break-all;
-  height: 30px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   @media screen and (max-width: 390px) {
     font-size: 1.6vw;
     font-weight: 400;
