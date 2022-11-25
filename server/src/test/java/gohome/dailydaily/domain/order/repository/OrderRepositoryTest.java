@@ -37,7 +37,7 @@ class OrderRepositoryTest {
                 .img(FILE)
                 .sale(0)
                 .price(10000)
-                .score(4)
+                .score(4F)
                 .build();
 
         Product product2 = Product.builder()
@@ -46,7 +46,7 @@ class OrderRepositoryTest {
                 .img(FILE)
                 .sale(0)
                 .price(10000)
-                .score(4)
+                .score(4F)
                 .build();
 
         OrderProduct orderProduct1 = OrderProduct.builder()

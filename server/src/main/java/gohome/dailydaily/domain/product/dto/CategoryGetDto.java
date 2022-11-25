@@ -11,12 +11,12 @@ public class CategoryGetDto {
     private File img;
     private String title;
     private Integer price;
-    private Integer score;
+    private Float score;
     private String nickname;
     private String main;
 
     @QueryProjection
-    public CategoryGetDto(Long id, File img, String title, Integer price, Integer score, String nickname,String main) {
+    public CategoryGetDto(Long id, File img, String title, Integer price, Float score, String nickname,String main) {
         this.id = id;
         this.img = img;
         this.title = title;

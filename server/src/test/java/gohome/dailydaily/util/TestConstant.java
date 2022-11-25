@@ -81,7 +81,7 @@ public class TestConstant {
             .content("[test, test]")
             .img(FILE)
             .price(10000)
-            .score(4)
+            .score(4F)
             .seller(SELLER)
             .category(CATEGORY)
             .build();
@@ -114,7 +114,7 @@ public class TestConstant {
             .img(FILE)
             .content("상품 내용1")
             .price(123456)
-            .score(3)
+            .score(3F)
             .seller(SELLER)
             .category(CATEGORY)
             .build();
@@ -125,7 +125,7 @@ public class TestConstant {
             .img(FILE)
             .content("상품 내용2")
             .price(100000)
-            .score(4)
+            .score(4F)
             .seller(SELLER)
             .category(CATEGORY2)
             .build();
@@ -222,8 +222,8 @@ public class TestConstant {
             parameterWithName("sub").description("카테고리 소분류"),
             parameterWithName("page").description("페이지"),
             parameterWithName("size").description("사이즈"),
-            parameterWithName("sortType").description("정렬 요소"),
-            parameterWithName("order").description("내림차순 or 오름차순")
+            parameterWithName("sortType").description("정렬 요소 ('createdAt' : 최신순(기본 값), 'price : 가격 순', sale : 판매순)"),
+            parameterWithName("order").description("'desc' : 내림차순(기본 값), 'asc' : 오름차순")
     );
 
     public static final PathParametersSnippet PATH_PARAM_PRODUCT_CART_ID = pathParameters(

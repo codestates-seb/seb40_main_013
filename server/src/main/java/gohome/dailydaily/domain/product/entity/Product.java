@@ -37,7 +37,7 @@ public class Product extends BaseTime {
     private Integer price;
 
     @Column(nullable = false)
-    private Integer score;
+    private Float score;
 
     @Column(nullable = false)
     private Integer sale;
@@ -69,5 +69,9 @@ public class Product extends BaseTime {
 
     public void addOrderProducts(OrderProduct... orderProducts) {
         this.orderProducts.addAll(List.of(orderProducts));
+    }
+
+    public void setScore(Float score) {
+        this.score = score;
     }
 }
