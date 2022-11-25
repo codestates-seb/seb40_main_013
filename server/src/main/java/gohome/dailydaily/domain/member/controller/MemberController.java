@@ -22,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -58,6 +59,12 @@ public class MemberController {
     public UserResponse patchMember(@MemberId Long memberId,
                                     @Valid @RequestBody Patch patch) {
         Member member = memberService.updateMember(memberMapper.toMember(patch, memberId));
+        return memberMapper.toResponse(member);
+    }
+    @PatchMapping("/members/img")
+    public UserResponse patchMemberImg(@MemberId Long memberId,
+                                    @Valid @ModelAttribute ImgRegistration imgPatch) throws IOException {
+        Member member = memberService.updateMemberImg(imgPatch, memberId);
         return memberMapper.toResponse(member);
     }
 

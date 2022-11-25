@@ -78,4 +78,8 @@ public class Member extends BaseTime {
         this.memberStatus = memberStatus;
     }
 
+    public void updateImg(File file) {
+        this.img = file;
+    }
+
 }
