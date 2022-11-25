@@ -19,24 +19,24 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 import static gohome.dailydaily.util.TestConstant.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -227,42 +227,35 @@ class MemberControllerTest implements Reflection {
                 ));
     }
 
-//    @Test
-//    void patchMemberImg() throws Exception{
-//        // given
-//        MemberDto.ImgRegistration imgRegistration = newInstance(MemberDto.ImgRegistration.class);
-//        setField(imgRegistration, "img", );
-//
-//        String request = gson.toJson(imgRegistration);
-//
-//        given(memberService.updateMember(any(Member.class)))
-//                .willReturn(MEMBER);
-//
-//        // when
-//        ResultActions actions = mockMvc.perform(
-//                patch("/members/mypage")
-//                        .header("Authorization", "JWT")
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(request)
-//        );
-//
-//        // then
-//        actions.andExpect(status().isOk())
-//                .andExpect(jsonPath("$.memberId").value(MEMBER.getId()))
-//                .andExpect(jsonPath("$.email").value(MEMBER.getEmail()))
-//                .andExpect(jsonPath("$.nickname").value(MEMBER.getNickname()))
-//                .andExpect(jsonPath("$.address").value(MEMBER.getAddress()))
-//                .andExpect(jsonPath("$.phone").value(MEMBER.getPhone()))
-//                .andExpect(jsonPath("$.memberStatus").value(MEMBER.getMemberStatus().name()))
-//                .andDo(document("members/patch",
-//                        REQUEST_PREPROCESSOR,
-//                        RESPONSE_PREPROCESSOR,
-//                        REQUEST_HEADER_JWT,
-//                        requestFields(
-//                                FWP_NICKNAME, FWP_PASSWORD, FWP_ADDRESS, FWP_PHONE
-//                        ),
-//                        MEMBER_RESPONSE_FIELDS
-//                ));
-//    }
+    @Test
+    void patchMemberImg() throws Exception {
+        // given
+        given(memberService.updateMemberImg(any(MemberDto.ImgRegistration.class), eq(MEMBER.getId())))
+                .willReturn(MEMBER);
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                multipart("/members/img")
+                        .file(IMG)
+                        .header("Authorization", "JWT")
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .accept(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.memberId").value(MEMBER.getId()))
+                .andExpect(jsonPath("$.email").value(MEMBER.getEmail()))
+                .andExpect(jsonPath("$.nickname").value(MEMBER.getNickname()))
+                .andExpect(jsonPath("$.address").value(MEMBER.getAddress()))
+                .andExpect(jsonPath("$.phone").value(MEMBER.getPhone()))
+                .andExpect(jsonPath("$.memberStatus").value(MEMBER.getMemberStatus().name()))
+                .andDo(document("members/img",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
+                        REQUEST_PARTS_IMG,
+                        MEMBER_RESPONSE_FIELDS
+                ));
+    }
 }

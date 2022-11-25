@@ -20,6 +20,7 @@ import gohome.dailydaily.global.common.dto.PagingRequestDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.headers.HeaderDescriptor;
 import org.springframework.restdocs.headers.RequestHeadersSnippet;
 import org.springframework.restdocs.headers.ResponseHeadersSnippet;
@@ -29,10 +30,12 @@ import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import org.springframework.restdocs.request.RequestParametersSnippet;
+import org.springframework.restdocs.request.RequestPartsSnippet;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
 
+import static org.apache.http.entity.ContentType.DEFAULT_BINARY;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
@@ -226,6 +229,11 @@ public class TestConstant {
             parameterWithName("size").description("사이즈"),
             parameterWithName("sortType").description("정렬 요소"),
             parameterWithName("order").description("내림차순 or 오름차순")
+    );
+
+    public static final RequestParametersSnippet REQUEST_PARAM_REVIEW = requestParameters(
+            parameterWithName("content").description("리뷰 내용"),
+            parameterWithName("score").description("리뷰 별점")
     );
 
     public static final PathParametersSnippet PATH_PARAM_PRODUCT_CART_ID = pathParameters(
@@ -437,6 +445,11 @@ public class TestConstant {
     public static final ResponseFieldsSnippet AUTH_RESPONSE_FIELDS = responseFields(
             FWP_STATUS, FWP_MESSAGE
     );
+
+    public static final MockMultipartFile IMG =
+            new MockMultipartFile("img", null, DEFAULT_BINARY.toString(), "img".getBytes());
+
+    public static final RequestPartsSnippet REQUEST_PARTS_IMG = requestParts(partWithName("img").description("이미지"));
 
     static {
         MEMBER.addRoles(MemberRole.USER);

@@ -18,6 +18,7 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.web.multipart.MultipartFile;
 
 import static gohome.dailydaily.util.TestConstant.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -47,22 +48,19 @@ class ReviewControllerTest implements Reflection {
     @Test
     void postReview() throws Exception {
         // given
-        ReviewDto.Post post = newInstance(ReviewDto.Post.class);
-        setField(post, "content", REVIEW1.getContent());
-        setField(post, "score", REVIEW1.getScore() / 10F);
-
-        String request = gson.toJson(post);
-
-        given(reviewService.createReview(eq(MEMBER.getId()), eq(REVIEW1.getProduct().getId()), any(Review.class)))
+        given(reviewService.createReview(any(Review.class), any(MultipartFile.class)))
                 .willReturn(REVIEW1);
 
         // when
         ResultActions actions = mockMvc.perform(
-                post("/products/{product-id}/reviews", REVIEW1.getProduct().getId())
+                multipart("/products/{product-id}/reviews", REVIEW1.getProduct().getId())
+                        .file(IMG)
+                        .param("content", REVIEW1.getContent())
+                        .param("score", String.valueOf((REVIEW1.getScore() / 10F)))
                         .header("Authorization", "JWT")
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(request)
+
         );
         // then
         actions.andExpect(status().isCreated())
@@ -76,9 +74,8 @@ class ReviewControllerTest implements Reflection {
                         RESPONSE_PREPROCESSOR,
                         REQUEST_HEADER_JWT,
                         PATH_PARAM_PRODUCT_ID,
-                        requestFields(
-                                FWP_REVIEW_CONTENT, FWP_REVIEW_SCORE
-                        ),
+                        REQUEST_PARTS_IMG,
+                        REQUEST_PARAM_REVIEW,
                         REVIEW_RESPONSE_FIELDS
                 ));
     }
