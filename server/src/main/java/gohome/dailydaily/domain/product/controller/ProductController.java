@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -51,20 +52,20 @@ public class ProductController {
     // 카테고리 대분류 또는 소분류별 리스트 조회
     // 역할을 제대로 구분하면 코드는 자연스럽게 클린 코드가 됨
     @GetMapping
-    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByCategory(GetProductListByDto dto) {
+    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByCategory(@Valid GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByCategory(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     // 제목으로 상품 리스트 검색
     @GetMapping("/search")
-    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByTitle(GetProductListByDto dto) {
+    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByTitle(@Valid GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByTitle(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/details/{product-id}")
-    public ResponseEntity<ProductDto.Response> getProduct(@PathVariable("product-id") Long productId) {
+    public ResponseEntity<ProductDto.Response> getProduct(@Valid @PathVariable("product-id") Long productId) {
         Product product = productService.getProduct(productId);
 
         return new ResponseEntity<>(mapper.toResponse(product), HttpStatus.OK);
@@ -77,7 +78,7 @@ public class ProductController {
     }
 
     @GetMapping("/brand/{sellerId}")
-    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByBrand(GetProductListByDto dto) {
+    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByBrand(@Valid GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByBrand(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

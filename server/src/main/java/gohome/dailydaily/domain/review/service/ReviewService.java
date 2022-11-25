@@ -38,6 +38,9 @@ public class ReviewService {
         Product product = productRepository.findById(review.getProduct().getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
 
+        Float score =  ((product.getScore() * product.getReviews().size()) + review.getScore()) / (product.getReviews().size() + 1);
+        product.setScore(score);
+
         File file = fileService.storeFile(img, reviewPath);
         review.initInfo(member, product, file);
 
