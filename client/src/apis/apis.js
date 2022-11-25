@@ -3,7 +3,7 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://tame-ducks-talk-113-52-194-59.loca.lt/",
+  baseURL: "https://bitter-geese-occur-125-134-111-237.loca.lt/",
 });
 
 axios.interceptors.request.use(function (config) {

@@ -5,11 +5,10 @@ import { IoMdClose } from "react-icons/io";
 const SearchBlock = styled.div`
   position: fixed; //absolute로 바꿀수도 있음
   width:100%; 
-  height:100%; 
   z-index: 300; 
   overflow:hidden; 
   transition:0.3s height;  
-  top: 160px;
+  top: 16vh;
   left: 0; 
   background-color: white;
   display: flex;
@@ -30,7 +29,7 @@ const FormBlock = styled.div`
 `;
 
 const Form = styled.form`
-  margin-top: 20vh;
+  margin-top: 17vh;
   display: flex;
   width: 100%;
   height: 60px;
@@ -46,7 +45,6 @@ const SearchInput = styled.div`
   input {
     border: none;
     width: 100%;
-    height: 100%;
     font-size: 30px;
     padding: 10px;
     &:focus {
@@ -55,13 +53,19 @@ const SearchInput = styled.div`
   }
 `;
 
-const Ranking = styled.div`
+const SearchWord = styled.div`
   flex-direction: column;
   align-items: center;
-  /* height: 350px; */
-  padding-top: 30px;
+  width: 50%;
+  margin: 5vh 0px;
+  &.line{
+    border-right: 1px solid #dbdbdc;
+  }
   .recent{
-    height: 30px;
+    height: 2em;
+    .word{
+        font-size: 63px;
+    }
   }
 `;
 
@@ -78,16 +82,22 @@ function DownSearch({closeSearch, closeHandler}){
                 </SearchInput>
                 <div onClick={closeHandler}><IoMdClose size='32'/></div>
             </Form>
-          <Ranking>
-                <div className="recent">최근 검색어</div>
-                <div>
-                    <div>두닷</div>
-                    <div>의자</div>
-                    <div>책상</div>
-                    <div>담요</div>
-                    <div>쇼파</div>
-                </div>
-          </Ranking>
+          <div>
+            <SearchWord className="line">
+              <div className="recent">최근 검색어</div>
+              <div>
+                <div className="word">1.</div>
+                <div className="word">포더홈</div>
+              </div>
+            </SearchWord>
+            <SearchWord>
+              <div className="popular">인기 검색어</div>
+              <div>
+                <span>1.</span>
+                <span>포더홈</span>
+              </div>
+            </SearchWord>
+          </div>
         </div>
       </SearchBlock>
     )
