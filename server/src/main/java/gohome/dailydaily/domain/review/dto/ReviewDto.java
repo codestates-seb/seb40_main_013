@@ -1,11 +1,9 @@
 package gohome.dailydaily.domain.review.dto;
 
 import gohome.dailydaily.domain.file.entity.File;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -14,11 +12,13 @@ import java.time.LocalDateTime;
 public class ReviewDto {
 
     @Getter
+    @Setter
     public static class Post {
         @NotBlank
         private String content;
         @Range(min = 0, max = 5)
         private Float score;
+        private MultipartFile img;
     }
 
     @Getter
