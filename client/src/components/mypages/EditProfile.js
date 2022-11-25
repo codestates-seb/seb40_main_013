@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../reduxstore/slices/userSlice";
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import Apis from "../../apis/apis";
+import Alert from "../Alert";
 
 const EditContainter = styled.div`
   display: flex;
@@ -251,7 +252,7 @@ const EditProfile = ({ getUserdata }) => {
   //비밀번호 일치 확인
   const [curpwdConform, setCurpwdConform] = useState(false);
 
-  //닉네임 저장하기
+  //닉네임, 주소, 핸드폰번호 저장하기
   useEffect(()=>{
     if(!updateNickName){
       setUpdatNickName(getUserdata?.nickname)
@@ -314,7 +315,6 @@ const EditProfile = ({ getUserdata }) => {
   }, [updateNickName, updatePassword, updatePwdCheck, updatePhone]);
 
   // 현재 password 받아오기
-  console.log(curpwd);
   const onConfirmPwd = () => {
     Apis.post(
       `password`,
@@ -330,41 +330,52 @@ const EditProfile = ({ getUserdata }) => {
       .then((res) => {
         console.log(res);
         setCurpwdConform(true)
-        alert("비밀번호가 일치합니다!");
+        Alert('success', "비밀번호가 일치합니다!");
       })
       .catch((err) => {
         console.log(err.response.data.message);
         if (err.response.data.message === "Password does not match") {
-          alert("입력하신 비밀번호가 일치하지않습니다.");
+          Alert('error', "입력하신 비밀번호가 일치하지않습니다.");
         }
         setCurpwdConform(false)
       });
   };
 
   //정보수정하기
-  const updateInform = e => {
+  const updateInform = () => {
     let pwd = '';
+    let updatedata = {};
     if(updatePassword === ''){
       pwd = curpwd
     }else {
       pwd = updatePassword
     }
-    const updatedata = {
-      nickname: updateNickName,
-      password: pwd,
-      address: updateAddress,
-      phone: updatePhone,
+    if(updateNickName === getUserdata.nickname){
+      updatedata = {
+        password: pwd,
+        address: updateAddress,
+        phone: updatePhone,
+      }
+    }else if(updateNickName !== getUserdata.nickname) {
+      updatedata = {
+        nickname: updateNickName,
+        password: pwd,
+        address: updateAddress,
+        phone: updatePhone,
+      }
     };
-    console.log(updatedata);
+    // console.log(updatedata);
     if(curpwdConform === true){
       dispatch(updateUser(updatedata));
-      navigate('/members/mypage/purchase')
+      Alert('question', '수정하시겠습니까?');
+    }else if(!curpwdConform){
+      Alert('warning', '현재 비밀번호를 확인해주세요')
     }
   };
 
   const handleDelete = (e) => {
     e.preventDefault();
-    if(window.confirm('확인을 누르면 회원 정보가 삭제됩니다.')){
+    if(Alert( 'warning', '확인을 누르면 회원 정보가 삭제됩니다.')){
       Apis.delete(`/members/mypage`,{
         headers: {
           Authorization: initialToken
@@ -452,7 +463,7 @@ const EditProfile = ({ getUserdata }) => {
         ></Input>
         {!passwordConfirm ? (
           <ErrorDisplay>
-            문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자로 만들어주세요!
+            문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자이상 20자이하로 만들어주세요!
           </ErrorDisplay>
         ) : null}
         <PwdHide>
