@@ -148,9 +148,24 @@ include::{snippets}/members/reviews/request-parameters.adoc[]
 .http-response
 include::{snippets}/members/reviews/http-response.adoc[]
 
+=== 회원 프로필 수정
+.http-request
+include::{snippets}/members/img/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/members/img/request-headers.adoc[]
+
+.request-parts
+[caption=]
+include::{snippets}/members/img/request-parts.adoc[]
+
+.http-response
+include::{snippets}/members/img/http-response.adoc[]
+
 .response-fields
 [caption=]
-include::{snippets}/members/reviews/response-fields.adoc[]
+include::{snippets}/members/img/response-fields.adoc[]
 
 == 상품
 === 상품 상세 조회
@@ -228,6 +243,14 @@ include::{snippets}/reviews/post/request-headers.adoc[]
 .path-parameters
 [caption=]
 include::{snippets}/reviews/post/path-parameters.adoc[]
+
+.request-parameters
+[caption=]
+include::{snippets}/reviews/post/request-parameters.adoc[]
+
+.request-parts
+[caption=]
+include::{snippets}/members/img/request-parts.adoc[]
 
 .request-fields
 [caption=]
