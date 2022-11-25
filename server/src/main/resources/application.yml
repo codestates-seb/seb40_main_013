@@ -4,6 +4,10 @@ logging:
       springframework:
         orm:
           jpa: DEBUG # 로그 단계 설정
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
 
 cloud:
   aws:
