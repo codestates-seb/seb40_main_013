@@ -74,6 +74,10 @@ class OrderServiceTest implements Reflection {
 
         // then
         assertThat(order.getMember().getEmail()).isEqualTo(MEMBER.getEmail());
+        assertThat(order.getOrderProducts().get(0)
+                .getOption().getStock()).isEqualTo(995);
+        assertThat(order.getOrderProducts().get(0)
+                .getProduct().getSale()).isEqualTo(5);
 
 //        assertThatThrownBy(() -> {
 //            orderService.createOrder(order);
