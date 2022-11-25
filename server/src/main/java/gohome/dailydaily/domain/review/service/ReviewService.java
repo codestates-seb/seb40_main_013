@@ -27,6 +27,8 @@ public class ReviewService {
         Member member = memberService.findVerifiedMember(memberId);
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+        Float score =  ((product.getScore() * product.getReviews().size()) + review.getScore()) / (product.getReviews().size() + 1);
+        product.setScore(score);
         review.initInfo(member, product);
         return reviewRepository.save(review);
     }
