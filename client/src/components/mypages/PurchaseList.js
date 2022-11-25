@@ -199,7 +199,8 @@ const CancleBtn = styled.button`
   border-radius: 10px;
   cursor: pointer;
   &:hover {
-    background-color: #ffaf51;
+    background-color: red;
+    color: white;
   }
   @media screen and (max-width: 390px) {
     display: none;
