@@ -2,6 +2,7 @@ package gohome.dailydaily.domain.order.service;
 
 import gohome.dailydaily.domain.member.service.MemberService;
 import gohome.dailydaily.domain.order.entity.Order;
+import gohome.dailydaily.domain.order.entity.OrderProduct;
 import gohome.dailydaily.domain.order.entity.OrderStatus;
 import gohome.dailydaily.domain.order.repository.OrderRepository;
 import gohome.dailydaily.domain.product.service.ProductService;
@@ -31,11 +32,15 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    private Order findVerifiedOrder(Long orderId) {
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-
-        return optionalOrder.orElseThrow(() ->
+    private Order findVerifiedOrder(Long memberId, Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
+
+        if (!order.getMember().getId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.ORDER_DOES_NOT_MATCH);
+        }
+
+        return order;
     }
 
     private void verifyOrder(Order order) {
@@ -44,14 +49,33 @@ public class OrderService {
         order.getOrderProducts()
                 .forEach(orderProduct -> {
                     productService.getProduct(orderProduct.getProduct().getId());
+                    updateSaleAndStock(orderProduct);
                     orderProduct.addOrder(order);
                 });
+    }
 
+    private void updateSaleAndStock(OrderProduct orderProduct) {
+        if (orderProduct.getOption().getStock() < orderProduct.getCount()) {
+            throw new BusinessLogicException(ExceptionCode.OUT_OF_STOCK);
+        }
+        orderProduct.getProduct().updateSale(orderProduct.getCount());
+        orderProduct.getOption().updateStock(orderProduct.getCount());
     }
 
     @Transactional(readOnly = true)
     public Page<Order> findByMember_Id(Long memberId, Pageable pageable) {
 
         return orderRepository.findOrderByMember_Id(memberId, pageable);
+    }
+
+    public void cancelOrder(Long memberId, Long orderId) {
+
+        Order order = findVerifiedOrder(memberId, orderId);
+
+        if (!order.getStatus().equals(OrderStatus.ORDER_RECEPTION)) {
+            throw new BusinessLogicException(ExceptionCode.CANNOT_CANCEL_ORDER);
+        }
+
+        orderRepository.delete(order);
     }
 }

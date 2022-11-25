@@ -16,8 +16,7 @@ public class OrderDto {
     }
 
     @Getter
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    @Builder
+    @AllArgsConstructor
     public static class Response {
         private Long orderId;
         private String status;

@@ -28,4 +28,7 @@ public class Option extends BaseTime {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    public void updateStock(int count) {
+        this.stock = this.stock - count;
+    }
 }
