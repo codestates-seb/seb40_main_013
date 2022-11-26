@@ -12,13 +12,14 @@
     "react": "^18.2.0",
     "react-auto-image-slider": "^0.1.7",
     "react-dom": "^18.2.0",
-    "react-dropdown-select": "^4.9.0",
     "react-icons": "^4.6.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.6",
     "styled-reset": "^4.4.2",
+    "sweetalert2": "^11.6.14",
+    "sweetalert2-react-content": "^5.0.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

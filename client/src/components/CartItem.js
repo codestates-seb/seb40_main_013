@@ -6,10 +6,11 @@ import { deleteShoppingCart } from "../reduxstore/slices/articleSlice";
 import { useDispatch } from "react-redux";
 import { reCountCartItem } from "../reduxstore/slices/articleSlice";
 import { Link } from "react-router-dom";
+import Alert from "./Alert";
 
 const CartItemBlock = styled.div`
   width: 100%;
-  height: 130px;
+  height: 100%;
   border: 1px solid #aaaaaa;
   border-radius: 5px;
   padding: 24px 10px;
@@ -25,7 +26,21 @@ const CartItemBlock = styled.div`
     padding: 0px 10px;
     justify-content: flex-end;
     font-weight: 600;
-    min-width: 6.5rem;
+    min-width: 6.7rem;
+    text-align: center;
+    height: 100%;
+    align-items: center;
+    @media screen and (max-width: 359px) {
+      padding: 0px 0px;
+      justify-content: center;
+    }
+  }
+  .media-price {
+    height: 100%;
+    align-items: center;
+    @media screen and (max-width: 359px) {
+      flex-direction: column;
+    }
   }
   .count-zone {
     flex-direction: column;
@@ -42,6 +57,21 @@ const CartItemBlock = styled.div`
     -webkit-appearance: none;
     margin: 0;
   }
+  @media screen and (max-width: 584px) {
+    flex-direction: column;
+    align-items: baseline;
+    padding: 13px 10px;
+    margin-bottom: 10px;
+    .part2 {
+      width: 100%;
+      /* display: flex; */
+      justify-content: space-between;
+      padding: 5px 20px 0px 20px;
+    }
+    /* .count-zone{
+        flex-direction: row;
+        } */
+  }
 `;
 
 const ProductInfo = styled.div`
@@ -49,6 +79,7 @@ const ProductInfo = styled.div`
   height: 100%;
   flex-direction: column;
   .brand {
+    margin-top: 2px;
     font-size: 11px;
     color: #aaaaaa;
     margin-bottom: 3px;
@@ -57,10 +88,30 @@ const ProductInfo = styled.div`
     font-weight: 600;
     margin-bottom: 5px;
     max-width: 19em;
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.05em;
+    max-height: 2.07em;
+    min-height: 2.07em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    @media screen and (max-width: 584px) {
+      max-width: 100%;
+    }
   }
   .time {
     font-size: 13px;
     color: #ffaf51;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 13px;
+    max-height: 13px;
+    min-height: 13px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
 `;
 
@@ -102,7 +153,7 @@ const ReCount = styled.button`
 
 const ItemDelete = styled(IoMdClose)`
   width: 25px;
-  height: 25px;
+  height: 100%;
   cursor: pointer;
   color: gray;
 `;
@@ -148,14 +199,18 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
   };
 
   const upCountHandler = () => {
-    setItemCount(parseInt(itemCount) + 1);
+    if (parseInt(itemCount) < 100) {
+      setItemCount(parseInt(itemCount) + 1);
+    } else {
+      Alert("warning", "100개 까지 주문 가능합니다.");
+    }
   };
 
   const downCountHandler = () => {
     if (parseInt(itemCount) > 1) {
       setItemCount(parseInt(itemCount) - 1);
     } else {
-      alert("최소 1개 이상 주문 가능합니다.");
+      Alert("warning", "최소 1개 이상 주문 가능합니다.");
     }
   };
 
@@ -182,7 +237,7 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
             </ProductInfo>
           </DetailLink>
         </div>
-        <div className="part">
+        <div className="part part2">
           <div className="count-zone">
             <div>
               <DownCount onClick={downCountHandler} />
@@ -196,10 +251,12 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
             </div>
             <ReCount onClick={ReCountHandler}>주문수정</ReCount>
           </div>
-          <div className="product-price">
-            {(itemCount * price).toLocaleString("en-US")}원
+          <div className="media-price">
+            <div className="product-price">
+              {(itemCount * price).toLocaleString("en-US")}원
+            </div>
+            <ItemDelete onClick={removeCartItem} />
           </div>
-          <ItemDelete onClick={removeCartItem} />
         </div>
       </CartItemBlock>
     </>

@@ -76,7 +76,7 @@ const CategoryList = styled.div`
 const Nav = styled.nav`
   z-index: 400;
   position: absolute;
-  top: 22px;
+  top: 19px;
   left: -70px;
   background-color: white;
   border: 1px solid #aaaaaa;
@@ -113,8 +113,8 @@ function Header({ setClick }) {
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
-  const ddd = useSelector((state) => state?.article.shoppingCartInitial);
-  console.log(ddd);
+  const cartCount = useSelector((state) => state);
+  // console.log(`cartCount`,cartCount);
 
   const clickMenu = ({ target }) => {
     setClick(target.innerHTML);
@@ -175,7 +175,7 @@ function Header({ setClick }) {
         </Link>
         <CategoryList>
           <div>
-            <Link to="/sub">
+            <Link to="/library">
               <Category>
                 <div onClick={clickMenu}>서재</div>
                 <Nav className="1">
@@ -186,7 +186,7 @@ function Header({ setClick }) {
                 </Nav>
               </Category>
             </Link>
-            <Link to="/sub">
+            <Link to="/bedroom">
               <Category>
                 <div onClick={clickMenu}>침실</div>
                 <Nav className="2">
@@ -196,7 +196,7 @@ function Header({ setClick }) {
                 </Nav>
               </Category>
             </Link>
-            <Link to="/sub">
+            <Link to="/livingRoom">
               <Category className="space">
                 <div onClick={clickMenu}>거실</div>
                 <Nav className="3">
@@ -206,7 +206,7 @@ function Header({ setClick }) {
                 </Nav>
               </Category>
             </Link>
-            <Link to="/sub">
+            <Link to="/kitchen">
               <Category className="space">
                 <div onClick={clickMenu}>주방</div>
                 <Nav className="4">

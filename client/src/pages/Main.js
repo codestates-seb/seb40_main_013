@@ -64,7 +64,7 @@ const ProductList = styled.div`
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
@@ -82,7 +82,7 @@ const BrandTab = styled.table`
   @media (min-width: 391px) and (max-width: 767px) {
     flex-direction: column;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     flex-direction: column;
   }
 `;

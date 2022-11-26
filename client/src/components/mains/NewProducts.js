@@ -28,7 +28,7 @@ const Tabs = styled.div`
     align-items: center;
     margin: 0;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px){
     flex-direction: column;
   }
 `;
@@ -37,7 +37,7 @@ const SubTab = styled.div`
   @media screen and (max-width: 767px){
     margin-bottom: 10px;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px){
     margin-bottom: 10px;
   }
 `;
@@ -83,7 +83,7 @@ const CategoryProduct = styled.div`
     align-items: center;
     width: 80%;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px){
     width: 80%;
     justify-content: center;
   }
@@ -133,7 +133,7 @@ const TI = styled.a`
     width: 100%;
     border-bottom-left-radius: 0;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px){
     .hover_text{
       top: 20px;
       left: 20px;
@@ -180,7 +180,7 @@ const BP = styled(Link)`
     width: 100%;
     padding: 10px 0;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px){
     /* height: auto; */
   }
 `;
@@ -214,10 +214,12 @@ const NewProducts = ({ newArivalList }) =>{
 
   const ProductArr = {
     "서재": <CategoryProduct>
-            <TI>
-              <CategoryImg src={library}></CategoryImg>
-              <p className="hover_text">More view</p>
-            </TI>
+            <Link to="/library">            
+              <TI>
+                <CategoryImg src={library}></CategoryImg>
+                <p className="hover_text">More view</p>
+              </TI>
+            </Link>
             <BPList>
                 {newArivalList.서재?.map((p)=>
                   <BP key={p.id} to={`/detail/${p.id}`}>
@@ -231,10 +233,12 @@ const NewProducts = ({ newArivalList }) =>{
             </BPList>
           </CategoryProduct>,
     "침실": <CategoryProduct>
-              <TI>
-              <CategoryImg src={bedroom}></CategoryImg>
-              <p className="hover_text">More view</p>
-            </TI>
+              <Link to="/bedroom">
+                <TI>
+                  <CategoryImg src={bedroom}></CategoryImg>
+                  <p className="hover_text">More view</p>
+                </TI>
+              </Link>
               <BPList>
                 {newArivalList.침실?.map((p)=>
                     <BP key={p.id} to={`/detail/${p.id}`}>
@@ -248,10 +252,12 @@ const NewProducts = ({ newArivalList }) =>{
               </BPList>
             </CategoryProduct>,
     "거실": <CategoryProduct>
-            <TI>
-              <CategoryImg src={livingroom}></CategoryImg>
-              <p className="hover_text">More view</p>
-            </TI>
+            <Link to="/livingRoom"> 
+              <TI>
+                <CategoryImg src={livingroom}></CategoryImg>
+                <p className="hover_text">More view</p>
+              </TI>
+            </Link>
               <BPList>
                 {newArivalList.거실?.map((p)=>
                     <BP key={p.id} to={`/detail/${p.id}`}>
@@ -265,10 +271,12 @@ const NewProducts = ({ newArivalList }) =>{
               </BPList>
             </CategoryProduct>,
     "주방": <CategoryProduct>
-            <TI>
-              <CategoryImg src={kitchen}></CategoryImg>
-              <p className="hover_text">More view</p>
-            </TI>
+            <Link to="/kitchen">
+              <TI>
+                <CategoryImg src={kitchen}></CategoryImg>
+                <p className="hover_text">More view</p>
+              </TI>
+            </Link>
               <BPList>
                 {newArivalList.주방?.map((p)=>
                     <BP key={p.id} to={`/detail/${p.id}`}>

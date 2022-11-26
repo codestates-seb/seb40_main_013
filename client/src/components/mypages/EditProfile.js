@@ -14,7 +14,7 @@ const EditContainter = styled.div`
   @media (min-width: 391px) and (max-width: 767px) {
     flex-direction: column;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     flex-direction: column;
   }
 `;
@@ -36,7 +36,7 @@ const Container = styled.div`
     padding: 15px;
     margin: 40px 0;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 90%;
     padding: 15px;
     margin: 30px;
@@ -83,7 +83,7 @@ const Input = styled.input`
     padding: 7px;
     margin: 5px 0;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 100%;
     padding: 10px 20px;
     margin: 15px 0;
@@ -104,7 +104,7 @@ const CurPwdBtn = styled.button`
   white-space: nowrap;
   height: fit-content;
   cursor: pointer;
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
 
   }
 `;
@@ -124,7 +124,7 @@ const Buttons = styled.div`
   @media (min-width: 391px) and (max-width: 767px) {
     width: 100%;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 100%;
   }
 `;
@@ -175,7 +175,7 @@ const HowtoEditMobile = styled.div`
     width: 100%;
     display: flex;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 90%;
     display: flex;
     margin: 0 30px;
@@ -203,7 +203,7 @@ const HowtoEdit = styled.div`
   @media (min-width: 391px) and (max-width: 767px) {
     display:none;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     display:none;
   }
 `;
