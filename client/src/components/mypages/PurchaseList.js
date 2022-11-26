@@ -199,7 +199,8 @@ const CancleBtn = styled.button`
   border-radius: 10px;
   cursor: pointer;
   &:hover {
-    background-color: #ffaf51;
+    background-color: red;
+    color: white;
   }
   @media screen and (max-width: 390px) {
     display: none;
@@ -344,9 +345,9 @@ const PurchaseList = () => {
                 </SubDetail>
               </ReactionSubDetail>
               <Btns>
-                  <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
-                  <CancleBtn onClick={clickModal}>주문취소</CancleBtn>
-                </Btns>
+                <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
+                <CancleBtn onClick={clickModal}>주문취소</CancleBtn>
+              </Btns>
             </Detail>
             <ReactionSpace>
               <ReactionReviewBtn>구매후기</ReactionReviewBtn>

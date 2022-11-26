@@ -10,15 +10,11 @@ const Products = styled(Link)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: box-shadow 0.3s;
-  &:hover {
-    box-shadow: 0 0 11px #aaaaaa;
+  @media screen and (max-width: 479px) {
+    width: 45vw;
   }
-  @media screen and (max-width: 390px) {
-    width: 150px;
-  }
-  @media (min-width: 391px) and (max-width: 767px) {
-    width: 18vw;
+  @media (min-width: 480px) and (max-width: 767px) {
+    width: 30vw;
   }
   @media (min-width: 768px) and (max-width: 1023px) {
     width: 23vw;
@@ -60,8 +56,11 @@ const Detail = styled.div`
   flex-direction: column;
   width: 13vw;
   margin-top: 10px;
-  @media screen and (max-width: 390px) {
-    width: 150px;
+  @media screen and (max-width: 479px) {
+    width: 35vw;
+  }
+  @media (min-width: 480px) and (max-width: 767px) {
+    width: 24vw;
   }
   @media (min-width: 768px) and (max-width: 1023px) {
     width: 20vw;
@@ -93,8 +92,8 @@ const Title = styled.h2`
   @media screen and (max-width: 479px) {
     font-size: 0.8em;
   }
-  @media (min-width: 391px) and (max-width: 767px) {
-    font-size: 1.8vw;
+  @media (min-width: 480px) and (max-width: 767px) {
+    font-size: 0.9em;
   }
   @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 1em;
@@ -107,12 +106,11 @@ const Price = styled.h5`
   margin-right: 10px;
   font-size: 1.5rem;
   font-weight: 700;
-  @media screen and (max-width: 390px) {
-    font-size: 1.3rem;
-    font-weight: 500;
+  @media screen and (max-width: 479px) {
+    font-size: 1.1em;
   }
-  @media (min-width: 391px) and (max-width: 767px) {
-    font-size: 1.8vw;
+  @media (min-width: 480px) and (max-width: 767px) {
+    font-size: 1.2em;
   }
   @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 1.3em;
@@ -160,7 +158,9 @@ const Product = ({ proId, product }) => {
   const { img, nickname, score, title, price } = product;
   return (
     <Products to={`/detail/${proId}`}>
-      <Img src={img?.fullPath}></Img>
+      <Imgbox>
+        <Img src={img?.fullPath}></Img>
+      </Imgbox>
       <Detail>
         <SubDetail>
           <Brand>{nickname}</Brand>
@@ -169,9 +169,9 @@ const Product = ({ proId, product }) => {
             <StarAerage>{score}</StarAerage>
           </StarDetail>
         </SubDetail>
-        <Title>{title.length > 22 ? title.slice(0, 19) : title}</Title>
+        <Title>{title}</Title>
         <SubDetail>
-          <Price>{price?.toLocaleString("en-US")}</Price>
+          <Price>₩&nbsp;{price?.toLocaleString("en-US")}</Price>
         </SubDetail>
       </Detail>
     </Products>

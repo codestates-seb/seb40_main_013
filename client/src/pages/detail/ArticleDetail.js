@@ -294,8 +294,12 @@ const DetailArticleStaAverage = styled.div`
 `;
 
 const DetailMidImg = styled.img`
-  width: 700px;
+  width: 70%;
   margin-top: 100px;
+  @media screen and (max-width: 1023px) {
+    width: 79.4%;
+    width: 50%;
+  }
 `;
 const ButtonIcon = styled.button`
   width: 1.5rem;

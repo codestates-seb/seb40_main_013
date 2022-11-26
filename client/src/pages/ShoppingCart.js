@@ -149,7 +149,7 @@ function ShoppingCart() {
   const dispatch = useDispatch();
   const cartSeletor = useSelector((state) => state.article.shoppingCartInitial);
   const cartSeletorLength = cartSeletor?.length;
-  
+
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
   console.log(`checkList`, checkList.length);
 
@@ -191,13 +191,12 @@ function ShoppingCart() {
   };
 
   const postPurchase = () => {
-    if(checkList.length === 0){
-      Alert('warning', '구매하실 상품을 선택해 주세요.')
+    if (checkList.length === 0) {
+      Alert("warning", "구매하실 상품을 선택해 주세요.");
     }
   };
 
-
-  postPurchase
+  postPurchase;
 
   return (
     <CartBlock>
@@ -237,11 +236,15 @@ function ShoppingCart() {
             <PayInfo>
               <div>
                 <span>상품수</span>
-                <span>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</span>
+                <span>
+                  {totalCountCalculator.toLocaleString("en-US")}&nbsp;개
+                </span>
               </div>
               <div>
                 <span>상품금액</span>
-                <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
+                <span>
+                  {totalPriceCalculator.toLocaleString("en-US")}&nbsp;원
+                </span>
               </div>
               <div>
                 <span>할인금액</span>
@@ -254,7 +257,9 @@ function ShoppingCart() {
             </PayInfo>
             <TotalPrice>
               <span className="small">총&nbsp;결제금액</span>
-              <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
+              <span>
+                {totalPriceCalculator.toLocaleString("en-US")}&nbsp;원
+              </span>
             </TotalPrice>
             <PayButton onClick={postPurchase}>구매하기</PayButton>
           </Payment>

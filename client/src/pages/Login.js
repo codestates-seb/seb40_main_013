@@ -221,7 +221,6 @@ const LoginButton = styled.button`
   &:hover {
     cursor: pointer;
   }
-
   @media screen and (max-width: 1023px) {
     font-size: 2vw;
   }
@@ -234,7 +233,7 @@ const LoginInformationSpace = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 90%;
   height: 40px;
   font-size: 20px;
   color: var(--color-gray);
