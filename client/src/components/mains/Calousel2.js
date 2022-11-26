@@ -43,10 +43,11 @@ const Carousel2 = () => {
         </Next>
       </Arrows>
       <AllDots className="all-dots">
-        {ImgSlider.map((slide, index)=> (
-          <Dot key={index}
-          className={`${activeIndex === index ? "dot active-dot" : "dot"}`}
-          onClick={(activeIndex)=> setActiveIndex(activeIndex)}
+        {ImgSlider.map((slide, index) => (
+          <Dot
+            key={index}
+            className={`${activeIndex === index ? "dot active-dot" : "dot"}`}
+            onClick={(activeIndex) => setActiveIndex(activeIndex)}
           />
         ))}
       </AllDots>
@@ -112,10 +113,10 @@ const Dot = styled.span`
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   display: inline-block;
-  &:hover{
+  &:hover {
     background-color: rgba(255, 255, 255, 0.5);
   }
-  &.active-dot{
+  &.active-dot {
     background-color: rgba(255, 255, 255, 0.5);
   }
 `;

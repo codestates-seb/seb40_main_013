@@ -112,7 +112,8 @@ function Signup() {
         <UserWriteInput type="password" onChange={writeChangePwd} />
         {pwdConfirm ? (
           <ErrorDisplay>
-            문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자로 만들어주세요!
+            문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자이상 20자이하로
+            만들어주세요!
           </ErrorDisplay>
         ) : null}
         <UserWriteTitle isCheck={pwdAgainConfirm}>
@@ -208,6 +209,7 @@ const UserSubmitBtn = styled.button`
   margin-top: 50px;
   width: 100%;
   height: 50px;
+  cursor: pointer;
   background-color: var(--color-navy);
   border-radius: var(--border-radius);
   color: white;

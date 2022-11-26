@@ -345,9 +345,9 @@ const PurchaseList = () => {
                 </SubDetail>
               </ReactionSubDetail>
               <Btns>
-                  <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
-                  <CancleBtn onClick={clickModal}>주문취소</CancleBtn>
-                </Btns>
+                <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
+                <CancleBtn onClick={clickModal}>주문취소</CancleBtn>
+              </Btns>
             </Detail>
             <ReactionSpace>
               <ReactionReviewBtn>구매후기</ReactionReviewBtn>
