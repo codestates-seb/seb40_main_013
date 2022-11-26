@@ -84,7 +84,7 @@ public class TestConstant {
             .content("[test, test]")
             .img(FILE)
             .price(10000)
-            .score(4F)
+            .score(3)
             .seller(SELLER)
             .category(CATEGORY)
             .build();
@@ -117,7 +117,7 @@ public class TestConstant {
             .img(FILE)
             .content("상품 내용1")
             .price(123456)
-            .score(3F)
+            .score(3)
             .sale(0)
             .seller(SELLER)
             .category(CATEGORY)
@@ -130,7 +130,7 @@ public class TestConstant {
             .content("상품 내용2")
             .price(100000)
             .sale(0)
-            .score(4F)
+            .score(5)
             .seller(SELLER)
             .category(CATEGORY2)
             .build();
@@ -405,6 +405,7 @@ public class TestConstant {
     public static final FieldDescriptor FWP_CONTENT_ORDER_PRODUCT_ID = fieldWithPath("content[].orderProducts[].productId").type(NUMBER).description("주문 상품 식별자");
     public static final FieldDescriptor FWP_CONTENT_ORDER_CREATED_AT = fieldWithPath("content[].createdAt").type(STRING).description("주문 생성 시간");
 
+    public static final FieldDescriptor FWP_NICKNAME_PRODUCT_REVIEWS = fieldWithPath("nickname[].reviews").type(NUMBER).description("리뷰 갯수");
     public static final ResponseFieldsSnippet ORDER_RESPONSE_FIELDS = responseFields(
             FWP_ORDER_ID, FWP_ORDER_PRODUCT_ID, FWP_ORDER_STATUS, FWP_ORDER_PRODUCT_BRAND_NAME, FWP_ORDER_PRODUCT_TITLE,
             FWP_ORDER_PRODUCT_IMG_NAME, FWP_ORDER_PRODUCT_IMG_PATH, FWP_ORDER_COUNT, FWP_ORDER_PRODUCT_PRICE, FWP_ORDER_PRODUCT_COLOR, FWP_ORDER_CREATED_AT
@@ -455,12 +456,18 @@ public class TestConstant {
             new MockMultipartFile("img", null, DEFAULT_BINARY.toString(), "img".getBytes());
 
     public static final RequestPartsSnippet REQUEST_PARTS_IMG = requestParts(partWithName("img").description("이미지"));
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_REVIEWS = fieldWithPath("categoryMain[].reviews").type(NUMBER).description("리뷰 갯수");
+    public static final FieldDescriptor FWP_CONTENT_REVIEWS = fieldWithPath("content[].reviews").type(NUMBER).description("리뷰 갯수");
+    public static final FieldDescriptor FWP_PRODUCTS_REVIEWS = fieldWithPath("[].reviews").type(NUMBER).description("리뷰 갯수");
 
     static {
         MEMBER.addRoles(MemberRole.USER);
         PRODUCT.addOptions(OPTION);
         PRODUCT.addReviews(REVIEW1);
+        PRODUCT1.addOptions(OPTION);
+        PRODUCT1.addReviews(REVIEW1);
         PRODUCT2.addOptions(OPTION);
+        PRODUCT2.addReviews(REVIEW1);
         ORDER.addOrderProduct(ORDER_PRODUCT1, ORDER_PRODUCT2);
         ORDER1.addOrderProduct(ORDER_PRODUCT1, ORDER_PRODUCT2);
         CART.addProductCart(PRODUCT_CART);

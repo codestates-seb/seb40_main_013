@@ -15,14 +15,23 @@ public class CategoryGetDto {
     private String nickname;
     private String main;
 
+    private Integer reviews;
+
     @QueryProjection
-    public CategoryGetDto(Long id, File img, String title, Integer price, Float score, String nickname,String main) {
+    public CategoryGetDto(Long id, File img, String title, Integer price, Float score, String nickname,String main, Integer reviews) {
         this.id = id;
         this.img = img;
         this.title = title;
         this.price = price;
-        this.score = score;
+        if(reviews > 0){
+            this.score = (score.intValue() / reviews) / 10F ;
+            System.out.println(this.score);
+        }
+        else {
+            this.score =score;
+        }
         this.nickname = nickname;
         this.main = main;
+        this.reviews = reviews;
     }
 }

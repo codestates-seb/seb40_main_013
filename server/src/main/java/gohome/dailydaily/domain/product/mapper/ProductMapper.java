@@ -13,7 +13,7 @@ import org.mapstruct.ReportingPolicy;
 public interface ProductMapper {
     @Mapping(target = "productId", source = "id")
     @Mapping(target = "content", expression = "java(new Gson().fromJson(product.getContent(), List.class))")
-    @Mapping(target = "score", expression = "java(product.getScore() / 10F)")
+    @Mapping(target = "score", expression = "java(product.getScore() / product.getReviews().size() / 10F)")
     @Mapping(target = "main", source = "category.main")
     ProductDto.Response toResponse(Product product);
 
