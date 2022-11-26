@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static gohome.dailydaily.util.TestConstant.*;
+import static java.util.List.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -84,7 +85,7 @@ public class ProductControllerTest {
     @Test
     public void getProductListByCategory() throws Exception {
         SliceResponseDto<CategoryGetDto> products = new SliceResponseDto<>(new SliceImpl<>(
-                List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
+                of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                                 PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
                                 PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
@@ -121,7 +122,7 @@ public class ProductControllerTest {
     @Test
     public void getScoreTop5() throws Exception {
         List<CategoryGetDto> products = new ArrayList<>(
-                List.of(
+                of(
                         new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                         PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
                         PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
@@ -149,7 +150,7 @@ public class ProductControllerTest {
     @Test
     public void getBrandListLikeTop15() throws Exception {
         List<CategoryGetDto> brand1 = new ArrayList<>(
-                List.of(
+                of(
                         new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                         PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
                         PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
@@ -158,7 +159,7 @@ public class ProductControllerTest {
                         PRODUCT2.getCategory().getMain(),PRODUCT2.getReviews().size())));
 
         List<CategoryGetDto> brand2 = new ArrayList<>(
-                List.of(
+                of(
                         new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                         PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
                         PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
@@ -189,7 +190,7 @@ public class ProductControllerTest {
     @Test
     public void getCategoryCreatedTop5() throws Exception {
         List<CategoryGetDto> category1 = new ArrayList<>(
-                List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
+                of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                                 PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
                                 PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
                         new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
@@ -197,7 +198,7 @@ public class ProductControllerTest {
                                 PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size())));
 
         List<CategoryGetDto> category2 = new ArrayList<>(
-                List.of(new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+                of(new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
                                 PRODUCT2.getPrice(), PRODUCT2.getScore().floatValue(), PRODUCT2.getSeller().getMember().getNickname(),
                                 PRODUCT2.getCategory().getMain(),PRODUCT2.getReviews().size()),
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
@@ -223,6 +224,97 @@ public class ProductControllerTest {
                                 FWP_CATEGORY_PRODUCT_REVIEWS, FWP_CATEGORY_PRODUCTS_SELLER_NICKNAME,
                                 FWP_CATEGORY_PRODUCTS_CATEGORY_MAIN
                         )));
+    }
+
+    @Test
+    public void getProductListByTitle() throws Exception {
+        SliceResponseDto<CategoryGetDto> products = new SliceResponseDto<>(new SliceImpl<>(
+                of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
+                                PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
+                                PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
+                        new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
+                                PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
+                                PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size())),PAGEABLE, true));
+        given(productService.getProductListByCategory(any(GetProductListByDto.class)))
+                .willReturn(products);
+
+        ResultActions actions = mockMvc.perform(
+                get("/products")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .param("title", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getTitle())
+                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
+                        .param("size", String.valueOf(PAGEABLE.getPageSize()))
+                        .param("sortType", String.valueOf(PAGEABLE.getSort()).replaceAll(":[^0-9]*", ""))
+                        .param("order", String.valueOf(PAGEABLE.getSort()).replaceAll("[^0-9]*: ", ""))
+
+        );
+
+        actions.andExpect(status().isOk())
+                .andDo(document("products/category/get",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_PARAM_TITLE,
+                        responseFields(
+                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH,
+                                FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE,
+                                FWP_CONTENT_PRODUCT_CATEGORY_MAIN, FWP_CONTENT_PRODUCT_SELLER_NICKNAME,FWP_CONTENT_REVIEWS,
+                                FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
+                        )));
+    }
+    @Test
+    public void getProductListByBrand() throws Exception {
+        SliceResponseDto<CategoryGetDto> products = new SliceResponseDto<>(new SliceImpl<>(
+                of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
+                                PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
+                                PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
+                        new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
+                                PRODUCT2.getPrice(), PRODUCT2.getScore().floatValue(), PRODUCT2.getSeller().getMember().getNickname(),
+                                PRODUCT2.getCategory().getMain(),PRODUCT2.getReviews().size())),PAGEABLE, true));
+        given(productService.getProductListByCategory(any(GetProductListByDto.class)))
+                .willReturn(products);
+
+        ResultActions actions = mockMvc.perform(
+                get("/products/{sellerId}", PRODUCT.getSeller().getId())
+                        .accept(MediaType.APPLICATION_JSON)
+                        .param("main", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getMain())
+                        .param("sub", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getSub())
+                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
+                        .param("size", String.valueOf(PAGEABLE.getPageSize()))
+                        .param("sortType", String.valueOf(PAGEABLE.getSort()).replaceAll(":[^0-9]*", ""))
+                        .param("order", String.valueOf(PAGEABLE.getSort()).replaceAll("[^0-9]*: ", ""))
+
+        );
+
+        actions.andExpect(status().isOk())
+                .andDo(document("products/category/get",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_PARAM_CATEGORY,
+                        PATH_PARAM_SELLER_ID,
+                        responseFields(
+                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH,
+                                FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE,
+                                FWP_CONTENT_PRODUCT_CATEGORY_MAIN, FWP_CONTENT_PRODUCT_SELLER_NICKNAME,FWP_CONTENT_REVIEWS,
+                                FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
+                        )));
+    }
+
+    @Test
+    public void getProductCategoryCount() throws Exception {
+        HashMap<String,Long> count = new HashMap<>();
+        count.put("count",10l);
+        given(productService.getProductCategoryCount(any(GetProductListByDto.class)))
+                .willReturn(count);
+
+        ResultActions actions = mockMvc.perform(
+                get("/products/count")
+                        .accept(MediaType.APPLICATION_JSON));
+
+        actions.andExpect(status().isOk())
+                .andDo(document("products/count",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        responseFields(CATEGORY_COUNT)));
     }
 
 }

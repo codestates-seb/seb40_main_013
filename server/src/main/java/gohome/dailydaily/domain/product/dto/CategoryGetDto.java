@@ -25,7 +25,6 @@ public class CategoryGetDto {
         this.price = price;
         if(reviews > 0){
             this.score = (score.intValue() / reviews) / 10F ;
-            System.out.println(this.score);
         }
         else {
             this.score =score;

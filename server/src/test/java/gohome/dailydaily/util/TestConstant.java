@@ -34,6 +34,7 @@ import org.springframework.restdocs.request.RequestPartsSnippet;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.apache.http.entity.ContentType.DEFAULT_BINARY;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
@@ -221,10 +222,22 @@ public class TestConstant {
             parameterWithName("product-id").description("상품 식별자")
     );
 
+    public static final PathParametersSnippet PATH_PARAM_SELLER_ID = pathParameters(
+            parameterWithName("seller-id").description("판매자 식별자")
+    );
+
 
     public static final RequestParametersSnippet REQUEST_PARAM_CATEGORY = requestParameters(
             parameterWithName("main").description("카테고리 대분류"),
             parameterWithName("sub").description("카테고리 소분류"),
+            parameterWithName("page").description("페이지"),
+            parameterWithName("size").description("사이즈"),
+            parameterWithName("sortType").description("정렬 요소 ('createdAt' : 최신순(기본 값), 'price : 가격 순', sale : 판매순)"),
+            parameterWithName("order").description("'desc' : 내림차순(기본 값), 'asc' : 오름차순")
+    );
+
+    public static final RequestParametersSnippet REQUEST_PARAM_TITLE = requestParameters(
+            parameterWithName("title").description("상품명 검색"),
             parameterWithName("page").description("페이지"),
             parameterWithName("size").description("사이즈"),
             parameterWithName("sortType").description("정렬 요소 ('createdAt' : 최신순(기본 값), 'price : 가격 순', sale : 판매순)"),
@@ -459,6 +472,7 @@ public class TestConstant {
     public static final FieldDescriptor FWP_CATEGORY_PRODUCT_REVIEWS = fieldWithPath("categoryMain[].reviews").type(NUMBER).description("리뷰 갯수");
     public static final FieldDescriptor FWP_CONTENT_REVIEWS = fieldWithPath("content[].reviews").type(NUMBER).description("리뷰 갯수");
     public static final FieldDescriptor FWP_PRODUCTS_REVIEWS = fieldWithPath("[].reviews").type(NUMBER).description("리뷰 갯수");
+    public static final FieldDescriptor CATEGORY_COUNT = fieldWithPath("count").type(NUMBER).description("카테고리 상품 갯수");
 
     static {
         MEMBER.addRoles(MemberRole.USER);

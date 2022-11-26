@@ -1,6 +1,5 @@
 package gohome.dailydaily.domain.product.service;
 
-import com.querydsl.jpa.impl.JPAQuery;
 import gohome.dailydaily.domain.file.service.FileService;
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.member.repository.SellerRepository;
@@ -112,9 +111,9 @@ public class ProductService {
         return products;
     }
 
-    public Long getProductCategoryCount(GetProductListByDto dto) {
-        Long count = productRepository.countProductCategory(ProductGetParam.valueOf(dto));
-        System.out.println(count);
+    public HashMap<String, Long> getProductCategoryCount(GetProductListByDto dto) {
+        HashMap<String, Long> count = new HashMap<>();
+        count.put("count", productRepository.countProductCategory(ProductGetParam.valueOf(dto)));
         return count;
     }
 }

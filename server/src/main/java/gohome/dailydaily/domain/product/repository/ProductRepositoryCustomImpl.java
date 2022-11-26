@@ -29,7 +29,7 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
     public List<CategoryGetDto> findTop5ByScore() {
         List<CategoryGetDto> content = select(getCategoryGetDto())
                 .from(product)
-                .orderBy(product.score.desc(),product.reviews.size().desc())
+                .orderBy(product.score.desc(), product.reviews.size().desc())
                 .innerJoin(product.seller.member, member)
                 .innerJoin(product.category, category)
                 .limit(5)
@@ -105,7 +105,7 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
                 .where(whereCondition)
                 .fetch();
 
-        return count.stream().findAny().get();
+        return count.stream().findAny().orElse(0l);
     }
 
     @Override
@@ -125,14 +125,14 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
 
     private QCategoryGetDto getCategoryGetDto() {
         return new QCategoryGetDto(
-            product.id,
-            product.img,
-            product.title,
-            product.price,
-            product.score.floatValue(),
-            product.seller.member.nickname,
-            product.category.main,
-            product.reviews.size()
+                product.id,
+                product.img,
+                product.title,
+                product.price,
+                product.score.floatValue(),
+                product.seller.member.nickname,
+                product.category.main,
+                product.reviews.size()
         );
     }
 
