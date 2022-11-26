@@ -13,8 +13,8 @@ spring:
 
 
 file:
-  profileImg: /home/ec2-user/dailydaily/seb40_main_013/server/img/profileImg
-  productImg: /home/ec2-user/dailydaily/seb40_main_013/server/img/productImg
-  reviewImg: /home/ec2-user/dailydaily/seb40_main_013/server/img/reviewImg
+  profileImg: /img/profileImg
+  productImg: /img/productImg
+  reviewImg: /img/reviewImg
 
 env: server
