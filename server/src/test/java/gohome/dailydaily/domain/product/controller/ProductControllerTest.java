@@ -235,11 +235,11 @@ public class ProductControllerTest {
                         new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                                 PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
                                 PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size())),PAGEABLE, true));
-        given(productService.getProductListByCategory(any(GetProductListByDto.class)))
+        given(productService.getProductListByTitle(any(GetProductListByDto.class)))
                 .willReturn(products);
 
         ResultActions actions = mockMvc.perform(
-                get("/products")
+                get("/products/search")
                         .accept(MediaType.APPLICATION_JSON)
                         .param("title", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getTitle())
                         .param("page", String.valueOf(PAGEABLE.getPageNumber()))
@@ -250,7 +250,7 @@ public class ProductControllerTest {
         );
 
         actions.andExpect(status().isOk())
-                .andDo(document("products/category/get",
+                .andDo(document("products/title/get",
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         REQUEST_PARAM_TITLE,
@@ -270,11 +270,11 @@ public class ProductControllerTest {
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
                                 PRODUCT2.getPrice(), PRODUCT2.getScore().floatValue(), PRODUCT2.getSeller().getMember().getNickname(),
                                 PRODUCT2.getCategory().getMain(),PRODUCT2.getReviews().size())),PAGEABLE, true));
-        given(productService.getProductListByCategory(any(GetProductListByDto.class)))
+        given(productService.getProductListByBrand(any(GetProductListByDto.class)))
                 .willReturn(products);
 
         ResultActions actions = mockMvc.perform(
-                get("/products/{sellerId}", PRODUCT.getSeller().getId())
+                get("/products/brand/{sellerId}", PRODUCT.getSeller().getId())
                         .accept(MediaType.APPLICATION_JSON)
                         .param("main", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getMain())
                         .param("sub", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getSub())
@@ -286,11 +286,10 @@ public class ProductControllerTest {
         );
 
         actions.andExpect(status().isOk())
-                .andDo(document("products/category/get",
+                .andDo(document("products/brand/get",
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         REQUEST_PARAM_CATEGORY,
-                        PATH_PARAM_SELLER_ID,
                         responseFields(
                                 FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH,
                                 FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE,
@@ -308,12 +307,16 @@ public class ProductControllerTest {
 
         ResultActions actions = mockMvc.perform(
                 get("/products/count")
-                        .accept(MediaType.APPLICATION_JSON));
+                        .accept(MediaType.APPLICATION_JSON)
+                        .param("main", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getMain())
+                        .param("sub", GET_PRODUCT_LIST_BY_CATEGORY_DTO.getSub())
+        );
 
         actions.andExpect(status().isOk())
                 .andDo(document("products/count",
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
+                        REQUEST_PARAM_COUNT,
                         responseFields(CATEGORY_COUNT)));
     }
 

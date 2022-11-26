@@ -244,6 +244,11 @@ public class TestConstant {
             parameterWithName("order").description("'desc' : 내림차순(기본 값), 'asc' : 오름차순")
     );
 
+    public static final RequestParametersSnippet REQUEST_PARAM_COUNT = requestParameters(
+            parameterWithName("main").description("카테고리 대분류"),
+            parameterWithName("sub").description("카테고리 소분류")
+    );
+
     public static final RequestParametersSnippet REQUEST_PARAM_REVIEW = requestParameters(
             parameterWithName("content").description("리뷰 내용"),
             parameterWithName("score").description("리뷰 별점")
