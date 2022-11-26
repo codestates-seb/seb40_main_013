@@ -74,7 +74,8 @@ public class Product extends BaseTime {
 
     public void setScore(Float score) {
         this.score = score;
-        
+    }
+
     public void updateSale(int count) {
         this.sale += count;
 
