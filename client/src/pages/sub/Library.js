@@ -2,13 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";
-
-import chair from "../../imgs/chair.png";
-import desk from "../../imgs/desk.png";
-import shelf from "../../imgs/shelf.png";
-import room from "../../imgs/room.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { getLibrary } from "../../reduxstore/slices/sub/LibrarySlice";
+import DropDown from "../../components/subcategories/DropDown";
 
 function Library({ click }) {
   console.log(click);
@@ -31,29 +27,24 @@ function Library({ click }) {
         <SubCarousel />
         <div className="sub-menus">
           <Sub>
-            <img src={room}></img>
             <div>전체보기</div>
           </Sub>
           <Sub>
-            <img src={desk}></img>
             <div>책상</div>
           </Sub>
           <Sub>
-            <img src={shelf} alt="선반 카테고리"></img>
             <div>의자</div>
           </Sub>
           <Sub>
-            <img src={chair}></img>
             <div>책장</div>
           </Sub>
           <Sub>
-            <img src={chair}></img>
             <div>선반</div>
           </Sub>
         </div>
         <FilterBlock>
           <div className="total">0 개의 상품이 있습니다</div>
-          <div>최신순</div>
+          <DropDown/>
         </FilterBlock>
         <ProductList>
             {librarySelector?.map((product) => (
@@ -75,6 +66,7 @@ const SubBlock = styled.div`
   align-items: center;
   .sub-menus {
     display: flex;
+    width: 100%;
     margin: 20px 0px;
     justify-content: space-evenly;
   }
@@ -90,20 +82,15 @@ const SubBlock = styled.div`
 
 const Sub = styled.div`
   display: flex;
-  max-width: 230px;
-  max-height: 130px;
-  width: 20vw;
-  height: 14vh;
-  background-color: #f6f4e7;
+  width: 13vw;
+  height: 6vh;
+  background-color: #fcf9e9;
   margin: 0 1em;
   &:hover {
     background-color: #e1dfce;
   }
-  img {
-    width: 5em;
-    height: 5em;
-    margin-bottom: 7px;
-  }
+  color: #515151;
+  border-radius: 5px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -122,18 +109,18 @@ const FilterBlock = styled.div`
 const ProductList = styled.div`
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  justify-content: center;
-  @media screen and (max-width: 390px) {
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr;
-  }
-  @media (min-width: 391px) and (max-width: 767px) {
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-content: center;
+    @media screen and (max-width: 479px) {
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (min-width: 480px) and (max-width: 767px) {
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    @media (min-width: 768px) and (max-width: 1023px) {
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 `;

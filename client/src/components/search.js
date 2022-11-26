@@ -4,11 +4,11 @@ import { IoMdClose } from "react-icons/io";
 
 const SearchBlock = styled.div`
   position: fixed; //absolute로 바꿀수도 있음
-  width:100%; 
+  width:100vw; 
   z-index: 300; 
   overflow:hidden; 
   transition:0.3s height;  
-  top: 16vh;
+  top: 8.04rem;
   left: 0; 
   background-color: white;
   display: flex;
