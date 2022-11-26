@@ -12,8 +12,6 @@ function Alert(icon, content) {
     confirmButtonColor: "#002C6D",
     confirmButtonText: "확인",
   });
-
-  return <button type="button"></button>;
 }
 
 export default Alert;

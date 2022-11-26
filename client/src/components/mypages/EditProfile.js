@@ -106,6 +106,9 @@ const CurPwdBtn = styled.button`
   white-space: nowrap;
   height: fit-content;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
   @media (min-width: 768px) and (max-width: 1024px) {
   }
 `;
@@ -137,6 +140,9 @@ const Delete = styled.button`
   padding: 7px 30px;
   margin-right: 10px;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
   @media screen and (max-width: 390px) {
     padding: 5px 20px;
   }
@@ -148,6 +154,9 @@ const Edit = styled.button`
   border-radius: 5px;
   padding: 7px 30px;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
   @media screen and (max-width: 390px) {
     padding: 5px 20px;
   }

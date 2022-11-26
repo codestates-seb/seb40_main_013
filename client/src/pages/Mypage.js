@@ -9,6 +9,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import MyReview from "../components/mypages/MyReview";
 import Recent from "../components/mypages/Recent";
 import ProfileImg from "../components/mypages/ProfileImg";
+import PurchaseAll from "../components/mypages/PurchaseAll";
 
 const Container = styled.div`
   display: flex;
@@ -269,6 +270,10 @@ const Mypage = () => {
         <Route path="/purchase/*" element={<PurchaseList />}></Route>
         <Route path="/myboard" element={<MyReview />}></Route>
         <Route path="/recent" element={<Recent />}></Route>
+        <Route
+          path="/purchase/orderall"
+          element={<PurchaseAll getUserdata={getUserdata} />}
+        ></Route>
       </Routes>
     </Container>
   );

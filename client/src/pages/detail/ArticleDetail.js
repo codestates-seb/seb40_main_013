@@ -217,6 +217,7 @@ const Wrapper = styled.div`
 
 const DetailContents = styled.div`
   width: 100%;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -225,6 +226,7 @@ const DetailContents = styled.div`
   margin-top: 40px;
   @media screen and (min-width: 1024px) {
     width: 80%;
+    height: auto;
     display: flex;
     margin-left: auto;
     margin-right: auto;
@@ -232,6 +234,7 @@ const DetailContents = styled.div`
 `;
 const DetailTopUserSelectSpace = styled.div`
   width: 100%;
+  height: auto;
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
@@ -239,10 +242,12 @@ const DetailTopUserSelectSpace = styled.div`
   margin-right: auto;
   @media screen and (min-width: 1024px) {
     width: 80%;
+    height: auto;
     display: flex;
   }
   @media screen and (max-width: 1023px) {
     width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -257,6 +262,7 @@ const ArticleInformations = styled.div`
 
   @media screen and (max-width: 1023px) {
     width: 80%;
+    height: auto;
     display: flex;
     flex-direction: column;
     padding: 0px;
