@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.io.IOException;
 
 @Validated
 @RestController
@@ -26,8 +27,10 @@ public class ReviewController {
     @ResponseStatus(HttpStatus.CREATED)
     public ReviewDto.Response postReview(@MemberId Long memberId,
                                          @Positive @PathVariable("product-id") Long productId,
-                                         @Valid @RequestBody ReviewDto.Post post) {
-        Review review = reviewService.createReview(memberId, productId, reviewMapper.toReview(post));
+                                         @Valid @ModelAttribute ReviewDto.Post post) throws IOException {
+        Review review = reviewService.createReview(
+                reviewMapper.toReview(post, memberId, productId), post.getImg()
+        );
         return reviewMapper.toResponse(review);
     }
 

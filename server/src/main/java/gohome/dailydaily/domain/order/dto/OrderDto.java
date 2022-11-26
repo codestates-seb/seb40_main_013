@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderDto {
@@ -21,5 +22,6 @@ public class OrderDto {
         private Long orderId;
         private String status;
         private List<OrderProductDto.Response> orderProducts;
+        private LocalDateTime createdAt;
     }
 }

@@ -41,7 +41,10 @@ jwt:
   refresh-token-expiration-minutes: 420
   keep-state-refresh-token-expiration-minutes: 1440
 
-
+file:
+  profileImg: /img/profileImg
+  productImg: /img/productImg
+  reviewImg: /img/reviewImg
 
 env: local
 

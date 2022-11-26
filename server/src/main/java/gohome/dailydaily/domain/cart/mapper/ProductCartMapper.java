@@ -23,5 +23,6 @@ public interface ProductCartMapper {
     @Mapping(target = ".", source = "product")
     @Mapping(target = "brandName", source = "product.seller.member.nickname")
     @Mapping(target = "color", source = "productCart.option.color")
+    @Mapping(target = "optionId", source = "productCart.option.id")
     ProductCartDto.Response toResponse(ProductCart productCart);
 }

@@ -38,9 +38,12 @@ public class Review extends BaseTime {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public void initInfo(Member member, Product product) {
+    public void initInfo(Member member, Product product, File file) {
         this.member = member;
         this.product = product;
+
+        Optional.ofNullable(file)
+                .ifPresent((img) -> this.img = img);
     }
 
     public Review updateReview(Review review) {
