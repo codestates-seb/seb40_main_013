@@ -35,10 +35,8 @@ const Button = () => {
 
   const ShowButtonClick = () => {
     if (window.scrollY > 800) {
-      console.log("800이상이예요");
       setBtnStatus(true);
     } else {
-      console.log("800이하입니다");
       setBtnStatus(false);
     }
   };

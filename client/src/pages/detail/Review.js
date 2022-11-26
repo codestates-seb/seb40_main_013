@@ -60,8 +60,14 @@ function Review({ articlesDetail }) {
 }
 
 const ReviewWrapper = styled.div`
-  width: 700px;
+  width: 90%;
   height: 100%;
+  @media screen and (min-width: 1024px) {
+    width: 90%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 const ReviewTitle = styled.div`
   width: 100%;

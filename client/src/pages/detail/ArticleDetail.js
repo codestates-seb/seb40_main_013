@@ -45,9 +45,12 @@ function ArticleDetail() {
 
   const onMoveToElement = (idx) => {
     if (idx === 0) {
-      articleRef.current?.scrollIntoView({ behavior: "smooth" });
+      articleRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     } else if (idx === 1) {
-      reviewRef.current?.scrollIntoView({ behavior: "smooth" });
+      reviewRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -174,7 +177,7 @@ function ArticleDetail() {
           </ArticleInformations>
         </DetailTopUserSelectSpace>
         <>
-          <SelectMoveSpace>
+          <SelectMoveSpace ref={articleRef}>
             <SelectMoveBtn onClick={() => onMoveToElement(0)}>
               상세 설명
             </SelectMoveBtn>
@@ -185,11 +188,9 @@ function ArticleDetail() {
             <SelectCenterLine>/</SelectCenterLine>
             <SelectMoveBtn>QnA</SelectMoveBtn>
           </SelectMoveSpace>
-          <div ref={articleRef}>
-            {articlesDetail?.content?.map((data) => (
-              <DetailMidImg src={data} key={data} ref={articleRef[0]} />
-            ))}
-          </div>
+          {articlesDetail?.content?.map((data) => (
+            <DetailMidImg src={data} key={data} />
+          ))}
 
           <Button />
           <div ref={reviewRef}>
@@ -238,8 +239,7 @@ const DetailTopUserSelectSpace = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
+
   @media screen and (min-width: 1024px) {
     width: 80%;
     height: auto;
@@ -252,6 +252,28 @@ const DetailTopUserSelectSpace = styled.div`
     flex-direction: column;
     align-items: center;
   }
+  /* @media screen and (min-width: 1024px) {
+    height: auto;
+    display: flex;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media screen and (max-width: 1023px) {
+    width: 1000px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media screen and (max-width: 800px) {
+    height: auto;
+    display: flex;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  } */
 `;
 const ArticleInformations = styled.div`
   width: 45%;
@@ -259,11 +281,11 @@ const ArticleInformations = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   @media screen and (max-width: 1023px) {
     width: 80%;
-    height: auto;
     display: flex;
+    margin-left: auto;
+    margin-right: auto;
     flex-direction: column;
     padding: 0px;
     margin: 30px 0px 0px 0px;
@@ -372,6 +394,9 @@ const ButtonIcon = styled.button`
     align-items: center;
     justify-content: center;
     font-size: 15px;
+    &:hover {
+      background-color: #aaaaaa;
+    }
 
     @media screen and (max-width: 1023px) {
       width: 1.2rem;
@@ -396,6 +421,9 @@ const ButtonIcon = styled.button`
     align-items: center;
     justify-content: center;
     font-size: 15px;
+    &:hover {
+      background-color: #aaaaaa;
+    }
     @media screen and (max-width: 1023px) {
       width: 1.2rem;
       height: 1.2rem;

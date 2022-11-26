@@ -49,7 +49,10 @@ function App() {
                 <Route path="/library" element={<Library click={click} />} />
                 <Route path="/bedroom" element={<Bedroom click={click} />} />
                 <Route path="/kitchen" element={<Kitchen click={click} />} />
-                <Route path="/livingRoom" element={<LivingRoom click={click} />} />
+                <Route
+                  path="/livingRoom"
+                  element={<LivingRoom click={click} />}
+                />
                 <Route path="/cart" element={<ShoppingCart />} />
               </Routes>
             </MainContent>

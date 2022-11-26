@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
+import { Toast } from "../../components/Alert";
+import { Alert } from "../../components/Alert";
 
 let jwtToken = localStorage.getItem("Authorization");
 export const signUser = createAsyncThunk(
@@ -8,11 +10,11 @@ export const signUser = createAsyncThunk(
     return Apis.post(`signup`, signData)
       .then((res) => {
         navigate("/users/login");
-        window.alert("회원가입 성공!");
+        Toast("success", "회원가입에 성공하셨습니다!");
         return res.data;
       })
       .catch((err) => {
-        window.alert("회원가입에 실패했습니다!");
+        Toast("error", "회원가입에 실패했습니다!");
         console.log(err);
       });
   }
@@ -28,13 +30,13 @@ export const loginUser = createAsyncThunk(
         let jwtrefreshToken = res.headers.get("Refresh");
         localStorage.setItem("Authorization", jwtToken);
         localStorage.setItem("Refresh", jwtrefreshToken);
-        // navigate("/");
-        // window.alert("로그인 성공!");
+        navigate("/");
+        Toast("success", "로그인에 성공하셨습니다!");
         // window.location.reload();
         return res.data;
       })
       .catch((err) => {
-        window.alert("로그인에 실패했습니다!");
+        Toast("error", "로그인에 실패했습니다!");
         console.log(err);
       });
   }
@@ -84,13 +86,16 @@ export const guestUser = createAsyncThunk(
         let jwtrefreshToken = res.headers.get("Refresh");
         localStorage.setItem("Authorization", jwtToken);
         localStorage.setItem("Refresh", jwtrefreshToken);
-        navigate("/");
-        window.alert("게스트 로그인 성공!");
-        window.location.reload();
+        // navigate("/");
+        Toast("success", "게스트 로그인 성공!");
+        // window.alert("게스트성공");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
         return res.data;
       })
       .catch((err) => {
-        console.log(err);
+        Toast("error", "로그인에 실패했습니다!");
       });
   }
 );
