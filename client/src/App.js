@@ -3,6 +3,8 @@ import GlobalStyles from "./GlobalStyles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components/macro";
 import ScrollToTop from "./components/ScrollToTop";
+import Button from "./components/Button";
+
 const MainContainter = styled.div`
   height: 100vh;
   display: flex;
@@ -33,6 +35,7 @@ function App() {
       <Suspense fallback={<div>Loading....!</div>}>
         <ScrollToTop />
         <GlobalStyles />
+        <Button />
         <div className="App">
           <MainContainter>
             <MainContent>
