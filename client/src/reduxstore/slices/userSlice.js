@@ -23,13 +23,14 @@ export const loginUser = createAsyncThunk(
   async ({ loginData, navigate }) => {
     return Apis.post(`login`, loginData, { withCredentials: true })
       .then((res) => {
+        localStorage.clear();
         let jwtToken = res.headers.get("Authorization");
         let jwtrefreshToken = res.headers.get("Refresh");
         localStorage.setItem("Authorization", jwtToken);
         localStorage.setItem("Refresh", jwtrefreshToken);
-        navigate("/");
-        window.alert("로그인 성공!");
-        window.location.reload();
+        // navigate("/");
+        // window.alert("로그인 성공!");
+        // window.location.reload();
         return res.data;
       })
       .catch((err) => {
@@ -78,12 +79,13 @@ export const guestUser = createAsyncThunk(
   async ({ navigate }) => {
     return Apis.post(`guest`)
       .then((res) => {
+        localStorage.clear();
         let jwtToken = res.headers.get("Authorization");
         let jwtrefreshToken = res.headers.get("Refresh");
         localStorage.setItem("Authorization", jwtToken);
         localStorage.setItem("Refresh", jwtrefreshToken);
         navigate("/");
-        window.alert("로그인 성공!");
+        window.alert("게스트 로그인 성공!");
         window.location.reload();
         return res.data;
       })

@@ -8,6 +8,8 @@ import EditProfile from "../components/mypages/EditProfile";
 import { Routes, Route, Link } from "react-router-dom";
 import MyReview from "../components/mypages/MyReview";
 import Recent from "../components/mypages/Recent";
+import ProfileImg from '../components/mypages/ProfileImg';
+import PurchaseAll from "../components/mypages/PurchaseAll";
 
 const Container = styled.div`
   display: flex;
@@ -60,12 +62,13 @@ const Reaction = styled.div`
     flex-direction: row;
   }
 `;
-const ProfileImg = styled.img`
+const ProfileImgConponent = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
   margin-bottom: 20px;
   padding: 10px;
+  cursor: pointer;
   @media screen and (max-width: 390px) {
     width: 60px;
     height: 60px;
@@ -124,7 +127,7 @@ const NavDetail = styled.nav`
   &.clicked::after {
     color: #ffaf51;
   }
-  &:active{
+  &:active {
     color: #ffaf51;
   }
   @media screen and (max-width: 390px) {
@@ -176,7 +179,7 @@ const NavDetail = styled.nav`
 const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
-  console.log(getUserdata)
+  console.log(getUserdata);
   const [clicked, setClicked] = useState("");
 
   //user 정보 받아오기
@@ -190,14 +193,20 @@ const Mypage = () => {
     setClicked(text);
   };
 
+  //프로필 이미지 바꾸기
+  const handleChangeImg = () => {
+    ProfileImg();
+  };
+
   return (
     <Container>
       <Left>
         <Reaction>
-          <ProfileImg
+          <ProfileImgConponent
             src={`https://source.boringavatars.com/beam/120/daily?colors=FFAF51,FFC007,AAAAAA,0C8F8F,002C6D`}
             alt="avator"
-          ></ProfileImg>
+            onclick={handleChangeImg}
+          ></ProfileImgConponent>
           <Hello>안녕하세요,&nbsp;</Hello>
           <Hello>{getUserdata?.nickname}&nbsp;님</Hello>
         </Reaction>
@@ -261,6 +270,7 @@ const Mypage = () => {
         <Route path="/purchase/*" element={<PurchaseList />}></Route>
         <Route path="/myboard" element={<MyReview />}></Route>
         <Route path="/recent" element={<Recent />}></Route>
+        <Route path="/purchase/orderall" element={<PurchaseAll getUserdata={getUserdata}/>}></Route>
       </Routes>
     </Container>
   );

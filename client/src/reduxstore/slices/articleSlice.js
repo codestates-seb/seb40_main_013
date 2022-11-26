@@ -122,7 +122,6 @@ const articleSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    //비동기처리를 해주는경우 여기서 사용해줘야함
     [getArticleDetail.fulfilled]: (state, action) => {
       state.detailArticle = action.payload;
       state.loading = true;

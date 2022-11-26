@@ -6,12 +6,12 @@ import {
   deleteShoppingCart,
   getShoppingCart,
 } from "../reduxstore/slices/articleSlice";
+import Alert from "../components/Alert";
 
 const CartBlock = styled.div`
-  margin-top: 160px;
+  margin-top: 127.5px;
   width: 100%;
   padding: 30px 40px 50px 40px;
-  margin-top: 16vh;
   display: flex;
   div {
     display: flex;
@@ -39,32 +39,33 @@ const AllCheckBlock = styled.div`
 `;
 
 const CheckCircle = styled.input`
-    width: 1em;
-    height: 1em;
-    min-width: 1rem;
-    min-height: 1rem;
-    border-radius: 50%;
-    border: 1px solid #999;
-    appearance: none;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    &:checked {
-        background-color: #ffaf51;
-        border: none;
-        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
-    }
+  width: 1em;
+  height: 1em;
+  min-width: 1rem;
+  min-height: 1rem;
+  border-radius: 50%;
+  border: 1px solid #999;
+  appearance: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  &:checked {
+    background-color: #ffaf51;
+    border: none;
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+  }
 `;
 
 const Quary = styled.div`
   width: 100%;
   justify-content: center;
+  align-items: center;
   .cart-title {
     font-size: 26px;
     padding-left: 10px;
     padding-bottom: 10px;
     font-weight: 600;
   }
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     flex-direction: column;
   }
 `;
@@ -72,27 +73,34 @@ const Quary = styled.div`
 const CartList = styled.div`
   width: 100%;
   flex-direction: column;
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 1024px) {
     padding-right: 20px;
+    width: 700px;
+  }
+  @media screen and (max-width: 1023px) {
+    padding-right: 0px;
     max-width: 700px;
   }
 `;
 
 //결제정보
 const Payment = styled.section`
-  margin-top: 71.5px;
+  position: relative;
+  margin-top: 81px;
   width: 300px;
   height: 300px;
   min-width: 230px;
   border: 1px solid #002c6d;
   border-radius: 5px;
   padding: 20px;
+  align-items: baseline;
   .pay-title {
     font-weight: 500;
   }
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
+    margin-top: 0px;
     width: 100%;
-    margin-top: 0;
+    max-width: 700px;
   }
 `;
 
@@ -134,15 +142,16 @@ const PayButton = styled.button`
   font-size: 16px;
   font-weight: 500;
   border-radius: 3px;
+  cursor: pointer;
 `;
 
 function ShoppingCart() {
   const dispatch = useDispatch();
   const cartSeletor = useSelector((state) => state.article.shoppingCartInitial);
   const cartSeletorLength = cartSeletor?.length;
-  console.log(`cartSeletor.length`, cartSeletor);
 
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
+  console.log(`checkList`, checkList.length);
 
   useEffect(() => {
     dispatch(getShoppingCart());
@@ -180,6 +189,14 @@ function ShoppingCart() {
       dispatch(deleteShoppingCart(el.productCartId));
     });
   };
+
+  const postPurchase = () => {
+    if (checkList.length === 0) {
+      Alert("warning", "구매하실 상품을 선택해 주세요.");
+    }
+  };
+
+  postPurchase;
 
   return (
     <CartBlock>
@@ -219,26 +236,32 @@ function ShoppingCart() {
             <PayInfo>
               <div>
                 <span>상품수</span>
-                <span>{totalCountCalculator.toLocaleString("en-US")} 개</span>
+                <span>
+                  {totalCountCalculator.toLocaleString("en-US")}&nbsp;개
+                </span>
               </div>
               <div>
                 <span>상품금액</span>
-                <span>{totalPriceCalculator.toLocaleString("en-US")} 원</span>
+                <span>
+                  {totalPriceCalculator.toLocaleString("en-US")}&nbsp;원
+                </span>
               </div>
               <div>
                 <span>할인금액</span>
-                <span className="sale">0 원</span>
+                <span className="sale">0&nbsp;원</span>
               </div>
               <div>
                 <span>배송비</span>
-                <span>0 원</span>
+                <span>0&nbsp;원</span>
               </div>
             </PayInfo>
             <TotalPrice>
-              <span className="small">총 결제금액</span>
-              <span>{totalPriceCalculator.toLocaleString("en-US")} 원</span>
+              <span className="small">총&nbsp;결제금액</span>
+              <span>
+                {totalPriceCalculator.toLocaleString("en-US")}&nbsp;원
+              </span>
             </TotalPrice>
-            <PayButton>구매하기</PayButton>
+            <PayButton onClick={postPurchase}>구매하기</PayButton>
           </Payment>
         </Quary>
       )}

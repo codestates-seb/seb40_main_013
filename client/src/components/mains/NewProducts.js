@@ -1,13 +1,13 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components/macro";
-import livingroom from "../../imgs/livingroom.png"
-import library from "../../imgs/library.png"
-import bedroom from "../../imgs/bedroom.png"
-import kitchen from "../../imgs/kitchen.png"
+import livingroom from "../../imgs/livingroom.png";
+import library from "../../imgs/library.png";
+import bedroom from "../../imgs/bedroom.png";
+import kitchen from "../../imgs/kitchen.png";
 import { Link } from "react-router-dom";
 
 const BrandContainer = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   /* @media screen and (max-width: 390px){
@@ -23,21 +23,21 @@ const Tabs = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px 0;
-  @media screen and (max-width: 767px){
+  @media screen and (max-width: 767px) {
     flex-direction: column;
     align-items: center;
     margin: 0;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     flex-direction: column;
   }
 `;
 const SubTab = styled.div`
   display: flex;
-  @media screen and (max-width: 767px){
+  @media screen and (max-width: 767px) {
     margin-bottom: 10px;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     margin-bottom: 10px;
   }
 `;
@@ -49,21 +49,21 @@ const Tab = styled.div`
   justify-content: center;
   margin-right: 15px;
   border-radius: 5px;
-  color: #AAAAAA;
+  color: #aaaaaa;
   cursor: pointer;
-  &:hover{
+  &:hover {
     color: white;
     background-color: #515151;
   }
   &.clicked {
     color: white;
-    background-color: #FFAF51;
+    background-color: #ffaf51;
   }
   &.clicked::after {
     color: white;
-    background-color: #FFAF51;
+    background-color: #ffaf51;
   }
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     margin-bottom: 10px;
   }
 `;
@@ -74,16 +74,16 @@ const CategoryProduct = styled.div`
   border-radius: 10px;
   margin: 20px 0;
   height: 60vh;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     flex-direction: column;
     width: 80%;
   }
-  @media (min-width: 391px) and (max-width: 767px){
+  @media (min-width: 391px) and (max-width: 767px) {
     flex-direction: column;
     align-items: center;
     width: 80%;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 80%;
     justify-content: center;
   }
@@ -96,12 +96,12 @@ const TI = styled.a`
   border-bottom-left-radius: 10px;
   cursor: pointer;
   &:hover::after,
-  &:hover > .hover_text{
+  &:hover > .hover_text {
     /* display: block; */
   }
-  &::after{
+  &::after {
     display: none;
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
@@ -109,11 +109,11 @@ const TI = styled.a`
     left: 0;
     background: rgba(0, 0, 0, 0.3);
   }
-  &:hover img{
+  &:hover img {
     transform: scale(1.1);
     transition: 1s;
   }
-  .hover_text{
+  .hover_text {
     display: none;
     position: absolute;
     top: 160px;
@@ -122,19 +122,19 @@ const TI = styled.a`
     z-index: 1;
     font-weight: 500;
     font-size: 35px;
-    background:#fff;
-    color: #AAAAAA; 
+    background: #fff;
+    color: #aaaaaa;
     transition: all 0.5s;
     padding: 10px;
     border-radius: 10px;
   }
-  @media (min-width: 391px) and (max-width: 767px){
+  @media (min-width: 391px) and (max-width: 767px) {
     display: flex;
     width: 100%;
     border-bottom-left-radius: 0;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
-    .hover_text{
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .hover_text {
       top: 20px;
       left: 20px;
       font-size: 20px;
@@ -145,17 +145,19 @@ const TI = styled.a`
 const CategoryImg = styled.img`
   width: 500px;
   height: 100%;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     width: 100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 0;
+    display: none;
   }
-  @media (min-width: 391px) and (max-width: 767px){
+  @media (min-width: 391px) and (max-width: 767px) {
     width: 100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 0;
+    display: none;
   }
 `;
 const BPList = styled.div`
@@ -165,22 +167,22 @@ const BPList = styled.div`
 const BP = styled(Link)`
   display: flex;
   align-items: center;
-  border: 0.1rem solid var(--color-center-line);
+  /* border: 0.1rem solid var(--color-center-line); */
   height: 20%;
   width: 400px;
   padding: 10px 10px 10px 0;
-  &:hover{
+  &:hover {
     opacity: 0.7;
   }
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     width: 100%;
     padding: 10px 0;
   }
-  @media (min-width: 391px) and (max-width: 768px){
+  @media (min-width: 391px) and (max-width: 768px) {
     width: 100%;
     padding: 10px 0;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     /* height: auto; */
   }
 `;
@@ -204,124 +206,144 @@ const Price = styled.h2`
   font-weight: 600;
 `;
 
-const NewProducts = ({ newArivalList }) =>{
-  const [clicked, setClicked] = useState('서재');
+const NewProducts = ({ newArivalList }) => {
+  const [clicked, setClicked] = useState("서재");
 
-  const onClick = useCallback(e => {
+  const onClick = useCallback((e) => {
     const text = e.target.innerText;
     setClicked(text);
   }, []);
 
   const ProductArr = {
-    "서재": <CategoryProduct>
-            <TI>
-              <CategoryImg src={library}></CategoryImg>
-              <p className="hover_text">More view</p>
-            </TI>
-            <BPList>
-                {newArivalList.서재?.map((p)=>
-                  <BP key={p.id} to={`/detail/${p.id}`}>
-                      <Img src={p.img.fullPath} />
-                      <TP>
-                        <Title>{p.title}</Title>
-                        <Price>{p.price.toLocaleString('en-US')}</Price>
-                      </TP>
-                  </BP>
-                )}
-            </BPList>
-          </CategoryProduct>,
-    "침실": <CategoryProduct>
-              <TI>
-              <CategoryImg src={bedroom}></CategoryImg>
-              <p className="hover_text">More view</p>
-            </TI>
-              <BPList>
-                {newArivalList.침실?.map((p)=>
-                    <BP key={p.id} to={`/detail/${p.id}`}>
-                        <Img src={p.img.fullPath} />
-                        <TP>
-                          <Title>{p.title}</Title>
-                          <Price>{p.price.toLocaleString('en-US')}</Price>
-                        </TP>
-                    </BP>
-                  )}
-              </BPList>
-            </CategoryProduct>,
-    "거실": <CategoryProduct>
-            <TI>
-              <CategoryImg src={livingroom}></CategoryImg>
-              <p className="hover_text">More view</p>
-            </TI>
-              <BPList>
-                {newArivalList.거실?.map((p)=>
-                    <BP key={p.id} to={`/detail/${p.id}`}>
-                        <Img src={p.img.fullPath} />
-                        <TP>
-                          <Title>{p.title}</Title>
-                          <Price>{p.price.toLocaleString('en-US')}</Price>
-                        </TP>
-                    </BP>
-                  )}  
-              </BPList>
-            </CategoryProduct>,
-    "주방": <CategoryProduct>
-            <TI>
-              <CategoryImg src={kitchen}></CategoryImg>
-              <p className="hover_text">More view</p>
-            </TI>
-              <BPList>
-                {newArivalList.주방?.map((p)=>
-                    <BP key={p.id} to={`/detail/${p.id}`}>
-                        <Img src={p.img.fullPath} />
-                        <TP>
-                          <Title>{p.title}</Title>
-                          <Price>{p.price.toLocaleString('en-US')}</Price>
-                        </TP>
-                    </BP>
-                  )}  
-              </BPList>
-            </CategoryProduct>,
-}
+    서재: (
+      <CategoryProduct>
+        <Link to="/library">
+          <TI>
+            <CategoryImg src={library}></CategoryImg>
+            <p className="hover_text">More view</p>
+          </TI>
+        </Link>
+        <BPList>
+          {newArivalList.서재?.map((p) => (
+            <BP key={p.id} to={`/detail/${p.id}`}>
+              <Img src={p.img.fullPath} />
+              <TP>
+                <Title>{p.title}</Title>
+                <Price>{p.price.toLocaleString("en-US")}</Price>
+              </TP>
+            </BP>
+          ))}
+        </BPList>
+      </CategoryProduct>
+    ),
+    침실: (
+      <CategoryProduct>
+        <Link to="/bedroom">
+          <TI>
+            <CategoryImg src={bedroom}></CategoryImg>
+            <p className="hover_text">More view</p>
+          </TI>
+        </Link>
+        <BPList>
+          {newArivalList.침실?.map((p) => (
+            <BP key={p.id} to={`/detail/${p.id}`}>
+              <Img src={p.img.fullPath} />
+              <TP>
+                <Title>{p.title}</Title>
+                <Price>{p.price.toLocaleString("en-US")}</Price>
+              </TP>
+            </BP>
+          ))}
+        </BPList>
+      </CategoryProduct>
+    ),
+    거실: (
+      <CategoryProduct>
+        <Link to="/livingRoom">
+          <TI>
+            <CategoryImg src={livingroom}></CategoryImg>
+            <p className="hover_text">More view</p>
+          </TI>
+        </Link>
+        <BPList>
+          {newArivalList.거실?.map((p) => (
+            <BP key={p.id} to={`/detail/${p.id}`}>
+              <Img src={p.img.fullPath} />
+              <TP>
+                <Title>{p.title}</Title>
+                <Price>{p.price.toLocaleString("en-US")}</Price>
+              </TP>
+            </BP>
+          ))}
+        </BPList>
+      </CategoryProduct>
+    ),
+    주방: (
+      <CategoryProduct>
+        <Link to="/kitchen">
+          <TI>
+            <CategoryImg src={kitchen}></CategoryImg>
+            <p className="hover_text">More view</p>
+          </TI>
+        </Link>
+        <BPList>
+          {newArivalList.주방?.map((p) => (
+            <BP key={p.id} to={`/detail/${p.id}`}>
+              <Img src={p.img.fullPath} />
+              <TP>
+                <Title>{p.title}</Title>
+                <Price>{p.price.toLocaleString("en-US")}</Price>
+              </TP>
+            </BP>
+          ))}
+        </BPList>
+      </CategoryProduct>
+    ),
+  };
 
-return (
-  <BrandContainer>
-    <Tabs>
-      <SubTab>
-        <Tab
-        name="library"
-        className={clicked === '서재' ? 'clicked' : ''}
-        onClick={onClick}
-        value="1">
-          서재
-        </Tab>
-        <Tab
-        name="bedroom"
-        className={clicked === '침실' ? 'clicked' : ''}
-        onClick={onClick}
-        value="2">
-          침실
-        </Tab>
-      </SubTab>
-      <SubTab>
-        <Tab
-          name="livingroom"
-          className={clicked === '거실' ? 'clicked' : ''}
-          onClick={onClick}
-          value="3">
+  return (
+    <BrandContainer>
+      <Tabs>
+        <SubTab>
+          <Tab
+            name="library"
+            className={clicked === "서재" ? "clicked" : ""}
+            onClick={onClick}
+            value="1"
+          >
+            서재
+          </Tab>
+          <Tab
+            name="bedroom"
+            className={clicked === "침실" ? "clicked" : ""}
+            onClick={onClick}
+            value="2"
+          >
+            침실
+          </Tab>
+        </SubTab>
+        <SubTab>
+          <Tab
+            name="livingroom"
+            className={clicked === "거실" ? "clicked" : ""}
+            onClick={onClick}
+            value="3"
+          >
             거실
           </Tab>
           <Tab
-          name="kitchen"
-          className={clicked === '주방' ? 'clicked' : ''}
-          onClick={onClick}
-          value="4">
+            name="kitchen"
+            className={clicked === "주방" ? "clicked" : ""}
+            onClick={onClick}
+            value="4"
+          >
             주방
           </Tab>
         </SubTab>
       </Tabs>
       {ProductArr[clicked]}
     </BrandContainer>
-)
-}
+  );
+};
 
 export default NewProducts;

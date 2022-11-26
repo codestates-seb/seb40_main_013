@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { postReview } from "../../reduxstore/slices/reviewSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function PostReview({ clickModal }) {
   const dispatch = useDispatch();
-  const [userWriteTitle, setUserWriteTitle] = useState("");
+  const [userWriteImg, setUserWriteImg] = useState("");
   const [userWriteContent, setUserWriteContent] = useState("");
   const [userWriteScroe, setUserWriteScroe] = useState("");
-  const changeTitle = (e) => {
-    setUserWriteTitle(e.target.value);
+  const fileInput = useRef();
+
+  const changeImg = (e) => {
+    e.preventDefault();
+    if (e.target.files) {
+      let uploadFile = e.target.files[0];
+      console.log(uploadFile);
+      setUserWriteImg(uploadFile);
+    }
   };
+  console.log(userWriteImg);
   const changeContent = (e) => {
     setUserWriteContent(e.target.value);
   };
@@ -22,10 +30,11 @@ function PostReview({ clickModal }) {
     let postData = {
       content: userWriteContent,
       score: userWriteScroe,
+      img: userWriteImg,
     };
     dispatch(postReview(postData));
   };
-
+  console.log(userWriteImg);
   return (
     <Container>
       <PostReviewTopSpace>
@@ -60,6 +69,12 @@ function PostReview({ clickModal }) {
         <PostReviewDownInput
           placeholder="리뷰의 별점을 입력해주세요!"
           onChange={changeScore}
+        />
+        <input
+          type="file"
+          ref={fileInput}
+          accept="image/*"
+          onChange={changeImg}
         />
         <PostReviewDownBtn onClick={postSubmit}>추가 버튼</PostReviewDownBtn>
       </PostReviewDownSpace>

@@ -60,7 +60,7 @@ const FooterWrapper = styled.div`
   background-color: #fcf9e9;
   padding: 20px 0px 10px 20px;
   @media screen and (max-width: 768px) {
-    min-width: 391px;
+    min-width: 320px;
   }
 `;
 
@@ -112,8 +112,7 @@ const FooterMidBtnMenu = styled.div`
     justify-content: space-between;
   }
   @media screen and (max-width: 768px) {
-    max-width: 400px;
-    min-width: 370px;
+    max-width: 320px;
     display: flex;
   }
 `;

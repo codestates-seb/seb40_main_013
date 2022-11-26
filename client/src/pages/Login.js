@@ -121,7 +121,7 @@ const LoginWrapper = styled.div`
   border: 1px solid var(--color-gray);
   display: flex;
   border-radius: 7px;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     min-width: 391px;
     width: 72%;
   }
@@ -144,7 +144,7 @@ const LoginWrapper = styled.div`
 const LoginImg = styled.img`
   width: 500px;
   height: 100%;
-  /* @media screen and (max-width: 1024px) and (min-width: 768) {
+  /* @media screen and (max-width: 1023px) and (min-width: 768) {
     width: 50%;
   } */
   @media screen and (max-width: 768px) {
@@ -178,7 +178,7 @@ const LoginTitle = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 40px;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     font-size: 4vw;
   }
   @media screen and (max-width: 768px) {
@@ -201,7 +201,7 @@ const LoginInput = styled.input`
   &:nth-child(1) {
     margin-bottom: 10px;
   }
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     font-size: 2vw;
   }
   @media screen and (max-width: 768px) {
@@ -221,8 +221,7 @@ const LoginButton = styled.button`
   &:hover {
     cursor: pointer;
   }
-
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     font-size: 2vw;
   }
   @media screen and (max-width: 768px) {
@@ -238,7 +237,7 @@ const LoginInformationSpace = styled.div`
   height: 40px;
   font-size: 20px;
   color: var(--color-gray);
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     font-size: 2vw;
   }
   @media screen and (max-width: 768px) {
@@ -251,7 +250,7 @@ const LoginCheckSpace = styled.div`
   justify-content: space-between;
   margin-top: 20px;
   margin-left: 50px;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     width: 55%;
     font-size: 2vw;
     margin-left: 40px;
@@ -271,7 +270,7 @@ const LoginState = styled.div`
 `;
 const LoginStateContent = styled.div`
   font-size: 20px;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     font-size: 15px;
   }
   @media screen and (max-width: 790px) {
@@ -290,7 +289,7 @@ const LoginRouteSign = styled.div`
   font-weight: 500;
   margin-top: 20px;
   margin-bottom: 20px;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     width: 100%;
     font-size: 1.5vw;
   }
