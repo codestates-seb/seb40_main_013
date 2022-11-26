@@ -82,4 +82,11 @@ public class ProductController {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByBrand(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/count")
+    public ResponseEntity getProductCategoryCount(@Valid GetProductListByDto dto){
+        Long count = productService.getProductCategoryCount(dto);
+        return new ResponseEntity(count, HttpStatus.OK);
+    }
+
 }

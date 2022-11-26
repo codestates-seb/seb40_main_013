@@ -1,5 +1,6 @@
 package gohome.dailydaily.domain.product.service;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import gohome.dailydaily.domain.file.service.FileService;
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.member.repository.SellerRepository;
@@ -16,7 +17,6 @@ import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -110,5 +110,11 @@ public class ProductService {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
         }
         return products;
+    }
+
+    public Long getProductCategoryCount(GetProductListByDto dto) {
+        Long count = productRepository.countProductCategory(ProductGetParam.valueOf(dto));
+        System.out.println(count);
+        return count;
     }
 }
