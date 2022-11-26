@@ -216,10 +216,12 @@ const NewProducts = ({ newArivalList }) =>{
 
   const ProductArr = {
     "서재": <CategoryProduct>
-            <TI>
-              <CategoryImg src={library}></CategoryImg>
-              <p className="hover_text">More view</p>
-            </TI>
+            <Link to="/library">            
+              <TI>
+                <CategoryImg src={library}></CategoryImg>
+                <p className="hover_text">More view</p>
+              </TI>
+            </Link>
             <BPList>
                 {newArivalList.서재?.map((p)=>
                   <BP key={p.id} to={`/detail/${p.id}`}>
@@ -233,10 +235,12 @@ const NewProducts = ({ newArivalList }) =>{
             </BPList>
           </CategoryProduct>,
     "침실": <CategoryProduct>
-              <TI>
-              <CategoryImg src={bedroom}></CategoryImg>
-              <p className="hover_text">More view</p>
-            </TI>
+              <Link to="/bedroom">
+                <TI>
+                  <CategoryImg src={bedroom}></CategoryImg>
+                  <p className="hover_text">More view</p>
+                </TI>
+              </Link>
               <BPList>
                 {newArivalList.침실?.map((p)=>
                     <BP key={p.id} to={`/detail/${p.id}`}>
@@ -250,10 +254,12 @@ const NewProducts = ({ newArivalList }) =>{
               </BPList>
             </CategoryProduct>,
     "거실": <CategoryProduct>
-            <TI>
-              <CategoryImg src={livingroom}></CategoryImg>
-              <p className="hover_text">More view</p>
-            </TI>
+            <Link to="/livingRoom"> 
+              <TI>
+                <CategoryImg src={livingroom}></CategoryImg>
+                <p className="hover_text">More view</p>
+              </TI>
+            </Link>
               <BPList>
                 {newArivalList.거실?.map((p)=>
                     <BP key={p.id} to={`/detail/${p.id}`}>
@@ -267,10 +273,12 @@ const NewProducts = ({ newArivalList }) =>{
               </BPList>
             </CategoryProduct>,
     "주방": <CategoryProduct>
-            <TI>
-              <CategoryImg src={kitchen}></CategoryImg>
-              <p className="hover_text">More view</p>
-            </TI>
+            <Link to="/kitchen">
+              <TI>
+                <CategoryImg src={kitchen}></CategoryImg>
+                <p className="hover_text">More view</p>
+              </TI>
+            </Link>
               <BPList>
                 {newArivalList.주방?.map((p)=>
                     <BP key={p.id} to={`/detail/${p.id}`}>
