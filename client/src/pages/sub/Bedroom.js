@@ -119,8 +119,8 @@ const FilterBlock = styled.div`
 
 const ProductList = styled.div`
   display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr; //새로의 갯수
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr; //가로의 갯수
   justify-content: center;
   @media screen and (max-width: 390px) {
     grid-template-rows: 1fr;
@@ -130,7 +130,7 @@ const ProductList = styled.div`
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
