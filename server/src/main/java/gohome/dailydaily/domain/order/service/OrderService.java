@@ -1,10 +1,13 @@
 package gohome.dailydaily.domain.order.service;
 
+import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.service.MemberService;
 import gohome.dailydaily.domain.order.entity.Order;
 import gohome.dailydaily.domain.order.entity.OrderProduct;
 import gohome.dailydaily.domain.order.entity.OrderStatus;
 import gohome.dailydaily.domain.order.repository.OrderRepository;
+import gohome.dailydaily.domain.product.entity.Option;
+import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.product.service.ProductService;
 import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
@@ -44,13 +47,22 @@ public class OrderService {
     }
 
     private void verifyOrder(Order order) {
-        memberService.findVerifiedMember(order.getMember().getId());
+        Member member = memberService.findVerifiedMember(order.getMember().getId());
+        order.setMember(member);
 
         order.getOrderProducts()
                 .forEach(orderProduct -> {
-                    productService.getProduct(orderProduct.getProduct().getId());
-                    updateSaleAndStock(orderProduct);
+                    Product product = productService.getProduct(orderProduct.getProduct().getId());
+
+                    Option findOption = product.getOptions().stream()
+                            .filter(option -> option.getId().equals(orderProduct.getOption().getId()))
+                            .findAny()
+                            .orElseThrow(() -> new BusinessLogicException(ExceptionCode.OPTION_NOT_FOUND));
+
+                    orderProduct.addProduct(product);
+                    orderProduct.addOption(findOption);
                     orderProduct.addOrder(order);
+                    updateSaleAndStock(orderProduct);
                 });
     }
 
