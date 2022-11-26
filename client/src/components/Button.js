@@ -15,7 +15,7 @@ const ArrowUpButton = styled.button`
   opacity: 0;
   pointer-events: none;
   transition: opacity 300ms ease-in;
-  /* box-shadow: 1px 2px 2px gray; */
+  box-shadow: 1px 2px 2px gray;
   cursor: pointer;
   &.visible {
     opacity: 1;
@@ -23,37 +23,36 @@ const ArrowUpButton = styled.button`
   }
 `;
 const Button = () => {
-  const [showButton, setShowButton] = useState(false);
+  const [BtnStatus, setBtnStatus] = useState(false); // 버튼 상태
 
-  //onclick 이벤트
   const handleTop = () => {
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
     });
-    setShowButton(false);
+    setBtnStatus(false);
   }
 
   const ShowButtonClick = () => {
     if(window.scrollY > 800) {
       console.log('800이상이예요')
-      setShowButton(true)
+      setBtnStatus(true)
     } else {
       console.log('800이하입니다')
-      setShowButton(false)
+      setBtnStatus(false)
     }
   }
   //윈도우가 높이가 800 이상일때 버튼이 보이도록
   useEffect(()=>{
     window.addEventListener("scroll", ShowButtonClick)
     return () => {
-      window.removeEventListener("scroll", ShowButtonClick)
-    }
-  }, [])
+      window.removeEventListener("scroll", ShowButtonClick); // addEventListener 함수를 삭제
+    };
+  });
 
   return (
         <ArrowUpButton
-          className={showButton ? "visible" : "topBtn"} // 버튼 노출 여부
+          className={BtnStatus ? "visible" : "topBtn"} // 버튼 노출 여부
           onClick={handleTop} // 버튼 클릭시 함수 호출
           type="button"
         >

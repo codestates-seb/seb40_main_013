@@ -53,7 +53,7 @@ const ProductList = styled.div`
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr;
   }
-  @media (min-width: 768px) and (max-width: 1023px) {
+  @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
@@ -71,7 +71,7 @@ const BrandTab = styled.table`
   @media (min-width: 391px) and (max-width: 767px) {
     flex-direction: column;
   }
-  @media (min-width: 768px) and (max-width: 1023px) {
+  @media (min-width: 768px) and (max-width: 1024px) {
     flex-direction: column;
   }
 `;
@@ -81,7 +81,7 @@ const TH = styled.tr`
 const TD = styled.td`
   display: flex;
   justify-content: center;
-  border: 3px solid #ECECE8;
+  border: 3px solid #ecece8;
   padding: 20px 50px;
   font-size: 1rem;
   width: 50px;
@@ -183,7 +183,7 @@ const Main = () => {
       <ProductList>
         {bestData?.map((product) => (
           <Products key={product.id} proId={product.id} product={product} />
-          ))}
+        ))}
       </ProductList>
       {/* 카테고리별 신상품 */}
       <Title>

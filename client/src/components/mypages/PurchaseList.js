@@ -178,15 +178,15 @@ const Btns = styled.div`
   flex-direction: column;
 `;
 const ReviewBtn = styled.button`
-  padding: 10px 50px;
-  height: 50px;
+  padding: 8px 30px;
+  /* height: 50px; */
   background-color: #002c6d;
   color: white;
   border-radius: 10px;
   margin-bottom: 10px;
   cursor: pointer;
   &:hover {
-    background-color: #ffaf51;
+    opacity: 0.8;
   }
   @media screen and (max-width: 390px) {
     display: none;
@@ -196,9 +196,9 @@ const ReviewBtn = styled.button`
   }
 `;
 const CancleBtn = styled.button`
-  padding: 10px 50px;
-  height: 50px;
-  border: 1px solid red;
+  padding: 8px 30px;
+  /* height: 50px; */
+  /* border: 1px solid red; */
   color: red;
   border-radius: 10px;
   cursor: pointer;
@@ -359,9 +359,9 @@ const PurchaseList = () => {
                 </SubDetail>
               </ReactionSubDetail>
               <Btns>
-                  <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
-                  <CancleBtn onClick={clickModal}>주문취소</CancleBtn>
-                </Btns>
+                <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
+                <CancleBtn onClick={clickModal}>주문취소</CancleBtn>
+              </Btns>
             </Detail>
             <ReactionSpace>
               <ReactionReviewBtn>구매후기</ReactionReviewBtn>

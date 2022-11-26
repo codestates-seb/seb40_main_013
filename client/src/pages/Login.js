@@ -221,7 +221,6 @@ const LoginButton = styled.button`
   &:hover {
     cursor: pointer;
   }
-
   @media screen and (max-width: 1023px) {
     font-size: 2vw;
   }

@@ -14,18 +14,18 @@ const Img = styled.img`
 const Title = styled.h2`
   font-size: 1rem;
 `;
-const BrandProductDetail = ({productList}) => {
+const BrandProductDetail = ({ productList }) => {
   console.log(productList);
 
-  return(
+  return (
     <Container>
-      {productList.map(p=>{
+      {productList.map((p) => {
         <PL>
           <Img src={p.img} />
           <Title>{p.title}</Title>
-        </PL>
+        </PL>;
       })}
     </Container>
-  )
-}
+  );
+};
 export default BrandProductDetail;
