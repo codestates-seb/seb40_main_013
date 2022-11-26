@@ -25,11 +25,21 @@ export const postReview = createAsyncThunk("review/post", async (postData) => {
   console.log(postData.img);
   const form = new FormData();
   form.append("file", postData.image);
-  return Apis.post(`products/1/reviews`, form, {
-    headers: {
-      Authorization: `${jwtToken}`,
+
+  return Apis.post(
+    `products/1/reviews`,
+    {
+      content: postData.content,
+      score: postData.score,
+      img: form,
     },
-  })
+    {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  )
     .then((res) => {
       console.log(res);
       return res.data;
