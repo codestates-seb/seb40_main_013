@@ -28,9 +28,9 @@ export const loginUser = createAsyncThunk(
         let jwtrefreshToken = res.headers.get("Refresh");
         localStorage.setItem("Authorization", jwtToken);
         localStorage.setItem("Refresh", jwtrefreshToken);
-        navigate("/");
-        window.alert("로그인 성공!");
-        window.location.reload();
+        // navigate("/");
+        // window.alert("로그인 성공!");
+        // window.location.reload();
         return res.data;
       })
       .catch((err) => {

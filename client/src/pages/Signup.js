@@ -209,6 +209,7 @@ const UserSubmitBtn = styled.button`
   margin-top: 50px;
   width: 100%;
   height: 50px;
+  cursor: pointer;
   background-color: var(--color-navy);
   border-radius: var(--border-radius);
   color: white;
