@@ -11,7 +11,6 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, imports = {Option.class, Product.class})
 public interface OrderProductMapper {
 
-    @Mapping(target = "id", source = "productId")
     @Mapping(target = "option", expression = "java(Option.builder().id(post.getOptionId()).build())")
     @Mapping(target = "product", expression = "java(Product.builder().id(post.getProductId()).build())")
     OrderProduct toOrderProduct(OrderProductDto.Post post);

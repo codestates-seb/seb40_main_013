@@ -43,4 +43,8 @@ public class OrderProduct extends BaseTime {
         this.product.addOrderProducts(this);
     }
 
+    public void addOption(Option option) {
+        this.option = option;
+    }
+
 }
