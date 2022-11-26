@@ -1,7 +1,6 @@
 package gohome.dailydaily.domain.product.repository;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.jpa.impl.JPAQuery;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.dto.QCategoryGetDto;
 import gohome.dailydaily.domain.product.entity.Product;
@@ -100,13 +99,13 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
     @Override
     public Long countProductCategory(ProductGetParam param) {
         BooleanBuilder whereCondition = getWhereCondition(param);
-//        Long count = select(product.count())
-//                .from(product)
-//                .innerJoin(product.category, category)
-//                .where(whereCondition);
 
-        //System.out.println(count);
-        return 1l;
+        List<Long> count = select(product.count())
+                .from(product)
+                .where(whereCondition)
+                .fetch();
+
+        return count.stream().findAny().get();
     }
 
     @Override
@@ -130,9 +129,10 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
             product.img,
             product.title,
             product.price,
-            product.score,
+            product.score.floatValue(),
             product.seller.member.nickname,
-            product.category.main
+            product.category.main,
+            product.reviews.size()
         );
     }
 
