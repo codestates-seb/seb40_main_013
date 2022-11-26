@@ -14,7 +14,6 @@ function Alert(icon, content) {
     confirmButtonText: '확인'
   })
 
-  return <button type="button">클릭!</button>;
 }
 
 export default Alert;

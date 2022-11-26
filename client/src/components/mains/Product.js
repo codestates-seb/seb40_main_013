@@ -16,7 +16,7 @@ const Products = styled(Link)`
   @media (min-width: 480px) and (max-width: 767px) {
     width: 30vw;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 23vw;
   }
 `;
@@ -33,7 +33,7 @@ const Imgbox = styled.div`
     @media (min-width: 480px) and (max-width: 767px) {
     width: 24vw;
   }
-    @media (min-width: 768px) and (max-width: 1024px) {
+    @media (min-width: 768px) and (max-width: 1023px) {
     width: 20vw;
   }
 `;
@@ -47,7 +47,7 @@ const Img = styled.img`
   @media (min-width: 480px) and (max-width: 767px) {
     width: 24vw;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 20vw;
   }
 `;
@@ -62,7 +62,7 @@ const Detail = styled.div`
   @media (min-width: 480px) and (max-width: 767px) {
     width: 24vw;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 20vw;
   }
 `;
@@ -74,7 +74,7 @@ const Brand = styled.h5`
   @media (min-width: 480px) and (max-width: 767px) {
     font-size: 0.9em;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 1em;
   }
 `;
@@ -85,6 +85,7 @@ const Title = styled.h2`
   text-overflow: ellipsis;
   line-height: 1.2em;
   max-height: 2.4em;
+  min-height: 2.4em;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -94,7 +95,7 @@ const Title = styled.h2`
   @media (min-width: 480px) and (max-width: 767px) {
     font-size: 0.9em;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 1em;
   }
 `;
@@ -111,7 +112,7 @@ const Price = styled.h5`
   @media (min-width: 480px) and (max-width: 767px) {
     font-size: 1.2em;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 1.3em;
   }
 `;
@@ -136,7 +137,7 @@ const Star = styled.img`
     width: 10px;
     height: 10px;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 13px;
     height: 13px;
   }
@@ -149,7 +150,7 @@ const StarAerage = styled.div`
   @media (min-width: 480px) and (max-width: 767px) {
     font-size: 0.9em;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 0.9em;
   }
 `;

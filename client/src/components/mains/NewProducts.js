@@ -28,7 +28,7 @@ const Tabs = styled.div`
     align-items: center;
     margin: 0;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px){
     flex-direction: column;
   }
 `;
@@ -37,7 +37,7 @@ const SubTab = styled.div`
   @media screen and (max-width: 767px){
     margin-bottom: 10px;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px){
     margin-bottom: 10px;
   }
 `;
@@ -83,7 +83,7 @@ const CategoryProduct = styled.div`
     align-items: center;
     width: 80%;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px){
     width: 80%;
     justify-content: center;
   }
@@ -133,7 +133,7 @@ const TI = styled.a`
     width: 100%;
     border-bottom-left-radius: 0;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px){
     .hover_text{
       top: 20px;
       left: 20px;
@@ -182,7 +182,7 @@ const BP = styled(Link)`
     width: 100%;
     padding: 10px 0;
   }
-  @media (min-width: 768px) and (max-width: 1024px){
+  @media (min-width: 768px) and (max-width: 1023px){
     /* height: auto; */
   }
 `;

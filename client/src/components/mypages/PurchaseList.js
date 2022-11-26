@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, Routes, Route, Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import PostReview from "./PostReview";
+import { getMyOrder } from '../../reduxstore/slices/myOrderSlice';
+import PurchaseAll from './PurchaseAll';
 
 const Container = styled.div`
   display: flex;
@@ -33,6 +37,18 @@ const Top = styled.div`
 const SubTop = styled.h2`
   font-weight: 700;
   font-size: 1.2rem;
+  @media screen and (max-width: 390px) {
+    font-size: 12px;
+    font-weight: 600;
+  }
+`;
+const AllPurchase = styled(Link)`
+  font-weight: 700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  &:hover {
+    color: #ffaf51;
+  }
   @media screen and (max-width: 390px) {
     font-size: 12px;
     font-weight: 600;
@@ -144,6 +160,9 @@ const ProductName = styled.h2`
     font-size: 1.2rem;
   }
 `;
+const Option = styled.h2`
+  margin-top: 5px;
+`;
 const Price = styled.h2`
   margin: 10px 0;
   @media screen and (max-width: 390px) {
@@ -152,21 +171,6 @@ const Price = styled.h2`
   }
   @media (min-width: 391px) and (max-width: 768px) {
     margin: 5px 0;
-  }
-`;
-const Delievery = styled.h2`
-  color: #ffaf51;
-  @media screen and (max-width: 390px) {
-    font-size: 12px;
-  }
-`;
-const Quantity = styled.h2`
-  display: flex;
-  align-items: center;
-  margin: 0 20px;
-  @media screen and (max-width: 390px) {
-    font-size: 12px;
-    margin: 0 5px;
   }
 `;
 const Btns = styled.div`
@@ -263,12 +267,24 @@ const BrandPhone = styled.div`
     font-size: 15px;
   }
 `;
+
+
 const PurchaseList = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const myOrderData = useSelector((state)=> state.myorder.myorder);
+  console.log(myOrderData);
   const [isModal, setIsModal] = useState(false);
 
   const clickModal = () => {
     setIsModal(!isModal);
   };
+
+  useEffect(()=>{
+    // dispatch(getMyOrder({click}))
+  }, []);
+
+
   return (
     <>
       {isModal ? (
@@ -277,7 +293,7 @@ const PurchaseList = () => {
             <PostReview clickModal={clickModal} />
             <Top>
               <SubTop>830495 | 2022.01.11</SubTop>
-              <SubTop>상세보기 &gt;</SubTop>
+              <AllPurchase to="orderall" style={{ textDecoration: "none" }}>상세보기 &gt;</AllPurchase>
             </Top>
             <Hr />
             <Content>
@@ -291,14 +307,13 @@ const PurchaseList = () => {
                   <BP>
                     <BrandName>두닷</BrandName>
                     <ProductName>화장대</ProductName>
+                    <Option>색상: white</Option>
                   </BP>
                   <SubDetail>
                     <BP>
                       {/* <ProductName>화장대</ProductName> */}
-                      <Price>13900</Price>
-                      <Delievery>일반배송</Delievery>
+                      <Price>13900 | 1개</Price>
                     </BP>
-                    <Quantity>1개</Quantity>
                   </SubDetail>
                 </ReactionSubDetail>
                 <Btns>
@@ -320,7 +335,7 @@ const PurchaseList = () => {
         <Container>
           <Top>
             <SubTop>830495 | 2022.01.11</SubTop>
-            <SubTop>상세보기 &gt;</SubTop>
+            <AllPurchase to="orderall" style={{ textDecoration: "none" }}>상세보기 &gt;</AllPurchase>
           </Top>
           <Hr />
           <Content>
@@ -334,14 +349,13 @@ const PurchaseList = () => {
                 <BP>
                   <BrandName>두닷</BrandName>
                   <ProductName>화장대</ProductName>
+                  <Option>색상: white</Option>
                 </BP>
                 <SubDetail>
                   <BP>
                     {/* <ProductName>화장대</ProductName> */}
-                    <Price>13900</Price>
-                    <Delievery>일반배송</Delievery>
+                    <Price>13900 | 1개</Price>
                   </BP>
-                  <Quantity>1개</Quantity>
                 </SubDetail>
               </ReactionSubDetail>
               <Btns>

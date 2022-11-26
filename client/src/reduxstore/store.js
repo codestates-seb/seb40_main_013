@@ -6,6 +6,7 @@ import reviewSlice from "./slices/reviewSlice";
 import mainSlice from "./slices/mainSlice";
 import mainCategorySlice from "./slices/mainCategorySlice";
 import subCategorySlice from "./slices/subCategorySlice";
+import myOrderSlice from "./slices/myOrderSlice";
 
 const rootReducer = combineReducers({
   article: articleSlice,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   main: mainSlice,
   maincategory: mainCategorySlice,
   subcategory: subCategorySlice,
+  myorder: myOrderSlice,
 });
 
 const store = configureStore({ reducer: rootReducer });

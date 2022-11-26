@@ -8,10 +8,9 @@ import {
 } from "../reduxstore/slices/articleSlice";
 
 const CartBlock = styled.div`
-  margin-top: 160px;
+  margin-top: 127.5px;
   width: 100%;
   padding: 30px 40px 50px 40px;
-  margin-top: 16vh;
   display: flex;
   div {
     display: flex;

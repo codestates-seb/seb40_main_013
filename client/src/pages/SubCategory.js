@@ -21,7 +21,7 @@ const SubBlock = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 16vh;
+  margin-top: 127.5px;
   padding: 3vh 4vw;
   align-items: center;
   .sub-menus {
@@ -83,7 +83,7 @@ const ProductList = styled.div`
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
