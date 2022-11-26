@@ -102,41 +102,43 @@ function ArticleDetail() {
               </DetailArticlePrice>
               <DetailArticlePrice>115,000원</DetailArticlePrice>
             </DetailArticlePriceSpace>
-            <DetailArticleOptionSpace>
-              <DetailArticleOptionContents>
-                배송 방법
-              </DetailArticleOptionContents>
-              <DetailArticleOptionContents>
-                무료 배송
-              </DetailArticleOptionContents>
-            </DetailArticleOptionSpace>
-            <DetailArticleOptionSpace>
-              <DetailArticleOptionContents>
-                옵션 선택
-              </DetailArticleOptionContents>
-            </DetailArticleOptionSpace>
-            <DetailArticleOptionSpaceSelect clickSelect={clickSelect}>
-              <DetailArticleOptionSpaceSelectDiv>
-                {selectOptionColor}
-                <FiChevronDown className="button" onClick={clickFunction} />
-              </DetailArticleOptionSpaceSelectDiv>
-              {clickSelect ? (
-                <DetailArticleOptionSpaceSelectDivValueUl>
-                  {optionSelect?.map((option) => (
-                    <DetailArticleOptionSpaceSelectDivValueLi
-                      key={option?.optionId}
-                      value={option?.value}
-                      onClick={() => {
-                        selectOption(option.optionId, option.color),
-                          clickFunction();
-                      }}
-                    >
-                      {option?.color}
-                    </DetailArticleOptionSpaceSelectDivValueLi>
-                  ))}
-                </DetailArticleOptionSpaceSelectDivValueUl>
-              ) : null}
-            </DetailArticleOptionSpaceSelect>
+            <div>
+              <DetailArticleOptionSpace>
+                <DetailArticleOptionContents>
+                  배송 방법
+                </DetailArticleOptionContents>
+                <DetailArticleOptionContents>
+                  무료 배송
+                </DetailArticleOptionContents>
+              </DetailArticleOptionSpace>
+              <DetailArticleOptionSpace>
+                <DetailArticleOptionContents>
+                  옵션 선택
+                </DetailArticleOptionContents>
+              </DetailArticleOptionSpace>
+              <DetailArticleOptionSpaceSelect clickSelect={clickSelect}>
+                <DetailArticleOptionSpaceSelectDiv>
+                  {selectOptionColor}
+                  <FiChevronDown className="button" onClick={clickFunction} />
+                </DetailArticleOptionSpaceSelectDiv>
+                {clickSelect ? (
+                  <DetailArticleOptionSpaceSelectDivValueUl>
+                    {optionSelect?.map((option) => (
+                      <DetailArticleOptionSpaceSelectDivValueLi
+                        key={option?.optionId}
+                        value={option?.value}
+                        onClick={() => {
+                          selectOption(option.optionId, option.color),
+                            clickFunction();
+                        }}
+                      >
+                        {option?.color}
+                      </DetailArticleOptionSpaceSelectDivValueLi>
+                    ))}
+                  </DetailArticleOptionSpaceSelectDivValueUl>
+                ) : null}
+              </DetailArticleOptionSpaceSelect>
+            </div>
             <DetailUserSubmitPriceSpace>
               <DetailUserQuantitySpace>
                 <ButtonIcon>
@@ -250,7 +252,7 @@ const DetailArticleName = styled.div`
   color: #1c1c1c;
   font-size: 1.6rem;
   font-weight: bold;
-  height: 3em;
+  height: 2.5em;
   @media screen and (max-width: 1300px) {
     width: 100%;
     display: inline-block;
@@ -259,7 +261,7 @@ const DetailArticleName = styled.div`
     text-overflow: ellipsis;
     white-space: normal;
     line-height: 1.2;
-    height: 3em;
+    height: 2.5em;
     text-align: left;
     word-wrap: break-word;
     display: -webkit-box;
@@ -360,6 +362,9 @@ const DetailArticlePrice = styled.div`
   @media screen and (max-width: 1023px) {
     font-size: 1.3rem;
   }
+  @media screen and (max-width: 400px) {
+    font-size: 1.1rem;
+  }
   &:nth-child(1) {
     color: #ffaf51;
   }
@@ -377,18 +382,16 @@ const DetailArticleOptionContents = styled.div`
   margin-left: 10px;
   font-size: 1rem;
   color: #002c6d;
-  border: 1px solid red;
   &:nth-child(2) {
     margin-right: 30px;
   }
 `;
 const DetailArticleOptionSpace = styled.div`
-  height: 40px;
+  height: 3rem;
   width: 100%;
   display: flex;
   align-items: center;
   border-top: 2px solid var(--color-gray);
-  border: 1px solid blue;
   &:nth-child(4) {
     justify-content: space-between;
   }
@@ -396,14 +399,11 @@ const DetailArticleOptionSpace = styled.div`
 
 const DetailArticleOptionSpaceSelect = styled.div`
   border-top: 2px solid var(--color-gray);
-  border-bottom: 2px solid var(--color-gray);
   display: inline-block;
   width: 100%;
-  height: 50px;
+  height: 3rem;
   font-size: 1rem;
-  @media screen and (max-width: 1000px) {
-    font-size: 0.8rem;
-  }
+  border-bottom: 2px solid var(--color-gray);
 `;
 const DetailArticleOptionSpaceSelectDiv = styled.div`
   display: flex;
