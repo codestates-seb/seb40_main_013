@@ -7,7 +7,7 @@ import { renderStar } from "../../components/Star";
 function Review({ articlesDetail }) {
   console.log(articlesDetail);
   const reviewLength = articlesDetail?.reviews?.length;
-  console.log(reviewLength);
+  console.log(articlesDetail?.reviews);
   return (
     <ReviewWrapper>
       <ReviewTitle>상품 후기 ( {reviewLength}건 )</ReviewTitle>
@@ -19,31 +19,33 @@ function Review({ articlesDetail }) {
       </ReviewStarSpace>
       <Boundary />
 
-      {articlesDetail?.reviews?.map((data) => (
-        <ReviewContentsSpace key={data.reviewId}>
-          <ReviewContentsLeftSpace>
-            <ReviewContentsNumber>{data.reviewId}</ReviewContentsNumber>
-            <ReviewContentsImg
-              src={articlesDetail?.img.fullPath}
-            ></ReviewContentsImg>
-            <ReviewContentsMainSpace>
-              {renderStar(data.score)}
-              <ReviewMainTitle>{data.title}</ReviewMainTitle>
-              <ReviewMainContent>{data.content}</ReviewMainContent>
-            </ReviewContentsMainSpace>
-          </ReviewContentsLeftSpace>
-          <ReviewContentsRightSpace>
-            <ReviewContentsUser>{data.nickname}</ReviewContentsUser>
-            <ReviewContentsUser>
-              {new Date(data.createdAt).getFullYear() +
-                "." +
-                [new Date(data.createdAt).getMonth() + 1] +
-                "." +
-                new Date(data.createdAt).getDate()}
-            </ReviewContentsUser>
-          </ReviewContentsRightSpace>
-        </ReviewContentsSpace>
-      ))}
+      {articlesDetail?.reviews
+        ?.map((data, idx) => (
+          <ReviewContentsSpace key={data.reviewId}>
+            <ReviewContentsLeftSpace>
+              <ReviewContentsNumber>{idx + 1}</ReviewContentsNumber>
+              {data?.img ? (
+                <ReviewContentsImg src={data?.img.fullPath}></ReviewContentsImg>
+              ) : null}
+              <ReviewContentsMainSpace>
+                {renderStar(data.score)}
+                <ReviewMainTitle>{data.title}</ReviewMainTitle>
+                <ReviewMainContent>{data.content}</ReviewMainContent>
+              </ReviewContentsMainSpace>
+            </ReviewContentsLeftSpace>
+            <ReviewContentsRightSpace>
+              <ReviewContentsUser>{data.nickname}</ReviewContentsUser>
+              <ReviewContentsUser>
+                {new Date(data.createdAt).getFullYear() +
+                  "." +
+                  [new Date(data.createdAt).getMonth() + 1] +
+                  "." +
+                  new Date(data.createdAt).getDate()}
+              </ReviewContentsUser>
+            </ReviewContentsRightSpace>
+          </ReviewContentsSpace>
+        ))
+        .reverse()}
 
       <Boundary />
       <ReviewPageNationSpace>
@@ -60,10 +62,10 @@ function Review({ articlesDetail }) {
 }
 
 const ReviewWrapper = styled.div`
-  width: 90%;
+  width: 65%;
   height: 100%;
-  @media screen and (min-width: 1024px) {
-    width: 90%;
+  @media screen and (max-width: 1024px) {
+    width: 70%;
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -85,13 +87,6 @@ const ReviewStarSpace = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 30px;
-`;
-const ReviewStar = styled.div`
-  color: var(--color-star);
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  width: 90px;
 `;
 
 const ReviewStaAverage = styled.div`
@@ -119,12 +114,18 @@ const ReviewContentsLeftSpace = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  @media screen and (max-width: 400px) {
+    margin-left: 10px;
+  }
 `;
 const ReviewContentsMainSpace = styled.div`
   width: 68%;
   height: 70px;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 400px) {
+    margin-left: 15px;
+  }
 `;
 const ReviewContentsNumber = styled.div`
   width: 30px;
@@ -136,6 +137,9 @@ const ReviewContentsImg = styled.img`
   width: 80px;
   height: 90px;
   margin: 0px 20px;
+  @media screen and (max-width: 400px) {
+    display: none;
+  }
 `;
 
 const ReviewMainTitle = styled.div`
@@ -147,6 +151,21 @@ const ReviewMainTitle = styled.div`
 const ReviewMainContent = styled.div`
   font-size: 10px;
   margin-top: 5px;
+  @media screen and (max-width: 400px) {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.2;
+    height: 3em;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 0.5rem;
+  }
 `;
 
 const ReviewContentsRightSpace = styled.div`
@@ -160,6 +179,11 @@ const ReviewContentsRightSpace = styled.div`
 const ReviewContentsUser = styled.div`
   font-size: var(--font-smallsize);
   font-weight: bolder;
+  @media screen and (max-width: 400px) {
+    &:nth-child(2) {
+      display: none;
+    }
+  }
 `;
 const ReviewPageNationSpace = styled.div`
   width: 100%;

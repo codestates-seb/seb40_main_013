@@ -32,7 +32,9 @@ export const loginUser = createAsyncThunk(
         localStorage.setItem("Refresh", jwtrefreshToken);
         navigate("/");
         Toast("success", "로그인에 성공하셨습니다!");
-        // window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
         return res.data;
       })
       .catch((err) => {
@@ -86,9 +88,8 @@ export const guestUser = createAsyncThunk(
         let jwtrefreshToken = res.headers.get("Refresh");
         localStorage.setItem("Authorization", jwtToken);
         localStorage.setItem("Refresh", jwtrefreshToken);
-        // navigate("/");
+        navigate("/");
         Toast("success", "게스트 로그인 성공!");
-        // window.alert("게스트성공");
         setTimeout(() => {
           window.location.reload();
         }, 2000);

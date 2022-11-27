@@ -108,11 +108,9 @@ function ArticleDetail() {
               </DetailArticleNameSpace>
             </>
             <DetailArticlePriceSpace>
-              <DetailArticlePrice>35%</DetailArticlePrice>
               <DetailArticlePrice>
                 {articlesDetail?.price?.toLocaleString("en-US")}원
               </DetailArticlePrice>
-              <DetailArticlePrice>115,000원</DetailArticlePrice>
             </DetailArticlePriceSpace>
             <div>
               <DetailArticleOptionSpace>
@@ -148,7 +146,9 @@ function ArticleDetail() {
                       </DetailArticleOptionSpaceSelectDivValueLi>
                     ))}
                   </DetailArticleOptionSpaceSelectDivValueUl>
-                ) : null}
+                ) : (
+                  <DetailArticleOptionSpaceSelectDivValueUl></DetailArticleOptionSpaceSelectDivValueUl>
+                )}
               </DetailArticleOptionSpaceSelect>
             </div>
             <DetailUserSubmitPriceSpace>
@@ -193,9 +193,8 @@ function ArticleDetail() {
           ))}
 
           <Button />
-          <div ref={reviewRef}>
-            <Review articlesDetail={articlesDetail} renderStar={renderStar} />
-          </div>
+          <span ref={reviewRef}></span>
+          <Review articlesDetail={articlesDetail} renderStar={renderStar} />
         </>
       </DetailContents>
     </Wrapper>
@@ -241,18 +240,6 @@ const DetailTopUserSelectSpace = styled.div`
   margin-top: 20px;
 
   @media screen and (min-width: 1024px) {
-    width: 80%;
-    height: auto;
-    display: flex;
-  }
-  @media screen and (max-width: 1023px) {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  /* @media screen and (min-width: 1024px) {
     height: auto;
     display: flex;
     max-width: 1000px;
@@ -261,19 +248,19 @@ const DetailTopUserSelectSpace = styled.div`
   }
 
   @media screen and (max-width: 1023px) {
-    width: 1000px;
     height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+
   @media screen and (max-width: 800px) {
+    width: 100%;
     height: auto;
     display: flex;
-    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
-  } */
+  }
 `;
 const ArticleInformations = styled.div`
   width: 45%;
@@ -282,7 +269,7 @@ const ArticleInformations = styled.div`
   flex-direction: column;
   justify-content: space-between;
   @media screen and (max-width: 1023px) {
-    width: 80%;
+    width: 60%;
     display: flex;
     margin-left: auto;
     margin-right: auto;
@@ -328,7 +315,7 @@ const DetailTopThumbnailImg = styled.img`
   width: 50%;
   height: auto;
   @media screen and (max-width: 1023px) {
-    width: 80%;
+    width: 60%;
   }
 `;
 const DetailArticleStarSpace = styled.div`
@@ -344,13 +331,17 @@ const DetailArticleStaAverage = styled.div`
 `;
 
 const SelectMoveSpace = styled.div`
-  width: 80%;
-  height: 10rem;
+  width: 65%;
+  height: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
   border-bottom: 2px solid var(--color-gray);
-  margin: 20px 0px;
+  margin: 20px 0px 50px 0px;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    border: 1px solid red;
+  }
 `;
 const SelectMoveBtn = styled.button`
   width: 10%;
@@ -359,10 +350,16 @@ const SelectMoveBtn = styled.button`
   background-color: white;
   color: #aaaaaa;
   &:hover {
-    background-color: #ffaf51;
-    color: white;
-    border-radius: 5px;
+    color: #ffaf51;
+    border-bottom: 2px solid #aaaaaa;
   }
+  @media screen and (max-width: 500px) {
+    width: 20%;
+    &:nth-child(5) {
+      display: none;
+    }
+  }
+
   @media screen and (max-width: 1023px) {
     height: 2rem;
   }
@@ -435,13 +432,15 @@ const DetailArticlePriceSpace = styled.div`
   display: flex;
   margin-bottom: 15px;
   width: 100%;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
 `;
 
 const DetailArticlePrice = styled.div`
   font-size: 1.5rem;
   font-weight: 700;
+  color: #212121;
+
   @media screen and (max-width: 1050px) {
     font-size: 1.4rem;
   }
@@ -451,17 +450,6 @@ const DetailArticlePrice = styled.div`
   }
   @media screen and (max-width: 400px) {
     font-size: 1.1rem;
-  }
-  &:nth-child(1) {
-    color: #ffaf51;
-  }
-  &:nth-child(2) {
-    color: #212121;
-  }
-  &:nth-child(3) {
-    font-size: var(--font-smallsize);
-    text-decoration: line-through;
-    color: var(--color-navy);
   }
 `;
 
@@ -477,6 +465,7 @@ const DetailArticleOptionSpace = styled.div`
   height: 3rem;
   width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   border-top: 2px solid var(--color-gray);
   &:nth-child(4) {
@@ -493,6 +482,7 @@ const DetailArticleOptionSpaceSelect = styled.div`
   border-bottom: 2px solid var(--color-gray);
 `;
 const DetailArticleOptionSpaceSelectDiv = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   height: 46px;
@@ -506,12 +496,21 @@ const DetailArticleOptionSpaceSelectDiv = styled.div`
 `;
 
 const DetailArticleOptionSpaceSelectDivValueUl = styled.ul`
-  width: 25.4%;
   position: absolute;
   border: none;
   cursor: pointer;
+  width: 450px;
+  @media screen and (max-width: 1223px) {
+    width: 36%;
+  }
   @media screen and (max-width: 1023px) {
-    width: 79.4%;
+    width: 600px;
+  }
+  @media screen and (max-width: 800px) {
+    width: 420px;
+  }
+  @media screen and (max-width: 400px) {
+    width: 190px;
   }
 `;
 const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
@@ -520,13 +519,11 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
   padding: 15px 0px 15px 10px;
   display: block;
   border: none;
-  width: 100%;
   &:hover {
     background-color: #cccccc;
   }
   &:nth-child(1) {
     border: none;
-    border-top: 2px solid var(--color-gray);
     border-bottom: 2px solid var(--color-gray);
     background-color: white;
   }
@@ -535,8 +532,31 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
     border-bottom: 2px solid var(--color-gray);
     background-color: white;
   }
-  @media screen and (max-width: 1023px) {
+  @media screen and (min-width: 1000px) {
     height: 100%;
+    background-color: red;
+    &:nth-child(1) {
+      border: none;
+      border-bottom: 2px solid var(--color-gray);
+      background-color: white;
+    }
+    &:nth-child(2) {
+      border: none;
+      border-bottom: 2px solid var(--color-gray);
+      background-color: white;
+    }
+  }
+  @media screen and (max-width: 1250px) {
+    &:nth-child(1) {
+      border: none;
+      border-bottom: 2px solid var(--color-gray);
+      background-color: white;
+    }
+    &:nth-child(2) {
+      border: none;
+      border-bottom: 2px solid var(--color-gray);
+      background-color: white;
+    }
   }
 `;
 
@@ -592,7 +612,16 @@ const DetailUserPrice = styled.div`
     }
     &:nth-child(2) {
       font-size: 1.5rem;
-      color: #272727;
+    }
+  }
+  @media screen and (max-width: 400px) {
+    font-size: 1rem;
+    &:nth-child(1) {
+      color: #464646;
+      font-size: 1.2rem;
+    }
+    &:nth-child(2) {
+      font-size: 1.2rem;
     }
   }
 `;
