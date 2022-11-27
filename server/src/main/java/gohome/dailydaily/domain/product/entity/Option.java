@@ -31,4 +31,8 @@ public class Option extends BaseTime {
     public void updateStock(int count) {
         this.stock = this.stock - count;
     }
+
+    public void initInfo(Product product) {
+        this.product = product;
+    }
 }

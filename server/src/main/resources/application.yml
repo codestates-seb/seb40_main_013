@@ -1,6 +1,8 @@
 logging:
   level:
     org:
+      hibernate:
+        type: trace
       springframework:
         orm:
           jpa: DEBUG # 로그 단계 설정

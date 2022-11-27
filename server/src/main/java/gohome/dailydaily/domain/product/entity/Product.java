@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @Builder
 public class Product extends BaseTime {
 
@@ -50,10 +50,10 @@ public class Product extends BaseTime {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private final List<Option> options = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.REMOVE})
     private final List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
@@ -78,4 +78,12 @@ public class Product extends BaseTime {
     public void updateSale(int count) {
         this.sale += count;
     }
+
+    public void initInfo(File img, String content, Category category) {
+        this.img = img;
+        this.content = content;
+        this.category = category;
+        this.options.forEach(option -> option.initInfo(this));
+    }
+
 }
