@@ -1,50 +1,114 @@
 import styled from "styled-components/macro";
 import { IoIosArrowDown } from 'react-icons/io';
+import { useState } from "react";
 
-const Radio = styled.div`
-
-`;
-const Check = styled.div`
-    width: 1em;
-    height: 1em;
-    border-radius: 50%;
-    border: 1px solid #999;
-`;
-
-
-function DropDown() {
-
-    const clickHandler = ({target}) => {
-        console.log(target.innerText);
+const DownClick = styled.div`
+    margin: 19px 0 7px 0;
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    span{
+        margin-right: 5px;
+        color: #AAAAAA;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
     }
+`;
+
+const CheckBox = styled.div`
+    position: absolute;
+    right: 7.5vw;
+    z-index: 10;
+    background-color: white;
+    width: 12rem;
+    height: 10rem;
+    border-radius: 3px;
+    box-shadow: 0 1px 5px 0 rgb(0 0 0 / 30%);
+    &.closed{
+        display: none;
+    }
+`;
+
+const Radio = styled.li`
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    padding: 0.655rem 1rem;
+    color: #515151;
+    position: relative;
+    span{
+        display: flex;
+        align-items: center;
+    }
+    .circle{
+        border-radius: 50%;
+        width: 0.3em;
+        height: 0.3em;
+        background-color: white;
+        position: relative;
+        left: -0.75em;
+        top: 0.45em;
+        /* z-index: 2; */
+    }
+`;
+
+const Check = styled.div`
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    border: 1px solid #bdbebe;
+    &:hover{
+        background-color: #e2e2e3;
+        border: 1px solid #939496;
+        opacity: 0.5;
+    }
+    &.checked{
+        border: 0;
+        background-color: #FFAF51;
+    }
+`;
+
+
+function RankingDown({ third, setThird, dropDownclicked, setDropDownClicked, closeDropDown, closeHandler}) {
+    const getRadioText = (el, a) => {
+        setDropDownClicked(el)
+        setThird(a)
+        closeHandler()
+    }
+
     return (
         <>
-          <div>
-            <span>최신순</span>
-            <IoIosArrowDown/>
-          </div>
-          <ul>
-            <li>
-                <Check></Check>
-                <div>
-                    최신순
-                </div>
-            </li>
-            <Radio>
-              <input type='radio' id='expensive'></input>
-              <label htmlFor="expensive">높은가격순</label>
-            </Radio>
-            <Radio>
-              <input type='radio' id='chip'></input>
-              <label htmlFor="chip">낮은가격순</label>
-            </Radio>
-            <Radio>
-              <input type='radio' id='sell'></input>
-              <label htmlFor="sell">판매순</label>
-            </Radio>
-          </ul>
+          <DownClick onClick={closeHandler}>
+            <span>{dropDownclicked}</span>
+            <span>
+                <IoIosArrowDown/>
+            </span>
+          </DownClick>
+            <CheckBox className={closeDropDown ? '' : 'closed'}>
+                <Radio onClick={() => (getRadioText('최신순'))} value='0'>
+                    <Check className={ dropDownclicked === '최신순' ? 'checked' : ''}/>
+                    <div className="circle"></div>
+                    <span>최신순</span>
+                </Radio>
+                <Radio onClick={() => (getRadioText('높은가격순'))}>
+                    <Check className={ dropDownclicked === '높은가격순' ? 'checked' : '' }/>
+                    <div className="circle" ></div>
+                    <span>높은가격순</span>
+                </Radio>
+                <Radio onClick={() => (getRadioText('낮은가격순' , 'asc'))}>
+                    <Check className={ dropDownclicked === '낮은가격순' ? 'checked' : ''}/>
+                    <div className="circle"></div>
+                    <span>낮은가격순</span>
+                </Radio>
+                <Radio onClick={() => (getRadioText('판매순'))}>
+                    <Check className={ dropDownclicked === '판매순' ? 'checked' : ''}/>
+                    <div className="circle"></div>
+                    <span>판매순</span>
+                </Radio>
+            </CheckBox>
         </>
     );
 }
 
-export default DropDown;
+export default RankingDown;

@@ -22,7 +22,7 @@ const Products = styled(Link)`
 `;
 const Imgbox = styled.div`
   overflow: hidden;
-  &:hover img{
+  &:hover img {
     object-fit: cover;
     transform: scale(1.3);
     transition: transform 1s;
@@ -81,13 +81,13 @@ const Brand = styled.h5`
   }
 `;
 const Title = styled.h2`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 400;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2em;
-  max-height: 2.4em;
-  min-height: 2.4em;
+  line-height: 1.1em;
+  max-height: 2.2em;
+  min-height: 2.2em;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

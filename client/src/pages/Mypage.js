@@ -9,6 +9,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import MyReview from "../components/mypages/MyReview";
 import Recent from "../components/mypages/Recent";
 import ProfileImg from '../components/mypages/ProfileImg';
+import PurchaseAll from "../components/mypages/PurchaseAll";
 
 const Container = styled.div`
   display: flex;
@@ -126,7 +127,7 @@ const NavDetail = styled.nav`
   &.clicked::after {
     color: #ffaf51;
   }
-  &:active{
+  &:active {
     color: #ffaf51;
   }
   @media screen and (max-width: 390px) {
@@ -178,7 +179,7 @@ const NavDetail = styled.nav`
 const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
-  console.log(getUserdata)
+  console.log(getUserdata);
   const [clicked, setClicked] = useState("");
 
   //user 정보 받아오기
@@ -193,9 +194,9 @@ const Mypage = () => {
   };
 
   //프로필 이미지 바꾸기
-  const handleChangeImg = ()=>{
-    ProfileImg()
-  }
+  const handleChangeImg = () => {
+    ProfileImg();
+  };
 
   return (
     <Container>
@@ -269,6 +270,7 @@ const Mypage = () => {
         <Route path="/purchase/*" element={<PurchaseList />}></Route>
         <Route path="/myboard" element={<MyReview />}></Route>
         <Route path="/recent" element={<Recent />}></Route>
+        <Route path="/purchase/orderall" element={<PurchaseAll getUserdata={getUserdata}/>}></Route>
       </Routes>
     </Container>
   );

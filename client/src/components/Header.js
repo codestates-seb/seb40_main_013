@@ -126,7 +126,7 @@ const Category = styled.div`
   }
 `;
 
-function Header({ setClick }) {
+function Header({ setClick, setSearchWord }) {
   const jwtToken = localStorage.getItem("Authorization");
   const navigate = useNavigate();
   const modalRef = useRef();
@@ -243,6 +243,7 @@ function Header({ setClick }) {
               <DownSearch
                 closeSearch={closeSearch}
                 closeHandler={closeHandler}
+                setSearchWord={setSearchWord}
               />
             </div>
             {jwtToken ? (

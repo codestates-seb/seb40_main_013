@@ -5,6 +5,7 @@ import userSlice from "./slices/userSlice";
 import reviewSlice from "./slices/reviewSlice";
 import mainSlice from "./slices/mainSlice";
 import mainCategorySlice from "./slices/mainCategorySlice";
+import myOrderSlice from "./slices/myOrderSlice";
 import bedroomSlice from "./slices/sub/bedrommSlice";
 import kitchenSlice from "./slices/sub/kitchenSlice";
 import LibrarySlice from "./slices/sub/LibrarySlice";
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   review: reviewSlice,
   main: mainSlice,
   maincategory: mainCategorySlice,
+  myorder: myOrderSlice,
   bedroom: bedroomSlice,
   kitchen: kitchenSlice,
   library: LibrarySlice,

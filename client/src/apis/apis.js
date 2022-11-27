@@ -3,13 +3,10 @@ import axios from "axios";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://tall-toys-laugh-125-134-111-237.loca.lt/",
+  baseURL: "https://pink-trees-dress-125-134-111-241.loca.lt/",
 });
 
 axios.interceptors.request.use(function (config) {
-  config.headers["Authorization"] = token;
-  config.headers["Refresh"] = refreshToken;
-  config.headers["Content-Type"] = "application/json";
   return config;
 });
 

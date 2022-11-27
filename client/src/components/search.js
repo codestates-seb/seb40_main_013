@@ -1,6 +1,8 @@
 import styled from "styled-components/macro";
 import { BsSearch } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const SearchBlock = styled.div`
   position: fixed; //absolute로 바꿀수도 있음
@@ -69,14 +71,28 @@ const SearchWord = styled.div`
   }
 `;
 
-function DownSearch({closeSearch, closeHandler}){
+function DownSearch({closeSearch, closeHandler, setSearchWord}){
+    const navigate = useNavigate();
+
+    const [inputWord, setInputWord] = useState('')
+
+    const inputChageHandler = ({target}) => {
+      setInputWord(target.value)
+    }
+
+    const searchResultHandler = () => {
+      setSearchWord(inputWord)
+      navigate('/search')
+      closeHandler()
+    }
+
     return(
       <SearchBlock className={ closeSearch ? '' : 'closed'}>
         <div className="search-section">
             <Form >
                 <SearchInput >
-                    <input type="text"></input>
-                    <div>
+                    <input type="text" value={inputWord} onChange={inputChageHandler}></input>
+                    <div onClick={searchResultHandler}>
                         <BsSearch color="#002C6D" size='26'/>
                     </div>
                 </SearchInput>

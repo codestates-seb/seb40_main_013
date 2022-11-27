@@ -3,7 +3,6 @@ import styled from "styled-components/macro";
 import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";
 
-
 import { useDispatch, useSelector } from "react-redux";
 import { getLivingRoom } from "../../reduxstore/slices/sub/LivingroomSlice";
 

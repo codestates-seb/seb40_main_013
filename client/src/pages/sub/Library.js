@@ -3,124 +3,209 @@ import styled from "styled-components/macro";
 import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
-import { getLibrary } from "../../reduxstore/slices/sub/LibrarySlice";
-import DropDown from "../../components/subcategories/DropDown";
+import { getLibrary, getSubLibrary, getAsc } from "../../reduxstore/slices/sub/LibrarySlice";
+import RankingDown from "../../components/subcategories/DropDown";
 
 function Library({ click }) {
-  console.log(click);
+  console.log(`click`, click); //
 
   const dispatch = useDispatch();
   const librarySelector = useSelector(
     (state) => state.library.libraryInitial.content
   ); 
+  const subLibrarySelector = useSelector(
+    (state) => state.library.sublibraryInitial.content
+  ); 
+  const ascSelector = useSelector(
+    (state) => state.library.sublibraryInitial.content
+  ); 
 
   const [page, setPage] = useState(0);
   const [products, setProducts] = useState([]);
+  
+  const [dropDownclicked, setDropDownClicked] = useState('최신순'); //셀렉트박스
+  const [third, setThird] = useState('asc'); //셀렉트박스
+  const [closeDropDown, setDloseDropDown] = useState(false);
+  console.log(`dropDownclicked`, dropDownclicked);
+  console.log(`third`, third);
+
+  let sortArgument = 'createdAt';
+
+
+  const modalRef = useRef();
+
+  const closeHandler = () => {
+      setDloseDropDown(!closeDropDown);
+  };
+
+  const outModalCloseHandler = (e) => {
+    if (closeDropDown && !modalRef.current.contains(e.target))
+      setDloseDropDown(false);
+  };
+
+  
+  useEffect(() => {
+    if(click === '책상' || click === '의자' || click === '책장' || click === '선반'){ //소분류
+      if(dropDownclicked === '높은가격순'){
+          sortArgument = 'price';
+          dispatch(getSubLibrary({ click, page, sortArgument}));
+      } else if (dropDownclicked === '판매순'){
+          sortArgument = 'sale';
+          dispatch(getSubLibrary({ click, page, sortArgument}));
+      } else if (dropDownclicked === '낮은가격순'){
+          sortArgument = 'price';
+          dispatch(getAsc({ click, page, sortArgument, third}));
+      } else if(dropDownclicked === '최신순') { // 최신순
+          sortArgument = 'createdAt';
+          dispatch(getSubLibrary({ click, page, sortArgument })); //흠...
+      }
+    }else if(click === '서재' ){ // 대분류
+      if(dropDownclicked === '높은가격순'){
+          sortArgument = 'sale';
+          dispatch(getSubLibrary({ page, sortArgument}));
+      } else if (dropDownclicked === '판매순'){
+          sortArgument = 'sale';
+          dispatch(getSubLibrary({ page, sortArgument}));
+      } else if (dropDownclicked === '낮은가격순'){
+          sortArgument = 'sale';
+          dispatch(getAsc({page, sortArgument, third}));
+      }
+    } else {
+      dispatch(getLibrary({ page }));
+      // setProducts(librarySelector)
+    }
+  }, [click]);
 
   useEffect(() => {
-    dispatch(getLibrary({ page }));
-  }, []);
+    if(click === '책상' || click === '의자' || click === '책장' || click === '선반'){ //소분류
+      if(dropDownclicked === '높은가격순'){
+          sortArgument = 'price';
+          dispatch(getSubLibrary({ click, page, sortArgument}));
+      } else if (dropDownclicked === '판매순'){
+          sortArgument = 'sale';
+          dispatch(getSubLibrary({ click, page, sortArgument}));
+      } else if (dropDownclicked === '낮은가격순'){
+          sortArgument = 'price';
+          dispatch(getAsc({ click, page, sortArgument, third}));
+      } else if(dropDownclicked === '최신순') { // 최신순
+          sortArgument = 'createdAt';
+          dispatch(getSubLibrary({ click, page, sortArgument })); //흠...
+      }
+    }else if(click === '서재' ){ // 대분류
+      if(dropDownclicked === '높은가격순'){
+          sortArgument = 'sale';
+          dispatch(getSubLibrary({ page, sortArgument}));
+      } else if (dropDownclicked === '판매순'){
+          sortArgument = 'sale';
+          dispatch(getSubLibrary({ page, sortArgument}));
+      } else if (dropDownclicked === '낮은가격순'){
+          sortArgument = 'sale';
+          dispatch(getAsc({page, sortArgument, third}));
+      }
+    } else {
+      dispatch(getLibrary({ page }));
+      // setProducts(librarySelector)
+    }
+  }, [dropDownclicked]);
 
+  console.log(products);
 
     return (
-      <SubBlock>
+      <SubBlock onClick={outModalCloseHandler}>
         <SubCarousel />
-        <div className="sub-menus">
-          <Sub>
-            <div>전체보기</div>
-          </Sub>
-          <Sub>
-            <div>책상</div>
-          </Sub>
-          <Sub>
-            <div>의자</div>
-          </Sub>
-          <Sub>
-            <div>책장</div>
-          </Sub>
-          <Sub>
-            <div>선반</div>
-          </Sub>
-        </div>
         <FilterBlock>
           <div className="total">0 개의 상품이 있습니다</div>
-          <DropDown/>
+          <section ref={modalRef}>
+            <RankingDown 
+              dropDownclicked={dropDownclicked}
+              setDropDownClicked={setDropDownClicked}
+              closeDropDown={closeDropDown}
+              closeHandler={closeHandler}
+              setThird={setThird}
+              third={third}
+            />
+          </section>
         </FilterBlock>
         <ProductList>
             {librarySelector?.map((product) => (
               <Products proId={product.id} product={product} key={product.id} />
             ))}
         {/* <div ref={loadingRef}></div> */}
-      </ProductList>
-    </SubBlock>
-  );
-}
+        </ProductList>
+      </SubBlock>
+    );
+  }
 export default Library;
 
 const SubBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-top: 127.5px;
-  padding: 3vh 4vw;
-  align-items: center;
-  .sub-menus {
     display: flex;
+    flex-direction: column;
     width: 100%;
-    margin: 20px 0px;
-    justify-content: space-evenly;
-  }
-  .total {
-    width: 100%;
-    margin: 15px 0px;
-    font-weight: 600;
-    font-size: 20px;
-    display: flex;
-    justify-content: flex-start;
-  }
+    margin-top: 127.5px;
+    padding: 3vh 4vw;
+    align-items: center;
+    .sub-menus {
+      display: flex;
+      width: 100%;
+      margin: 20px 0px;
+      justify-content: space-evenly;
+    }
+    .total {
+      width: 100%;
+      margin: 15px 0px;
+      font-weight: 500;
+      font-size: 20px;
+      display: flex;
+      justify-content: flex-start;
+    }
 `;
 
 const Sub = styled.div`
-  display: flex;
-  width: 13vw;
-  height: 6vh;
-  background-color: #fcf9e9;
-  margin: 0 1em;
-  &:hover {
-    background-color: #e1dfce;
-  }
-  color: #515151;
-  border-radius: 5px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    width: 13vw;
+    height: 6vh;
+    background-color: #fcf9e9;
+    margin: 0 1em;
+    &:hover {
+      background-color: #e1dfce;
+    }
+    color: #515151;
+    border-radius: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
 
 const FilterBlock = styled.div`
-  width: 100%;
-  padding: 0 2.5em;
-  display: flex;
-  justify-content: space-between;
-  div{
-    white-space: nowrap;
-  }
+    color: #272727;
+    margin-top: 10px;
+    width: 100%;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    div{
+      white-space: nowrap;
+    }
+    @media (max-width: 1023px) {
+        padding: 0 1rem;
+      }
 `;
 
 const ProductList = styled.div`
-  display: grid;
-  grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    justify-content: center;
-    @media screen and (max-width: 479px) {
-      grid-template-rows: 1fr;
-      grid-template-columns: 1fr 1fr;
-    }
-    @media (min-width: 480px) and (max-width: 767px) {
-      grid-template-rows: 1fr;
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-    @media (min-width: 768px) and (max-width: 1023px) {
-      grid-template-rows: 1fr;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
+    display: grid;
+    grid-template-rows: 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      justify-content: center;
+      @media screen and (max-width: 479px) {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr;
+      }
+      @media (min-width: 480px) and (max-width: 767px) {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      @media (min-width: 768px) and (max-width: 1023px) {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
 `;

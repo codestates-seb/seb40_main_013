@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 import { BsStarFill, BsStarHalf, BsHeart, BsHeartFill } from "react-icons/bs";
 import { FiChevronDown } from "react-icons/fi";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import Review from "./Review";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,6 +13,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
 import ScrollToTop from "../../components/ScrollToTop";
+
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
   const [selectOptions, setSelectOptions] = useState("");
@@ -79,20 +81,20 @@ function ArticleDetail() {
         <DetailTopUserSelectSpace>
           <DetailTopThumbnailImg src={articlesDetail?.img?.fullPath} />
           <ArticleInformations>
-            <DetailArticleNameSpace>
-              <div>
-                <DetailArticleName>{articlesDetail?.title}</DetailArticleName>
+            <>
+              <DetailArticleName>{articlesDetail?.title}</DetailArticleName>
+              <DetailArticleNameSpace>
                 <DetailArticleStarSpace>
                   {renderStar(articlesDetail?.score)}
                   <DetailArticleStaAverage>
                     {articlesDetail?.score}점
                   </DetailArticleStaAverage>
                 </DetailArticleStarSpace>
-              </div>
-              <ButtonIcon>
-                <BsHeart />
-              </ButtonIcon>
-            </DetailArticleNameSpace>
+                <ButtonIcon>
+                  <BsHeart className="heart" />
+                </ButtonIcon>
+              </DetailArticleNameSpace>
+            </>
             <DetailArticlePriceSpace>
               <DetailArticlePrice>35%</DetailArticlePrice>
               <DetailArticlePrice>
@@ -100,48 +102,43 @@ function ArticleDetail() {
               </DetailArticlePrice>
               <DetailArticlePrice>115,000원</DetailArticlePrice>
             </DetailArticlePriceSpace>
-            <DetailArticleOptionSpace>
-              <DetailArticleOptionContents>
-                배송 방법
-              </DetailArticleOptionContents>
-              <DetailArticleOptionContents>
-                무료 배송
-              </DetailArticleOptionContents>
-            </DetailArticleOptionSpace>
-            <DetailArticleOptionSpace>
-              <DetailArticleOptionContents>
-                옵션 선택
-              </DetailArticleOptionContents>
-            </DetailArticleOptionSpace>
-            <DetailArticleOptionSpace clickSelect={clickSelect}>
-              {clickSelect ? (
-                <DetailArticleSelectOption>
-                  <DetailArticleSelectOption>
-                    {selectOptionColor}
-                  </DetailArticleSelectOption>
-                  {optionSelect?.map((option) => (
-                    <DetailArticleSelectOption
-                      key={option?.optionId}
-                      value={option?.value}
-                      onClick={() => {
-                        selectOption(option.optionId, option.color),
-                          clickFunction();
-                      }}
-                    >
-                      색상 : {option?.color}
-                      남은수량 : {option?.stock}
-                    </DetailArticleSelectOption>
-                  ))}
-                </DetailArticleSelectOption>
-              ) : (
-                <DetailArticleSelectOption>
+            <div>
+              <DetailArticleOptionSpace>
+                <DetailArticleOptionContents>
+                  배송 방법
+                </DetailArticleOptionContents>
+                <DetailArticleOptionContents>
+                  무료 배송
+                </DetailArticleOptionContents>
+              </DetailArticleOptionSpace>
+              <DetailArticleOptionSpace>
+                <DetailArticleOptionContents>
+                  옵션 선택
+                </DetailArticleOptionContents>
+              </DetailArticleOptionSpace>
+              <DetailArticleOptionSpaceSelect clickSelect={clickSelect}>
+                <DetailArticleOptionSpaceSelectDiv>
                   {selectOptionColor}
-                </DetailArticleSelectOption>
-              )}
-              <ButtonIcon onClick={clickFunction}>
-                <FiChevronDown />
-              </ButtonIcon>
-            </DetailArticleOptionSpace>
+                  <FiChevronDown className="button" onClick={clickFunction} />
+                </DetailArticleOptionSpaceSelectDiv>
+                {clickSelect ? (
+                  <DetailArticleOptionSpaceSelectDivValueUl>
+                    {optionSelect?.map((option) => (
+                      <DetailArticleOptionSpaceSelectDivValueLi
+                        key={option?.optionId}
+                        value={option?.value}
+                        onClick={() => {
+                          selectOption(option.optionId, option.color),
+                            clickFunction();
+                        }}
+                      >
+                        {option?.color}
+                      </DetailArticleOptionSpaceSelectDivValueLi>
+                    ))}
+                  </DetailArticleOptionSpaceSelectDivValueUl>
+                ) : null}
+              </DetailArticleOptionSpaceSelect>
+            </div>
             <DetailUserSubmitPriceSpace>
               <DetailUserQuantitySpace>
                 <ButtonIcon>
@@ -153,11 +150,10 @@ function ArticleDetail() {
                 </ButtonIcon>
               </DetailUserQuantitySpace>
               <DetailUserPriceSpace>
-                <DetailUserPrice>총 상품금액</DetailUserPrice>
+                <DetailUserPrice>₩</DetailUserPrice>
                 <DetailUserPrice>
                   {(price * cartCount).toLocaleString("en-US")}
                 </DetailUserPrice>
-                <DetailUserPrice> 원</DetailUserPrice>
               </DetailUserPriceSpace>
             </DetailUserSubmitPriceSpace>
             <DetailArticlBtnSpace>
@@ -169,7 +165,7 @@ function ArticleDetail() {
           </ArticleInformations>
         </DetailTopUserSelectSpace>
         {articlesDetail?.content?.map((data) => (
-          <DetailMidImg src={data} />
+          <DetailMidImg src={data} key={data} />
         ))}
         <Review articlesDetail={articlesDetail} renderStar={renderStar} />
       </DetailContents>
@@ -185,157 +181,279 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 160px;
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+    height: 190vh;
+  }
 `;
 
 const DetailContents = styled.div`
-  width: 80%;
-  height: 100%;
+  width: 100%;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 40px;
+  @media screen and (min-width: 1024px) {
+    width: 80%;
+    height: auto;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 const DetailTopUserSelectSpace = styled.div`
-  width: 1000px;
+  width: 100%;
+  height: auto;
   display: flex;
-  height: 450px;
+  justify-content: space-between;
   margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  @media screen and (min-width: 1024px) {
+    width: 80%;
+    height: auto;
+    display: flex;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 const ArticleInformations = styled.div`
-  width: 50%;
+  width: 45%;
   height: 100%;
-  margin-left: 40px;
-  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media screen and (max-width: 1023px) {
+    width: 60%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    margin: 30px 0px 0px 0px;
+  }
 `;
 const DetailArticleNameSpace = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 10px;
+  height: 35px;
 `;
 const DetailArticleName = styled.div`
-  color: var(--font-navy);
-  font-size: 30px;
-  font-weight: bolder;
+  color: #1c1c1c;
+  font-size: 1.6rem;
+  font-weight: bold;
+  height: 2.5em;
+  @media screen and (max-width: 1300px) {
+    width: 100%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.2;
+    height: 2.5em;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 1023px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const DetailTopThumbnailImg = styled.img`
-  width: 500px;
-  height: 100%;
+  width: 50%;
+  height: auto;
+  @media screen and (max-width: 1023px) {
+    width: 60%;
+  }
 `;
 const DetailArticleStarSpace = styled.div`
   display: flex;
   align-items: center;
-  margin: 10px 0px 20px 0px;
+  height: 100%;
 `;
 
 const DetailArticleStaAverage = styled.div`
   margin-left: 10px;
+  @media screen and (max-width: 1023px) {
+  }
 `;
 
 const DetailMidImg = styled.img`
-  width: 700px;
+  width: 70%;
   margin-top: 100px;
+  @media screen and (max-width: 1023px) {
+    width: 79.4%;
+    width: 50%;
+  }
 `;
 const ButtonIcon = styled.button`
-  margin-top: 10px;
-  height: 10px;
+  width: 1.5rem;
+  height: 1.5rem;
   font-size: 20px;
   border: none;
   background-color: white;
+
   &:nth-child(1) {
-    margin-top: 0px;
+    margin: 0px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--color-gray);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+
+    @media screen and (max-width: 1023px) {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
   }
+
   &:nth-child(2) {
-    margin-bottom: 30px;
+    margin-right: 10px;
+    color: #aaaaaa;
+    @media screen and (max-width: 1023px) {
+      font-size: 1rem;
+    }
   }
 
   &:nth-child(3) {
-    margin-top: 0px;
+    margin: 0px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--color-gray);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    @media screen and (max-width: 1023px) {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
   }
 `;
 
 const DetailArticlePriceSpace = styled.div`
   display: flex;
   margin-bottom: 15px;
+  width: 100%;
+  justify-content: space-between;
   align-items: center;
 `;
 
 const DetailArticlePrice = styled.div`
-  font-size: 30px;
+  font-size: 1.5rem;
   font-weight: 700;
+  @media screen and (max-width: 1050px) {
+    font-size: 1.4rem;
+  }
+
+  @media screen and (max-width: 1023px) {
+    font-size: 1.3rem;
+  }
+  @media screen and (max-width: 400px) {
+    font-size: 1.1rem;
+  }
   &:nth-child(1) {
     color: #ffaf51;
   }
   &:nth-child(2) {
-    color: var(--color-navy);
-    margin-left: 15px;
+    color: #212121;
   }
   &:nth-child(3) {
     font-size: var(--font-smallsize);
     text-decoration: line-through;
     color: var(--color-navy);
-    margin-left: 15px;
   }
 `;
 
 const DetailArticleOptionContents = styled.div`
   margin-left: 10px;
+  font-size: 1rem;
+  color: #002c6d;
   &:nth-child(2) {
-    margin-left: 80px;
+    margin-right: 30px;
   }
 `;
 const DetailArticleOptionSpace = styled.div`
-  height: 45px;
+  height: 3rem;
   width: 100%;
   display: flex;
   align-items: center;
-  border-top: 2px solid var(--border-navy);
+  border-top: 2px solid var(--color-gray);
+  &:nth-child(4) {
+    justify-content: space-between;
+  }
 `;
 
-const DetailArticleSelectOption = styled.div`
-  height: 35px;
-  width: 107.5%;
-  border: 2px solid var(--border-navy);
-  position: relative;
+const DetailArticleOptionSpaceSelect = styled.div`
+  border-top: 2px solid var(--color-gray);
+  display: inline-block;
+  width: 100%;
+  height: 3rem;
+  font-size: 1rem;
+  border-bottom: 2px solid var(--color-gray);
+`;
+const DetailArticleOptionSpaceSelectDiv = styled.div`
   display: flex;
+  justify-content: space-between;
+  height: 46px;
   align-items: center;
-  padding-left: 10px;
+  color: var(--font-navy);
+  padding-left: 9px;
+  .button {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+`;
+
+const DetailArticleOptionSpaceSelectDivValueUl = styled.ul`
+  width: 25.4%;
+  position: absolute;
+  border: none;
+  cursor: pointer;
+  @media screen and (max-width: 1023px) {
+    width: 79.4%;
+  }
+`;
+const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
+  text-decoration: none;
+  color: var(--font-navy);
+  padding: 15px 0px 15px 10px;
+  display: block;
+  border: none;
+  width: 100%;
+  &:hover {
+    background-color: #cccccc;
+  }
   &:nth-child(1) {
-    border-right: none;
-    border-left: none;
-    border-top: none;
-    width: 95%;
+    border: none;
+    border-top: 2px solid var(--color-gray);
+    border-bottom: 2px solid var(--color-gray);
+    background-color: white;
   }
   &:nth-child(2) {
-    position: absolute;
-    padding-left: 20px;
-    width: 106%;
-    top: 32px;
-    left: -1px;
+    border: none;
+    border-bottom: 2px solid var(--color-gray);
     background-color: white;
-    &:hover {
-      background-color: #aaaaaa;
-    }
   }
-  &:nth-child(3) {
-    width: 106%;
-    position: absolute;
-    padding-left: 20px;
-    top: 64px;
-    left: -1px;
-    background-color: white;
-    &:hover {
-      background-color: #aaaaaa;
-    }
-  }
-  &:nth-child(4) {
-    margin-right: 2px;
-    position: absolute;
-    top: 96px;
-    left: -2px;
-    background-color: white;
+  @media screen and (max-width: 1023px) {
+    height: 100%;
   }
 `;
 
@@ -346,29 +464,50 @@ const DetailUserSubmitPriceSpace = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 30px;
+  padding-right: 20px;
 `;
 
 const DetailUserQuantitySpace = styled.div`
   display: flex;
+  height: 30px;
   align-items: center;
-  margin-left: 20px;
 `;
 const DetailUserPriceSpace = styled.div`
+  margin-right: 10px;
+  width: 35%;
+  height: 50px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-right: 10px;
-  width: 200px;
+  @media screen and (max-width: 1023px) {
+    width: 30%;
+  }
 `;
 
 const DetailUserPrice = styled.div`
-  font-size: 10px;
+  font-size: 11px;
   height: 100%;
   color: var(--color-navy);
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  &:nth-child(1) {
+    color: #464646;
+    font-size: 1.5rem;
+  }
   &:nth-child(2) {
-    font-size: 35px;
-    color: var(--color-navy);
+    font-size: 1.5rem;
+    color: #272727;
+  }
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+    &:nth-child(1) {
+      color: #464646;
+      font-size: 1.5rem;
+    }
+    &:nth-child(2) {
+      font-size: 1.5rem;
+      color: #272727;
+    }
   }
 `;
 
@@ -377,11 +516,11 @@ const DetailArticlBtnSpace = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 40px;
-  margin-top: 30px;
+  margin-top: 35px;
 `;
 
 const DetailArticlBtn = styled.button`
-  width: 225px;
+  width: 48%;
   height: 40px;
   border-radius: var(--border-radius);
   &:nth-child(1) {
@@ -395,6 +534,8 @@ const DetailArticlBtn = styled.button`
     border: 1px solid var(--color-navy);
     color: white;
     font-weight: bold;
+  }
+  @media screen and (max-width: 1023px) {
   }
 `;
 export default ArticleDetail;

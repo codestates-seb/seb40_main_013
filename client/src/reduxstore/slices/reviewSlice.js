@@ -22,15 +22,16 @@ export const getAllReview = createAsyncThunk("review/allGet", async (id) => {
     });
 });
 export const postReview = createAsyncThunk("review/post", async (postData) => {
-  console.log(postData);
-  return Apis.post(`products/1/reviews`, postData, {
+  console.log(postData.img);
+  const form = new FormData();
+  form.append("file", postData.image);
+  return Apis.post(`products/1/reviews`, form, {
     headers: {
       Authorization: `${jwtToken}`,
     },
   })
     .then((res) => {
       console.log(res);
-      window.location.reload();
       return res.data;
     })
     .catch((err) => {
