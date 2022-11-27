@@ -88,7 +88,8 @@ class OrderControllerTest implements Reflection {
 
         // then
         actions.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.orderId").value(ORDER.getId() + 215637))
+                .andExpect(jsonPath("$.orderId").value(ORDER.getId()))
+                .andExpect(jsonPath("$.orderNumber").value(ORDER.getId() + 215637))
                 .andExpect(jsonPath("$.status").value(ORDER.getStatus().getMessage()))
                 .andExpect(jsonPath("$.orderProducts[0].productId").value(ORDER_PRODUCT1.getProduct().getId()))
                 .andExpect(jsonPath("$.orderProducts[0].brandName").value(PRODUCT1.getSeller().getMember().getNickname()))

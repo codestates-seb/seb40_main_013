@@ -20,6 +20,7 @@ public class OrderDto {
     @AllArgsConstructor
     public static class Response {
         private Long orderId;
+        private Long orderNumber;
         private String status;
         private List<OrderProductDto.Response> orderProducts;
         private LocalDateTime createdAt;
