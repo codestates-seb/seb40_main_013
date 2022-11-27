@@ -41,3 +41,24 @@ export const Toast = (icon, content) => {
 //     timer: 1500,
 //   });
 // };
+
+export const DeleteAlert =(content, confirmbutton) => {
+  MySwal.fire({
+    title: 'Are you sure?',
+    text: content,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire(
+        '취소되엇스빈다',
+        'Your file has been deleted.',
+        'success'
+      )
+    }
+  })
+}
+

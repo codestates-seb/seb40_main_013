@@ -6,7 +6,7 @@ import bedroom from "../../imgs/bedroom.png";
 import kitchen from "../../imgs/kitchen.png";
 import { Link } from "react-router-dom";
 
-const BrandContainer = styled.div`
+const NewContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +26,8 @@ const Tabs = styled.div`
   @media screen and (max-width: 767px) {
     flex-direction: column;
     align-items: center;
-    margin: 0;
+    margin-top: 20px;
+    /* height: 100vh; */
   }
   @media (min-width: 768px) and (max-width: 1023px) {
     flex-direction: column;
@@ -77,6 +78,7 @@ const CategoryProduct = styled.div`
   @media screen and (max-width: 390px) {
     flex-direction: column;
     width: 80%;
+    height: 100%;
   }
   @media (min-width: 391px) and (max-width: 767px) {
     flex-direction: column;
@@ -88,18 +90,19 @@ const CategoryProduct = styled.div`
     justify-content: center;
   }
 `;
-const TI = styled.a`
-  width: 100%;
+const CategoryImgContainer = styled(Link)`
+  width:100%;
   height: 100%;
   display: inline-block;
   position: relative;
   overflow: hidden;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  cursor: pointer;
-  &:hover::after,
+  /* cursor: pointer; */
+  /* &:hover::after, */
   &:hover > .hover_text {
-    /* display: block; */
+    display: block;
+    cursor: pointer;
   }
   &::after {
     display: none;
@@ -118,8 +121,8 @@ const TI = styled.a`
   .hover_text {
     display: none;
     position: absolute;
-    top: 160px;
-    left: 150px;
+    top: 50px;
+    left: 50px;
     color: #fff;
     z-index: 1;
     font-weight: 500;
@@ -130,12 +133,16 @@ const TI = styled.a`
     padding: 10px;
     border-radius: 10px;
   }
+  @media (min-width: 320px) and (max-width: 390px) {
+    display: none;
+  }
   @media (min-width: 391px) and (max-width: 767px) {
     display: flex;
     width: 100%;
     border-bottom-left-radius: 0;
   }
   @media (min-width: 768px) and (max-width: 1023px) {
+    width:80%;
     .hover_text {
       top: 20px;
       left: 20px;
@@ -185,7 +192,7 @@ const BP = styled(Link)`
     padding: 10px 0;
   }
   @media (min-width: 768px) and (max-width: 1023px) {
-    /* height: auto; */
+    width: 350px;
   }
 `;
 const Img = styled.img`
@@ -207,6 +214,14 @@ const Price = styled.h2`
   font-size: 1.1rem;
   font-weight: 600;
 `;
+const ProductArrContainer = styled.div`
+  height: fit-content;
+  display:flex;
+  justify-content: center;
+  @media (min-width: 320px) and (max-width: 390px) {
+    height: 100%;
+  }
+`;
 
 const NewProducts = ({ newArivalList }) => {
   const [clicked, setClicked] = useState("서재");
@@ -219,12 +234,10 @@ const NewProducts = ({ newArivalList }) => {
   const ProductArr = {
     서재: (
       <CategoryProduct>
-        <Link to="/library">
-          <TI>
-            <CategoryImg src={library}></CategoryImg>
-            <p className="hover_text">More view</p>
-          </TI>
-        </Link>
+        <CategoryImgContainer to="/library">
+          <CategoryImg src={library}></CategoryImg>
+          <p className="hover_text">More view</p>
+        </CategoryImgContainer>
         <BPList>
           {newArivalList.서재?.map((p) => (
             <BP key={p.id} to={`/detail/${p.id}`}>
@@ -240,12 +253,10 @@ const NewProducts = ({ newArivalList }) => {
     ),
     침실: (
       <CategoryProduct>
-        <Link to="/bedroom">
-          <TI>
-            <CategoryImg src={bedroom}></CategoryImg>
-            <p className="hover_text">More view</p>
-          </TI>
-        </Link>
+        <CategoryImgContainer to="/bedroom">
+          <CategoryImg src={bedroom}></CategoryImg>
+          <p className="hover_text">More view</p>
+        </CategoryImgContainer>
         <BPList>
           {newArivalList.침실?.map((p) => (
             <BP key={p.id} to={`/detail/${p.id}`}>
@@ -261,12 +272,10 @@ const NewProducts = ({ newArivalList }) => {
     ),
     거실: (
       <CategoryProduct>
-        <Link to="/livingRoom">
-          <TI>
-            <CategoryImg src={livingroom}></CategoryImg>
-            <p className="hover_text">More view</p>
-          </TI>
-        </Link>
+        <CategoryImgContainer to="/livingRoom">
+          <CategoryImg src={livingroom}></CategoryImg>
+          <p className="hover_text">More view</p>
+        </CategoryImgContainer>
         <BPList>
           {newArivalList.거실?.map((p) => (
             <BP key={p.id} to={`/detail/${p.id}`}>
@@ -282,12 +291,10 @@ const NewProducts = ({ newArivalList }) => {
     ),
     주방: (
       <CategoryProduct>
-        <Link to="/kitchen">
-          <TI>
-            <CategoryImg src={kitchen}></CategoryImg>
-            <p className="hover_text">More view</p>
-          </TI>
-        </Link>
+        <CategoryImgContainer to="/kitchen">
+          <CategoryImg src={kitchen}></CategoryImg>
+          <p className="hover_text">More view</p>
+        </CategoryImgContainer>
         <BPList>
           {newArivalList.주방?.map((p) => (
             <BP key={p.id} to={`/detail/${p.id}`}>
@@ -304,7 +311,7 @@ const NewProducts = ({ newArivalList }) => {
   };
 
   return (
-    <BrandContainer>
+    <NewContainer>
       <Tabs>
         <SubTab>
           <Tab
@@ -343,8 +350,10 @@ const NewProducts = ({ newArivalList }) => {
           </Tab>
         </SubTab>
       </Tabs>
-      {ProductArr[clicked]}
-    </BrandContainer>
+      <ProductArrContainer>
+        {ProductArr[clicked]}
+      </ProductArrContainer>
+    </NewContainer>
   );
 };
 

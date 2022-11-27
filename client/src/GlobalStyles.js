@@ -30,6 +30,7 @@ const GlobalStyles = createGlobalStyle`
       --font-black : #0E0E0E;
       --font-ligthblack : #515151;
       --font-navy : #002C6D;
+      --font-smoothblack : #272727;
       // font -size 
       --font-smallsize : 13px
       // color

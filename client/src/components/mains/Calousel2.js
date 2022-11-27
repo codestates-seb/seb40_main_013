@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import ImgSlider from "./ImgSlider";
+import { Link } from "react-router-dom";
 
 const len = ImgSlider.length - 1;
 
@@ -10,7 +11,7 @@ const Carousel2 = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex(activeIndex === len ? 0 : activeIndex + 1);
-    }, 5000);
+    }, 6000);
     return () => clearInterval(interval);
   }, [activeIndex]);
 
@@ -22,6 +23,11 @@ const Carousel2 = () => {
           className={index === activeIndex ? "slides active" : "inactive"}
         >
           <Img className="slide-image" src={slide.urls} alt="" />
+          <SlideTitle>{slide.title}</SlideTitle>
+          <SlideText>{slide.description}</SlideText>
+          {/* <FurnitureContainer>
+            <SlideFurniture>{slide.furniture}</SlideFurniture>
+          </FurnitureContainer> */}
         </Slides>
       ))}
       <Arrows className="arrows">
@@ -139,25 +145,67 @@ const Img = styled.img`
   position: absolute;
   /* object-fit: cover; */
 `;
-// const SlideTitle = styled.h2`
-//   width: 100%;
-//   height: 100%;
-//   color: white;
-//   font-size: 50px;
-//   position: absolute;
-//   text-align: center;
-//   top: 40%;
-//   z-index: 10;
-// `;
-// const SlideText = styled.h3`
-// width: 100%;
-//   height: 100%;
-//   color: white;
-//   font-size: 2rem;
-//   position: absolute;
-//   text-align: center;
-//   top: 65%;
-//   z-index: 10;
-// `;
+const SlideTitle = styled.h2`
+  color: white;
+  font-size: 60px;
+  font-weight: 600;
+  color: #525252;
+  position: absolute;
+  top: 25%;
+  left: 17%;
+  z-index: 10;
+  animation: fadeInLeft 4s;
+  @keyframes fadeInLeft {
+      0% {
+          opacity: 0;
+          transform: translate3d(-10%, 0, 0);
+      }
+      to {
+          opacity: 1;
+          transform: translateZ(0);
+      }
+  }
+`;
+const SlideText = styled.h3`
+  color: #525252;
+  font-size: 1.6rem;
+  position: absolute;
+  top: 50%;
+  left: 17.2%;
+  font-weight: 500;
+  z-index: 10;
+  animation: fadeInUp 3s;
+  @keyframes fadeInUp {
+      0% {
+          opacity: 0;
+          transform: translate3d(0, 10%, 0);
+      }
+      to {
+          opacity: 1;
+          transform: translateZ(0);
+      }
+  }
+`;
+const FurnitureContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const SlideFurniture = styled.h3`
+  position: absolute;
+  display: flex;
+  /* width: 100%;
+  height: 100%; */
+  top: 64%;
+  left: 17%;
+  color: white;
+  font-size: 1.4rem;
+  background-color: #FFAF51;
+  border-radius: 5px;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+`;
 
 export default Carousel2;
