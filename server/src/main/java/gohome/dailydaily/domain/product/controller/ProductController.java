@@ -27,7 +27,21 @@ public class ProductController {
     private final ProductService productService;
     private final ProductMapper mapper;
 
-    // 미완성 추가구현 필요
+    @GetMapping("/details/{product-id}")
+    public ResponseEntity<ProductDto.Response> getProduct(@Valid @PathVariable("product-id") Long productId) {
+        Product product = productService.getProduct(productId);
+
+        return new ResponseEntity<>(mapper.toResponse(product), HttpStatus.OK);
+    }
+
+    // 카테고리 대분류 또는 소분류별 리스트 조회
+    // 역할을 제대로 구분하면 코드는 자연스럽게 클린 코드가 됨
+    @GetMapping
+    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByCategory(@Valid GetProductListByDto dto) {
+        SliceResponseDto<CategoryGetDto> result = productService.getProductListByCategory(dto);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @GetMapping("/score")
     public ResponseEntity<List<CategoryGetDto>> getScoreTop5() {
         List<CategoryGetDto> products = productService.getScoreTop5();
@@ -49,14 +63,6 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    // 카테고리 대분류 또는 소분류별 리스트 조회
-    // 역할을 제대로 구분하면 코드는 자연스럽게 클린 코드가 됨
-    @GetMapping
-    public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByCategory(@Valid GetProductListByDto dto) {
-        SliceResponseDto<CategoryGetDto> result = productService.getProductListByCategory(dto);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
     // 제목으로 상품 리스트 검색
     @GetMapping("/search")
     public ResponseEntity<SliceResponseDto<CategoryGetDto>> getProductListByTitle(@Valid GetProductListByDto dto) {
@@ -64,12 +70,6 @@ public class ProductController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/details/{product-id}")
-    public ResponseEntity<ProductDto.Response> getProduct(@Valid @PathVariable("product-id") Long productId) {
-        Product product = productService.getProduct(productId);
-
-        return new ResponseEntity<>(mapper.toResponse(product), HttpStatus.OK);
-    }
 
     @PostMapping
     public ResponseEntity postProduct(ProductDto.PostProduct product) throws IOException {
@@ -82,4 +82,11 @@ public class ProductController {
         SliceResponseDto<CategoryGetDto> result = productService.getProductListByBrand(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/count")
+    public ResponseEntity getProductCategoryCount(@Valid GetProductListByDto dto) {
+        HashMap<String, Long> count = productService.getProductCategoryCount(dto);
+        return new ResponseEntity(count, HttpStatus.OK);
+    }
+
 }

@@ -34,6 +34,7 @@ import org.springframework.restdocs.request.RequestPartsSnippet;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.apache.http.entity.ContentType.DEFAULT_BINARY;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
@@ -84,7 +85,7 @@ public class TestConstant {
             .content("[test, test]")
             .img(FILE)
             .price(10000)
-            .score(4F)
+            .score(3)
             .seller(SELLER)
             .category(CATEGORY)
             .build();
@@ -117,8 +118,8 @@ public class TestConstant {
             .img(FILE)
             .content("상품 내용1")
             .price(123456)
+            .score(3)
             .sale(0)
-            .score(3F)
             .seller(SELLER)
             .category(CATEGORY)
             .build();
@@ -130,7 +131,7 @@ public class TestConstant {
             .content("상품 내용2")
             .price(100000)
             .sale(0)
-            .score(4F)
+            .score(5)
             .seller(SELLER)
             .category(CATEGORY2)
             .build();
@@ -221,6 +222,10 @@ public class TestConstant {
             parameterWithName("product-id").description("상품 식별자")
     );
 
+    public static final PathParametersSnippet PATH_PARAM_SELLER_ID = pathParameters(
+            parameterWithName("seller-id").description("판매자 식별자")
+    );
+
 
     public static final RequestParametersSnippet REQUEST_PARAM_CATEGORY = requestParameters(
             parameterWithName("main").description("카테고리 대분류"),
@@ -229,6 +234,19 @@ public class TestConstant {
             parameterWithName("size").description("사이즈"),
             parameterWithName("sortType").description("정렬 요소 ('createdAt' : 최신순(기본 값), 'price : 가격 순', sale : 판매순)"),
             parameterWithName("order").description("'desc' : 내림차순(기본 값), 'asc' : 오름차순")
+    );
+
+    public static final RequestParametersSnippet REQUEST_PARAM_TITLE = requestParameters(
+            parameterWithName("title").description("상품명 검색"),
+            parameterWithName("page").description("페이지"),
+            parameterWithName("size").description("사이즈"),
+            parameterWithName("sortType").description("정렬 요소 ('createdAt' : 최신순(기본 값), 'price : 가격 순', sale : 판매순)"),
+            parameterWithName("order").description("'desc' : 내림차순(기본 값), 'asc' : 오름차순")
+    );
+
+    public static final RequestParametersSnippet REQUEST_PARAM_COUNT = requestParameters(
+            parameterWithName("main").description("카테고리 대분류"),
+            parameterWithName("sub").description("카테고리 소분류")
     );
 
     public static final RequestParametersSnippet REQUEST_PARAM_REVIEW = requestParameters(
@@ -407,6 +425,7 @@ public class TestConstant {
     public static final FieldDescriptor FWP_CONTENT_ORDER_PRODUCT_ID = fieldWithPath("content[].orderProducts[].productId").type(NUMBER).description("주문 상품 식별자");
     public static final FieldDescriptor FWP_CONTENT_ORDER_CREATED_AT = fieldWithPath("content[].createdAt").type(STRING).description("주문 생성 시간");
 
+    public static final FieldDescriptor FWP_NICKNAME_PRODUCT_REVIEWS = fieldWithPath("nickname[].reviews").type(NUMBER).description("리뷰 갯수");
     public static final ResponseFieldsSnippet ORDER_RESPONSE_FIELDS = responseFields(
             FWP_ORDER_ID, FWP_ORDER_PRODUCT_ID, FWP_ORDER_NUMBER, FWP_ORDER_STATUS, FWP_ORDER_PRODUCT_BRAND_NAME, FWP_ORDER_PRODUCT_TITLE,
             FWP_ORDER_PRODUCT_IMG_NAME, FWP_ORDER_PRODUCT_IMG_PATH, FWP_ORDER_COUNT, FWP_ORDER_PRODUCT_PRICE, FWP_ORDER_PRODUCT_COLOR, FWP_ORDER_CREATED_AT
@@ -458,13 +477,19 @@ public class TestConstant {
             new MockMultipartFile("img", null, DEFAULT_BINARY.toString(), "img".getBytes());
 
     public static final RequestPartsSnippet REQUEST_PARTS_IMG = requestParts(partWithName("img").description("이미지"));
+    public static final FieldDescriptor FWP_CATEGORY_PRODUCT_REVIEWS = fieldWithPath("categoryMain[].reviews").type(NUMBER).description("리뷰 갯수");
+    public static final FieldDescriptor FWP_CONTENT_REVIEWS = fieldWithPath("content[].reviews").type(NUMBER).description("리뷰 갯수");
+    public static final FieldDescriptor FWP_PRODUCTS_REVIEWS = fieldWithPath("[].reviews").type(NUMBER).description("리뷰 갯수");
+    public static final FieldDescriptor CATEGORY_COUNT = fieldWithPath("count").type(NUMBER).description("카테고리 상품 갯수");
 
     static {
         MEMBER.addRoles(MemberRole.USER);
         PRODUCT.addOptions(OPTION);
         PRODUCT.addReviews(REVIEW1);
         PRODUCT1.addOptions(OPTION);
+        PRODUCT1.addReviews(REVIEW1);
         PRODUCT2.addOptions(OPTION);
+        PRODUCT2.addReviews(REVIEW1);
         ORDER.addOrderProduct(ORDER_PRODUCT1, ORDER_PRODUCT2);
         ORDER1.addOrderProduct(ORDER_PRODUCT1, ORDER_PRODUCT2);
         CART.addProductCart(PRODUCT_CART);

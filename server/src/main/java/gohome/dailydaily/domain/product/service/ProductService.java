@@ -16,7 +16,6 @@ import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -110,5 +109,11 @@ public class ProductService {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
         }
         return products;
+    }
+
+    public HashMap<String, Long> getProductCategoryCount(GetProductListByDto dto) {
+        HashMap<String, Long> count = new HashMap<>();
+        count.put("count", productRepository.countProductCategory(ProductGetParam.valueOf(dto)));
+        return count;
     }
 }
