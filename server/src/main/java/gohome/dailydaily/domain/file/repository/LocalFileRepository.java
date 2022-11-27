@@ -14,6 +14,7 @@ public class LocalFileRepository implements FileRepository {
 
         String originalFilename = multipartFile.getOriginalFilename();
         String storeFilename = getStoreFileName(originalFilename);
+        //path.replaceAll("/img","");
         String fullPath = path + storeFilename;
 
         multipartFile.transferTo(new java.io.File(fullPath));
@@ -21,6 +22,7 @@ public class LocalFileRepository implements FileRepository {
         return File.builder()
                 .fileName(originalFilename)
                 .fullPath(fullPath)
+                //.fullPath("http://ec2-3-39-250-169.ap-northeast-2.compute.amazonaws.com/images" +fullPath)
                 .build();
     }
 

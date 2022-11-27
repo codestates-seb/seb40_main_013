@@ -72,8 +72,8 @@ public class ProductController {
 
 
     @PostMapping
-    public ResponseEntity postProduct(ProductDto.PostProduct product) throws IOException {
-        String result = productService.postProduct(product);
+    public ResponseEntity postProduct(@Valid ProductDto.PostProduct postProduct) throws IOException {
+        String result = productService.postProduct(postProduct);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
