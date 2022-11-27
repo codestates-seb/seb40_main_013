@@ -1,11 +1,17 @@
 import React, { useNavigate, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { usedispatch, useSelector } from "react-redux";
 
 const Review = () => {
   // const navigate = useNavigate();
-  // //최근본상품 출력
-  // const ls = localStorage.getItem("saw");
-  // const lsArr = JSON.parse(ls).reverse();
+  // const dispatch = usedispatch();
+  // const recentData = useSelector((state)=>state);
+  // console.log(recentData);
+  // // //최근본상품 출력
+  // // const ls = localStorage.getItem("saw");
+  // // const lsArr = JSON.parse(ls).reverse();
+  // useEffect(()=>{
+  //   dispatch()
+  // },[])
 
   return (
     <div>

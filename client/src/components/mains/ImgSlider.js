@@ -1,33 +1,31 @@
-import Carousel1 from "../../imgs/carousel1.png";
-import Carousel2 from "../../imgs/carousel2.png";
-import Carousel3 from "../../imgs/carousel3.png";
-import Carousel4 from "../../imgs/carousel4.png";
-import Carousel5 from "../../imgs/carousel5.png";
+import Bed from "../../imgs/Bed.gif"
+import Desk from "../../imgs/Desk.gif"
+import Table from "../../imgs/Table.gif"
+import Sofa from "../../imgs/Sofa.gif"
 
 export default [
   {
-  title: 'Carousel1',
-  description: "This is the First slider image",
-  urls: Carousel1,
+    title: 'Furniture',
+    description: "in bedroom",
+    furniture: "BED",
+    urls: Bed,
   },
   {
-    title: 'Carousel2',
-    description: "This is the Second slider image",
-    urls: Carousel2,
+    title: 'Furniture',
+    description: "in library",
+    furniture: "DESK",
+    urls: Desk,
   },
   {
-    title: 'Carousel3',
-    description: "This is the Third slider image",
-    urls: Carousel3,
+    title: 'Furniture',
+    description: "in kitchen",
+    furniture: "TABLE",
+    urls: Table,
   },
   {
-    title: 'Carousel4',
-    description: "This is the Fourth slider image",
-    urls: Carousel4,
-  },
-  {
-    title: 'Carousel5',
-    description: "This is the Fifth slider image",
-    urls: Carousel5,
-    }
+    title: 'Furniture',
+    description: "in livingroom",
+    furniture: "SOFA",
+    urls: Sofa,
+  }
 ]

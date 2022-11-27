@@ -119,7 +119,7 @@ const NavDetail = styled.nav`
   margin-top: 20px;
   color: var(--font-ligthblack);
   &:hover {
-    color: #ffaf51;
+    color: #aaa;
   }
   &.clicked {
     color: #ffaf51;
@@ -156,8 +156,9 @@ const NavDetail = styled.nav`
   @media (min-width: 391px) and (max-width: 768px) {
     margin-right: 10px;
     background-color: #ecece8;
-    padding: 20px 10px;
+    padding: 11px 10px;
     width: 120px;
+    font-size: 1.1rem;
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -180,6 +181,8 @@ const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
   console.log(getUserdata);
+  // console.log(myOrderData);
+  //tab click
   const [clicked, setClicked] = useState("");
 
   //user 정보 받아오기
@@ -270,10 +273,7 @@ const Mypage = () => {
         <Route path="/purchase/*" element={<PurchaseList />}></Route>
         <Route path="/myboard" element={<MyReview />}></Route>
         <Route path="/recent" element={<Recent />}></Route>
-        <Route
-          path="/purchase/orderall"
-          element={<PurchaseAll getUserdata={getUserdata} />}
-        ></Route>
+        <Route path="/purchase/orderall" element={<PurchaseAll />}></Route>
       </Routes>
     </Container>
   );
