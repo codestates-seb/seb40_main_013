@@ -235,6 +235,10 @@ include::{snippets}/products/categoryCreated/get/response-fields.adoc[]
 .http-request
 include::{snippets}/products/brand/get/http-request.adoc[]
 
+.request-parameters
+[caption=]
+include::{snippets}/products/brand/get/request-parameters.adoc[]
+
 .http-response
 include::{snippets}/products/brand/get/http-response.adoc[]
 
