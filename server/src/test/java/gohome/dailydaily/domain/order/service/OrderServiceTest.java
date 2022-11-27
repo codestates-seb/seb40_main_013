@@ -64,7 +64,7 @@ class OrderServiceTest implements Reflection {
     @Test
     void createOrder() {
         // given
-//        given(productService.getProduct(PRODUCT1.getId())).willReturn(PRODUCT1);
+        given(productService.getProduct(PRODUCT1.getId())).willReturn(PRODUCT1);
 //        given(productService.getProduct(PRODUCT2.getId())).willReturn(PRODUCT2);
         given(memberService.findVerifiedMember(MEMBER.getId())).willReturn(MEMBER);
         given(orderRepository.save(order)).willAnswer(AdditionalAnswers.returnsFirstArg());
