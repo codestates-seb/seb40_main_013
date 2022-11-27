@@ -4,11 +4,7 @@ import withReactContent from "sweetalert2-react-content";
 
 const MySwal = withReactContent(Swal);
 
-<<<<<<< HEAD
-export function Alert(icon, content) {
-=======
 export const Alert = (icon, content) => {
->>>>>>> 2a95332ab8af531bfbe1ef883249c7924f37f411
   MySwal.fire({
     icon,
     text: content,
@@ -36,8 +32,17 @@ export const Toast = (icon, content) => {
   });
 };
 
-<<<<<<< HEAD
-export function DeleteAlert(content) {
+// export const Toast = () => {
+//   Swal.fire({
+//     position: "top-end",
+//     icon: "success",
+//     title: "Your work has been saved",
+//     showConfirmButton: false,
+//     timer: 1500,
+//   });
+// };
+
+export const DeleteAlert =(content, confirmbutton) => {
   MySwal.fire({
     title: 'Are you sure?',
     text: content,
@@ -49,7 +54,7 @@ export function DeleteAlert(content) {
   }).then((result) => {
     if (result.isConfirmed) {
       Swal.fire(
-        'Deleted!',
+        '취소되엇스빈다',
         'Your file has been deleted.',
         'success'
       )
@@ -57,14 +62,3 @@ export function DeleteAlert(content) {
   })
 }
 
-=======
-// export const Toast = () => {
-//   Swal.fire({
-//     position: "top-end",
-//     icon: "success",
-//     title: "Your work has been saved",
-//     showConfirmButton: false,
-//     timer: 1500,
-//   });
-// };
->>>>>>> 2a95332ab8af531bfbe1ef883249c7924f37f411

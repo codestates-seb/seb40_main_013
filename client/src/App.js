@@ -26,9 +26,11 @@ const Library = lazy(() => import("./pages/sub/Library"));
 const Bedroom = lazy(() => import("./pages/sub/Bedroom"));
 const Kitchen = lazy(() => import("./pages/sub/Kitchen"));
 const LivingRoom = lazy(() => import("./pages/sub/LivingRoom"));
+const SearchResult = lazy(() => import("./pages/SearchResult"));
 
 function App() {
   const [click, setClick] = useState("");
+  const [searchWord, setSearchWord] = useState('');
 
   return (
     <BrowserRouter>
@@ -39,7 +41,7 @@ function App() {
         <div className="App">
           <MainContainter>
             <MainContent>
-              <Header setClick={setClick} />
+              <Header setClick={setClick} setSearchWord={setSearchWord}/>
               <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/users/login" element={<Login />} />
@@ -49,11 +51,9 @@ function App() {
                 <Route path="/library" element={<Library click={click} />} />
                 <Route path="/bedroom" element={<Bedroom click={click} />} />
                 <Route path="/kitchen" element={<Kitchen click={click} />} />
-                <Route
-                  path="/livingRoom"
-                  element={<LivingRoom click={click} />}
-                />
+                <Route path="/livingRoom" element={<LivingRoom click={click} />} />
                 <Route path="/cart" element={<ShoppingCart />} />
+                <Route path="/search" element={<SearchResult searchWord={searchWord}/>} />
               </Routes>
             </MainContent>
             <Footer />

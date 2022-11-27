@@ -8,7 +8,7 @@ import { Toast } from "./Alert";
 
 const HeaderBlock = styled.header`
   width: 100vw;
-  height: 127.5px;
+  height: 129px;
   color: var(--color-gray);
   div {
     display: flex;
@@ -29,6 +29,12 @@ const Logo = styled.div`
   div {
     font-size: 43px;
     color: var(--color-navy);
+    @media (min-width: 381px) and (max-width: 767px) {
+      font-size: 35px;
+    }
+    @media screen and (max-width: 380px) {
+      font-size: 28px;
+    }
   }
 `;
 
@@ -67,10 +73,16 @@ const CategoryList = styled.div`
   margin: 0px 30px 0px 30px;
   .cart-count {
     font-size: 12px;
+    @media screen and (max-width: 380px) {
+      display: none;
+    }
   }
   padding-left: 20px;
   div {
     height: 100%;
+  }
+  @media screen and (max-width: 380px) {
+    padding-left: 10px;
   }
 `;
 
@@ -96,6 +108,9 @@ const Nav = styled.nav`
   &:hover {
     display: block;
   }
+  @media screen and (max-width: 380px) {
+    width: 6.7em;
+  }
 `;
 
 const Category = styled.div`
@@ -107,9 +122,12 @@ const Category = styled.div`
       display: block;
     }
   }
+  @media screen and (max-width: 380px) {
+    padding-right: 20px;
+  }
 `;
 
-function Header({ setClick }) {
+function Header({ setClick, setSearchWord }) {
   const jwtToken = localStorage.getItem("Authorization");
   const navigate = useNavigate();
   const modalRef = useRef();
@@ -226,6 +244,7 @@ function Header({ setClick }) {
               <DownSearch
                 closeSearch={closeSearch}
                 closeHandler={closeHandler}
+                setSearchWord={setSearchWord}
               />
             </div>
             {jwtToken ? (
