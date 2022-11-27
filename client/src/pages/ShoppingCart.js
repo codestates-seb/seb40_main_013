@@ -6,7 +6,7 @@ import {
   deleteShoppingCart,
   getShoppingCart,
 } from "../reduxstore/slices/articleSlice";
-import Alert from "../components/Alert";
+import { Alert } from "../components/Alert";
 
 const CartBlock = styled.div`
   margin-top: 127.5px;

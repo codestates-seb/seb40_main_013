@@ -6,7 +6,7 @@ import { deleteShoppingCart } from "../reduxstore/slices/articleSlice";
 import { useDispatch } from "react-redux";
 import { reCountCartItem } from "../reduxstore/slices/articleSlice";
 import { Link } from "react-router-dom";
-import Alert from "./Alert";
+import { Alert } from "./Alert";
 
 const CartItemBlock = styled.div`
   width: 100%;

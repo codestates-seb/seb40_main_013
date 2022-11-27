@@ -28,7 +28,8 @@ function Login() {
     setUserStateCheck(!userStateCheck);
   };
 
-  const clickLogin = () => {
+  const clickLogin = (e) => {
+    e.preventDefault();
     let loginData = {};
     if (userWriteEmail === "" || userWritePwd === "") {
       setUserWriteInput(true);
@@ -92,7 +93,7 @@ function Login() {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   width: 100%;
   height: 65vh;
   display: flex;

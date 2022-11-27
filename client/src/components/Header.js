@@ -4,6 +4,7 @@ import { BsCart3, BsSearch } from "react-icons/bs";
 import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
 import { useSelector } from "react-redux";
+import { Toast } from "./Alert";
 
 const HeaderBlock = styled.header`
   width: 100vw;
@@ -142,7 +143,7 @@ function Header({ setClick }) {
     e.preventDefault();
     localStorage.clear();
     navigate("/");
-    window.alert("로그아웃에 성공하셨습니다!");
+    Toast("success", "로그아웃에 성공하셨습니다!");
   };
 
   return (
