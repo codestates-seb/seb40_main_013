@@ -44,6 +44,7 @@ jwt:
 file:
   profileImg: /img/profileImg
   productImg: /img/productImg
+  productContentsImg: /img/productContentsImg/
   reviewImg: /img/reviewImg
 
 env: local

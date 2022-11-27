@@ -13,8 +13,9 @@ spring:
 
 
 file:
-  profileImg: /img/profileImg
-  productImg: /img/productImg
-  reviewImg: /img/reviewImg
+  profileImg: /img/profileImg/
+  productImg: /img/productImg/
+  productContentsImg: /img/productContentsImg/
+  reviewImg: /img/reviewImg/
 
 env: server
