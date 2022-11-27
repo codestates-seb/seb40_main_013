@@ -218,34 +218,6 @@ const ReactionReviewBtn = styled.button`
   }
 `;
 
-//브랜드 정보
-const BrandDetail = styled.div`
-  height: 80px;
-  background-color: #ecece8;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  @media screen and (max-width: 390px) {
-    height: 70px;
-  }
-`;
-const DelieveryWay = styled.div`
-  color: rgba(81, 81, 81, 0.47);
-  font-size: 1rem;
-  margin-bottom: 10px;
-  @media screen and (max-width: 390px) {
-    font-size: 12px;
-  }
-`;
-const BrandPhone = styled.div`
-  font-weight: 800;
-  font-size: 1.1rem;
-  @media screen and (max-width: 390px) {
-    font-size: 15px;
-  }
-`;
-
 //결제정보
 const PaymentTitle = styled.h2`
   font-weight: 600;
@@ -275,18 +247,18 @@ const FlexContainer = styled.div`
   width: 100vw;
 `;
 
-const PurchaseAll = ({ getUserdata }) => {
+const PurchaseAll = ({ getUserdata, myOrderData, click }) => {
   // const [isModal, setIsModal] = useState(false);
 
   // const clickModal = () => {
   //   setIsModal(!isModal);
   // };
-  console.log(getUserdata)
+  console.log(myOrderData)
 
   return(
     <Container>
     {/* <PostReview clickModal={clickModal} /> */}
-    <AllOrderTitle>주문상세정보</AllOrderTitle>
+    {/* <AllOrderTitle>주문상세정보</AllOrderTitle> */}
     <Top>
       <SubTop>830495 | 2022.01.11</SubTop>
     </Top>
@@ -302,7 +274,7 @@ const PurchaseAll = ({ getUserdata }) => {
           <BP>
             <BrandName>[두닷] 화장대</BrandName>
             <Option>색상: white</Option>
-              <Price><span>13900</span> | 1개</Price>
+            <Price><span>13900</span> | 1개</Price>
           </BP>
         </ReactionSubDetail>
         <Btns>
@@ -362,14 +334,9 @@ const PurchaseAll = ({ getUserdata }) => {
         <ReactionReviewBtn>구매후기</ReactionReviewBtn>
       </ReactionSpace>
     </Content>
-    <BrandDetail>
-      <DelieveryWay>무료배송</DelieveryWay>
-      <BrandPhone>두닷 02-000-0000</BrandPhone>
-    </BrandDetail>
-    <PaymentTitle>결제정보</PaymentTitle>
-    <Hr />
-    <PaymentContainer>
-      <FlexContainer>
+     {/* <PaymentTitle>결제정보</PaymentTitle>
+    <Hr /> */}
+    {/* <PaymentContainer>
         <PaySubContainer>
           <PaySubTitle>상품금액</PaySubTitle>
           <PaySubContent>26,800원</PaySubContent>
@@ -382,18 +349,7 @@ const PurchaseAll = ({ getUserdata }) => {
           <PaySubTitle>결제금액</PaySubTitle>
           <PaySubContent>26,800원</PaySubContent>
         </PaySubContainer>
-      </FlexContainer>
-      <FlexContainer>
-        <PaySubContainer>
-          <PaySubTitle>주문자</PaySubTitle>
-          <PaySubContent>{getUserdata.nickname}</PaySubContent>
-        </PaySubContainer>
-        <PaySubContainer>
-          <PaySubTitle>연락처</PaySubTitle>
-          <PaySubContent>{getUserdata.phone}</PaySubContent>
-        </PaySubContainer>
-      </FlexContainer>
-    </PaymentContainer>
+    </PaymentContainer> */}
   </Container>
   );
 }
