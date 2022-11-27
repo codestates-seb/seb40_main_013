@@ -252,10 +252,6 @@ include::{snippets}/reviews/post/request-parameters.adoc[]
 [caption=]
 include::{snippets}/members/img/request-parts.adoc[]
 
-.request-fields
-[caption=]
-include::{snippets}/reviews/post/request-fields.adoc[]
-
 .http-response
 include::{snippets}/reviews/post/http-response.adoc[]
 
