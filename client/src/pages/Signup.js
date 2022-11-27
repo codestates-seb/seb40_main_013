@@ -35,7 +35,8 @@ function Signup() {
   const writeChangePwdAgainCheck = (e) => {
     setWritePwdAgainCheck(e.target.value);
   };
-  const signupSubmit = (id) => {
+  const signupSubmit = (e) => {
+    e.preventDefault();
     if (
       writeNickName === "" ||
       writeEmail === "" ||
@@ -131,7 +132,7 @@ function Signup() {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   width: 100%;
   /* height: 58vh; */
   height: 100vh;

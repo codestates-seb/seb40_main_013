@@ -7,7 +7,7 @@ import { updateUser } from "../../reduxstore/slices/userSlice";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";
-import Alert from "../Alert";
+import { Alert } from "../Alert";
 
 const EditContainter = styled.div`
   display: flex;

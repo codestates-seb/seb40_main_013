@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Routes, Route, Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import PostReview from "./PostReview";
-import { getMyOrder } from '../../reduxstore/slices/myOrderSlice';
-import PurchaseAll from './PurchaseAll';
+import { getMyOrder } from "../../reduxstore/slices/myOrderSlice";
+import PurchaseAll from "./PurchaseAll";
 
 const Container = styled.div`
   display: flex;
@@ -268,11 +268,10 @@ const BrandPhone = styled.div`
   }
 `;
 
-
 const PurchaseList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const myOrderData = useSelector((state)=> state.myorder.myorder);
+  const myOrderData = useSelector((state) => state.myorder.myorder);
   console.log(myOrderData);
   const [isModal, setIsModal] = useState(false);
 
@@ -280,10 +279,9 @@ const PurchaseList = () => {
     setIsModal(!isModal);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     // dispatch(getMyOrder({click}))
   }, []);
-
 
   return (
     <>
@@ -293,7 +291,9 @@ const PurchaseList = () => {
             <PostReview clickModal={clickModal} />
             <Top>
               <SubTop>830495 | 2022.01.11</SubTop>
-              <AllPurchase to="orderall" style={{ textDecoration: "none" }}>상세보기 &gt;</AllPurchase>
+              <AllPurchase to="orderall" style={{ textDecoration: "none" }}>
+                상세보기 &gt;
+              </AllPurchase>
             </Top>
             <Hr />
             <Content>
@@ -335,7 +335,9 @@ const PurchaseList = () => {
         <Container>
           <Top>
             <SubTop>830495 | 2022.01.11</SubTop>
-            <AllPurchase to="orderall" style={{ textDecoration: "none" }}>상세보기 &gt;</AllPurchase>
+            <AllPurchase to="orderall" style={{ textDecoration: "none" }}>
+              상세보기 &gt;
+            </AllPurchase>
           </Top>
           <Hr />
           <Content>

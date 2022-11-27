@@ -31,34 +31,32 @@ const Button = () => {
         behavior: 'smooth'
     });
     setBtnStatus(false);
-  }
+  };
 
   const ShowButtonClick = () => {
-    if(window.scrollY > 800) {
-      // console.log('800이상이예요')
-      setBtnStatus(true)
+    if (window.scrollY > 800) {
+      setBtnStatus(true);
     } else {
-      // console.log('800이하입니다')
-      setBtnStatus(false)
+      setBtnStatus(false);
     }
-  }
+  };
   //윈도우가 높이가 800 이상일때 버튼이 보이도록
-  useEffect(()=>{
-    window.addEventListener("scroll", ShowButtonClick)
+  useEffect(() => {
+    window.addEventListener("scroll", ShowButtonClick);
     return () => {
       window.removeEventListener("scroll", ShowButtonClick); // addEventListener 함수를 삭제
     };
   });
 
   return (
-        <ArrowUpButton
-          className={BtnStatus ? "visible" : "topBtn"} // 버튼 노출 여부
-          onClick={handleTop} // 버튼 클릭시 함수 호출
-          type="button"
-        >
-          <IoMdArrowRoundUp />
-        </ArrowUpButton>
-  )
+    <ArrowUpButton
+      className={BtnStatus ? "visible" : "topBtn"} // 버튼 노출 여부
+      onClick={handleTop} // 버튼 클릭시 함수 호출
+      type="button"
+    >
+      <IoMdArrowRoundUp />
+    </ArrowUpButton>
+  );
 };
 
 export default Button;

@@ -30,10 +30,10 @@ const Imgbox = styled.div`
   @media screen and (max-width: 479px) {
     width: 35vw;
   }
-    @media (min-width: 480px) and (max-width: 767px) {
+  @media (min-width: 480px) and (max-width: 767px) {
     width: 24vw;
   }
-    @media (min-width: 768px) and (max-width: 1023px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 20vw;
   }
 `;

@@ -28,7 +28,8 @@ function Login() {
     setUserStateCheck(!userStateCheck);
   };
 
-  const clickLogin = () => {
+  const clickLogin = (e) => {
+    e.preventDefault();
     let loginData = {};
     if (userWriteEmail === "" || userWritePwd === "") {
       setUserWriteInput(true);
@@ -92,7 +93,7 @@ function Login() {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   width: 100%;
   height: 65vh;
   display: flex;
@@ -221,10 +222,6 @@ const LoginButton = styled.button`
   &:hover {
     cursor: pointer;
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> 2d63094aa5edcf3aa5f0c1aed1170e0a6a7bb238
   @media screen and (max-width: 1023px) {
     font-size: 2vw;
   }
