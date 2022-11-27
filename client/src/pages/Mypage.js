@@ -8,7 +8,7 @@ import EditProfile from "../components/mypages/EditProfile";
 import { Routes, Route, Link } from "react-router-dom";
 import MyReview from "../components/mypages/MyReview";
 import Recent from "../components/mypages/Recent";
-import ProfileImg from '../components/mypages/ProfileImg';
+import ProfileImg from "../components/mypages/ProfileImg";
 import PurchaseAll from "../components/mypages/PurchaseAll";
 
 const Container = styled.div`

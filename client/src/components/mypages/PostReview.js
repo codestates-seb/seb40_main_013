@@ -11,6 +11,7 @@ function PostReview({ clickModal }) {
   const fileInput = useRef();
 
   const changeImg = (e) => {
+    console.log(e);
     e.preventDefault();
     if (e.target.files) {
       let uploadFile = e.target.files[0];

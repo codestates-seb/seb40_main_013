@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
-import PostReview from './PostReview';
+import PostReview from "./PostReview";
 
 const Container = styled.div`
   display: flex;
@@ -143,7 +143,7 @@ const Option = styled.h2`
 const Price = styled.h2`
   margin: 10px 0;
   font-size: 1rem;
-  span{
+  span {
     font-weight: 700;
   }
   @media screen and (max-width: 390px) {
@@ -255,7 +255,7 @@ const PurchaseAll = ({ getUserdata, myOrderData, click }) => {
   // };
   console.log(myOrderData)
 
-  return(
+  return (
     <Container>
     {/* <PostReview clickModal={clickModal} /> */}
     {/* <AllOrderTitle>주문상세정보</AllOrderTitle> */}
@@ -352,6 +352,6 @@ const PurchaseAll = ({ getUserdata, myOrderData, click }) => {
     </PaymentContainer> */}
   </Container>
   );
-}
+};
 
 export default PurchaseAll;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Routes, Route, Link } from "react-router-dom";
 import { getMyOrder } from '../../reduxstore/slices/myOrderSlice';
 import PurchaseAll from "./PurchaseAll";
@@ -296,7 +296,6 @@ const ThickHr= styled.hr`
   margin: 15px 0;
 `;
 const DetailContent = styled.div``;
-
 
 const PurchaseList = () => {
   const navigate = useNavigate();
