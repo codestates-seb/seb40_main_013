@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 const MySwal = withReactContent(Swal);
+const navigate = useNavigate();
 
 export const Alert = (icon, content) => {
   MySwal.fire({
@@ -30,6 +32,16 @@ export const Toast = (icon, content) => {
     icon,
     title: content,
   });
+};
+
+export const BtnAlert = () => {
+  Swal.fire({ title: "WOW!", text: "Message!", type: "success" }).then(
+    (okay) => {
+      if (okay) {
+        window.location.href = "http://localhost:3000/cart";
+      }
+    }
+  );
 };
 
 // export const Toast = () => {
