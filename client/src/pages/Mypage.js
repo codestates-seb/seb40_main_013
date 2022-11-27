@@ -270,10 +270,7 @@ const Mypage = () => {
         <Route path="/purchase/*" element={<PurchaseList />}></Route>
         <Route path="/myboard" element={<MyReview />}></Route>
         <Route path="/recent" element={<Recent />}></Route>
-        <Route
-          path="/purchase/orderall"
-          element={<PurchaseAll getUserdata={getUserdata} />}
-        ></Route>
+        <Route path="/purchase/orderall" element={<PurchaseAll getUserdata={getUserdata}/>}></Route>
       </Routes>
     </Container>
   );

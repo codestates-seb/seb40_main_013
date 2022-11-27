@@ -15,7 +15,7 @@ const ArrowUpButton = styled.button`
   opacity: 0;
   pointer-events: none;
   transition: opacity 300ms ease-in;
-  box-shadow: 1px 2px 2px gray;
+  /* box-shadow: 1px 2px 2px gray; */
   cursor: pointer;
   &.visible {
     opacity: 1;
@@ -27,8 +27,8 @@ const Button = () => {
 
   const handleTop = () => {
     window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+        top: 0,
+        behavior: 'smooth'
     });
     setBtnStatus(false);
   };

@@ -68,6 +68,8 @@ const Detail = styled.div`
 `;
 const Brand = styled.h5`
   color: var(--font-ligthblack);
+  font-size: 0.8rem;
+  font-weight: 300;
   @media screen and (max-width: 479px) {
     font-size: 0.8em;
   }
@@ -79,13 +81,13 @@ const Brand = styled.h5`
   }
 `;
 const Title = styled.h2`
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 400;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2em;
-  max-height: 2.4em;
-  min-height: 2.4em;
+  line-height: 1.1em;
+  max-height: 2.2em;
+  min-height: 2.2em;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -103,8 +105,8 @@ const Price = styled.h5`
   display: flex;
   justify-content: flex-end;
   padding: 5px 0;
-  margin-right: 10px;
-  font-size: 1.5rem;
+  /* margin-right: 10px; */
+  font-size: 1.3rem;
   font-weight: 700;
   @media screen and (max-width: 479px) {
     font-size: 1.1em;
@@ -115,12 +117,20 @@ const Price = styled.h5`
   @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 1.3em;
   }
+  .won{
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+  }
 `;
 const SubDetail = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 10px 0;
+  &.end{
+    justify-content: flex-end;
+  }
 `;
 const StarDetail = styled.div`
   display: flex;
@@ -170,8 +180,12 @@ const Product = ({ proId, product }) => {
           </StarDetail>
         </SubDetail>
         <Title>{title}</Title>
-        <SubDetail>
-          <Price>₩&nbsp;{price?.toLocaleString("en-US")}</Price>
+        <SubDetail className="end">
+          <Price>
+            <span className="won">
+              ₩
+            </span>
+            &nbsp;{price?.toLocaleString("en-US")}</Price>
         </SubDetail>
       </Detail>
     </Products>
