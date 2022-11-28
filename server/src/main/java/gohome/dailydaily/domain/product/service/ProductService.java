@@ -3,6 +3,7 @@ package gohome.dailydaily.domain.product.service;
 import com.google.gson.Gson;
 import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.file.service.FileService;
+import gohome.dailydaily.domain.like.repository.LikeRepository;
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.member.repository.SellerRepository;
 import gohome.dailydaily.domain.member.service.SellerService;
@@ -19,7 +20,6 @@ import gohome.dailydaily.domain.search.repository.SearchRedisRepository;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -43,7 +44,9 @@ public class ProductService {
     @Value("${file.productContentsImg}")
     private String productContentsPath;
 
+
     private final ProductRepository productRepository;
+    private final LikeRepository likeRepository;
     private final SellerRepository sellerRepository;
     private final SellerService sellerService;
     private final CategoryRepository categoryRepository;
@@ -53,9 +56,7 @@ public class ProductService {
     private final ProductMapper mapper;
 
     public List<CategoryGetDto> getScoreTop5() {
-        List<CategoryGetDto> products = productRepository.findTop5ByScore();
-
-        return products;
+        return productRepository.findTop5ByScore();
     }
 
     public SliceResponseDto<CategoryGetDto> getProductListByCategory(GetProductListByDto dto) {
@@ -70,6 +71,15 @@ public class ProductService {
     public Product getProduct(Long productId) {
         return productRepository.findProductById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+    }
+
+    public Product findProduct(Long memberId, Long productId) {
+        Product product = getProduct(productId);
+
+        Optional.ofNullable(memberId)
+                .ifPresent(id -> product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(id, productId)));
+
+        return product;
     }
 
     public SliceResponseDto<CategoryGetDto> getProductListByTitle(GetProductListByDto dto) {

@@ -2,6 +2,7 @@ package gohome.dailydaily.domain.order.service;
 
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.service.MemberService;
+import gohome.dailydaily.domain.order.dto.OrderDto;
 import gohome.dailydaily.domain.order.entity.Order;
 import gohome.dailydaily.domain.order.entity.OrderProduct;
 import gohome.dailydaily.domain.order.entity.OrderStatus;
@@ -88,6 +89,6 @@ public class OrderService {
             throw new BusinessLogicException(ExceptionCode.CANNOT_CANCEL_ORDER);
         }
 
-        orderRepository.delete(order);
+        order.updateOrderStatus(OrderStatus.ORDER_CANCELED);
     }
 }

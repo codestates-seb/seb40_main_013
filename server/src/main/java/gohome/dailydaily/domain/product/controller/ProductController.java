@@ -9,6 +9,7 @@ import gohome.dailydaily.domain.product.service.ProductService;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +29,9 @@ public class ProductController {
 
     @Cacheable(key = "#productId", value = "getProduct")
     @GetMapping("/details/{product-id}")
-    public ProductDto.Response getProduct(@Valid @PathVariable("product-id") Long productId) {
-        Product product = productService.getProduct(productId);
+    public ProductDto.Response getProduct(@AuthenticationPrincipal Long memberId,
+                                          @Valid @PathVariable("product-id") Long productId) {
+        Product product = productService.findProduct(memberId, productId);
 
         return mapper.toResponse(product);
     }

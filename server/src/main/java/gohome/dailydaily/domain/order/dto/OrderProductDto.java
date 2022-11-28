@@ -10,6 +10,7 @@ public class OrderProductDto {
     @Getter
     public static class Post {
 
+        private Long productCartId;
         private Long productId;
         private Long optionId;
         private Integer count;
