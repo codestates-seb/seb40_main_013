@@ -169,6 +169,9 @@ function Header({ setClick, setSearchWord }) {
     <>
       <HeaderBlock onClick={outModalCloseHandler}>
         <div className="top">
+          <Link to="/register">
+            <LoginBtn>판매등록</LoginBtn>
+          </Link>
           {jwtToken ? (
             <Link>
               <LoginBtn onClick={clickLogOut}>로그아웃</LoginBtn>

@@ -29,6 +29,8 @@ const SubTitle = styled.h2`
   color: #aaaaaa;
   font-size: 1rem;
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
   @media screen and (max-width: 479px) {
     font-size: 0.9rem;
   }
@@ -41,7 +43,8 @@ const MainTitle = styled.h2`
   color: var(--font-black);
   scroll-margin-top: 170px;
   @media screen and (max-width: 479px) {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    margin-top: 5px;
   }
 `;
 const ProductList = styled.div`
@@ -52,6 +55,7 @@ const ProductList = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   justify-content: center;
   @media screen and (max-width: 479px) {
+    margin: 5px 0;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr;
   }
@@ -66,7 +70,7 @@ const ProductList = styled.div`
 `;
 
 //브랜드 리스트
-const BrandTab = styled.table`
+const BrandTab = styled.div`
   margin-top: 10px;
   margin-bottom: 30px;
   border-radius: 5px;
@@ -100,10 +104,10 @@ const BrandTab = styled.table`
     }
   }
 `;
-const TH = styled.tr`
+const TH = styled.div`
   display: flex;
 `;
-const TD = styled.td`
+const TD = styled.div`
   display: flex;
   justify-content: center;
   border: 3px solid #ECECE8;
@@ -236,11 +240,11 @@ const Main = () => {
       />
       {/* 브랜드별 추천상품 */}
       <BrandTabTitle>
-        <SubTitle>Recommendation by brand</SubTitle>
+        <SubTitle>Best Selling</SubTitle>
         <MainTitle>브랜드별 추천상품</MainTitle>
       </BrandTabTitle>
       <BrandTab>
-        <tbody className="tbody">
+        <div className="tbody">
           <div className="reactionbody">
             <TH>
               {brandTab
@@ -281,7 +285,7 @@ const Main = () => {
                 ))}
             </TH>
           </div>
-        </tbody>
+        </div>
       </BrandTab>
       {Object?.entries(brandData)
         ?.filter((key) => key[0] !== "guest")

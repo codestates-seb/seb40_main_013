@@ -52,18 +52,28 @@ export const BtnAlert = () => {
 //   });
 // };
 
-export const DeleteAlert = (content, confirmbutton) => {
+export const DeleteAlert = (content, confirmbutton, confirmMessage) => {
   MySwal.fire({
     title: "Are you sure?",
     text: content,
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
+    confirmButtonColor: "#002C6D",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
+    confirmButtonText: confirmbutton,
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire("취소되엇스빈다", "Your file has been deleted.", "success");
+      Swal.fire("취소되었습니다", confirmMessage, "success");
     }
+  });
+};
+
+export const AlreadyDeleteAlert = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "이미 취소된 주문입니다.",
+    confirmButtonColor: "#002C6D",
+    confirmButtonText: "확인",
   });
 };
