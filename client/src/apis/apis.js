@@ -4,7 +4,7 @@ import { Toast } from "../components/Alert";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://four-views-judge-125-134-111-241.loca.lt/",
+  baseURL: "https://brave-monkeys-swim-125-134-111-241.loca.lt/",
 });
 axios.interceptors.request.use(function (config) {
   return config;

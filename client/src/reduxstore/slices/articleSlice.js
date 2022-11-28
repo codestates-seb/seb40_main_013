@@ -9,7 +9,6 @@ export const getArticleDetail = createAsyncThunk(
   async (id) => {
     return Apis.get(`products/details/${id}`)
       .then((res) => {
-        console.log(res);
         return res.data;
       })
       .catch((err) => {
@@ -56,7 +55,6 @@ export const getShoppingCart = createAsyncThunk(
       },
     })
       .then((res) => {
-        console.log(`shopslice`, res.data);
         return res.data;
       })
       .catch((err) => {
@@ -85,6 +83,29 @@ export const deleteShoppingCart = createAsyncThunk(
   }
 );
 
+export const postPayment = createAsyncThunk(
+  "getShoppingCart",
+  async (checkList) => {
+    return Apis.post(`orders`, 
+    {
+      orderProducts: checkList,
+    },
+    {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log(`shopslice`, res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
 export const reCountCartItem = createAsyncThunk(
   "getShoppingCart",
   async ({ productCartId, itemCount }) => {
@@ -101,8 +122,6 @@ export const reCountCartItem = createAsyncThunk(
       }
     )
       .then((res) => {
-        console.log(`shopslice`, res.data);
-        window.location.reload();
         return res.data;
       })
       .catch((err) => {
@@ -111,6 +130,34 @@ export const reCountCartItem = createAsyncThunk(
   }
 );
 
+export const getSearchResult = createAsyncThunk(
+  "getSearchResult",
+  async ({ searchWord, page }) => {
+    return Apis.get(`/products/search?title=${searchWord}&page=${page}`)
+      .then((res) => {
+        console.log(`shopslice`, res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
+export const countSearchResult = createAsyncThunk(
+  "countSearchResult",
+  async ( searchWord) => {
+    return Apis.get(`products/count?title=${searchWord}`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
+
 const articleSlice = createSlice({
   name: "article",
   initialState: {
@@ -118,6 +165,8 @@ const articleSlice = createSlice({
     detailArticle: [],
     mainArticle: [],
     shoppingCartInitial: [],
+    searchResultInitial: [],
+    countSearchResultInitial: [],
     loading: false,
     error: "",
   },
@@ -140,6 +189,16 @@ const articleSlice = createSlice({
     },
     [getShoppingCart.fulfilled]: (state, action) => {
       state.shoppingCartInitial = action.payload?.productCarts;
+      state.loading = true;
+      state.error = "";
+    },
+    [getSearchResult.fulfilled]: (state, action) => {
+      state.searchResultInitial = action.payload;
+      state.loading = true;
+      state.error = "";
+    },
+    [countSearchResult.fulfilled]: (state, action) => {
+      state.countSearchResultInitial = action.payload.count;
       state.loading = true;
       state.error = "";
     },
