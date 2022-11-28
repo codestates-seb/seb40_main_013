@@ -4,8 +4,20 @@ import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteShoppingCart, getShoppingCart, postPayment } from "../reduxstore/slices/articleSlice";
 import { Alert } from "../components/Alert";
+import { useNavigate } from "react-router-dom";
+import { BsCartX } from 'react-icons/bs';
 
 const CartBlock = styled.div`
+  margin-top: 127.5px;
+  width: 100%;
+  padding: 30px 40px 50px 40px;
+  display: flex;
+  div {
+    display: flex;
+  }
+`;
+
+const EmptyCart = styled(BsCartX)`
   margin-top: 127.5px;
   width: 100%;
   padding: 30px 40px 50px 40px;
@@ -143,6 +155,8 @@ const PayButton = styled.button`
 `;
 
 function ShoppingCart() {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const cartSeletor = useSelector((state) => state.article.shoppingCartInitial);
   const cartSeletorLength = cartSeletor?.length;
@@ -203,14 +217,17 @@ function ShoppingCart() {
     if (checkList.length === 0) {
       Alert("warning", "구매하실 상품을 선택해 주세요.");
     } else { //배열에 담아 변수로 보내긔..
-      dispatch(postPayment(checkList))
+      dispatch(postPayment({checkList,navigate}))
     }
   };
 
   return (
     <CartBlock>
       {cartSeletorLength === 0 ? (
-        <div> 장바구니에 담긴 상품이 없습니다.</div>
+        <>
+          <EmptyCart/>
+          <div> 장바구니에 담긴 상품이 없습니다.</div>
+        </>
       ) : (
         <Quary>
           <CartList>

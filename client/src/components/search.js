@@ -117,7 +117,7 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
     return(
       <SearchBlock className={ closeSearch ? '' : 'closed'}>
         <div className="search-section">
-            <Form >
+            <Form>
                 <SearchInput>
                     <input type="text" value={inputWord} onChange={inputChageHandler}
                       onKeyUp={onSubmitSearch}></input>

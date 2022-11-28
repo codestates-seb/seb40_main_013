@@ -43,7 +43,6 @@ function Library({ click }) {
       setDloseDropDown(false);
   };
 
-  
   useEffect(() => {
     if(click === '책상'){
         dispatch(getOne({ click, page, sortArgument})); 

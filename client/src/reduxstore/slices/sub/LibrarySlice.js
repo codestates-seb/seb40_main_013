@@ -30,7 +30,6 @@ export const getOne = createAsyncThunk(
   }
 );
 
-
 export const getTwo = createAsyncThunk(
   "getTwo",
   async ({ click, page, sortArgument}) => {
@@ -45,7 +44,6 @@ export const getTwo = createAsyncThunk(
       });
   }
 );
-
 
 export const getThree = createAsyncThunk(
   "getThree",
@@ -62,7 +60,6 @@ export const getThree = createAsyncThunk(
   }
 );
 
-
 export const getFour = createAsyncThunk(
   "getFour",
   async ({ click, page, sortArgument}) => {
@@ -77,7 +74,6 @@ export const getFour = createAsyncThunk(
       });
   }
 );
-
 
 export const getAsc = createAsyncThunk(
   "getAsc",
