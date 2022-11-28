@@ -3,6 +3,7 @@ package gohome.dailydaily.util;
 import gohome.dailydaily.domain.cart.entity.Cart;
 import gohome.dailydaily.domain.cart.entity.ProductCart;
 import gohome.dailydaily.domain.file.entity.File;
+import gohome.dailydaily.domain.like.entity.Like;
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberRole;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
@@ -88,6 +89,12 @@ public class TestConstant {
             .existsLike(false)
             .seller(SELLER)
             .category(CATEGORY)
+            .build();
+
+    public static final Like LIKE = Like.builder()
+            .id(1L)
+            .product(PRODUCT)
+            .member(MEMBER)
             .build();
 
     public static final Option OPTION = Option.builder()
