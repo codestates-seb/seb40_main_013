@@ -212,10 +212,6 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 160px;
-  @media screen and (max-width: 1023px) {
-    width: 100%;
-    /* height: 100%; */
-  }
 `;
 
 const DetailContents = styled.div`

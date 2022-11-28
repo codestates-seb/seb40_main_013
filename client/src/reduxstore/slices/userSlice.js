@@ -92,7 +92,7 @@ export const guestUser = createAsyncThunk(
         Toast("success", "게스트 로그인 성공!");
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 1000);
         return res.data;
       })
       .catch((err) => {
