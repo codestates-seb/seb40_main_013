@@ -1,11 +1,13 @@
 package gohome.dailydaily.domain.member.controller;
 
+import gohome.dailydaily.domain.like.service.LikeService;
 import gohome.dailydaily.domain.member.dto.MemberDto.*;
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.member.mapper.MemberMapper;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
 import gohome.dailydaily.domain.member.service.MemberService;
+import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.review.dto.ReviewDto;
 import gohome.dailydaily.domain.review.entity.Review;
 import gohome.dailydaily.domain.review.mapper.ReviewMapper;
@@ -31,6 +33,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final ReviewService reviewService;
+    private final LikeService likeService;
     private final MemberMapper memberMapper;
     private final SellerMapper sellerMapper;
     private final ReviewMapper reviewMapper;
@@ -81,6 +84,14 @@ public class MemberController {
                                                                   direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Review> reviews = reviewService.findReviewsByMemberId(memberId, pageable);
         return PageResponseDto.of(reviews.map(reviewMapper::toResponse));
+    }
+
+    @GetMapping("/members/mypage/likes")
+    public PageResponseDto<CategoryGetDto> getLikes(@MemberId Long memberId,
+                                                    @PageableDefault(size = 15, sort = "createdAt",
+                                                            direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<CategoryGetDto> likeProducts = likeService.findLikeProductsByMemberId(memberId, pageable);
+        return PageResponseDto.of(likeProducts);
     }
 
 }

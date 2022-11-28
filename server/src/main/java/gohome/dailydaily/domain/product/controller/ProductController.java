@@ -10,6 +10,7 @@ import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +29,10 @@ public class ProductController {
     private final ProductMapper mapper;
 
     @GetMapping("/details/{product-id}")
-    public ResponseEntity<ProductDto.Response> getProduct(@Valid @PathVariable("product-id") Long productId) {
-        Product product = productService.getProduct(productId);
+    public ResponseEntity<ProductDto.Response> getProduct(@AuthenticationPrincipal Long memberId,
+            @Valid @PathVariable("product-id") Long productId) {
+
+        Product product = productService.findProduct(memberId, productId);
 
         return new ResponseEntity<>(mapper.toResponse(product), HttpStatus.OK);
     }
