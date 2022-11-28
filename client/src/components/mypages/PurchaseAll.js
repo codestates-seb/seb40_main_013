@@ -210,76 +210,141 @@ const PaymentContainer = styled.div`
 `;
 
 const PurchaseAll = ({ getUserdata, click }) => {
-  // const [isModal, setIsModal] = useState(false);
+  const [isModal, setIsModal] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
   const myOrderData = useSelector((state) => state.myorder.myorder.content);
   const filterData = myOrderData.filter((order) => order.orderId == id);
   const filterProduct = filterData[0].orderProducts;
   console.log(filterProduct);
+  const filterProductId = filterProduct[0]?.productId;
 
-  // const clickModal = () => {
-  //   setIsModal(!isModal);
-  // };
+  const clickModal = () => {
+    setIsModal(!isModal);
+  };
   useEffect(() => {
     dispatch(getMyOrder(click));
   }, []);
 
   return (
-    <Container>
-      {/* <PostReview clickModal={clickModal} /> */}
-      <AllOrderTitle>주문상세정보</AllOrderTitle>
-      <Top>
-        <SubTop>
-          {filterData[0].orderNumber}&nbsp;|&nbsp;
-          {filterData[0].createdAt.slice(0, 10)}
-        </SubTop>
-      </Top>
-      {filterProduct?.map((p, i) => (
-        <ProductContainer key={i}>
-          <Hr />
-          <Content>
-            <Detail>
-              <ReactionSubDetail>
-                <Img src={p.img.fullPath} />
-                <BP>
-                  <BrandName>
-                    [{p.brandName}] {p.title}
-                  </BrandName>
-                  <Option>색상: {p.color}</Option>
-                  <Price>
-                    <span>₩&nbsp;{p.price.toLocaleString("en-US")}</span>
-                    &nbsp;|&nbsp;{p.count}개
-                  </Price>
-                </BP>
-              </ReactionSubDetail>
-              <Btns>
-                <ReviewBtn>리뷰작성</ReviewBtn>
-              </Btns>
-            </Detail>
-            <ReactionSpace>
-              <ReactionReviewBtn>구매후기</ReactionReviewBtn>
-            </ReactionSpace>
-          </Content>
-        </ProductContainer>
-      ))}
-      <PaymentTitle>결제정보</PaymentTitle>
-      <Hr />
-      <PaymentContainer>
-        <PaySubContainer>
-          <PaySubTitle>상품금액</PaySubTitle>
-          <PaySubContent>26,800원</PaySubContent>
-        </PaySubContainer>
-        <PaySubContainer>
-          <PaySubTitle>선불배송비</PaySubTitle>
-          <PaySubContent>(+) 0원</PaySubContent>
-        </PaySubContainer>
-        <PaySubContainer>
-          <PaySubTitle>결제금액</PaySubTitle>
-          <PaySubContent>26,800원</PaySubContent>
-        </PaySubContainer>
-      </PaymentContainer>
-    </Container>
+    <>
+      {isModal ? (
+        <>
+          <PostReview filterProductId={filterProductId} />
+          <Container>
+            {/* <PostReview clickModal={clickModal} /> */}
+            <AllOrderTitle>주문상세정보</AllOrderTitle>
+            <Top>
+              <SubTop>
+                {filterData[0].orderNumber}&nbsp;|&nbsp;
+                {filterData[0].createdAt.slice(0, 10)}
+              </SubTop>
+            </Top>
+            {filterProduct?.map((p, i) => (
+              <ProductContainer key={i}>
+                <Hr />
+                <Content>
+                  <Detail>
+                    <ReactionSubDetail>
+                      <Img src={p.img.fullPath} />
+                      <BP>
+                        <BrandName>
+                          [{p.brandName}] {p.title}
+                        </BrandName>
+                        <Option>색상: {p.color}</Option>
+                        <Price>
+                          <span>₩&nbsp;{p.price.toLocaleString("en-US")}</span>
+                          &nbsp;|&nbsp;{p.count}개
+                        </Price>
+                      </BP>
+                    </ReactionSubDetail>
+                    <Btns>
+                      <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
+                    </Btns>
+                  </Detail>
+                  <ReactionSpace>
+                    <ReactionReviewBtn>구매후기</ReactionReviewBtn>
+                  </ReactionSpace>
+                </Content>
+              </ProductContainer>
+            ))}
+            <PaymentTitle>결제정보</PaymentTitle>
+            <Hr />
+            <PaymentContainer>
+              <PaySubContainer>
+                <PaySubTitle>상품금액</PaySubTitle>
+                <PaySubContent>26,800원</PaySubContent>
+              </PaySubContainer>
+              <PaySubContainer>
+                <PaySubTitle>선불배송비</PaySubTitle>
+                <PaySubContent>(+) 0원</PaySubContent>
+              </PaySubContainer>
+              <PaySubContainer>
+                <PaySubTitle>결제금액</PaySubTitle>
+                <PaySubContent>26,800원</PaySubContent>
+              </PaySubContainer>
+            </PaymentContainer>
+          </Container>{" "}
+        </>
+      ) : (
+        <>
+          <Container>
+            {/* <PostReview clickModal={clickModal} /> */}
+            <AllOrderTitle>주문상세정보</AllOrderTitle>
+            <Top>
+              <SubTop>
+                {filterData[0].orderNumber}&nbsp;|&nbsp;
+                {filterData[0].createdAt.slice(0, 10)}
+              </SubTop>
+            </Top>
+            {filterProduct?.map((p, i) => (
+              <ProductContainer key={i}>
+                <Hr />
+                <Content>
+                  <Detail>
+                    <ReactionSubDetail>
+                      <Img src={p.img.fullPath} />
+                      <BP>
+                        <BrandName>
+                          [{p.brandName}] {p.title}
+                        </BrandName>
+                        <Option>색상: {p.color}</Option>
+                        <Price>
+                          <span>₩&nbsp;{p.price.toLocaleString("en-US")}</span>
+                          &nbsp;|&nbsp;{p.count}개
+                        </Price>
+                      </BP>
+                    </ReactionSubDetail>
+                    <Btns>
+                      <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
+                    </Btns>
+                  </Detail>
+                  <ReactionSpace>
+                    <ReactionReviewBtn>구매후기</ReactionReviewBtn>
+                  </ReactionSpace>
+                </Content>
+              </ProductContainer>
+            ))}
+            <PaymentTitle>결제정보</PaymentTitle>
+            <Hr />
+            <PaymentContainer>
+              <PaySubContainer>
+                <PaySubTitle>상품금액</PaySubTitle>
+                <PaySubContent>26,800원</PaySubContent>
+              </PaySubContainer>
+              <PaySubContainer>
+                <PaySubTitle>선불배송비</PaySubTitle>
+                <PaySubContent>(+) 0원</PaySubContent>
+              </PaySubContainer>
+              <PaySubContainer>
+                <PaySubTitle>결제금액</PaySubTitle>
+                <PaySubContent>26,800원</PaySubContent>
+              </PaySubContainer>
+            </PaymentContainer>
+          </Container>
+        </>
+      )}
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import { Toast } from "../components/Alert";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://four-views-judge-125-134-111-241.loca.lt/",
+  baseURL: "http://ec2-3-39-250-169.ap-northeast-2.compute.amazonaws.com",
 });
 axios.interceptors.request.use(function (config) {
   return config;

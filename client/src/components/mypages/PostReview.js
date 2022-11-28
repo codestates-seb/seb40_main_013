@@ -3,13 +3,17 @@ import styled from "styled-components";
 import { postReview } from "../../reduxstore/slices/reviewSlice";
 import { useDispatch, useSelector } from "react-redux";
 import imageCompression from "browser-image-compression";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function PostReview({ clickModal }) {
+function PostReview({ clickModal, filterProductId }) {
   const dispatch = useDispatch();
   const [userWriteImg, setUserWriteImg] = useState("");
   const [userWriteContent, setUserWriteContent] = useState("");
   const [userWriteScroe, setUserWriteScroe] = useState("");
   const fileInput = useRef();
+  const navigate = useNavigate();
+  console.log(filterProductId);
 
   const changeImg = async (e) => {
     console.log(e);
@@ -42,8 +46,9 @@ function PostReview({ clickModal }) {
       content: userWriteContent,
       score: userWriteScroe,
       img: userWriteImg,
+      filterProductId: filterProductId,
     };
-    dispatch(postReview(postData));
+    dispatch(postReview({ postData, navigate }));
   };
   console.log(userWriteImg);
   return (
