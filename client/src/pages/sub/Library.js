@@ -42,7 +42,6 @@ function Library({ click }) {
     if (closeDropDown && !modalRef.current.contains(e.target))
       setDloseDropDown(false);
   };
-
   
   useEffect(() => {
     if(click === '책상'){
@@ -60,7 +59,7 @@ function Library({ click }) {
     }
     dispatch(getCount())
   }, [click]);
-
+  
   console.log(`products`, products);
 
   // useEffect(() => {

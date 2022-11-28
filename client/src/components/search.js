@@ -85,6 +85,7 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
     const [inputWord, setInputWord] = useState('')
 
     const inputChageHandler = ({target}) => {
+
       const curValue = target.value;
       const notNum = /^\s+|\s+$/gm; //앞뒤 공백 제거
 
@@ -117,7 +118,7 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
     return(
       <SearchBlock className={ closeSearch ? '' : 'closed'}>
         <div className="search-section">
-            <Form >
+            <Form>
                 <SearchInput>
                     <input type="text" value={inputWord} onChange={inputChageHandler}
                       onKeyUp={onSubmitSearch}></input>
