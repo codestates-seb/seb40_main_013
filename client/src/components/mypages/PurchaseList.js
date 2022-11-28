@@ -336,10 +336,10 @@ const PurchaseList = () => {
                 </Top>
                 <Content>
                   <Detail>
-                    <ReactionSubDetail>
+                    <ReactionSubDetail to={`${order.orderId}`}>
                     <Img src={order.orderProducts[0].img?.fullPath} />
                       <BP>
-                        <BrandName to={`/detail/${order.orderProducts[0].productId}` }>{[order.orderProducts[0].brandName]}<span>{order.orderProducts[0].title}</span></BrandName>
+                        <BrandName>{[order.orderProducts[0].brandName]}<span>{order.orderProducts[0].title}</span></BrandName>
                         <Option>색상: {order.orderProducts[0].color}</Option>
                         <Price><span>₩&nbsp;{order.orderProducts[0].price?.toLocaleString("en-US")}</span> | {order.orderProducts[0].count}개</Price>
                       </BP>

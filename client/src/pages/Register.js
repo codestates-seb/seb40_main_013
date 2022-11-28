@@ -151,22 +151,24 @@ const Register = () => {
     const 침실 = ["침대/매트리스", "행거/옷장", "화장대"];
     const 거실 = ["소파", "거실장", "수납장"];
     const 주방 = ["식탁/아일랜드", "식탁의자", "주방수납"];
-    const target = document.getElementById("SubCate");
+    const target = document.getElementById("FirstCate");
     let cate = '';
-
-    if(e.value = "서재") cate = 서재
-    else if(e.value = "침실") cate = 침실
-    else if(e.value = "거실") cate = 거실
-    else if(e.value = "주방") cate = 주방
+    console.log(target)
+  //   if(e.value = "서재") {cate = 서재}
+  //   else if(e.value = "침실") {cate = 침실}
+  //   else if(e.value = "거실") {cate = 거실}
+  //   else if(e.value = "주방") {cate = 주방}
+  //   console.log(e)
+  //   console.log(cate)
   
-    target.options.length = 0;
+  //   target.options.length = 0;
   
-    for( x in cate) {
-      const opt = document.createElement("option");
-      opt.vlaue = cate[x];
-      opt.innerHTML = cate[x];
-      target.appendChild(opt);
-    }
+  //   for(let i = 0; i < cate.length; i++) {
+  //     const opt = document.createElement("option");
+  //     opt.value = cate[i];
+  //     opt.innerHTML = cate[i];
+  //     target.appendChild(opt);
+  //   }
   }
 
 
@@ -220,7 +222,7 @@ const Register = () => {
           className="cate-control" 
           id="FirstCate" 
           name="FirstCate"
-          onChange={(e)=>FirstCateChange(e)}>
+          onChange={FirstCateChange(this.value)}>
             <Option>대분류</Option>
             <Option value="서재">서재</Option>
             <Option value="침실">침실</Option>

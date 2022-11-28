@@ -140,6 +140,9 @@ const Btns = styled.div`
   flex-direction: column;
 `;
 const ReviewBtn = styled.button`
+  &.hidden{
+    display: none;
+  }
   padding: 10px 30px;
   background-color: #002c6d;
   color: white;
@@ -154,6 +157,9 @@ const ReviewBtn = styled.button`
   }
   @media (min-width: 391px) and (max-width: 768px) {
     padding: 8px 30px;
+    &.hidden{
+      display: none;
+    }
   }
 `;
 
@@ -170,6 +176,9 @@ const ReactionSpace = styled.div`
 const ReactionReviewBtn = styled.button`
   display: none;
   @media screen and (max-width: 390px) {
+    &.hidden{
+      display: none;
+    }
     display: flex;
     color: #515151;
     border: 0.7px solid #aaaaaa;
@@ -191,8 +200,8 @@ const PaymentTitle = styled.h2`
 const PaySubContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
-  width: 300px;
+  margin: 20px 10px;
+  width: 250px;
   @media screen and (max-width: 479px){
     width: 90%;
   }
@@ -216,8 +225,7 @@ const PurchaseAll = ({ getUserdata, click }) => {
   const myOrderData = useSelector((state)=> state.myorder.myorder.content);
   const filterData = myOrderData.filter(order => order.orderId == id);
   const filterProduct = filterData[0].orderProducts;
-  console.log(filterProduct);
-
+  console.log(filterData);
 
   // const clickModal = () => {
   //   setIsModal(!isModal);
@@ -247,11 +255,13 @@ const PurchaseAll = ({ getUserdata, click }) => {
               </BP>
             </ReactionSubDetail>
             <Btns>
-              <ReviewBtn>리뷰작성</ReviewBtn>
+              <ReviewBtn
+              className={filterData[0].status === '주문 취소' ? 'hidden' : ''}>리뷰작성</ReviewBtn>
             </Btns>
           </Detail>
           <ReactionSpace>
-            <ReactionReviewBtn>구매후기</ReactionReviewBtn>
+            <ReactionReviewBtn
+            className={filterData[0].status === '주문 취소' ? 'hidden' : ''}>구매후기</ReactionReviewBtn>
           </ReactionSpace>
         </Content>
       </ProductContainer>
