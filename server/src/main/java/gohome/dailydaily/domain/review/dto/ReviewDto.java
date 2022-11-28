@@ -30,7 +30,9 @@ public class ReviewDto {
     }
 
     @Getter
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Builder
     public static class Response {
         private Long reviewId;

@@ -36,6 +36,8 @@ public class ProductDto {
     }
 
     @Getter
+    @Setter
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
         private Long productId;

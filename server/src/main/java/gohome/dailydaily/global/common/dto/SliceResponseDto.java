@@ -3,14 +3,16 @@ package gohome.dailydaily.global.common.dto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Slice;
 
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class SliceResponseDto<T> {
-    private final List<T> content;
-    private final SliceInfo sliceInfo;
+    private List<T> content;
+    private SliceInfo sliceInfo;
 
     public SliceResponseDto(Slice<T> slice) {
         this.content = slice.getContent();
@@ -22,6 +24,7 @@ public class SliceResponseDto<T> {
     }
 
     @Getter
+    @NoArgsConstructor
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class SliceInfo {
         private int page;

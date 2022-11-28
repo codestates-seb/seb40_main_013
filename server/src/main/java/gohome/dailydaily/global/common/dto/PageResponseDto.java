@@ -3,14 +3,16 @@ package gohome.dailydaily.global.common.dto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class PageResponseDto<T> {
-    private final List<T> content;
-    private final PageInfo pageInfo;
+    private List<T> content;
+    private PageInfo pageInfo;
 
     public PageResponseDto(Page<T> page) {
         this.content = page.getContent();
@@ -22,6 +24,7 @@ public class PageResponseDto<T> {
     }
 
     @Getter
+    @NoArgsConstructor
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class PageInfo {
         private int page;

@@ -2,10 +2,7 @@ package gohome.dailydaily.domain.member.dto;
 
 import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
@@ -70,6 +67,7 @@ public class MemberDto {
     }
 
     @Getter
+    @NoArgsConstructor
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Builder
     public static class SellerResponse {

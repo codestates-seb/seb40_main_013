@@ -13,6 +13,8 @@ import gohome.dailydaily.domain.review.service.ReviewService;
 import gohome.dailydaily.global.common.dto.PageResponseDto;
 import gohome.dailydaily.global.common.security.resolver.MemberId;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -50,12 +52,14 @@ public class MemberController {
     }
 
     @GetMapping("/members/mypage")
+    @Cacheable(key = "#memberId", value = "getMember")
     public UserResponse getMember(@MemberId Long memberId) {
         Member member = memberService.findVerifiedMember(memberId);
         return memberMapper.toResponse(member);
     }
 
     @PatchMapping("/members/mypage")
+    @CacheEvict(key = "#memberId", value = "getMember")
     public UserResponse patchMember(@MemberId Long memberId,
                                     @Valid @RequestBody Patch patch) {
         Member member = memberService.updateMember(memberMapper.toMember(patch, memberId));
@@ -63,6 +67,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/img")
+    @CacheEvict(key = "#memberId", value = "getMember")
     public UserResponse patchMemberImg(@MemberId Long memberId,
                                        @Valid @ModelAttribute ImgRegistration imgPatch) throws IOException {
         Member member = memberService.updateMemberImg(imgPatch, memberId);
@@ -70,11 +75,13 @@ public class MemberController {
     }
 
     @DeleteMapping("/members/mypage")
+    @CacheEvict(key = "#memberId", value = "getMember")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMember(@MemberId Long memberId) {
         memberService.deleteMember(memberId);
     }
 
+    @Cacheable(key = "#memberId", value = "getReviews")
     @GetMapping("/members/mypage/reviews")
     public PageResponseDto<ReviewDto.Response> getReviews(@MemberId Long memberId,
                                                           @PageableDefault(size = 20, sort = "createdAt",
