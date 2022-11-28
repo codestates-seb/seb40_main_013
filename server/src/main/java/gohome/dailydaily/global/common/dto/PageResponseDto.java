@@ -6,11 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class PageResponseDto<T> {
+public class PageResponseDto<T> implements Serializable {
     private List<T> content;
     private PageInfo pageInfo;
 
@@ -26,7 +27,7 @@ public class PageResponseDto<T> {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class PageInfo {
+    public static class PageInfo implements Serializable {
         private int page;
         private int size;
         private long totalElements;

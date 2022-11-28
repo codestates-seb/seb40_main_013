@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,10 +23,8 @@ public class OrderDto {
     }
 
     @Getter
-    @Setter
-    @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response {
+    public static class Response implements Serializable {
         private Long orderId;
         private Long orderNumber;
         private String status;

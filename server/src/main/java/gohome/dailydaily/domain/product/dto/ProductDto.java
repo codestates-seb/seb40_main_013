@@ -8,6 +8,7 @@ import gohome.dailydaily.domain.review.dto.ReviewDto;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,10 +37,8 @@ public class ProductDto {
     }
 
     @Getter
-    @Setter
-    @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response {
+    public static class Response implements Serializable {
         private Long productId;
         private String title;
         private List<String> content;

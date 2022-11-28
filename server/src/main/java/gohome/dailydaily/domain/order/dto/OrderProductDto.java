@@ -3,6 +3,7 @@ package gohome.dailydaily.domain.order.dto;
 import gohome.dailydaily.domain.file.entity.File;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class OrderProductDto {
@@ -21,10 +22,9 @@ public class OrderProductDto {
     }
 
     @Getter
-    @NoArgsConstructor
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Builder
-    public static class Response {
+    public static class Response implements Serializable {
 
         private Long productId;
         private String brandName;

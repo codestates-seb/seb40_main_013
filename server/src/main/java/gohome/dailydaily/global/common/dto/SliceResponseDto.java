@@ -6,11 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Slice;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class SliceResponseDto<T> {
+public class SliceResponseDto<T> implements Serializable {
     private List<T> content;
     private SliceInfo sliceInfo;
 
@@ -26,7 +27,7 @@ public class SliceResponseDto<T> {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class SliceInfo {
+    public static class SliceInfo implements Serializable {
         private int page;
         private int size;
         private boolean hasNext;
