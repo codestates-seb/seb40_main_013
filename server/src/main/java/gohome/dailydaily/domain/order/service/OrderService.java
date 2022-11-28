@@ -2,6 +2,7 @@ package gohome.dailydaily.domain.order.service;
 
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.service.MemberService;
+import gohome.dailydaily.domain.order.dto.OrderDto;
 import gohome.dailydaily.domain.order.entity.Order;
 import gohome.dailydaily.domain.order.entity.OrderProduct;
 import gohome.dailydaily.domain.order.entity.OrderStatus;

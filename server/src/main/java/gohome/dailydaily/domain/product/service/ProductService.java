@@ -44,6 +44,7 @@ public class ProductService {
     @Value("${file.productContentsImg}")
     private String productContentsPath;
 
+
     private final ProductRepository productRepository;
     private final LikeRepository likeRepository;
     private final SellerRepository sellerRepository;
@@ -74,10 +75,12 @@ public class ProductService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
     }
     public Product findProduct(Long memberId, Long productId) {
-        likeRepository.findByMember_IdAndProduct_Id(memberId, productId);
-
-        return productRepository.findProductById(productId)
+        Product product = productRepository.findProductById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+
+        product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(memberId, productId));
+
+        return product;
     }
 
     public SliceResponseDto<CategoryGetDto> getProductListByTitle(GetProductListByDto dto) {

@@ -14,4 +14,6 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
 
     @EntityGraph(attributePaths = "product")
     Page<CategoryGetDto> findByMember_Id(Long memberId, Pageable pageable);
+
+    Boolean existsByMember_IdAndProduct_Id(Long memberId, Long productId);
 }

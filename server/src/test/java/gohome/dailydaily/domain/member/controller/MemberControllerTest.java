@@ -1,6 +1,7 @@
 package gohome.dailydaily.domain.member.controller;
 
 import com.google.gson.Gson;
+import gohome.dailydaily.domain.like.service.LikeService;
 import gohome.dailydaily.domain.member.dto.MemberDto;
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
@@ -54,6 +55,9 @@ class MemberControllerTest implements Reflection {
     private MemberService memberService;
     @MockBean
     private ReviewService reviewService;
+
+    @MockBean
+    private LikeService likeService;
 
     @Test
     public void signup() throws Exception {
