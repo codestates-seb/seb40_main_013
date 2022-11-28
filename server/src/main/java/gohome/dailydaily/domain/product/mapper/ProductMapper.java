@@ -3,6 +3,7 @@ package gohome.dailydaily.domain.product.mapper;
 import com.google.gson.Gson;
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
+import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.entity.Product;
 import gohome.dailydaily.domain.review.mapper.ReviewMapper;
@@ -27,4 +28,9 @@ public interface ProductMapper {
     @Mapping(target = "content", ignore = true)
     @Mapping(target = "img", ignore = true)
     Product toProduct(ProductDto.PostProduct postProduct);
+
+    @Mapping(target = "main", source = "product.category.main")
+    @Mapping(target = "nickname", source = "product.seller.member.nickname")
+    @Mapping(target = "reviews", expression = "java(product.getReviews().size())")
+    CategoryGetDto toCategoryGetDto(Product product);
 }
