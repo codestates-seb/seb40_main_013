@@ -78,7 +78,11 @@ public class ProductService {
         Product product = productRepository.findProductById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
 
-        product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(memberId, productId));
+        if (memberId != null) {
+            product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(memberId, productId));
+        } else {
+            product.updateLike(false);
+        }
 
         return product;
     }
