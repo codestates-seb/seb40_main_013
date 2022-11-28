@@ -19,7 +19,6 @@ public interface ProductMapper {
     @Mapping(target = "content", expression = "java(new Gson().fromJson(product.getContent(), List.class))")
     @Mapping(target = "score", expression = "java(product.getScore() / product.getReviews().size() / 10F)")
     @Mapping(target = "main", source = "category.main")
-//    @Mapping(target = "isLike", source = "isLike")
     ProductDto.Response toResponse(Product product);
 
     @Mapping(target = "seller", expression = "java(Seller.builder().id(postProduct.getSellerId()).build())")

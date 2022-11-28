@@ -89,8 +89,8 @@ public class Product extends BaseTime {
         this.options.forEach(option -> option.initInfo(this));
     }
 
-    public void updateLike(boolean isLike) {
-        this.existsLike = isLike;
+    public void updateLike(boolean existsLike) {
+        this.existsLike = existsLike;
     }
 
 }

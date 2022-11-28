@@ -29,13 +29,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import static gohome.dailydaily.util.TestConstant.*;
-import static java.util.List.*;
+import static java.util.List.of;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.willReturn;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -88,10 +87,10 @@ public class ProductControllerTest {
         SliceResponseDto<CategoryGetDto> products = new SliceResponseDto<>(new SliceImpl<>(
                 of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                                 PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
-                                PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
+                                PRODUCT.getCategory().getMain(), PRODUCT.getReviews().size()),
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
                                 PRODUCT2.getPrice(), PRODUCT2.getScore().floatValue(), PRODUCT2.getSeller().getMember().getNickname(),
-                                PRODUCT2.getCategory().getMain(),PRODUCT2.getReviews().size())),PAGEABLE, true));
+                                PRODUCT2.getCategory().getMain(), PRODUCT2.getReviews().size())), PAGEABLE, true));
         given(productService.getProductListByCategory(any(GetProductListByDto.class)))
                 .willReturn(products);
 
@@ -115,7 +114,7 @@ public class ProductControllerTest {
                         responseFields(
                                 FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH,
                                 FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE,
-                                FWP_CONTENT_PRODUCT_CATEGORY_MAIN, FWP_CONTENT_PRODUCT_SELLER_NICKNAME,FWP_CONTENT_REVIEWS,
+                                FWP_CONTENT_PRODUCT_CATEGORY_MAIN, FWP_CONTENT_PRODUCT_SELLER_NICKNAME, FWP_CONTENT_REVIEWS,
                                 FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
                         )));
     }
@@ -125,11 +124,11 @@ public class ProductControllerTest {
         List<CategoryGetDto> products = new ArrayList<>(
                 of(
                         new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
-                        PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
-                        PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
+                                PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
+                                PRODUCT.getCategory().getMain(), PRODUCT.getReviews().size()),
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                        PRODUCT2.getPrice(), PRODUCT2.getScore().floatValue(), PRODUCT2.getSeller().getMember().getNickname(),
-                        PRODUCT2.getCategory().getMain(),PRODUCT2.getReviews().size())));
+                                PRODUCT2.getPrice(), PRODUCT2.getScore().floatValue(), PRODUCT2.getSeller().getMember().getNickname(),
+                                PRODUCT2.getCategory().getMain(), PRODUCT2.getReviews().size())));
 
         given(productService.getScoreTop5()).willReturn(products);
 
@@ -143,7 +142,7 @@ public class ProductControllerTest {
                         RESPONSE_PREPROCESSOR,
                         responseFields(
                                 FWP_SCORE_PRODUCT_ID, FWP_SCORE_PRODUCT_IMG_PATH, FWP_SCORE_PRODUCT_IMG_NAME,
-                                FWP_PRODUCTS_SELLER_NICKNAME, FWP_PRODUCTS_CATEGORY_MAIN,FWP_PRODUCTS_REVIEWS,
+                                FWP_PRODUCTS_SELLER_NICKNAME, FWP_PRODUCTS_CATEGORY_MAIN, FWP_PRODUCTS_REVIEWS,
                                 FWP_SCORE_PRODUCT_TITLE, FWP_SCORE_PRODUCT_PRICE, FWP_SCORE_PRODUCT_SCORE
                         )));
     }
@@ -153,24 +152,24 @@ public class ProductControllerTest {
         List<CategoryGetDto> brand1 = new ArrayList<>(
                 of(
                         new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
-                        PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
-                        PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
+                                PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
+                                PRODUCT.getCategory().getMain(), PRODUCT.getReviews().size()),
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                        PRODUCT2.getPrice(), PRODUCT2.getScore().floatValue(), PRODUCT2.getSeller().getMember().getNickname(),
-                        PRODUCT2.getCategory().getMain(),PRODUCT2.getReviews().size())));
+                                PRODUCT2.getPrice(), PRODUCT2.getScore().floatValue(), PRODUCT2.getSeller().getMember().getNickname(),
+                                PRODUCT2.getCategory().getMain(), PRODUCT2.getReviews().size())));
 
         List<CategoryGetDto> brand2 = new ArrayList<>(
                 of(
                         new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
-                        PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
-                        PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
+                                PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
+                                PRODUCT.getCategory().getMain(), PRODUCT.getReviews().size()),
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                        PRODUCT2.getPrice(), Float.valueOf(PRODUCT2.getScore()), PRODUCT2.getSeller().getMember().getNickname(),
-                        PRODUCT2.getCategory().getMain(),PRODUCT2.getReviews().size())));
+                                PRODUCT2.getPrice(), Float.valueOf(PRODUCT2.getScore()), PRODUCT2.getSeller().getMember().getNickname(),
+                                PRODUCT2.getCategory().getMain(), PRODUCT2.getReviews().size())));
 
-        HashMap<String ,List<CategoryGetDto>> products = new HashMap<>();
-        products.put("nickname",brand1);
-        products.put("nickname",brand2);
+        HashMap<String, List<CategoryGetDto>> products = new HashMap<>();
+        products.put("nickname", brand1);
+        products.put("nickname", brand2);
         given(productService.getBrandListLikeTop15()).willReturn(products);
 
         ResultActions actions = mockMvc.perform(
@@ -183,7 +182,7 @@ public class ProductControllerTest {
                         RESPONSE_PREPROCESSOR,
                         responseFields(
                                 FWP_BRAND_PRODUCT_ID, FWP_BRAND_PRODUCT_IMG_PATH, FWP_BRAND_PRODUCT_IMG_NAME,
-                                FWP_BRAND_PRODUCT_TITLE, FWP_BRAND_PRODUCT_PRICE, FWP_BRAND_PRODUCT_SCORE,FWP_NICKNAME_PRODUCT_REVIEWS,
+                                FWP_BRAND_PRODUCT_TITLE, FWP_BRAND_PRODUCT_PRICE, FWP_BRAND_PRODUCT_SCORE, FWP_NICKNAME_PRODUCT_REVIEWS,
                                 FWP_BRAND_PRODUCTS_SELLER_NICKNAME, FWP_BRAND_PRODUCTS_CATEGORY_MAIN
                         )));
     }
@@ -193,22 +192,22 @@ public class ProductControllerTest {
         List<CategoryGetDto> category1 = new ArrayList<>(
                 of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                                 PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
-                                PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
+                                PRODUCT.getCategory().getMain(), PRODUCT.getReviews().size()),
                         new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                                 PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
-                                PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size())));
+                                PRODUCT.getCategory().getMain(), PRODUCT.getReviews().size())));
 
         List<CategoryGetDto> category2 = new ArrayList<>(
                 of(new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
                                 PRODUCT2.getPrice(), PRODUCT2.getScore().floatValue(), PRODUCT2.getSeller().getMember().getNickname(),
-                                PRODUCT2.getCategory().getMain(),PRODUCT2.getReviews().size()),
+                                PRODUCT2.getCategory().getMain(), PRODUCT2.getReviews().size()),
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
                                 PRODUCT2.getPrice(), PRODUCT2.getScore().floatValue(), PRODUCT2.getSeller().getMember().getNickname(),
-                                PRODUCT2.getCategory().getMain(),PRODUCT2.getReviews().size())));
+                                PRODUCT2.getCategory().getMain(), PRODUCT2.getReviews().size())));
 
-        HashMap<String,List<CategoryGetDto>> products = new HashMap<>();
-        products.put("categoryMain",category1);
-        products.put("categoryMain",category2);
+        HashMap<String, List<CategoryGetDto>> products = new HashMap<>();
+        products.put("categoryMain", category1);
+        products.put("categoryMain", category2);
         given(productService.getCategoryCreatedTop5()).willReturn(products);
 
         ResultActions actions = mockMvc.perform(
@@ -232,10 +231,10 @@ public class ProductControllerTest {
         SliceResponseDto<CategoryGetDto> products = new SliceResponseDto<>(new SliceImpl<>(
                 of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                                 PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
-                                PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
+                                PRODUCT.getCategory().getMain(), PRODUCT.getReviews().size()),
                         new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                                 PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
-                                PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size())),PAGEABLE, true));
+                                PRODUCT.getCategory().getMain(), PRODUCT.getReviews().size())), PAGEABLE, true));
         given(productService.getProductListByTitle(any(GetProductListByDto.class)))
                 .willReturn(products);
 
@@ -258,19 +257,20 @@ public class ProductControllerTest {
                         responseFields(
                                 FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH,
                                 FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE,
-                                FWP_CONTENT_PRODUCT_CATEGORY_MAIN, FWP_CONTENT_PRODUCT_SELLER_NICKNAME,FWP_CONTENT_REVIEWS,
+                                FWP_CONTENT_PRODUCT_CATEGORY_MAIN, FWP_CONTENT_PRODUCT_SELLER_NICKNAME, FWP_CONTENT_REVIEWS,
                                 FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
                         )));
     }
+
     @Test
     public void getProductListByBrand() throws Exception {
         SliceResponseDto<CategoryGetDto> products = new SliceResponseDto<>(new SliceImpl<>(
                 of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
                                 PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
-                                PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
+                                PRODUCT.getCategory().getMain(), PRODUCT.getReviews().size()),
                         new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
                                 PRODUCT2.getPrice(), PRODUCT2.getScore().floatValue(), PRODUCT2.getSeller().getMember().getNickname(),
-                                PRODUCT2.getCategory().getMain(),PRODUCT2.getReviews().size())),PAGEABLE, true));
+                                PRODUCT2.getCategory().getMain(), PRODUCT2.getReviews().size())), PAGEABLE, true));
         given(productService.getProductListByBrand(any(GetProductListByDto.class)))
                 .willReturn(products);
 
@@ -294,15 +294,15 @@ public class ProductControllerTest {
                         responseFields(
                                 FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH,
                                 FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE,
-                                FWP_CONTENT_PRODUCT_CATEGORY_MAIN, FWP_CONTENT_PRODUCT_SELLER_NICKNAME,FWP_CONTENT_REVIEWS,
+                                FWP_CONTENT_PRODUCT_CATEGORY_MAIN, FWP_CONTENT_PRODUCT_SELLER_NICKNAME, FWP_CONTENT_REVIEWS,
                                 FWP_SLICE_INFO, FWP_SLICE_INFO_PAGE, FWP_SLICE_INFO_SIZE, FWP_SLICE_INFO_HAS_NEXT
                         )));
     }
 
     @Test
     public void getProductCategoryCount() throws Exception {
-        HashMap<String,Long> count = new HashMap<>();
-        count.put("count",10l);
+        HashMap<String, Long> count = new HashMap<>();
+        count.put("count", 10l);
         given(productService.getProductCategoryCount(any(GetProductListByDto.class)))
                 .willReturn(count);
 
