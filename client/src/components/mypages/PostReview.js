@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { postReview } from "../../reduxstore/slices/reviewSlice";
 import { useDispatch, useSelector } from "react-redux";
+import imageCompression from "browser-image-compression";
 
 function PostReview({ clickModal }) {
   const dispatch = useDispatch();
@@ -10,13 +11,22 @@ function PostReview({ clickModal }) {
   const [userWriteScroe, setUserWriteScroe] = useState("");
   const fileInput = useRef();
 
-  const changeImg = (e) => {
+  const changeImg = async (e) => {
     console.log(e);
     e.preventDefault();
     if (e.target.files) {
-      let uploadFile = e.target.files[0];
-      console.log(uploadFile);
-      setUserWriteImg(uploadFile);
+      const [file] = e.target.files;
+      console.log([file]);
+
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+      console.log("압축시작");
+      const compressFile = await imageCompression(file, options);
+      const myFile = new File([compressFile], "imageName.JPG");
+      setUserWriteImg(myFile);
     }
   };
   console.log(userWriteImg);
@@ -75,7 +85,7 @@ function PostReview({ clickModal }) {
           type="file"
           ref={fileInput}
           accept="image/*"
-          onChange={changeImg}
+          onChange={(e) => changeImg(e)}
         />
         <PostReviewDownBtn onClick={postSubmit}>추가 버튼</PostReviewDownBtn>
       </PostReviewDownSpace>

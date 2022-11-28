@@ -1,10 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 const MySwal = withReactContent(Swal);
-const navigate = useNavigate();
 
 export const Alert = (icon, content) => {
   MySwal.fire({
@@ -54,23 +52,18 @@ export const BtnAlert = () => {
 //   });
 // };
 
-export const DeleteAlert =(content, confirmbutton) => {
+export const DeleteAlert = (content, confirmbutton) => {
   MySwal.fire({
-    title: 'Are you sure?',
+    title: "Are you sure?",
     text: content,
-    icon: 'warning',
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire(
-        '취소되엇스빈다',
-        'Your file has been deleted.',
-        'success'
-      )
+      Swal.fire("취소되엇스빈다", "Your file has been deleted.", "success");
     }
-  })
-}
-
+  });
+};

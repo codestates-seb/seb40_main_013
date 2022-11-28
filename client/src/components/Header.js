@@ -19,7 +19,7 @@ const HeaderBlock = styled.header`
   }
   position: fixed;
   background-color: white;
-  z-index: 2;
+  z-index: 12;
 `;
 
 const Logo = styled.div`

@@ -22,7 +22,6 @@ export const getAllReview = createAsyncThunk("review/allGet", async (id) => {
     });
 });
 export const postReview = createAsyncThunk("review/post", async (postData) => {
-  console.log(postData);
   const form = new FormData();
   form.append("content", postData.content);
   form.append("score", postData.score);
@@ -71,7 +70,7 @@ export const deleteReview = createAsyncThunk(
     )
       .then((res) => {
         console.log(res);
-        window.location.reload();
+        // window.location.reload();
         return res.data;
       })
       .catch((err) => {

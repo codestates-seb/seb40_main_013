@@ -15,7 +15,8 @@ const ArrowUpButton = styled.button`
   opacity: 0;
   pointer-events: none;
   transition: opacity 300ms ease-in;
-  /* box-shadow: 1px 2px 2px gray; */
+  box-shadow: 0 1px 5px 0 rgb(0 0 0 / 30%);
+  z-index: 10;
   cursor: pointer;
   &.visible {
     opacity: 1;

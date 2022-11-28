@@ -248,95 +248,103 @@ const FlexContainer = styled.div`
 `;
 
 const PurchaseAll = ({ getUserdata, myOrderData, click }) => {
-  // const [isModal, setIsModal] = useState(false);
+  const [isModal, setIsModal] = useState(false);
 
-  // const clickModal = () => {
-  //   setIsModal(!isModal);
-  // };
-  console.log(myOrderData)
+  const clickModal = () => {
+    setIsModal(!isModal);
+  };
 
   return (
-    <Container>
-    {/* <PostReview clickModal={clickModal} /> */}
-    {/* <AllOrderTitle>주문상세정보</AllOrderTitle> */}
-    <Top>
-      <SubTop>830495 | 2022.01.11</SubTop>
-    </Top>
-    <Hr />
-    <Content>
-      <PD>
-        <ProductStatus>구매확정</ProductStatus>
-        <DelieveryStatus>도착완료</DelieveryStatus>
-      </PD>
-      <Detail>
-        <ReactionSubDetail>
-        <Img />
-          <BP>
-            <BrandName>[두닷] 화장대</BrandName>
-            <Option>색상: white</Option>
-            <Price><span>13900</span> | 1개</Price>
-          </BP>
-        </ReactionSubDetail>
-        <Btns>
-          <ReviewBtn>리뷰작성</ReviewBtn>
-          <CancleBtn>주문취소</CancleBtn>
-        </Btns>
-      </Detail>
-      <ReactionSpace>
-        <ReactionReviewBtn>구매후기</ReactionReviewBtn>
-      </ReactionSpace>
-    </Content>
-    <Hr />
-    <Content>
-      <PD>
-        <ProductStatus>구매확정</ProductStatus>
-        <DelieveryStatus>도착완료</DelieveryStatus>
-      </PD>
-      <Detail>
-        <ReactionSubDetail>
-        <Img />
-          <BP>
-            <BrandName>[두닷] 화장대</BrandName>
-            <Option>색상: white</Option>
-              <Price><span>13900</span> | 1개</Price>
-          </BP>
-        </ReactionSubDetail>
-        <Btns>
-          <ReviewBtn>리뷰작성</ReviewBtn>
-          <CancleBtn>주문취소</CancleBtn>
-        </Btns>
-      </Detail>
-      <ReactionSpace>
-        <ReactionReviewBtn>구매후기</ReactionReviewBtn>
-      </ReactionSpace>
-    </Content>
-    <Hr />
-    <Content>
-      <PD>
-        <ProductStatus>구매확정</ProductStatus>
-        <DelieveryStatus>도착완료</DelieveryStatus>
-      </PD>
-      <Detail>
-        <ReactionSubDetail>
-        <Img />
-          <BP>
-            <BrandName>[두닷] 화장대</BrandName>
-            <Option>색상: white</Option>
-              <Price><span>13900</span> | 1개</Price>
-          </BP>
-        </ReactionSubDetail>
-        <Btns>
-          <ReviewBtn>리뷰작성</ReviewBtn>
-          <CancleBtn>주문취소</CancleBtn>
-        </Btns>
-      </Detail>
-      <ReactionSpace>
-        <ReactionReviewBtn>구매후기</ReactionReviewBtn>
-      </ReactionSpace>
-    </Content>
-     {/* <PaymentTitle>결제정보</PaymentTitle>
+    <>
+      {isModal ? (
+        <>
+          <Container>
+            <PostReview clickModal={clickModal} />
+            {/* <AllOrderTitle>주문상세정보</AllOrderTitle> */}
+            <Top>
+              <SubTop>830495 | 2022.01.11</SubTop>
+            </Top>
+            <Hr />
+            <Content>
+              <PD>
+                <ProductStatus>구매확정</ProductStatus>
+                <DelieveryStatus>도착완료</DelieveryStatus>
+              </PD>
+              <Detail>
+                <ReactionSubDetail>
+                  <Img />
+                  <BP>
+                    <BrandName>[두닷] 화장대</BrandName>
+                    <Option>색상: white</Option>
+                    <Price>
+                      <span>13900</span> | 1개
+                    </Price>
+                  </BP>
+                </ReactionSubDetail>
+                <Btns>
+                  <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
+                  <CancleBtn>주문취소</CancleBtn>
+                </Btns>
+              </Detail>
+              <ReactionSpace>
+                <ReactionReviewBtn>구매후기</ReactionReviewBtn>
+              </ReactionSpace>
+            </Content>
+            <Hr />
+            <Content>
+              <PD>
+                <ProductStatus>구매확정</ProductStatus>
+                <DelieveryStatus>도착완료</DelieveryStatus>
+              </PD>
+              <Detail>
+                <ReactionSubDetail>
+                  <Img />
+                  <BP>
+                    <BrandName>[두닷] 화장대</BrandName>
+                    <Option>색상: white</Option>
+                    <Price>
+                      <span>13900</span> | 1개
+                    </Price>
+                  </BP>
+                </ReactionSubDetail>
+                <Btns>
+                  <ReviewBtn>리뷰작성</ReviewBtn>
+                  <CancleBtn>주문취소</CancleBtn>
+                </Btns>
+              </Detail>
+              <ReactionSpace>
+                <ReactionReviewBtn>구매후기</ReactionReviewBtn>
+              </ReactionSpace>
+            </Content>
+            <Hr />
+            <Content>
+              <PD>
+                <ProductStatus>구매확정</ProductStatus>
+                <DelieveryStatus>도착완료</DelieveryStatus>
+              </PD>
+              <Detail>
+                <ReactionSubDetail>
+                  <Img />
+                  <BP>
+                    <BrandName>[두닷] 화장대</BrandName>
+                    <Option>색상: white</Option>
+                    <Price>
+                      <span>13900</span> | 1개
+                    </Price>
+                  </BP>
+                </ReactionSubDetail>
+                <Btns>
+                  <ReviewBtn>리뷰작성</ReviewBtn>
+                  <CancleBtn>주문취소</CancleBtn>
+                </Btns>
+              </Detail>
+              <ReactionSpace>
+                <ReactionReviewBtn>구매후기</ReactionReviewBtn>
+              </ReactionSpace>
+            </Content>
+            {/* <PaymentTitle>결제정보</PaymentTitle>
     <Hr /> */}
-    {/* <PaymentContainer>
+            {/* <PaymentContainer>
         <PaySubContainer>
           <PaySubTitle>상품금액</PaySubTitle>
           <PaySubContent>26,800원</PaySubContent>
@@ -350,7 +358,113 @@ const PurchaseAll = ({ getUserdata, myOrderData, click }) => {
           <PaySubContent>26,800원</PaySubContent>
         </PaySubContainer>
     </PaymentContainer> */}
-  </Container>
+          </Container>
+        </>
+      ) : (
+        <>
+          <Container>
+            {/* <AllOrderTitle>주문상세정보</AllOrderTitle> */}
+            <Top>
+              <SubTop>830495 | 2022.01.11</SubTop>
+            </Top>
+            <Hr />
+            <Content>
+              <PD>
+                <ProductStatus>구매확정</ProductStatus>
+                <DelieveryStatus>도착완료</DelieveryStatus>
+              </PD>
+              <Detail>
+                <ReactionSubDetail>
+                  <Img />
+                  <BP>
+                    <BrandName>[두닷] 화장대</BrandName>
+                    <Option>색상: white</Option>
+                    <Price>
+                      <span>13900</span> | 1개
+                    </Price>
+                  </BP>
+                </ReactionSubDetail>
+                <Btns>
+                  <ReviewBtn onClick={clickModal}>리뷰작성</ReviewBtn>
+                  <CancleBtn>주문취소</CancleBtn>
+                </Btns>
+              </Detail>
+              <ReactionSpace>
+                <ReactionReviewBtn>구매후기</ReactionReviewBtn>
+              </ReactionSpace>
+            </Content>
+            <Hr />
+            {/* <Content>
+              <PD>
+                <ProductStatus>구매확정</ProductStatus>
+                <DelieveryStatus>도착완료</DelieveryStatus>
+              </PD>
+              <Detail>
+                <ReactionSubDetail>
+                  <Img />
+                  <BP>
+                    <BrandName>[두닷] 화장대</BrandName>
+                    <Option>색상: white</Option>
+                    <Price>
+                      <span>13900</span> | 1개
+                    </Price>
+                  </BP>
+                </ReactionSubDetail>
+                <Btns>
+                  <ReviewBtn clickModal={clickModal}>리뷰작성</ReviewBtn>
+                  <CancleBtn>주문취소</CancleBtn>
+                </Btns>
+              </Detail>
+              <ReactionSpace>
+                <ReactionReviewBtn>구매후기</ReactionReviewBtn>
+              </ReactionSpace>
+            </Content>
+            <Hr />
+            <Content>
+              <PD>
+                <ProductStatus>구매확정</ProductStatus>
+                <DelieveryStatus>도착완료</DelieveryStatus>
+              </PD>
+              <Detail>
+                <ReactionSubDetail>
+                  <Img />
+                  <BP>
+                    <BrandName>[두닷] 화장대</BrandName>
+                    <Option>색상: white</Option>
+                    <Price>
+                      <span>13900</span> | 1개
+                    </Price>
+                  </BP>
+                </ReactionSubDetail>
+                <Btns>
+                  <ReviewBtn clickModal={clickModal}>리뷰작성</ReviewBtn>
+                  <CancleBtn>주문취소</CancleBtn>
+                </Btns>
+              </Detail>
+              <ReactionSpace>
+                <ReactionReviewBtn>구매후기</ReactionReviewBtn>
+              </ReactionSpace>
+            </Content> */}
+            {/* <PaymentTitle>결제정보</PaymentTitle>
+    <Hr /> */}
+            {/* <PaymentContainer>
+        <PaySubContainer>
+          <PaySubTitle>상품금액</PaySubTitle>
+          <PaySubContent>26,800원</PaySubContent>
+        </PaySubContainer>
+        <PaySubContainer>
+          <PaySubTitle>선불배송비</PaySubTitle>
+          <PaySubContent>(+) 0원</PaySubContent>
+        </PaySubContainer>
+        <PaySubContainer>
+          <PaySubTitle>결제금액</PaySubTitle>
+          <PaySubContent>26,800원</PaySubContent>
+        </PaySubContainer>
+    </PaymentContainer> */}
+          </Container>
+        </>
+      )}
+    </>
   );
 };
 
