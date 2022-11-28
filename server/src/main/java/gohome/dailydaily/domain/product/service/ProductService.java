@@ -75,9 +75,6 @@ public class ProductService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
     }
 
-    public Long getProductId(Long productId) {
-        return productRepository.findProductIdById(productId);
-    }
     public Product findProduct(Long memberId, Long productId) {
         Product product = getProduct(productId);
 
@@ -90,9 +87,7 @@ public class ProductService {
     public SliceResponseDto<CategoryGetDto> getProductListByTitle(GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> products = productRepository
                 .findAllByTitle(dto.getPageRequest(), ProductGetParam.valueOf(dto));
-        if (products.getContent().isEmpty()) {
-            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
-        }
+
         searchRedisRepository.addSearchCount(dto.getTitle());
         return products;
     }
@@ -107,7 +102,7 @@ public class ProductService {
             if (tmp.isEmpty()) {
                 products.put("guest", null);
             } else {
-                products.put(tmp.get(2).getNickname(), tmp);
+                products.put(tmp.get(0).getNickname(), tmp);
             }
         }
         return products;
@@ -125,7 +120,7 @@ public class ProductService {
     }
 
     @Transactional
-    public String postProduct(ProductDto.PostProduct postProduct) throws IOException {
+    public Long postProduct(ProductDto.PostProduct postProduct) throws IOException {
 
         Long categoryId = categoryRepository.findIdByMainAndSub(postProduct.getMain(), postProduct.getSub());
 
@@ -147,7 +142,7 @@ public class ProductService {
 
         productRepository.save(product);
 
-        return "상품 등록 완료";
+        return product.getId();
     }
 
     public SliceResponseDto<CategoryGetDto> getProductListByBrand(GetProductListByDto dto) {
@@ -164,19 +159,4 @@ public class ProductService {
         count.put("count", productRepository.countProductCategory(ProductGetParam.valueOf(dto)));
         return count;
     }
-
-//    @Transactional
-//    public String getTest() {
-//        for (Long i = 1l; i<824; i++){
-//            Product product = productRepository.findProductById(i).orElse(null);
-//            if (product != null){
-//                Integer score = 0;
-//                for (int j =0; j<product.getReviews().size(); j++){
-//                    score += product.getReviews().get(j).getScore();
-//                }
-//                product.setScore(score);
-//            }
-//        }
-//        return "별점 수정 완료";
-//    }
 }

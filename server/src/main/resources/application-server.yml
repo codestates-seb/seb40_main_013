@@ -1,4 +1,7 @@
 spring:
+  servlet:
+    multipart:
+      max-request-size: 10MB
   redis:
     host: ${REDIS_HOST}
     port: ${REDIS_PORT}
