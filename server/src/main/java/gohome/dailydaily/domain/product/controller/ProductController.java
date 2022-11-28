@@ -30,7 +30,7 @@ public class ProductController {
 
     @GetMapping("/details/{product-id}")
     public ResponseEntity<ProductDto.Response> getProduct(@AuthenticationPrincipal Long memberId,
-            @Valid @PathVariable("product-id") Long productId) {
+                                                          @Valid @PathVariable("product-id") Long productId) {
 
         Product product = productService.findProduct(memberId, productId);
 

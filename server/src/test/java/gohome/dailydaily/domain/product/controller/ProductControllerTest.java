@@ -74,7 +74,7 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.title").value(PRODUCT.getTitle()))
                 .andExpect(jsonPath("$.content").value(new Gson().fromJson(PRODUCT.getContent(), List.class)))
                 .andExpect(jsonPath("$.price").value(PRODUCT.getPrice()))
-                .andExpect(jsonPath("$.isLike").value(false))
+                .andExpect(jsonPath("$.existsLike").value(false))
                 .andExpect(jsonPath("$.img.fileName").value(PRODUCT.getImg().getFileName()))
                 .andExpect(jsonPath("$.img.fullPath").value(PRODUCT.getImg().getFullPath()))
                 .andExpect(jsonPath("$.score").value(PRODUCT.getScore() / 10F))

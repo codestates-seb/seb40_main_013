@@ -34,7 +34,6 @@ import org.springframework.restdocs.request.RequestPartsSnippet;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.apache.http.entity.ContentType.DEFAULT_BINARY;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
@@ -86,7 +85,7 @@ public class TestConstant {
             .img(FILE)
             .price(10000)
             .score(3)
-            .isLike(false)
+            .existsLike(false)
             .seller(SELLER)
             .category(CATEGORY)
             .build();
@@ -119,6 +118,7 @@ public class TestConstant {
             .img(FILE)
             .content("상품 내용1")
             .price(123456)
+            .existsLike(false)
             .score(3)
             .sale(0)
             .seller(SELLER)
@@ -131,6 +131,7 @@ public class TestConstant {
             .img(FILE)
             .content("상품 내용2")
             .price(100000)
+            .existsLike(false)
             .sale(0)
             .score(5)
             .seller(SELLER)
@@ -346,7 +347,7 @@ public class TestConstant {
     public static final FieldDescriptor FWP_PRODUCT_IMG_PATH = fieldWithPath("img.fullPath").type(STRING).description("상품 썸네일 경로");
     public static final FieldDescriptor FWP_PRODUCT_SCORE = fieldWithPath("score").type(NUMBER).description("상품 별점");
     public static final FieldDescriptor FWP_PRODUCT_CATEGORY_MAIN = fieldWithPath("main").type(STRING).description("대분류 카테고리");
-    public static final FieldDescriptor FWP_PRODUCT_IS_LIKE = fieldWithPath("isLike").type(BOOLEAN).description("상품 좋아요 유무");
+    public static final FieldDescriptor FWP_PRODUCT_IS_LIKE = fieldWithPath("existsLike").type(BOOLEAN).description("상품 좋아요 유무");
     public static final GetProductListByDto GET_PRODUCT_LIST_BY_CATEGORY_DTO = new GetProductListByDto(
             CATEGORY.getMain(), CATEGORY.getSub(), SELLER.getId(), PRODUCT.getTitle()
     );

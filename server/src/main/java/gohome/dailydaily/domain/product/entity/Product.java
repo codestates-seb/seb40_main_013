@@ -51,7 +51,7 @@ public class Product extends BaseTime {
     private Category category;
 
     @Transient
-    private boolean isLike;
+    private boolean existsLike;
 
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private final List<Option> options = new ArrayList<>();
@@ -90,7 +90,7 @@ public class Product extends BaseTime {
     }
 
     public void updateLike(boolean isLike) {
-        this.isLike = isLike;
+        this.existsLike = isLike;
     }
 
 }

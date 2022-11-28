@@ -148,6 +148,21 @@ include::{snippets}/members/reviews/request-parameters.adoc[]
 .http-response
 include::{snippets}/members/reviews/http-response.adoc[]
 
+=== 회원 좋아요 상품 조회
+.http-request
+include::{snippets}/members/likes/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/members/likes/request-headers.adoc[]
+
+.request-parameters
+[caption=]
+include::{snippets}/members/likes/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/members/likes/http-response.adoc[]
+
 === 회원 프로필 수정
 .http-request
 include::{snippets}/members/img/http-request.adoc[]
