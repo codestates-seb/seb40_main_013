@@ -156,6 +156,20 @@ export const countSearchResult = createAsyncThunk(
   }
 );
 
+export const popularSearch = createAsyncThunk(
+  "countSearchResult",
+  async () => {
+    return Apis.get(`search/rank`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
+
 
 const articleSlice = createSlice({
   name: "article",

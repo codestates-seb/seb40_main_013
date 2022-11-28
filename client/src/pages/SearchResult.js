@@ -44,7 +44,7 @@ function SearchResult ({searchWord}) {
         dispatch(getSearchResult({ searchWord, page }));
         dispatch(countSearchResult(searchWord))
   }, [searchWord]);
-
+  
     return (
       <SubBlock onClick={outModalCloseHandler}>
         <FilterBlock>

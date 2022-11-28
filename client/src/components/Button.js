@@ -4,11 +4,14 @@ import { IoMdArrowRoundUp } from "react-icons/io";
 
 const ArrowUpButton = styled.button`
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   bottom: 50px;
-  right: 50px;
-  width: 70px;
-  height: 70px;
-  font-size: 50px;
+  right: 60px;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
   color: white;
   background-color: #ffaf51;
   border-radius: 50%;

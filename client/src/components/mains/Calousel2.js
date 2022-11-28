@@ -66,6 +66,15 @@ const Container = styled.div`
   position: relative;
   margin-top: 10px;
   overflow: hidden;
+  @media screen and (max-width: 479px) {
+    height: 22vh;
+  }
+  @media (min-width: 480px) and (max-width: 767px) {
+    height: 24vh;
+  }
+  @media (min-width:768px) and (max-width: 1023px){
+    height: 27vh;
+  }
 `;
 const Arrows = styled.div``;
 const Prev = styled.span`
@@ -79,10 +88,14 @@ const Prev = styled.span`
   font-size: 30px;
   font-weight: bold;
   border-radius: 0 5px 5px 0;
+  color: #272727;
   &:hover {
     color: white;
     background-color: rgba(0, 0, 0, 0.6);
     transition: all 0.5s ease-in-out;
+  }
+  @media screen and (max-width: 479px) {
+    font-size: 1.5rem;
   }
 `;
 const Next = styled.span`
@@ -97,10 +110,14 @@ const Next = styled.span`
   font-size: 30px;
   font-weight: bold;
   border-radius: 5px 0 0 5px;
+  color: #272727;
   &:hover {
     color: white;
     background-color: rgba(0, 0, 0, 0.6);
     transition: all 0.5s ease-in-out;
+  }
+  @media screen and (max-width: 479px) {
+    font-size: 1.5rem;
   }
 `;
 const AllDots = styled.div`
@@ -147,7 +164,7 @@ const Img = styled.img`
 `;
 const SlideTitle = styled.h2`
   color: white;
-  font-size: 60px;
+  font-size: 7vh;
   font-weight: 600;
   color: #525252;
   position: absolute;
@@ -164,6 +181,17 @@ const SlideTitle = styled.h2`
           opacity: 1;
           transform: translateZ(0);
       }
+  }
+  @media screen and (max-width: 479px) {
+    font-size: 4.5vh;
+    top: 32%;
+  }
+  @media (min-width: 480px) and (max-width: 767px) {
+    font-size: 6.1vh;
+    top: 28%;
+  }
+  @media (min-width:768px) and (max-width: 1023px){
+    font-size: 6.5vh;
   }
 `;
 const SlideText = styled.h3`
@@ -184,6 +212,15 @@ const SlideText = styled.h3`
           opacity: 1;
           transform: translateZ(0);
       }
+  }
+  @media screen and (max-width: 479px) {
+    font-size: 1rem;
+  }
+  @media (min-width: 480px) and (max-width: 767px) {
+    font-size: 1.2rem;
+  }
+  @media (min-width:768px) and (max-width: 1023px){
+    font-size: 1.4rem;
   }
 `;
 const FurnitureContainer = styled.div`

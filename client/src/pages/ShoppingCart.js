@@ -163,18 +163,6 @@ function ShoppingCart() {
   
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
   console.log(`checkList`, checkList);
-  console.log(`filter`, checkList.forEach( (el) => {Object.entries(el)}));
-
-  // checkList.forEach(obj => {
-  //   let result = {};
-
-  //   Object.entries(obj).forEach(([key, value]) => { // for .. of문을 사용해도 되지만 arrowfuction, forEach사용
-  //       if(key === 'count') { // indexOf를 이용해도 되지만 최신의 includes를 사용
-  //           result[key] = value;
-  //       }
-  //    });
-  // })
-  // console.log(result)
 
   useEffect(() => {
     dispatch(getShoppingCart());
