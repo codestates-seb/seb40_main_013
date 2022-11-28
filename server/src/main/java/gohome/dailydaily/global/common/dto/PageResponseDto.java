@@ -3,14 +3,17 @@ package gohome.dailydaily.global.common.dto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
-public class PageResponseDto<T> {
-    private final List<T> content;
-    private final PageInfo pageInfo;
+@NoArgsConstructor
+public class PageResponseDto<T> implements Serializable {
+    private List<T> content;
+    private PageInfo pageInfo;
 
     public PageResponseDto(Page<T> page) {
         this.content = page.getContent();
@@ -22,8 +25,9 @@ public class PageResponseDto<T> {
     }
 
     @Getter
+    @NoArgsConstructor
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class PageInfo {
+    public static class PageInfo implements Serializable {
         private int page;
         private int size;
         private long totalElements;

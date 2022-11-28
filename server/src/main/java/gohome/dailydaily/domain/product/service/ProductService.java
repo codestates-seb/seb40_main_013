@@ -56,9 +56,7 @@ public class ProductService {
     private final ProductMapper mapper;
 
     public List<CategoryGetDto> getScoreTop5() {
-        List<CategoryGetDto> products = productRepository.findTop5ByScore();
-
-        return products;
+        return productRepository.findTop5ByScore();
     }
 
     public SliceResponseDto<CategoryGetDto> getProductListByCategory(GetProductListByDto dto) {
@@ -74,6 +72,7 @@ public class ProductService {
         return productRepository.findProductById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
     }
+
     public Product findProduct(Long memberId, Long productId) {
         Product product = getProduct(productId);
 

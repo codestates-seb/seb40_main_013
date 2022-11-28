@@ -3,9 +3,11 @@ package gohome.dailydaily.domain.product.controller.dto;
 import gohome.dailydaily.global.common.dto.PagingRequestDto;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class GetProductListByDto extends PagingRequestDto {
 
     private String main;
