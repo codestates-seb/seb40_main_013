@@ -325,39 +325,37 @@ public class ProductControllerTest {
                         responseFields(CATEGORY_COUNT)));
     }
 
-//    @Test
-//    public void postProduct() throws Exception {
-//        // given
-//        given(productService.postProduct(any(ProductDto.PostProduct.class)))
-//                .willReturn("상품 등록 완료");
-//
-//        // when
-//        ResultActions actions = mockMvc.perform(
-//                multipart("/products")
-//                        .file(IMG)
-//                        .file(IMG_LIST.get(0))
-//                        .file(IMG_LIST.get(1))
-//                        .header("Authorization", "JWT")
-//                        .param("title", PRODUCT.getTitle())
-//                        .param("sellerId", String.valueOf(PRODUCT.getSeller().getId()))
-//                        .param("optionList[0].color", OPTION.getColor())
-//                        .param("optionList[0].stock", String.valueOf(OPTION.getStock()))
-//                        .param("optionList[1].color", OPTION.getColor())
-//                        .param("optionList[1].stock", String.valueOf(OPTION.getStock()))
-//                        .contentType(MediaType.MULTIPART_FORM_DATA)
-//                        .accept(MediaType.APPLICATION_JSON)
-//        );
-//
-//        actions.andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.sellerId").value(PRODUCT.getSeller().getId()))
-//                .andExpect(jsonPath("$.productTitle").value(PRODUCT.getTitle()))
-//                .andExpect(jsonPath("$.score").value(0))
-//                .andDo(document("products/post",
-//                        REQUEST_PREPROCESSOR,
-//                        RESPONSE_PREPROCESSOR,
-//                        REQUEST_HEADER_JWT,
-//                        REQUEST_PARTS_IMG
-//                ));
-//    }
+    @Test
+    public void postProduct() throws Exception {
+        // given
+        given(productService.postProduct(any(ProductDto.PostProduct.class)))
+                .willReturn("상품 등록 완료");
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                multipart("/products")
+                        .file(IMG)
+                        .file(IMG_LIST.get(0))
+                        .file(IMG_LIST.get(1))
+                        .header("Authorization", "JWT")
+                        .param("title", PRODUCT.getTitle())
+                        .param("sellerId", String.valueOf(PRODUCT.getSeller().getId()))
+                        .param("optionList[0].color", OPTION.getColor())
+                        .param("optionList[0].stock", String.valueOf(OPTION.getStock()))
+                        .param("optionList[1].color", OPTION.getColor())
+                        .param("optionList[1].stock", String.valueOf(OPTION.getStock()))
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .accept(MediaType.APPLICATION_JSON)
+        );
+
+        actions.andExpect(status().isCreated())
+                .andDo(document("products/post",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
+                        REQUEST_PARTS_IMG
+
+                ));
+    }
 
 }

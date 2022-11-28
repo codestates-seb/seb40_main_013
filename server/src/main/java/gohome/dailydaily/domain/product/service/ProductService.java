@@ -74,8 +74,12 @@ public class ProductService {
         return productRepository.findProductById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
     }
+
+    public Long getProductId(Long productId) {
+        return productRepository.findProductIdById(productId);
+    }
     public Product findProduct(Long memberId, Long productId) {
-        Product product = getProduct(memberId);
+        Product product = getProduct(productId);
 
         Optional.ofNullable(memberId)
                 .ifPresent(id -> product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(id, productId)));
@@ -160,4 +164,19 @@ public class ProductService {
         count.put("count", productRepository.countProductCategory(ProductGetParam.valueOf(dto)));
         return count;
     }
+
+//    @Transactional
+//    public String getTest() {
+//        for (Long i = 1l; i<824; i++){
+//            Product product = productRepository.findProductById(i).orElse(null);
+//            if (product != null){
+//                Integer score = 0;
+//                for (int j =0; j<product.getReviews().size(); j++){
+//                    score += product.getReviews().get(j).getScore();
+//                }
+//                product.setScore(score);
+//            }
+//        }
+//        return "별점 수정 완료";
+//    }
 }

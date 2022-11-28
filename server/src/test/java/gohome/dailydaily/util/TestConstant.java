@@ -32,6 +32,7 @@ import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import org.springframework.restdocs.request.RequestParametersSnippet;
 import org.springframework.restdocs.request.RequestPartsSnippet;
+import org.springframework.restdocs.snippet.Snippet;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
@@ -489,8 +490,8 @@ public class TestConstant {
             new MockMultipartFile("img", null, DEFAULT_BINARY.toString(), "img".getBytes());
 
     public static final List<MockMultipartFile> IMG_LIST = new ArrayList<>(
-            List.of(new MockMultipartFile("img", null, DEFAULT_BINARY.toString(), "img".getBytes()),
-                    new MockMultipartFile("img", null, DEFAULT_BINARY.toString(), "img".getBytes())));
+            List.of(new MockMultipartFile("img1", null, DEFAULT_BINARY.toString(), "img".getBytes()),
+                    new MockMultipartFile("img2", null, DEFAULT_BINARY.toString(), "img".getBytes())));
 
     public static final RequestPartsSnippet REQUEST_PARTS_IMG = requestParts(partWithName("img").description("이미지"));
     public static final FieldDescriptor FWP_CATEGORY_PRODUCT_REVIEWS = fieldWithPath("categoryMain[].reviews").type(NUMBER).description("리뷰 갯수");
