@@ -32,6 +32,16 @@ export const Toast = (icon, content) => {
   });
 };
 
+export const BtnAlert = () => {
+  Swal.fire({ title: "WOW!", text: "Message!", type: "success" }).then(
+    (okay) => {
+      if (okay) {
+        window.location.href = "http://localhost:3000/cart";
+      }
+    }
+  );
+};
+
 // export const Toast = () => {
 //   Swal.fire({
 //     position: "top-end",
@@ -42,33 +52,28 @@ export const Toast = (icon, content) => {
 //   });
 // };
 
-export const DeleteAlert =(content, confirmbutton, confirmMessage) => {
+export const DeleteAlert = (content, confirmbutton, confirmMessage) => {
   MySwal.fire({
-    title: 'Are you sure?',
+    title: "Are you sure?",
     text: content,
-    icon: 'warning',
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: '#002C6D',
-    cancelButtonColor: '#d33',
-    confirmButtonText: confirmbutton
+    confirmButtonColor: "#002C6D",
+    cancelButtonColor: "#d33",
+    confirmButtonText: confirmbutton,
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire(
-        '취소되었습니다',
-        confirmMessage,
-        'success'
-      )
+      Swal.fire("취소되었습니다", confirmMessage, "success");
     }
-  })
-}
+  });
+};
 
-export const AlreadyDeleteAlert =() => {
+export const AlreadyDeleteAlert = () => {
   Swal.fire({
-    icon: 'error',
-    title: 'Oops...',
-    text: '이미 취소된 주문입니다.',
+    icon: "error",
+    title: "Oops...",
+    text: "이미 취소된 주문입니다.",
     confirmButtonColor: "#002C6D",
-    confirmButtonText: "확인"
-  })
-}
-
+    confirmButtonText: "확인",
+  });
+};

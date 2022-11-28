@@ -34,7 +34,11 @@ function MyReview() {
         <ReviewContentsSpace key={data?.reviewId}>
           <ReviewContentsLeftSpace>
             <ReviewContentsNumber>{data?.reviewId}</ReviewContentsNumber>
-            <ReviewContentsImg src={data?.img}></ReviewContentsImg>
+            {data?.img ? (
+              <ReviewContentsImg src={data?.img.fullPath}></ReviewContentsImg>
+            ) : (
+              <ReviewContentsImg></ReviewContentsImg>
+            )}
             <ReviewContentsMainSpace>
               {renderStar(data?.score)}
               <ReviewMainTitle>{data?.title}</ReviewMainTitle>

@@ -31,8 +31,8 @@ const Button = () => {
 
   const handleTop = () => {
     window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+      top: 0,
+      behavior: "smooth",
     });
     setBtnStatus(false);
   };
