@@ -9,6 +9,7 @@ import gohome.dailydaily.domain.product.service.ProductService;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -72,8 +73,8 @@ public class ProductController {
         return productService.getProductListByTitle(dto);
     }
 
-
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Long postProduct(@Valid ProductDto.PostProduct postProduct) throws IOException {
         return productService.postProduct(postProduct);
     }
