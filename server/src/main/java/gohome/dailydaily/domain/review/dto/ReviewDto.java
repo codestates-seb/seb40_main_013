@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class ReviewDto {
@@ -30,9 +31,9 @@ public class ReviewDto {
     }
 
     @Getter
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @AllArgsConstructor
     @Builder
-    public static class Response {
+    public static class Response implements Serializable {
         private Long reviewId;
         private Long productId;
         private String productTitle;

@@ -47,9 +47,8 @@ public class LikeService {
     @Transactional(readOnly = true)
     public Page<Product> findLikeProductsByMemberId(Long memberId, Pageable pageable) {
         Page<Like> likes = likeRepository.findLikeByMember_Id(memberId, pageable);
-        List<Product> productList = likes.getContent().stream().map(Like::getProduct).collect(Collectors.toList());
 
-        return new PageImpl<>(productList, likes.getPageable(), likes.getTotalElements());
+        return likes.map(Like::getProduct);
     }
 
     // 상품 좋아요 취소

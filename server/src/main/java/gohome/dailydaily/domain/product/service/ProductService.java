@@ -56,9 +56,7 @@ public class ProductService {
     private final ProductMapper mapper;
 
     public List<CategoryGetDto> getScoreTop5() {
-        List<CategoryGetDto> products = productRepository.findTop5ByScore();
-
-        return products;
+        return productRepository.findTop5ByScore();
     }
 
     public SliceResponseDto<CategoryGetDto> getProductListByCategory(GetProductListByDto dto) {
