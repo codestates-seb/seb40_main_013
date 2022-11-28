@@ -45,10 +45,6 @@ class LikeControllerTest implements Reflection {
 
     @MockBean
     private LikeService likeService;
-    @MockBean
-    private MemberService memberService;
-    @MockBean
-    private ProductService productService;
 
     @Test
     void postLike() throws Exception{
