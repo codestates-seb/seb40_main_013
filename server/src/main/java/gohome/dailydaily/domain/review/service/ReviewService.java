@@ -38,7 +38,7 @@ public class ReviewService {
         Product product = productRepository.findById(review.getProduct().getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
 
-        Integer score =  ((product.getScore() * product.getReviews().size()) + review.getScore()) / (product.getReviews().size() + 1) * 10;
+        Integer score = product.getScore() + review.getScore();
         product.setScore(score);
 
         File file = fileService.storeFile(img, reviewPath);
@@ -49,11 +49,23 @@ public class ReviewService {
 
     public Review updateReview(Long memberId, Long productId, Review review) {
         Review verifiedReview = findVerifiedReview(memberId, productId, review.getId());
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+
+        Integer score = (product.getScore() - verifiedReview.getScore()) + review.getScore();
+        product.setScore(score);
+
         return verifiedReview.updateReview(review);
     }
 
     public void deleteReview(Long memberId, Long productId, Long reviewId) {
         Review verifiedReview = findVerifiedReview(memberId, productId, reviewId);
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+
+        Integer score = product.getScore() - verifiedReview.getScore();
+        product.setScore(score);
+
         reviewRepository.delete(verifiedReview);
     }
 
