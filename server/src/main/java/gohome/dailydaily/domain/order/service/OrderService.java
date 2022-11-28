@@ -88,6 +88,6 @@ public class OrderService {
             throw new BusinessLogicException(ExceptionCode.CANNOT_CANCEL_ORDER);
         }
 
-        orderRepository.delete(order);
+        order.updateOrderStatus(OrderStatus.ORDER_CANCELED);
     }
 }
