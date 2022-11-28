@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -78,11 +79,8 @@ public class ProductService {
         Product product = productRepository.findProductById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
 
-        if (memberId != null) {
-            product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(memberId, productId));
-        } else {
-            product.updateLike(false);
-        }
+        Optional.ofNullable(memberId)
+                .ifPresent(id -> product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(id, productId)));
 
         return product;
     }
