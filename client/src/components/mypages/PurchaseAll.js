@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PostReview from "./PostReview";
-import { getMyOrder } from '../../reduxstore/slices/myOrderSlice';
-import { useParams } from 'react-router-dom';
+import { getMyOrder } from "../../reduxstore/slices/myOrderSlice";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -103,10 +104,13 @@ const BP = styled.div`
     justify-content: flex-start;
   }
 `;
-const BrandName = styled.h4`
+const BrandName = styled(Link)`
   font-weight: 700;
   font-size: 1.1rem;
   margin-bottom: 5px;
+  &:hover{
+    opacity: 0.7;
+  }
   @media screen and (max-width: 390px) {
     font-weight: 300;
     font-size: 10px;
@@ -157,9 +161,6 @@ const ReviewBtn = styled.button`
   }
   @media (min-width: 391px) and (max-width: 768px) {
     padding: 8px 30px;
-    &.hidden{
-      display: none;
-    }
   }
 `;
 
@@ -200,9 +201,9 @@ const PaymentTitle = styled.h2`
 const PaySubContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 20px 10px;
-  width: 250px;
-  @media screen and (max-width: 479px){
+  margin: 20px 0;
+  width: 280px;
+  @media screen and (max-width: 479px) {
     width: 90%;
   }
 `;
@@ -219,70 +220,142 @@ const PaymentContainer = styled.div`
 `;
 
 const PurchaseAll = ({ getUserdata, click }) => {
-  // const [isModal, setIsModal] = useState(false);
+  const [isModal, setIsModal] = useState(false);
   const dispatch = useDispatch();
-  const {id} = useParams();
-  const myOrderData = useSelector((state)=> state.myorder.myorder.content);
-  const filterData = myOrderData.filter(order => order.orderId == id);
+  const { id } = useParams();
+  const myOrderData = useSelector((state) => state.myorder.myorder.content);
+  const filterData = myOrderData.filter((order) => order.orderId == id);
   const filterProduct = filterData[0].orderProducts;
   console.log(filterData);
-
-  // const clickModal = () => {
-  //   setIsModal(!isModal);
-  // };
-  useEffect(()=>{
-    dispatch(getMyOrder(click))
+  const filterProductId = filterProduct[0]?.productId;
+  const aaa =filterProduct.map((p,i)=>p.reduce((acc,cur)=>(acc.count*acc.price+cur.count*cur.price)))
+console.log(aaa)
+  const clickModal = () => {
+    setIsModal(!isModal);
+  };
+  useEffect(() => {
+    dispatch(getMyOrder(click));
   }, []);
 
   return (
-    <Container>
-    {/* <PostReview clickModal={clickModal} /> */}
-    <AllOrderTitle>주문상세정보</AllOrderTitle>
-    <Top>
-      <SubTop>{filterData[0].orderNumber}&nbsp;|&nbsp;{filterData[0].createdAt.slice(0, 10)}</SubTop>
-    </Top>
-    {filterProduct?.map((p, i) => (
-      <ProductContainer key={i}>
-        <Hr />
-        <Content>
-          <Detail>
-            <ReactionSubDetail>
-            <Img src={p.img.fullPath}/>
-              <BP>
-                <BrandName>[{p.brandName}] {p.title}</BrandName>
-                <Option>색상: {p.color}</Option>
-                <Price><span>₩&nbsp;{p.price.toLocaleString("en-US")}</span>&nbsp;|&nbsp;{p.count}개</Price>
-              </BP>
-            </ReactionSubDetail>
-            <Btns>
-              <ReviewBtn
-              className={filterData[0].status === '주문 취소' ? 'hidden' : ''}>리뷰작성</ReviewBtn>
-            </Btns>
-          </Detail>
-          <ReactionSpace>
-            <ReactionReviewBtn
-            className={filterData[0].status === '주문 취소' ? 'hidden' : ''}>구매후기</ReactionReviewBtn>
-          </ReactionSpace>
-        </Content>
-      </ProductContainer>
-    ))}
-     <PaymentTitle>결제정보</PaymentTitle>
-    <Hr />
-    <PaymentContainer>
-        <PaySubContainer>
-          <PaySubTitle>상품금액</PaySubTitle>
-          <PaySubContent>26,800원</PaySubContent>
-        </PaySubContainer>
-        <PaySubContainer>
-          <PaySubTitle>선불배송비</PaySubTitle>
-          <PaySubContent>(+) 0원</PaySubContent>
-        </PaySubContainer>
-        <PaySubContainer>
-          <PaySubTitle>결제금액</PaySubTitle>
-          <PaySubContent>26,800원</PaySubContent>
-        </PaySubContainer>
-    </PaymentContainer>
-  </Container>
+    <>
+      {isModal ? (
+        <>
+          <PostReview filterProductId={filterProductId} />
+          <Container>
+            {/* <PostReview clickModal={clickModal} /> */}
+            <AllOrderTitle>주문상세정보</AllOrderTitle>
+            <Top>
+              <SubTop>
+                {filterData[0].orderNumber}&nbsp;|&nbsp;
+                {filterData[0].createdAt.slice(0, 10)}
+              </SubTop>
+            </Top>
+            {filterProduct?.map((p, i) => (
+              <ProductContainer key={i}>
+                <Hr />
+                <Content>
+                  <Detail>
+                    <ReactionSubDetail>
+                      <Img src={p.img.fullPath} />
+                      <BP>
+                        <BrandName to={`/detail/${p.productId}`}>
+                          [{p.brandName}] {p.title}
+                        </BrandName>
+                        <Option>색상: {p.color}</Option>
+                        <Price>
+                          <span>₩&nbsp;{p.price.toLocaleString("en-US")}</span>
+                          &nbsp;|&nbsp;{p.count}개
+                        </Price>
+                      </BP>
+                    </ReactionSubDetail>
+                    <Btns>
+                      <ReviewBtn className={filterData[0].status === '주문 취소' ? 'hidden' : ''} onClick={clickModal}>리뷰작성</ReviewBtn>
+                    </Btns>
+                  </Detail>
+                  <ReactionSpace>
+                    <ReactionReviewBtn className={filterData[0].status === '주문 취소' ? 'hidden' : ''}>구매후기</ReactionReviewBtn>
+                  </ReactionSpace>
+                </Content>
+            <PaymentTitle>결제정보</PaymentTitle>
+            <Hr />
+            <PaymentContainer>
+              <PaySubContainer>
+                <PaySubTitle>상품금액</PaySubTitle>
+                <PaySubContent>{}원</PaySubContent>
+              </PaySubContainer>
+              <PaySubContainer>
+                <PaySubTitle>선불배송비</PaySubTitle>
+                <PaySubContent>(+) 0원</PaySubContent>
+              </PaySubContainer>
+              <PaySubContainer>
+                <PaySubTitle>결제금액</PaySubTitle>
+                <PaySubContent>26,800원</PaySubContent>
+              </PaySubContainer>
+            </PaymentContainer>
+            </ProductContainer>
+            ))}
+          </Container>{" "}
+        </>
+      ) : (
+        <>
+          <Container>
+            {/* <PostReview clickModal={clickModal} /> */}
+            <AllOrderTitle>주문상세정보</AllOrderTitle>
+            <Top>
+              <SubTop>
+                {filterData[0].orderNumber}&nbsp;|&nbsp;
+                {filterData[0].createdAt.slice(0, 10)}
+              </SubTop>
+            </Top>
+            {filterProduct?.map((p, i) => (
+              <ProductContainer key={i}>
+                <Hr />
+                <Content>
+                  <Detail>
+                    <ReactionSubDetail>
+                      <Img src={p.img.fullPath} />
+                      <BP>
+                        <BrandName to={`/detail/${p.productId}`}>
+                          [{p.brandName}] {p.title}
+                        </BrandName>
+                        <Option>색상: {p.color}</Option>
+                        <Price>
+                          <span>₩&nbsp;{p.price.toLocaleString("en-US")}</span>
+                          &nbsp;|&nbsp;{p.count}개
+                        </Price>
+                      </BP>
+                    </ReactionSubDetail>
+                    <Btns>
+                      <ReviewBtn className={filterData[0].status === '주문 취소' ? 'hidden' : ''} onClick={clickModal}>리뷰작성</ReviewBtn>
+                    </Btns>
+                  </Detail>
+                  <ReactionSpace>
+                    <ReactionReviewBtn className={filterData[0].status === '주문 취소' ? 'hidden' : ''}>구매후기</ReactionReviewBtn>
+                  </ReactionSpace>
+                </Content>
+              </ProductContainer>
+            ))}
+            <PaymentTitle>결제정보</PaymentTitle>
+            <Hr />
+            <PaymentContainer>
+              <PaySubContainer>
+                <PaySubTitle>상품금액</PaySubTitle>
+                <PaySubContent>26,800원</PaySubContent>
+              </PaySubContainer>
+              <PaySubContainer>
+                <PaySubTitle>선불배송비</PaySubTitle>
+                <PaySubContent>(+) 0원</PaySubContent>
+              </PaySubContainer>
+              <PaySubContainer>
+                <PaySubTitle>결제금액</PaySubTitle>
+                <PaySubContent>26,800원</PaySubContent>
+              </PaySubContainer>
+            </PaymentContainer>
+          </Container>
+        </>
+      )}
+    </>
   );
 };
 

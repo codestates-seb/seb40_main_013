@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
+import { BtnAlert } from "../../components/Alert";
 
 const jwtToken = localStorage.getItem("Authorization");
 
@@ -24,7 +25,7 @@ export const postCart = createAsyncThunk(
       },
     })
       .then((res) => {
-        window.alert("해당 상품이 추가되었습니다!");
+        BtnAlert();
         return res.data;
       })
       .catch((err) => {
@@ -121,6 +122,7 @@ export const reCountCartItem = createAsyncThunk(
       }
     )
       .then((res) => {
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {

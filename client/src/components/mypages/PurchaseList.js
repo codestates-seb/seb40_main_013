@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { getMyOrder } from '../../reduxstore/slices/myOrderSlice';
-import PurchaseAll from "./PurchaseAll";
 import styled from "styled-components/macro";
-import PostReview from "./PostReview";
 import Apis from "../../apis/apis";
-import { DeleteAlert, AlreadyDeleteAlert } from "../Alert";
+import Swal from "sweetalert2";
+import { AlreadyDeleteAlert } from "../Alert";
 
 const Container = styled.div`
   display: flex;
@@ -26,8 +25,43 @@ const Container = styled.div`
     margin: 30px 0;
   }
 `;
+const NotContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  align-items: center;
+`;
+const NotIcon = styled.div`
+  background-color: #AAAAAA;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10vw;
+  color: white;
+  margin-bottom: 20px;
+  animation: rotate 5s infinite;
+  @keyframes rotate {
+  from {
+    -webkit-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  to {
+    -webkit-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+}
+`;
 const NotOrder = styled.h3`
   display: flex;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 2rem;
 `;
 
 const Ordercontainter = styled.div``;
@@ -113,6 +147,7 @@ const Detail = styled.div`
 `;
 const ReactionSubDetail = styled.div`
   display: flex;
+  cursor: pointer;
   /* @media screen and (max-width: 479px) {
     flex-direction: column;
   } */
@@ -132,7 +167,7 @@ const Img = styled.img`
     height: 100px;
   }
 `;
-const BP = styled.div`
+const BP = styled(Link)`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -150,9 +185,6 @@ const BrandName = styled(Link)`
   font-weight: 600;
   font-size: 1rem;
   margin-bottom: 5px;
-  &:hover{
-    color: #515151;
-  }
   @media screen and (max-width: 390px) {
     font-weight: 600;
     font-size: 0.8rem;
@@ -296,16 +328,49 @@ const PurchaseList = () => {
     setClick(e.target.innerText);
   }
   //주문취소 버튼
-  const handleOrderCancle = (id) => {
+  const handleOrderCancle = (id) =>{
+    const curData = myOrderData.filter(data => data.orderId == id);
+    console.log(curData[0].status);
+    if(curData[0].status === '주문 취소'){
+      console.log('취소된 주문!!!')
+      AlreadyDeleteAlert();
+    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: '주문을 취소하시겠습니까?',
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#002C6D",
+      cancelButtonColor: "#d33",
+      confirmButtonText: '주문취소',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        orderCancle(id);
+        Swal.fire("취소되었습니다", '주문이 취소되었습니다.', "success");
+        window.location.reload();
+      }
+      else if (result.isDismissed) { // 만약 모달창에서 cancel 버튼을 눌렀다면
+        console.log('then', '취소가 취소됨!')
+      }
+    }).catch((err) =>
+      // AlreadyDeleteAlert()
+    console.log(err)
+    );
+  }
+
+  const orderCancle = (id) => {
     Apis.delete(`/orders/${id}`, {
       headers: {
         Authorization: initialToken,
       },
     })
       .then(() => {
-        DeleteAlert('주문을 취소하시겠습니까?', '주문취소', '주문이 취소되었습니다.')
+        // console.log('orderCanle!!!')
       })
-      .catch((err) => AlreadyDeleteAlert());
+      // .catch((err) =>
+      //  AlreadyDeleteAlert()
+      // console.log(err)
+      //  );
   };
 
   useEffect(()=>{
@@ -318,9 +383,10 @@ const PurchaseList = () => {
   return (
     <>
       {myOrderData?.length === 0 ? (
-        <Container>
+        <NotContainer>
+          <NotIcon>!</NotIcon>
           <NotOrder>구매 내역이 없습니다.</NotOrder>
-        </Container>
+        </NotContainer>
       ) : (
         <Container>
               <Hr />
@@ -336,12 +402,12 @@ const PurchaseList = () => {
                 </Top>
                 <Content>
                   <Detail>
-                    <ReactionSubDetail to={`${order.orderId}`}>
+                    <ReactionSubDetail>
                     <Img src={order.orderProducts[0].img?.fullPath} />
-                      <BP>
-                        <BrandName>{[order.orderProducts[0].brandName]}<span>{order.orderProducts[0].title}</span></BrandName>
+                      <BP to={`${order.orderId}`}>
+                        <BrandName>{[order.orderProducts[0].brandName]}<span>{order.orderProducts[0].title}</span>&nbsp;외 {order.orderProducts?.length}개</BrandName>
                         <Option>색상: {order.orderProducts[0].color}</Option>
-                        <Price><span>₩&nbsp;{order.orderProducts[0].price?.toLocaleString("en-US")}</span> | {order.orderProducts[0].count}개</Price>
+                        <Price><span>₩&nbsp;{order.orderProducts[0].price?.toLocaleString("en-US")}</span></Price>
                       </BP>
                     </ReactionSubDetail>
                     <Btns>

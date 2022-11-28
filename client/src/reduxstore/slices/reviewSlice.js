@@ -21,26 +21,29 @@ export const getAllReview = createAsyncThunk("review/allGet", async (id) => {
       console.log(err);
     });
 });
-export const postReview = createAsyncThunk("review/post", async (postData) => {
-  console.log(postData);
-  const form = new FormData();
-  form.append("content", postData.content);
-  form.append("score", postData.score);
-  form.append("img", postData.img);
-  return Apis.post(`products/1/reviews`, form, {
-    headers: {
-      Authorization: `${jwtToken}`,
-      "Content-Type": "multipart/form-data",
-    },
-  })
-    .then((res) => {
-      console.log(res);
-      return res.data;
+export const postReview = createAsyncThunk(
+  "review/post",
+  async ({ postData, navigate }) => {
+    const form = new FormData();
+    form.append("content", postData.content);
+    form.append("score", postData.score);
+    form.append("img", postData.img);
+    return Apis.post(`products/${postData.filterProductId}/reviews`, form, {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "Content-Type": "multipart/form-data",
+      },
     })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+      .then((res) => {
+        navigate("purchase");
+        window.location.reload();
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 export const updateReview = createAsyncThunk(
   "review/update",
   async ({ updateData }) => {

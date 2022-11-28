@@ -86,6 +86,9 @@ function ArticleDetail() {
     console.log(postCartData);
     dispatch(postCart({ postCartData, navigate }));
   };
+  //여기서부터
+
+  const memberid = articlesDetail?.productId;
 
   return (
     <Wrapper>
@@ -103,7 +106,7 @@ function ArticleDetail() {
                   </DetailArticleStaAverage>
                 </DetailArticleStarSpace>
                 <ButtonIcon>
-                  <BsHeart className="heart" />
+                    <BsHeart />
                 </ButtonIcon>
               </DetailArticleNameSpace>
             </>
@@ -203,7 +206,7 @@ function ArticleDetail() {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -211,7 +214,7 @@ const Wrapper = styled.div`
   margin-top: 160px;
   @media screen and (max-width: 1023px) {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
   }
 `;
 
