@@ -4,18 +4,22 @@ import { IoMdArrowRoundUp } from "react-icons/io";
 
 const ArrowUpButton = styled.button`
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   bottom: 50px;
-  right: 50px;
-  width: 70px;
-  height: 70px;
-  font-size: 50px;
+  right: 60px;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
   color: white;
   background-color: #ffaf51;
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
   transition: opacity 300ms ease-in;
-  /* box-shadow: 1px 2px 2px gray; */
+  box-shadow: 0 1px 5px 0 rgb(0 0 0 / 30%);
+  z-index: 10;
   cursor: pointer;
   &.visible {
     opacity: 1;

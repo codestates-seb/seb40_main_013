@@ -114,7 +114,7 @@ const ReactionDetail = styled.div`
 const NavDetail = styled.nav`
   display: flex;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 500;
   margin-top: 20px;
   color: var(--font-ligthblack);
@@ -181,7 +181,6 @@ const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
   console.log(getUserdata);
-  // console.log(myOrderData);
   //tab click
   const [clicked, setClicked] = useState("");
 
@@ -206,7 +205,7 @@ const Mypage = () => {
       <Left>
         <Reaction>
           <ProfileImgConponent
-            src={`https://source.boringavatars.com/beam/120/daily?colors=FFAF51,FFC007,AAAAAA,0C8F8F,002C6D`}
+            src={`https://source.boringavatars.com/beam/${getUserdata.memberId}/daily?colors=FFAF51,FFC007,AAAAAA,0C8F8F,002C6D`}
             alt="avator"
             onclick={handleChangeImg}
           ></ProfileImgConponent>
@@ -273,7 +272,7 @@ const Mypage = () => {
         <Route path="/purchase/*" element={<PurchaseList />}></Route>
         <Route path="/myboard" element={<MyReview />}></Route>
         <Route path="/recent" element={<Recent />}></Route>
-        <Route path="/purchase/orderall" element={<PurchaseAll />}></Route>
+        <Route path="/purchase/:id" element={<PurchaseAll />}></Route>
       </Routes>
     </Container>
   );
