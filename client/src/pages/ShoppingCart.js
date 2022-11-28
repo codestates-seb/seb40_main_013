@@ -15,16 +15,20 @@ const CartBlock = styled.div`
   div {
     display: flex;
   }
+  .top{
+    height: 100%;
+    padding-top: 72px;
+  }
 `;
 
-const EmptyCart = styled(BsCartX)`
-  margin-top: 127.5px;
-  width: 100%;
-  padding: 30px 40px 50px 40px;
-  display: flex;
-  div {
-    display: flex;
-  }
+const Empty = styled.div`
+    flex-direction: column;
+`;
+
+const CartIcon = styled(BsCartX)`
+    width: 18rem;
+    height: 18rem;
+    color: var(--color-gray);
 `;
 
 const AllCheckBlock = styled.div`
@@ -95,7 +99,7 @@ const CartList = styled.div`
 //결제정보
 const Payment = styled.section`
   position: relative;
-  margin-top: -220px;
+  /* margin-top: -220px; */
   width: 300px;
   height: 300px;
   min-width: 230px;
@@ -212,10 +216,11 @@ function ShoppingCart() {
   return (
     <CartBlock>
       {cartSeletorLength === 0 ? (
-        <>
-          <EmptyCart/>
+        <Empty>
+          <CartIcon/>
           <div> 장바구니에 담긴 상품이 없습니다.</div>
-        </>
+        </Empty>
+
       ) : (
         <Quary>
           <CartList>
@@ -245,32 +250,34 @@ function ShoppingCart() {
               />
             ))}
           </CartList>
-          <Payment>
-            <div className="pay-title">결제정보</div>
-            <PayInfo>
-              <div>
-                <span>상품수</span>
-                <span>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</span>
-              </div>
-              <div>
-                <span>상품금액</span>
+          <div className="top">
+            <Payment>
+              <div className="pay-title">결제정보</div>
+              <PayInfo>
+                <div>
+                  <span>상품수</span>
+                  <span>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</span>
+                </div>
+                <div>
+                  <span>상품금액</span>
+                  <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
+                </div>
+                <div>
+                  <span>할인금액</span>
+                  <span className="sale">0&nbsp;원</span>
+                </div>
+                <div>
+                  <span>배송비</span>
+                  <span>0&nbsp;원</span>
+                </div>
+              </PayInfo>
+              <TotalPrice>
+                <span className="small">총&nbsp;결제금액</span>
                 <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
-              </div>
-              <div>
-                <span>할인금액</span>
-                <span className="sale">0&nbsp;원</span>
-              </div>
-              <div>
-                <span>배송비</span>
-                <span>0&nbsp;원</span>
-              </div>
-            </PayInfo>
-            <TotalPrice>
-              <span className="small">총&nbsp;결제금액</span>
-              <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
-            </TotalPrice>
-            <PayButton onClick={postPurchase}>구매하기</PayButton>
-          </Payment>
+              </TotalPrice>
+              <PayButton onClick={postPurchase}>구매하기</PayButton>
+            </Payment>
+          </div>
         </Quary>
       )}
     </CartBlock>

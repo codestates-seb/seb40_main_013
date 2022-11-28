@@ -20,10 +20,10 @@ function Footer() {
         <div>
           <div>
             <FooterSocialBtn href="https://github.com/codestates-seb/seb40_main_013">
-              <BsGithub size='25'/>
+              <GithubBtn/>
             </FooterSocialBtn>
             <FooterSocialBtn onClick={clickGuest}>
-              <IoMdPerson size='25'/>
+              <PersonBtn/>
             </FooterSocialBtn>
           </div>
         </div>
@@ -97,11 +97,33 @@ const FooterMenuBtn = styled.div`
 `;
 
 const FooterSocialBtn = styled.a`
-  width: 60px;
-  height: 60px;
+
+`;
+
+const GithubBtn = styled(BsGithub)`
+  width: 35px;
+  height: 35px;
   cursor: pointer;
   padding-right: 10px;
   color: #515151;
+  @media screen and (max-width: 767px) {
+    width: 22px;
+    height: 22px;
+    padding-right: 5px;
+  }
+`;
+
+const PersonBtn = styled(IoMdPerson)`
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  padding-right: 10px;
+  color: #515151;
+  @media screen and (max-width: 767px) {
+    width: 22px;
+    height: 22px;
+    padding-right: 5px;
+  }
 `;
 
 const FooterDownContentSpace = styled.div`

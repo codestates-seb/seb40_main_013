@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
+import { BtnAlert } from "../../components/Alert";
 
 const jwtToken = localStorage.getItem("Authorization");
 
@@ -24,7 +25,7 @@ export const postCart = createAsyncThunk(
       },
     })
       .then((res) => {
-        window.alert("해당 상품이 추가되었습니다!");
+        BtnAlert();
         return res.data;
       })
       .catch((err) => {
@@ -121,6 +122,7 @@ export const reCountCartItem = createAsyncThunk(
       }
     )
       .then((res) => {
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {
@@ -148,6 +150,7 @@ export const countSearchResult = createAsyncThunk(
   async ( searchWord) => {
     return Apis.get(`products/count?title=${searchWord}`)
       .then((res) => {
+        console.log(12345);
         return res.data;
       })
       .catch((err) => {
@@ -157,7 +160,7 @@ export const countSearchResult = createAsyncThunk(
 );
 
 export const popularSearch = createAsyncThunk(
-  "countSearchResult",
+  "popularSearch",
   async () => {
     return Apis.get(`search/rank`)
       .then((res) => {
@@ -169,8 +172,6 @@ export const popularSearch = createAsyncThunk(
   }
 );
 
-
-
 const articleSlice = createSlice({
   name: "article",
   initialState: {
@@ -180,6 +181,7 @@ const articleSlice = createSlice({
     shoppingCartInitial: [],
     searchResultInitial: [],
     countSearchResultInitial: [],
+    popularSearchInitial: [],
     loading: false,
     error: "",
   },
@@ -212,6 +214,11 @@ const articleSlice = createSlice({
     },
     [countSearchResult.fulfilled]: (state, action) => {
       state.countSearchResultInitial = action.payload.count;
+      state.loading = true;
+      state.error = "";
+    },
+    [popularSearch.fulfilled]: (state, action) => {
+      state.popularSearchInitial = action.payload;
       state.loading = true;
       state.error = "";
     },
