@@ -14,10 +14,10 @@ public class LocalFileRepository implements FileRepository {
 
         String originalFilename = multipartFile.getOriginalFilename();
         String storeFilename = getStoreFileName(originalFilename);
-        //path.replaceAll("/img","");
         String fullPath = path + storeFilename;
 
         multipartFile.transferTo(new java.io.File(fullPath));
+        //fullPath = fullPath.replaceAll("/img","");
 
         return File.builder()
                 .fileName(originalFilename)
