@@ -11,9 +11,13 @@ import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -42,7 +46,9 @@ public class LikeService {
 
     @Transactional(readOnly = true)
     public Page<Product> findLikeProductsByMemberId(Long memberId, Pageable pageable) {
-        return likeRepository.findByMember_Id(memberId, pageable);
+        Page<Like> likes = likeRepository.findLikeByMember_Id(memberId, pageable);
+
+        return likes.map(Like::getProduct);
     }
 
     // 상품 좋아요 취소

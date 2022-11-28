@@ -64,7 +64,7 @@ class SearchControllerTest {
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         responseFields(
-                                fieldWithPath("[]").type(ARRAY).description("데이터 (최대 20개)"),
+                                fieldWithPath("[]").type(ARRAY).description("데이터 (최대 5개)"),
                                 fieldWithPath("[].keyword").type(STRING).description("검색어"),
                                 fieldWithPath("[].count").type(NUMBER).description("검색 횟수")
                         )

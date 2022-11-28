@@ -14,7 +14,7 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     Optional<Like> findByMember_IdAndProduct_Id(Long memberId, Long productId);
 
     @EntityGraph(attributePaths = "product")
-    Page<Product> findByMember_Id(Long memberId, Pageable pageable);
+    Page<Like> findLikeByMember_Id(Long memberId, Pageable pageable);
 
     Boolean existsByMember_IdAndProduct_Id(Long memberId, Long productId);
 }

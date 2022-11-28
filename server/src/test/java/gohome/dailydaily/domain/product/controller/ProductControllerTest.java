@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
 import gohome.dailydaily.domain.product.controller.dto.GetProductListByDto;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
+import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.mapper.OptionMapper;
 import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.service.ProductService;
@@ -25,6 +26,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,6 +35,8 @@ import static java.util.List.of;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -319,6 +323,42 @@ public class ProductControllerTest {
                         RESPONSE_PREPROCESSOR,
                         REQUEST_PARAM_COUNT,
                         responseFields(CATEGORY_COUNT)));
+    }
+
+    @Test
+    public void postProduct() throws Exception {
+        // given
+        given(productService.postProduct(any(ProductDto.PostProduct.class)))
+                .willReturn(1L);
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                multipart("/products")
+                        .file(IMG)
+                        .file(IMG_LIST.get(0))
+                        .file(IMG_LIST.get(1))
+                        .header("Authorization", "JWT")
+                        .param("title", PRODUCT.getTitle())
+                        .param("sellerId", String.valueOf(PRODUCT.getSeller().getId()))
+                        .param("optionList[0].color", OPTION.getColor())
+                        .param("optionList[0].stock", String.valueOf(OPTION.getStock()))
+                        .param("optionList[1].color", OPTION.getColor())
+                        .param("optionList[1].stock", String.valueOf(OPTION.getStock()))
+                        .param("price", String.valueOf(PRODUCT.getPrice()))
+                        .param("main",PRODUCT.getCategory().getMain())
+                        .param("sub",PRODUCT.getCategory().getSub())
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .accept(MediaType.APPLICATION_JSON)
+        );
+
+        actions.andExpect(status().isCreated())
+                .andDo(document("products/post",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
+                        REQUEST_PARAM_PRODUCT,
+                        REQUEST_PARTS_IMG1
+                ));
     }
 
 }

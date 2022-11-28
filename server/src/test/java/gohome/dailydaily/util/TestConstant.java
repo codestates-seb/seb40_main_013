@@ -32,9 +32,12 @@ import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import org.springframework.restdocs.request.RequestParametersSnippet;
 import org.springframework.restdocs.request.RequestPartsSnippet;
+import org.springframework.restdocs.snippet.Snippet;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.apache.http.entity.ContentType.DEFAULT_BINARY;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
@@ -263,6 +266,19 @@ public class TestConstant {
             parameterWithName("score").description("리뷰 별점")
     );
 
+    public static final RequestParametersSnippet REQUEST_PARAM_PRODUCT = requestParameters(
+            parameterWithName("sellerId").description("판매자 식별자"),
+            parameterWithName("title").description("상품 제목"),
+            parameterWithName("price").description("상품 가격"),
+            parameterWithName("main").description("상품 대분류 카테고리"),
+            parameterWithName("sub").description("상품 소분류 카테고리"),
+            parameterWithName("optionList[0].color").description("옵션1 색상"),
+            parameterWithName("optionList[0].stock").description("옵션1 재고"),
+            parameterWithName("optionList[1].color").description("옵션2 색상"),
+            parameterWithName("optionList[1].stock").description("옵션2 재고")
+
+            );
+
     public static final PathParametersSnippet PATH_PARAM_PRODUCT_CART_ID = pathParameters(
             parameterWithName("product-cart-id").description("장바구니 상품 식별자")
     );
@@ -486,11 +502,20 @@ public class TestConstant {
     public static final MockMultipartFile IMG =
             new MockMultipartFile("img", null, DEFAULT_BINARY.toString(), "img".getBytes());
 
+    public static final List<MockMultipartFile> IMG_LIST = new ArrayList<>(
+            List.of(new MockMultipartFile("img1", null, DEFAULT_BINARY.toString(), "img1".getBytes()),
+                    new MockMultipartFile("img2", null, DEFAULT_BINARY.toString(), "img2".getBytes())));
+
     public static final RequestPartsSnippet REQUEST_PARTS_IMG = requestParts(partWithName("img").description("이미지"));
     public static final FieldDescriptor FWP_CATEGORY_PRODUCT_REVIEWS = fieldWithPath("categoryMain[].reviews").type(NUMBER).description("리뷰 갯수");
     public static final FieldDescriptor FWP_CONTENT_REVIEWS = fieldWithPath("content[].reviews").type(NUMBER).description("리뷰 갯수");
     public static final FieldDescriptor FWP_PRODUCTS_REVIEWS = fieldWithPath("[].reviews").type(NUMBER).description("리뷰 갯수");
     public static final FieldDescriptor CATEGORY_COUNT = fieldWithPath("count").type(NUMBER).description("카테고리 상품 갯수");
+    public static final RequestPartsSnippet REQUEST_PARTS_IMG1 = requestParts(
+            partWithName("img").description("썸네일 이미지"),
+            partWithName("img1").description("상품 상세 이미지1"),
+            partWithName("img2").description("상품 상세 이미지2")
+    );
 
     static {
         MEMBER.addRoles(MemberRole.USER);

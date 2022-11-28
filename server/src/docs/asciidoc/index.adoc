@@ -183,6 +183,25 @@ include::{snippets}/members/img/http-response.adoc[]
 include::{snippets}/members/img/response-fields.adoc[]
 
 == 상품
+=== 상품 추가
+.http-request
+include::{snippets}/products/post/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/products/post/request-headers.adoc[]
+
+.request-parameters
+[caption=]
+include::{snippets}/products/post/request-parameters.adoc[]
+
+.request-parts
+[caption=]
+include::{snippets}/products/post/request-parts.adoc[]
+
+.http-response
+include::{snippets}/products/post/http-response.adoc[]
+
 === 상품 상세 조회
 .http-request
 include::{snippets}/products/get/http-request.adoc[]

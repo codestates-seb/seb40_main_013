@@ -85,9 +85,7 @@ public class ProductService {
     public SliceResponseDto<CategoryGetDto> getProductListByTitle(GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> products = productRepository
                 .findAllByTitle(dto.getPageRequest(), ProductGetParam.valueOf(dto));
-        if (products.getContent().isEmpty()) {
-            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
-        }
+
         searchRedisRepository.addSearchCount(dto.getTitle());
         return products;
     }
@@ -102,7 +100,7 @@ public class ProductService {
             if (tmp.isEmpty()) {
                 products.put("guest", null);
             } else {
-                products.put(tmp.get(2).getNickname(), tmp);
+                products.put(tmp.get(0).getNickname(), tmp);
             }
         }
         return products;
@@ -120,7 +118,7 @@ public class ProductService {
     }
 
     @Transactional
-    public String postProduct(ProductDto.PostProduct postProduct) throws IOException {
+    public Long postProduct(ProductDto.PostProduct postProduct) throws IOException {
 
         Long categoryId = categoryRepository.findIdByMainAndSub(postProduct.getMain(), postProduct.getSub());
 
@@ -142,7 +140,7 @@ public class ProductService {
 
         productRepository.save(product);
 
-        return "상품 등록 완료";
+        return product.getId();
     }
 
     public SliceResponseDto<CategoryGetDto> getProductListByBrand(GetProductListByDto dto) {
