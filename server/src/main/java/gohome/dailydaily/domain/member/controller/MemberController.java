@@ -88,7 +88,7 @@ public class MemberController {
 
     @GetMapping("/members/mypage/likes")
     public PageResponseDto<CategoryGetDto> getLikes(@MemberId Long memberId,
-                                                    @PageableDefault(size = 20, sort = "createdAt",
+                                                    @PageableDefault(size = 15, sort = "createdAt",
                                                             direction = Sort.Direction.DESC) Pageable pageable) {
         Page<CategoryGetDto> likeProducts = likeService.findLikeProductsByMemberId(memberId, pageable);
         return PageResponseDto.of(likeProducts);
