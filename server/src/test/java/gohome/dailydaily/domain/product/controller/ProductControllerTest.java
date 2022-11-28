@@ -31,14 +31,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import static gohome.dailydaily.util.TestConstant.*;
-import static java.util.List.*;
+import static java.util.List.of;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.willReturn;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -56,7 +56,7 @@ public class ProductControllerTest {
     @MockBean
     private ProductService productService;
 
-   //@Test
+    @Test
     public void getProduct() throws Exception {
 
         given(productService.findProduct(PRODUCT.getId(), MEMBER.getId()))
@@ -77,7 +77,7 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.title").value(PRODUCT.getTitle()))
                 .andExpect(jsonPath("$.content").value(new Gson().fromJson(PRODUCT.getContent(), List.class)))
                 .andExpect(jsonPath("$.price").value(PRODUCT.getPrice()))
-                .andExpect(jsonPath("$.isLike").value(false))
+                .andExpect(jsonPath("$.existsLike").value(false))
                 .andExpect(jsonPath("$.img.fileName").value(PRODUCT.getImg().getFileName()))
                 .andExpect(jsonPath("$.img.fullPath").value(PRODUCT.getImg().getFullPath()))
                 .andExpect(jsonPath("$.score").value(PRODUCT.getScore() / 10F))

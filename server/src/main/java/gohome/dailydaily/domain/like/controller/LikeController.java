@@ -14,7 +14,7 @@ public class LikeController {
 
     private final LikeService likeService;
 
-    @PostMapping("product/{product-id}/likes")
+    @PostMapping("/products/{product-id}/likes")
     @ResponseStatus(HttpStatus.CREATED)
     public String postLike(@MemberId Long memberId,
                            @PathVariable("product-id") Long productId) {
@@ -23,7 +23,7 @@ public class LikeController {
         return "Create Likes";
     }
 
-    @DeleteMapping("product/{product-id}/likes")
+    @DeleteMapping("/products/{product-id}/likes")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public String deleteLike(@MemberId Long memberId,
                              @PathVariable("product-id") Long productId) {

@@ -148,6 +148,21 @@ include::{snippets}/members/reviews/request-parameters.adoc[]
 .http-response
 include::{snippets}/members/reviews/http-response.adoc[]
 
+=== 회원 좋아요 상품 조회
+.http-request
+include::{snippets}/members/likes/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/members/likes/request-headers.adoc[]
+
+.request-parameters
+[caption=]
+include::{snippets}/members/likes/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/members/likes/http-response.adoc[]
+
 === 회원 프로필 수정
 .http-request
 include::{snippets}/members/img/http-request.adoc[]
@@ -256,6 +271,37 @@ include::{snippets}/products/count/http-response.adoc[]
 .response-fields
 [caption=]
 include::{snippets}/products/count/response-fields.adoc[]
+
+== 상품 좋아요
+=== 상품 좋아요 추가
+.http-request
+include::{snippets}/likes/post/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/likes/post/request-headers.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/likes/post/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/likes/post/http-response.adoc[]
+
+=== 상품 좋아요 취소
+.http-request
+include::{snippets}/likes/delete/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/likes/delete/request-headers.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/likes/delete/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/likes/delete/http-response.adoc[]
 
 == 리뷰
 === 리뷰 등록

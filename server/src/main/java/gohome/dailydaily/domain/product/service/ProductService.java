@@ -20,7 +20,6 @@ import gohome.dailydaily.domain.search.repository.SearchRedisRepository;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -76,8 +75,7 @@ public class ProductService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
     }
     public Product findProduct(Long memberId, Long productId) {
-        Product product = productRepository.findProductById(productId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+        Product product = getProduct(memberId);
 
         Optional.ofNullable(memberId)
                 .ifPresent(id -> product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(id, productId)));
