@@ -74,6 +74,7 @@ public class ProductService {
         return productRepository.findProductById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
     }
+
     public Product findProduct(Long memberId, Long productId) {
         Product product = getProduct(productId);
 
