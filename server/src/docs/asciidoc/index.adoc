@@ -191,6 +191,13 @@ include::{snippets}/products/post/http-request.adoc[]
 [caption=]
 include::{snippets}/products/post/request-headers.adoc[]
 
+.request-parameters
+[caption=]
+include::{snippets}/products/post/request-parameters.adoc[]
+
+.request-parts
+[caption=]
+include::{snippets}/products/post/request-parts.adoc[]
 
 .http-response
 include::{snippets}/products/post/http-response.adoc[]
