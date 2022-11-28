@@ -3,6 +3,7 @@ package gohome.dailydaily.domain.product.service;
 import com.google.gson.Gson;
 import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.file.service.FileService;
+import gohome.dailydaily.domain.like.repository.LikeRepository;
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.member.repository.SellerRepository;
 import gohome.dailydaily.domain.member.service.SellerService;
@@ -30,6 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -43,7 +45,9 @@ public class ProductService {
     @Value("${file.productContentsImg}")
     private String productContentsPath;
 
+
     private final ProductRepository productRepository;
+    private final LikeRepository likeRepository;
     private final SellerRepository sellerRepository;
     private final SellerService sellerService;
     private final CategoryRepository categoryRepository;
@@ -70,6 +74,15 @@ public class ProductService {
     public Product getProduct(Long productId) {
         return productRepository.findProductById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+    }
+    public Product findProduct(Long memberId, Long productId) {
+        Product product = productRepository.findProductById(productId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+
+        Optional.ofNullable(memberId)
+                .ifPresent(id -> product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(id, productId)));
+
+        return product;
     }
 
     public SliceResponseDto<CategoryGetDto> getProductListByTitle(GetProductListByDto dto) {
