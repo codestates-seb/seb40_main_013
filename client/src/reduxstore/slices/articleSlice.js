@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
 import { Toast } from "../../components/Alert";
 
+
 let jwtToken = localStorage.getItem("Authorization");
 
 export const getArticleDetail = createAsyncThunk(
@@ -30,6 +31,7 @@ export const postCart = createAsyncThunk(
       },
     })
       .then((res) => {
+
         return res.data;
       })
       .catch((err) => {
