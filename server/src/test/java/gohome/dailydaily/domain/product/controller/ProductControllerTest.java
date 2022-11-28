@@ -329,7 +329,7 @@ public class ProductControllerTest {
     public void postProduct() throws Exception {
         // given
         given(productService.postProduct(any(ProductDto.PostProduct.class)))
-                .willReturn("상품 등록 완료");
+                .willReturn(1L);
 
         // when
         ResultActions actions = mockMvc.perform(
@@ -344,6 +344,9 @@ public class ProductControllerTest {
                         .param("optionList[0].stock", String.valueOf(OPTION.getStock()))
                         .param("optionList[1].color", OPTION.getColor())
                         .param("optionList[1].stock", String.valueOf(OPTION.getStock()))
+                        .param("price", String.valueOf(PRODUCT.getPrice()))
+                        .param("main",PRODUCT.getCategory().getMain())
+                        .param("sub",PRODUCT.getCategory().getSub())
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
         );
@@ -353,8 +356,8 @@ public class ProductControllerTest {
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         REQUEST_HEADER_JWT,
-                        REQUEST_PARTS_IMG
-
+                        REQUEST_PARAM_PRODUCT,
+                        REQUEST_PARTS_IMG1
                 ));
     }
 
