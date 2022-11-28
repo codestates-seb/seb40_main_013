@@ -2,6 +2,7 @@ package gohome.dailydaily.domain.like.repository;
 
 import gohome.dailydaily.domain.like.entity.Like;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
+import gohome.dailydaily.domain.product.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -13,7 +14,7 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     Optional<Like> findByMember_IdAndProduct_Id(Long memberId, Long productId);
 
     @EntityGraph(attributePaths = "product")
-    Page<CategoryGetDto> findByMember_Id(Long memberId, Pageable pageable);
+    Page<Product> findByMember_Id(Long memberId, Pageable pageable);
 
     Boolean existsByMember_IdAndProduct_Id(Long memberId, Long productId);
 }

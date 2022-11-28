@@ -26,6 +26,9 @@ public class LikeService {
 
     // 상품 좋아요 추가
     public void addProductLike(Long memberId, Long productId) {
+        if (likeRepository.existsByMember_IdAndProduct_Id(memberId, productId)) {
+            throw new BusinessLogicException(ExceptionCode.LIKE_EXISTS);
+        }
         Member member = memberService.findVerifiedMember(memberId);
         Product product = productService.getProduct(productId);
 
@@ -38,7 +41,7 @@ public class LikeService {
     }
 
     @Transactional(readOnly = true)
-    public Page<CategoryGetDto> findLikeProductsByMemberId(Long memberId, Pageable pageable) {
+    public Page<Product> findLikeProductsByMemberId(Long memberId, Pageable pageable) {
         return likeRepository.findByMember_Id(memberId, pageable);
     }
 
