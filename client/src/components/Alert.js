@@ -32,26 +32,6 @@ export const Toast = (icon, content) => {
   });
 };
 
-export const BtnAlert = () => {
-  Swal.fire({ title: "WOW!", text: "Message!", type: "success" }).then(
-    (okay) => {
-      if (okay) {
-        window.location.href = "http://localhost:3000/cart";
-      }
-    }
-  );
-};
-
-// export const Toast = () => {
-//   Swal.fire({
-//     position: "top-end",
-//     icon: "success",
-//     title: "Your work has been saved",
-//     showConfirmButton: false,
-//     timer: 1500,
-//   });
-// };
-
 export const DeleteAlert = (content, confirmbutton, confirmMessage) => {
   MySwal.fire({
     title: "Are you sure?",

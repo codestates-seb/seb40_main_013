@@ -6,6 +6,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Button from "./components/Button";
 
 const MainContainter = styled.div`
+  width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,11 +29,10 @@ const Kitchen = lazy(() => import("./pages/sub/Kitchen"));
 const LivingRoom = lazy(() => import("./pages/sub/LivingRoom"));
 const SearchResult = lazy(() => import("./pages/SearchResult"));
 const Register = lazy(() => import("./pages/Register"));
- 
 
 function App() {
   const [click, setClick] = useState("");
-  const [searchWord, setSearchWord] = useState('');
+  const [searchWord, setSearchWord] = useState("");
 
   return (
     <BrowserRouter>
@@ -43,10 +43,10 @@ function App() {
         <div className="App">
           <MainContainter>
             <MainContent>
-              <Header setClick={setClick} setSearchWord={setSearchWord}/>
+              <Header setClick={setClick} setSearchWord={setSearchWord} />
               <Routes>
                 <Route path="/" element={<Main />} />
-                <Route path="/register" element={<Register />}/>
+                <Route path="/register" element={<Register />} />
                 <Route path="/users/login" element={<Login />} />
                 <Route path="/members/mypage/*" element={<MyPage />} />
                 <Route path="/signup" element={<Signup />} />
@@ -59,7 +59,10 @@ function App() {
                   element={<LivingRoom click={click} />}
                 />
                 <Route path="/cart" element={<ShoppingCart />} />
-                <Route path="/search" element={<SearchResult searchWord={searchWord}/>} />
+                <Route
+                  path="/search"
+                  element={<SearchResult searchWord={searchWord} />}
+                />
               </Routes>
             </MainContent>
             <Footer />

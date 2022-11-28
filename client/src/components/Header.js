@@ -163,6 +163,9 @@ function Header({ setClick, setSearchWord }) {
     localStorage.clear();
     navigate("/");
     Toast("success", "로그아웃에 성공하셨습니다!");
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   };
 
   return (
