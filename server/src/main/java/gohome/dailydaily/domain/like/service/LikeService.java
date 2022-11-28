@@ -44,14 +44,14 @@ public class LikeService {
 
     // 상품 좋아요 취소
     public void cancelProductLike(Long memberId, Long productId) {
-        Like like = likeRepository.findByMember_IdAndProduct_Id(memberId, productId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.LIKE_NOT_FOUND));
+        Like like = findVerifiedLike(memberId, productId)
 
         likeRepository.delete(like);
     }
 
     public Like findVerifiedLike(Long memberId, Long productId) {
         Like like = likeRepository.findByMember_IdAndProduct_Id(memberId, productId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.LIKE_NOT_FOUND));
     }
 
 }

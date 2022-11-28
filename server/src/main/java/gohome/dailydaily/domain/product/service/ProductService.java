@@ -3,6 +3,7 @@ package gohome.dailydaily.domain.product.service;
 import com.google.gson.Gson;
 import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.file.service.FileService;
+import gohome.dailydaily.domain.like.repository.LikeRepository;
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.member.repository.SellerRepository;
 import gohome.dailydaily.domain.member.service.SellerService;
@@ -44,6 +45,7 @@ public class ProductService {
     private String productContentsPath;
 
     private final ProductRepository productRepository;
+    private final LikeRepository likeRepository;
     private final SellerRepository sellerRepository;
     private final SellerService sellerService;
     private final CategoryRepository categoryRepository;
@@ -68,6 +70,12 @@ public class ProductService {
     }
 
     public Product getProduct(Long productId) {
+        return productRepository.findProductById(productId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+    }
+    public Product findProduct(Long memberId, Long productId) {
+        likeRepository.findByMember_IdAndProduct_Id(memberId, productId);
+
         return productRepository.findProductById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
     }
