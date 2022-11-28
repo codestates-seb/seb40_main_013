@@ -27,6 +27,8 @@ const Bedroom = lazy(() => import("./pages/sub/Bedroom"));
 const Kitchen = lazy(() => import("./pages/sub/Kitchen"));
 const LivingRoom = lazy(() => import("./pages/sub/LivingRoom"));
 const SearchResult = lazy(() => import("./pages/SearchResult"));
+const Register = lazy(() => import("./pages/Register"));
+ 
 
 function App() {
   const [click, setClick] = useState("");
@@ -44,6 +46,7 @@ function App() {
               <Header setClick={setClick} setSearchWord={setSearchWord}/>
               <Routes>
                 <Route path="/" element={<Main />} />
+                <Route path="/register" element={<Register />}/>
                 <Route path="/users/login" element={<Login />} />
                 <Route path="/members/mypage/*" element={<MyPage />} />
                 <Route path="/signup" element={<Signup />} />

@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PostReview from "./PostReview";
+import { getMyOrder } from '../../reduxstore/slices/myOrderSlice';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -20,6 +23,7 @@ const Container = styled.div`
     margin: 30px 0;
   }
 `;
+const ProductContainer = styled.div``;
 
 const AllOrderTitle = styled.h2`
   font-weight: 700;
@@ -55,29 +59,6 @@ const Hr = styled.hr`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const PD = styled.div`
-  display: flex;
-  margin: 10px;
-`;
-const ProductStatus = styled.h2`
-  font-weight: 700;
-  font-size: 1rem;
-  margin-right: 10px;
-  @media screen and (max-width: 390px) {
-    font-size: 12px;
-    font-weight: 600;
-  }
-`;
-const DelieveryStatus = styled.h2`
-  font-weight: 700;
-  font-size: 1rem;
-  color: #ffaf51;
-  @media screen and (max-width: 390px) {
-    font-size: 12px;
-    font-weight: 600;
-  }
 `;
 
 const Detail = styled.div`
@@ -175,22 +156,6 @@ const ReviewBtn = styled.button`
     padding: 8px 30px;
   }
 `;
-const CancleBtn = styled.button`
-  padding: 10px 30px;
-  color: #002c6d;
-  border-radius: 10px;
-  cursor: pointer;
-  &:hover {
-    background-color: red;
-    color: white;
-  }
-  @media screen and (max-width: 390px) {
-    display: none;
-  }
-  @media (min-width: 391px) and (max-width: 768px) {
-    padding: 8px 30px;
-  }
-`;
 
 //반응형 구매후기
 const ReactionSpace = styled.div`
@@ -228,6 +193,9 @@ const PaySubContainer = styled.div`
   justify-content: space-between;
   margin: 20px 0;
   width: 300px;
+  @media screen and (max-width: 479px){
+    width: 90%;
+  }
 `;
 const PaySubTitle = styled.h2`
   color: #aaaaaa;
@@ -240,103 +208,57 @@ const PaymentContainer = styled.div`
     flex-direction: column;
   }
 `;
-const FlexContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-right: 50px;
-  width: 100vw;
-`;
 
-const PurchaseAll = ({ getUserdata, myOrderData, click }) => {
+const PurchaseAll = ({ getUserdata, click }) => {
   // const [isModal, setIsModal] = useState(false);
+  const dispatch = useDispatch();
+  const {id} = useParams();
+  const myOrderData = useSelector((state)=> state.myorder.myorder.content);
+  const filterData = myOrderData.filter(order => order.orderId == id);
+  const filterProduct = filterData[0].orderProducts;
+  console.log(filterProduct);
+
 
   // const clickModal = () => {
   //   setIsModal(!isModal);
   // };
-  console.log(myOrderData)
+  useEffect(()=>{
+    dispatch(getMyOrder(click))
+  }, []);
 
   return (
     <Container>
     {/* <PostReview clickModal={clickModal} /> */}
-    {/* <AllOrderTitle>주문상세정보</AllOrderTitle> */}
+    <AllOrderTitle>주문상세정보</AllOrderTitle>
     <Top>
-      <SubTop>830495 | 2022.01.11</SubTop>
+      <SubTop>{filterData[0].orderNumber}&nbsp;|&nbsp;{filterData[0].createdAt.slice(0, 10)}</SubTop>
     </Top>
+    {filterProduct?.map((p, i) => (
+      <ProductContainer key={i}>
+        <Hr />
+        <Content>
+          <Detail>
+            <ReactionSubDetail>
+            <Img src={p.img.fullPath}/>
+              <BP>
+                <BrandName>[{p.brandName}] {p.title}</BrandName>
+                <Option>색상: {p.color}</Option>
+                <Price><span>₩&nbsp;{p.price.toLocaleString("en-US")}</span>&nbsp;|&nbsp;{p.count}개</Price>
+              </BP>
+            </ReactionSubDetail>
+            <Btns>
+              <ReviewBtn>리뷰작성</ReviewBtn>
+            </Btns>
+          </Detail>
+          <ReactionSpace>
+            <ReactionReviewBtn>구매후기</ReactionReviewBtn>
+          </ReactionSpace>
+        </Content>
+      </ProductContainer>
+    ))}
+     <PaymentTitle>결제정보</PaymentTitle>
     <Hr />
-    <Content>
-      <PD>
-        <ProductStatus>구매확정</ProductStatus>
-        <DelieveryStatus>도착완료</DelieveryStatus>
-      </PD>
-      <Detail>
-        <ReactionSubDetail>
-        <Img />
-          <BP>
-            <BrandName>[두닷] 화장대</BrandName>
-            <Option>색상: white</Option>
-            <Price><span>13900</span> | 1개</Price>
-          </BP>
-        </ReactionSubDetail>
-        <Btns>
-          <ReviewBtn>리뷰작성</ReviewBtn>
-          <CancleBtn>주문취소</CancleBtn>
-        </Btns>
-      </Detail>
-      <ReactionSpace>
-        <ReactionReviewBtn>구매후기</ReactionReviewBtn>
-      </ReactionSpace>
-    </Content>
-    <Hr />
-    <Content>
-      <PD>
-        <ProductStatus>구매확정</ProductStatus>
-        <DelieveryStatus>도착완료</DelieveryStatus>
-      </PD>
-      <Detail>
-        <ReactionSubDetail>
-        <Img />
-          <BP>
-            <BrandName>[두닷] 화장대</BrandName>
-            <Option>색상: white</Option>
-              <Price><span>13900</span> | 1개</Price>
-          </BP>
-        </ReactionSubDetail>
-        <Btns>
-          <ReviewBtn>리뷰작성</ReviewBtn>
-          <CancleBtn>주문취소</CancleBtn>
-        </Btns>
-      </Detail>
-      <ReactionSpace>
-        <ReactionReviewBtn>구매후기</ReactionReviewBtn>
-      </ReactionSpace>
-    </Content>
-    <Hr />
-    <Content>
-      <PD>
-        <ProductStatus>구매확정</ProductStatus>
-        <DelieveryStatus>도착완료</DelieveryStatus>
-      </PD>
-      <Detail>
-        <ReactionSubDetail>
-        <Img />
-          <BP>
-            <BrandName>[두닷] 화장대</BrandName>
-            <Option>색상: white</Option>
-              <Price><span>13900</span> | 1개</Price>
-          </BP>
-        </ReactionSubDetail>
-        <Btns>
-          <ReviewBtn>리뷰작성</ReviewBtn>
-          <CancleBtn>주문취소</CancleBtn>
-        </Btns>
-      </Detail>
-      <ReactionSpace>
-        <ReactionReviewBtn>구매후기</ReactionReviewBtn>
-      </ReactionSpace>
-    </Content>
-     {/* <PaymentTitle>결제정보</PaymentTitle>
-    <Hr /> */}
-    {/* <PaymentContainer>
+    <PaymentContainer>
         <PaySubContainer>
           <PaySubTitle>상품금액</PaySubTitle>
           <PaySubContent>26,800원</PaySubContent>
@@ -349,7 +271,7 @@ const PurchaseAll = ({ getUserdata, myOrderData, click }) => {
           <PaySubTitle>결제금액</PaySubTitle>
           <PaySubContent>26,800원</PaySubContent>
         </PaySubContainer>
-    </PaymentContainer> */}
+    </PaymentContainer>
   </Container>
   );
 };
