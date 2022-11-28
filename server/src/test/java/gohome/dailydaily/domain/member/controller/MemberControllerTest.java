@@ -9,6 +9,9 @@ import gohome.dailydaily.domain.member.mapper.MemberMapper;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
 import gohome.dailydaily.domain.member.service.MemberService;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
+import gohome.dailydaily.domain.product.entity.Product;
+import gohome.dailydaily.domain.product.mapper.OptionMapper;
+import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.review.entity.Review;
 import gohome.dailydaily.domain.review.mapper.ReviewMapper;
 import gohome.dailydaily.domain.review.service.ReviewService;
@@ -41,7 +44,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = {MemberController.class, MemberMapper.class, SellerMapper.class, ReviewMapper.class})
+@WebMvcTest(controllers = {MemberController.class, MemberMapper.class, SellerMapper.class, ProductMapper.class, OptionMapper.class, ReviewMapper.class})
 @MockBean(JpaMetamodelMappingContext.class)
 @Import(SecurityTestConfig.class)
 @AutoConfigureRestDocs
@@ -266,15 +269,10 @@ class MemberControllerTest implements Reflection {
     @Test
     void getLikes() throws Exception{
         // given
-        Page<CategoryGetDto> likeProducts = new PageImpl<>(List.of(new CategoryGetDto(PRODUCT.getId(), PRODUCT.getImg(), PRODUCT.getTitle(),
-                        PRODUCT.getPrice(), PRODUCT.getScore().floatValue(), PRODUCT.getSeller().getMember().getNickname(),
-                        PRODUCT.getCategory().getMain(),PRODUCT.getReviews().size()),
-                new CategoryGetDto(PRODUCT2.getId(), PRODUCT2.getImg(), PRODUCT2.getTitle(),
-                        PRODUCT2.getPrice(), PRODUCT2.getScore().floatValue(), PRODUCT2.getSeller().getMember().getNickname(),
-        PRODUCT2.getCategory().getMain(),PRODUCT2.getReviews().size())), PAGEABLE, 2);
+        Page<Product> products = new PageImpl<>(List.of(PRODUCT1, PRODUCT2), PAGEABLE, 2);
 
         given(likeService.findLikeProductsByMemberId(MEMBER.getId(), PAGEABLE))
-                .willReturn(likeProducts);
+                .willReturn(products);
 
         // when
         ResultActions actions = mockMvc.perform(

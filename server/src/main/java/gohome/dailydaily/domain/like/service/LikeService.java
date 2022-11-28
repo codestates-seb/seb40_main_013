@@ -38,7 +38,7 @@ public class LikeService {
     }
 
     @Transactional(readOnly = true)
-    public Page<CategoryGetDto> findLikeProductsByMemberId(Long memberId, Pageable pageable) {
+    public Page<Product> findLikeProductsByMemberId(Long memberId, Pageable pageable) {
         return likeRepository.findByMember_Id(memberId, pageable);
     }
 

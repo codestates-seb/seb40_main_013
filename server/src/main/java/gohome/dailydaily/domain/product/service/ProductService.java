@@ -75,7 +75,7 @@ public class ProductService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
     }
     public Product findProduct(Long memberId, Long productId) {
-        Product product = getProduct(memberId);
+        Product product = getProduct(productId);
 
         Optional.ofNullable(memberId)
                 .ifPresent(id -> product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(id, productId)));

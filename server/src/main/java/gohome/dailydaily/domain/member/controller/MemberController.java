@@ -8,6 +8,8 @@ import gohome.dailydaily.domain.member.mapper.MemberMapper;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
 import gohome.dailydaily.domain.member.service.MemberService;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
+import gohome.dailydaily.domain.product.entity.Product;
+import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.review.dto.ReviewDto;
 import gohome.dailydaily.domain.review.entity.Review;
 import gohome.dailydaily.domain.review.mapper.ReviewMapper;
@@ -37,6 +39,7 @@ public class MemberController {
     private final MemberMapper memberMapper;
     private final SellerMapper sellerMapper;
     private final ReviewMapper reviewMapper;
+    private final ProductMapper productMapper;
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -90,8 +93,8 @@ public class MemberController {
     public PageResponseDto<CategoryGetDto> getLikes(@MemberId Long memberId,
                                                     @PageableDefault(size = 15, sort = "createdAt",
                                                             direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<CategoryGetDto> likeProducts = likeService.findLikeProductsByMemberId(memberId, pageable);
-        return PageResponseDto.of(likeProducts);
+        Page<Product> likeProducts = likeService.findLikeProductsByMemberId(memberId, pageable);
+        return PageResponseDto.of(likeProducts.map(productMapper::toCategoryGetDto));
     }
 
 }

@@ -2,6 +2,9 @@ package gohome.dailydaily.domain.product.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import gohome.dailydaily.domain.file.entity.File;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -18,6 +21,7 @@ public class CategoryGetDto {
     private Integer reviews;
 
     @QueryProjection
+    @Builder
     public CategoryGetDto(Long id, File img, String title, Integer price, Float score, String nickname,String main, Integer reviews) {
         this.id = id;
         this.img = img;
