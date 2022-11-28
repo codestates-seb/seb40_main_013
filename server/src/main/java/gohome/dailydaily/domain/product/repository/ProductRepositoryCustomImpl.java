@@ -43,7 +43,7 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
 
         List<CategoryGetDto> content = select(getCategoryGetDto())
                 .from(product)
-                .orderBy(product.score.desc(), product.reviews.size().desc())
+                .orderBy(product.sale.desc(), product.score.desc(), product.reviews.size().desc())
                 .innerJoin(product.seller.member, member)
                 .innerJoin(product.category, category)
                 .where(product.seller.id.eq(id))
