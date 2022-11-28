@@ -3,6 +3,7 @@ import { BsSearch } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Alert } from "./Alert";
 
 const SearchBlock = styled.div`
   position: fixed; //absolute로 바꿀수도 있음
@@ -26,9 +27,12 @@ const SearchBlock = styled.div`
   }
 `;
 
-const FormBlock = styled.div`
-
-`;
+// const FormBlock = styled.form`
+//   width: 100%;
+//   .dis{
+//     display: none;
+//   }
+// `;
 
 const Form = styled.form`
   margin-top: 17vh;
@@ -44,6 +48,7 @@ const SearchInput = styled.div`
   width: 100%;
   border-bottom: 3px solid #002c6d;
   margin-right: 15px;
+  color: #272727;
   input {
     border: none;
     width: 100%;
@@ -52,6 +57,9 @@ const SearchInput = styled.div`
     &:focus {
       outline: none;
     }
+  }
+  .dis{
+    display: none;
   }
 `;
 
@@ -77,21 +85,43 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
     const [inputWord, setInputWord] = useState('')
 
     const inputChageHandler = ({target}) => {
-      setInputWord(target.value)
+      const curValue = target.value;
+      const notNum = /^\s+|\s+$/gm; //앞뒤 공백 제거
+
+      setInputWord(curValue.replace(notNum,''))
     }
 
     const searchResultHandler = () => {
-      setSearchWord(inputWord)
-      navigate('/search')
-      closeHandler()
+      if(inputWord.length === 0 ){
+        Alert('warning', '첫번째 글자에 공백이 입력되었습니다.')
+      } else{
+        setSearchWord(inputWord)
+        navigate('/search')
+        closeHandler()
+        setInputWord('')
+      }
+    }
+
+    const onSubmitSearch = (e) => {
+      if (e.key === "Enter") {
+        setSearchWord(inputWord)
+        navigate('/search')
+        closeHandler()
+        setInputWord('')
+      } 
+      // else if(inputWord.length === 0 ){
+      //   Alert('warning', '첫번째 글자에 공백이 입력되었습니다.')
+      // }
     }
 
     return(
       <SearchBlock className={ closeSearch ? '' : 'closed'}>
         <div className="search-section">
             <Form >
-                <SearchInput >
-                    <input type="text" value={inputWord} onChange={inputChageHandler}></input>
+                <SearchInput>
+                    <input type="text" value={inputWord} onChange={inputChageHandler}
+                      onKeyUp={onSubmitSearch}></input>
+                    <input type="text" className="dis"/>
                     <div onClick={searchResultHandler}>
                         <BsSearch color="#002C6D" size='26'/>
                     </div>

@@ -6,7 +6,6 @@ import { newData } from "../reduxstore/slices/mainSlice";
 import { categoryData } from "../reduxstore/slices/mainCategorySlice";
 import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
-import Button from "../components/Button";
 import Products from "../components/mains/Product";
 import NewProducts from "../components/mains/NewProducts";
 
@@ -24,11 +23,15 @@ const Title = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-items: center;
 `;
 const SubTitle = styled.h2`
   color: #aaaaaa;
   font-size: 1rem;
   margin-top: 20px;
+  @media screen and (max-width: 479px) {
+    font-size: 0.9rem;
+  }
 `;
 const MainTitle = styled.h2`
   display: flex;
@@ -37,6 +40,9 @@ const MainTitle = styled.h2`
   margin-top: 10px;
   color: var(--font-black);
   scroll-margin-top: 170px;
+  @media screen and (max-width: 479px) {
+    font-size: 1.5rem;
+  }
 `;
 const ProductList = styled.div`
   /* width: 70%; */
@@ -68,11 +74,30 @@ const BrandTab = styled.table`
   width: 80%;
   align-items: center;
   justify-content: center;
-  @media (min-width: 391px) and (max-width: 767px) {
-    flex-direction: column;
+  .tbody{
+    display: flex;
+    border: 2px solid #ECECE8;
+  }
+  .reactionbody{
+     display:flex;
+    }
+  @media screen and (max-width: 479px) {
+    .tbody{
+      flex-direction: column;
+    }
+    .reactionbody{
+      flex-direction: column;
+    }
+  }
+  @media (min-width: 480px) and (max-width: 767px) {
+    .tbody{
+      flex-direction: column;
+    }
   }
   @media (min-width: 768px) and (max-width: 1023px) {
-    flex-direction: column;
+    .tbody{
+      flex-direction: column;
+    }
   }
 `;
 const TH = styled.tr`
@@ -91,12 +116,27 @@ const TD = styled.td`
     background-color: #ffaf51;
     color: white;
   }
+  @media screen and (max-width: 479px) {
+    font-size: 0.9rem;
+    padding: 15px 35px;
+  }
 `;
-const BrandTitle = styled.div`
+const BrandTabTitle = styled.div`
+  margin-top: 5vh;
+  @media screen and (max-width: 390px) {
+    margin-top: 1vh;
+  }
+`;
+const BrandTitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 10px;
-  padding: 0 30px;
+  padding: 0 20px;
+`;
+const BrandTitle = styled.h2`
+  font-size: 1.6rem;
+  margin-left: 10px;
 `;
 const FullView = styled(Link)`
   display: flex;
@@ -117,7 +157,7 @@ const Main = () => {
 
   // 신상품
   const newArivalData = useSelector((state) => state.maincategory.category);
-  console.log(newArivalData);
+
   //브랜드리스트
   const brandData = useSelector((state) => state?.main.main);
   const brandTab = Object.keys(brandData);
@@ -195,44 +235,66 @@ const Main = () => {
         newArivalList={newArivalData}
       />
       {/* 브랜드별 추천상품 */}
-      <Title>
+      <BrandTabTitle>
         <SubTitle>Recommendation by brand</SubTitle>
         <MainTitle>브랜드별 추천상품</MainTitle>
-      </Title>
+      </BrandTabTitle>
       <BrandTab>
-        <tbody>
-          <TH>
-            {brandTab
-              ?.filter((t, i) => t !== "guest" && i <= 3)
-              ?.map((tab) => (
-                <TD key={tab} onClick={() => onMoveToElement(tab)}>
-                  {tab}
-                </TD>
-              ))}
-          </TH>
-          <TH>
-            {brandTab
-              ?.filter((t, i) => t !== "guest" && i > 3)
-              ?.map((tab) => (
-                <TD key={tab} onClick={() => onMoveToElement(tab)}>
-                  {tab}
-                </TD>
-              ))}
-          </TH>
+        <tbody className="tbody">
+          <div className="reactionbody">
+            <TH>
+              {brandTab
+                ?.filter((t, i) => t !== "guest" && i <= 1)
+                ?.map((tab) => (
+                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                    {tab}
+                  </TD>
+                ))}
+            </TH>
+            <TH>
+              {brandTab
+                ?.filter((t, i) => t !== "guest" && i <= 3 && i > 1)
+                ?.map((tab) => (
+                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                    {tab}
+                  </TD>
+                ))}
+            </TH>
+          </div>
+          <div className="reactionbody">
+            <TH>
+              {brandTab
+                ?.filter((t, i) => t !== "guest" && i > 3 && i < 6)
+                ?.map((tab) => (
+                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                    {tab}
+                  </TD>
+                ))}
+            </TH>
+            <TH>
+              {brandTab
+                ?.filter((t, i) => t !== "guest" && i >= 6)
+                ?.map((tab) => (
+                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                    {tab}
+                  </TD>
+                ))}
+            </TH>
+          </div>
         </tbody>
       </BrandTab>
       {Object?.entries(brandData)
         ?.filter((key) => key[0] !== "guest")
         ?.map(([key, value]) => (
           <BrandProduct key={key}>
-            <BrandTitle>
-              <MainTitle ref={(element) => (myRefs.current[key] = element)}>
+            <BrandTitleContainer>
+              <BrandTitle ref={(element) => (myRefs.current[key] = element)}>
                 {key}
-              </MainTitle>
+              </BrandTitle>
               <FullView name="fullView" className="fullView">
                 전체보기 &gt;&gt;
               </FullView>
-            </BrandTitle>
+            </BrandTitleContainer>
             <ProductList>
               {value?.map((product) => (
                 <Products
@@ -244,7 +306,6 @@ const Main = () => {
             </ProductList>
           </BrandProduct>
         ))}
-      <Button />
     </Container>
   );
 };

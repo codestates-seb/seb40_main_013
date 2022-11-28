@@ -4,20 +4,15 @@ import Products from "../components/mains/Product";
 import RankingDown from "../components/subcategories/DropDown";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getLibrary } from "../reduxstore/slices/sub/LibrarySlice";
+import { getSearchResult, countSearchResult } from "../reduxstore/slices/articleSlice";
 
 function SearchResult ({searchWord}) {
 
+  console.log(`searchWord`,searchWord);
+
   const dispatch = useDispatch();
-  const librarySelector = useSelector(
-    (state) => state.library.libraryInitial.content
-  ); 
-  const subLibrarySelector = useSelector(
-    (state) => state.library.sublibraryInitial.content
-  ); 
-  const ascSelector = useSelector(
-    (state) => state.library.sublibraryInitial.content
-  ); 
+  const searchResultSelector = useSelector((state) => state.article.searchResultInitial.content);
+  const countSearchResultSelector = useSelector((state) => state.article.countSearchResultInitial); 
 
   const [page, setPage] = useState(0);
   const [products, setProducts] = useState([]);
@@ -46,15 +41,16 @@ function SearchResult ({searchWord}) {
 
   
   useEffect(() => {
-        dispatch(getLibrary({ page }));
-  }, []);
+        dispatch(getSearchResult({ searchWord, page }));
+        dispatch(countSearchResult(searchWord))
+  }, [searchWord]);
 
     return (
       <SubBlock onClick={outModalCloseHandler}>
         <FilterBlock>
           <div className="total">
             <div>{searchWord}</div>
-            <CountBlock>(으)로 0 개의 상품이 검색되었습니다.</CountBlock>
+            <CountBlock>(으)로 {countSearchResultSelector} 개의 상품이 검색되었습니다.</CountBlock>
           </div>
           <section ref={modalRef}>
             <RankingDown 
@@ -68,7 +64,7 @@ function SearchResult ({searchWord}) {
           </section>
         </FilterBlock>
         <ProductList>
-            {librarySelector?.map((product) => (
+            {searchResultSelector?.map((product) => (
               <Products proId={product.id} product={product} key={product.id} />
             ))}
         {/* <div ref={loadingRef}></div> */}

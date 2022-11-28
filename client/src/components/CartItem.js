@@ -177,16 +177,7 @@ const EachCheckCircle = styled.input`
 
 function CartItem({ cartItem, changeEachCheck, checkList }) {
   const dispatch = useDispatch();
-  const {
-    brandName,
-    count,
-    img,
-    price,
-    productCartId,
-    productId,
-    title,
-    color,
-  } = cartItem;
+  const { brandName, count, img, price, productCartId, productId, title, color } = cartItem;
 
   const [itemCount, setItemCount] = useState(count);
 
@@ -244,6 +235,7 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
               <Input
                 className="count"
                 type="number"
+                pattern="\d*"
                 value={itemCount}
                 onChange={onChangeCount}
               ></Input>

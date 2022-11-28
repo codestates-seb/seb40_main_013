@@ -15,13 +15,13 @@ export const getLibrary = createAsyncThunk(
   }
 );
 
-export const getSubLibrary = createAsyncThunk(
-  "getSubLibrary",
+export const getOne = createAsyncThunk(
+  "getOne",
   async ({ click, page, sortArgument}) => {
-    console.log({click, page, sortArgument});
+    console.log(111, {click, page, sortArgument});
     return Apis.get(`products?main=서재&sub=${click}&page=${page}&sortType=${sortArgument}`)
       .then((res) => {
-        console.log(`getSubLibrary`, res.data);
+        console.log(`getOne`, res.data);
         return res.data;
       })
       .catch((err) => {
@@ -29,6 +29,55 @@ export const getSubLibrary = createAsyncThunk(
       });
   }
 );
+
+
+export const getTwo = createAsyncThunk(
+  "getTwo",
+  async ({ click, page, sortArgument}) => {
+    console.log({click, page, sortArgument});
+    return Apis.get(`products?main=서재&sub=${click}&page=${page}&sortType=${sortArgument}`)
+      .then((res) => {
+        console.log(`getTwo`, res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
+
+export const getThree = createAsyncThunk(
+  "getThree",
+  async ({ click, page, sortArgument}) => {
+    console.log({click, page, sortArgument});
+    return Apis.get(`products?main=서재&sub=${click}&page=${page}&sortType=${sortArgument}`)
+      .then((res) => {
+        console.log(`getThree`, res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
+
+export const getFour = createAsyncThunk(
+  "getFour",
+  async ({ click, page, sortArgument}) => {
+    console.log({click, page, sortArgument});
+    return Apis.get(`products?main=서재&sub=${click}&page=${page}&sortType=${sortArgument}`)
+      .then((res) => {
+        console.log(`getFour`, res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
 
 export const getAsc = createAsyncThunk(
   "getAsc",
@@ -44,12 +93,27 @@ export const getAsc = createAsyncThunk(
   }
 );
 
+export const getCount = createAsyncThunk(
+  "getCount",
+  async () => {
+    return Apis.get(`products/count?main=서재`)
+      .then((res) => {
+        console.log(`shopslice`, res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
 const librarySlice = createSlice({
   name: "library",
   initialState: {
-    libraryInitial: {},
-    sublibraryInitial: {},
-    ascInitial: {},
+    libraryInitial: [],
+    sublibraryInitial: [],
+    ascInitial: [],
+    coutnInitial: {},
     loading: false,
     error: "",
   },
@@ -60,13 +124,33 @@ const librarySlice = createSlice({
       state.loading = true;
       state.error = "";
     },
-    [getSubLibrary.fulfilled]: (state, action) => {
-      state.sublibraryInitial = action.payload;
+    [getOne.fulfilled]: (state, action) => {
+      state.oneInitial = action.payload.content;
+      state.loading = true;
+      state.error = "";
+    },
+    [getTwo.fulfilled]: (state, action) => {
+      state.twoInitial = action.payload.content;
+      state.loading = true;
+      state.error = "";
+    },
+    [getThree.fulfilled]: (state, action) => {
+      state.threeInitial = action.payload.content;
+      state.loading = true;
+      state.error = "";
+    },
+    [getFour.fulfilled]: (state, action) => {
+      state.fourInitial = action.payload.content;
       state.loading = true;
       state.error = "";
     },
     [getAsc.fulfilled]: (state, action) => {
-      state.ascInitial = action.payload;
+      state.ascInitial = action.payload.content;
+      state.loading = true;
+      state.error = "";
+    },
+    [getCount.fulfilled]: (state, action) => {
+      state.coutnInitial = action.payload;
       state.loading = true;
       state.error = "";
     },
