@@ -61,6 +61,7 @@ const LoginBtn = styled.button`
 const Serach = styled.div`
   margin-right: 8px;
   z-index: 300;
+  cursor: pointer;
 `;
 
 const CategoryList = styled.div`

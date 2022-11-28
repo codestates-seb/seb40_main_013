@@ -313,6 +313,8 @@ const PurchaseList = () => {
   }, []);
   console.log(myOrderData)
 
+  if(myOrderData === {}) return(<NotOrder>구매 내역이 없습니다.</NotOrder>)
+
   return (
     <>
       {myOrderData?.length === 0 ? (

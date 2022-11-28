@@ -2,10 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteShoppingCart,
-  getShoppingCart,
-} from "../reduxstore/slices/articleSlice";
+import { deleteShoppingCart, getShoppingCart, postPayment } from "../reduxstore/slices/articleSlice";
 import { Alert } from "../components/Alert";
 
 const CartBlock = styled.div`
@@ -86,7 +83,7 @@ const CartList = styled.div`
 //결제정보
 const Payment = styled.section`
   position: relative;
-  margin-top: 81px;
+  margin-top: -220px;
   width: 300px;
   height: 300px;
   min-width: 230px;
@@ -152,25 +149,18 @@ function ShoppingCart() {
   
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
   console.log(`checkList`, checkList);
-  let result = {};
-  checkList.forEach(obj => {
-    Object.entries(obj).forEach(([key, value]) => { // for .. of문을 사용해도 되지만 arrowfuction, forEach사용
-        if(key === 'count') { // indexOf를 이용해도 되지만 최신의 includes를 사용
-            result[key] = value;
-        }
-  });
-  })
-  console.log(result)
-  // const filter = {};
+  console.log(`filter`, checkList.forEach( (el) => {Object.entries(el)}));
+
   // checkList.forEach(obj => {
-  //   console.log(obj)
-  //   // for(key in obj){
-  //   //   const value = obj[key]
-  //   //   if(key === 'count'){
-  //   //     filter.count = value;
-  //   //   }
-  //   // }
+  //   let result = {};
+
+  //   Object.entries(obj).forEach(([key, value]) => { // for .. of문을 사용해도 되지만 arrowfuction, forEach사용
+  //       if(key === 'count') { // indexOf를 이용해도 되지만 최신의 includes를 사용
+  //           result[key] = value;
+  //       }
+  //    });
   // })
+  // console.log(result)
 
   useEffect(() => {
     dispatch(getShoppingCart());
@@ -212,10 +202,10 @@ function ShoppingCart() {
   const postPurchase = () => {
     if (checkList.length === 0) {
       Alert("warning", "구매하실 상품을 선택해 주세요.");
+    } else { //배열에 담아 변수로 보내긔..
+      dispatch(postPayment(checkList))
     }
   };
-
-  postPurchase;
 
   return (
     <CartBlock>

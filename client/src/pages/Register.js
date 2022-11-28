@@ -67,6 +67,8 @@ const Input = styled.input`
   margin-left: 10px;
   padding: 1px 0 1px 10px;
 `;
+const Select = styled.select``;
+const Option = styled.option``;
 const ImgTab = styled.div``;
 const Buttons = styled.div`
   display: flex;
@@ -143,6 +145,31 @@ const Register = () => {
     setDetailFileImage('')
   }
 
+  //카테고리 선택하기
+  function FirstCateChange(e) {
+    const 서재 = ["책상", "의자", "책장", "선반"];
+    const 침실 = ["침대/매트리스", "행거/옷장", "화장대"];
+    const 거실 = ["소파", "거실장", "수납장"];
+    const 주방 = ["식탁/아일랜드", "식탁의자", "주방수납"];
+    const target = document.getElementById("SubCate");
+    let cate = '';
+
+    if(e.value = "서재") cate = 서재
+    else if(e.value = "침실") cate = 침실
+    else if(e.value = "거실") cate = 거실
+    else if(e.value = "주방") cate = 주방
+  
+    target.options.length = 0;
+  
+    for( x in cate) {
+      const opt = document.createElement("option");
+      opt.vlaue = cate[x];
+      opt.innerHTML = cate[x];
+      target.appendChild(opt);
+    }
+  }
+
+
   //폼 등록하기
   const handleRegister = () => {
 
@@ -189,8 +216,23 @@ const Register = () => {
         <TabContainer>
           <Label>카테고리</Label>
         </TabContainer>
-          <Input></Input>
-          <Input></Input>
+          <Select 
+          className="cate-control" 
+          id="FirstCate" 
+          name="FirstCate"
+          onChange={(e)=>FirstCateChange(e)}>
+            <Option>대분류</Option>
+            <Option value="서재">서재</Option>
+            <Option value="침실">침실</Option>
+            <Option value="거실">거실</Option>
+            <Option value="주방">주방</Option>
+          </Select>
+          <Select 
+          className="cate-control"
+          id="SubCate"
+          name="SubCate">
+            <Option>선택해주세요.</Option>
+          </Select>
         </InputContainer>
         <HrContainer>
           <Hr></Hr>
