@@ -139,30 +139,40 @@ const Register = () => {
   const [contentsPrice, setContentsPrice] = useState("");
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
+
   const subOptios = [
-    { library: "책장", library: "의자", library: "책상", library: "선반" },
-    { library: "책장", library: "의자", library: "책상", library: "선반" },
-    // bedRoom: ["침대/메트리스", "행거/옷장", "화장대"],
-    // livingRoom: ["소파", "거실장", "수납장"],
-    // kichen: ["식탁/아일랜드", "식탁의자", "주방수납"],
+    { category: "책장", query: 1 },
+    { category: "의자", query: 1 },
+    { category: "책상", query: 1 },
+    { category: "선반", query: 1 },
+    { category: "침대/메트리스", query: 2 },
+    { category: "행거/옷장", query: 2 },
+    { category: "화장대", query: 2 },
+    { category: "소파", query: 3 },
+    { category: "거실장", query: 3 },
+    { category: "수납장", query: 3 },
+    { category: "식탁/아일랜드", query: 4 },
+    { category: "식탁의자", query: 4 },
+    { category: "주방수납", query: 4 },
   ];
 
-  const changeSubCategory = (e) => {
-    console.log(bigCategory);
-    if (bigCategory == "서재") {
-      console.log(bigCategory);
-      setSubCategory(subOptios[0]);
-    } else if (bigCategory == "침실") {
-      setSubCategory(subOptios.bedRoom);
-    } else if (bigCategory == "거실") {
-      setSubCategory(subOptios.livingRoom);
-    } else if (bigCategory == "주방") {
-      setSubCategory(subOptios.kichen);
+  let selectSubCategory = subOptios?.filter((data) => {
+    if (bigCategory === "서재" && data.query === 1) {
+      return data;
+    } else if (bigCategory === "침실" && data.query == 2) {
+      return data;
+    } else if (bigCategory === "거실" && data.query == 3) {
+      return data;
+    } else if (bigCategory === "주방" && data.query == 4) {
+      return data;
     }
+  });
+
+  const changeSubCategory = (e) => {
+    setSubCategory(e.target.value);
   };
   console.log(bigCategory);
   console.log(subCategory);
-  console.log(subOptios.library);
 
   const changeId = (e) => {
     setSellerId(e.target.value);
@@ -171,7 +181,7 @@ const Register = () => {
     setContentsName(e.target.value);
   };
   const changeContentPrice = (e) => {
-    setContentsName(e.target.value);
+    setContentsPrice(e.target.value);
   };
 
   const changeThumbnailImg = async (e) => {
@@ -217,11 +227,13 @@ const Register = () => {
       console.log("압축시작");
       const compressFile = await imageCompression(file, options);
       const contentFile = new File([compressFile], "contentImage.JPG");
-      setContentsImg(contentFile);
+      setContentsImg([contentFile]);
       if (contentsImg) {
+        setContentsImg([...contentsImg, contentFile]);
       }
     }
   };
+  console.log(contentsImg);
 
   //디테일 파일 삭제
   const deletedetailFileImage = () => {
@@ -244,7 +256,7 @@ const Register = () => {
       content: contentsImg,
       img: thumbnailImg,
       main: bigCategory,
-      sub: "책상",
+      sub: subCategory,
       optionList: [
         { color: "White", stock: 1000 },
         { color: "Black", stock: 1000 },
@@ -314,8 +326,8 @@ const Register = () => {
             name="SubCate"
             onChange={(e) => changeSubCategory(e)}
           >
-            {subOptios.map((option) => (
-              <Option value={option.library}>{option.library}</Option>
+            {selectSubCategory.map((option) => (
+              <Option key={option.category}>{option.category}</Option>
             ))}
           </Select>
         </InputContainer>
