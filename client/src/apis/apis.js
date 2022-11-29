@@ -5,7 +5,6 @@ const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
   baseURL: "https://fast-dingos-go-125-134-111-241.loca.lt/",
-
 });
 axios.interceptors.request.use(function (config) {
   return config;

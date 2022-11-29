@@ -4,12 +4,12 @@ import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { renderStar } from "../../components/Star";
 
-function Review({ articlesDetail }) {
+function Review({ articlesDetail, reviewRef }) {
   console.log(articlesDetail);
   const reviewLength = articlesDetail?.reviews?.length;
   console.log(articlesDetail?.reviews);
   return (
-    <ReviewWrapper>
+    <ReviewWrapper ref={reviewRef}>
       <ReviewTitle>상품 후기 ( {reviewLength}건 )</ReviewTitle>
       <ReviewStarSpace>
         {renderStar(articlesDetail?.score)}
@@ -62,6 +62,7 @@ function Review({ articlesDetail }) {
 }
 
 const ReviewWrapper = styled.div`
+  scroll-margin-top: 130px;
   width: 65%;
   height: 100%;
   @media screen and (max-width: 1024px) {
@@ -98,7 +99,7 @@ const ReviewNumber = styled.span`
 `;
 const Boundary = styled.div`
   width: 100%;
-  height: 2px;
+  height: 1px;
   margin: 10px 0px;
   background-color: var(--color-gray);
 `;

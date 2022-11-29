@@ -6,8 +6,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import Button from "./components/Button";
 
 const MainContainter = styled.div`
-  width: 100vw;
   height: 100vh;
+  /* width: 100vw; // 주의 */
   display: flex;
   flex-direction: column;
 `;
