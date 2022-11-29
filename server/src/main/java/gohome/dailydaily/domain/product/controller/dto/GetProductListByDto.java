@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class GetProductListByDto extends PagingRequestDto {
 
     private String main;

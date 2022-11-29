@@ -83,11 +83,16 @@ public class ProductService {
     }
 
     public SliceResponseDto<CategoryGetDto> getProductListByTitle(GetProductListByDto dto) {
+        dto.setTitle(dto.getTitle().replace(" ", ""));
+        if (dto.getTitle().isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.TITLE_NOT_BLANK);
+        }
         SliceResponseDto<CategoryGetDto> products = productRepository
                 .findAllByTitle(dto.getPageRequest(), ProductGetParam.valueOf(dto));
 
         searchRedisRepository.addSearchCount(dto.getTitle());
         return products;
+
     }
 
     public HashMap<String, List<CategoryGetDto>> getBrandListLikeTop15() {

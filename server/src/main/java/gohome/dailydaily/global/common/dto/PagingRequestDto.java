@@ -2,6 +2,7 @@ package gohome.dailydaily.global.common.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +12,7 @@ import javax.validation.constraints.Min;
 
 @Getter
 @Setter
+@ToString
 public class PagingRequestDto {
 
     @Min(value = 0)
@@ -19,21 +21,15 @@ public class PagingRequestDto {
     private int size = 20;
 
     private String sortType = "createdAt";
-    private Sort sort1 = Sort.by(sortType).descending();
+    private Sort sort = Sort.by(sortType).descending();
     private String order = "desc";
-    private Sort sort2 = Sort.by("createdAt").descending();
-    private Sort sortAll;
-
+    private Sort sort1 = Sort.by("createdAt").descending();
     public Pageable getPageRequest() {
         if (this.order.equals("asc")){
-            this.sort1 = Sort.by(sortType).ascending();
-            this.sortAll = sort1.and(sort2);
+            return PageRequest.of(this.page, this.size, Sort.by(sortType).ascending().and(sort1));
         }
-        else {
-            this.sort1 = Sort.by(sortType).descending();
-            this.sortAll = sort1.and(sort2);
-        }
-        return PageRequest.of(this.page, this.size, this.sortAll);
+
+        return PageRequest.of(this.page, this.size, Sort.by(sortType).descending().and(sort1));
     }
 
 }
