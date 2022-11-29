@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Slf4j
-//@Profile("server")
+@Profile("local")
 @Configuration
 public class EmbeddedRedisConfig {
     @Value("${spring.redis.port}")
