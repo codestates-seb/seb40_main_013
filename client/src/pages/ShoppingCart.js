@@ -2,17 +2,41 @@ import { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
+import { BsCartX } from 'react-icons/bs';
 import { deleteShoppingCart, getShoppingCart, postPayment } from "../reduxstore/slices/articleSlice";
 import { Alert } from "../components/Alert";
+import { useNavigate } from "react-router-dom";
+
+BsCartX
 
 const CartBlock = styled.div`
   margin-top: 127.5px;
   width: 100%;
+  /* height: 100%; */
   padding: 30px 40px 50px 40px;
   display: flex;
   div {
     display: flex;
   }
+`;
+
+const Empty = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+  div{
+    color: #272727;
+    margin-top: 3rem;
+  }
+`;
+
+const EmptyCartIcon = styled(BsCartX)`
+  width: 12rem;
+  height: 12rem;
+  color: #aaaaaa;
 `;
 
 const AllCheckBlock = styled.div`
@@ -82,15 +106,15 @@ const CartList = styled.div`
 
 //결제정보
 const Payment = styled.section`
-  /* position: relative; */
-  margin-top: 75px;
+  position: relative;
+  /* margin-top: -220px; */
   width: 300px;
   height: 300px;
   min-width: 230px;
   border: 1px solid #002c6d;
   border-radius: 5px;
   padding: 20px;
-  /* align-items: baseline; */
+  align-items: baseline;
   .pay-title {
     font-weight: 500;
   }
@@ -103,8 +127,8 @@ const Payment = styled.section`
 
 const PayInfo = styled.div`
   flex-direction: column;
-  /* width: auto;
-  height: auto; */
+  width: auto;
+  height: auto;
   border-top: 1px solid #002c6d;
   border-bottom: 1px solid #002c6d;
   padding: 10px 0px;
@@ -143,9 +167,11 @@ const PayButton = styled.button`
 `;
 
 function ShoppingCart() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartSeletor = useSelector((state) => state.article.shoppingCartInitial);
   const cartSeletorLength = cartSeletor?.length;
+  console.log(cartSeletor);
   
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
   console.log(`checkList`, checkList);
@@ -191,14 +217,17 @@ function ShoppingCart() {
     if (checkList.length === 0) {
       Alert("warning", "구매하실 상품을 선택해 주세요.");
     } else { //배열에 담아 변수로 보내긔..
-      dispatch(postPayment(checkList))
+      dispatch(postPayment({checkList,navigate}))
     }
   };
 
   return (
     <CartBlock>
       {cartSeletorLength === 0 ? (
-        <div> 장바구니에 담긴 상품이 없습니다.</div>
+        <Empty>
+            <EmptyCartIcon/>
+            <div> 장바구니에 담긴 상품이 없습니다.</div>
+        </Empty>
       ) : (
         <Quary>
           <CartList>

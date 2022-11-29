@@ -93,7 +93,7 @@ function ArticleDetail() {
     console.log(postData);
     dispatch(postCart({ postData, navigate }));
   };
-  
+
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
 
@@ -247,6 +247,7 @@ const DetailContents = styled.div`
     margin-right: auto;
   }
 `;
+
 const DetailTopUserSelectSpace = styled.div`
   width: 100%;
   height: auto;

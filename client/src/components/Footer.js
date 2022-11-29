@@ -40,7 +40,7 @@ function Footer() {
       </FooterMidBtnMenu>
       <FooterDownContentSpace>
         <FooterDownContentSpan>
-          백엔드 : 홍승재, 김경근, 허준열
+          백엔드 : 김경근, 허준열, 홍승재
         </FooterDownContentSpan>
         <FooterDownContentSpan>
           프론트 : 김서연, 노경민, 임세영
