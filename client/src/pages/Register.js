@@ -176,6 +176,7 @@ const Register = () => {
   console.log(subCategory);
 
 
+
   const changeId = (e) => {
     setSellerId(e.target.value);
   };
