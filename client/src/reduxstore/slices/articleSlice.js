@@ -39,6 +39,7 @@ export const postCart = createAsyncThunk(
       });
   }
 );
+
 export const postLike = createAsyncThunk("postLike", async (id) => {
   return Apis.post(
     `/products/${id}/likes`,
@@ -60,6 +61,7 @@ export const postLike = createAsyncThunk("postLike", async (id) => {
       console.log(err);
     });
 });
+
 export const deleteLike = createAsyncThunk("deleteLike", async (id) => {
   return Apis.delete(`/products/${id}/likes`, {
     headers: {
@@ -130,6 +132,7 @@ export const deleteShoppingCart = createAsyncThunk(
 export const postPayment = createAsyncThunk(
   "getShoppingCart",
   async (checkList) => {
+    console.log(checkList);
     return Apis.post(
       `orders`,
       {
@@ -203,6 +206,7 @@ export const countSearchResult = createAsyncThunk(
       });
   }
 );
+
 export const postArticle = createAsyncThunk(
   "postArticle",
   async ({ postArticleData, navigate }) => {
@@ -210,7 +214,8 @@ export const postArticle = createAsyncThunk(
     form.append("sellerId", postArticleData.sellerId);
     form.append("title", postArticleData.title);
     form.append("price", postArticleData.price);
-    form.append("content", postArticleData.content);
+    form.append("content", postArticleData.content[0]);
+    form.append("content", postArticleData.content[1]);
     form.append("img", postArticleData.img);
     form.append("main", postArticleData.main);
     form.append("sub", postArticleData.sub);
