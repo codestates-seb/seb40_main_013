@@ -367,6 +367,10 @@ const SelectMoveBtn = styled.button`
   border: 1x solid blue;
   background-color: white;
   color: #aaaaaa;
+  font-weight: 300;
+  &:nth-child(5) {
+    font-weight: 100;
+  }
   &:hover {
     color: #ffaf51;
     border-bottom: 2px solid #aaaaaa;

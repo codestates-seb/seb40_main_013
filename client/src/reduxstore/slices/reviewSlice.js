@@ -4,23 +4,28 @@ import axios from "axios";
 
 let jwtToken = localStorage.getItem("Authorization");
 
-export const getAllReview = createAsyncThunk("review/allGet", async (id) => {
-  return Apis.get(
-    `members/mypage/reviews?page=0&size=20&sort=createdAt%2CDESC`,
-    {
-      headers: {
-        Authorization: `${jwtToken}`,
-        "Content-Type": "application/json",
-      },
-    }
-  )
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+export const getAllReview = createAsyncThunk(
+  "review/allGet",
+  async (isClick) => {
+    return Apis.get(
+      `members/mypage/reviews?page=${
+        isClick - 1
+      }&size=20&sort=createdAt%2CDESC`,
+      {
+        headers: {
+          Authorization: `${jwtToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 export const postReview = createAsyncThunk(
   "review/post",
   async ({ postData, navigate }) => {

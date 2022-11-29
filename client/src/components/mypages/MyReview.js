@@ -9,14 +9,28 @@ import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 import { FiDelete } from "react-icons/fi";
 import { renderStar } from "../Star";
+import ScrollToTop from "../ScrollToTop";
 
 function MyReview() {
   const dispatch = useDispatch();
   const userWriteReviews = useSelector(
     (state) => state?.review.review?.content
   );
-  console.log(userWriteReviews);
+  const userWriteReviewsPage = useSelector(
+    (state) => state?.review.review.pageInfo
+  );
+  const [isClick, setIsClick] = useState(1);
 
+  let list = [];
+
+  for (let i = 1; i <= userWriteReviewsPage?.totalPages; i++) {
+    list.push(<span>{i}</span>);
+  }
+
+  const clickPage = (number) => {
+    setIsClick(number);
+  };
+  console.log(isClick);
   const clickDelete = (productId, reviewId) => {
     let deleteData = {
       productId: productId,
@@ -24,16 +38,21 @@ function MyReview() {
     };
     dispatch(deleteReview({ deleteData }));
   };
+
   useEffect(() => {
-    dispatch(getAllReview());
-  }, []);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    dispatch(getAllReview(isClick));
+  }, [isClick]);
 
   return (
     <Container>
-      {userWriteReviews?.map((data) => (
+      {userWriteReviews?.map((data, idx) => (
         <ReviewContentsSpace key={data?.reviewId}>
           <ReviewContentsLeftSpace>
-            <ReviewContentsNumber>{data?.reviewId}</ReviewContentsNumber>
+            <ReviewContentsNumber>{idx + 1}</ReviewContentsNumber>
             {data?.img ? (
               <ReviewContentsImg src={data?.img.fullPath}></ReviewContentsImg>
             ) : (
@@ -41,21 +60,18 @@ function MyReview() {
             )}
             <ReviewContentsMainSpace>
               {renderStar(data?.score)}
-              <ReviewMainTitle>{data?.title}</ReviewMainTitle>
+              <ReviewMainTitle>{data?.productTitle}</ReviewMainTitle>
               <ReviewMainContent>{data?.content}</ReviewMainContent>
             </ReviewContentsMainSpace>
           </ReviewContentsLeftSpace>
           <ReviewContentsRightSpace>
-            <ReviewContentsUser>{data?.productId}</ReviewContentsUser>
             <ReviewContentsSmallBtnSpace>
               <ReviewContentsBtnSpace>
-                <ReviewContentsBtn>
-                  <FaEdit />
-                </ReviewContentsBtn>
+                <ReviewContentsBtn>수정</ReviewContentsBtn>
                 <ReviewContentsBtn
                   onClick={() => clickDelete(data?.productId, data?.reviewId)}
                 >
-                  <FiDelete />
+                  삭제
                 </ReviewContentsBtn>
               </ReviewContentsBtnSpace>
               <ReviewContentsUser>
@@ -69,6 +85,16 @@ function MyReview() {
           </ReviewContentsRightSpace>
         </ReviewContentsSpace>
       ))}
+      <PageNationSpace>
+        {list?.map((data) => (
+          <PageNationBtn1
+            key={data.props.children}
+            onClick={() => clickPage(data.props.children)}
+          >
+            {data.props.children}
+          </PageNationBtn1>
+        ))}
+      </PageNationSpace>
     </Container>
   );
 }
@@ -123,6 +149,7 @@ const ReviewContentsImg = styled.img`
 const ReviewMainTitle = styled.div`
   font-weight: bold;
   font-size: 12px;
+  margin-top: 10px;
 `;
 
 const ReviewMainContent = styled.div`
@@ -166,7 +193,27 @@ const ReviewContentsBtnSpace = styled.div`
 const ReviewContentsBtn = styled.button`
   border-radius: 5px;
   background-color: white;
-  font-size: 25px;
+  font-size: 10px;
   margin-right: 5px;
 `;
+const PageNationSpace = styled.span`
+  width: 98%;
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+const PageNationBtn1 = styled.button`
+  width: 30px;
+  height: 30px;
+  margin: 0px 5px;
+  border: none;
+  background-color: white;
+  &:hover {
+    cursor: pointer;
+    background-color: #aaaaaa;
+    border-radius: 50%;
+  }
+`;
+
 export default MyReview;
