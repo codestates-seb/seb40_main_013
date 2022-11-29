@@ -140,32 +140,6 @@ const Register = () => {
   const [contentsPrice, setContentsPrice] = useState("");
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
-<<<<<<< HEAD
-  const subOptios = [
-    { library: "책장", library: "의자", library: "책상", library: "선반" },
-    { library: "책장", library: "의자", library: "책상", library: "선반" },
-    // bedRoom: ["침대/메트리스", "행거/옷장", "화장대"],
-    // livingRoom: ["소파", "거실장", "수납장"],
-    // kichen: ["식탁/아일랜드", "식탁의자", "주방수납"],
-  ];
-
-  const changeSubCategory = (e) => {
-    console.log(bigCategory);
-    if (bigCategory == "서재") {
-      console.log(bigCategory);
-      setSubCategory(subOptios[0]);
-    } else if (bigCategory == "침실") {
-      setSubCategory(subOptios.bedRoom);
-    } else if (bigCategory == "거실") {
-      setSubCategory(subOptios.livingRoom);
-    } else if (bigCategory == "주방") {
-      setSubCategory(subOptios.kichen);
-    }
-  };
-  console.log(bigCategory);
-  console.log(subCategory);
-  console.log(subOptios.library);
-=======
 
   const subOptios = [
     { category: "책장", query: 1 },
@@ -201,7 +175,6 @@ const Register = () => {
   console.log(bigCategory);
   console.log(subCategory);
 
->>>>>>> 71fefde7c918636459882547f758435b4fff2170
 
 
   const changeId = (e) => {
@@ -286,11 +259,7 @@ const Register = () => {
       content: contentsImg,
       img: thumbnailImg,
       main: bigCategory,
-<<<<<<< HEAD
-      sub: "책상",
-=======
       sub: subCategory,
->>>>>>> 71fefde7c918636459882547f758435b4fff2170
       optionList: [
         { color: "White", stock: 1000 },
         { color: "Black", stock: 1000 },
@@ -362,13 +331,8 @@ const Register = () => {
             name="SubCate"
             onChange={(e) => changeSubCategory(e)}
           >
-<<<<<<< HEAD
-            {subOptios.map((option) => (
-              <Option value={option.library}>{option.library}</Option>
-=======
             {selectSubCategory.map((option) => (
               <Option key={option.category}>{option.category}</Option>
->>>>>>> 71fefde7c918636459882547f758435b4fff2170
             ))}
 
           </Select>
