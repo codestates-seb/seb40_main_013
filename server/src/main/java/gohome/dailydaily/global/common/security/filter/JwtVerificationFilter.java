@@ -1,5 +1,6 @@
 package gohome.dailydaily.global.common.security.filter;
 
+import gohome.dailydaily.global.common.security.handler.ErrorResponder;
 import gohome.dailydaily.global.common.security.util.CustomAuthorityUtils;
 import gohome.dailydaily.global.common.security.util.JwtTokenizer;
 import io.jsonwebtoken.Claims;
@@ -29,7 +30,8 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             Claims claims = verifyJws(request);
             setAuthenticationToContext(claims);
         } catch (Exception exception) {
-            request.setAttribute("exception", exception);
+            ErrorResponder.sendErrorResponse(response, response.SC_UNAUTHORIZED, exception.getMessage());
+            return;
         }
 
         filterChain.doFilter(request, response);
