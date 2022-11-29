@@ -92,6 +92,7 @@ function ArticleDetail() {
     };
     console.log(postData);
     dispatch(postCart({ postData, navigate }));
+
   };
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
