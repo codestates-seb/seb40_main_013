@@ -1,8 +1,8 @@
 package gohome.dailydaily.domain.order.service;
 
+import gohome.dailydaily.domain.cart.service.CartService;
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.service.MemberService;
-import gohome.dailydaily.domain.order.dto.OrderDto;
 import gohome.dailydaily.domain.order.entity.Order;
 import gohome.dailydaily.domain.order.entity.OrderProduct;
 import gohome.dailydaily.domain.order.entity.OrderStatus;
@@ -27,6 +27,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ProductService productService;
     private final MemberService memberService;
+    private final CartService cartService;
 
     public Order createOrder(Order order) {
         verifyOrder(order);
@@ -63,6 +64,9 @@ public class OrderService {
                     orderProduct.addProduct(product);
                     orderProduct.addOption(findOption);
                     orderProduct.addOrder(order);
+
+                    Optional.ofNullable(orderProduct.getProductCartId())
+                            .ifPresent(productCartId -> cartService.cancelCart(productCartId, member.getId()));
                     updateSaleAndStock(orderProduct);
                 });
     }
