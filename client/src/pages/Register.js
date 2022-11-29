@@ -4,6 +4,7 @@ import imageCompression from "browser-image-compression";
 import { postArticle } from "../reduxstore/slices/articleSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 const Container = styled.div`
   width: 100vw;
   display: flex;
@@ -164,6 +165,7 @@ const Register = () => {
   console.log(subCategory);
   console.log(subOptios.library);
 
+
   const changeId = (e) => {
     setSellerId(e.target.value);
   };
@@ -253,6 +255,7 @@ const Register = () => {
 
     dispatch(postArticle({ postArticleData, navigate }));
   };
+
   return (
     <Container>
       <Title>
@@ -300,6 +303,7 @@ const Register = () => {
             id="FirstCate"
             name="FirstCate"
             value={bigCategory}
+
             onChange={(e) => FirstCateChange(e)}
           >
             <Option>대분류</Option>
@@ -317,6 +321,7 @@ const Register = () => {
             {subOptios.map((option) => (
               <Option value={option.library}>{option.library}</Option>
             ))}
+
           </Select>
         </InputContainer>
         <HrContainer>
