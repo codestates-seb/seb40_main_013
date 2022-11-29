@@ -84,10 +84,9 @@ public class ProductService {
 
     public SliceResponseDto<CategoryGetDto> getProductListByTitle(GetProductListByDto dto) {
         dto.setTitle(dto.getTitle().replace(" ", ""));
-        if (dto.getTitle().isEmpty()){
-            return null;
-        }
-        else {
+        if (dto.getTitle().isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.TITLE_NOT_BLANK);
+        } else {
             SliceResponseDto<CategoryGetDto> products = productRepository
                     .findAllByTitle(dto.getPageRequest(), ProductGetParam.valueOf(dto));
 

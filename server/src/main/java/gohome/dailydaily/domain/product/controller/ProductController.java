@@ -68,7 +68,7 @@ public class ProductController {
 
     // 제목으로 상품 리스트 검색
     @GetMapping("/search")
-    @Cacheable(key = "#dto", value = "getProductListByTitle" , unless = "#result == null")
+    @Cacheable(key = "#dto", value = "getProductListByTitle")
     public SliceResponseDto<CategoryGetDto> getProductListByTitle(@Valid GetProductListByDto dto) {
         return productService.getProductListByTitle(dto);
     }
