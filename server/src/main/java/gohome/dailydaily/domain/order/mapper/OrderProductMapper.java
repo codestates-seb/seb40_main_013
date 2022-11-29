@@ -13,6 +13,7 @@ public interface OrderProductMapper {
 
     @Mapping(target = "option", expression = "java(Option.builder().id(post.getOptionId()).build())")
     @Mapping(target = "product", expression = "java(Product.builder().id(post.getProductId()).build())")
+    @Mapping(target = "productCartId", expression = "java(post.getProductCartId())")
     OrderProduct toOrderProduct(OrderProductDto.Post post);
 
     OrderProduct toOrderProduct(OrderProductDto.Patch patch);

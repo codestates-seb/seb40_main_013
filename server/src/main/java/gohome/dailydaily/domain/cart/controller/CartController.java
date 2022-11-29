@@ -25,7 +25,6 @@ public class CartController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @CacheEvict(key = "#memberId", value = "getCart")
     public CartDto.Response postProductCart(@MemberId Long memberId,
                                             @RequestBody ProductCartDto.Post productCartDto) {
         ProductCart productCart = productCartMapper.toProductCart(productCartDto);
@@ -36,7 +35,6 @@ public class CartController {
     }
 
     @PatchMapping("/{product-cart-id}")
-    @CacheEvict(key = "#memberId", value = "getCart")
     public CartDto.Response patchProductCart(@MemberId Long memberId,
                                              @PathVariable("product-cart-id") Long productCartId,
                                              @RequestBody ProductCartDto.Patch patch) {
@@ -48,7 +46,6 @@ public class CartController {
     }
 
     @GetMapping
-    @Cacheable(key = "#memberId", value = "getCart")
     public CartDto.Response getCart(@MemberId Long memberId) {
 
         Cart cart = cartService.findVerifiedCart(memberId);
@@ -58,7 +55,6 @@ public class CartController {
 
     @DeleteMapping("/{product-cart-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @CacheEvict(key = "#memberId", value = "getCart")
     public String deleteProductCart(@PathVariable("product-cart-id") Long productCartId,
                                     @MemberId Long memberId) {
 
