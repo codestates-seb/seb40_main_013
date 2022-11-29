@@ -3,6 +3,7 @@ package gohome.dailydaily.domain.order.dto;
 import gohome.dailydaily.domain.file.entity.File;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -12,8 +13,11 @@ public class OrderProductDto {
     public static class Post {
 
         private Long productCartId;
+        @NotNull
         private Long productId;
+        @NotNull
         private Long optionId;
+        @NotNull
         private Integer count;
     }
 

@@ -29,7 +29,6 @@ public class SearchController {
     @GetMapping("/rank")
 //    @Cacheable(value = "getRank")
     public List<SearchDto.RankResponse> getRank() {
-        return searchMapper.toResponse(searchRedisRepository.getRankTop20());
+        return searchMapper.toResponse(searchRedisRepository.getRankTop5());
     }
-
 }

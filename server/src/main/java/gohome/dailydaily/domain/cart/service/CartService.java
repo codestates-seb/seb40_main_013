@@ -60,8 +60,8 @@ public class CartService {
 
     public void cancelCart(Long productCartId, Long memberId) {
 
-        ProductCart productCart = productCartRepository.findProductCartById(productCartId).orElseThrow(() ->
-                new BusinessLogicException(ExceptionCode.PRODUCT_CART_NOT_FOUND));
+        ProductCart productCart = productCartRepository.findProductCartById(productCartId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_CART_NOT_FOUND));
 
         if (!productCart.getCart().getMember().getId().equals(memberId)) {
             throw new BusinessLogicException(ExceptionCode.ID_DOES_NOT_MATCH);
