@@ -5,8 +5,9 @@ let jwtToken = localStorage.getItem("Authorization");
 
 export const getMyOrder = createAsyncThunk(
   "getMyOrder",
-  async ( page ) => {
-    return Apis.get(`orders?page=${page}&size=20&sort=createdAt,DESC`,     
+  async ( curPage ) => {
+    console.log(curPage);
+    return Apis.get(`orders?page=3&size=20&sort=createdAt,DESC`,     
     {
       headers: {
         Authorization: `${jwtToken}`,

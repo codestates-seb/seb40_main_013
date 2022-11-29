@@ -244,17 +244,15 @@ const Like = () => {
 
   //페이지네이션
   const [curPage, setCurPage] = useState(0); //현재페이지
-  const limit = useState(20); //페이지당 포스트 개수
-  const offset = (curPage - 1) * limit; //시작점과 끝점을 구하는 offset
-
-  const postsData = (posts) => {
-    if(posts){
-      let result = posts.slice(offset, offset + limit);
-      return result;
-    }
-  }
-  const curPageOrders = postsData(likeProduct);
- console.log(curPageOrders)
+  
+  // const postsData = (posts) => {
+  //   if(posts){
+  //     let result = posts.slice(offset, offset + 20);
+  //     return result;
+  //   }
+  // }
+//   const curPageOrders = postsData(likeProduct);
+//  console.log(curPageOrders)
   //페이지 버튼 클릭
   const pageClick = (e) => {
     setCurPage(e.target.innerText);
@@ -293,7 +291,7 @@ const Like = () => {
         ))}
       </ProductList>
       <PaginationContainer>
-        <Pagination page={curPage} setPage={setCurPage} limit={limit} totalPosts={curPageOrders?.length} pageClick={pageClick} />
+        <Pagination pageClick={pageClick} />
       </PaginationContainer>
     </Container>
   );

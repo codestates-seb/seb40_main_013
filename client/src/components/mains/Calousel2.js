@@ -22,12 +22,11 @@ const Carousel2 = () => {
           key={index}
           className={index === activeIndex ? "slides active" : "inactive"}
         >
-          <Img className="slide-image" src={slide.urls} alt="" />
+          <Imgbox>
+            <Img className="slide-image" src={slide.urls} alt="" />
+          </Imgbox>
           <SlideTitle>{slide.title}</SlideTitle>
           <SlideText>{slide.description}</SlideText>
-          {/* <FurnitureContainer>
-            <SlideFurniture>{slide.furniture}</SlideFurniture>
-          </FurnitureContainer> */}
         </Slides>
       ))}
       <Arrows className="arrows">
@@ -156,11 +155,27 @@ const Slides = styled.div`
     position: relative;
   }
 `;
-const Img = styled.img`
+const Imgbox = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
+  overflow: hidden;
+`;
+const Img = styled.img`
+  width: 150%;
+  height: 150%;
+  top: -50px;
+  position: absolute;
   /* object-fit: cover; */
+  animation: slideIn 6s linear forwards;
+  @keyframes slideIn{
+    from{
+      top: -50%;
+    }
+    to{
+      bottom: 50%;
+    }
+  }
 `;
 const SlideTitle = styled.h2`
   color: white;
@@ -222,27 +237,6 @@ const SlideText = styled.h3`
   @media (min-width:768px) and (max-width: 1023px){
     font-size: 1.4rem;
   }
-`;
-const FurnitureContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const SlideFurniture = styled.h3`
-  position: absolute;
-  display: flex;
-  /* width: 100%;
-  height: 100%; */
-  top: 64%;
-  left: 17%;
-  color: white;
-  font-size: 1.4rem;
-  background-color: #FFAF51;
-  border-radius: 5px;
-  padding: 5px;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
 `;
 
 export default Carousel2;

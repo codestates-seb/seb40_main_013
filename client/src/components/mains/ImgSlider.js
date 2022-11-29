@@ -1,7 +1,7 @@
-import Bed from "../../imgs/Bed.gif"
-import Desk from "../../imgs/Desk.gif"
-import Table from "../../imgs/Table.gif"
-import Sofa from "../../imgs/Sofa.gif"
+import Bed from "../../imgs/Bed.png"
+import Desk from "../../imgs/Desk.png"
+import Table from "../../imgs/Table.png"
+import Sofa from "../../imgs/Sofa.png"
 
 export default [
   {

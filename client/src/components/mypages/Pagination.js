@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 
 const PageSection = styled.section`
@@ -19,7 +19,7 @@ const ButtonWrap = styled.ul`
     }
   }
 `;
-const Button = styled.button`
+const PageButton = styled.button`
     background: none;
     border: none;
     border-radius: 50%;
@@ -39,57 +39,45 @@ const Button = styled.button`
     }
 `;
 
-function Pagination ({ page, totalPosts, limit, setPage }){
-  const numPages = Math.ceil(totalPosts/limit)
-  const [currPage, setCurrPage] = useState(page)
-  let firstNum = currPage - (currPage % 5) + 1
-  let lastNum = currPage - (currPage % 5) + 5
-  console.log({"currPage is":currPage, "firsNum is" : firstNum, "page is" : page})
+function Pagination ({pageClick, list, limit, page, setPage}){
+  console.log(list)
+  const [totalPageArray, setTotalPageArray] = useState([]);
+
+  const listMap = []; 
+  for(let i = 1; i <= list; i++){
+    listMap.push(i)
+  }
+ console.log(listMap); // [1, 2, 3, 4]
+
+  // useEffect(() => {
+  //   const slicedPageArray = sliceArrayByLimit(list, limit);
+  //   setTotalPageArray(slicedPageArray);
+  //   setCurrentPageArray(slicedPageArray[0]);
+  // }, [list]);
 
   return (
-      <PageSection>
-          <ButtonWrap>
-              <Button 
-                  onClick={() => {setPage(page-1); setCurrPage(page-2);}} 
-                  disabled={page===1}>
-                  &lt;
-              </Button>
-              <Button 
-                  onClick={() => setPage(firstNum)}
-                  aria-current={page === firstNum ? "page" : null}>
-                  {firstNum}
-              </Button>
-              {Array(4).fill().map((_, i) =>{
-                  if(i <=2){
-                      return (
-                          <Button
-                              border="true" 
-                              key={i+1} 
-                              onClick={() => {setPage(firstNum+1+i)}}
-                              aria-current={page === firstNum+1+i ? "page" : null}>
-                              {firstNum+1+i}
-                          </Button>
-                      )
-                  }
-                  else if(i>=3){
-                      return (
-                          <Button
-                              border="true" 
-                              key ={i+1}
-                              onClick={() => setPage(lastNum)}
-                              aria-current={page === lastNum ? "page" : null}>
-                              {lastNum}
-                          </Button>
-                      )  
-                  }
-              })}
-              <Button 
-                  onClick={() => {setPage(page+1); setCurrPage(page);}} 
-                  disabled={page===numPages}>
-                  &gt;
-              </Button>
-          </ButtonWrap>
-      </PageSection>
+      <ButtonWrap>
+          <li><PageButton className="prev" title="previous page">&#10094;</PageButton></li>
+          {/* {listMap?.map((data)=> {
+            <PageButton>{data.props.children}</PageButton>
+          })} */}
+          {/* <li>
+            <PageButton onClick={()=>pageClick(1)} title="first page - page 1">1</PageButton>
+          </li>
+          <li>
+            <PageButton onClick={()=>pageClick(2)}>2</PageButton>
+          </li>
+          <li>
+            <PageButton onClick={()=>pageClick(3)} className="active" title="current page - page 9">3</PageButton>
+          </li>
+          <li>
+            <PageButton onClick={()=>pageClick(4)}>4</PageButton>
+          </li>
+          <li>
+            <PageButton onClick={()=>pageClick(5)}>5</PageButton>
+          </li> */}
+          <li><PageButton className="next" title="next page">&#10095;</PageButton></li>
+      </ButtonWrap>
   )
 }
 

@@ -32,6 +32,7 @@ const NotContainer = styled.div`
   justify-content: center;
   width: 80%;
   align-items: center;
+  padding: 3rem 0;
 `;
 const NotIcon = styled.div`
   background-color: #AAAAAA;
@@ -319,25 +320,26 @@ const PurchaseList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const myOrderData = useSelector((state)=> state.myorder.myorder.content);
-  console.log(myOrderData)
+  const pageInfo = useSelector((state)=> state.myorder.myorder.pageInfo);
 
+console.log(pageInfo)
   const initialToken = localStorage.getItem("Authorization");
   //페이지네이션
   const [curPage, setCurPage] = useState(0); //현재페이지
-  const limit = useState(20); //페이지당 포스트 개수
-  const offset = (curPage - 1) * limit; //시작점과 끝점을 구하는 offset
 
+  const offset = (curPage - 1) * 20; //시작점과 끝점을 구하는 offset
+  console.log(curPage)
   const postsData = (posts) => {
     if(posts){
-      let result = posts.slice(offset, offset + limit);
+      let result = posts.slice(offset, offset + 20);
       return result;
     }
   }
-  let curPageOrders = postsData(myOrderData);
-  
+  const curPageOrders = postsData(myOrderData);
+  console.log(curPageOrders);
   //페이지 버튼 클릭
   const pageClick = (e) => {
-    setCurPage(e.target.innerText);
+    setCurPage(e);
   }
 
 
@@ -366,10 +368,7 @@ const PurchaseList = () => {
       else if (result.isDismissed) { // 만약 모달창에서 cancel 버튼을 눌렀다면
         console.log('then', '취소가 취소됨!')
       }
-    }).catch((err) =>
-      // AlreadyDeleteAlert()
-    console.log(err)
-    );
+    }).catch((err) => console.log(err));
   }
 
   const orderCancle = (id) => {
@@ -381,16 +380,12 @@ const PurchaseList = () => {
       .then(() => {
         // console.log('orderCanle!!!')
       })
-      // .catch((err) =>
-      //  AlreadyDeleteAlert()
-      // console.log(err)
-      //  );
   };
 
   useEffect(()=>{
+    console.log(curPage)
     dispatch(getMyOrder(curPage))
-  }, []);
-  console.log(myOrderData)
+  }, [curPage]);
 
   if(myOrderData === {}) return(<NotOrder>구매 내역이 없습니다.</NotOrder>)
 
@@ -440,26 +435,8 @@ const PurchaseList = () => {
               </Ordercontainter>
               ))}
           <PaginationContainer>
-              <Pagination page={curPage} setPage={setCurPage} limit={limit} totalPosts={curPageOrders?.length} pageClick={pageClick}/>
-                {/* <li><PageButton className="prev" title="previous page">&#10094;</PageButton></li>
-                <li>
-                  <PageButton onClick={pageClick} title="first page - page 1">1</PageButton>
-                </li>
-                <li>
-                  <PageButton onClick={pageClick}>2</PageButton>
-                </li>
-                <li>
-                  <PageButton onClick={pageClick} className="active" title="current page - page 9">3</PageButton>
-                </li>
-                <li>
-                  <PageButton onClick={pageClick}>4</PageButton>
-                </li>
-                <li>
-                  <PageButton onClick={pageClick}>5</PageButton>
-                </li>
-                <li><PageButton className="next" title="next page">&#10095;</PageButton></li>
-              </Pagination> */}
-            </PaginationContainer>
+            <Pagination pageClick={pageClick} list={pageInfo?.totalPages}/>
+          </PaginationContainer>
         </Container>
       )}
     </>
