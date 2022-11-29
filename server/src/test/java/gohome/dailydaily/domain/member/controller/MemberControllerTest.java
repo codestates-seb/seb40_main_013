@@ -1,12 +1,17 @@
 package gohome.dailydaily.domain.member.controller;
 
 import com.google.gson.Gson;
+import gohome.dailydaily.domain.like.service.LikeService;
 import gohome.dailydaily.domain.member.dto.MemberDto;
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
 import gohome.dailydaily.domain.member.mapper.MemberMapper;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
 import gohome.dailydaily.domain.member.service.MemberService;
+import gohome.dailydaily.domain.product.dto.CategoryGetDto;
+import gohome.dailydaily.domain.product.entity.Product;
+import gohome.dailydaily.domain.product.mapper.OptionMapper;
+import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.review.entity.Review;
 import gohome.dailydaily.domain.review.mapper.ReviewMapper;
 import gohome.dailydaily.domain.review.service.ReviewService;
@@ -19,19 +24,18 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 import static gohome.dailydaily.util.TestConstant.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -40,7 +44,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = {MemberController.class, MemberMapper.class, SellerMapper.class, ReviewMapper.class})
+@WebMvcTest(controllers = {MemberController.class, MemberMapper.class, SellerMapper.class, ProductMapper.class, OptionMapper.class, ReviewMapper.class})
 @MockBean(JpaMetamodelMappingContext.class)
 @Import(SecurityTestConfig.class)
 @AutoConfigureRestDocs
@@ -55,6 +59,9 @@ class MemberControllerTest implements Reflection {
     private MemberService memberService;
     @MockBean
     private ReviewService reviewService;
+
+    @MockBean
+    private LikeService likeService;
 
     @Test
     public void signup() throws Exception {
@@ -227,42 +234,68 @@ class MemberControllerTest implements Reflection {
                 ));
     }
 
-//    @Test
-//    void patchMemberImg() throws Exception{
-//        // given
-//        MemberDto.ImgRegistration imgRegistration = newInstance(MemberDto.ImgRegistration.class);
-//        setField(imgRegistration, "img", );
-//
-//        String request = gson.toJson(imgRegistration);
-//
-//        given(memberService.updateMember(any(Member.class)))
-//                .willReturn(MEMBER);
-//
-//        // when
-//        ResultActions actions = mockMvc.perform(
-//                patch("/members/mypage")
-//                        .header("Authorization", "JWT")
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(request)
-//        );
-//
-//        // then
-//        actions.andExpect(status().isOk())
-//                .andExpect(jsonPath("$.memberId").value(MEMBER.getId()))
-//                .andExpect(jsonPath("$.email").value(MEMBER.getEmail()))
-//                .andExpect(jsonPath("$.nickname").value(MEMBER.getNickname()))
-//                .andExpect(jsonPath("$.address").value(MEMBER.getAddress()))
-//                .andExpect(jsonPath("$.phone").value(MEMBER.getPhone()))
-//                .andExpect(jsonPath("$.memberStatus").value(MEMBER.getMemberStatus().name()))
-//                .andDo(document("members/patch",
-//                        REQUEST_PREPROCESSOR,
-//                        RESPONSE_PREPROCESSOR,
-//                        REQUEST_HEADER_JWT,
-//                        requestFields(
-//                                FWP_NICKNAME, FWP_PASSWORD, FWP_ADDRESS, FWP_PHONE
-//                        ),
-//                        MEMBER_RESPONSE_FIELDS
-//                ));
-//    }
+    @Test
+    void patchMemberImg() throws Exception {
+        // given
+        given(memberService.updateMemberImg(any(MemberDto.ImgRegistration.class), eq(MEMBER.getId())))
+                .willReturn(MEMBER);
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                multipart("/members/img")
+                        .file(IMG)
+                        .header("Authorization", "JWT")
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .accept(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.memberId").value(MEMBER.getId()))
+                .andExpect(jsonPath("$.email").value(MEMBER.getEmail()))
+                .andExpect(jsonPath("$.nickname").value(MEMBER.getNickname()))
+                .andExpect(jsonPath("$.address").value(MEMBER.getAddress()))
+                .andExpect(jsonPath("$.phone").value(MEMBER.getPhone()))
+                .andExpect(jsonPath("$.memberStatus").value(MEMBER.getMemberStatus().name()))
+                .andDo(document("members/img",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
+                        REQUEST_PARTS_IMG,
+                        MEMBER_RESPONSE_FIELDS
+                ));
+    }
+
+    @Test
+    void getLikes() throws Exception{
+        // given
+        Page<Product> products = new PageImpl<>(List.of(PRODUCT1, PRODUCT2), PAGEABLE, 2);
+
+        given(likeService.findLikeProductsByMemberId(MEMBER.getId(), PAGEABLE))
+                .willReturn(products);
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                get("/members/mypage/likes")
+                        .param("page", String.valueOf(PAGEABLE.getPageNumber()))
+                        .param("size", String.valueOf(PAGEABLE.getPageSize()))
+                        .param("sort", String.valueOf(PAGEABLE.getSort()).replace(": ", ","))
+                        .header("Authorization", "JWT")
+        );
+
+        // then
+        actions.andExpect(status().isOk())
+                .andDo(document("members/likes",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
+                        REQUEST_PARAM_PAGE,
+                        responseFields(
+                                FWP_CATEGORY_CONTENT_PRODUCT_ID, FWP_CONTENT_PRODUCT_IMG_NAME, FWP_CONTENT_PRODUCT_IMG_PATH,
+                                FWP_CATEGORY_CONTENT_PRODUCT_TITLE, FWP_CONTENT_PRODUCT_PRICE, FWP_CONTENT_PRODUCT_SCORE,
+                                FWP_CONTENT_PRODUCT_CATEGORY_MAIN, FWP_CONTENT_PRODUCT_SELLER_NICKNAME,FWP_CONTENT_REVIEWS,
+                                FWP_PAGE_INFO, FWP_PAGE_INFO_PAGE, FWP_PAGE_INFO_SIZE, FWP_PAGE_INFO_TOTAL_ELEMENTS, FWP_PAGE_INFO_TOTAL_PAGES
+                        )
+                ));
+    }
 }

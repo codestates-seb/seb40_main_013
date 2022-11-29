@@ -17,6 +17,7 @@ public interface OrderMapper {
     Order toOrder(OrderDto.Post post, Long memberId);
 
     @Mapping(target = "orderId", source = "id")
+    @Mapping(target = "orderNumber", expression = "java(order.getId() + 215637)")
     @Mapping(target = "status", expression = "java(order.getStatus().getMessage())")
     OrderDto.Response toResponse(Order order);
 }

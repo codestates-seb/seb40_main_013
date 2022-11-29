@@ -1,11 +1,15 @@
 package gohome.dailydaily.domain.member.controller;
 
+import gohome.dailydaily.domain.like.service.LikeService;
 import gohome.dailydaily.domain.member.dto.MemberDto.*;
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.member.mapper.MemberMapper;
 import gohome.dailydaily.domain.member.mapper.SellerMapper;
 import gohome.dailydaily.domain.member.service.MemberService;
+import gohome.dailydaily.domain.product.dto.CategoryGetDto;
+import gohome.dailydaily.domain.product.entity.Product;
+import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.review.dto.ReviewDto;
 import gohome.dailydaily.domain.review.entity.Review;
 import gohome.dailydaily.domain.review.mapper.ReviewMapper;
@@ -13,6 +17,8 @@ import gohome.dailydaily.domain.review.service.ReviewService;
 import gohome.dailydaily.global.common.dto.PageResponseDto;
 import gohome.dailydaily.global.common.security.resolver.MemberId;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,9 +37,11 @@ public class MemberController {
 
     private final MemberService memberService;
     private final ReviewService reviewService;
+    private final LikeService likeService;
     private final MemberMapper memberMapper;
     private final SellerMapper sellerMapper;
     private final ReviewMapper reviewMapper;
+    private final ProductMapper productMapper;
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -50,19 +58,22 @@ public class MemberController {
     }
 
     @GetMapping("/members/mypage")
+    @Cacheable(key = "#memberId", value = "getMember")
     public UserResponse getMember(@MemberId Long memberId) {
         Member member = memberService.findVerifiedMember(memberId);
         return memberMapper.toResponse(member);
     }
 
     @PatchMapping("/members/mypage")
+    @CacheEvict(key = "#memberId", value = "getMember")
     public UserResponse patchMember(@MemberId Long memberId,
                                     @Valid @RequestBody Patch patch) {
         Member member = memberService.updateMember(memberMapper.toMember(patch, memberId));
         return memberMapper.toResponse(member);
     }
 
-    @PatchMapping("/members/img")
+    @PostMapping("/members/img")
+    @CacheEvict(key = "#memberId", value = "getMember")
     public UserResponse patchMemberImg(@MemberId Long memberId,
                                        @Valid @ModelAttribute ImgRegistration imgPatch) throws IOException {
         Member member = memberService.updateMemberImg(imgPatch, memberId);
@@ -70,17 +81,27 @@ public class MemberController {
     }
 
     @DeleteMapping("/members/mypage")
+    @CacheEvict(key = "#memberId", value = "getMember")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMember(@MemberId Long memberId) {
         memberService.deleteMember(memberId);
     }
 
+    @Cacheable(key = "#memberId", value = "getReviews")
     @GetMapping("/members/mypage/reviews")
     public PageResponseDto<ReviewDto.Response> getReviews(@MemberId Long memberId,
                                                           @PageableDefault(size = 20, sort = "createdAt",
                                                                   direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Review> reviews = reviewService.findReviewsByMemberId(memberId, pageable);
         return PageResponseDto.of(reviews.map(reviewMapper::toResponse));
+    }
+
+    @GetMapping("/members/mypage/likes")
+    public PageResponseDto<CategoryGetDto> getLikes(@MemberId Long memberId,
+                                                    @PageableDefault(size = 15, sort = "createdAt",
+                                                            direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Product> likeProducts = likeService.findLikeProductsByMemberId(memberId, pageable);
+        return PageResponseDto.of(likeProducts.map(productMapper::toCategoryGetDto));
     }
 
 }

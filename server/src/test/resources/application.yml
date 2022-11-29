@@ -4,6 +4,7 @@ spring:
   redis:
     host: localhost
     port: 6379
+    ttl: 5
   h2:
     console:
       enabled: true
@@ -41,7 +42,11 @@ jwt:
   refresh-token-expiration-minutes: 420
   keep-state-refresh-token-expiration-minutes: 1440
 
-
+file:
+  profileImg: /img/profileImg
+  productImg: /img/productImg
+  productContentsImg: /img/productContentsImg/
+  reviewImg: /img/reviewImg
 
 env: local
 

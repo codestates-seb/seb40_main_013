@@ -2,15 +2,13 @@ package gohome.dailydaily.domain.member.dto;
 
 import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 
 public class MemberDto {
 
@@ -59,7 +57,7 @@ public class MemberDto {
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Builder
-    public static class UserResponse {
+    public static class UserResponse implements Serializable {
         private Long memberId;
         private String nickname;
         private String email;
@@ -72,7 +70,7 @@ public class MemberDto {
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Builder
-    public static class SellerResponse {
+    public static class SellerResponse implements Serializable {
         private Long sellerId;
         private Long memberId;
         private String nickname;

@@ -148,11 +148,60 @@ include::{snippets}/members/reviews/request-parameters.adoc[]
 .http-response
 include::{snippets}/members/reviews/http-response.adoc[]
 
+=== 회원 좋아요 상품 조회
+.http-request
+include::{snippets}/members/likes/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/members/likes/request-headers.adoc[]
+
+.request-parameters
+[caption=]
+include::{snippets}/members/likes/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/members/likes/http-response.adoc[]
+
+=== 회원 프로필 수정
+.http-request
+include::{snippets}/members/img/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/members/img/request-headers.adoc[]
+
+.request-parts
+[caption=]
+include::{snippets}/members/img/request-parts.adoc[]
+
+.http-response
+include::{snippets}/members/img/http-response.adoc[]
+
 .response-fields
 [caption=]
-include::{snippets}/members/reviews/response-fields.adoc[]
+include::{snippets}/members/img/response-fields.adoc[]
 
 == 상품
+=== 상품 추가
+.http-request
+include::{snippets}/products/post/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/products/post/request-headers.adoc[]
+
+.request-parameters
+[caption=]
+include::{snippets}/products/post/request-parameters.adoc[]
+
+.request-parts
+[caption=]
+include::{snippets}/products/post/request-parts.adoc[]
+
+.http-response
+include::{snippets}/products/post/http-response.adoc[]
+
 === 상품 상세 조회
 .http-request
 include::{snippets}/products/get/http-request.adoc[]
@@ -216,6 +265,63 @@ include::{snippets}/products/categoryCreated/get/http-response.adoc[]
 [caption=]
 include::{snippets}/products/categoryCreated/get/response-fields.adoc[]
 
+=== 브랜드 상품 전체 조회
+.http-request
+include::{snippets}/products/brand/get/http-request.adoc[]
+
+.request-parameters
+[caption=]
+include::{snippets}/products/brand/get/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/products/brand/get/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/products/brand/get/response-fields.adoc[]
+
+=== 카테고리 별 전체 상품 갯수 조회
+.http-request
+include::{snippets}/products/count/http-request.adoc[]
+
+.http-response
+include::{snippets}/products/count/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/products/count/response-fields.adoc[]
+
+== 상품 좋아요
+=== 상품 좋아요 추가
+.http-request
+include::{snippets}/likes/post/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/likes/post/request-headers.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/likes/post/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/likes/post/http-response.adoc[]
+
+=== 상품 좋아요 취소
+.http-request
+include::{snippets}/likes/delete/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/likes/delete/request-headers.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/likes/delete/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/likes/delete/http-response.adoc[]
+
 == 리뷰
 === 리뷰 등록
 .http-request
@@ -229,9 +335,13 @@ include::{snippets}/reviews/post/request-headers.adoc[]
 [caption=]
 include::{snippets}/reviews/post/path-parameters.adoc[]
 
-.request-fields
+.request-parameters
 [caption=]
-include::{snippets}/reviews/post/request-fields.adoc[]
+include::{snippets}/reviews/post/request-parameters.adoc[]
+
+.request-parts
+[caption=]
+include::{snippets}/members/img/request-parts.adoc[]
 
 .http-response
 include::{snippets}/reviews/post/http-response.adoc[]
@@ -412,3 +522,14 @@ include::{snippets}/search/rank/http-response.adoc[]
 .response-fields
 [caption=]
 include::{snippets}/search/rank/response-fields.adoc[]
+
+=== 상품 제목 검색
+.http-request
+include::{snippets}/products/title/get/http-request.adoc[]
+
+.http-response
+include::{snippets}/products/title/get/http-response.adoc[]
+
+.response-fields
+[caption=]
+include::{snippets}/products/title/get/response-fields.adoc[]

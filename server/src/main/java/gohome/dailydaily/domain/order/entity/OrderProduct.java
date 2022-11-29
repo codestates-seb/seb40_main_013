@@ -19,6 +19,9 @@ public class OrderProduct extends BaseTime {
     @Column(name = "order_product_id")
     private Long id;
 
+    @Transient
+    private Long productCartId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
@@ -40,7 +43,10 @@ public class OrderProduct extends BaseTime {
 
     public void addProduct(Product product) {
         this.product = product;
-        this.product.addOrderProducts(this);
+    }
+
+    public void addOption(Option option) {
+        this.option = option;
     }
 
 }

@@ -1,24 +1,25 @@
 package gohome.dailydaily.domain.review.dto;
 
 import gohome.dailydaily.domain.file.entity.File;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class ReviewDto {
 
     @Getter
+    @Setter
     public static class Post {
         @NotBlank
         private String content;
         @Range(min = 0, max = 5)
         private Float score;
+        private MultipartFile img;
     }
 
     @Getter
@@ -30,9 +31,9 @@ public class ReviewDto {
     }
 
     @Getter
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @AllArgsConstructor
     @Builder
-    public static class Response {
+    public static class Response implements Serializable {
         private Long reviewId;
         private Long productId;
         private String productTitle;

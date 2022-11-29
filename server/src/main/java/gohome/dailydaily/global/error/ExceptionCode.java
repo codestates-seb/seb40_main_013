@@ -19,6 +19,7 @@ public enum ExceptionCode {
     OPTION_NOT_FOUND(404, "Option not found"),
     PRODUCT_NOT_FOUND(404, "Product not found"),
     REVIEW_NOT_FOUND(404, "Review not found"),
+    LIKE_NOT_FOUND(404, "Like not found"),
     PRODUCT_CART_NOT_FOUND(404, "Product not found in cart"),
     TOKEN_NOT_FOUND(404, "Token not found"),
 
@@ -26,7 +27,8 @@ public enum ExceptionCode {
 
     EMAIL_ALREADY_EXISTS(409, "Email already exist"),
     NICKNAME_ALREADY_EXISTS(409, "Nickname already exist"),
-    MEMBER_EXIST(409, "Member exists");
+    MEMBER_EXIST(409, "Member exists"),
+    LIKE_EXISTS(409, "Like already exist");
 
     private final int status;
     private final String message;

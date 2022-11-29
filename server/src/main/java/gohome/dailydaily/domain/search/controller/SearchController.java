@@ -4,6 +4,7 @@ import gohome.dailydaily.domain.search.dto.SearchDto;
 import gohome.dailydaily.domain.search.mapper.SearchMapper;
 import gohome.dailydaily.domain.search.repository.SearchRedisRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,8 +27,8 @@ public class SearchController {
     }
 
     @GetMapping("/rank")
+//    @Cacheable(value = "getRank")
     public List<SearchDto.RankResponse> getRank() {
-        return searchMapper.toResponse(searchRedisRepository.getRankTop20());
+        return searchMapper.toResponse(searchRedisRepository.getRankTop5());
     }
-
 }

@@ -7,42 +7,51 @@ import gohome.dailydaily.domain.order.service.OrderService;
 import gohome.dailydaily.global.common.dto.PageResponseDto;
 import gohome.dailydaily.global.common.security.resolver.MemberId;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/orders")
 @RequiredArgsConstructor
+@Validated
 public class OrderController {
     private final OrderService orderService;
     private final OrderMapper mapper;
 
     @PostMapping
-    public ResponseEntity postOrder(@MemberId Long memberId,
-                                    @RequestBody OrderDto.Post post) {
-
+    @CacheEvict(key = "#memberId", value = "getOrders")
+    @ResponseStatus(HttpStatus.CREATED)
+    public OrderDto.Response postOrder(@MemberId Long memberId,
+                                       @Valid @RequestBody OrderDto.Post post) {
+        // post => productCartId 추출해서 cart 에서 해당 Id 삭제
         Order saveOrder = orderService.createOrder(mapper.toOrder(post, memberId));
 
-        return new ResponseEntity<>(mapper.toResponse(saveOrder), HttpStatus.CREATED);
+        return mapper.toResponse(saveOrder);
     }
 
     @GetMapping
-    public ResponseEntity getOrders(@MemberId Long memberId,
-                                    @PageableDefault(size = 20, sort = "createdAt",
-                                            direction = Sort.Direction.DESC) Pageable pageable) {
+    @Cacheable(key = "#memberId", value = "getOrders")
+    public PageResponseDto<OrderDto.Response> getOrders(@MemberId Long memberId,
+                                                        @PageableDefault(size = 20, sort = "createdAt",
+                                                                direction = Sort.Direction.DESC) Pageable pageable) {
 
         Page<Order> orders = orderService.findByMember_Id(memberId, pageable);
 
-        return new ResponseEntity<>(PageResponseDto.of(orders.map(mapper::toResponse)), HttpStatus.OK);
+        return PageResponseDto.of(orders.map(mapper::toResponse));
     }
 
     @DeleteMapping("/{order-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CacheEvict(key = "#memberId", value = "getOrders")
     public String cancelOrder(@MemberId Long memberId,
                               @PathVariable("order-id") Long orderId) {
         orderService.cancelOrder(memberId, orderId);

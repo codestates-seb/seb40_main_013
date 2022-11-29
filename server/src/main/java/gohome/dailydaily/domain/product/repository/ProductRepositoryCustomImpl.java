@@ -1,6 +1,7 @@
 package gohome.dailydaily.domain.product.repository;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.JPAExpressions;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.dto.QCategoryGetDto;
 import gohome.dailydaily.domain.product.entity.Product;
@@ -10,6 +11,7 @@ import gohome.dailydaily.global.util.Querydsl4RepositorySupport;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 import static gohome.dailydaily.domain.member.entity.QMember.member;
@@ -29,7 +31,7 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
     public List<CategoryGetDto> findTop5ByScore() {
         List<CategoryGetDto> content = select(getCategoryGetDto())
                 .from(product)
-                .orderBy(product.score.desc(),product.reviews.size().desc())
+                .orderBy(product.score.divide(product.reviews.size()).desc(), product.reviews.size().desc())
                 .innerJoin(product.seller.member, member)
                 .innerJoin(product.category, category)
                 .limit(5)
@@ -43,7 +45,7 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
 
         List<CategoryGetDto> content = select(getCategoryGetDto())
                 .from(product)
-                .orderBy(product.score.desc(), product.reviews.size().desc())
+                .orderBy(product.sale.desc(), product.score.desc(), product.reviews.size().desc())
                 .innerJoin(product.seller.member, member)
                 .innerJoin(product.category, category)
                 .where(product.seller.id.eq(id))
@@ -97,6 +99,18 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
     }
 
     @Override
+    public Long countProductCategory(ProductGetParam param) {
+        BooleanBuilder whereCondition = getWhereCondition(param);
+
+        List<Long> count = select(product.count())
+                .from(product)
+                .where(whereCondition)
+                .fetch();
+
+        return count.stream().findAny().orElse(0l);
+    }
+
+    @Override
     public SliceResponseDto<CategoryGetDto> findAllByCategory(Pageable pageable, ProductGetParam param) {
 
         BooleanBuilder whereCondition = getWhereCondition(param);
@@ -113,13 +127,14 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
 
     private QCategoryGetDto getCategoryGetDto() {
         return new QCategoryGetDto(
-            product.id,
-            product.img,
-            product.title,
-            product.price,
-            product.score,
-            product.seller.member.nickname,
-            product.category.main
+                product.id,
+                product.img,
+                product.title,
+                product.price,
+                product.score.floatValue(),
+                product.seller.member.nickname,
+                product.category.main,
+                product.reviews.size()
         );
     }
 

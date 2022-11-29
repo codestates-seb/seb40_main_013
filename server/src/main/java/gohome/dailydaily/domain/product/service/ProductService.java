@@ -1,13 +1,18 @@
 package gohome.dailydaily.domain.product.service;
 
+import com.google.gson.Gson;
+import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.file.service.FileService;
+import gohome.dailydaily.domain.like.repository.LikeRepository;
 import gohome.dailydaily.domain.member.entity.Seller;
 import gohome.dailydaily.domain.member.repository.SellerRepository;
+import gohome.dailydaily.domain.member.service.SellerService;
 import gohome.dailydaily.domain.product.controller.dto.GetProductListByDto;
 import gohome.dailydaily.domain.product.dto.CategoryGetDto;
 import gohome.dailydaily.domain.product.dto.ProductDto;
 import gohome.dailydaily.domain.product.entity.Category;
 import gohome.dailydaily.domain.product.entity.Product;
+import gohome.dailydaily.domain.product.mapper.ProductMapper;
 import gohome.dailydaily.domain.product.repository.CategoryRepository;
 import gohome.dailydaily.domain.product.repository.ProductRepository;
 import gohome.dailydaily.domain.product.repository.param.ProductGetParam;
@@ -15,33 +20,43 @@ import gohome.dailydaily.domain.search.repository.SearchRedisRepository;
 import gohome.dailydaily.global.common.dto.SliceResponseDto;
 import gohome.dailydaily.global.error.BusinessLogicException;
 import gohome.dailydaily.global.error.ExceptionCode;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ProductService {
 
+    @Value("${file.productImg}")
+    private String productPath;
+
+    @Value("${file.productContentsImg}")
+    private String productContentsPath;
+
+
     private final ProductRepository productRepository;
+    private final LikeRepository likeRepository;
     private final SellerRepository sellerRepository;
+    private final SellerService sellerService;
     private final CategoryRepository categoryRepository;
     private final SearchRedisRepository searchRedisRepository;
     private final FileService fileService;
 
-//    @Value("${file.profileImg}")
-//    private String path;
+    private final ProductMapper mapper;
 
     public List<CategoryGetDto> getScoreTop5() {
-        List<CategoryGetDto> products = productRepository.findTop5ByScore();
-
-        return products;
+        return productRepository.findTop5ByScore();
     }
 
     public SliceResponseDto<CategoryGetDto> getProductListByCategory(GetProductListByDto dto) {
@@ -58,12 +73,19 @@ public class ProductService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
     }
 
+    public Product findProduct(Long memberId, Long productId) {
+        Product product = getProduct(productId);
+
+        Optional.ofNullable(memberId)
+                .ifPresent(id -> product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(id, productId)));
+
+        return product;
+    }
+
     public SliceResponseDto<CategoryGetDto> getProductListByTitle(GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> products = productRepository
                 .findAllByTitle(dto.getPageRequest(), ProductGetParam.valueOf(dto));
-        if (products.getContent().isEmpty()) {
-            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
-        }
+
         searchRedisRepository.addSearchCount(dto.getTitle());
         return products;
     }
@@ -78,7 +100,7 @@ public class ProductService {
             if (tmp.isEmpty()) {
                 products.put("guest", null);
             } else {
-                products.put(tmp.get(2).getNickname(), tmp);
+                products.put(tmp.get(0).getNickname(), tmp);
             }
         }
         return products;
@@ -95,12 +117,30 @@ public class ProductService {
         return products;
     }
 
-    public String postProduct(ProductDto.PostProduct product) throws IOException {
-        //fileService.storeFile(product.getImg(), path);
-        //Product productResult = mapper.toProduct(product);
-        //productRepository.save(productResult);
+    @Transactional
+    public Long postProduct(ProductDto.PostProduct postProduct) throws IOException {
 
-        return "상품 등록 완료";
+        Long categoryId = categoryRepository.findIdByMainAndSub(postProduct.getMain(), postProduct.getSub());
+
+        sellerService.findVerifiedSeller(postProduct.getSellerId());
+
+        File file = fileService.storeFile(postProduct.getImg(), productPath);
+
+        List<String> test = new ArrayList<>();
+        for (MultipartFile f : postProduct.getContent()) {
+            File content = fileService.storeFile(f, productContentsPath);
+            test.add(content.getFullPath());
+        }
+
+        String content = new Gson().toJson(test);
+
+        Product product = mapper.toProduct(postProduct);
+
+        product.initInfo(file, content, Category.builder().id(categoryId).build());
+
+        productRepository.save(product);
+
+        return product.getId();
     }
 
     public SliceResponseDto<CategoryGetDto> getProductListByBrand(GetProductListByDto dto) {
@@ -110,5 +150,11 @@ public class ProductService {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
         }
         return products;
+    }
+
+    public HashMap<String, Long> getProductCategoryCount(GetProductListByDto dto) {
+        HashMap<String, Long> count = new HashMap<>();
+        count.put("count", productRepository.countProductCategory(ProductGetParam.valueOf(dto)));
+        return count;
     }
 }

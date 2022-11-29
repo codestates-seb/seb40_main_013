@@ -21,4 +21,5 @@ public interface ProductRepositoryCustom {
 
     SliceResponseDto<CategoryGetDto> findAllByBrand(Pageable pageRequest, ProductGetParam valueOf);
 
+    Long countProductCategory(ProductGetParam param);
 }
