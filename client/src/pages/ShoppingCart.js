@@ -2,8 +2,16 @@ import { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
 import { BsCartX } from 'react-icons/bs';
 import { deleteShoppingCart, getShoppingCart, postPayment } from "../reduxstore/slices/articleSlice";
+=======
+import {
+  deleteShoppingCart,
+  getShoppingCart,
+  postPayment,
+} from "../reduxstore/slices/articleSlice";
+>>>>>>> 71fefde7c918636459882547f758435b4fff2170
 import { Alert } from "../components/Alert";
 import { useNavigate } from "react-router-dom";
 
@@ -171,8 +179,12 @@ function ShoppingCart() {
   const dispatch = useDispatch();
   const cartSeletor = useSelector((state) => state.article.shoppingCartInitial);
   const cartSeletorLength = cartSeletor?.length;
+<<<<<<< HEAD
   console.log(cartSeletor);
   
+=======
+
+>>>>>>> 71fefde7c918636459882547f758435b4fff2170
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
   console.log(`checkList`, checkList);
 
@@ -216,8 +228,14 @@ function ShoppingCart() {
   const postPurchase = () => {
     if (checkList.length === 0) {
       Alert("warning", "구매하실 상품을 선택해 주세요.");
+<<<<<<< HEAD
     } else { //배열에 담아 변수로 보내긔..
       dispatch(postPayment({checkList,navigate}))
+=======
+    } else {
+      //배열에 담아 변수로 보내긔..
+      dispatch(postPayment(checkList));
+>>>>>>> 71fefde7c918636459882547f758435b4fff2170
     }
   };
 
@@ -262,11 +280,15 @@ function ShoppingCart() {
             <PayInfo>
               <div>
                 <span>상품수</span>
-                <span>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</span>
+                <span>
+                  {totalCountCalculator.toLocaleString("en-US")}&nbsp;개
+                </span>
               </div>
               <div>
                 <span>상품금액</span>
-                <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
+                <span>
+                  {totalPriceCalculator.toLocaleString("en-US")}&nbsp;원
+                </span>
               </div>
               <div>
                 <span>할인금액</span>
@@ -279,7 +301,9 @@ function ShoppingCart() {
             </PayInfo>
             <TotalPrice>
               <span className="small">총&nbsp;결제금액</span>
-              <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
+              <span>
+                {totalPriceCalculator.toLocaleString("en-US")}&nbsp;원
+              </span>
             </TotalPrice>
             <PayButton onClick={postPurchase}>구매하기</PayButton>
           </Payment>
