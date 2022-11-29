@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/h2/*").permitAll()
                 .mvcMatchers(POST, "/signup/**", "/login", "/guest").permitAll()
-                .mvcMatchers(GET, "/members/mypage/reviews").hasRole("USER")
+                .mvcMatchers(GET, "/members/mypage/**").hasRole("USER")
                 .mvcMatchers(POST, "/**").hasRole("USER")
                 .mvcMatchers(PATCH, "/**").hasRole("USER")
                 .mvcMatchers(DELETE, "/**").hasRole("USER")

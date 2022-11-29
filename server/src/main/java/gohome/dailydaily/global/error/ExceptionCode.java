@@ -24,7 +24,7 @@ public enum ExceptionCode {
     TOKEN_NOT_FOUND(404, "Token not found"),
 
     CATEGORY_NOT_FOUND(404, "Category not found"),
-
+    TITLE_NOT_BLANK(400, "Title Not Blank"),
     EMAIL_ALREADY_EXISTS(409, "Email already exist"),
     NICKNAME_ALREADY_EXISTS(409, "Nickname already exist"),
     MEMBER_EXIST(409, "Member exists"),
