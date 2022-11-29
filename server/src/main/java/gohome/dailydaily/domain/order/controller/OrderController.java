@@ -28,7 +28,7 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public OrderDto.Response postOrder(@MemberId Long memberId,
                                        @RequestBody OrderDto.Post post) {
-
+        // post => productCartId 추출해서 cart 에서 해당 Id 삭제
         Order saveOrder = orderService.createOrder(mapper.toOrder(post, memberId));
 
         return mapper.toResponse(saveOrder);
