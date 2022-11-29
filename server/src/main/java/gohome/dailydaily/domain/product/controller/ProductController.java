@@ -28,7 +28,7 @@ public class ProductController {
     private final ProductService productService;
     private final ProductMapper mapper;
 
-    @Cacheable(key = "#productId", value = "getProduct")
+    @Cacheable(key = "#productId +\":\" + #memberId", value = "getProduct")
     @GetMapping("/details/{product-id}")
     public ProductDto.Response getProduct(@AuthenticationPrincipal Long memberId,
                                           @Valid @PathVariable("product-id") Long productId) {
