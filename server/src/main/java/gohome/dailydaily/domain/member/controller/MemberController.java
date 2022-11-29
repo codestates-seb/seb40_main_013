@@ -87,7 +87,7 @@ public class MemberController {
         memberService.deleteMember(memberId);
     }
 
-    @Cacheable(key = "#memberId", value = "getReviews")
+    @Cacheable(key = "#memberId + #pageable.pageNumber + #pageable.pageSize + #pageable.sort", value = "getReviews")
     @GetMapping("/members/mypage/reviews")
     public PageResponseDto<ReviewDto.Response> getReviews(@MemberId Long memberId,
                                                           @PageableDefault(size = 20, sort = "createdAt",
