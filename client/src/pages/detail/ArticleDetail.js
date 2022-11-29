@@ -9,11 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getArticleDetail,
   postCart,
+  postLike,
+  deleteLike,
 } from "../../reduxstore/slices/articleSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
 import ScrollToTop from "../../components/ScrollToTop";
 import Button from "../../components/Button";
+import Apis from "../../apis/apis";
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
   const [selectOptions, setSelectOptions] = useState("");
@@ -29,6 +32,9 @@ function ArticleDetail() {
     (state) => state.article.detailArticle.options
   );
   let price = articlesDetail?.price;
+  const isLike = articlesDetail?.existsLike;
+  console.log(articlesDetail);
+  const jwtToken = localStorage.getItem("Authorization");
   const clickFunction = () => {
     setClickSelect(!clickSelect);
   };
@@ -63,32 +69,41 @@ function ArticleDetail() {
   ScrollToTop();
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
-    // let get_local = [];
-    // if (!articlesDetail) {
-    //   localStorage.setItem("product", get_local);
-    // } else if (articlesDetail) {
-    //   let local = localStorage.getItem("product");
-    //   let get_local = [articlesDetail.productId];
-    //   if (local) {
-    //     local = JSON.parse(local);
-    //     get_local = [articlesDetail.productId, ...local];
-    //   }
-    //   localStorage.setItem("product", JSON.stringify(get_local));
-    // }
-  }, []);
+
+    let get_local = [];
+    if (!articlesDetail) {
+      localStorage.setItem("product", get_local);
+    } else if (articlesDetail) {
+      let local = localStorage.getItem("product");
+      let get_local = [articlesDetail.productId];
+      if (local) {
+        local = JSON.parse(local);
+        get_local = [articlesDetail.productId, ...local];
+      }
+      localStorage.setItem("product", JSON.stringify(get_local));
+    }
+  }, [dispatch]);
 
   const clickPostCart = () => {
-    let postCartData = {
+    let postData = {
       productId: articlesDetail?.productId,
       count: cartCount,
       optionId: selectOptions,
     };
-    console.log(postCartData);
-    dispatch(postCart({ postCartData, navigate }));
+    console.log(postData);
+    dispatch(postCart({ postData, navigate }));
   };
-  //여기서부터
+  const clickPostLike = () => {
+    let id = articlesDetail?.productId;
 
-  const memberid = articlesDetail?.productId;
+    dispatch(postLike(id));
+  };
+
+  const clickDeleteLike = () => {
+    let id = articlesDetail?.productId;
+
+    dispatch(deleteLike(id));
+  };
 
   return (
     <Wrapper>
@@ -106,7 +121,11 @@ function ArticleDetail() {
                   </DetailArticleStaAverage>
                 </DetailArticleStarSpace>
                 <ButtonIcon>
-                    <BsHeart />
+                  {isLike ? (
+                    <BsHeartFill onClick={clickDeleteLike} />
+                  ) : (
+                    <BsHeart className="heart" onClick={clickPostLike} />
+                  )}
                 </ButtonIcon>
               </DetailArticleNameSpace>
             </>
@@ -206,7 +225,6 @@ function ArticleDetail() {
 
 const Wrapper = styled.div`
   width: 100%;
-  /* height: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -403,6 +421,9 @@ const ButtonIcon = styled.button`
   &:nth-child(2) {
     margin-right: 10px;
     color: #aaaaaa;
+    &:hover {
+      cursor: pointer;
+    }
     @media screen and (max-width: 1023px) {
       font-size: 1rem;
     }

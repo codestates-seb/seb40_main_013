@@ -165,8 +165,8 @@ const Main = () => {
 
   //브랜드리스트
   const brandData = useSelector((state) => state?.main.main);
-  const brandTab = Object.keys(brandData);
-
+  const brandTab = Object.keys(brandData)?.filter((t) => t !== "게스트");
+  console.log(brandData);
   //자동스크롤 이벤트
   const myRefs = useRef({});
   const onMoveToElement = (key) => {
@@ -213,7 +213,7 @@ const Main = () => {
           <div className="reactionbody">
             <TH>
               {brandTab
-                ?.filter((t, i) => t !== "guest" && i <= 1)
+                ?.filter((t, i) => i <= 1)
                 ?.map((tab) => (
                   <TD key={tab} onClick={() => onMoveToElement(tab)}>
                     {tab}
@@ -222,7 +222,7 @@ const Main = () => {
             </TH>
             <TH>
               {brandTab
-                ?.filter((t, i) => t !== "guest" && i <= 3 && i > 1)
+                ?.filter((t, i) => i <= 3 && i > 1)
                 ?.map((tab) => (
                   <TD key={tab} onClick={() => onMoveToElement(tab)}>
                     {tab}
@@ -233,7 +233,7 @@ const Main = () => {
           <div className="reactionbody">
             <TH>
               {brandTab
-                ?.filter((t, i) => t !== "guest" && i > 3 && i < 6)
+                ?.filter((t, i) => i > 3 && i < 6)
                 ?.map((tab) => (
                   <TD key={tab} onClick={() => onMoveToElement(tab)}>
                     {tab}
@@ -242,7 +242,7 @@ const Main = () => {
             </TH>
             <TH>
               {brandTab
-                ?.filter((t, i) => t !== "guest" && i >= 6)
+                ?.filter((t, i) => i >= 6)
                 ?.map((tab) => (
                   <TD key={tab} onClick={() => onMoveToElement(tab)}>
                     {tab}
@@ -253,7 +253,7 @@ const Main = () => {
         </div>
       </BrandTab>
       {Object?.entries(brandData)
-        ?.filter((key) => key[0] !== "guest")
+        ?.filter((key) => key[0] !== "게스트")
         ?.map(([key, value]) => (
           <BrandProduct key={key}>
             <BrandTitleContainer>

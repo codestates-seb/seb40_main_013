@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { getMyOrder } from '../../reduxstore/slices/myOrderSlice';
 import styled from "styled-components/macro";
+import { getMyOrder } from '../../reduxstore/slices/myOrderSlice';
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";
 import { AlreadyDeleteAlert } from "../Alert";
+import Pagination from "./Pagination";
 
 const Container = styled.div`
   display: flex;
@@ -98,7 +99,7 @@ const SubTop = styled.h2`
     font-weight: 500;
   }
 `;
-const AllPurchase = styled(Link)`
+const AllPurchase = styled.div`
   font-weight: 600;
   font-size: 1.1rem;
   display:flex;
@@ -167,7 +168,7 @@ const Img = styled.img`
     height: 100px;
   }
 `;
-const BP = styled(Link)`
+const BP = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -181,7 +182,7 @@ const BP = styled(Link)`
     margin-left: 0;
   }
 `;
-const BrandName = styled(Link)`
+const BrandName = styled.div`
   font-weight: 600;
   font-size: 1rem;
   margin-bottom: 5px;
@@ -272,40 +273,40 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
-const Pagination = styled.ul`
-  display: inline-block;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  li {
-    display: block;
-    float: left;
-    padding: 5px;
+// const Pagination = styled.ul`
+//   display: inline-block;
+//   list-style: none;
+//   margin: 0;
+//   padding: 0;
+//   li {
+//     display: block;
+//     float: left;
+//     padding: 5px;
 
-    &:first-child {
-      border: none;
-    }
-  }
-`;
-const PageButton = styled.button`
-    background: none;
-    border: none;
-    border-radius: 50%;
-    box-sizing: border-box;
-    color: rgba(0, 0, 0, 0.6);
-    display: block;
-    font-size: 16px;
-    height: 40px;
-    line-height: 40px;
-    min-width: 40px;
-    padding: 0;
-    &:hover{
-      cursor: pointer;
-      background-color: #aaa;
-      border-radius: 50%;
-      color: white;
-    }
-`;
+//     &:first-child {
+//       border: none;
+//     }
+//   }
+// `;
+// const PageButton = styled.button`
+//     background: none;
+//     border: none;
+//     border-radius: 50%;
+//     box-sizing: border-box;
+//     color: rgba(0, 0, 0, 0.6);
+//     display: block;
+//     font-size: 16px;
+//     height: 40px;
+//     line-height: 40px;
+//     min-width: 40px;
+//     padding: 0;
+//     &:hover{
+//       cursor: pointer;
+//       background-color: #aaa;
+//       border-radius: 50%;
+//       color: white;
+//     }
+// `;
 const ThickHr= styled.hr`
   height: 2px;
   border: none;
@@ -318,15 +319,28 @@ const PurchaseList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const myOrderData = useSelector((state)=> state.myorder.myorder.content);
-  const [isModal, setIsModal] = useState(false);
-  //page click
-  const [click, setClick] = useState(0);
-  const initialToken = localStorage.getItem("Authorization");
+  console.log(myOrderData)
 
+  const initialToken = localStorage.getItem("Authorization");
+  //페이지네이션
+  const [curPage, setCurPage] = useState(0); //현재페이지
+  const limit = useState(20); //페이지당 포스트 개수
+  const offset = (curPage - 1) * limit; //시작점과 끝점을 구하는 offset
+
+  const postsData = (posts) => {
+    if(posts){
+      let result = posts.slice(offset, offset + limit);
+      return result;
+    }
+  }
+  let curPageOrders = postsData(myOrderData);
+  
   //페이지 버튼 클릭
   const pageClick = (e) => {
-    setClick(e.target.innerText);
+    setCurPage(e.target.innerText);
   }
+
+
   //주문취소 버튼
   const handleOrderCancle = (id) =>{
     const curData = myOrderData.filter(data => data.orderId == id);
@@ -374,7 +388,7 @@ const PurchaseList = () => {
   };
 
   useEffect(()=>{
-    dispatch(getMyOrder(click))
+    dispatch(getMyOrder(curPage))
   }, []);
   console.log(myOrderData)
 
@@ -398,17 +412,21 @@ const PurchaseList = () => {
                     &nbsp;|&nbsp; {order.createdAt.slice(0, 10)}&nbsp;|&nbsp; 
                     <span className={order.status === '주문 접수' ? 'orderStatus' : 'ordercancle'}>{order.status}</span>
                   </SubTop>
-                  <AllPurchase to={`${order.orderId}`}>상세보기 &gt;</AllPurchase>
+                  <Link to={`${order.orderId}`}>
+                    <AllPurchase>상세보기 &gt;</AllPurchase>
+                  </Link>
                 </Top>
                 <Content>
                   <Detail>
                     <ReactionSubDetail>
                     <Img src={order.orderProducts[0].img?.fullPath} />
-                      <BP to={`${order.orderId}`}>
+                    <Link to={`${order.orderId}`}>
+                      <BP>
                         <BrandName>{[order.orderProducts[0].brandName]}<span>{order.orderProducts[0].title}</span>&nbsp;외 {order.orderProducts?.length}개</BrandName>
                         <Option>색상: {order.orderProducts[0].color}</Option>
                         <Price><span>₩&nbsp;{order.orderProducts[0].price?.toLocaleString("en-US")}</span></Price>
                       </BP>
+                    </Link>
                     </ReactionSubDetail>
                     <Btns>
                       <CancleBtn onClick={()=>handleOrderCancle(order.orderId)}>주문취소</CancleBtn>
@@ -422,8 +440,8 @@ const PurchaseList = () => {
               </Ordercontainter>
               ))}
           <PaginationContainer>
-              <Pagination>
-                <li><PageButton className="prev" title="previous page">&#10094;</PageButton></li>
+              <Pagination page={curPage} setPage={setCurPage} limit={limit} totalPosts={curPageOrders?.length} pageClick={pageClick}/>
+                {/* <li><PageButton className="prev" title="previous page">&#10094;</PageButton></li>
                 <li>
                   <PageButton onClick={pageClick} title="first page - page 1">1</PageButton>
                 </li>
@@ -440,7 +458,7 @@ const PurchaseList = () => {
                   <PageButton onClick={pageClick}>5</PageButton>
                 </li>
                 <li><PageButton className="next" title="next page">&#10095;</PageButton></li>
-              </Pagination>
+              </Pagination> */}
             </PaginationContainer>
         </Container>
       )}

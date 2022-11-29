@@ -228,8 +228,6 @@ const PurchaseAll = ({ getUserdata, click }) => {
   const filterProduct = filterData[0].orderProducts;
   console.log(filterData);
   const filterProductId = filterProduct[0]?.productId;
-  const aaa =filterProduct.map((p,i)=>p.reduce((acc,cur)=>(acc.count*acc.price+cur.count*cur.price)))
-console.log(aaa)
   const clickModal = () => {
     setIsModal(!isModal);
   };

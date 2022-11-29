@@ -62,9 +62,6 @@ const FooterWrapper = styled.div`
     display: flex;
     justify-content: space-between;
   }
-  @media (min-width: 320px) and (max-width: 389px) {
-    height:100%;
-  }
 `;
 
 const FooterSeviceContent = styled.div`
