@@ -1,13 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
-import { BtnAlert } from "../../components/Alert";
+import { Toast } from "../../components/Alert";
 
-const jwtToken = localStorage.getItem("Authorization");
+
+let jwtToken = localStorage.getItem("Authorization");
 
 export const getArticleDetail = createAsyncThunk(
   "products/detail",
   async (id) => {
-    return Apis.get(`products/details/${id}`)
+    return Apis.get(`products/details/${id}`, {
+      headers: {
+        Authorization: `${jwtToken}`,
+      },
+    })
       .then((res) => {
         return res.data;
       })
@@ -16,16 +21,17 @@ export const getArticleDetail = createAsyncThunk(
       });
   }
 );
+
 export const postCart = createAsyncThunk(
   "carts",
-  async ({ postCartData, navigate }) => {
+  async ({ postCartData }) => {
     return Apis.post(`carts`, postCartData, {
       headers: {
         Authorization: `${jwtToken}`,
       },
     })
       .then((res) => {
-        BtnAlert();
+
         return res.data;
       })
       .catch((err) => {
@@ -33,6 +39,44 @@ export const postCart = createAsyncThunk(
       });
   }
 );
+export const postLike = createAsyncThunk("postLike", async (id) => {
+  return Apis.post(
+    `/products/${id}/likes`,
+    {},
+    {
+      headers: {
+        Authorization: `${jwtToken}`,
+      },
+    }
+  )
+    .then((res) => {
+      Toast("success", "상품에 좋아요를 추가하셨습니다!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+export const deleteLike = createAsyncThunk("deleteLike", async (id) => {
+  return Apis.delete(`/products/${id}/likes`, {
+    headers: {
+      Authorization: `${jwtToken}`,
+    },
+  })
+    .then((res) => {
+      Toast("success", "상품에 좋아요를 삭제하셨습니다!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 export const mainData = createAsyncThunk("mainData", async () => {
   return Apis.get(`products/score`)
@@ -87,17 +131,18 @@ export const postPayment = createAsyncThunk(
   "getShoppingCart",
   async ({checkList, navigate}) => {
     return Apis.post(`orders`, 
-    {
-      orderProducts: checkList,
-    },
-    {
-      headers: {
-        Authorization: `${jwtToken}`,
-        "Content-Type": "application/json",
-      },
-    })
+     {
+       orderProducts: checkList,
+     },
+     {
+        headers: {
+          Authorization: `${jwtToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => {
-        navigate('/members/mypage/purchase')
+        navigate('/')
         return res.data;
       })
       .catch((err) => {
@@ -147,7 +192,7 @@ export const getSearchResult = createAsyncThunk(
 
 export const countSearchResult = createAsyncThunk(
   "countSearchResult",
-  async ( searchWord) => {
+  async (searchWord) => {
     return Apis.get(`products/count?title=${searchWord}`)
       .then((res) => {
         console.log(12345);
@@ -192,6 +237,7 @@ const articleSlice = createSlice({
       state.loading = true;
       state.error = "";
     },
+
     [postCart.fulfilled]: (state, action) => {
       state.article = action.payload;
       state.loading = true;

@@ -4,8 +4,6 @@ import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteShoppingCart, getShoppingCart, postPayment } from "../reduxstore/slices/articleSlice";
 import { Alert } from "../components/Alert";
-import { useNavigate } from "react-router-dom";
-import { BsCartX } from 'react-icons/bs';
 
 const CartBlock = styled.div`
   margin-top: 127.5px;
@@ -15,20 +13,6 @@ const CartBlock = styled.div`
   div {
     display: flex;
   }
-  .top{
-    height: 100%;
-    padding-top: 72px;
-  }
-`;
-
-const Empty = styled.div`
-    flex-direction: column;
-`;
-
-const CartIcon = styled(BsCartX)`
-    width: 18rem;
-    height: 18rem;
-    color: var(--color-gray);
 `;
 
 const AllCheckBlock = styled.div`
@@ -98,15 +82,15 @@ const CartList = styled.div`
 
 //결제정보
 const Payment = styled.section`
-  position: relative;
-  /* margin-top: -220px; */
+  /* position: relative; */
+  margin-top: 75px;
   width: 300px;
   height: 300px;
   min-width: 230px;
   border: 1px solid #002c6d;
   border-radius: 5px;
   padding: 20px;
-  align-items: baseline;
+  /* align-items: baseline; */
   .pay-title {
     font-weight: 500;
   }
@@ -119,8 +103,8 @@ const Payment = styled.section`
 
 const PayInfo = styled.div`
   flex-direction: column;
-  width: auto;
-  height: auto;
+  /* width: auto;
+  height: auto; */
   border-top: 1px solid #002c6d;
   border-bottom: 1px solid #002c6d;
   padding: 10px 0px;
@@ -159,8 +143,6 @@ const PayButton = styled.button`
 `;
 
 function ShoppingCart() {
-  const navigate = useNavigate();
-
   const dispatch = useDispatch();
   const cartSeletor = useSelector((state) => state.article.shoppingCartInitial);
   const cartSeletorLength = cartSeletor?.length;
@@ -209,18 +191,14 @@ function ShoppingCart() {
     if (checkList.length === 0) {
       Alert("warning", "구매하실 상품을 선택해 주세요.");
     } else { //배열에 담아 변수로 보내긔..
-      dispatch(postPayment({checkList,navigate}))
+      dispatch(postPayment(checkList))
     }
   };
 
   return (
     <CartBlock>
       {cartSeletorLength === 0 ? (
-        <Empty>
-          <CartIcon/>
-          <div> 장바구니에 담긴 상품이 없습니다.</div>
-        </Empty>
-
+        <div> 장바구니에 담긴 상품이 없습니다.</div>
       ) : (
         <Quary>
           <CartList>
@@ -250,34 +228,32 @@ function ShoppingCart() {
               />
             ))}
           </CartList>
-          <div className="top">
-            <Payment>
-              <div className="pay-title">결제정보</div>
-              <PayInfo>
-                <div>
-                  <span>상품수</span>
-                  <span>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</span>
-                </div>
-                <div>
-                  <span>상품금액</span>
-                  <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
-                </div>
-                <div>
-                  <span>할인금액</span>
-                  <span className="sale">0&nbsp;원</span>
-                </div>
-                <div>
-                  <span>배송비</span>
-                  <span>0&nbsp;원</span>
-                </div>
-              </PayInfo>
-              <TotalPrice>
-                <span className="small">총&nbsp;결제금액</span>
+          <Payment>
+            <div className="pay-title">결제정보</div>
+            <PayInfo>
+              <div>
+                <span>상품수</span>
+                <span>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</span>
+              </div>
+              <div>
+                <span>상품금액</span>
                 <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
-              </TotalPrice>
-              <PayButton onClick={postPurchase}>구매하기</PayButton>
-            </Payment>
-          </div>
+              </div>
+              <div>
+                <span>할인금액</span>
+                <span className="sale">0&nbsp;원</span>
+              </div>
+              <div>
+                <span>배송비</span>
+                <span>0&nbsp;원</span>
+              </div>
+            </PayInfo>
+            <TotalPrice>
+              <span className="small">총&nbsp;결제금액</span>
+              <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
+            </TotalPrice>
+            <PayButton onClick={postPurchase}>구매하기</PayButton>
+          </Payment>
         </Quary>
       )}
     </CartBlock>
