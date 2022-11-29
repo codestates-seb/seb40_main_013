@@ -1,8 +1,6 @@
 package gohome.dailydaily.domain.like.repository;
 
 import gohome.dailydaily.domain.like.entity.Like;
-import gohome.dailydaily.domain.product.dto.CategoryGetDto;
-import gohome.dailydaily.domain.product.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
