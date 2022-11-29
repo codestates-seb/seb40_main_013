@@ -91,7 +91,8 @@ function ArticleDetail() {
       optionId: selectOptions,
     };
     console.log(postData);
-    dispatch(postCart({ postData, navigate, na }));
+    dispatch(postCart({ postData, navigate }));
+
   };
   const clickPostLike = () => {
     let id = articlesDetail?.productId;

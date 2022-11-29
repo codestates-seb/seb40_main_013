@@ -24,8 +24,9 @@ export const getArticleDetail = createAsyncThunk(
 
 export const postCart = createAsyncThunk(
   "carts",
-  async ({ postCartData, navigate1, navigate2 }) => {
-    return Apis.post(`carts`, postCartData, {
+  async ({ postData, navigate }) => {
+    return Apis.post(`carts`, postData, {
+
       headers: {
         Authorization: `${jwtToken}`,
       },
@@ -202,6 +203,73 @@ export const countSearchResult = createAsyncThunk(
       });
   }
 );
+export const postArticle = createAsyncThunk(
+  "postArticle",
+  async ({ postArticleData, navigate }) => {
+    const form = new FormData();
+    form.append("sellerId", postArticleData.sellerId);
+    form.append("title", postArticleData.title);
+    form.append("price", postArticleData.price);
+    form.append("content", postArticleData.content);
+    form.append("img", postArticleData.img);
+    form.append("main", postArticleData.main);
+    form.append("sub", postArticleData.sub);
+    form.append("optionList[0].color", postArticleData.optionList[0].color);
+    form.append("optionList[0].stock", postArticleData.optionList[0].stock);
+    form.append("optionList[1].color", postArticleData.optionList[1].color);
+    form.append("optionList[1].stock", postArticleData.optionList[1].stock);
+    return Apis.post(`products`, form, {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+// export const postArticle = createAsyncThunk(
+//   "postArticle",
+//   async ({ postArticleData, navigate }) => {
+//     const form = new FormData();
+//     form.append("img", postArticleData.img);
+//     form.append("content", postArticleData.content);
+//     let jsonData = {
+//       sellerId: postArticleData.sellerId,
+//       title: postArticleData.title,
+//       price: postArticleData.price,
+//       main: postArticleData.main,
+//       sub: postArticleData.sub,
+//       optionList: [
+//         { color: postArticleData[0].color, stock: postArticleData[0].stock },
+//         { color: postArticleData[1].color, stock: postArticleData[1].stock },
+//       ],
+//     };
+//     formData.append(
+//       "data",
+//       new Blob([JSON.stringify(jsonData)], { type: "application/json" })
+//     );
+//     return Apis.post(`products`, form, {
+//       headers: {
+//         Authorization: `${jwtToken}`,
+//         "Content-Type": "multipart/form-data",
+//       },
+//     })
+//       .then((res) => {
+//         console.log(res);
+//         return res.data;
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   }
+// );
+
 
 const articleSlice = createSlice({
   name: "article",
@@ -212,6 +280,7 @@ const articleSlice = createSlice({
     shoppingCartInitial: [],
     searchResultInitial: [],
     countSearchResultInitial: [],
+    postArticle: [],
     loading: false,
     error: "",
   },
@@ -245,6 +314,11 @@ const articleSlice = createSlice({
     },
     [countSearchResult.fulfilled]: (state, action) => {
       state.countSearchResultInitial = action.payload.count;
+      state.loading = true;
+      state.error = "";
+    },
+    [postArticle.fulfilled]: (state, action) => {
+      state.postArticle = action.payload;
       state.loading = true;
       state.error = "";
     },
