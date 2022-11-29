@@ -25,13 +25,12 @@ export const postCart = createAsyncThunk(
   "carts",
   async ({ postData, navigate }) => {
     return Apis.post(`carts`, postData, {
-
       headers: {
         Authorization: `${jwtToken}`,
       },
     })
       .then((res) => {
-
+        console.log(res);
         return res.data;
       })
       .catch((err) => {
@@ -41,8 +40,7 @@ export const postCart = createAsyncThunk(
 );
 
 export const postLike = createAsyncThunk("postLike", async (id) => {
-  return Apis.post(
-    `/products/${id}/likes`,
+  return Apis.post(`/products/${id}/likes`,
     {},
     {
       headers: {
@@ -131,10 +129,9 @@ export const deleteShoppingCart = createAsyncThunk(
 
 export const postPayment = createAsyncThunk(
   "getShoppingCart",
-  async (checkList) => {
+  async ({checkList, navigate}) => {
     console.log(checkList);
-    return Apis.post(
-      `orders`,
+    return Apis.post(`orders`,
       {
         orderProducts: checkList,
       },
@@ -147,6 +144,7 @@ export const postPayment = createAsyncThunk(
     )
       .then((res) => {
         console.log(`shopslice`, res.data);
+        navigate('/members/mypage/purchase')
         return res.data;
       })
       .catch((err) => {
@@ -207,6 +205,19 @@ export const countSearchResult = createAsyncThunk(
   }
 );
 
+export const popularSearch = createAsyncThunk(
+  "popularSearch",
+  async () => {
+    return Apis.get(`search/rank`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
 export const postArticle = createAsyncThunk(
   "postArticle",
   async ({ postArticleData, navigate }) => {
@@ -238,43 +249,6 @@ export const postArticle = createAsyncThunk(
       });
   }
 );
-// export const postArticle = createAsyncThunk(
-//   "postArticle",
-//   async ({ postArticleData, navigate }) => {
-//     const form = new FormData();
-//     form.append("img", postArticleData.img);
-//     form.append("content", postArticleData.content);
-//     let jsonData = {
-//       sellerId: postArticleData.sellerId,
-//       title: postArticleData.title,
-//       price: postArticleData.price,
-//       main: postArticleData.main,
-//       sub: postArticleData.sub,
-//       optionList: [
-//         { color: postArticleData[0].color, stock: postArticleData[0].stock },
-//         { color: postArticleData[1].color, stock: postArticleData[1].stock },
-//       ],
-//     };
-//     formData.append(
-//       "data",
-//       new Blob([JSON.stringify(jsonData)], { type: "application/json" })
-//     );
-//     return Apis.post(`products`, form, {
-//       headers: {
-//         Authorization: `${jwtToken}`,
-//         "Content-Type": "multipart/form-data",
-//       },
-//     })
-//       .then((res) => {
-//         console.log(res);
-//         return res.data;
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   }
-// );
-
 
 const articleSlice = createSlice({
   name: "article",
@@ -319,6 +293,11 @@ const articleSlice = createSlice({
     },
     [countSearchResult.fulfilled]: (state, action) => {
       state.countSearchResultInitial = action.payload.count;
+      state.loading = true;
+      state.error = "";
+    },
+    [popularSearch.fulfilled]: (state, action) => {
+      state.popularSearchInitial = action.payload;
       state.loading = true;
       state.error = "";
     },

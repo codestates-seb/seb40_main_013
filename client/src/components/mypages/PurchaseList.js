@@ -389,6 +389,8 @@ console.log(pageInfo)
 
   if(myOrderData === {}) return(<NotOrder>구매 내역이 없습니다.</NotOrder>)
 
+  if(myOrderData === {}) return(<NotOrder>구매 내역이 없습니다.</NotOrder>)
+
   return (
     <>
       {myOrderData?.length === 0 ? (
