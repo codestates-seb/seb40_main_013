@@ -29,8 +29,8 @@ public class SearchRedisRepository {
     }
 
     @Transactional(readOnly = true)
-    public Set<ZSetOperations.TypedTuple<String>> getRankTop20() {
-        return zSetOperations.reverseRangeWithScores(key, 0L, 20L);
+    public Set<ZSetOperations.TypedTuple<String>> getRankTop5() {
+        return zSetOperations.reverseRangeWithScores(key, 0L, 4L);
     }
 
 }
