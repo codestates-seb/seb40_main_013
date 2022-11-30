@@ -23,7 +23,9 @@ const Carousel2 = () => {
           className={index === activeIndex ? "slides active" : "inactive"}
         >
           <Imgbox>
-            <Img className="slide-image" src={slide.urls} alt="" />
+            <Link to={slide.link}>
+              <Img className="slide-image" src={slide.urls} alt="" />
+            </Link>
           </Imgbox>
           <SlideTitle>{slide.title}</SlideTitle>
           <SlideText>{slide.description}</SlideText>
@@ -166,6 +168,7 @@ const Img = styled.img`
   height: 150%;
   top: -50px;
   position: absolute;
+  cursor: pointer;
   /* object-fit: cover; */
   animation: slideIn 7s linear forwards;
   @keyframes slideIn{

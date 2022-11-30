@@ -63,7 +63,6 @@ function Pagination ({totalpage, page, setPage}){
   const [totalPageArray, setTotalPageArray] = useState([]);
   //tab click
   const [clicked, setClicked] = useState("");
-  console.log(clicked)
   const sliceArrayByLimit = (totalPages) => {
     const totalPageArr = Array(totalPages).fill()?.map((_, i) => i);
     return Array(Math.ceil(parseFloat(totalpage / 5)))?.fill()?.map(() => totalPageArr.splice(0, 5));
