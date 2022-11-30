@@ -63,7 +63,7 @@ function Review({ articlesDetail, reviewRef }) {
 
 const ReviewWrapper = styled.div`
   scroll-margin-top: 130px;
-  width: 65%;
+  width: 100%;
   height: 100%;
   border: 1px solid red;
   @media screen and (max-width: 1024px) {
@@ -143,6 +143,7 @@ const ReviewContentsImg = styled.img`
     width: 60px;
     height: 70px;
   }
+
 `;
 
 const ReviewMainTitle = styled.div`
