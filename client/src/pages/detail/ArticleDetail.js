@@ -92,8 +92,8 @@ function ArticleDetail() {
     };
     console.log(postData);
     dispatch(postCart({ postData, navigate }));
-
   };
+
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
 
@@ -112,28 +112,26 @@ function ArticleDetail() {
         <DetailTopUserSelectSpace>
           <DetailTopThumbnailImg src={articlesDetail?.img?.fullPath} />
           <ArticleInformations>
-            <>
-              <DetailArticleName>{articlesDetail?.title}</DetailArticleName>
-              <DetailArticleNameSpace>
-                <DetailArticleStarSpace>
-                  {renderStar(articlesDetail?.score)}
-                  <DetailArticleStaAverage>
-                    {articlesDetail?.score}점
-                  </DetailArticleStaAverage>
-                </DetailArticleStarSpace>
-                <ButtonIcon>
-                  {isLike ? (
-                    <BsHeartFill onClick={clickDeleteLike} />
-                  ) : (
-                    <BsHeart className="heart" onClick={clickPostLike} />
-                  )}
-                </ButtonIcon>
-              </DetailArticleNameSpace>
-            </>
+            <DetailArticleName>{articlesDetail?.title}</DetailArticleName>
+            <DetailArticleNameSpace>
+              <DetailArticleStarSpace onClick={() => onMoveToElement(1)}>
+                {renderStar(articlesDetail?.score)}
+                <DetailArticleStaAverage>
+                  {articlesDetail?.score}점
+                </DetailArticleStaAverage>
+              </DetailArticleStarSpace>
+            </DetailArticleNameSpace>
             <DetailArticlePriceSpace>
               <DetailArticlePrice>
                 {articlesDetail?.price?.toLocaleString("en-US")}원
               </DetailArticlePrice>
+              <ButtonIcon>
+                {isLike ? (
+                  <BsHeartFill onClick={clickDeleteLike} />
+                ) : (
+                  <BsHeart className="heart" onClick={clickPostLike} />
+                )}
+              </ButtonIcon>
             </DetailArticlePriceSpace>
             <div>
               <DetailArticleOptionSpace>
@@ -152,7 +150,9 @@ function ArticleDetail() {
               <DetailArticleOptionSpaceSelect clickSelect={clickSelect}>
                 <DetailArticleOptionSpaceSelectDiv>
                   {selectOptionColor}
-                  <FiChevronDown className="button" onClick={clickFunction} />
+                  <div className="cur">
+                    <FiChevronDown className="button" onClick={clickFunction} />
+                  </div>
                 </DetailArticleOptionSpaceSelectDiv>
                 {clickSelect ? (
                   <DetailArticleOptionSpaceSelectDivValueUl>
@@ -185,7 +185,7 @@ function ArticleDetail() {
                 </ButtonIcon>
               </DetailUserQuantitySpace>
               <DetailUserPriceSpace>
-                <DetailUserPrice>₩</DetailUserPrice>
+                <DetailUserPrice className="w">₩</DetailUserPrice>
                 <DetailUserPrice>
                   {(price * cartCount).toLocaleString("en-US")}
                 </DetailUserPrice>
@@ -199,38 +199,37 @@ function ArticleDetail() {
             </DetailArticlBtnSpace>
           </ArticleInformations>
         </DetailTopUserSelectSpace>
-        <>
-          <SelectMoveSpace ref={articleRef}>
-            <SelectMoveBtn onClick={() => onMoveToElement(0)}>
-              상세 설명
-            </SelectMoveBtn>
-            <SelectCenterLine>/</SelectCenterLine>
-            <SelectMoveBtn onClick={() => onMoveToElement(1)}>
-              후기
-            </SelectMoveBtn>
-            <SelectCenterLine>/</SelectCenterLine>
-            <SelectMoveBtn>QnA</SelectMoveBtn>
-          </SelectMoveSpace>
-          {articlesDetail?.content?.map((data) => (
-            <DetailMidImg src={data} key={data} />
-          ))}
+        <SelectMoveSpace ref={articleRef}>
+          <SelectMoveBtn onClick={() => onMoveToElement(0)}>
+            상세 설명
+          </SelectMoveBtn>
+          <SelectCenterLine>/</SelectCenterLine>
+          <SelectMoveBtn onClick={() => onMoveToElement(1)}>후기</SelectMoveBtn>
+        </SelectMoveSpace>
+        {articlesDetail?.content?.map((data) => (
+          <DetailMidImg src={data} key={data} />
+        ))}
 
-          <Button />
-          <span ref={reviewRef}></span>
-          <Review articlesDetail={articlesDetail} renderStar={renderStar} />
-        </>
+        <Button />
+        <div className="sp">
+          <Review
+            reviewRef={reviewRef}
+            articlesDetail={articlesDetail}
+            renderStar={renderStar}
+          />
+        </div>
       </DetailContents>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin-top: 160px;
+  margin-top: 129px;
 `;
 
 const DetailContents = styled.div`
@@ -250,6 +249,7 @@ const DetailContents = styled.div`
     margin-right: auto;
   }
 `;
+
 const DetailTopUserSelectSpace = styled.div`
   width: 100%;
   height: auto;
@@ -300,15 +300,15 @@ const DetailArticleNameSpace = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   height: 35px;
+  cursor: pointer;
 `;
 const DetailArticleName = styled.div`
-  color: #1c1c1c;
-  font-size: 1.6rem;
+  color: #272727;
+  font-size: 1.8rem;
   font-weight: bold;
-  height: 2.4em;
-  @media screen and (max-width: 1300px) {
+  /* @media screen and (max-width: 1300px) {
     width: 100%;
     display: inline-block;
     white-space: nowrap;
@@ -323,9 +323,9 @@ const DetailArticleName = styled.div`
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     font-size: 1.5rem;
-  }
-  @media screen and (max-width: 1023px) {
-    font-size: 1.5rem;
+  } */
+  @media screen and (max-width: 767px) {
+    font-size: 1.3rem;
   }
 `;
 
@@ -349,45 +349,45 @@ const DetailArticleStaAverage = styled.div`
 `;
 
 const SelectMoveSpace = styled.div`
-  width: 65%;
-  height: 4rem;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid var(--color-gray);
-  margin: 20px 0px 50px 0px;
-  @media screen and (max-width: 500px) {
-    width: 100%;
-    border: 1px solid red;
-  }
-`;
-const SelectMoveBtn = styled.button`
-  width: 10%;
-  height: 3rem;
-  border: 1x solid blue;
-  background-color: white;
-  color: #aaaaaa;
+  border-bottom: 1px solid var(--color-gray);
+  margin: 40px 0px 40px 0px;
   font-weight: 300;
-  &:nth-child(5) {
-    font-weight: 100;
+  @media screen and (max-width: 1023px) {
+    width: 60%;
   }
-  &:hover {
-    color: #ffaf51;
-    border-bottom: 2px solid #aaaaaa;
-  }
-  @media screen and (max-width: 500px) {
-    width: 20%;
-    &:nth-child(5) {
-      display: none;
+  button {
+    padding: 5px;
+    height: 3rem;
+    background-color: white;
+    color: #8a8a8a;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 300;
+    &:hover {
+      color: #ffaf51;
     }
   }
+`;
 
-  @media screen and (max-width: 1023px) {
-    height: 2rem;
+const SelectMoveBtn = styled.button`
+  padding: 5px;
+  height: 3rem;
+  background-color: white;
+  color: #8a8a8a;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 300;
+  &:hover {
+    color: #ffaf51;
   }
 `;
 const SelectCenterLine = styled.div`
-  color: #aaaaaa;
+  color: #8a8a8a;
   margin: 0px 10px;
 `;
 const DetailMidImg = styled.img`
@@ -403,6 +403,7 @@ const ButtonIcon = styled.button`
   font-size: 20px;
   border: none;
   background-color: white;
+  cursor: pointer;
 
   &:nth-child(1) {
     margin: 0px 10px;
@@ -414,7 +415,7 @@ const ButtonIcon = styled.button`
     justify-content: center;
     font-size: 15px;
     &:hover {
-      background-color: #aaaaaa;
+      background-color: #e7e7e7;
     }
 
     @media screen and (max-width: 1023px) {
@@ -444,7 +445,7 @@ const ButtonIcon = styled.button`
     justify-content: center;
     font-size: 15px;
     &:hover {
-      background-color: #aaaaaa;
+      background-color: #e7e7e7;
     }
     @media screen and (max-width: 1023px) {
       width: 1.2rem;
@@ -457,7 +458,7 @@ const DetailArticlePriceSpace = styled.div`
   display: flex;
   margin-bottom: 15px;
   width: 100%;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -483,7 +484,8 @@ const DetailArticleOptionContents = styled.div`
   font-size: 1rem;
   color: #002c6d;
   &:nth-child(2) {
-    margin-right: 30px;
+    margin-right: 10px;
+    color: #272727;
   }
 `;
 const DetailArticleOptionSpace = styled.div`
@@ -492,19 +494,19 @@ const DetailArticleOptionSpace = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 2px solid var(--color-gray);
+  border-top: 1px solid var(--color-gray);
   &:nth-child(4) {
     justify-content: space-between;
   }
 `;
 
 const DetailArticleOptionSpaceSelect = styled.div`
-  border-top: 2px solid var(--color-gray);
+  border-top: 1px solid var(--color-gray);
   display: inline-block;
   width: 100%;
   height: 3rem;
   font-size: 1rem;
-  border-bottom: 2px solid var(--color-gray);
+  border-bottom: 1px solid var(--color-gray);
 `;
 const DetailArticleOptionSpaceSelectDiv = styled.div`
   width: 100%;
@@ -513,10 +515,13 @@ const DetailArticleOptionSpaceSelectDiv = styled.div`
   height: 46px;
   align-items: center;
   color: var(--font-navy);
-  padding-left: 9px;
+  margin-left: 10px;
   .button {
     font-size: 20px;
     margin-right: 10px;
+  }
+  .cur {
+    cursor: pointer;
   }
 `;
 
@@ -549,12 +554,12 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
   }
   &:nth-child(1) {
     border: none;
-    border-bottom: 2px solid var(--color-gray);
+    border-bottom: 1px solid var(--color-gray);
     background-color: white;
   }
   &:nth-child(2) {
     border: none;
-    border-bottom: 2px solid var(--color-gray);
+    border-bottom: 1px solid var(--color-gray);
     background-color: white;
   }
   @media screen and (min-width: 1000px) {
@@ -562,24 +567,24 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
     background-color: red;
     &:nth-child(1) {
       border: none;
-      border-bottom: 2px solid var(--color-gray);
+      border-bottom: 1px solid var(--color-gray);
       background-color: white;
     }
     &:nth-child(2) {
       border: none;
-      border-bottom: 2px solid var(--color-gray);
+      border-bottom: 1px solid var(--color-gray);
       background-color: white;
     }
   }
   @media screen and (max-width: 1250px) {
     &:nth-child(1) {
       border: none;
-      border-bottom: 2px solid var(--color-gray);
+      border-bottom: 1px solid var(--color-gray);
       background-color: white;
     }
     &:nth-child(2) {
       border: none;
-      border-bottom: 2px solid var(--color-gray);
+      border-bottom: 1px solid var(--color-gray);
       background-color: white;
     }
   }
@@ -592,10 +597,9 @@ const DetailUserSubmitPriceSpace = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 30px;
-  padding-right: 20px;
-  @media screen and (max-width: 1023px) {
+  /* @media screen and (max-width: 1023px) {
     width: 90%;
-  }
+  } */
 `;
 
 const DetailUserQuantitySpace = styled.div`
@@ -608,45 +612,25 @@ const DetailUserPriceSpace = styled.div`
   width: 35%;
   height: 50px;
   display: flex;
-  justify-content: space-between;
-  @media screen and (max-width: 1023px) {
-    width: 30%;
-  }
+  justify-content: flex-end;
 `;
 
 const DetailUserPrice = styled.div`
-  font-size: 11px;
+  font-size: 1.5rem;
   height: 100%;
-  color: var(--color-navy);
+  color: #272727;
   font-weight: 700;
   display: flex;
   align-items: center;
-  &:nth-child(1) {
-    color: #464646;
-    font-size: 1.5rem;
+  &.w {
+    margin-right: 10px;
+    font-size: 1.2rem;
   }
-  &:nth-child(2) {
-    font-size: 1.5rem;
-    color: #272727;
-  }
-  @media screen and (max-width: 1023px) {
-    font-size: 1rem;
-    &:nth-child(1) {
-      color: #464646;
-      font-size: 1.5rem;
-    }
-    &:nth-child(2) {
-      font-size: 1.5rem;
-    }
-  }
-  @media screen and (max-width: 400px) {
-    font-size: 1rem;
-    &:nth-child(1) {
-      color: #464646;
-      font-size: 1.2rem;
-    }
-    &:nth-child(2) {
-      font-size: 1.2rem;
+  @media screen and (max-width: 767px) {
+    font-size: 1.2rem;
+    &.w {
+      font-size: 1rem;
+      margin-right: 5px;
     }
   }
 `;
@@ -661,21 +645,17 @@ const DetailArticlBtnSpace = styled.div`
 
 const DetailArticlBtn = styled.button`
   width: 48%;
-  height: 40px;
+  height: 45px;
   border-radius: var(--border-radius);
+  background-color: var(--color-navy);
+  border: 1px solid var(--color-navy);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
   &:nth-child(1) {
     background-color: white;
-    border: 1px solid var(--color-navy);
     color: var(--color-navy);
-    font-weight: bold;
-  }
-  &:nth-child(2) {
-    background-color: var(--color-navy);
-    border: 1px solid var(--color-navy);
-    color: white;
-    font-weight: bold;
-  }
-  @media screen and (max-width: 1023px) {
   }
 `;
+
 export default ArticleDetail;

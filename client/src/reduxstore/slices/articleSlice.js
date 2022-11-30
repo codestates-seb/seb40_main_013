@@ -30,6 +30,7 @@ export const postCart = createAsyncThunk(
       },
     })
       .then((res) => {
+        console.log(res);
         return res.data;
       })
       .catch((err) => {
@@ -129,7 +130,7 @@ export const deleteShoppingCart = createAsyncThunk(
 
 export const postPayment = createAsyncThunk(
   "getShoppingCart",
-  async (checkList) => {
+  async ({ checkList, navigate }) => {
     console.log(checkList);
     return Apis.post(
       `orders`,
@@ -145,6 +146,7 @@ export const postPayment = createAsyncThunk(
     )
       .then((res) => {
         console.log(`shopslice`, res.data);
+        navigate("/members/mypage/purchase");
         return res.data;
       })
       .catch((err) => {
@@ -203,6 +205,16 @@ export const countSearchResult = createAsyncThunk(
       });
   }
 );
+
+export const popularSearch = createAsyncThunk("popularSearch", async () => {
+  return Apis.get(`search/rank`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 export const postArticle = createAsyncThunk(
   "postArticle",
@@ -279,6 +291,11 @@ const articleSlice = createSlice({
     },
     [countSearchResult.fulfilled]: (state, action) => {
       state.countSearchResultInitial = action.payload.count;
+      state.loading = true;
+      state.error = "";
+    },
+    [popularSearch.fulfilled]: (state, action) => {
+      state.popularSearchInitial = action.payload;
       state.loading = true;
       state.error = "";
     },

@@ -86,6 +86,16 @@ function MyReview() {
           <Hr />
         </Ordercontainter>
       ))}
+      <PageNationSpace>
+        {list?.map((data) => (
+          <PageNationBtn1
+            key={data.props.children}
+            onClick={() => clickPage(data.props.children)}
+          >
+            {data.props.children}
+          </PageNationBtn1>
+        ))}
+      </PageNationSpace>
     </Container>
   );
 }
