@@ -71,7 +71,11 @@ const Input = styled.input`
   margin-left: 10px;
   padding: 1px 0 1px 10px;
 `;
-const Select = styled.select``;
+const Select = styled.select`
+  &.cate-control {
+    margin-left: 10px;
+  }
+`;
 const Option = styled.option``;
 const ImgTab = styled.div``;
 const Buttons = styled.div`
@@ -141,6 +145,16 @@ const Register = () => {
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
 
+  const brandOptios = [
+    { brandName: "두닷", query: 1 },
+    { brandName: "포더홈", query: 2 },
+    { brandName: "소프시스", query: 3 },
+    { brandName: "룸앤홈", query: 4 },
+    { brandName: "데스커", query: 5 },
+    { brandName: "마켓비", query: 6 },
+    { brandName: "휴도", query: 7 },
+    { brandName: "리샘", query: 8 },
+  ];
   const subOptios = [
     { category: "책장", query: 1 },
     { category: "의자", query: 1 },
@@ -172,16 +186,18 @@ const Register = () => {
   const changeSubCategory = (e) => {
     setSubCategory(e.target.value);
   };
-  console.log(bigCategory);
-  console.log(subCategory);
 
-
-
-  const changeId = (e) => {
-    setSellerId(e.target.value);
+  const changeBrand = (e) => {
+    let result = 0;
+    let filterBrand = brandOptios.filter(
+      (data) => data.brandName === e.target.value
+    );
+    result = filterBrand[0].query;
+    setSellerId(result);
   };
+
   const changeContentName = (e) => {
-    setContentsName(e.target.value);
+    setContentsName(e.target.query);
   };
   const changeContentPrice = (e) => {
     setContentsPrice(e.target.value);
@@ -189,7 +205,6 @@ const Register = () => {
 
   const changeThumbnailImg = async (e) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
-    console.log(e);
     e.preventDefault();
     if (e.target.files) {
       const [file] = e.target.files;
@@ -216,7 +231,6 @@ const Register = () => {
 
   const changeContentImg = async (e) => {
     setDetailFileImage(URL.createObjectURL(e.target.files[0]));
-    console.log(e);
     e.preventDefault();
     if (e.target.files) {
       const [file] = e.target.files;
@@ -236,7 +250,6 @@ const Register = () => {
       }
     }
   };
-  console.log(contentsImg);
 
   //디테일 파일 삭제
   const deletedetailFileImage = () => {
@@ -277,9 +290,14 @@ const Register = () => {
       <Form>
         <InputContainer>
           <TabContainer>
-            <Label htmlFor="id">판매자 아이디</Label>
+            <Label htmlFor="id">브랜드 이름</Label>
           </TabContainer>
-          <Input name="id" className="id" onChange={changeId} />
+          <Select className="cate-control" onChange={(e) => changeBrand(e)}>
+            <Option>브랜드</Option>
+            {brandOptios.map((option) => (
+              <Option key={option.query}>{option.brandName}</Option>
+            ))}
+          </Select>
         </InputContainer>
         <HrContainer>
           <Hr></Hr>
@@ -316,17 +334,15 @@ const Register = () => {
             id="FirstCate"
             name="FirstCate"
             value={bigCategory}
-
             onChange={(e) => FirstCateChange(e)}
           >
             <Option>대분류</Option>
-            <Option id="서재" value="서재">서재</Option>
+            <Option value="서재">서재</Option>
             <Option value="침실">침실</Option>
             <Option value="거실">거실</Option>
             <Option value="주방">주방</Option>
           </Select>
           <Select
-            className="cate-control"
             id="SubCate"
             name="SubCate"
             onChange={(e) => changeSubCategory(e)}
@@ -334,7 +350,6 @@ const Register = () => {
             {selectSubCategory.map((option) => (
               <Option key={option.category}>{option.category}</Option>
             ))}
-
           </Select>
         </InputContainer>
         <HrContainer>

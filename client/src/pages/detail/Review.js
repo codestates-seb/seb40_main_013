@@ -6,9 +6,7 @@ import { renderStar } from "../../components/Star";
 import noImg from "../../imgs/noImg.gif";
 
 function Review({ articlesDetail, reviewRef }) {
-  console.log(articlesDetail);
   const reviewLength = articlesDetail?.reviews?.length;
-  console.log(articlesDetail?.reviews);
   return (
     <ReviewWrapper ref={reviewRef}>
       <ReviewTitle>상품 후기 ( {reviewLength}건 )</ReviewTitle>
@@ -69,7 +67,7 @@ const ReviewWrapper = styled.div`
   height: 100%;
   border: 1px solid red;
   @media screen and (max-width: 1024px) {
-    width: 70%;
+    width: 75%;
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -141,6 +139,11 @@ const ReviewContentsImg = styled.img`
   width: 80px;
   height: 90px;
   margin: 0px 20px;
+  @media screen and (max-width: 520px) {
+    width: 60px;
+    height: 70px;
+  }
+
 `;
 
 const ReviewMainTitle = styled.div`
@@ -153,19 +156,7 @@ const ReviewMainContent = styled.div`
   font-size: 10px;
   margin-top: 5px;
   @media screen and (max-width: 400px) {
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-    line-height: 1.2;
-    height: 3em;
-    text-align: left;
-    word-wrap: break-word;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    font-size: 0.5rem;
+    display: none;
   }
 `;
 
@@ -175,6 +166,10 @@ const ReviewContentsRightSpace = styled.div`
   height: 100%;
   justify-content: space-around;
   align-items: center;
+  @media screen and (max-width: 400px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const ReviewContentsUser = styled.div`
