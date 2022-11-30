@@ -28,8 +28,8 @@ public class ProductController {
     private final ProductService productService;
     private final ProductMapper mapper;
 
-    @Cacheable(key = "#productId", value = "getProduct")
     @GetMapping("/details/{product-id}")
+    @Cacheable(key = "#productId +\":\" + #memberId", value = "getProduct")
     public ProductDto.Response getProduct(@AuthenticationPrincipal Long memberId,
                                           @Valid @PathVariable("product-id") Long productId) {
         Product product = productService.findProduct(memberId, productId);
