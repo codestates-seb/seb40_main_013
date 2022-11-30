@@ -31,7 +31,8 @@ const SearchResult = lazy(() => import("./pages/SearchResult"));
 const Register = lazy(() => import("./pages/Register"));
 
 function App() {
-  const [click, setClick] = useState("");
+  const [mainClick, setMainClick] = useState("");
+  const [subclick, setSubClick] = useState("");
   const [searchWord, setSearchWord] = useState("");
 
   return (
@@ -43,7 +44,7 @@ function App() {
         <div className="App">
           <MainContainter>
             <MainContent>
-              <Header setClick={setClick} setSearchWord={setSearchWord} />
+              <Header setMainClick={setMainClick} setSubClick={setSubClick} setSearchWord={setSearchWord} />
               <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/register" element={<Register />} />
@@ -51,12 +52,12 @@ function App() {
                 <Route path="/members/mypage/*" element={<MyPage />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/detail/:id" element={<ArticleDetail />} />
-                <Route path="/library" element={<Library click={click} />} />
-                <Route path="/bedroom" element={<Bedroom click={click} />} />
-                <Route path="/kitchen" element={<Kitchen click={click} />} />
+                <Route path="/library" element={<Library mainClick={mainClick} />} />
+                <Route path="/bedroom" element={<Bedroom mainClick={mainClick} subclick={subclick} />} />
+                <Route path="/kitchen" element={<Kitchen mainClick={mainClick} />} />
                 <Route
                   path="/livingRoom"
-                  element={<LivingRoom click={click} />}
+                  element={<LivingRoom mainClick={mainClick} />}
                 />
                 <Route path="/cart" element={<ShoppingCart />} />
                 <Route

@@ -128,18 +128,22 @@ const Category = styled.div`
   }
 `;
 
-function Header({ setClick, setSearchWord }) {
+function Header({ setMainClick, setSubClick, setSearchWord }) {
   const jwtToken = localStorage.getItem("Authorization");
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
   const cartCount = useSelector((state) => state);
-  // console.log(`cartCount`,cartCount);
 
-  const clickMenu = ({ target }) => {
-    setClick(target.innerHTML);
-    // console.log(target.innerHTML);
+  const clicMainkMenu = ({ target }) => {
+    setMainClick(target.innerHTML);
+    setSubClick('')
   };
+
+  const clicSubMenu = ({ target }) => {
+    setSubClick(target.innerHTML);
+  };
+
 
   const closeHandler = () => {
     setCloseSearch(!closeSearch);
@@ -148,15 +152,8 @@ function Header({ setClick, setSearchWord }) {
   const outModalCloseHandler = (e) => {
     if (closeSearch && !modalRef.current.contains(e.target))
       setCloseSearch(false);
-    // console.log(target.innerHTML);
   };
 
-  // useEffect(() => {
-  //   window.addEventListener("click", outModalCloseHandler);
-  //   return () => {
-  //     window.removeEventListener("click", outModalCloseHandler); //이벤트 한번만 실행되게 하려고 제거.
-  //   };
-  // },[]);
 
   const clickLogOut = (e) => {
     e.preventDefault();
@@ -203,42 +200,42 @@ function Header({ setClick, setSearchWord }) {
           <div>
             <Link to="/library">
               <Category>
-                <div onClick={clickMenu}>서재</div>
+                <div onClick={clicMainkMenu}>서재</div>
                 <Nav className="1">
-                  <div onClick={clickMenu}>책상</div>
-                  <div onClick={clickMenu}>의자</div>
-                  <div onClick={clickMenu}>책장</div>
-                  <div onClick={clickMenu}>선반</div>
+                  <div onClick={clicSubMenu}>책상</div>
+                  <div onClick={clicSubMenu}>의자</div>
+                  <div onClick={clicSubMenu}>책장</div>
+                  <div onClick={clicSubMenu}>선반</div>
                 </Nav>
               </Category>
             </Link>
             <Link to="/bedroom">
               <Category>
-                <div onClick={clickMenu}>침실</div>
+                <div onClick={clicMainkMenu}>침실</div>
                 <Nav className="2">
-                  <div onClick={clickMenu}>침대/매트리스</div>
-                  <div onClick={clickMenu}>행거/옷장</div>
-                  <div onClick={clickMenu}>화장대</div>
+                  <div onClick={clicSubMenu}>침대/매트리스</div>
+                  <div onClick={clicSubMenu}>행거/옷장</div>
+                  <div onClick={clicSubMenu}>화장대</div>
                 </Nav>
               </Category>
             </Link>
             <Link to="/livingRoom">
               <Category className="space">
-                <div onClick={clickMenu}>거실</div>
+                <div onClick={clicMainkMenu}>거실</div>
                 <Nav className="3">
-                  <div onClick={clickMenu}>소파</div>
-                  <div onClick={clickMenu}>거실장</div>
-                  <div onClick={clickMenu}>수납장</div>
+                  <div onClick={clicSubMenu}>소파</div>
+                  <div onClick={clicSubMenu}>거실장</div>
+                  <div onClick={clicSubMenu}>수납장</div>
                 </Nav>
               </Category>
             </Link>
             <Link to="/kitchen">
               <Category className="space">
-                <div onClick={clickMenu}>주방</div>
+                <div onClick={clicMainkMenu}>주방</div>
                 <Nav className="4">
-                  <div onClick={clickMenu}>식탁/아일랜드</div>
-                  <div onClick={clickMenu}>식탁의자</div>
-                  <div onClick={clickMenu}>주방수납</div>
+                  <div onClick={clicSubMenu}>식탁/아일랜드</div>
+                  <div onClick={clicSubMenu}>식탁의자</div>
+                  <div onClick={clicSubMenu}>주방수납</div>
                 </Nav>
               </Category>
             </Link>

@@ -7,7 +7,7 @@ import { getLibrary, getOne, getTwo, getThree, getFour, getAsc, getCount } from 
 import RankingDown from "../../components/subcategories/DropDown";
 
 function Library({ click }) {
-  console.log(`click`, click); //
+  console.log(`click`, click); // 헤더에서 누르는 메뉴임
 
   const dispatch = useDispatch();
   const librarySelector = useSelector((state) => state.library.libraryInitial.content); 
@@ -15,7 +15,12 @@ function Library({ click }) {
   const twoSelector = useSelector((state) => state.library.twoInitial); 
   const threeSelector = useSelector((state) => state.library.threeInitial); 
   const fourSelector = useSelector((state) => state.library.fourInitial); 
+  console.log(librarySelector);
+  console.log(oneSelector);
+  console.log(twoSelector);
+  console.log(threeSelector);
   console.log(fourSelector);
+
 
   // const ascSelector = useSelector((state) => state.library.sublibraryInitial); 
   const countSelector = useSelector((state) => state.library.coutnInitial.count); 
@@ -46,12 +51,16 @@ function Library({ click }) {
   useEffect(() => {
     if(click === '책상'){
         dispatch(getOne({ click, page, sortArgument})); 
+        setProducts(oneSelector)
     } else if(click === '의자'){
         dispatch(getTwo({ click, page, sortArgument})); 
+        setProducts(twoSelector)
     } else if(click === '책장' ){
         dispatch(getThree({ click, page, sortArgument})); 
+        setProducts(threeSelector)
     } else if(click === '선반'){
         dispatch(getFour({ click, page, sortArgument})); 
+        setProducts(fourSelector)
     }
      else {
       dispatch(getLibrary({ page }));

@@ -17,6 +17,7 @@ import { renderStar } from "../../components/Star";
 import ScrollToTop from "../../components/ScrollToTop";
 import Button from "../../components/Button";
 import Apis from "../../apis/apis";
+
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
   const [selectOptions, setSelectOptions] = useState("");
@@ -70,18 +71,18 @@ function ArticleDetail() {
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
 
-    // let get_local = [];
-    // if (!articlesDetail) {
-    //   localStorage.setItem("product", get_local);
-    // } else if (articlesDetail) {
-    //   let local = localStorage.getItem("product");
-    //   let get_local = [articlesDetail.productId];
-    //   if (local) {
-    //     local = JSON.parse(local);
-    //     get_local = [articlesDetail.productId, ...local];
-    //   }
-    //   localStorage.setItem("product", JSON.stringify(get_local));
-    // }
+    let get_local = [];
+    if (!articlesDetail) {
+      localStorage.setItem("product", get_local);
+    } else if (articlesDetail) {
+      let local = localStorage.getItem("product");
+      let get_local = [articlesDetail.productId];
+      if (local) {
+        local = JSON.parse(local);
+        get_local = [articlesDetail.productId, ...local];
+      }
+      localStorage.setItem("product", JSON.stringify(get_local));
+    }
   }, [dispatch]);
 
   const clickPostCart = () => {
@@ -650,9 +651,15 @@ const DetailArticlBtn = styled.button`
   color: white;
   font-weight: bold;
   cursor: pointer;
+  &:hover{
+    background-color: #123B77;
+  }
   &:nth-child(1) {
     background-color: white;
     color: var(--color-navy);
+    &:hover{
+      background-color: #f1f1f1;
+    }
   }
 `;
 
