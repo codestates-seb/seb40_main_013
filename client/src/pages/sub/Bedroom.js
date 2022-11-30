@@ -23,8 +23,20 @@ function Bedroom({ mainClick, subclick }) {
     (state) => state.library.coutnInitial.count
   );
 
-  const [page, setPage] = useState(0);
   const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  
+  const [prevY, setPrevY] = useState(0);
+  let productsRef = useRef({})
+
+  let loadingRef = useRef(null);
+  let prevYRef = useRef({});
+  let pageRef = useRef({});
+  productsRef.current = products;
+  pageRef.current = page;
+
+  prevYRef.current = prevY
 
   // 셀렉트 박스
   const [dropDownclicked, setDropDownClicked] = useState("최신순");

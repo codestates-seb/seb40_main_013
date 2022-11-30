@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+
 import styled from "styled-components/macro";
 import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";

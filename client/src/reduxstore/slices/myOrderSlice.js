@@ -6,7 +6,6 @@ let jwtToken = localStorage.getItem("Authorization");
 export const getMyOrder = createAsyncThunk(
   "getMyOrder",
   async ( {curPage, setTotalpage} ) => {
-    console.log(curPage);
     return Apis.get(`orders?page=${curPage-1}&size=20&sort=createdAt,DESC`,     
     {
       headers: {
@@ -16,7 +15,6 @@ export const getMyOrder = createAsyncThunk(
     })
       .then((res) => {
         setTotalpage(res.data.pageInfo?.totalPages);
-        console.log(`orderslice`, res.data);
         return res.data;
       })
       .catch((err) => {
