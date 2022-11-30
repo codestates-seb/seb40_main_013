@@ -342,7 +342,11 @@ const Register = () => {
   };
 
   const changeContentName = (e) => {
-    setContentsName(e.target.query);
+    setContentsName(e.target.value.trim());
+  };
+  console.log(contentsName);
+  const handleChangeWhiteSpace = (e) => {
+    e.target.value = e.target.value;
   };
   const changeContentPrice = (e) => {
     setContentsPrice(e.target.value);
@@ -395,7 +399,6 @@ const Register = () => {
       }
     }
   };
-
   //디테일 파일 삭제
   const deletedetailFileImage = () => {
     URL.revokeObjectURL(detailFileImage);
@@ -423,8 +426,8 @@ const Register = () => {
         { color: "Black", stock: 1000 },
       ],
     };
-
-    dispatch(postArticle({ postArticleData, navigate }));
+    console.log(postArticleData);
+    // dispatch(postArticle({ postArticleData, navigate }));
   };
 
   //유효성 체크
