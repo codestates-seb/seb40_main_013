@@ -70,18 +70,18 @@ function ArticleDetail() {
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
 
-    // let get_local = [];
-    // if (!articlesDetail) {
-    //   localStorage.setItem("product", get_local);
-    // } else if (articlesDetail) {
-    //   let local = localStorage.getItem("product");
-    //   let get_local = [articlesDetail.productId];
-    //   if (local) {
-    //     local = JSON.parse(local);
-    //     get_local = [articlesDetail.productId, ...local];
-    //   }
-    //   localStorage.setItem("product", JSON.stringify(get_local));
-    // }
+    let get_local = [];
+    if (!articlesDetail) {
+      localStorage.setItem("product", get_local);
+    } else if (articlesDetail) {
+      let local = localStorage.getItem("product");
+      let get_local = [articlesDetail.productId];
+      if (local) {
+        local = JSON.parse(local);
+        get_local = [articlesDetail.productId, ...local];
+      }
+      localStorage.setItem("product", JSON.stringify(get_local));
+    }
   }, [dispatch]);
 
   const clickPostCart = () => {

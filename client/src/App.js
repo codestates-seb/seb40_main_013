@@ -7,7 +7,6 @@ import Button from "./components/Button";
 
 const MainContainter = styled.div`
   height: 100vh;
-  /* width: 100vw; // 주의 */
   display: flex;
   flex-direction: column;
 `;
