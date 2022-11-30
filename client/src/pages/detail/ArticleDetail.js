@@ -507,6 +507,7 @@ const DetailArticleOptionSpaceSelect = styled.div`
   height: 3rem;
   font-size: 1rem;
   border-bottom: 1px solid var(--color-gray);
+  position: relative;
 `;
 const DetailArticleOptionSpaceSelectDiv = styled.div`
   width: 100%;
@@ -516,6 +517,7 @@ const DetailArticleOptionSpaceSelectDiv = styled.div`
   align-items: center;
   color: var(--font-navy);
   margin-left: 10px;
+  position: relative;
   .button {
     font-size: 20px;
     margin-right: 10px;
@@ -529,19 +531,7 @@ const DetailArticleOptionSpaceSelectDivValueUl = styled.ul`
   position: absolute;
   border: none;
   cursor: pointer;
-  width: 450px;
-  @media screen and (max-width: 1223px) {
-    width: 36%;
-  }
-  @media screen and (max-width: 1023px) {
-    width: 600px;
-  }
-  @media screen and (max-width: 800px) {
-    width: 420px;
-  }
-  @media screen and (max-width: 400px) {
-    width: 190px;
-  }
+  width: 100%;
 `;
 const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
   text-decoration: none;
@@ -549,11 +539,13 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
   padding: 15px 0px 15px 10px;
   display: block;
   border: none;
+
   &:hover {
     background-color: #cccccc;
   }
   &:nth-child(1) {
     border: none;
+    border-top: 1px solid var(--color-gray);
     border-bottom: 1px solid var(--color-gray);
     background-color: white;
   }
@@ -561,32 +553,6 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
     border: none;
     border-bottom: 1px solid var(--color-gray);
     background-color: white;
-  }
-  @media screen and (min-width: 1000px) {
-    height: 100%;
-    background-color: red;
-    &:nth-child(1) {
-      border: none;
-      border-bottom: 1px solid var(--color-gray);
-      background-color: white;
-    }
-    &:nth-child(2) {
-      border: none;
-      border-bottom: 1px solid var(--color-gray);
-      background-color: white;
-    }
-  }
-  @media screen and (max-width: 1250px) {
-    &:nth-child(1) {
-      border: none;
-      border-bottom: 1px solid var(--color-gray);
-      background-color: white;
-    }
-    &:nth-child(2) {
-      border: none;
-      border-bottom: 1px solid var(--color-gray);
-      background-color: white;
-    }
   }
 `;
 
