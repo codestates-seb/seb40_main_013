@@ -70,13 +70,13 @@ function ArticleDetail() {
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
 
-    // let local = localStorage.getItem("product");
-    // let get_local = [articlesDetail.productId];
-    // if (local) {
-    //   local = JSON.parse(local);
-    //   get_local = [articlesDetail.productId, ...local];
-    // }
-    // localStorage.setItem("product", JSON.stringify(get_local));
+    let local = localStorage.getItem("product");
+    let get_local = [articlesDetail.productId];
+    if (local) {
+      local = JSON.parse(local);
+      get_local = [articlesDetail.productId, ...local];
+    }
+    localStorage.setItem("product", JSON.stringify(get_local));
   }, [dispatch]);
 
   const clickPostCart = () => {

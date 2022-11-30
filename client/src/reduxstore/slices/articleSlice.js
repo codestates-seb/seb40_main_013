@@ -171,6 +171,7 @@ export const reCountCartItem = createAsyncThunk(
       }
     )
       .then((res) => {
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {

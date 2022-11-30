@@ -2,6 +2,7 @@ import React, { useNavigate, useEffect } from "react";
 import { usedispatch, useSelector } from "react-redux";
 
 const Review = () => {
+  let get_local = localStorage.getItem("product");
   // const navigate = useNavigate();
   // const dispatch = usedispatch();
   // const recentData = useSelector((state)=>state);

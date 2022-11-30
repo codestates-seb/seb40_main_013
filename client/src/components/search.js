@@ -149,7 +149,7 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
 
     const [inputWord, setInputWord] = useState('')
     const [as, setAs] = useState(0)//
-    console.log(as);
+    // console.log(as);
 
     const test = inputWord.replace(/^\s+|\s+$/gm,'')
     
@@ -190,7 +190,7 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
     }
 
     const popularSelector = useSelector(state => state.article.popularSearchInitial)
-    console.log(popularSelector);
+    // console.log(popularSelector);
 
     useEffect(()=>{
       dispatch(popularSearch());
@@ -199,7 +199,7 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
     //string은 map을 사용 할 수 없기때문에 object 형태로 변환 시키기 위해 parsing을 해줘야함
     const loadRecentKeyword = localStorage.getItem('keywords') ? JSON.parse(localStorage.getItem('keywords')) : [];
     const [keywords, setKeywords] = useState(loadRecentKeyword);
-    console.log(keywords);
+    // console.log(keywords);
 
     useEffect(() => {
       //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.

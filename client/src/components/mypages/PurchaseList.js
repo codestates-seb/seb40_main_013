@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { getMyOrder } from '../../reduxstore/slices/myOrderSlice';
-import PurchaseAll from "./PurchaseAll";
 import styled from "styled-components/macro";
-import PostReview from "./PostReview";
+import { getMyOrder } from '../../reduxstore/slices/myOrderSlice';
 import Apis from "../../apis/apis";
-import { DeleteAlert, AlreadyDeleteAlert } from "../Alert";
+import Swal from "sweetalert2";
+import { AlreadyDeleteAlert } from "../Alert";
+import Pagination from "./Pagination";
 
 const Container = styled.div`
   display: flex;
@@ -26,8 +26,44 @@ const Container = styled.div`
     margin: 30px 0;
   }
 `;
+const NotContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  align-items: center;
+  padding: 3rem 0;
+`;
+const NotIcon = styled.div`
+  background-color: #AAAAAA;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10vw;
+  color: white;
+  margin-bottom: 20px;
+  animation: rotate 5s infinite;
+  @keyframes rotate {
+  from {
+    -webkit-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  to {
+    -webkit-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+}
+`;
 const NotOrder = styled.h3`
   display: flex;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 2rem;
 `;
 
 const Ordercontainter = styled.div``;
@@ -64,7 +100,7 @@ const SubTop = styled.h2`
     font-weight: 500;
   }
 `;
-const AllPurchase = styled(Link)`
+const AllPurchase = styled.div`
   font-weight: 600;
   font-size: 1.1rem;
   display:flex;
@@ -113,6 +149,7 @@ const Detail = styled.div`
 `;
 const ReactionSubDetail = styled.div`
   display: flex;
+  cursor: pointer;
   /* @media screen and (max-width: 479px) {
     flex-direction: column;
   } */
@@ -146,13 +183,10 @@ const BP = styled.div`
     margin-left: 0;
   }
 `;
-const BrandName = styled(Link)`
+const BrandName = styled.div`
   font-weight: 600;
   font-size: 1rem;
   margin-bottom: 5px;
-  &:hover{
-    color: #515151;
-  }
   @media screen and (max-width: 390px) {
     font-weight: 600;
     font-size: 0.8rem;
@@ -240,40 +274,7 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
-const Pagination = styled.ul`
-  display: inline-block;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  li {
-    display: block;
-    float: left;
-    padding: 5px;
 
-    &:first-child {
-      border: none;
-    }
-  }
-`;
-const PageButton = styled.button`
-    background: none;
-    border: none;
-    border-radius: 50%;
-    box-sizing: border-box;
-    color: rgba(0, 0, 0, 0.6);
-    display: block;
-    font-size: 16px;
-    height: 40px;
-    line-height: 40px;
-    min-width: 40px;
-    padding: 0;
-    &:hover{
-      cursor: pointer;
-      background-color: #aaa;
-      border-radius: 50%;
-      color: white;
-    }
-`;
 const ThickHr= styled.hr`
   height: 2px;
   border: none;
@@ -283,46 +284,66 @@ const ThickHr= styled.hr`
 const DetailContent = styled.div``;
 
 const PurchaseList = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const myOrderData = useSelector((state)=> state.myorder.myorder.content);
-  const [isModal, setIsModal] = useState(false);
-  //page click
-  const [click, setClick] = useState(0);
+  const pageInfo = useSelector((state)=> state.myorder.myorder.pageInfo);
+  console.log(pageInfo)
   const initialToken = localStorage.getItem("Authorization");
+  //페이지네이션
+  const [curPage, setCurPage] = useState(0); //현재페이지
+  const [totalpage, setTotalpage] = useState(0);
 
-  //페이지 버튼 클릭
-  const pageClick = (e) => {
-    setClick(e.target.innerText);
-  }
+  useEffect(()=>{
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    dispatch(getMyOrder({curPage, setTotalpage}))
+  }, [curPage]);
+
   //주문취소 버튼
-  const handleOrderCancle = (id) => {
+  const handleOrderCancle = (id) =>{
+    const curData = myOrderData.filter(data => data.orderId == id);
+    console.log(curData[0].status);
+    if(curData[0].status === '주문 취소'){
+      console.log('취소된 주문!!!')
+      AlreadyDeleteAlert();
+    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: '주문을 취소하시겠습니까?',
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#002C6D",
+      cancelButtonColor: "#d33",
+      confirmButtonText: '주문취소',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        orderCancle(id);
+        Swal.fire("취소되었습니다", '주문이 취소되었습니다.', "success");
+        window.location.reload();
+      }
+    }).catch((err) => console.log(err));
+  }
+
+  const orderCancle = (id) => {
     Apis.delete(`/orders/${id}`, {
       headers: {
         Authorization: initialToken,
       },
     })
       .then(() => {
-        DeleteAlert('주문을 취소하시겠습니까?', '주문취소', '주문이 취소되었습니다.')
+        // console.log('orderCanle!!!')
       })
-      .catch((err) => AlreadyDeleteAlert());
   };
-
-  useEffect(()=>{
-    dispatch(getMyOrder(click))
-  }, []);
-  console.log(myOrderData)
-
-  if(myOrderData === {}) return(<NotOrder>구매 내역이 없습니다.</NotOrder>)
-
-  if(myOrderData === {}) return(<NotOrder>구매 내역이 없습니다.</NotOrder>)
 
   return (
     <>
       {myOrderData?.length === 0 ? (
-        <Container>
+        <NotContainer>
+          <NotIcon>!</NotIcon>
           <NotOrder>구매 내역이 없습니다.</NotOrder>
-        </Container>
+        </NotContainer>
       ) : (
         <Container>
               <Hr />
@@ -334,17 +355,21 @@ const PurchaseList = () => {
                     &nbsp;|&nbsp; {order.createdAt.slice(0, 10)}&nbsp;|&nbsp; 
                     <span className={order.status === '주문 접수' ? 'orderStatus' : 'ordercancle'}>{order.status}</span>
                   </SubTop>
-                  <AllPurchase to={`${order.orderId}`}>상세보기 &gt;</AllPurchase>
+                  <Link to={`${order.orderId}`}>
+                    <AllPurchase>상세보기 &gt;</AllPurchase>
+                  </Link>
                 </Top>
                 <Content>
                   <Detail>
                     <ReactionSubDetail>
-                    <Img src={order.orderProducts[0].img?.fullPath} />
+                    <Img src={order.orderProducts[0]?.img.fullPath} />
+                    <Link to={`${order.orderId}`}>
                       <BP>
-                        <BrandName to={`/detail/${order.orderProducts[0].productId}` }>{[order.orderProducts[0].brandName]}<span>{order.orderProducts[0].title}</span></BrandName>
-                        <Option>색상: {order.orderProducts[0].color}</Option>
-                        <Price><span>₩&nbsp;{order.orderProducts[0].price?.toLocaleString("en-US")}</span> | {order.orderProducts[0].count}개</Price>
+                        <BrandName>{[order.orderProducts[0]?.brandName]}<span>{order.orderProducts[0]?.title}</span>&nbsp;외 {order.orderProducts?.length}개</BrandName>
+                        <Option>색상: {order.orderProducts[0]?.color}</Option>
+                        <Price><span>₩&nbsp;{order.orderProducts[0]?.price.toLocaleString("en-US")}</span></Price>
                       </BP>
+                    </Link>
                     </ReactionSubDetail>
                     <Btns>
                       <CancleBtn onClick={()=>handleOrderCancle(order.orderId)}>주문취소</CancleBtn>
@@ -358,26 +383,12 @@ const PurchaseList = () => {
               </Ordercontainter>
               ))}
           <PaginationContainer>
-              <Pagination>
-                <li><PageButton className="prev" title="previous page">&#10094;</PageButton></li>
-                <li>
-                  <PageButton onClick={pageClick} title="first page - page 1">1</PageButton>
-                </li>
-                <li>
-                  <PageButton onClick={pageClick}>2</PageButton>
-                </li>
-                <li>
-                  <PageButton onClick={pageClick} className="active" title="current page - page 9">3</PageButton>
-                </li>
-                <li>
-                  <PageButton onClick={pageClick}>4</PageButton>
-                </li>
-                <li>
-                  <PageButton onClick={pageClick}>5</PageButton>
-                </li>
-                <li><PageButton className="next" title="next page">&#10095;</PageButton></li>
-              </Pagination>
-            </PaginationContainer>
+            <Pagination 
+            totalpage={totalpage}
+            page={curPage}
+            setPage={setCurPage}
+            />
+          </PaginationContainer>
         </Container>
       )}
     </>
