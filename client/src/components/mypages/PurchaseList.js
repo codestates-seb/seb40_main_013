@@ -274,40 +274,7 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
-// const Pagination = styled.ul`
-//   display: inline-block;
-//   list-style: none;
-//   margin: 0;
-//   padding: 0;
-//   li {
-//     display: block;
-//     float: left;
-//     padding: 5px;
 
-//     &:first-child {
-//       border: none;
-//     }
-//   }
-// `;
-// const PageButton = styled.button`
-//     background: none;
-//     border: none;
-//     border-radius: 50%;
-//     box-sizing: border-box;
-//     color: rgba(0, 0, 0, 0.6);
-//     display: block;
-//     font-size: 16px;
-//     height: 40px;
-//     line-height: 40px;
-//     min-width: 40px;
-//     padding: 0;
-//     &:hover{
-//       cursor: pointer;
-//       background-color: #aaa;
-//       border-radius: 50%;
-//       color: white;
-//     }
-// `;
 const ThickHr= styled.hr`
   height: 2px;
   border: none;
@@ -317,31 +284,22 @@ const ThickHr= styled.hr`
 const DetailContent = styled.div``;
 
 const PurchaseList = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const myOrderData = useSelector((state)=> state.myorder.myorder.content);
   const pageInfo = useSelector((state)=> state.myorder.myorder.pageInfo);
-
-console.log(pageInfo)
+  console.log(pageInfo)
   const initialToken = localStorage.getItem("Authorization");
   //페이지네이션
   const [curPage, setCurPage] = useState(0); //현재페이지
+  const [totalpage, setTotalpage] = useState(0);
 
-  const offset = (curPage - 1) * 20; //시작점과 끝점을 구하는 offset
-  console.log(curPage)
-  const postsData = (posts) => {
-    if(posts){
-      let result = posts.slice(offset, offset + 20);
-      return result;
-    }
-  }
-  const curPageOrders = postsData(myOrderData);
-  console.log(curPageOrders);
-  //페이지 버튼 클릭
-  const pageClick = (e) => {
-    setCurPage(e);
-  }
-
+  useEffect(()=>{
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    dispatch(getMyOrder({curPage, setTotalpage}))
+  }, [curPage]);
 
   //주문취소 버튼
   const handleOrderCancle = (id) =>{
@@ -365,9 +323,6 @@ console.log(pageInfo)
         Swal.fire("취소되었습니다", '주문이 취소되었습니다.', "success");
         window.location.reload();
       }
-      else if (result.isDismissed) { // 만약 모달창에서 cancel 버튼을 눌렀다면
-        console.log('then', '취소가 취소됨!')
-      }
     }).catch((err) => console.log(err));
   }
 
@@ -381,15 +336,6 @@ console.log(pageInfo)
         // console.log('orderCanle!!!')
       })
   };
-
-  useEffect(()=>{
-    console.log(curPage)
-    dispatch(getMyOrder(curPage))
-  }, [curPage]);
-
-  if(myOrderData === {}) return(<NotOrder>구매 내역이 없습니다.</NotOrder>)
-
-  if(myOrderData === {}) return(<NotOrder>구매 내역이 없습니다.</NotOrder>)
 
   return (
     <>
@@ -416,12 +362,12 @@ console.log(pageInfo)
                 <Content>
                   <Detail>
                     <ReactionSubDetail>
-                    <Img src={order.orderProducts[0].img?.fullPath} />
+                    <Img src={order.orderProducts[0]?.img.fullPath} />
                     <Link to={`${order.orderId}`}>
                       <BP>
-                        <BrandName>{[order.orderProducts[0].brandName]}<span>{order.orderProducts[0].title}</span>&nbsp;외 {order.orderProducts?.length}개</BrandName>
-                        <Option>색상: {order.orderProducts[0].color}</Option>
-                        <Price><span>₩&nbsp;{order.orderProducts[0].price?.toLocaleString("en-US")}</span></Price>
+                        <BrandName>{[order.orderProducts[0]?.brandName]}<span>{order.orderProducts[0]?.title}</span>&nbsp;외 {order.orderProducts?.length}개</BrandName>
+                        <Option>색상: {order.orderProducts[0]?.color}</Option>
+                        <Price><span>₩&nbsp;{order.orderProducts[0]?.price.toLocaleString("en-US")}</span></Price>
                       </BP>
                     </Link>
                     </ReactionSubDetail>
@@ -437,7 +383,11 @@ console.log(pageInfo)
               </Ordercontainter>
               ))}
           <PaginationContainer>
-            <Pagination pageClick={pageClick} list={pageInfo?.totalPages}/>
+            <Pagination 
+            totalpage={totalpage}
+            page={curPage}
+            setPage={setCurPage}
+            />
           </PaginationContainer>
         </Container>
       )}

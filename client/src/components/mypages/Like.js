@@ -241,25 +241,18 @@ const PaginationContainer = styled.div`
 const Like = () => {
   const dispatch = useDispatch();
   const likeProduct = useSelector((state)=> state.like.like.content);
-
   //페이지네이션
   const [curPage, setCurPage] = useState(0); //현재페이지
-  
-  // const postsData = (posts) => {
-  //   if(posts){
-  //     let result = posts.slice(offset, offset + 20);
-  //     return result;
-  //   }
-  // }
-//   const curPageOrders = postsData(likeProduct);
-//  console.log(curPageOrders)
-  //페이지 버튼 클릭
-  const pageClick = (e) => {
-    setCurPage(e.target.innerText);
-  }
-  useEffect(()=>{
-    dispatch(likeData(curPage))
-  }, [])
+  const [totalpage, setTotalpage] = useState(0);
+  console.log(curPage);
+
+    useEffect(()=>{
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      dispatch(likeData({curPage, setTotalpage}))
+    }, [curPage]);
 
   return (
     <Container>
@@ -291,7 +284,11 @@ const Like = () => {
         ))}
       </ProductList>
       <PaginationContainer>
-        <Pagination pageClick={pageClick} />
+      <Pagination 
+            totalpage={totalpage}
+            page={curPage}
+            setPage={setCurPage}
+            />
       </PaginationContainer>
     </Container>
   );

@@ -3,8 +3,10 @@ import Apis from "../../apis/apis";
 
 let jwtToken = localStorage.getItem("Authorization");
 
-export const likeData = createAsyncThunk("likeData", async (click) => {
-  return Apis.get(`members/mypage/likes?page=${click}&size=20&sort=createdAt,DESC`,
+export const likeData = createAsyncThunk(
+  "likeData",
+  async ({curPage, setTotalpage}) => {
+  return Apis.get(`members/mypage/likes?page=${curPage-1}&size=20&sort=createdAt,DESC`,
   {
     headers: {
       Authorization: `${jwtToken}`,
@@ -12,6 +14,7 @@ export const likeData = createAsyncThunk("likeData", async (click) => {
     },
   })
     .then((res) => {
+      setTotalpage(res.data.pageInfo?.totalPages);
       return res.data;
     })
     .catch((err) => {
