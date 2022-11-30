@@ -4,7 +4,7 @@ import { Toast } from "../components/Alert";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://fast-dingos-go-125-134-111-241.loca.lt/",
+  baseURL: "https://kind-peas-unite-125-134-111-241.loca.lt/",
 });
 axios.interceptors.request.use(function (config) {
   return config;
@@ -16,8 +16,9 @@ Apis.interceptors.response.use(
   },
   async (err) => {
     console.log("abc", err);
-
-    if (err.response.data.message === "JWT expired") {
+    let dataMessage = String(err.response.data.message);
+    const datas = dataMessage.startsWith("JWT expired");
+    if (datas) {
       let originalRequest = err.config;
       console.log("abc", 11);
       try {
@@ -52,7 +53,8 @@ Apis.interceptors.response.use(
         console.log(err);
       }
       return Promise.reject(err);
-    } else if (err.response.data.status === 401) {
+    }
+    if (err.response.data.message === "Unauthorized") {
       Toast("success", "다시 로그인 해주세요!");
     }
 
