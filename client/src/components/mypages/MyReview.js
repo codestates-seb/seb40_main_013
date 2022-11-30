@@ -52,7 +52,7 @@ function MyReview() {
     <Container>
       <Hr />
       {userWriteReviews?.map((data, idx) => (
-        <Ordercontainter key={data?.reviewId}>
+        <div key={data?.reviewId}>
           <Top>
             <SubTop>
               {new Date(data.createdAt).getFullYear() +
@@ -76,7 +76,11 @@ function MyReview() {
               </ReactionSubDetail>
               <Btns>
                 <CancleBtn>수정하기</CancleBtn>
-                <CancleBtn>삭제하기</CancleBtn>
+                <CancleBtn
+                  onClick={() => clickDelete(data?.productId, data?.reviewId)}
+                >
+                  삭제하기
+                </CancleBtn>
               </Btns>
             </Detail>
             <ReactionSpace>
@@ -84,7 +88,7 @@ function MyReview() {
             </ReactionSpace>
           </Content>
           <Hr />
-        </Ordercontainter>
+        </div>
       ))}
       <PageNationSpace>
         {list?.map((data) => (
@@ -301,44 +305,24 @@ const ReactionReviewBtn = styled.button`
   }
 `;
 
-//페이지네이션
-const PaginationContainer = styled.div`
+const PageNationSpace = styled.span`
+  width: 98%;
+  height: 35px;
   display: flex;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
 `;
-const Pagination = styled.ul`
-  display: inline-block;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  li {
-    display: block;
-    float: left;
-    padding: 5px;
-
-    &:first-child {
-      border: none;
-    }
-  }
-`;
-const PageButton = styled.button`
-  background: none;
+const PageNationBtn1 = styled.button`
+  width: 30px;
+  height: 30px;
+  margin: 0px 5px;
   border: none;
-  border-radius: 50%;
-  box-sizing: border-box;
-  color: rgba(0, 0, 0, 0.6);
-  display: block;
-  font-size: 16px;
-  height: 40px;
-  line-height: 40px;
-  min-width: 40px;
-  padding: 0;
+  background-color: white;
   &:hover {
     cursor: pointer;
-    background-color: #aaa;
+    background-color: #aaaaaa;
     border-radius: 50%;
-    color: white;
   }
 `;
-
 export default MyReview;
