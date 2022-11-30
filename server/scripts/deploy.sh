@@ -1,5 +1,5 @@
 #!/bin/bash
-BUILD_JAR=$(ls /home/ec2-user/dailydaily/server/build/libs/dailydaily-0.0.1-SNAPSHOT.jar)
+BUILD_JAR=$(ls /home/ec2-user/dailydaily/seb40_main_013/server/build/libs/dailydaily-0.0.1-SNAPSHOT.jar)
 JAR_NAME=$(basename $BUILD_JAR)
 
 
