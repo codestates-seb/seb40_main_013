@@ -23,7 +23,7 @@ const MyPage = lazy(() => import("./pages/Mypage"));
 const Signup = lazy(() => import("./pages/Signup"));
 const ArticleDetail = lazy(() => import("./pages/detail/ArticleDetail"));
 const ShoppingCart = lazy(() => import("./pages/ShoppingCart"));
-const Library = lazy(() => import("./pages/sub/isLibrary"));
+const Library = lazy(() => import("./pages/sub/Library"));
 const Bedroom = lazy(() => import("./pages/sub/Bedroom"));
 const Kitchen = lazy(() => import("./pages/sub/Kitchen"));
 const LivingRoom = lazy(() => import("./pages/sub/LivingRoom"));

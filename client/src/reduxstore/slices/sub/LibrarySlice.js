@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../../apis/apis";
 
-export const getLibrary = createAsyncThunk("getLibrary", async ({ page, sortArgument, third }) => {
-  return Apis.get(`products?main=서재&page=${page}&sortType=${sortArgument}&order=${third}`)
+export const getLibrary = createAsyncThunk(
+  "getLibrary", 
+  async ({ mainClick, page, sortArgument, third }) => {
+  return Apis.get(`products?main=${mainClick}&page=${page}&sortType=${sortArgument}&order=${third}`)
     .then((res) => {
       console.log(`shopslice`, res.data);
       return res.data;
@@ -14,8 +16,8 @@ export const getLibrary = createAsyncThunk("getLibrary", async ({ page, sortArgu
 
 export const getSub = createAsyncThunk(
   "getSub",
-  async ({ subclick, page, sortArgument, third }) => {
-    console.log(111, { subclick, page, sortArgument });
+  async ({ mainClick, subclick, page, sortArgument, third }) => {
+    console.log(111, { mainClick, subclick, page, sortArgument });
     return Apis.get(
       `products?main=서재&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
     )

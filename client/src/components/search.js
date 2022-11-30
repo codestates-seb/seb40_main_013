@@ -197,13 +197,14 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
 
     const clickWordSearch = ({target}) => {
       setSearchWord(target.innerText)
+      handleAddKeyword(target.innerText)
       closeHandler()
       navigate('/search')
       setInputWord('')
     }
 
     const popularSelector = useSelector(state => state.article.popularSearchInitial)
-console.log(popularSelector);
+    console.log(popularSelector);
 
     useEffect(()=>{
       dispatch(popularSearch());
