@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import imageCompression from "browser-image-compression";
 import { postArticle } from "../reduxstore/slices/articleSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { IoIosArrowDown } from "react-icons/io";
+import noImg from "../imgs/noImg.gif";
+import { priceCheck } from "../components/effectivenessCheck";
+import { withReactContent } from "sweetalert2-react-content";
 
 const Container = styled.div`
-  width: 100vw;
+  /* width: 100vw; */
   display: flex;
   flex-direction: column;
-  margin-top: 160px;
-  margin-left: 60px;
+  padding-top: 160px;
+  padding-left: 60px;
+  overflow-x: hidden;
+  @media screen and (max-width: 767px) {
+    padding: 160px 30px;
+  }
 `;
 const Title = styled.h2`
   font-size: 1.5rem;
@@ -24,31 +32,81 @@ const Title = styled.h2`
   }
 `;
 const Form = styled.form`
-  width: 60%;
+  width: 900px;
+  padding: 10px 0 30px 0;
+  @media screen and (max-width: 767px) {
+    padding: 10px 30px;
+    width: 100%;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
+  .err {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 10px;
+  }
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    margin: 10px 0;
+    align-items: flex-start;
+    width: 100%;
+  }
 `;
 const TabContainer = styled.div`
   background-color: #f2f2f2;
-  width: 10vw;
-  padding: 20px 0;
+  width: 15vw;
+  padding: 30px 0;
   display: flex;
   justify-content: center;
+  margin-right: 30px;
+  @media screen and (max-width: 767px) {
+    width: fit-content;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    justify-content: flex-start;
+    font-weight: 500;
+    color: #272727;
+    padding: 10px 0;
+    margin-left: 10px;
+  }
 `;
 const HrContainer = styled.div`
   background-color: #f2f2f2;
-  width: 10vw;
+  width: 15vw;
   display: flex;
   justify-content: center;
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 `;
 const ImgContainer = styled.div`
   background-color: #f2f2f2;
-  width: 10vw;
+  width: 15vw;
   padding: 100px 0;
   display: flex;
   justify-content: center;
+  margin-right: 30px;
+  @media screen and (max-width: 767px) {
+    width: fit-content;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    justify-content: flex-start;
+    font-weight: 500;
+    color: #272727;
+    padding: 10px 0;
+    margin-left: 10px;
+  }
 `;
 const SumContainer = styled.div`
   display: flex;
@@ -57,26 +115,102 @@ const SumContainer = styled.div`
 const UploadDelete = styled.div`
   display: flex;
 `;
+const ImgLabel = styled.label`
+  display: inline-block;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  cursor: pointer;
+  button {
+    background-color: var(--color-navy);
+    color: white;
+    width: 55px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+`;
 const Label = styled.label`
-  width: 10vw;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  line-height: 1.2rem;
+  @media screen and (max-width: 767px) {
+    flex-direction: row;
+  }
 `;
 const Hr = styled.hr`
   color: #aaa;
-  width: 7vw;
+  width: 10vw;
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+`;
+const Pricecontent = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 const Input = styled.input`
   height: 2vw;
-  margin-left: 10px;
-  padding: 1px 0 1px 10px;
-`;
-const Select = styled.select`
-  &.cate-control {
-    margin-left: 10px;
+  padding: 5px 0 5px 10px;
+  border: none;
+  border-bottom: 2px solid #aaa;
+  @media screen and (max-width: 767px) {
+    border: 2px solid #aaa;
+    padding: 15px 10px;
+    border-radius: 5px;
+    width: 80%;
   }
 `;
-const Option = styled.option``;
+const SelectBox = styled.div`
+  position: relative;
+  width: 150px;
+  height: 35px;
+  border-radius: 4px;
+  border: 2px solid #aaa;
+  margin-right: 10px;
+  @media screen and (max-width: 767px) {
+    margin-bottom: 15px;
+  }
+`;
+const IcoArrow = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 35px;
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &.img {
+    width: 50%;
+    transition: 0.3s;
+    transform: rotate(180deg);
+  }
+`;
+const Select = styled.select`
+  margin-left: 10px;
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: inherit;
+  height: inherit;
+  padding: 0 5px;
+  border: 0 none;
+  outline: 0 none;
+  background: transparent;
+  position: relative;
+  z-index: 2;
+`;
+const Option = styled.option`
+  background-color: #aaa;
+  padding: 3px 0;
+  font-size: 16px;
+`;
 const ImgTab = styled.div``;
 const Buttons = styled.div`
   display: flex;
@@ -84,8 +218,8 @@ const Buttons = styled.div`
   margin-top: 20px;
 `;
 const RegisterBtn = styled.button`
-  font-size: 1.2rem;
-  padding: 5px 10px;
+  font-size: 1.1rem;
+  padding: 8px 15px;
   border-radius: 5px;
   background-color: var(--color-navy);
   color: white;
@@ -96,8 +230,8 @@ const RegisterBtn = styled.button`
   }
 `;
 const Cancle = styled.button`
-  font-size: 1.2rem;
-  padding: 5px 10px;
+  font-size: 1.1rem;
+  padding: 8px 15px;
   border-radius: 5px;
   background-color: var(--color-navy);
   color: white;
@@ -107,13 +241,24 @@ const Cancle = styled.button`
   }
 `;
 const Img = styled.img`
-  margin: 10px 20px;
+  margin: 10px 20px 10px 0;
   border-radius: 5px;
   width: 100%;
   height: 150px;
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: 500px;
+  }
 `;
 const SumnailUpload = styled.input`
   margin-left: 10px;
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 `;
 const DeleteSumnaeil = styled.button`
   background-color: var(--color-navy);
@@ -282,6 +427,22 @@ const Register = () => {
     dispatch(postArticle({ postArticleData, navigate }));
   };
 
+  //유효성 체크
+  const [priceConfirm, setPriceConfirm] = useState(false);
+  console.log(Number(contentsPrice) % 100);
+  useEffect(() => {
+    if (!priceCheck(contentsPrice)) {
+      setPriceConfirm(false);
+    } else {
+      setPriceConfirm(true);
+    }
+    if (Number(contentsPrice) % 100 === 0) {
+      setPriceConfirm(false);
+    } else {
+      setPriceConfirm(true);
+    }
+  });
+
   return (
     <Container>
       <Title>
@@ -292,35 +453,57 @@ const Register = () => {
           <TabContainer>
             <Label htmlFor="id">브랜드 이름</Label>
           </TabContainer>
-          <Select className="cate-control" onChange={(e) => changeBrand(e)}>
-            <Option>브랜드</Option>
-            {brandOptios.map((option) => (
-              <Option key={option.query}>{option.brandName}</Option>
-            ))}
-          </Select>
+          <SelectBox>
+            <Select className="cate-control" onChange={(e) => changeBrand(e)}>
+              <Option>브랜드</Option>
+              {brandOptios.map((option) => (
+                <Option key={option.query}>{option.brandName}</Option>
+              ))}
+            </Select>
+            <IcoArrow className="icoArrow">
+              <IoIosArrowDown />
+            </IcoArrow>
+          </SelectBox>
         </InputContainer>
         <HrContainer>
           <Hr></Hr>
         </HrContainer>
         <InputContainer>
           <TabContainer>
-            <Label htmlFor="title">제품명</Label>
-          </TabContainer>
-          <Input name="title" className="title" onChange={changeContentName} />
-        </InputContainer>
-        <HrContainer>
-          <Hr></Hr>
-        </HrContainer>
-        <InputContainer>
-          <TabContainer>
-            <Label htmlFor="price">판매가</Label>
+            <Label htmlFor="title">
+              제품명 <span>&nbsp;(40자 이하)</span>
+            </Label>
           </TabContainer>
           <Input
-            name="price"
-            className="price"
-            placeholder="숫자만 입력해주세요."
-            onChange={changeContentPrice}
+            maxlength="40"
+            name="title"
+            className="title"
+            onChange={changeContentName}
           />
+        </InputContainer>
+        <HrContainer>
+          <Hr></Hr>
+        </HrContainer>
+        <InputContainer>
+          <TabContainer>
+            <Label htmlFor="price">
+              판매가 <span>&nbsp;(10,000 원 이상)</span>
+            </Label>
+          </TabContainer>
+          <Pricecontent>
+            <Input
+              name="price"
+              className="price"
+              onChange={changeContentPrice}
+            />
+            {priceConfirm ? (
+              <div className="err">
+                숫자만 입력해주세요.(100원 단위 이상만 입력 가능)
+              </div>
+            ) : (
+              ""
+            )}
+          </Pricecontent>
         </InputContainer>
         <HrContainer>
           <Hr></Hr>
@@ -329,28 +512,38 @@ const Register = () => {
           <TabContainer>
             <Label>카테고리</Label>
           </TabContainer>
-          <Select
-            className="cate-control"
-            id="FirstCate"
-            name="FirstCate"
-            value={bigCategory}
-            onChange={(e) => FirstCateChange(e)}
-          >
-            <Option>대분류</Option>
-            <Option value="서재">서재</Option>
-            <Option value="침실">침실</Option>
-            <Option value="거실">거실</Option>
-            <Option value="주방">주방</Option>
-          </Select>
-          <Select
-            id="SubCate"
-            name="SubCate"
-            onChange={(e) => changeSubCategory(e)}
-          >
-            {selectSubCategory.map((option) => (
-              <Option key={option.category}>{option.category}</Option>
-            ))}
-          </Select>
+          <SelectBox>
+            <Select
+              className="cate-control"
+              id="FirstCate"
+              name="FirstCate"
+              value={bigCategory}
+              onChange={(e) => FirstCateChange(e)}
+            >
+              <Option>대분류</Option>
+              <Option value="서재">서재</Option>
+              <Option value="침실">침실</Option>
+              <Option value="거실">거실</Option>
+              <Option value="주방">주방</Option>
+            </Select>
+            <IcoArrow className="icoArrow">
+              <IoIosArrowDown />
+            </IcoArrow>
+          </SelectBox>
+          <SelectBox>
+            <Select
+              id="SubCate"
+              name="SubCate"
+              onChange={(e) => changeSubCategory(e)}
+            >
+              {selectSubCategory.map((option) => (
+                <Option key={option.category}>{option.category}</Option>
+              ))}
+            </Select>
+            <IcoArrow className="icoArrow">
+              <IoIosArrowDown />
+            </IcoArrow>
+          </SelectBox>
         </InputContainer>
         <HrContainer>
           <Hr></Hr>
@@ -362,15 +555,29 @@ const Register = () => {
           <SumContainer>
             {fileImage && <Img alt="sumnail" src={fileImage} />}
             <UploadDelete>
+              <ImgLabel htmlFor="sumnail">
+                <div className="noImg">
+                  {thumbnailImg === "" ? (
+                    <img src={noImg} alt="noImg" />
+                  ) : (
+                    <button>바꾸기</button>
+                  )}
+                </div>
+              </ImgLabel>
               <SumnailUpload
                 name="sumnailUpload"
                 type="file"
+                id="sumnail"
                 accept="image/*"
                 onChange={changeThumbnailImg}
               />
-              <DeleteSumnaeil onClick={() => deleteFileImage()}>
-                삭제
-              </DeleteSumnaeil>
+              {thumbnailImg === "" ? (
+                ""
+              ) : (
+                <DeleteSumnaeil onClick={() => deleteFileImage()}>
+                  삭제
+                </DeleteSumnaeil>
+              )}
             </UploadDelete>
           </SumContainer>
         </InputContainer>
@@ -384,15 +591,29 @@ const Register = () => {
           <SumContainer>
             {detailFileImage && <Img alt="detailImg" src={detailFileImage} />}
             <UploadDelete>
+              <ImgLabel htmlFor="detailImage">
+                <div className="noImg">
+                  {contentsImg === "" ? (
+                    <img src={noImg} alt="noImg" />
+                  ) : (
+                    <button>추가하기</button>
+                  )}
+                </div>
+              </ImgLabel>
               <SumnailUpload
                 name="detailImg"
+                id="detailImage"
                 type="file"
                 accept="image/*"
                 onChange={changeContentImg}
               />
-              <DeleteSumnaeil onClick={() => deletedetailFileImage()}>
-                삭제
-              </DeleteSumnaeil>
+              {contentsImg === "" ? (
+                ""
+              ) : (
+                <DeleteSumnaeil onClick={() => deleteFileImage()}>
+                  삭제
+                </DeleteSumnaeil>
+              )}
             </UploadDelete>
           </SumContainer>
         </InputContainer>

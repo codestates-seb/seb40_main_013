@@ -251,8 +251,8 @@ const CancleBtn = styled.button`
 //반응형 구매후기
 const PaginationContainer = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 `;
-
 export default MyReview;

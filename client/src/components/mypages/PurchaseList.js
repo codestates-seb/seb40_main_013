@@ -287,7 +287,6 @@ const PurchaseList = () => {
   const dispatch = useDispatch();
   const myOrderData = useSelector((state)=> state.myorder.myorder.content);
   const pageInfo = useSelector((state)=> state.myorder.myorder.pageInfo);
-  console.log(pageInfo)
   const initialToken = localStorage.getItem("Authorization");
   //페이지네이션
   const [curPage, setCurPage] = useState(0); //현재페이지
