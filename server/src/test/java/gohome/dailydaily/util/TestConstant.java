@@ -35,6 +35,7 @@ import org.springframework.restdocs.request.RequestPartsSnippet;
 import org.springframework.restdocs.snippet.Snippet;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import javax.servlet.http.Part;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -503,8 +504,8 @@ public class TestConstant {
             new MockMultipartFile("img", null, DEFAULT_BINARY.toString(), "img".getBytes());
 
     public static final List<MockMultipartFile> IMG_LIST = new ArrayList<>(
-            List.of(new MockMultipartFile("img1", null, DEFAULT_BINARY.toString(), "img1".getBytes()),
-                    new MockMultipartFile("img2", null, DEFAULT_BINARY.toString(), "img2".getBytes())));
+            List.of(new MockMultipartFile("content", "img1", DEFAULT_BINARY.toString(), "img1".getBytes()),
+                    new MockMultipartFile("content", "img2", DEFAULT_BINARY.toString(), "img2".getBytes())));
 
     public static final RequestPartsSnippet REQUEST_PARTS_IMG = requestParts(partWithName("img").description("이미지"));
     public static final FieldDescriptor FWP_CATEGORY_PRODUCT_REVIEWS = fieldWithPath("categoryMain[].reviews").type(NUMBER).description("리뷰 갯수");
@@ -513,8 +514,7 @@ public class TestConstant {
     public static final FieldDescriptor CATEGORY_COUNT = fieldWithPath("count").type(NUMBER).description("카테고리 상품 갯수");
     public static final RequestPartsSnippet REQUEST_PARTS_IMG1 = requestParts(
             partWithName("img").description("썸네일 이미지"),
-            partWithName("img1").description("상품 상세 이미지1"),
-            partWithName("img2").description("상품 상세 이미지2")
+            partWithName("content").description("상품 상세 이미지")
     );
 
     static {

@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
+import javax.servlet.http.Part;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
