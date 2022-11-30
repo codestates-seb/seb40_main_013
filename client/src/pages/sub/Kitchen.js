@@ -1,25 +1,15 @@
 import { useState, useEffect, useRef } from "react";
+
 import styled from "styled-components/macro";
 import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
 import { getKitchen } from "../../reduxstore/slices/sub/kitchenSlice";
+import Apis from "../../apis/apis";
 
 function Kitchen({ click }) {
   console.log(click);
 
-  const dispatch = useDispatch();
-  const kitchenSelector = useSelector(
-    (state) => state.kitchen.kitchenInitial.content
-  ); 
-console.log(kitchenSelector);
-
-  const [page, setPage] = useState(0);
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    dispatch(getKitchen({ page }));
-}, []);
 
 
     return (
@@ -43,9 +33,9 @@ console.log(kitchenSelector);
           <div className="total">0 개의 상품이 있습니다</div>
           <div>최신순</div>
         </FilterBlock>
-        <ProductList>
-            {kitchenSelector?.map((product) => (
-              <Products proId={product.id} product={product} key={product.id} />
+        <ProductList ref={ref}>
+            {items?.map((product) => (
+                <Products proId={product.id} product={product} key={product.id}  />
             ))}
         {/* <div ref={loadingRef}></div> */}
       </ProductList>

@@ -44,6 +44,12 @@ const Form = styled.form`
   div {
     align-items: center;
   }
+  .cl{
+    cursor: pointer;
+    &:hover{
+      color: black;
+    }
+  }
 `;
 
 const SearchInput = styled.div`
@@ -60,13 +66,15 @@ const SearchInput = styled.div`
       outline: none;
     }
   }
-  .dis{
-    display: none;
+  button{
+    background-color: white;
+    cursor: pointer;
   }
+
 `;
 
 const SearchWord = styled.div`
-  color: black;
+  color: #6B6B6B;
   flex-direction: column;
   align-items: center;
   width: 50%;
@@ -116,6 +124,7 @@ const SearchList = styled.div`
       text-decoration: #FFAF51 wavy underline;
       text-underline-offset : 7px;
       cursor: pointer;
+      color: black;
     }
     padding-top: 5px;
   }
@@ -134,13 +143,29 @@ const RecentWordAllDetete = styled.span`
   padding: 0 30px;
   display: flex;
   justify-content: end;
+  &:hover{
+      color: black;
+  }
+`;
+
+const SearchIcon = styled(BsSearch)`
+  width: 1.8rem;
+  height: 1.8rem;
+  color: #002C6D;
+  cursor: pointer;
+  &:hover{
+      color: #123B77;
+  }
 `;
 
 const WordCloseIcon = styled(TfiClose)`
   width: 1rem;
   height: 1rem;
-  color: #272727;
+  color: #6B6B6B;
   cursor: pointer;
+  &:hover{
+      color: black;
+    }
 `;
 
 function DownSearch({closeSearch, closeHandler, setSearchWord}){
@@ -148,8 +173,7 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
     const dispatch = useDispatch();
 
     const [inputWord, setInputWord] = useState('')
-    const [as, setAs] = useState(0)//
-    // console.log(as);
+    const [triger, setriger] = useState(0)//
 
     const test = inputWord.replace(/^\s+|\s+$/gm,'')
     
@@ -157,7 +181,8 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
       setInputWord(target.value)
     }
 
-    const searchResultHandler = () => {
+    const searchResultHandler = (e) => {
+      e.preventDefault();
       if(test.length === 0 ){
         Alert('warning', '첫번째 글자에 공백이 입력되었습니다.')
       } else{
@@ -166,40 +191,28 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
         navigate('/search')
         closeHandler()
         setInputWord('')
-        setAs(Date.now())
+        setriger(Date.now())
       }
-    }
-    const onSubmitSearch = (e) => {
-      if(test.length === 0 ){
-        Alert('warning', '첫번째 글자에 공백이 입력되었습니다.')
-      }
-      else if (e.key === "Enter") {
-        setSearchWord(test)
-        closeHandler()
-        navigate('/search')
-        setInputWord('')
-      } 
     }
 
     const clickWordSearch = ({target}) => {
-      console.log(target.innerText);
       setSearchWord(target.innerText)
+      handleAddKeyword(target.innerText)
       closeHandler()
       navigate('/search')
       setInputWord('')
     }
 
     const popularSelector = useSelector(state => state.article.popularSearchInitial)
-    // console.log(popularSelector);
+    console.log(popularSelector);
 
     useEffect(()=>{
       dispatch(popularSearch());
-    },[as])
+    },[triger])
 
     //string은 map을 사용 할 수 없기때문에 object 형태로 변환 시키기 위해 parsing을 해줘야함
     const loadRecentKeyword = localStorage.getItem('keywords') ? JSON.parse(localStorage.getItem('keywords')) : [];
     const [keywords, setKeywords] = useState(loadRecentKeyword);
-    // console.log(keywords);
 
     useEffect(() => {
       //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
@@ -207,12 +220,14 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
     }, [keywords])
 
     const handleAddKeyword = (text) => {
-      console.log('text', text)
       const newKeyword = {
         id: Date.now(),
         text: text,
       }
-      setKeywords([newKeyword, ...keywords])
+      const sameKeywordRemove = keywords.filter((thisKeyword) => {
+        return thisKeyword.text != newKeyword.text
+      })
+      setKeywords([newKeyword, ...sameKeywordRemove])
     }
 
     const handleRemoveKeyword = (id) => {
@@ -231,16 +246,13 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
         <div className="search-section">
             <Form>
                 <SearchInput>
-                    <input type="text" className="dis"/>
-                    <input type="text" value={inputWord} onChange={inputChageHandler}
-                      onClick={onSubmitSearch}
-                      >
+                    <input type="text" value={inputWord} onChange={inputChageHandler} maxlength='23'>
                       </input>
-                    <div onClick={searchResultHandler}>
-                        <BsSearch color="#002C6D" size='26'/>
-                    </div>
+                    <button onClick={searchResultHandler}>
+                        <SearchIcon/>
+                    </button>
                 </SearchInput>
-                <div onClick={closeHandler}><TfiClose size='24'/></div>
+                <div onClick={closeHandler} className="cl"><TfiClose size='24'/></div>
             </Form>
           <div>
             <SearchWord className="line">

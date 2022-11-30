@@ -2,24 +2,80 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";
-import { useDispatch, useSelector } from "react-redux";
-import { getBedroom } from "../../reduxstore/slices/sub/bedrommSlice";
+import Apis from "../../apis/apis";
 
-function Bedroom({ click }) {
-  console.log(click);
 
-  const dispatch = useDispatch();
-  const bedroomSelector = useSelector(
-    (state) => state.bedroom.bedroomInitial.content
-  ); 
+function Bedroom({mainClick ,subclick }) {
+  console.log(mainClick, subclick);
 
-  const [page, setPage] = useState(0);
   const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  
+  const [prevY, setPrevY] = useState(0);
+  let productsRef = useRef({})
+
+  let loadingRef = useRef(null);
+  let prevYRef = useRef({});
+  let pageRef = useRef({});
+  productsRef.current = products;
+  pageRef.current = page;
+
+  prevYRef.current = prevY
 
   useEffect(() => {
-    dispatch(getBedroom({ page }));
-}, []);
+    getProducts();
+    setPage(pageRef.current + 1);
 
+    let options = {
+      root: null, //root는 기본적으로 스크롤 가능한 영역, null을 입력하면 전체 브라우저 창이 됨
+      rootMargin: "150px",
+      htreshold: 0.6, //관찰해야 하는 대상 요소의 100%를 의미한다.
+    };
+
+    const observer = new IntersectionObserver(handleObserver, options);
+    observer.observe(loadingRef.current);
+  }, [subclick]);
+
+  const handleObserver = (entities, observer) => {
+    console.log("time");
+
+    const y = entities[0].boundingClientRect.y; 
+
+    if (prevYRef.current > y) {
+        console.log(`real get list`);
+        getProducts();
+        setPage(pageRef.current + 1);
+    } else {
+        console.log("loading false");
+    }
+    console.log(`currenty`, y, `prevY`, prevY);
+    setPrevY(y);
+  };
+    
+  const getProducts = async () => {
+    try {
+      if(subclick != ''){
+        let productsRes = await Apis.get(
+          `products?main=침실&sub=${subclick}&page=${pageRef.current}`
+        )
+        if (productsRes) {
+          setProducts([...productsRef.current, ...productsRes.data.content]);
+          console.log(productsRes.data.sliceInfo.hasNext);
+        }
+      }else{
+        let productsRes = await Apis.get(
+          `products?main=침실&page=${pageRef.current}`
+        )
+        if (productsRes) {
+          setProducts([...productsRef.current, ...productsRes.data.content]);
+          console.log(productsRes.data.sliceInfo.hasNext);
+        }
+      }
+    } catch (error) {
+      console.log("ERROR GETTING PRODUCTS");
+    }
+  };
 
     return (
       <SubBlock>
@@ -43,14 +99,15 @@ function Bedroom({ click }) {
           <div>최신순</div>
         </FilterBlock>
         <ProductList>
-            {bedroomSelector?.map((product) => (
+            {products?.map((product) => (
               <Products proId={product.id} product={product} key={product.id} />
             ))}
-        {/* <div ref={loadingRef}></div> */}
-      </ProductList>
-    </SubBlock>
-  );
-}
+        <div ref={loadingRef}></div>
+        </ProductList>
+      </SubBlock>
+    )
+  }
+
 export default Bedroom;
 
 const SubBlock = styled.div`

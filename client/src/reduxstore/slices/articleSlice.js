@@ -40,8 +40,7 @@ export const postCart = createAsyncThunk(
 );
 
 export const postLike = createAsyncThunk("postLike", async (id) => {
-  return Apis.post(
-    `/products/${id}/likes`,
+  return Apis.post(`/products/${id}/likes`,
     {},
     {
       headers: {
@@ -132,8 +131,7 @@ export const postPayment = createAsyncThunk(
   "getShoppingCart",
   async ({ checkList, navigate }) => {
     console.log(checkList);
-    return Apis.post(
-      `orders`,
+    return Apis.post(`orders`,
       {
         orderProducts: checkList,
       },
@@ -207,15 +205,18 @@ export const countSearchResult = createAsyncThunk(
   }
 );
 
-export const popularSearch = createAsyncThunk("popularSearch", async () => {
-  return Apis.get(`search/rank`)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+export const popularSearch = createAsyncThunk(
+  "popularSearch",
+  async () => {
+    return Apis.get(`search/rank`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 
 export const postArticle = createAsyncThunk(
   "postArticle",
