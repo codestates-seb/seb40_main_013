@@ -15,14 +15,11 @@ Apis.interceptors.response.use(
     return response;
   },
   async (err) => {
-    console.log("abc", err);
     let dataMessage = String(err.response.data.message);
     const datas = dataMessage.startsWith("JWT expired");
     if (datas) {
       let originalRequest = err.config;
-      console.log("abc", 11);
       try {
-        console.log("abc", 22);
         const data = await Apis.post(
           "refresh",
           {},
@@ -31,13 +28,11 @@ Apis.interceptors.response.use(
           }
         );
         if (data) {
-          console.log("abc", data);
           const accToken = data.headers.get("Authorization");
           localStorage.removeItem("Authorization");
           localStorage.setItem("Authorization", accToken);
           // originalRequest.headers["Refresh"] = refreshToken;
           originalRequest.headers["Content-Type"] = "application/json";
-          console.log("abcd", 2, originalRequest);
           // return axios.request(originalRequest);
           return Apis({
             ...originalRequest,
@@ -49,7 +44,6 @@ Apis.interceptors.response.use(
           });
         }
       } catch (err) {
-        console.log("abc", "토큰 갱신 에러");
         console.log(err);
       }
       return Promise.reject(err);

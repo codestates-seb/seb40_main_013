@@ -478,7 +478,7 @@ const Register = () => {
             </Label>
           </TabContainer>
           <Input
-            maxlength="40"
+            maxLength="40"
             name="title"
             className="title"
             onChange={changeContentName}

@@ -97,7 +97,9 @@ function PostReview({ clickModal, filterProductId, filterData }) {
     //     </PostReviewDownSpace>
     //   </Container>
     // </Wrapper>
-    <Wrapper></Wrapper>
+    <Wrapper>
+      <Container></Container>
+    </Wrapper>
   );
 }
 
