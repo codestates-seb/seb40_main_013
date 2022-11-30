@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
 import { Toast } from "../../components/Alert";
 
-
 let jwtToken = localStorage.getItem("Authorization");
 
 export const getArticleDetail = createAsyncThunk(
@@ -26,13 +25,11 @@ export const postCart = createAsyncThunk(
   "carts",
   async ({ postData, navigate }) => {
     return Apis.post(`carts`, postData, {
-
       headers: {
         Authorization: `${jwtToken}`,
       },
     })
       .then((res) => {
-
         return res.data;
       })
       .catch((err) => {
@@ -238,43 +235,6 @@ export const postArticle = createAsyncThunk(
       });
   }
 );
-// export const postArticle = createAsyncThunk(
-//   "postArticle",
-//   async ({ postArticleData, navigate }) => {
-//     const form = new FormData();
-//     form.append("img", postArticleData.img);
-//     form.append("content", postArticleData.content);
-//     let jsonData = {
-//       sellerId: postArticleData.sellerId,
-//       title: postArticleData.title,
-//       price: postArticleData.price,
-//       main: postArticleData.main,
-//       sub: postArticleData.sub,
-//       optionList: [
-//         { color: postArticleData[0].color, stock: postArticleData[0].stock },
-//         { color: postArticleData[1].color, stock: postArticleData[1].stock },
-//       ],
-//     };
-//     formData.append(
-//       "data",
-//       new Blob([JSON.stringify(jsonData)], { type: "application/json" })
-//     );
-//     return Apis.post(`products`, form, {
-//       headers: {
-//         Authorization: `${jwtToken}`,
-//         "Content-Type": "multipart/form-data",
-//       },
-//     })
-//       .then((res) => {
-//         console.log(res);
-//         return res.data;
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   }
-// );
-
 
 const articleSlice = createSlice({
   name: "article",
