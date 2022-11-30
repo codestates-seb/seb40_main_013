@@ -1,7 +1,10 @@
 package gohome.dailydaily.global.common.security.filter;
 
+import gohome.dailydaily.global.common.security.handler.ErrorResponder;
 import gohome.dailydaily.global.common.security.util.CustomAuthorityUtils;
 import gohome.dailydaily.global.common.security.util.JwtTokenizer;
+import gohome.dailydaily.global.error.BusinessLogicException;
+import gohome.dailydaily.global.error.ExceptionCode;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +33,9 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             setAuthenticationToContext(claims);
         } catch (Exception exception) {
             request.setAttribute("exception", exception);
+            ErrorResponder.sendErrorResponse(response, response.SC_UNAUTHORIZED, exception.getMessage());
+            //ErrorResponder.sendErrorResponse(response, response.SC_UNAUTHORIZED, "Access Token Error: " + exception.getMessage());
+            return;
         }
 
         filterChain.doFilter(request, response);
