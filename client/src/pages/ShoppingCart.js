@@ -2,12 +2,16 @@ import { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
-import { BsCartX } from 'react-icons/bs';
-import { deleteShoppingCart, getShoppingCart, postPayment } from "../reduxstore/slices/articleSlice";
+import { BsCartX } from "react-icons/bs";
+import {
+  deleteShoppingCart,
+  getShoppingCart,
+  postPayment,
+} from "../reduxstore/slices/articleSlice";
 import { Alert } from "../components/Alert";
 import { useNavigate } from "react-router-dom";
 
-BsCartX
+BsCartX;
 
 const CartBlock = styled.div`
   margin-top: 127.5px;
@@ -27,7 +31,7 @@ const Empty = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 3rem;
-  div{
+  div {
     color: #272727;
     margin-top: 3rem;
   }
@@ -171,7 +175,7 @@ function ShoppingCart() {
   const dispatch = useDispatch();
   const cartSeletor = useSelector((state) => state.article.shoppingCartInitial);
   const cartSeletorLength = cartSeletor?.length;
-  
+
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
   console.log(`checkList`, checkList);
 
@@ -215,8 +219,9 @@ function ShoppingCart() {
   const postPurchase = () => {
     if (checkList.length === 0) {
       Alert("warning", "구매하실 상품을 선택해 주세요.");
-    } else { //배열에 담아 변수로 보내긔..
-      dispatch(postPayment({checkList,navigate}))
+    } else {
+      //배열에 담아 변수로 보내긔..
+      dispatch(postPayment({ checkList, navigate }));
     }
   };
 
@@ -224,8 +229,8 @@ function ShoppingCart() {
     <CartBlock>
       {cartSeletorLength === 0 ? (
         <Empty>
-            <EmptyCartIcon/>
-            <div> 장바구니에 담긴 상품이 없습니다.</div>
+          <EmptyCartIcon />
+          <div> 장바구니에 담긴 상품이 없습니다.</div>
         </Empty>
       ) : (
         <Quary>
