@@ -3,54 +3,107 @@ import styled from "styled-components/macro";
 import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
-import { getBedroom } from "../../reduxstore/slices/sub/bedrommSlice";
+import {getLibrary, getSub, getAsc, getCount} from "../../reduxstore/slices/sub/LibrarySlice";
+import RankingDown from "../../components/subcategories/DropDown";
 
-function Bedroom({ click }) {
-  console.log(click);
+function Bedroom({ mainClick, subclick }) {
+  
+  //소분류에 따른 대분류카테고리 이름 지정
+  let mainCateClick = '침실';
+  console.log(`mainCateClick`,mainCateClick,`subclick`,subclick);
 
   const dispatch = useDispatch();
-  const bedroomSelector = useSelector(
-    (state) => state.bedroom.bedroomInitial.content
-  ); 
+  const librarySelector = useSelector((state) => state.library.libraryInitial);
+  console.log('112', librarySelector);
 
-  const [page, setPage] = useState(0);
+  // const subSelector = useSelector((state) => state.library);
+  // console.log(subSelector);
+
+  const countSelector = useSelector(
+    (state) => state.library.coutnInitial.count
+  );
+
   const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  
+  const [prevY, setPrevY] = useState(0);
+  let productsRef = useRef({})
 
+  let loadingRef = useRef(null);
+  let prevYRef = useRef({});
+  let pageRef = useRef({});
+  productsRef.current = products;
+  pageRef.current = page;
+
+  prevYRef.current = prevY
+
+  // 셀렉트 박스
+  const [dropDownclicked, setDropDownClicked] = useState("최신순");
+  const [third, setThird] = useState("desc");
+  const [closeDropDown, setDloseDropDown] = useState(false);
+
+  let sortArgument = "createdAt";
+  if(dropDownclicked ==='판매순'){
+    sortArgument = 'sale';
+  } else if(dropDownclicked === '높은가격순'|| dropDownclicked === '낮은가격순'){
+    sortArgument = 'price';
+  } else{
+    sortArgument = 'createdAt';
+  }
+
+
+  console.log(`dropDownclicked`, dropDownclicked,`sortArgument`,sortArgument, `third`, third );
+
+  const modalRef = useRef();
+
+  const closeHandler = () => {
+    setDloseDropDown(!closeDropDown);
+  };
+
+  const outModalCloseHandler = (e) => {
+    if (closeDropDown && !modalRef.current.contains(e.target))
+      setDloseDropDown(false);
+  };
   useEffect(() => {
-    dispatch(getBedroom({ page }));
-}, []);
+    if (
+    subclick === '침대/매트리스' ||
+    subclick === '행거/옷장' ||
+    subclick === '화장대'
+    ) {
+      dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
+    } else {
+      dispatch(getLibrary({ mainCateClick, page, sortArgument, third }));
+    }
+    // dispatch(getCount());
+  }, [subclick]);
 
-
-    return (
-      <SubBlock>
-        <SubCarousel />
-        <div className="sub-menus">
-          <Sub>
-            <div>전체보기</div>
-          </Sub>
-          <Sub>
-            <div>식탁/아일랜드</div>
-          </Sub>
-          <Sub>
-            <div>식탁의자</div>
-          </Sub>
-          <Sub>
-            <div>주방수납</div>
-          </Sub>
-        </div>
-        <FilterBlock>
-          <div className="total">0 개의 상품이 있습니다</div>
-          <div>최신순</div>
-        </FilterBlock>
-        <ProductList>
-            {bedroomSelector?.map((product) => (
-              <Products proId={product.id} product={product} key={product.id} />
-            ))}
+  return (
+    <SubBlock onClick={outModalCloseHandler}>
+      <SubCarousel />
+      <FilterBlock>
+        <div className="total">{countSelector}개의 상품이 있습니다</div>
+        <section ref={modalRef}>
+          <RankingDown
+            dropDownclicked={dropDownclicked}
+            setDropDownClicked={setDropDownClicked}
+            closeDropDown={closeDropDown}
+            closeHandler={closeHandler}
+            setThird={setThird}
+            third={third}
+          />
+        </section>
+      </FilterBlock>
+      <ProductList>
+        {librarySelector?.map((product) => (
+          <Products proId={product.id} product={product} key={product.id} />
+        ))}
         {/* <div ref={loadingRef}></div> */}
       </ProductList>
     </SubBlock>
   );
 }
+
 export default Bedroom;
 
 const SubBlock = styled.div`
@@ -74,22 +127,6 @@ const SubBlock = styled.div`
       display: flex;
       justify-content: flex-start;
     }
-`;
-
-const Sub = styled.div`
-    display: flex;
-    width: 13vw;
-    height: 6vh;
-    background-color: #fcf9e9;
-    margin: 0 1em;
-    &:hover {
-      background-color: #e1dfce;
-    }
-    color: #515151;
-    border-radius: 5px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 `;
 
 const FilterBlock = styled.div`
