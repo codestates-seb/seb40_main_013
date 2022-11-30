@@ -23,7 +23,7 @@ const MyPage = lazy(() => import("./pages/Mypage"));
 const Signup = lazy(() => import("./pages/Signup"));
 const ArticleDetail = lazy(() => import("./pages/detail/ArticleDetail"));
 const ShoppingCart = lazy(() => import("./pages/ShoppingCart"));
-const Library = lazy(() => import("./pages/sub/Library"));
+const Library = lazy(() => import("./pages/sub/isLibrary"));
 const Bedroom = lazy(() => import("./pages/sub/Bedroom"));
 const Kitchen = lazy(() => import("./pages/sub/Kitchen"));
 const LivingRoom = lazy(() => import("./pages/sub/LivingRoom"));
@@ -52,7 +52,7 @@ function App() {
                 <Route path="/members/mypage/*" element={<MyPage />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/detail/:id" element={<ArticleDetail />} />
-                <Route path="/library" element={<Library mainClick={mainClick} />} />
+                <Route path="/library" element={<Library mainClick={mainClick} subclick={subclick} />} />
                 <Route path="/bedroom" element={<Bedroom mainClick={mainClick} subclick={subclick} />} />
                 <Route path="/kitchen" element={<Kitchen mainClick={mainClick} />} />
                 <Route

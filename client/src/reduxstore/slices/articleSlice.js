@@ -129,7 +129,7 @@ export const deleteShoppingCart = createAsyncThunk(
 
 export const postPayment = createAsyncThunk(
   "getShoppingCart",
-  async ({checkList, navigate}) => {
+  async ({ checkList, navigate }) => {
     console.log(checkList);
     return Apis.post(`orders`,
       {
@@ -144,7 +144,7 @@ export const postPayment = createAsyncThunk(
     )
       .then((res) => {
         console.log(`shopslice`, res.data);
-        navigate('/members/mypage/purchase')
+        navigate("/members/mypage/purchase");
         return res.data;
       })
       .catch((err) => {
@@ -169,6 +169,7 @@ export const reCountCartItem = createAsyncThunk(
       }
     )
       .then((res) => {
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {

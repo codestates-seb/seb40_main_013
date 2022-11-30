@@ -10,6 +10,7 @@ import MyReview from "../components/mypages/MyReview";
 import Recent from "../components/mypages/Recent";
 import ProfileImg from "../components/mypages/ProfileImg";
 import PurchaseAll from "../components/mypages/PurchaseAll";
+import Like from "../components/mypages/Like"
 
 const Container = styled.div`
   display: flex;
@@ -18,11 +19,13 @@ const Container = styled.div`
   width: 100%;
   @media screen and (max-width: 390px) {
     flex-direction: column;
+    padding: 145px 16px 25px 16px;
   }
   @media (min-width: 391px) and (max-width: 768px) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 145px 16px 25px 16px;
   }
 `;
 
@@ -273,6 +276,7 @@ const Mypage = () => {
         <Route path="/myboard" element={<MyReview />}></Route>
         <Route path="/recent" element={<Recent />}></Route>
         <Route path="/purchase/:id" element={<PurchaseAll />}></Route>
+        <Route path="/like" element={<Like />}></Route>
       </Routes>
     </Container>
   );

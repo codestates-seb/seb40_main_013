@@ -117,7 +117,7 @@ const Price = styled.h5`
   @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 1.3em;
   }
-  .won{
+  .won {
     font-size: 1rem;
     display: flex;
     align-items: center;
@@ -128,7 +128,7 @@ const SubDetail = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 10px 0;
-  &.end{
+  &.end {
     justify-content: flex-end;
   }
 `;
@@ -182,10 +182,9 @@ const Product = ({ proId, product }) => {
         <Title>{title}</Title>
         <SubDetail className="end">
           <Price>
-            <span className="won">
-              ₩
-            </span>
-            &nbsp;{price?.toLocaleString("en-US")}</Price>
+            <span className="won">₩</span>
+            &nbsp;{price?.toLocaleString("en-US")}
+          </Price>
         </SubDetail>
       </Detail>
     </Products>

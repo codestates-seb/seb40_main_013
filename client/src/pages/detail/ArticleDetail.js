@@ -65,24 +65,19 @@ function ArticleDetail() {
     setSelectOptions(id);
     setSelectOptionColor(color);
   };
-  // let get_local = localStorage.getItem("product");
-  // console.log(get_local);
+  let get_local = localStorage.getItem("product");
+  console.log(get_local);
   ScrollToTop();
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
 
-    let get_local = [];
-    if (!articlesDetail) {
-      localStorage.setItem("product", get_local);
-    } else if (articlesDetail) {
-      let local = localStorage.getItem("product");
-      let get_local = [articlesDetail.productId];
-      if (local) {
-        local = JSON.parse(local);
-        get_local = [articlesDetail.productId, ...local];
-      }
-      localStorage.setItem("product", JSON.stringify(get_local));
+    let local = localStorage.getItem("product");
+    let get_local = [articlesDetail.productId];
+    if (local) {
+      local = JSON.parse(local);
+      get_local = [articlesDetail.productId, ...local];
     }
+    localStorage.setItem("product", JSON.stringify(get_local));
   }, [dispatch]);
 
   const clickPostCart = () => {
@@ -113,26 +108,26 @@ function ArticleDetail() {
         <DetailTopUserSelectSpace>
           <DetailTopThumbnailImg src={articlesDetail?.img?.fullPath} />
           <ArticleInformations>
-              <DetailArticleName>{articlesDetail?.title}</DetailArticleName>
-              <DetailArticleNameSpace>
-                <DetailArticleStarSpace onClick={() => onMoveToElement(1)}>
-                  {renderStar(articlesDetail?.score)}
-                  <DetailArticleStaAverage>
-                    {articlesDetail?.score}점
-                  </DetailArticleStaAverage>
-                </DetailArticleStarSpace>
-              </DetailArticleNameSpace>
+            <DetailArticleName>{articlesDetail?.title}</DetailArticleName>
+            <DetailArticleNameSpace>
+              <DetailArticleStarSpace onClick={() => onMoveToElement(1)}>
+                {renderStar(articlesDetail?.score)}
+                <DetailArticleStaAverage>
+                  {articlesDetail?.score}점
+                </DetailArticleStaAverage>
+              </DetailArticleStarSpace>
+            </DetailArticleNameSpace>
             <DetailArticlePriceSpace>
               <DetailArticlePrice>
                 {articlesDetail?.price?.toLocaleString("en-US")}원
               </DetailArticlePrice>
               <ButtonIcon>
-                  {isLike ? (
-                    <BsHeartFill onClick={clickDeleteLike} />
-                  ) : (
-                    <BsHeart className="heart" onClick={clickPostLike} />
-                  )}
-                </ButtonIcon>
+                {isLike ? (
+                  <BsHeartFill onClick={clickDeleteLike} />
+                ) : (
+                  <BsHeart className="heart" onClick={clickPostLike} />
+                )}
+              </ButtonIcon>
             </DetailArticlePriceSpace>
             <div>
               <DetailArticleOptionSpace>
@@ -201,22 +196,22 @@ function ArticleDetail() {
           </ArticleInformations>
         </DetailTopUserSelectSpace>
         <SelectMoveSpace ref={articleRef}>
-            <SelectMoveBtn onClick={() => onMoveToElement(0)}>
-              상세 설명
-            </SelectMoveBtn>
-            <SelectCenterLine>/</SelectCenterLine>
-            <SelectMoveBtn onClick={() => onMoveToElement(1)}>
-              후기
-            </SelectMoveBtn>
+          <SelectMoveBtn onClick={() => onMoveToElement(0)}>
+            상세 설명
+          </SelectMoveBtn>
+          <SelectCenterLine>/</SelectCenterLine>
+          <SelectMoveBtn onClick={() => onMoveToElement(1)}>후기</SelectMoveBtn>
         </SelectMoveSpace>
-          {articlesDetail?.content?.map((data) => (
-            <DetailMidImg src={data} key={data} />
-          ))}
+        {articlesDetail?.content?.map((data) => (
+          <DetailMidImg src={data} key={data} />
+        ))}
 
-          <Button />
-          <div className="sp">
-            <Review reviewRef={reviewRef} articlesDetail={articlesDetail} renderStar={renderStar} />
-          </div>
+        <Button />
+        <Review
+          reviewRef={reviewRef}
+          articlesDetail={articlesDetail}
+          renderStar={renderStar}
+        />
       </DetailContents>
     </Wrapper>
   );
@@ -359,7 +354,7 @@ const SelectMoveSpace = styled.div`
   @media screen and (max-width: 1023px) {
     width: 60%;
   }
-  button{
+  button {
     padding: 5px;
     height: 3rem;
     background-color: white;
@@ -506,6 +501,7 @@ const DetailArticleOptionSpaceSelect = styled.div`
   height: 3rem;
   font-size: 1rem;
   border-bottom: 1px solid var(--color-gray);
+  position: relative;
 `;
 const DetailArticleOptionSpaceSelectDiv = styled.div`
   width: 100%;
@@ -515,11 +511,12 @@ const DetailArticleOptionSpaceSelectDiv = styled.div`
   align-items: center;
   color: var(--font-navy);
   margin-left: 10px;
+  position: relative;
   .button {
     font-size: 20px;
     margin-right: 10px;
   }
-  .cur{
+  .cur {
     cursor: pointer;
   }
 `;
@@ -528,19 +525,7 @@ const DetailArticleOptionSpaceSelectDivValueUl = styled.ul`
   position: absolute;
   border: none;
   cursor: pointer;
-  width: 450px;
-  @media screen and (max-width: 1223px) {
-    width: 36%;
-  }
-  @media screen and (max-width: 1023px) {
-    width: 600px;
-  }
-  @media screen and (max-width: 800px) {
-    width: 420px;
-  }
-  @media screen and (max-width: 400px) {
-    width: 190px;
-  }
+  width: 100%;
 `;
 const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
   text-decoration: none;
@@ -548,11 +533,13 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
   padding: 15px 0px 15px 10px;
   display: block;
   border: none;
+
   &:hover {
     background-color: #cccccc;
   }
   &:nth-child(1) {
     border: none;
+    border-top: 1px solid var(--color-gray);
     border-bottom: 1px solid var(--color-gray);
     background-color: white;
   }
@@ -560,32 +547,6 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
     border: none;
     border-bottom: 1px solid var(--color-gray);
     background-color: white;
-  }
-  @media screen and (min-width: 1000px) {
-    height: 100%;
-    background-color: red;
-    &:nth-child(1) {
-      border: none;
-      border-bottom: 1px solid var(--color-gray);
-      background-color: white;
-    }
-    &:nth-child(2) {
-      border: none;
-      border-bottom: 1px solid var(--color-gray);
-      background-color: white;
-    }
-  }
-  @media screen and (max-width: 1250px) {
-    &:nth-child(1) {
-      border: none;
-      border-bottom: 1px solid var(--color-gray);
-      background-color: white;
-    }
-    &:nth-child(2) {
-      border: none;
-      border-bottom: 1px solid var(--color-gray);
-      background-color: white;
-    }
   }
 `;
 
@@ -621,15 +582,15 @@ const DetailUserPrice = styled.div`
   font-weight: 700;
   display: flex;
   align-items: center;
-  &.w{
+  &.w {
     margin-right: 10px;
     font-size: 1.2rem;
   }
   @media screen and (max-width: 767px) {
     font-size: 1.2rem;
-    &.w{
+    &.w {
       font-size: 1rem;
-    margin-right: 5px;
+      margin-right: 5px;
     }
   }
 `;
@@ -651,15 +612,9 @@ const DetailArticlBtn = styled.button`
   color: white;
   font-weight: bold;
   cursor: pointer;
-  &:hover{
-    background-color: #123B77;
-  }
   &:nth-child(1) {
     background-color: white;
     color: var(--color-navy);
-    &:hover{
-      background-color: #f1f1f1;
-    }
   }
 `;
 

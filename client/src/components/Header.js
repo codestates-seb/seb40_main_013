@@ -84,6 +84,12 @@ const CategoryList = styled.div`
   }
   @media screen and (max-width: 380px) {
     padding-left: 10px;
+  } 
+  @media (min-width: 381px) and (max-width: 767px) {
+    font-size: 15px;
+    }
+  @media screen and (max-width: 380px) {
+    font-size: 14px;
   }
 `;
 
@@ -91,7 +97,7 @@ const Nav = styled.nav`
   z-index: 400;
   position: absolute;
   top: 19px;
-  left: -70px;
+  left: -68px;
   background-color: white;
   border: 1px solid #aaaaaa;
   width: 6.9em;
@@ -110,7 +116,13 @@ const Nav = styled.nav`
     display: block;
   }
   @media screen and (max-width: 380px) {
-    width: 6.7em;
+    width: 6.8em;
+    font-size: 13px;
+    left: -63px;
+  }
+  @media (min-width: 381px) and (max-width: 767px) {
+    font-size: 14px;
+    left: -66px;
   }
 `;
 
@@ -135,14 +147,16 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
   const [closeSearch, setCloseSearch] = useState(false);
   const cartCount = useSelector((state) => state);
 
-  const clicMainkMenu = ({ target }) => {
-    setMainClick(target.innerHTML);
+  const clickMainkMenu = ({ target }) => {
+    setMainClick(target.innerText);
     setSubClick('')
   };
 
-  const clicSubMenu = ({ target }) => {
-    setSubClick(target.innerHTML);
+  const clickSubMenu = ({ target }) => {
+    setSubClick(target.innerText);
+    console.log(target.innerText);
   };
+
 
 
   const closeHandler = () => {
@@ -200,42 +214,42 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
           <div>
             <Link to="/library">
               <Category>
-                <div onClick={clicMainkMenu}>서재</div>
+                <div onClick={clickMainkMenu}>서재</div>
                 <Nav className="1">
-                  <div onClick={clicSubMenu}>책상</div>
-                  <div onClick={clicSubMenu}>의자</div>
-                  <div onClick={clicSubMenu}>책장</div>
-                  <div onClick={clicSubMenu}>선반</div>
+                  <div onClick={clickSubMenu}>책상</div>
+                  <div onClick={clickSubMenu}>의자</div>
+                  <div onClick={clickSubMenu}>책장</div>
+                  <div onClick={clickSubMenu}>선반</div>
                 </Nav>
               </Category>
             </Link>
             <Link to="/bedroom">
               <Category>
-                <div onClick={clicMainkMenu}>침실</div>
+                <div onClick={clickMainkMenu}>침실</div>
                 <Nav className="2">
-                  <div onClick={clicSubMenu}>침대/매트리스</div>
-                  <div onClick={clicSubMenu}>행거/옷장</div>
-                  <div onClick={clicSubMenu}>화장대</div>
+                  <div onClick={clickSubMenu}>침대/매트리스</div>
+                  <div onClick={clickSubMenu}>행거/옷장</div>
+                  <div onClick={clickSubMenu}>화장대</div>
                 </Nav>
               </Category>
             </Link>
             <Link to="/livingRoom">
               <Category className="space">
-                <div onClick={clicMainkMenu}>거실</div>
+                <div onClick={clickMainkMenu}>거실</div>
                 <Nav className="3">
-                  <div onClick={clicSubMenu}>소파</div>
-                  <div onClick={clicSubMenu}>거실장</div>
-                  <div onClick={clicSubMenu}>수납장</div>
+                  <div onClick={clickSubMenu}>소파</div>
+                  <div onClick={clickSubMenu}>거실장</div>
+                  <div onClick={clickSubMenu}>수납장</div>
                 </Nav>
               </Category>
             </Link>
             <Link to="/kitchen">
               <Category className="space">
-                <div onClick={clicMainkMenu}>주방</div>
+                <div onClick={clickMainkMenu}>주방</div>
                 <Nav className="4">
-                  <div onClick={clicSubMenu}>식탁/아일랜드</div>
-                  <div onClick={clicSubMenu}>식탁의자</div>
-                  <div onClick={clicSubMenu}>주방수납</div>
+                  <div onClick={clickSubMenu}>식탁/아일랜드</div>
+                  <div onClick={clickSubMenu}>식탁의자</div>
+                  <div onClick={clickSubMenu}>주방수납</div>
                 </Nav>
               </Category>
             </Link>

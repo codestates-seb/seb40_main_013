@@ -1,31 +1,31 @@
-import Bed from "../../imgs/Bed.gif"
-import Desk from "../../imgs/Desk.gif"
-import Table from "../../imgs/Table.gif"
-import Sofa from "../../imgs/Sofa.gif"
+import Bed from "../../imgs/Bed.png";
+import Desk from "../../imgs/desk.png";
+import Table from "../../imgs/Table.png";
+import Sofa from "../../imgs/Sofa.png";
 
 export default [
   {
-    title: 'Furniture',
+    title: "Furniture",
     description: "in bedroom",
     furniture: "BED",
     urls: Bed,
   },
   {
-    title: 'Furniture',
+    title: "Furniture",
     description: "in library",
     furniture: "DESK",
     urls: Desk,
   },
   {
-    title: 'Furniture',
+    title: "Furniture",
     description: "in kitchen",
     furniture: "TABLE",
     urls: Table,
   },
   {
-    title: 'Furniture',
+    title: "Furniture",
     description: "in livingroom",
     furniture: "SOFA",
     urls: Sofa,
-  }
-]
+  },
+];

@@ -91,7 +91,7 @@ function SearchResult ({searchWord}) {
   const getProducts = async () => {
     try {
         let productsRes = await Apis.get(
-          `products?title=${searchWord}&page=${pageRef.current}`
+          `products/search?title=${searchWord}&page=${pageRef.current}`
         )
         if (productsRes) {
           console.log(productsRes);

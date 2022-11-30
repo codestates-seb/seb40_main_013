@@ -41,7 +41,7 @@ const MainTitle = styled.h2`
   font-size: 2rem;
   margin-top: 10px;
   color: var(--font-black);
-  scroll-margin-top: 170px;
+  scroll-margin-top: 130px;
   @media screen and (max-width: 479px) {
     font-size: 1.4rem;
     margin-top: 5px;
@@ -141,6 +141,7 @@ const BrandTitleContainer = styled.div`
 const BrandTitle = styled.h2`
   font-size: 1.6rem;
   margin-left: 10px;
+  scroll-margin-top: 140px;
 `;
 const FullView = styled(Link)`
   display: flex;
@@ -164,49 +165,13 @@ const Main = () => {
 
   //브랜드리스트
   const brandData = useSelector((state) => state?.main.main);
-  const brandTab = Object.keys(brandData);
-
+  const brandTab = Object.keys(brandData)?.filter((t) => t !== "게스트");
+  console.log(brandData);
   //자동스크롤 이벤트
   const myRefs = useRef({});
   const onMoveToElement = (key) => {
     myRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
-  // Object?.entries(brandData)?.filter(key => key[0] !== 'guest')
-  //           ?.map(([key,value]) => console.log(key))
-  //자동스크롤시 탭 헤더 밑으로 고정시키기
-
-  // useEffect(() => {
-  //   window.addEventListener('scroll', handleScroll, { capture: true }); // 스크롤 이벤트 등록
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll); // 스크롤 이벤트 등록 제거(성능저하방지)
-  //   };
-  // }, []);
-
-  // const handleScroll = useCallback(() => {
-  //   if (!tabRef.current || !detailRef.current || !document.getElementById('app')){
-  //     return;
-  //   }
-  //   // 스크롤의 실시간 위치
-  //   const scrollTop = document.getElementById('app')?.scrollTop; // 최상단 div 기준으로 스크롤 위치를 감지
-
-  //     // 스크롤 위치가 tabRef(하위메뉴 탭)의 위치보다 아래이면
-  //     if (scrollTop >= tabRef.current.offsetTop) {
-  //       fixTab.current = true;   // fixTab 변수는 트루
-  //     } else {		         // 그렇지 않으면
-  //       fixTab.current = false;  // fixTab 변수는 false
-  //     }
-
-  //     // 스크롤 위치가 detailRef(하위메뉴 2번)의 위치보다 위이면
-  //     if (scrollTop < detailRef.current.offsetTop - offset) {
-  //       setTab(0); // 하위메뉴 탭은 자동으로 인덱스 0을 보여주자
-  //     }
-  //     // 스크롤 위치가 detailRef(하위메뉴 2번)의 위치이거나 아래이면
-  //     else if (scrollTop >= detailRef.current.offsetTop - offset) {
-  //       setTab(1); // 하위메뉴 탭은 자동으로 인덱스 0을 보여주자
-  //     }
-
-  // }, [tabRef.current, detailRef.current]);
 
   // 데이터 받아오기
   useLayoutEffect(() => {
@@ -248,7 +213,7 @@ const Main = () => {
           <div className="reactionbody">
             <TH>
               {brandTab
-                ?.filter((t, i) => t !== "guest" && i <= 1)
+                ?.filter((t, i) => i <= 1)
                 ?.map((tab) => (
                   <TD key={tab} onClick={() => onMoveToElement(tab)}>
                     {tab}
@@ -257,7 +222,7 @@ const Main = () => {
             </TH>
             <TH>
               {brandTab
-                ?.filter((t, i) => t !== "guest" && i <= 3 && i > 1)
+                ?.filter((t, i) => i <= 3 && i > 1)
                 ?.map((tab) => (
                   <TD key={tab} onClick={() => onMoveToElement(tab)}>
                     {tab}
@@ -268,7 +233,7 @@ const Main = () => {
           <div className="reactionbody">
             <TH>
               {brandTab
-                ?.filter((t, i) => t !== "guest" && i > 3 && i < 6)
+                ?.filter((t, i) => i > 3 && i < 6)
                 ?.map((tab) => (
                   <TD key={tab} onClick={() => onMoveToElement(tab)}>
                     {tab}
@@ -277,7 +242,7 @@ const Main = () => {
             </TH>
             <TH>
               {brandTab
-                ?.filter((t, i) => t !== "guest" && i >= 6)
+                ?.filter((t, i) => i >= 6)
                 ?.map((tab) => (
                   <TD key={tab} onClick={() => onMoveToElement(tab)}>
                     {tab}
@@ -288,7 +253,7 @@ const Main = () => {
         </div>
       </BrandTab>
       {Object?.entries(brandData)
-        ?.filter((key) => key[0] !== "guest")
+        ?.filter((key) => key[0] !== "게스트")
         ?.map(([key, value]) => (
           <BrandProduct key={key}>
             <BrandTitleContainer>

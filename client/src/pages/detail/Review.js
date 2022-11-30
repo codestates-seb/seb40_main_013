@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { renderStar } from "../../components/Star";
+import noImg from "../../imgs/noImg.gif";
 
 function Review({ articlesDetail, reviewRef }) {
   console.log(articlesDetail);
@@ -18,7 +19,6 @@ function Review({ articlesDetail, reviewRef }) {
         </ReviewStaAverage>
       </ReviewStarSpace>
       <Boundary />
-
       {articlesDetail?.reviews
         ?.map((data, idx) => (
           <ReviewContentsSpace key={data.reviewId}>
@@ -26,7 +26,9 @@ function Review({ articlesDetail, reviewRef }) {
               <ReviewContentsNumber>{idx + 1}</ReviewContentsNumber>
               {data?.img ? (
                 <ReviewContentsImg src={data?.img.fullPath}></ReviewContentsImg>
-              ) : null}
+              ) : (
+                <ReviewContentsImg src={noImg}></ReviewContentsImg>
+              )}
               <ReviewContentsMainSpace>
                 {renderStar(data.score)}
                 <ReviewMainTitle>{data.title}</ReviewMainTitle>
@@ -63,8 +65,9 @@ function Review({ articlesDetail, reviewRef }) {
 
 const ReviewWrapper = styled.div`
   scroll-margin-top: 130px;
-  width: 65%;
+  width: 100%;
   height: 100%;
+  border: 1px solid red;
   @media screen and (max-width: 1024px) {
     width: 70%;
     height: auto;
@@ -138,9 +141,6 @@ const ReviewContentsImg = styled.img`
   width: 80px;
   height: 90px;
   margin: 0px 20px;
-  @media screen and (max-width: 400px) {
-    display: none;
-  }
 `;
 
 const ReviewMainTitle = styled.div`

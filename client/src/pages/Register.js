@@ -320,7 +320,7 @@ const Register = () => {
             onChange={(e) => FirstCateChange(e)}
           >
             <Option>대분류</Option>
-            <Option value="서재">서재</Option>
+            <Option id="서재" value="서재">서재</Option>
             <Option value="침실">침실</Option>
             <Option value="거실">거실</Option>
             <Option value="주방">주방</Option>

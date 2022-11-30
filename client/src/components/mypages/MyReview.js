@@ -5,6 +5,7 @@ import {
   getAllReview,
 } from "../../reduxstore/slices/reviewSlice";
 import styled from "styled-components";
+import { useNavigate, Link } from "react-router-dom";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 import { FiDelete } from "react-icons/fi";
@@ -20,7 +21,7 @@ function MyReview() {
     (state) => state?.review.review.pageInfo
   );
   const [isClick, setIsClick] = useState(1);
-
+  console.log(userWriteReviews);
   let list = [];
 
   for (let i = 1; i <= userWriteReviewsPage?.totalPages; i++) {
@@ -49,41 +50,41 @@ function MyReview() {
 
   return (
     <Container>
+      <Hr />
       {userWriteReviews?.map((data, idx) => (
-        <ReviewContentsSpace key={data?.reviewId}>
-          <ReviewContentsLeftSpace>
-            <ReviewContentsNumber>{idx + 1}</ReviewContentsNumber>
-            {data?.img ? (
-              <ReviewContentsImg src={data?.img.fullPath}></ReviewContentsImg>
-            ) : (
-              <ReviewContentsImg></ReviewContentsImg>
-            )}
-            <ReviewContentsMainSpace>
-              {renderStar(data?.score)}
-              <ReviewMainTitle>{data?.productTitle}</ReviewMainTitle>
-              <ReviewMainContent>{data?.content}</ReviewMainContent>
-            </ReviewContentsMainSpace>
-          </ReviewContentsLeftSpace>
-          <ReviewContentsRightSpace>
-            <ReviewContentsSmallBtnSpace>
-              <ReviewContentsBtnSpace>
-                <ReviewContentsBtn>수정</ReviewContentsBtn>
-                <ReviewContentsBtn
-                  onClick={() => clickDelete(data?.productId, data?.reviewId)}
-                >
-                  삭제
-                </ReviewContentsBtn>
-              </ReviewContentsBtnSpace>
-              <ReviewContentsUser>
-                {new Date(data.createdAt).getFullYear() +
-                  "." +
-                  [new Date(data.createdAt).getMonth() + 1] +
-                  "." +
-                  new Date(data.createdAt).getDate()}
-              </ReviewContentsUser>
-            </ReviewContentsSmallBtnSpace>
-          </ReviewContentsRightSpace>
-        </ReviewContentsSpace>
+        <Ordercontainter key={data?.reviewId}>
+          <Top>
+            <SubTop>
+              {new Date(data.createdAt).getFullYear() +
+                "." +
+                [new Date(data.createdAt).getMonth() + 1] +
+                "." +
+                new Date(data.createdAt).getDate()}
+            </SubTop>
+          </Top>
+          <Content>
+            <Detail>
+              <ReactionSubDetail>
+                {data?.img ? <Img src={data?.img.fullPath}></Img> : <Img></Img>}
+                <BP>
+                  <BrandName to={`/detail/${data?.productId}`}>
+                    {data?.productTitle}
+                  </BrandName>
+                  {renderStar(data?.score)}
+                  <Option>{data?.content}</Option>
+                </BP>
+              </ReactionSubDetail>
+              <Btns>
+                <CancleBtn>수정하기</CancleBtn>
+                <CancleBtn>삭제하기</CancleBtn>
+              </Btns>
+            </Detail>
+            <ReactionSpace>
+              <ReactionReviewBtn></ReactionReviewBtn>
+            </ReactionSpace>
+          </Content>
+          <Hr />
+        </Ordercontainter>
       ))}
       <PageNationSpace>
         {list?.map((data) => (
@@ -98,121 +99,245 @@ function MyReview() {
     </Container>
   );
 }
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px 30px;
   border-radius: 5px;
-  padding: 20px 20px 20px 20px;
+  padding: 20px 20px 20px 40px;
   width: 80%;
-  border: 1px solid var(--color-center-line);
+  @media screen and (max-width: 390px) {
+    width: 100%;
+    padding: 0 20px;
+    margin: 30px 0;
+  }
+  @media (min-width: 391px) and (max-width: 768px) {
+    width: 100%;
+    padding: 0 20px;
+    margin: 30px 0;
+  }
 `;
-const ReviewContentsSpace = styled.div`
-  width: 100%;
-  height: 100px;
+
+//상단
+const Top = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin: 10px 15px;
+  @media screen and (max-width: 390px) {
+    margin: 7px 10px;
+  }
+`;
+const SubTop = styled.h2`
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #272727;
+  .orderStatus {
+    color: #ffaf51;
+  }
+  .ordercancle {
+    color: red;
+  }
+  @media screen and (max-width: 390px) {
+    font-size: 12px;
+    font-weight: 600;
+  }
+  @media (min-width: 391px) and (max-width: 767px) {
+    font-size: 2.2vw;
+    font-weight: 500;
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    font-size: 1.6vw;
+    font-weight: 500;
+  }
 `;
 
-const ReviewStar = styled.div`
-  color: var(--color-star);
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  width: 90px;
-`;
-const ReviewContentsLeftSpace = styled.div`
-  width: 80%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-`;
-const ReviewContentsMainSpace = styled.div`
-  width: 78%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-const ReviewContentsNumber = styled.div`
-  width: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const ReviewContentsImg = styled.img`
-  width: 100px;
-  height: 100px;
-  margin-right: 20px;
-`;
-
-const ReviewMainTitle = styled.div`
-  font-weight: bold;
-  font-size: 12px;
-  margin-top: 10px;
-`;
-
-const ReviewMainContent = styled.div`
-  font-size: 10px;
-  margin-top: 15px;
-`;
-
-const ReviewContentsRightSpace = styled.div`
-  width: 25%;
-  display: flex;
-  height: 100%;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-const ReviewContentsUser = styled.div`
-  font-size: var(--font-smallsize);
-  font-weight: bolder;
-`;
-
-const ReviewContentsSmallBtnSpace = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid blue;
-  width: 70px;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-`;
-
-const ReviewContentsBtnSpace = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 30px;
-  position: absolute;
-  top: 0px;
-`;
-const ReviewContentsBtn = styled.button`
-  border-radius: 5px;
-  background-color: white;
-  font-size: 10px;
-  margin-right: 5px;
-`;
-const PageNationSpace = styled.span`
-  width: 98%;
-  height: 35px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-const PageNationBtn1 = styled.button`
-  width: 30px;
-  height: 30px;
-  margin: 0px 5px;
+const Hr = styled.hr`
+  height: 1px;
   border: none;
-  background-color: white;
+  background-color: var(--color-center-line);
+  margin: 5px 0;
+`;
+
+//콘텐츠
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Detail = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 20px;
+  @media screen and (max-width: 390px) {
+    margin: 5px 10px;
+    justify-content: flex-start;
+  }
+`;
+const ReactionSubDetail = styled.div`
+  display: flex;
+`;
+
+const Img = styled.img`
+  width: 130px;
+  height: 130px;
+  margin-right: 10px;
+  border-radius: 5px;
+  @media screen and (max-width: 390px) {
+    width: 60px;
+    height: 60px;
+  }
+  @media (min-width: 391px) and (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
+`;
+const BP = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  margin-left: 20px;
+  @media screen and (max-width: 390px) {
+    justify-content: center;
+  }
+  @media (min-width: 391px) and (max-width: 767px) {
+    justify-content: center;
+    margin-left: 0;
+  }
+`;
+const BrandName = styled(Link)`
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  &:hover {
+    color: #515151;
+  }
+  @media screen and (max-width: 390px) {
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    padding: 5px 0;
+  }
+  @media (min-width: 391px) and (max-width: 768px) {
+    font-weight: 500;
+    font-size: 2.7vw;
+    margin-right: 5px;
+  }
+`;
+const Option = styled.h2`
+  margin: 5px 0;
+  @media screen and (max-width: 390px) {
+    font-size: 0.7rem;
+  }
+`;
+const Price = styled.h2`
+  margin: 10px 0;
+  @media screen and (max-width: 390px) {
+    margin: 5px 5px 5px 0;
+    font-size: 12px;
+  }
+  @media (min-width: 391px) and (max-width: 768px) {
+    margin: 5px 0;
+  }
+`;
+const Btns = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const CancleBtn = styled.button`
+  padding: 8px 30px;
+  color: white;
+  background-color: var(--color-navy);
+  border-radius: 10px;
+  white-space: nowrap;
+  &:nth-child(1) {
+    margin-bottom: 10px;
+  }
+  cursor: pointer;
+  &:hover {
+    /* background-color: red;
+    color: white; */
+    color: var(--color-navy);
+    background-color: white;
+    border: 1px solid #aaaaaa;
+  }
+  @media screen and (max-width: 479px) {
+    display: none;
+  }
+  @media (min-width: 480px) and (max-width: 767px) {
+    padding: 8px 30px;
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    padding: 8px 26px;
+  }
+`;
+
+//반응형 구매후기
+const ReactionSpace = styled.div`
+  display: none;
+  @media screen and (max-width: 479px) {
+    display: flex;
+    justify-content: flex-end;
+    margin: 5px 10px;
+  }
+`;
+
+const ReactionReviewBtn = styled.button`
+  display: none;
+
+  @media screen and (max-width: 479px) {
+    display: flex;
+    color: #515151;
+    border: 0.7px solid #aaaaaa;
+    border-radius: 5px;
+    padding: 3px 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: #002c6d;
+      color: white;
+    }
+  }
+`;
+
+//페이지네이션
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const Pagination = styled.ul`
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    display: block;
+    float: left;
+    padding: 5px;
+
+    &:first-child {
+      border: none;
+    }
+  }
+`;
+const PageButton = styled.button`
+  background: none;
+  border: none;
+  border-radius: 50%;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.6);
+  display: block;
+  font-size: 16px;
+  height: 40px;
+  line-height: 40px;
+  min-width: 40px;
+  padding: 0;
   &:hover {
     cursor: pointer;
-    background-color: #aaaaaa;
+    background-color: #aaa;
     border-radius: 50%;
+    color: white;
   }
 `;
 

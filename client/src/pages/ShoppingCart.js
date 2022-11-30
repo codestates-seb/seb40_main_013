@@ -7,8 +7,6 @@ import { deleteShoppingCart, getShoppingCart, postPayment } from "../reduxstore/
 import { Alert } from "../components/Alert";
 import { useNavigate } from "react-router-dom";
 
-BsCartX
-
 const CartBlock = styled.div`
   margin-top: 127.5px;
   width: 100%;
