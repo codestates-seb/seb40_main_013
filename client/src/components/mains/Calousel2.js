@@ -11,7 +11,7 @@ const Carousel2 = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex(activeIndex === len ? 0 : activeIndex + 1);
-    }, 6000);
+    }, 7000);
     return () => clearInterval(interval);
   }, [activeIndex]);
 
@@ -167,7 +167,7 @@ const Img = styled.img`
   top: -50px;
   position: absolute;
   /* object-fit: cover; */
-  animation: slideIn 6s linear forwards;
+  animation: slideIn 7s linear forwards;
   @keyframes slideIn{
     from{
       top: -50%;
