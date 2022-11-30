@@ -2,111 +2,95 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";
-import Apis from "../../apis/apis";
+import { useDispatch, useSelector } from "react-redux";
+import {getLibrary, getSub, getAsc, getCount} from "../../reduxstore/slices/sub/LibrarySlice";
+import RankingDown from "../../components/subcategories/DropDown";
 
-
-function Bedroom({mainClick ,subclick }) {
-  console.log(mainClick, subclick);
-
-  const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(false);
+function Bedroom({ mainClick, subclick }) {
   
-  const [prevY, setPrevY] = useState(0);
-  let productsRef = useRef({})
+  //소분류에 따른 대분류카테고리 이름 지정
+  let mainCateClick = '침실';
+  console.log(`mainCateClick`,mainCateClick,`subclick`,subclick);
 
-  let loadingRef = useRef(null);
-  let prevYRef = useRef({});
-  let pageRef = useRef({});
-  productsRef.current = products;
-  pageRef.current = page;
+  const dispatch = useDispatch();
+  const librarySelector = useSelector((state) => state.library.libraryInitial);
+  console.log('112', librarySelector);
 
-  prevYRef.current = prevY
+  // const subSelector = useSelector((state) => state.library);
+  // console.log(subSelector);
 
+  const countSelector = useSelector(
+    (state) => state.library.coutnInitial.count
+  );
+
+  const [page, setPage] = useState(0);
+  const [products, setProducts] = useState([]);
+
+  // 셀렉트 박스
+  const [dropDownclicked, setDropDownClicked] = useState("최신순");
+  const [third, setThird] = useState("desc");
+  const [closeDropDown, setDloseDropDown] = useState(false);
+
+  let sortArgument = "createdAt";
+  if(dropDownclicked ==='판매순'){
+    sortArgument = 'sale';
+  } else if(dropDownclicked === '높은가격순'|| dropDownclicked === '낮은가격순'){
+    sortArgument = 'price';
+  } else{
+    sortArgument = 'createdAt';
+  }
+
+
+  console.log(`dropDownclicked`, dropDownclicked,`sortArgument`,sortArgument, `third`, third );
+
+  const modalRef = useRef();
+
+  const closeHandler = () => {
+    setDloseDropDown(!closeDropDown);
+  };
+
+  const outModalCloseHandler = (e) => {
+    if (closeDropDown && !modalRef.current.contains(e.target))
+      setDloseDropDown(false);
+  };
   useEffect(() => {
-    getProducts();
-    setPage(pageRef.current + 1);
-
-    let options = {
-      root: null, //root는 기본적으로 스크롤 가능한 영역, null을 입력하면 전체 브라우저 창이 됨
-      rootMargin: "150px",
-      htreshold: 0.6, //관찰해야 하는 대상 요소의 100%를 의미한다.
-    };
-
-    const observer = new IntersectionObserver(handleObserver, options);
-    observer.observe(loadingRef.current);
+    if (
+    subclick === '침대/매트리스' ||
+    subclick === '행거/옷장' ||
+    subclick === '화장대'
+    ) {
+      dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
+    } else {
+      dispatch(getLibrary({ mainCateClick, page, sortArgument, third }));
+    }
+    // dispatch(getCount());
   }, [subclick]);
 
-  const handleObserver = (entities, observer) => {
-    console.log("time");
-
-    const y = entities[0].boundingClientRect.y; 
-
-    if (prevYRef.current > y) {
-        console.log(`real get list`);
-        getProducts();
-        setPage(pageRef.current + 1);
-    } else {
-        console.log("loading false");
-    }
-    console.log(`currenty`, y, `prevY`, prevY);
-    setPrevY(y);
-  };
-    
-  const getProducts = async () => {
-    try {
-      if(subclick != ''){
-        let productsRes = await Apis.get(
-          `products?main=침실&sub=${subclick}&page=${pageRef.current}`
-        )
-        if (productsRes) {
-          setProducts([...productsRef.current, ...productsRes.data.content]);
-          console.log(productsRes.data.sliceInfo.hasNext);
-        }
-      }else{
-        let productsRes = await Apis.get(
-          `products?main=침실&page=${pageRef.current}`
-        )
-        if (productsRes) {
-          setProducts([...productsRef.current, ...productsRes.data.content]);
-          console.log(productsRes.data.sliceInfo.hasNext);
-        }
-      }
-    } catch (error) {
-      console.log("ERROR GETTING PRODUCTS");
-    }
-  };
-
-    return (
-      <SubBlock>
-        <SubCarousel />
-        <div className="sub-menus">
-          <Sub>
-            <div>전체보기</div>
-          </Sub>
-          <Sub>
-            <div>식탁/아일랜드</div>
-          </Sub>
-          <Sub>
-            <div>식탁의자</div>
-          </Sub>
-          <Sub>
-            <div>주방수납</div>
-          </Sub>
-        </div>
-        <FilterBlock>
-          <div className="total">0 개의 상품이 있습니다</div>
-          <div>최신순</div>
-        </FilterBlock>
-        <ProductList>
-            {products?.map((product) => (
-              <Products proId={product.id} product={product} key={product.id} />
-            ))}
-        <div ref={loadingRef}></div>
-        </ProductList>
-      </SubBlock>
-    )
-  }
+  return (
+    <SubBlock onClick={outModalCloseHandler}>
+      <SubCarousel />
+      <FilterBlock>
+        <div className="total">{countSelector}개의 상품이 있습니다</div>
+        <section ref={modalRef}>
+          <RankingDown
+            dropDownclicked={dropDownclicked}
+            setDropDownClicked={setDropDownClicked}
+            closeDropDown={closeDropDown}
+            closeHandler={closeHandler}
+            setThird={setThird}
+            third={third}
+          />
+        </section>
+      </FilterBlock>
+      <ProductList>
+        {librarySelector?.map((product) => (
+          <Products proId={product.id} product={product} key={product.id} />
+        ))}
+        {/* <div ref={loadingRef}></div> */}
+      </ProductList>
+    </SubBlock>
+  );
+}
 
 export default Bedroom;
 
@@ -131,22 +115,6 @@ const SubBlock = styled.div`
       display: flex;
       justify-content: flex-start;
     }
-`;
-
-const Sub = styled.div`
-    display: flex;
-    width: 13vw;
-    height: 6vh;
-    background-color: #fcf9e9;
-    margin: 0 1em;
-    &:hover {
-      background-color: #e1dfce;
-    }
-    color: #515151;
-    border-radius: 5px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 `;
 
 const FilterBlock = styled.div`

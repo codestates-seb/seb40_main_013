@@ -154,10 +154,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
 
   const clickSubMenu = ({ target }) => {
     setSubClick(target.innerText);
-    console.log(target.innerText);
   };
-
-
 
   const closeHandler = () => {
     setCloseSearch(!closeSearch);

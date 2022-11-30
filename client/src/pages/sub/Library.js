@@ -7,7 +7,9 @@ import {getLibrary, getSub, getAsc, getCount} from "../../reduxstore/slices/sub/
 import RankingDown from "../../components/subcategories/DropDown";
 
 function Library({ mainClick, subclick }) {
-  console.log(`mainClick`, mainClick,`subclick`, subclick); //
+  
+  //소분류에 따른 대분류카테고리 이름 지정
+  let mainCateClick = '서재';
 
   const dispatch = useDispatch();
   const librarySelector = useSelector((state) => state.library.libraryInitial);
@@ -37,7 +39,8 @@ function Library({ mainClick, subclick }) {
     sortArgument = 'createdAt';
   }
 
-  console.log(`dropDownclicked`, dropDownclicked,`sortArgument`,sortArgument, `third`, third );
+
+  console.log(mainCateClick,subclick, dropDownclicked,sortArgument, third );
 
   const modalRef = useRef();
 
@@ -50,16 +53,16 @@ function Library({ mainClick, subclick }) {
       setDloseDropDown(false);
   };
   useEffect(() => {
-    if (
-      subclick == "책상" ||
-      subclick == "의자" ||
-      subclick == "책장" ||
-      subclick == "선반"
+    if (    
+    subclick === '책상' ||
+    subclick === '의자' ||
+    subclick === '책장' ||
+    subclick === '선반'
     ) {
       console.log(11);
-      dispatch(getSub({ mainClick, subclick, page, sortArgument, third }));
+      dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
     } else {
-      dispatch(getLibrary({ mainClick, page, sortArgument, third }));
+      dispatch(getLibrary({ mainCateClick, page, sortArgument, third }));
     }
     // dispatch(getCount());
   }, [subclick]);
@@ -112,22 +115,6 @@ const SubBlock = styled.div`
     display: flex;
     justify-content: flex-start;
   }
-`;
-
-const Sub = styled.div`
-  display: flex;
-  width: 13vw;
-  height: 6vh;
-  background-color: #fcf9e9;
-  margin: 0 1em;
-  &:hover {
-    background-color: #e1dfce;
-  }
-  color: #515151;
-  border-radius: 5px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 const FilterBlock = styled.div`

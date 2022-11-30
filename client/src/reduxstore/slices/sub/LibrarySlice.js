@@ -3,8 +3,9 @@ import Apis from "../../../apis/apis";
 
 export const getLibrary = createAsyncThunk(
   "getLibrary", 
-  async ({ mainClick, page, sortArgument, third }) => {
-  return Apis.get(`products?main=${mainClick}&page=${page}&sortType=${sortArgument}&order=${third}`)
+  async ({ mainCateClick, page, sortArgument, third }) => {
+    console.log(222, { mainCateClick, subclick, page, sortArgument });
+  return Apis.get(`products?main=${mainCateClick}&page=${page}&sortType=${sortArgument}&order=${third}`)
     .then((res) => {
       console.log(`shopslice`, res.data);
       return res.data;
@@ -16,10 +17,10 @@ export const getLibrary = createAsyncThunk(
 
 export const getSub = createAsyncThunk(
   "getSub",
-  async ({ mainClick, subclick, page, sortArgument, third }) => {
-    console.log(111, { mainClick, subclick, page, sortArgument });
+  async ({ mainCateClick, subclick, page, sortArgument, third }) => {
+    console.log(111, { mainCateClick, subclick, page, sortArgument });
     return Apis.get(
-      `products?main=서재&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
+      `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
     )
       .then((res) => {
         console.log(`getOne`, res.data);
