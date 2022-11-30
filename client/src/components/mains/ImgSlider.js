@@ -1,5 +1,5 @@
 import Bed from "../../imgs/Bed.png";
-import Desk from "../../imgs/Desk.png";
+import Desk from "../../imgs/desk.png";
 import Table from "../../imgs/Table.png";
 import Sofa from "../../imgs/Sofa.png";
 
