@@ -8,6 +8,9 @@ import gohome.dailydaily.domain.review.dto.ReviewDto;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,13 +20,21 @@ public class ProductDto {
     @Getter
     @Setter
     public static class PostProduct {
+        @NotBlank
         private Long sellerId;
+        @NotBlank
         private String title;
+        @NotBlank
         private List<MultipartFile> content;
+        @NotBlank
         private MultipartFile img;
+        @NotBlank
         private String main;
+        @NotBlank
         private String sub;
+        @Min(5000)
         private Integer price;
+        @NotEmpty
         private List<OptionDto.post> optionList;
 
         public List<Option> getOptions() {
