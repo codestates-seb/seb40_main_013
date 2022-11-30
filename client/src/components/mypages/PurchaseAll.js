@@ -224,8 +224,8 @@ const PurchaseAll = ({ getUserdata, click }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const myOrderData = useSelector((state) => state.myorder.myorder.content);
-  const filterData = myOrderData.filter((order) => order.orderId == id);
-  const filterProduct = filterData[0].orderProducts;
+  const filterData = myOrderData?.filter((order) => order.orderId == id);
+  const filterProduct = filterData[0]?.orderProducts;
   console.log(filterData);
   const filterProductId = filterProduct[0]?.productId;
   const clickModal = () => {

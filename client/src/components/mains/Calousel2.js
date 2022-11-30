@@ -11,7 +11,7 @@ const Carousel2 = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex(activeIndex === len ? 0 : activeIndex + 1);
-    }, 6000);
+    }, 7000);
     return () => clearInterval(interval);
   }, [activeIndex]);
 
@@ -23,7 +23,9 @@ const Carousel2 = () => {
           className={index === activeIndex ? "slides active" : "inactive"}
         >
           <Imgbox>
-            <Img className="slide-image" src={slide.urls} alt="" />
+            <Link to={slide.link}>
+              <Img className="slide-image" src={slide.urls} alt="" />
+            </Link>
           </Imgbox>
           <SlideTitle>{slide.title}</SlideTitle>
           <SlideText>{slide.description}</SlideText>
@@ -166,8 +168,9 @@ const Img = styled.img`
   height: 150%;
   top: -50px;
   position: absolute;
+  cursor: pointer;
   /* object-fit: cover; */
-  animation: slideIn 6s linear forwards;
+  animation: slideIn 7s linear forwards;
   @keyframes slideIn{
     from{
       top: -50%;
