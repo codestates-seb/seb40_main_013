@@ -2,6 +2,7 @@ package gohome.dailydaily.global.common.security.filter;
 
 import gohome.dailydaily.domain.member.entity.Member;
 import gohome.dailydaily.domain.member.repository.MemberRepository;
+import gohome.dailydaily.global.common.security.handler.ErrorResponder;
 import gohome.dailydaily.global.common.security.util.CustomAuthorityUtils;
 import gohome.dailydaily.global.common.security.util.JwtTokenizer;
 import gohome.dailydaily.global.error.BusinessLogicException;
@@ -38,7 +39,8 @@ public class RefreshVerificationFilter extends OncePerRequestFilter {
             response.setHeader("Authorization", "Bearer " + accessToken);
             setAuthenticationToContext(member);
         } catch (Exception exception) {
-            request.setAttribute("exception", exception);
+            ErrorResponder.sendErrorResponse(response, response.SC_UNAUTHORIZED, "Refresh Token Error: " + exception.getMessage());
+            return;
         }
 
         filterChain.doFilter(request, response);

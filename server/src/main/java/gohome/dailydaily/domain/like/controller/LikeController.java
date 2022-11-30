@@ -16,6 +16,7 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/products/{product-id}/likes")
+    @CacheEvict(key = "#productId +\":\" + #memberId", value = "getProduct")
     @ResponseStatus(HttpStatus.CREATED)
     @CacheEvict(key = "#productId +\":\" + #memberId", value = "getProduct")
     public String postLike(@MemberId Long memberId,
