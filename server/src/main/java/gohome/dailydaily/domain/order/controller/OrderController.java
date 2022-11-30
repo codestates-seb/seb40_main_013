@@ -42,10 +42,16 @@ public class OrderController {
     public PageResponseDto<OrderDto.Response> getOrders(@MemberId Long memberId,
                                                         @PageableDefault(size = 20, sort = "createdAt",
                                                                 direction = Sort.Direction.DESC) Pageable pageable) {
-
         Page<Order> orders = orderService.findByMember_Id(memberId, pageable);
 
         return PageResponseDto.of(orders.map(mapper::toResponse));
+    }
+
+    @GetMapping("/{order-id}")
+    public OrderDto.Response getOrder(@MemberId Long memberId,@PathVariable("order-id") Long orderId) {
+        Order order = orderService.findVerifiedOrder(memberId, orderId);
+
+        return mapper.toResponse(order);
     }
 
     @DeleteMapping("/{order-id}")
