@@ -6,14 +6,14 @@ import imageCompression from "browser-image-compression";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function PostReview({ clickModal, filterProductId }) {
+function PostReview({ clickModal, filterProductId, filterData }) {
   const dispatch = useDispatch();
   const [userWriteImg, setUserWriteImg] = useState("");
   const [userWriteContent, setUserWriteContent] = useState("");
   const [userWriteScroe, setUserWriteScroe] = useState("");
   const fileInput = useRef();
   const navigate = useNavigate();
-  console.log(filterProductId);
+  console.log(filterData);
 
   const changeImg = async (e) => {
     console.log(e);
@@ -52,62 +52,75 @@ function PostReview({ clickModal, filterProductId }) {
   };
   console.log(userWriteImg);
   return (
-    <Container>
-      <PostReviewTopSpace>
-        <PostReviewContentTopSpace>
-          <PostReviewContentTop>상품번호 830495</PostReviewContentTop>
-          <PostReviewContentTop>구매일자 2022.01.11</PostReviewContentTop>
-          <PostReviewContentTop onClick={clickModal}>X</PostReviewContentTop>
-        </PostReviewContentTopSpace>
-        <PostReviewContentDownSpace>
-          <PostReviewContentImg />
-          <PostReviewContentNameSpace>
-            <PostReviewContentTitle>브랜드명</PostReviewContentTitle>
-            <PostReviewTopContent>두닷</PostReviewTopContent>
-          </PostReviewContentNameSpace>
-          <PostReviewContentNameSpace>
-            <PostReviewContentTitle>상품이름</PostReviewContentTitle>
-            <PostReviewTopContent>화장대</PostReviewTopContent>
-          </PostReviewContentNameSpace>
-          <PostReviewContentNameSpace>
-            <PostReviewContentTitle>갯수</PostReviewContentTitle>
-            <PostReviewTopContent>1</PostReviewTopContent>
-          </PostReviewContentNameSpace>
-        </PostReviewContentDownSpace>
-      </PostReviewTopSpace>
-      <PostReviewDownSpace>
-        <PostReviewDownTitle>리뷰 내용</PostReviewDownTitle>
-        <PostReviewDownInput
-          placeholder="리뷰의 내용을 입력해주세요!"
-          onChange={changeContent}
-        />
-        <PostReviewDownTitle>리뷰 별점</PostReviewDownTitle>
-        <PostReviewDownInput
-          placeholder="리뷰의 별점을 입력해주세요!"
-          onChange={changeScore}
-        />
-        <input
-          type="file"
-          ref={fileInput}
-          accept="image/*"
-          onChange={(e) => changeImg(e)}
-        />
-        <PostReviewDownBtn onClick={postSubmit}>추가 버튼</PostReviewDownBtn>
-      </PostReviewDownSpace>
-    </Container>
+    // <Wrapper>
+    //   <Container>
+    //     <PostReviewTopSpace>
+    //       <PostReviewContentTopSpace>
+    //         <PostReviewContentTop>상품번호 830495</PostReviewContentTop>
+    //         <PostReviewContentTop>구매일자 2022.01.11</PostReviewContentTop>
+    //         <PostReviewContentTop onClick={clickModal}>X</PostReviewContentTop>
+    //       </PostReviewContentTopSpace>
+    //       <PostReviewContentDownSpace>
+    //         <PostReviewContentImg />
+    //         <PostReviewContentNameSpace>
+    //           <PostReviewContentTitle>브랜드명</PostReviewContentTitle>
+    //           <PostReviewTopContent>두닷</PostReviewTopContent>
+    //         </PostReviewContentNameSpace>
+    //         <PostReviewContentNameSpace>
+    //           <PostReviewContentTitle>상품이름</PostReviewContentTitle>
+    //           <PostReviewTopContent>화장대</PostReviewTopContent>
+    //         </PostReviewContentNameSpace>
+    //         <PostReviewContentNameSpace>
+    //           <PostReviewContentTitle>갯수</PostReviewContentTitle>
+    //           <PostReviewTopContent>1</PostReviewTopContent>
+    //         </PostReviewContentNameSpace>
+    //       </PostReviewContentDownSpace>
+    //     </PostReviewTopSpace>
+    //     <PostReviewDownSpace>
+    //       <PostReviewDownTitle>리뷰 내용</PostReviewDownTitle>
+    //       <PostReviewDownInput
+    //         placeholder="리뷰의 내용을 입력해주세요!"
+    //         onChange={changeContent}
+    //       />
+    //       <PostReviewDownTitle>리뷰 별점</PostReviewDownTitle>
+    //       <PostReviewDownInput
+    //         placeholder="리뷰의 별점을 입력해주세요!"
+    //         onChange={changeScore}
+    //       />
+    //       <input
+    //         type="file"
+    //         ref={fileInput}
+    //         accept="image/*"
+    //         onChange={(e) => changeImg(e)}
+    //       />
+    //       <PostReviewDownBtn onClick={postSubmit}>추가 버튼</PostReviewDownBtn>
+    //     </PostReviewDownSpace>
+    //   </Container>
+    // </Wrapper>
+    <Wrapper></Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  width: 75%;
+  height: 60%;
+  position: fixed;
+  top: 140px;
+  display: flex;
+  justify-content: center;
+`;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 60%;
-  height: 60%;
-  border: 3px solid blue;
-  position: fixed;
+  width: 400px;
+  height: 530px;
+  border: 3px solid #aaaaaa;
   background-color: white;
+  padding: 30px 0px;
+  border-radius: 5px;
 `;
 
 const PostReviewTopSpace = styled.div`
@@ -122,7 +135,6 @@ const PostReviewContentTopSpace = styled.div`
   display: flex;
   margin-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 2px solid var(--color-gray);
 `;
 const PostReviewContentTop = styled.div`
   font-size: 20px;
@@ -142,7 +154,6 @@ const PostReviewContentDownSpace = styled.div`
   align-items: center;
   margin-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 2px solid var(--color-gray);
 `;
 const PostReviewContentImg = styled.img`
   width: 15%;

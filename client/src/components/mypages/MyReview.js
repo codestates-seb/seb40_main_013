@@ -10,28 +10,17 @@ import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 import { FiDelete } from "react-icons/fi";
 import { renderStar } from "../Star";
-import ScrollToTop from "../ScrollToTop";
+import Pagination from "./Pagination";
 
 function MyReview() {
   const dispatch = useDispatch();
   const userWriteReviews = useSelector(
     (state) => state?.review.review?.content
   );
-  const userWriteReviewsPage = useSelector(
-    (state) => state?.review.review.pageInfo
-  );
-  const [isClick, setIsClick] = useState(1);
-  console.log(userWriteReviews);
-  let list = [];
 
-  for (let i = 1; i <= userWriteReviewsPage?.totalPages; i++) {
-    list.push(<span>{i}</span>);
-  }
+  const [curPage, setCurPage] = useState(0);
+  const [totalpage, setTotalpage] = useState(0);
 
-  const clickPage = (number) => {
-    setIsClick(number);
-  };
-  console.log(isClick);
   const clickDelete = (productId, reviewId) => {
     let deleteData = {
       productId: productId,
@@ -45,8 +34,8 @@ function MyReview() {
       top: 0,
       behavior: "smooth",
     });
-    dispatch(getAllReview(isClick));
-  }, [isClick]);
+    dispatch(getAllReview({ curPage, setTotalpage }));
+  }, [curPage]);
 
   return (
     <Container>
@@ -83,23 +72,13 @@ function MyReview() {
                 </CancleBtn>
               </Btns>
             </Detail>
-            <ReactionSpace>
-              <ReactionReviewBtn></ReactionReviewBtn>
-            </ReactionSpace>
           </Content>
           <Hr />
         </div>
       ))}
-      <PageNationSpace>
-        {list?.map((data) => (
-          <PageNationBtn1
-            key={data.props.children}
-            onClick={() => clickPage(data.props.children)}
-          >
-            {data.props.children}
-          </PageNationBtn1>
-        ))}
-      </PageNationSpace>
+      <PaginationContainer>
+        <Pagination totalpage={totalpage} page={curPage} setPage={setCurPage} />
+      </PaginationContainer>
     </Container>
   );
 }
@@ -236,16 +215,7 @@ const Option = styled.h2`
     font-size: 0.7rem;
   }
 `;
-const Price = styled.h2`
-  margin: 10px 0;
-  @media screen and (max-width: 390px) {
-    margin: 5px 5px 5px 0;
-    font-size: 12px;
-  }
-  @media (min-width: 391px) and (max-width: 768px) {
-    margin: 5px 0;
-  }
-`;
+
 const Btns = styled.div`
   display: flex;
   flex-direction: column;
@@ -279,50 +249,10 @@ const CancleBtn = styled.button`
 `;
 
 //반응형 구매후기
-const ReactionSpace = styled.div`
-  display: none;
-  @media screen and (max-width: 479px) {
-    display: flex;
-    justify-content: flex-end;
-    margin: 5px 10px;
-  }
-`;
-
-const ReactionReviewBtn = styled.button`
-  display: none;
-
-  @media screen and (max-width: 479px) {
-    display: flex;
-    color: #515151;
-    border: 0.7px solid #aaaaaa;
-    border-radius: 5px;
-    padding: 3px 10px;
-    cursor: pointer;
-    &:hover {
-      background-color: #002c6d;
-      color: white;
-    }
-  }
-`;
-
-const PageNationSpace = styled.span`
-  width: 98%;
-  height: 35px;
+const PaginationContainer = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
 `;
-const PageNationBtn1 = styled.button`
-  width: 30px;
-  height: 30px;
-  margin: 0px 5px;
-  border: none;
-  background-color: white;
-  &:hover {
-    cursor: pointer;
-    background-color: #aaaaaa;
-    border-radius: 50%;
-  }
-`;
+
 export default MyReview;

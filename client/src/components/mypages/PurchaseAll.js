@@ -108,7 +108,7 @@ const BrandName = styled(Link)`
   font-weight: 700;
   font-size: 1.1rem;
   margin-bottom: 5px;
-  &:hover{
+  &:hover {
     opacity: 0.7;
   }
   @media screen and (max-width: 390px) {
@@ -144,7 +144,7 @@ const Btns = styled.div`
   flex-direction: column;
 `;
 const ReviewBtn = styled.button`
-  &.hidden{
+  &.hidden {
     display: none;
   }
   padding: 10px 30px;
@@ -177,7 +177,7 @@ const ReactionSpace = styled.div`
 const ReactionReviewBtn = styled.button`
   display: none;
   @media screen and (max-width: 390px) {
-    &.hidden{
+    &.hidden {
       display: none;
     }
     display: flex;
@@ -224,8 +224,8 @@ const PurchaseAll = ({ getUserdata, click }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const myOrderData = useSelector((state) => state.myorder.myorder.content);
-  const filterData = myOrderData.filter((order) => order.orderId == id);
-  const filterProduct = filterData[0].orderProducts;
+  const filterData = myOrderData?.filter((order) => order.orderId == id);
+  const filterProduct = filterData[0]?.orderProducts;
   console.log(filterData);
   const filterProductId = filterProduct[0]?.productId;
   const clickModal = () => {
@@ -239,8 +239,12 @@ const PurchaseAll = ({ getUserdata, click }) => {
     <>
       {isModal ? (
         <>
-          <PostReview filterProductId={filterProductId} />
           <Container>
+            <PostReview
+              clickModal={clickModal}
+              filterProductId={filterProductId}
+              filterData={filterData}
+            />
             {/* <PostReview clickModal={clickModal} /> */}
             <AllOrderTitle>주문상세정보</AllOrderTitle>
             <Top>
@@ -268,37 +272,49 @@ const PurchaseAll = ({ getUserdata, click }) => {
                       </BP>
                     </ReactionSubDetail>
                     <Btns>
-                      <ReviewBtn className={filterData[0].status === '주문 취소' ? 'hidden' : ''} onClick={clickModal}>리뷰작성</ReviewBtn>
+                      <ReviewBtn
+                        className={
+                          filterData[0].status === "주문 취소" ? "hidden" : ""
+                        }
+                        onClick={clickModal}
+                      >
+                        리뷰작성
+                      </ReviewBtn>
                     </Btns>
                   </Detail>
                   <ReactionSpace>
-                    <ReactionReviewBtn className={filterData[0].status === '주문 취소' ? 'hidden' : ''}>구매후기</ReactionReviewBtn>
+                    <ReactionReviewBtn
+                      className={
+                        filterData[0].status === "주문 취소" ? "hidden" : ""
+                      }
+                    >
+                      구매후기
+                    </ReactionReviewBtn>
                   </ReactionSpace>
                 </Content>
-            <PaymentTitle>결제정보</PaymentTitle>
-            <Hr />
-            <PaymentContainer>
-              <PaySubContainer>
-                <PaySubTitle>상품금액</PaySubTitle>
-                <PaySubContent>{}원</PaySubContent>
-              </PaySubContainer>
-              <PaySubContainer>
-                <PaySubTitle>선불배송비</PaySubTitle>
-                <PaySubContent>(+) 0원</PaySubContent>
-              </PaySubContainer>
-              <PaySubContainer>
-                <PaySubTitle>결제금액</PaySubTitle>
-                <PaySubContent>26,800원</PaySubContent>
-              </PaySubContainer>
-            </PaymentContainer>
-            </ProductContainer>
+                <PaymentTitle>결제정보</PaymentTitle>
+                <Hr />
+                <PaymentContainer>
+                  <PaySubContainer>
+                    <PaySubTitle>상품금액</PaySubTitle>
+                    <PaySubContent>{}원</PaySubContent>
+                  </PaySubContainer>
+                  <PaySubContainer>
+                    <PaySubTitle>선불배송비</PaySubTitle>
+                    <PaySubContent>(+) 0원</PaySubContent>
+                  </PaySubContainer>
+                  <PaySubContainer>
+                    <PaySubTitle>결제금액</PaySubTitle>
+                    <PaySubContent>26,800원</PaySubContent>
+                  </PaySubContainer>
+                </PaymentContainer>
+              </ProductContainer>
             ))}
-          </Container>{" "}
+          </Container>
         </>
       ) : (
         <>
           <Container>
-            {/* <PostReview clickModal={clickModal} /> */}
             <AllOrderTitle>주문상세정보</AllOrderTitle>
             <Top>
               <SubTop>
@@ -325,11 +341,24 @@ const PurchaseAll = ({ getUserdata, click }) => {
                       </BP>
                     </ReactionSubDetail>
                     <Btns>
-                      <ReviewBtn className={filterData[0].status === '주문 취소' ? 'hidden' : ''} onClick={clickModal}>리뷰작성</ReviewBtn>
+                      <ReviewBtn
+                        className={
+                          filterData[0].status === "주문 취소" ? "hidden" : ""
+                        }
+                        onClick={clickModal}
+                      >
+                        리뷰작성
+                      </ReviewBtn>
                     </Btns>
                   </Detail>
                   <ReactionSpace>
-                    <ReactionReviewBtn className={filterData[0].status === '주문 취소' ? 'hidden' : ''}>구매후기</ReactionReviewBtn>
+                    <ReactionReviewBtn
+                      className={
+                        filterData[0].status === "주문 취소" ? "hidden" : ""
+                      }
+                    >
+                      구매후기
+                    </ReactionReviewBtn>
                   </ReactionSpace>
                 </Content>
               </ProductContainer>

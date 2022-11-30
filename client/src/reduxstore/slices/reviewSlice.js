@@ -6,10 +6,10 @@ let jwtToken = localStorage.getItem("Authorization");
 
 export const getAllReview = createAsyncThunk(
   "review/allGet",
-  async (isClick) => {
+  async ({ curPage, setTotalpage }) => {
     return Apis.get(
       `members/mypage/reviews?page=${
-        isClick - 1
+        curPage - 1
       }&size=20&sort=createdAt%2CDESC`,
       {
         headers: {
@@ -19,6 +19,7 @@ export const getAllReview = createAsyncThunk(
       }
     )
       .then((res) => {
+        setTotalpage(res.data.pageInfo?.totalPages);
         return res.data;
       })
       .catch((err) => {

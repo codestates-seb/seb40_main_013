@@ -74,13 +74,13 @@ const librarySlice = createSlice({
       state.error = "";
     },
     [getSub.fulfilled]: (state, action) => {
-      state.libraryInitial = action.payload.content;
+      state.libraryInitial = action.payload;
       state.loading = true;
       state.error = "";
     },
 
     [getAsc.fulfilled]: (state, action) => {
-      state.ascInitial = action.payload.content;
+      state.ascInitial = action.payload;
       state.loading = true;
       state.error = "";
     },
