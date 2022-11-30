@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AuthService {
 
+    private final JwtTokenizer jwtTokenizer;
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 

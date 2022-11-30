@@ -8,24 +8,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Repository
 @RequiredArgsConstructor
 @Transactional
 public class SearchRedisRepository {
 
-    private final RedisTemplate<String, String> redisTemplate;
-
     private final String key = "search";
+    private final RedisTemplate<String, String> redisTemplate;
     private ZSetOperations<String, String> zSetOperations;
 
     @PostConstruct
     public void init() {
         zSetOperations = redisTemplate.opsForZSet();
-    }
-
-    public void deleteSearchCount() {
-        redisTemplate.delete(key);
     }
 
     public void addSearchCount(String keyword) {
