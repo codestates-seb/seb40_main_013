@@ -131,13 +131,13 @@ public class ProductService {
 
         File file = fileService.storeFile(postProduct.getImg(), productPath);
 
-        List<String> test = new ArrayList<>();
+        List<String> contents = new ArrayList<>();
         for (MultipartFile f : postProduct.getContent()) {
             File content = fileService.storeFile(f, productContentsPath);
-            test.add(content.getFullPath());
+            contents.add(content.getFullPath());
         }
 
-        String content = new Gson().toJson(test);
+        String content = new Gson().toJson(contents);
 
         Product product = mapper.toProduct(postProduct);
 
