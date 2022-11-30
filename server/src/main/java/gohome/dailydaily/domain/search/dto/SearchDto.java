@@ -5,14 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.io.Serializable;
-
 public class SearchDto {
 
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Builder
-    public static class RankResponse implements Serializable {
+    public static class RankResponse {
         private String keyword;
         private Long count;
     }

@@ -35,7 +35,6 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             request.setAttribute("exception", exception);
             ErrorResponder.sendErrorResponse(response, response.SC_UNAUTHORIZED, exception.getMessage());
             //ErrorResponder.sendErrorResponse(response, response.SC_UNAUTHORIZED, "Access Token Error: " + exception.getMessage());
-
             return;
         }
 
