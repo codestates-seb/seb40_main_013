@@ -3,40 +3,21 @@ import styled from "styled-components/macro";
 import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
-import {getLibrary, getSub, getAsc, getCount} from "../../reduxstore/slices/sub/LibrarySlice";
+import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
 import RankingDown from "../../components/subcategories/DropDown";
 
 function Bedroom({ mainClick, subclick }) {
   
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = '침실';
-  console.log(`mainCateClick`,mainCateClick,`subclick`,subclick);
+  console.log(subclick);
 
   const dispatch = useDispatch();
-  const librarySelector = useSelector((state) => state.library.libraryInitial);
-  console.log('112', librarySelector);
-
-  // const subSelector = useSelector((state) => state.library);
-  // console.log(subSelector);
-
-  const countSelector = useSelector(
-    (state) => state.library.coutnInitial.count
-  );
-
-  const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(false);
   
-  const [prevY, setPrevY] = useState(0);
-  let productsRef = useRef({})
+  const subSelector = useSelector((state) => state.subCatetory.subInitial);
+  const countSelector = useSelector((state) => state.subCatetory.coutnInitial.count );
 
-  let loadingRef = useRef(null);
-  let prevYRef = useRef({});
-  let pageRef = useRef({});
-  productsRef.current = products;
-  pageRef.current = page;
-
-  prevYRef.current = prevY
+  const [page, setPage] = useState(0);
 
   // 셀렉트 박스
   const [dropDownclicked, setDropDownClicked] = useState("최신순");
@@ -50,10 +31,7 @@ function Bedroom({ mainClick, subclick }) {
     sortArgument = 'price';
   } else{
     sortArgument = 'createdAt';
-  }
-
-
-  console.log(`dropDownclicked`, dropDownclicked,`sortArgument`,sortArgument, `third`, third );
+  };
 
   const modalRef = useRef();
 
@@ -65,27 +43,20 @@ function Bedroom({ mainClick, subclick }) {
     if (closeDropDown && !modalRef.current.contains(e.target))
       setDloseDropDown(false);
   };
+
   useEffect(() => {
-<<<<<<< HEAD
-      dispatch(getLibrary({ mainCateClick, page, sortArgument, third }));
-=======
-    if (
-    subclick === '침대/매트리스' ||
-    subclick === '행거/옷장' ||
-    subclick === '화장대'
-    ) {
-      dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-    } else {
-      dispatch(getLibrary({ mainCateClick, page, sortArgument, third }));
-    }
->>>>>>> 73a22645496d9fc35f16e3879963473d096f2893
-    // dispatch(getCount());
-  }, [subclick]);
+    dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
+    dispatch(getCount({mainCateClick, subclick}));
+}, [subclick, sortArgument, third ]);
 
   return (
     <SubBlock onClick={outModalCloseHandler}>
       <SubCarousel />
       <FilterBlock>
+        { subclick != '' ? 
+            <div>{subclick}에</div> : 
+            <div>{mainCateClick}에</div>
+        }
         <div className="total">{countSelector}개의 상품이 있습니다</div>
         <section ref={modalRef}>
           <RankingDown
@@ -99,7 +70,7 @@ function Bedroom({ mainClick, subclick }) {
         </section>
       </FilterBlock>
       <ProductList>
-        {librarySelector?.map((product) => (
+        {subSelector?.map((product) => (
           <Products proId={product.id} product={product} key={product.id} />
         ))}
         {/* <div ref={loadingRef}></div> */}

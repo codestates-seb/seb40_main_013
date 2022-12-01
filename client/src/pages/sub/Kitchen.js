@@ -4,7 +4,7 @@ import styled from "styled-components/macro";
 import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
-import {getLibrary, getSub, getAsc, getCount} from "../../reduxstore/slices/sub/LibrarySlice";
+import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
 import RankingDown from "../../components/subcategories/DropDown";
 import Apis from "../../apis/apis";
 
@@ -13,22 +13,10 @@ function Kitchen({ mainClick, subclick }) {
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = '주방';
 
-
-  console.log(`mainCateClick`,mainCateClick,`subclick`,subclick);
-
   const dispatch = useDispatch();
-  // const librarySelector = useSelector((state) => state.library.libraryInitial);
-  // console.log('112', librarySelector);
 
-  // const subSelector = useSelector((state) => state.library);
-  // console.log(subSelector);
-
-  const countSelector = useSelector(
-    (state) => state.library.coutnInitial.count
-  );
-
-  // const [page, setPage] = useState(0);
-  // const [products, setProducts] = useState([]);
+  const subSelector = useSelector((state) => state.subCatetory.subInitial);
+  const countSelector = useSelector((state) => state.subCatetory.coutnInitial.count);
 
   // 셀렉트 박스
   const [dropDownclicked, setDropDownClicked] = useState("최신순");
@@ -44,9 +32,6 @@ function Kitchen({ mainClick, subclick }) {
     sortArgument = 'createdAt';
   }
 
-
-  console.log(`dropDownclicked`, dropDownclicked,`sortArgument`,sortArgument, `third`, third );
-
   const modalRef = useRef();
 
   const closeHandler = () => {
@@ -57,10 +42,11 @@ function Kitchen({ mainClick, subclick }) {
     if (closeDropDown && !modalRef.current.contains(e.target))
       setDloseDropDown(false);
   };
+
   // useEffect(() => {
-  //     dispatch(getLibrary({ mainCateClick, page, sortArgument, third }));
-  //   // dispatch(getCount());
-  // }, [subclick]);
+  //     dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
+  //     dispatch(getCount({mainCateClick, subclick}));
+  // }, [subclick, sortArgument, third ]);
 
   const [products, setProducts] = useState([]);
   console.log(products);
@@ -138,6 +124,10 @@ function Kitchen({ mainClick, subclick }) {
     <SubBlock onClick={outModalCloseHandler}>
       <SubCarousel />
       <FilterBlock>
+        { subclick != '' ? 
+            <div>{subclick}에</div> : 
+            <div>{mainCateClick}에</div>
+        }
         <div className="total">{countSelector}개의 상품이 있습니다</div>
         <section ref={modalRef}>
           <RankingDown

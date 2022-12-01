@@ -18,9 +18,9 @@ const CartItemBlock = styled.div`
   align-items: center;
   justify-content: space-between;
   img {
-    width: 100px;
+    width: 90px;
     height: 100%;
-    padding: 0px 10px;
+    padding-right: 10px;
   }
   .product-price {
     padding: 0px 10px;
@@ -168,6 +168,7 @@ const EachCheckCircle = styled.input`
   appearance: none;
   cursor: pointer;
   transition: background 0.2s;
+  margin-right: 10px;
   &:checked {
     background: #ffaf51;
     border: none;
@@ -206,7 +207,15 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
   };
 
   const onChangeCount = (e) => {
-    setItemCount(e.target.value);
+    let c = e.target.value;
+    console.log(typeof(c) );
+    if( c <101){
+      setItemCount(c);
+    }
+    else{
+      Alert("warning", "100개 까지 주문 가능합니다.");
+      setItemCount(count);
+    }
   };
 
   return (
@@ -236,6 +245,7 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
                 className="count"
                 type="number"
                 pattern="\d*"
+                max={100}
                 value={itemCount}
                 onChange={onChangeCount}
               ></Input>

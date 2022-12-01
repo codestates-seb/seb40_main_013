@@ -3,26 +3,20 @@ import styled from "styled-components/macro";
 import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
-import {getLibrary, getSub, getAsc, getCount} from "../../reduxstore/slices/sub/LibrarySlice";
+import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
 import RankingDown from "../../components/subcategories/DropDown";
 
 import { useInView } from 'react-intersection-observer';
 
 function Library({ mainClick, subclick }) {
-  console.log(mainClick,subclick );
-  
+
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = '서재';
 
   const dispatch = useDispatch();
 
-
-  // const subSelector = useSelector((state) => state.library);
-  // console.log(subSelector);
-
-  const countSelector = useSelector(
-    (state) => state.library.coutnInitial.count
-  );
+  const subSelector = useSelector((state) => state.subCatetory.subInitial);
+  const countSelector = useSelector((state) => state.subCatetory.coutnInitial.count);
 
   const [page, setPage] = useState(0);
 
@@ -40,9 +34,6 @@ function Library({ mainClick, subclick }) {
     sortArgument = 'createdAt';
   }
 
-
-  console.log(mainCateClick,subclick, dropDownclicked,sortArgument, third );
-
   const modalRef = useRef();
 
   const closeHandler = () => {
@@ -53,35 +44,40 @@ function Library({ mainClick, subclick }) {
     if (closeDropDown && !modalRef.current.contains(e.target))
       setDloseDropDown(false);
   };
-  // useEffect(() => {
-  //     dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-  //   // dispatch(getCount());
-  // }, [subclick]);
-
-  const libraryInitialSelector = useSelector((state) => state.library.libraryInitial);
-  console.log('112', libraryInitialSelector);
-  const [ref, inView] = useInView();
 
   useEffect(() => {
-    if(libraryInitialSelector?.length === 0){
-      console.log('첫 포스트 로딩');
       dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-      // setPage(page+1)
-    }
-  }, [subclick]);
+      dispatch(getCount({mainCateClick, subclick}));
+  }, [subclick, sortArgument, third ]);
 
-  useEffect(()=>{
-    if(libraryInitialSelector?.length !==0 && inView) {
-        console.log('첫 로딩 이후 무한 스크롤');
-        setPage(page+1)
-        dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-    }
-  },[inView]);
+  // const libraryInitialSelector = useSelector((state) => state.library.libraryInitial);
+  // console.log('112', libraryInitialSelector);
+  // const [ref, inView] = useInView();
+
+  // useEffect(() => {
+  //   if(libraryInitialSelector?.length === 0){
+  //     console.log('첫 포스트 로딩');
+  //     dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
+  //     // setPage(page+1)
+  //   }
+  // }, [subclick]);
+
+  // useEffect(()=>{
+  //   if(libraryInitialSelector?.length !==0 && inView) {
+  //       console.log('첫 로딩 이후 무한 스크롤');
+  //       setPage(page+1)
+  //       dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
+  //   }
+  // },[inView]);
 
   return (
     <SubBlock onClick={outModalCloseHandler}>
       <SubCarousel />
       <FilterBlock>
+        { subclick != '' ? 
+            <div>{subclick}에</div> : 
+            <div>{mainCateClick}에</div>
+        }
         <div className="total">{countSelector}개의 상품이 있습니다</div>
         <section ref={modalRef}>
           <RankingDown
@@ -95,7 +91,7 @@ function Library({ mainClick, subclick }) {
         </section>
       </FilterBlock>
       <ProductList>
-        {libraryInitialSelector?.map((product) => (
+        {subSelector?.map((product) => (
           <Products proId={product.id} product={product} key={product.id} />
         ))}
         {/* <div ref={loadingRef}></div> */}
