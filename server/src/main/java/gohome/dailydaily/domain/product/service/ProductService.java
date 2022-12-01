@@ -103,9 +103,7 @@ public class ProductService {
         List<CategoryGetDto> tmp;
         for (Seller s : brandList) {
             tmp = productRepository.findByTop15ByBrand(s.getId());
-            if (tmp.isEmpty()) {
-                products.put("guest", null);
-            } else {
+            if (!tmp.isEmpty()) {
                 products.put(tmp.get(0).getNickname(), tmp);
             }
         }
