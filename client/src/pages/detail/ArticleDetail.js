@@ -36,7 +36,6 @@ function ArticleDetail() {
   let price = articlesDetail?.price;
   const isLike = articlesDetail?.existsLike;
   console.log(articlesDetail);
-  const jwtToken = localStorage.getItem("Authorization");
   const clickFunction = () => {
     setClickSelect(!clickSelect);
   };
@@ -210,9 +209,13 @@ function ArticleDetail() {
               </DetailUserPriceSpace>
             </DetailUserSubmitPriceSpace>
             <DetailArticlBtnSpace>
-              <DetailArticlBtn onClick={clickPostCart}>
-                장바구니
-              </DetailArticlBtn>
+              {localStorage.getItem("Authorization") ? (
+                <DetailArticlBtn onClick={clickPostCart}>
+                  장바구니
+                </DetailArticlBtn>
+              ) : (
+                <DetailArticlBtn>장바구니</DetailArticlBtn>
+              )}
               <DetailArticlBtn>바로구매</DetailArticlBtn>
             </DetailArticlBtnSpace>
           </ArticleInformations>

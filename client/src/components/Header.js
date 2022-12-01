@@ -84,10 +84,10 @@ const CategoryList = styled.div`
   }
   @media screen and (max-width: 380px) {
     padding-left: 10px;
-  } 
+  }
   @media (min-width: 381px) and (max-width: 767px) {
     font-size: 15px;
-    }
+  }
   @media screen and (max-width: 380px) {
     font-size: 14px;
   }
@@ -141,7 +141,6 @@ const Category = styled.div`
 `;
 
 function Header({ setMainClick, setSubClick, setSearchWord }) {
-  const jwtToken = localStorage.getItem("Authorization");
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
@@ -149,7 +148,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
 
   const clickMainkMenu = ({ target }) => {
     setMainClick(target.innerText);
-    setSubClick('')
+    setSubClick("");
   };
 
   const clickSubMenu = ({ target }) => {
@@ -165,15 +164,11 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
       setCloseSearch(false);
   };
 
-
   const clickLogOut = (e) => {
     e.preventDefault();
     localStorage.clear();
     navigate("/");
     Toast("success", "로그아웃에 성공하셨습니다!");
-    setTimeout(() => {
-      window.location.reload();
-    }, 1500);
   };
 
   return (
@@ -183,7 +178,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
           <Link to="/register">
             <LoginBtn>판매등록</LoginBtn>
           </Link>
-          {jwtToken ? (
+          {localStorage.getItem("Authorization") ? (
             <Link>
               <LoginBtn onClick={clickLogOut}>로그아웃</LoginBtn>
             </Link>
@@ -192,7 +187,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
               <LoginBtn>로그인/회원가입</LoginBtn>
             </Link>
           )}
-          {jwtToken ? (
+          {localStorage.getItem("Authorization") ? (
             <Link to="/members/mypage/purchase">
               <LoginBtn>마이페이지</LoginBtn>
             </Link>
@@ -262,7 +257,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
                 setSearchWord={setSearchWord}
               />
             </div>
-            {jwtToken ? (
+            {localStorage.getItem("Authorization") ? (
               <Link to="/cart">
                 <div>
                   <BsCart3 size="20" />

@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
 
-let jwtToken = localStorage.getItem("Authorization");
-
 export const likeData = createAsyncThunk(
   "likeData",
   async ({ curPage, setTotalpage }) => {
@@ -10,7 +8,7 @@ export const likeData = createAsyncThunk(
       `members/mypage/likes?page=${curPage - 1}&size=20&sort=createdAt,DESC`,
       {
         headers: {
-          Authorization: `${jwtToken}`,
+          Authorization: `${localStorage.getItem("Authorization")}`,
           "Content-Type": "application/json",
         },
       }

@@ -2,8 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
 import axios from "axios";
 
-let jwtToken = localStorage.getItem("Authorization");
-
 export const getAllReview = createAsyncThunk(
   "review/allGet",
   async ({ curPage, setTotalpage }) => {
@@ -13,7 +11,7 @@ export const getAllReview = createAsyncThunk(
       }&size=20&sort=createdAt%2CDESC`,
       {
         headers: {
-          Authorization: `${jwtToken}`,
+          Authorization: `${localStorage.getItem("Authorization")}`,
           "Content-Type": "application/json",
         },
       }
@@ -37,7 +35,7 @@ export const postReview = createAsyncThunk(
     form.append("img", postData.img);
     return Apis.post(`products/${postData.filterProductId}/reviews`, form, {
       headers: {
-        Authorization: `${jwtToken}`,
+        Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "multipart/form-data",
       },
     })
@@ -60,7 +58,7 @@ export const updateReview = createAsyncThunk(
       updateData,
       {
         headers: {
-          Authorization: `${jwtToken}`,
+          Authorization: `${localStorage.getItem("Authorization")}`,
         },
       }
     )
@@ -81,7 +79,7 @@ export const deleteReview = createAsyncThunk(
       `products/${deleteData.productId}/reviews/${deleteData.reviewId}`,
       {
         headers: {
-          Authorization: `${jwtToken}`,
+          Authorization: `${localStorage.getItem("Authorization")}`,
         },
       }
     )

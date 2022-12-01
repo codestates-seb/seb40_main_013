@@ -3,14 +3,12 @@ import Apis from "../../apis/apis";
 import { Toast } from "../../components/Alert";
 import Swal from "sweetalert2";
 
-let jwtToken = localStorage.getItem("Authorization");
-
 export const getArticleDetail = createAsyncThunk(
   "products/detail",
   async (id) => {
     return Apis.get(`products/details/${id}`, {
       headers: {
-        Authorization: `${jwtToken}`,
+        Authorization: `${localStorage.getItem("Authorization")}`,
       },
     })
       .then((res) => {
@@ -27,7 +25,7 @@ export const postCart = createAsyncThunk(
   async ({ postData, navigate }) => {
     return Apis.post(`carts`, postData, {
       headers: {
-        Authorization: `${jwtToken}`,
+        Authorization: `${localStorage.getItem("Authorization")}`,
       },
     })
       .then((res) => {
@@ -60,7 +58,7 @@ export const postLike = createAsyncThunk("postLike", async (id) => {
     {},
     {
       headers: {
-        Authorization: `${jwtToken}`,
+        Authorization: `${localStorage.getItem("Authorization")}`,
       },
     }
   )
@@ -79,7 +77,7 @@ export const postLike = createAsyncThunk("postLike", async (id) => {
 export const deleteLike = createAsyncThunk("deleteLike", async (id) => {
   return Apis.delete(`/products/${id}/likes`, {
     headers: {
-      Authorization: `${jwtToken}`,
+      Authorization: `${localStorage.getItem("Authorization")}`,
     },
   })
     .then((res) => {
@@ -110,7 +108,7 @@ export const getShoppingCart = createAsyncThunk(
   async () => {
     return Apis.get(`carts`, {
       headers: {
-        Authorization: `${jwtToken}`,
+        Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "application/json",
       },
     })
@@ -128,7 +126,7 @@ export const deleteShoppingCart = createAsyncThunk(
   async (elId) => {
     return Apis.delete(`carts/${elId}`, {
       headers: {
-        Authorization: `${jwtToken}`,
+        Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "application/json",
       },
     })
@@ -154,7 +152,7 @@ export const postPayment = createAsyncThunk(
       },
       {
         headers: {
-          Authorization: `${jwtToken}`,
+          Authorization: `${localStorage.getItem("Authorization")}`,
           "Content-Type": "application/json",
         },
       }
@@ -181,7 +179,7 @@ export const reCountCartItem = createAsyncThunk(
       },
       {
         headers: {
-          Authorization: `${jwtToken}`,
+          Authorization: `${localStorage.getItem("Authorization")}`,
         },
       }
     )
@@ -252,7 +250,7 @@ export const postArticle = createAsyncThunk(
     form.append("optionList[1].stock", postArticleData.optionList[1].stock);
     return Apis.post(`products`, form, {
       headers: {
-        Authorization: `${jwtToken}`,
+        Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "multipart/form-data",
       },
     })

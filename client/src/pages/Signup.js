@@ -176,11 +176,12 @@ const UserWriteInput = styled.input`
   width: 90%;
   height: 40px;
   padding-left: 10px;
+  border: 1px solid #aaaaaa;
   @media screen and (max-width: 768px) {
     width: 90%;
     height: 40px;
     margin-top: 20px;
-    border: 1px solid black;
+    border: 1px solid #aaaaaa;
   }
 `;
 
