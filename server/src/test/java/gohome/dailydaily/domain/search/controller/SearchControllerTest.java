@@ -3,6 +3,7 @@ package gohome.dailydaily.domain.search.controller;
 import gohome.dailydaily.domain.search.dto.SearchDto;
 import gohome.dailydaily.domain.search.mapper.SearchMapper;
 import gohome.dailydaily.domain.search.repository.SearchRedisRepository;
+import gohome.dailydaily.domain.search.repository.SearchResRedisRepository;
 import gohome.dailydaily.util.security.SecurityTestConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +37,11 @@ class SearchControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @MockBean
-    private SearchMapper searchMapper;
+
     @MockBean
     private SearchRedisRepository searchRedisRepository;
-
+    @MockBean
+    private SearchResRedisRepository searchResRedisRepository;
     @Test
     void getRank() throws Exception {
         // given
@@ -49,7 +50,7 @@ class SearchControllerTest {
         SearchDto.RankResponse response3 = SearchDto.RankResponse.builder().count(2L).keyword("검색어3").build();
         SearchDto.RankResponse response4 = SearchDto.RankResponse.builder().count(1L).keyword("검색어4").build();
 
-        given(searchMapper.toResponse(anySet()))
+        given(searchResRedisRepository.getTop5Responses())
                 .willReturn(List.of(response1, response2, response3, response4));
 
         // when
