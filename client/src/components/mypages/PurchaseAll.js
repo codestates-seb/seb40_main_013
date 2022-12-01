@@ -228,6 +228,7 @@ const PurchaseAll = () => {
   const filterProduct = useSelector(
     (state) => state.myorder.filterorder.orderProducts
   );
+  console.log(filterData, filterProduct);
 
   const clickModal = () => {
     setIsModal(!isModal);
@@ -241,9 +242,12 @@ const PurchaseAll = () => {
     <>
       {isModal ? (
         <>
-          {/* <PostReview filterProductId={filterProductId} /> */}
-          <Container>
-            {/* <PostReview clickModal={clickModal} /> */}
+          <Container onClick={clickModal}>
+            <PostReview
+              clickModal={clickModal}
+              onClick={(e) => e.preventDefault()}
+              filterData={filterProduct}
+            />
             <AllOrderTitle>주문상세정보</AllOrderTitle>
             <Top>
               <SubTop>

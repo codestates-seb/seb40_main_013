@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components/macro";
-import { getMyOrder } from '../../reduxstore/slices/myOrderSlice';
+import { getMyOrder } from "../../reduxstore/slices/myOrderSlice";
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";
 import { AlreadyDeleteAlert } from "../Alert";
@@ -35,11 +35,11 @@ const NotContainer = styled.div`
   padding: 3rem 0;
 `;
 const NotIcon = styled.div`
-  background-color: #AAAAAA;
+  background-color: #aaaaaa;
   width: 10rem;
   height: 10rem;
   border-radius: 50%;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 10vw;
@@ -47,17 +47,17 @@ const NotIcon = styled.div`
   margin-bottom: 20px;
   animation: rotate 5s infinite;
   @keyframes rotate {
-  from {
-    -webkit-transform: rotate(-30deg);
-    -o-transform: rotate(-30deg);
-    transform: rotate(-30deg);
+    from {
+      -webkit-transform: rotate(-30deg);
+      -o-transform: rotate(-30deg);
+      transform: rotate(-30deg);
+    }
+    to {
+      -webkit-transform: rotate(30deg);
+      -o-transform: rotate(30deg);
+      transform: rotate(30deg);
+    }
   }
-  to {
-    -webkit-transform: rotate(30deg);
-    -o-transform: rotate(30deg);
-    transform: rotate(30deg);
-  }
-}
 `;
 const NotOrder = styled.h3`
   display: flex;
@@ -81,21 +81,21 @@ const SubTop = styled.h2`
   font-weight: 600;
   font-size: 1.1rem;
   color: #272727;
-  .orderStatus{
-    color: #FFAF51;
+  .orderStatus {
+    color: #ffaf51;
   }
-  .ordercancle{
+  .ordercancle {
     color: red;
   }
   @media screen and (max-width: 390px) {
     font-size: 12px;
     font-weight: 600;
   }
-  @media (min-width: 391px) and (max-width: 767px){
+  @media (min-width: 391px) and (max-width: 767px) {
     font-size: 2.2vw;
     font-weight: 500;
   }
-  @media (min-width: 768px) and (max-width: 1023px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 1.6vw;
     font-weight: 500;
   }
@@ -103,7 +103,7 @@ const SubTop = styled.h2`
 const AllPurchase = styled.div`
   font-weight: 600;
   font-size: 1.1rem;
-  display:flex;
+  display: flex;
   align-items: flex-end;
   color: #aaaaaa;
   cursor: pointer;
@@ -114,12 +114,12 @@ const AllPurchase = styled.div`
     font-size: 12px;
     font-weight: 600;
   }
-  @media (min-width: 391px) and (max-width: 767px){
+  @media (min-width: 391px) and (max-width: 767px) {
     font-size: 2vw;
     align-items: flex-end;
     color: #515151;
   }
-  @media (min-width: 768px) and (max-width: 1023px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 1.7vw;
   }
 `;
@@ -177,8 +177,8 @@ const BP = styled.div`
   margin-left: 20px;
   @media screen and (max-width: 390px) {
     justify-content: center;
-  }  
-  @media (min-width: 391px) and (max-width: 767px){
+  }
+  @media (min-width: 391px) and (max-width: 767px) {
     justify-content: center;
     margin-left: 0;
   }
@@ -203,7 +203,7 @@ const Option = styled.h2`
   margin: 5px 0;
   @media screen and (max-width: 390px) {
     font-size: 0.7rem;
-  }  
+  }
 `;
 const Price = styled.h2`
   margin: 10px 0;
@@ -237,7 +237,7 @@ const CancleBtn = styled.button`
   @media (min-width: 480px) and (max-width: 767px) {
     padding: 8px 30px;
   }
-  @media (min-width: 768px) and (max-width: 1023px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     padding: 8px 26px;
   }
 `;
@@ -254,7 +254,7 @@ const ReactionSpace = styled.div`
 
 const ReactionReviewBtn = styled.button`
   display: none;
-  
+
   @media screen and (max-width: 479px) {
     display: flex;
     color: #515151;
@@ -275,7 +275,7 @@ const PaginationContainer = styled.div`
   justify-content: center;
 `;
 
-const ThickHr= styled.hr`
+const ThickHr = styled.hr`
   height: 2px;
   border: none;
   background-color: var(--color-center-line);
@@ -285,55 +285,56 @@ const DetailContent = styled.div``;
 
 const PurchaseList = () => {
   const dispatch = useDispatch();
-  const myOrderData = useSelector((state)=> state.myorder.myorder.content);
-  const pageInfo = useSelector((state)=> state.myorder.myorder.pageInfo);
+  const myOrderData = useSelector((state) => state.myorder.myorder.content);
+  const pageInfo = useSelector((state) => state.myorder.myorder.pageInfo);
   const initialToken = localStorage.getItem("Authorization");
   //페이지네이션
   const [curPage, setCurPage] = useState(0); //현재페이지
   const [totalpage, setTotalpage] = useState(0);
 
-  useEffect(()=>{
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-    dispatch(getMyOrder({curPage, setTotalpage}))
+    dispatch(getMyOrder({ curPage, setTotalpage }));
   }, [curPage]);
 
   //주문취소 버튼
-  const handleOrderCancle = (id) =>{
-    const curData = myOrderData.filter(data => data.orderId == id);
+  const handleOrderCancle = (id) => {
+    const curData = myOrderData.filter((data) => data.orderId == id);
     console.log(curData[0].status);
-    if(curData[0].status === '주문 취소'){
-      console.log('취소된 주문!!!')
+    if (curData[0].status === "주문 취소") {
+      console.log("취소된 주문!!!");
       AlreadyDeleteAlert();
     }
     Swal.fire({
       title: "Are you sure?",
-      text: '주문을 취소하시겠습니까?',
+      text: "주문을 취소하시겠습니까?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#002C6D",
       cancelButtonColor: "#d33",
-      confirmButtonText: '주문취소',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        orderCancle(id);
-        Swal.fire("취소되었습니다", '주문이 취소되었습니다.', "success");
-        window.location.reload();
-      }
-    }).catch((err) => console.log(err));
-  }
+      confirmButtonText: "주문취소",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          orderCancle(id);
+          Swal.fire("취소되었습니다", "주문이 취소되었습니다.", "success");
+          window.location.reload();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   const orderCancle = (id) => {
     Apis.delete(`/orders/${id}`, {
       headers: {
         Authorization: initialToken,
       },
-    })
-      .then(() => {
-        // console.log('orderCanle!!!')
-      })
+    }).then(() => {
+      // console.log('orderCanle!!!')
+    });
   };
 
   return (
@@ -345,47 +346,69 @@ const PurchaseList = () => {
         </NotContainer>
       ) : (
         <Container>
-              <Hr />
-              {myOrderData?.map((order, i) => (
-                <Ordercontainter key={i}>
-                <Top>
-                  <SubTop>
-                    <span className="ordernumber">{order.orderNumber}</span>
-                    &nbsp;|&nbsp; {order.createdAt.slice(0, 10)}&nbsp;|&nbsp; 
-                    <span className={order.status === '주문 접수' ? 'orderStatus' : 'ordercancle'}>{order.status}</span>
-                  </SubTop>
-                  <Link to={`${order.orderId}`}>
-                    <AllPurchase>상세보기 &gt;</AllPurchase>
-                  </Link>
-                </Top>
-                <Content>
-                  <Detail>
-                    <ReactionSubDetail>
+          <Hr />
+          {myOrderData?.map((order, i) => (
+            <Ordercontainter key={i}>
+              <Top>
+                <SubTop>
+                  <span className="ordernumber">{order.orderNumber}</span>
+                  &nbsp;|&nbsp; {order.createdAt.slice(0, 10)}&nbsp;|&nbsp;
+                  <span
+                    className={
+                      order.status === "주문 접수"
+                        ? "orderStatus"
+                        : "ordercancle"
+                    }
+                  >
+                    {order.status}
+                  </span>
+                </SubTop>
+                <Link to={`${order.orderId}`}>
+                  <AllPurchase>상세보기 &gt;</AllPurchase>
+                </Link>
+              </Top>
+              <Content>
+                <Detail>
+                  <ReactionSubDetail>
                     <Img src={order.orderProducts[0]?.img.fullPath} />
                     <Link to={`${order.orderId}`}>
                       <BP>
-                        <BrandName>{[order.orderProducts[0]?.brandName]}<span>{order.orderProducts[0]?.title}</span>&nbsp;외 {order.orderProducts?.length}개</BrandName>
+                        <BrandName>
+                          {[order.orderProducts[0]?.brandName]}
+                          <span>
+                            {order.orderProducts[0]?.title}
+                          </span>&nbsp;외 {order.orderProducts?.length}개
+                        </BrandName>
                         <Option>색상: {order.orderProducts[0]?.color}</Option>
-                        <Price><span>₩&nbsp;{order.orderProducts[0]?.price.toLocaleString("en-US")}</span></Price>
+                        <Price>
+                          <span>
+                            ₩&nbsp;
+                            {order.orderProducts[0]?.price.toLocaleString(
+                              "en-US"
+                            )}
+                          </span>
+                        </Price>
                       </BP>
                     </Link>
-                    </ReactionSubDetail>
-                    <Btns>
-                      <CancleBtn onClick={()=>handleOrderCancle(order.orderId)}>주문취소</CancleBtn>
-                    </Btns>
-                  </Detail>
-                  <ReactionSpace>
-                    <ReactionReviewBtn>주문취소</ReactionReviewBtn>
-                  </ReactionSpace>
-                </Content>
+                  </ReactionSubDetail>
+                  <Btns>
+                    <CancleBtn onClick={() => handleOrderCancle(order.orderId)}>
+                      주문취소
+                    </CancleBtn>
+                  </Btns>
+                </Detail>
+                <ReactionSpace>
+                  <ReactionReviewBtn>주문취소</ReactionReviewBtn>
+                </ReactionSpace>
+              </Content>
               <Hr />
-              </Ordercontainter>
-              ))}
+            </Ordercontainter>
+          ))}
           <PaginationContainer>
-            <Pagination 
-            totalpage={totalpage}
-            page={curPage}
-            setPage={setCurPage}
+            <Pagination
+              totalpage={totalpage}
+              page={curPage}
+              setPage={setCurPage}
             />
           </PaginationContainer>
         </Container>

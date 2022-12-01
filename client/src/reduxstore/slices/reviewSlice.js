@@ -53,14 +53,20 @@ export const postReview = createAsyncThunk(
 );
 export const updateReview = createAsyncThunk(
   "review/update",
-  async ({ updateData }) => {
-    return Apis.patch(`products/3/reviews`, updateData, {
-      headers: {
-        Authorization: `${jwtToken}`,
-      },
-    })
+  async ({ filterProductId, updateData }) => {
+    console.log({ updateData });
+    return Apis.patch(
+      `products/${filterProductId}/reviews/${updateData.reviewId}`,
+      updateData,
+      {
+        headers: {
+          Authorization: `${jwtToken}`,
+        },
+      }
+    )
       .then((res) => {
         console.log(res);
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {

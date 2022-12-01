@@ -11,15 +11,25 @@ import { FaEdit } from "react-icons/fa";
 import { FiDelete } from "react-icons/fi";
 import { renderStar } from "../Star";
 import Pagination from "./Pagination";
+import PostReview from "./PostReview";
+import noImg from "../../imgs/noImg.gif";
 
 function MyReview() {
   const dispatch = useDispatch();
   const userWriteReviews = useSelector(
     (state) => state?.review.review?.content
   );
+  console.log(userWriteReviews);
+  const [filteReview, setFilterReview] = useState("");
 
   const [curPage, setCurPage] = useState(0);
   const [totalpage, setTotalpage] = useState(0);
+  const [isModal, setIsModal] = useState(false);
+  const clickModal = (id) => {
+    const filteData = userWriteReviews?.filter((data) => data.reviewId === id);
+    setFilterReview(filteData);
+    setIsModal(!isModal);
+  };
 
   const clickDelete = (productId, reviewId) => {
     let deleteData = {
@@ -38,48 +48,124 @@ function MyReview() {
   }, [curPage]);
 
   return (
-    <Container>
-      <Hr />
-      {userWriteReviews?.map((data, idx) => (
-        <div key={data?.reviewId}>
-          <Top>
-            <SubTop>
-              {new Date(data.createdAt).getFullYear() +
-                "." +
-                [new Date(data.createdAt).getMonth() + 1] +
-                "." +
-                new Date(data.createdAt).getDate()}
-            </SubTop>
-          </Top>
-          <Content>
-            <Detail>
-              <ReactionSubDetail>
-                {data?.img ? <Img src={data?.img.fullPath}></Img> : <Img></Img>}
-                <BP>
-                  <BrandName to={`/detail/${data?.productId}`}>
-                    {data?.productTitle}
-                  </BrandName>
-                  {renderStar(data?.score)}
-                  <Option>{data?.content}</Option>
-                </BP>
-              </ReactionSubDetail>
-              <Btns>
-                <CancleBtn>수정하기</CancleBtn>
-                <CancleBtn
-                  onClick={() => clickDelete(data?.productId, data?.reviewId)}
-                >
-                  삭제하기
-                </CancleBtn>
-              </Btns>
-            </Detail>
-          </Content>
+    <>
+      {isModal ? (
+        <Container onClick={clickModal}>
+          <PostReview
+            clickModal={clickModal}
+            onClick={(e) => e.preventDefault()}
+            filteReview={filteReview}
+          />
           <Hr />
-        </div>
-      ))}
-      <PaginationContainer>
-        <Pagination totalpage={totalpage} page={curPage} setPage={setCurPage} />
-      </PaginationContainer>
-    </Container>
+          {userWriteReviews?.map((data, idx) => (
+            <div key={data?.reviewId}>
+              <Top>
+                <SubTop>
+                  {new Date(data.createdAt).getFullYear() +
+                    "." +
+                    [new Date(data.createdAt).getMonth() + 1] +
+                    "." +
+                    new Date(data.createdAt).getDate()}
+                </SubTop>
+              </Top>
+              <Content>
+                <Detail>
+                  <ReactionSubDetail>
+                    {data?.img ? (
+                      <Img src={data?.img.fullPath}></Img>
+                    ) : (
+                      <Img src={noImg} />
+                    )}
+                    <BP>
+                      <BrandName to={`/detail/${data?.productId}`}>
+                        {data?.productTitle}
+                      </BrandName>
+                      {renderStar(data?.score)}
+                      <Option>{data?.content}</Option>
+                    </BP>
+                  </ReactionSubDetail>
+                  <Btns>
+                    <CancleBtn onClick={() => clickModal(data.reviewId)}>
+                      수정하기
+                    </CancleBtn>
+                    <CancleBtn
+                      onClick={() =>
+                        clickDelete(data?.productId, data?.reviewId)
+                      }
+                    >
+                      삭제하기
+                    </CancleBtn>
+                  </Btns>
+                </Detail>
+              </Content>
+              <Hr />
+            </div>
+          ))}
+          <PaginationContainer>
+            <Pagination
+              totalpage={totalpage}
+              page={curPage}
+              setPage={setCurPage}
+            />
+          </PaginationContainer>
+        </Container>
+      ) : (
+        <Container>
+          <Hr />
+          {userWriteReviews?.map((data, idx) => (
+            <div key={data?.reviewId}>
+              <Top>
+                <SubTop>
+                  {new Date(data.createdAt).getFullYear() +
+                    "." +
+                    [new Date(data.createdAt).getMonth() + 1] +
+                    "." +
+                    new Date(data.createdAt).getDate()}
+                </SubTop>
+              </Top>
+              <Content>
+                <Detail>
+                  <ReactionSubDetail>
+                    {data?.img ? (
+                      <Img src={data?.img.fullPath}></Img>
+                    ) : (
+                      <Img src={noImg} />
+                    )}
+                    <BP>
+                      <BrandName to={`/detail/${data?.productId}`}>
+                        {data?.productTitle}
+                      </BrandName>
+                      {renderStar(data?.score)}
+                      <Option>{data?.content}</Option>
+                    </BP>
+                  </ReactionSubDetail>
+                  <Btns>
+                    <CancleBtn onClick={() => clickModal(data.reviewId)}>
+                      수정하기
+                    </CancleBtn>
+                    <CancleBtn
+                      onClick={() =>
+                        clickDelete(data?.productId, data?.reviewId)
+                      }
+                    >
+                      삭제하기
+                    </CancleBtn>
+                  </Btns>
+                </Detail>
+              </Content>
+              <Hr />
+            </div>
+          ))}
+          <PaginationContainer>
+            <Pagination
+              totalpage={totalpage}
+              page={curPage}
+              setPage={setCurPage}
+            />
+          </PaginationContainer>
+        </Container>
+      )}
+    </>
   );
 }
 
@@ -153,9 +239,11 @@ const Detail = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 10px 20px;
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 474px) {
     margin: 5px 10px;
-    justify-content: flex-start;
+    display: flex;
+    /* justify-content: flex-start; */
+    flex-direction: column;
   }
 `;
 const ReactionSubDetail = styled.div`
@@ -219,6 +307,12 @@ const Option = styled.h2`
 const Btns = styled.div`
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 473px) {
+    margin: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: flex-start; */
+  }
 `;
 const CancleBtn = styled.button`
   padding: 8px 30px;
@@ -226,9 +320,8 @@ const CancleBtn = styled.button`
   background-color: var(--color-navy);
   border-radius: 10px;
   white-space: nowrap;
-  &:nth-child(1) {
-    margin-bottom: 10px;
-  }
+  margin-bottom: 10px;
+
   cursor: pointer;
   &:hover {
     /* background-color: red;
@@ -237,9 +330,13 @@ const CancleBtn = styled.button`
     background-color: white;
     border: 1px solid #aaaaaa;
   }
-  @media screen and (max-width: 479px) {
-    display: none;
+  @media screen and (max-width: 473px) {
+    width: 50%;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    /* justify-content: flex-start; */
   }
+
   @media (min-width: 480px) and (max-width: 767px) {
     padding: 8px 30px;
   }
