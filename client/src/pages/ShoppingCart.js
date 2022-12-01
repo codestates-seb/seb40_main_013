@@ -93,19 +93,22 @@ const CartList = styled.div`
   width: 100%;
   flex-direction: column;
   @media screen and (min-width: 1024px) {
-    padding-right: 20px;
+    margin-right: 320px;
     width: 700px;
   }
   @media screen and (max-width: 1023px) {
-    padding-right: 0px;
+    margin-right: 0px;
     max-width: 700px;
   }
 `;
 
 //결제정보
 const Payment = styled.section`
-  position: relative;
+  position: fixed;
   /* margin-top: -220px; */
+  top: 230px;
+  right: 50%;
+  margin-right: -505px;
   width: 300px;
   height: 300px;
   min-width: 230px;
@@ -117,10 +120,17 @@ const Payment = styled.section`
     font-weight: 500;
   }
   @media screen and (max-width: 1023px) {
+    top: 0;
+    margin-right: 0;
+    right: 0;
     margin-top: 0px;
     width: 100%;
     max-width: 700px;
+    position: relative;
   }
+  /* @media screen and (min-width: 1023px) {
+    right: 40px;
+  } */
 `;
 
 const PayInfo = styled.div`
