@@ -17,11 +17,11 @@ public class LocalFileRepository implements FileRepository {
         String fullPath = path + storeFilename;
 
         multipartFile.transferTo(new java.io.File(fullPath));
-        fullPath = fullPath.replaceAll("/img","");
+        fullPath = fullPath.replaceAll("/img", "");
 
         return File.builder()
                 .fileName(originalFilename)
-                .fullPath("http://ec2-3-39-250-169.ap-northeast-2.compute.amazonaws.com/images" +fullPath)
+                .fullPath("https://dailydaily.kro.kr/images" + fullPath)
                 .build();
     }
 
