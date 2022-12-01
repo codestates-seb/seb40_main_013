@@ -66,19 +66,7 @@ function Bedroom({ mainClick, subclick }) {
       setDloseDropDown(false);
   };
   useEffect(() => {
-<<<<<<< HEAD
       dispatch(getLibrary({ mainCateClick, page, sortArgument, third }));
-=======
-    if (
-    subclick === '침대/매트리스' ||
-    subclick === '행거/옷장' ||
-    subclick === '화장대'
-    ) {
-      dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-    } else {
-      dispatch(getLibrary({ mainCateClick, page, sortArgument, third }));
-    }
->>>>>>> 73a22645496d9fc35f16e3879963473d096f2893
     // dispatch(getCount());
   }, [subclick]);
 

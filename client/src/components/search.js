@@ -246,7 +246,7 @@ function DownSearch({closeSearch, closeHandler, setSearchWord}){
         <div className="search-section">
             <Form>
                 <SearchInput>
-                    <input type="text" value={inputWord} onChange={inputChageHandler} maxlength='23'>
+                    <input type="text" value={inputWord} onChange={inputChageHandler} maxLength='23'>
                       </input>
                     <button onClick={searchResultHandler}>
                         <SearchIcon/>

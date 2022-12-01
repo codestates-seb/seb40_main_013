@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PostReview from "./PostReview";
-import { getMyOrder } from "../../reduxstore/slices/myOrderSlice";
+import { filterMyOrder } from "../../reduxstore/slices/myOrderSlice";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -144,6 +144,7 @@ const Btns = styled.div`
   flex-direction: column;
 `;
 const ReviewBtn = styled.button`
+  white-space: nowrap;
   &.hidden{
     display: none;
   }
@@ -219,34 +220,34 @@ const PaymentContainer = styled.div`
   }
 `;
 
-const PurchaseAll = ({ getUserdata, click }) => {
+const PurchaseAll = () => {
   const [isModal, setIsModal] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
-  const myOrderData = useSelector((state) => state.myorder.myorder.content);
-  const filterData = myOrderData?.filter((order) => order.orderId == id);
-  const filterProduct = filterData[0]?.orderProducts;
-  console.log(filterData);
-  const filterProductId = filterProduct[0]?.productId;
+  const filterData = useSelector((state) => state.myorder.filterorder);
+  const filterProduct = useSelector((state)=>state.myorder.filterorder.orderProducts
+  );
+
   const clickModal = () => {
     setIsModal(!isModal);
   };
+  
   useEffect(() => {
-    dispatch(getMyOrder(click));
+    dispatch(filterMyOrder(id));
   }, []);
 
   return (
     <>
       {isModal ? (
         <>
-          <PostReview filterProductId={filterProductId} />
+          {/* <PostReview filterProductId={filterProductId} /> */}
           <Container>
             {/* <PostReview clickModal={clickModal} /> */}
             <AllOrderTitle>주문상세정보</AllOrderTitle>
             <Top>
               <SubTop>
-                {filterData[0].orderNumber}&nbsp;|&nbsp;
-                {filterData[0].createdAt.slice(0, 10)}
+                {filterData.orderNumber}&nbsp;|&nbsp;
+                {filterData.createdAt?.slice(0, 10)}
               </SubTop>
             </Top>
             {filterProduct?.map((p, i) => (
@@ -268,11 +269,11 @@ const PurchaseAll = ({ getUserdata, click }) => {
                       </BP>
                     </ReactionSubDetail>
                     <Btns>
-                      <ReviewBtn className={filterData[0].status === '주문 취소' ? 'hidden' : ''} onClick={clickModal}>리뷰작성</ReviewBtn>
+                      <ReviewBtn className={filterData.status === '주문 취소' ? 'hidden' : ''} onClick={clickModal}>리뷰작성</ReviewBtn>
                     </Btns>
                   </Detail>
                   <ReactionSpace>
-                    <ReactionReviewBtn className={filterData[0].status === '주문 취소' ? 'hidden' : ''}>구매후기</ReactionReviewBtn>
+                    <ReactionReviewBtn className={filterData.status === '주문 취소' ? 'hidden' : ''}>구매후기</ReactionReviewBtn>
                   </ReactionSpace>
                 </Content>
             <PaymentTitle>결제정보</PaymentTitle>
@@ -298,12 +299,11 @@ const PurchaseAll = ({ getUserdata, click }) => {
       ) : (
         <>
           <Container>
-            {/* <PostReview clickModal={clickModal} /> */}
             <AllOrderTitle>주문상세정보</AllOrderTitle>
             <Top>
               <SubTop>
-                {filterData[0].orderNumber}&nbsp;|&nbsp;
-                {filterData[0].createdAt.slice(0, 10)}
+                {filterData.orderNumber}&nbsp;|&nbsp;
+                {filterData.createdAt?.slice(0, 10)}
               </SubTop>
             </Top>
             {filterProduct?.map((p, i) => (
@@ -325,11 +325,11 @@ const PurchaseAll = ({ getUserdata, click }) => {
                       </BP>
                     </ReactionSubDetail>
                     <Btns>
-                      <ReviewBtn className={filterData[0].status === '주문 취소' ? 'hidden' : ''} onClick={clickModal}>리뷰작성</ReviewBtn>
+                      <ReviewBtn className={filterData.status === '주문 취소' ? 'hidden' : ''} onClick={clickModal}>리뷰작성</ReviewBtn>
                     </Btns>
                   </Detail>
                   <ReactionSpace>
-                    <ReactionReviewBtn className={filterData[0].status === '주문 취소' ? 'hidden' : ''}>구매후기</ReactionReviewBtn>
+                    <ReactionReviewBtn className={filterData.status === '주문 취소' ? 'hidden' : ''}>구매후기</ReactionReviewBtn>
                   </ReactionSpace>
                 </Content>
               </ProductContainer>

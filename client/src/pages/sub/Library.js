@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {getLibrary, getSub, getAsc, getCount} from "../../reduxstore/slices/sub/LibrarySlice";
 import RankingDown from "../../components/subcategories/DropDown";
 
-import { useInView } from 'react-intersection-observer';
+// import { useInView } from 'react-intersection-observer';
 
 function Library({ mainClick, subclick }) {
   console.log(mainClick,subclick );
@@ -60,7 +60,7 @@ function Library({ mainClick, subclick }) {
 
   const libraryInitialSelector = useSelector((state) => state.library.libraryInitial);
   console.log('112', libraryInitialSelector);
-  const [ref, inView] = useInView();
+  // const [ref, inView] = useInView();
 
   useEffect(() => {
     if(libraryInitialSelector?.length === 0){
@@ -70,13 +70,13 @@ function Library({ mainClick, subclick }) {
     }
   }, [subclick]);
 
-  useEffect(()=>{
-    if(libraryInitialSelector?.length !==0 && inView) {
-        console.log('첫 로딩 이후 무한 스크롤');
-        setPage(page+1)
-        dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-    }
-  },[inView]);
+  // useEffect(()=>{
+  //   if(libraryInitialSelector?.length !==0 && inView) {
+  //       console.log('첫 로딩 이후 무한 스크롤');
+  //       setPage(page+1)
+  //       dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
+  //   }
+  // },[inView]);
 
   return (
     <SubBlock onClick={outModalCloseHandler}>
