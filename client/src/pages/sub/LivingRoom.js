@@ -54,17 +54,7 @@ function LivingRoom({ mainClick, subclick }) {
       setDloseDropDown(false);
   };
   useEffect(() => {
-    if (
-      subclick === '소파' ||
-      subclick === '거실장' ||
-      subclick === '수납장'
-    ) {
-      console.log(11);
-      dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-    } else {
       dispatch(getLibrary({ mainCateClick, page, sortArgument, third }));
-    }
-    // dispatch(getCount());
   }, [subclick]);
 
   return (

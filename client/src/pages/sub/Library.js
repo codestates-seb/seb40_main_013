@@ -6,14 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import {getLibrary, getSub, getAsc, getCount} from "../../reduxstore/slices/sub/LibrarySlice";
 import RankingDown from "../../components/subcategories/DropDown";
 
+import { useInView } from 'react-intersection-observer';
+
 function Library({ mainClick, subclick }) {
+  console.log(mainClick,subclick );
   
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = '서재';
 
   const dispatch = useDispatch();
-  const librarySelector = useSelector((state) => state.library.libraryInitial);
-  console.log('112', librarySelector);
+
 
   // const subSelector = useSelector((state) => state.library);
   // console.log(subSelector);
@@ -23,7 +25,6 @@ function Library({ mainClick, subclick }) {
   );
 
   const [page, setPage] = useState(0);
-  const [products, setProducts] = useState([]);
 
   // 셀렉트 박스
   const [dropDownclicked, setDropDownClicked] = useState("최신순");
@@ -52,20 +53,30 @@ function Library({ mainClick, subclick }) {
     if (closeDropDown && !modalRef.current.contains(e.target))
       setDloseDropDown(false);
   };
+  // useEffect(() => {
+  //     dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
+  //   // dispatch(getCount());
+  // }, [subclick]);
+
+  const libraryInitialSelector = useSelector((state) => state.library.libraryInitial);
+  console.log('112', libraryInitialSelector);
+  const [ref, inView] = useInView();
+
   useEffect(() => {
-    if (    
-    subclick === '책상' ||
-    subclick === '의자' ||
-    subclick === '책장' ||
-    subclick === '선반'
-    ) {
-      console.log(11);
+    if(libraryInitialSelector?.length === 0){
+      console.log('첫 포스트 로딩');
       dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-    } else {
-      dispatch(getLibrary({ mainCateClick, page, sortArgument, third }));
+      // setPage(page+1)
     }
-    // dispatch(getCount());
   }, [subclick]);
+
+  useEffect(()=>{
+    if(libraryInitialSelector?.length !==0 && inView) {
+        console.log('첫 로딩 이후 무한 스크롤');
+        setPage(page+1)
+        dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
+    }
+  },[inView]);
 
   return (
     <SubBlock onClick={outModalCloseHandler}>
@@ -84,7 +95,7 @@ function Library({ mainClick, subclick }) {
         </section>
       </FilterBlock>
       <ProductList>
-        {librarySelector?.map((product) => (
+        {libraryInitialSelector?.map((product) => (
           <Products proId={product.id} product={product} key={product.id} />
         ))}
         {/* <div ref={loadingRef}></div> */}
