@@ -8,8 +8,8 @@ spring:
     ttl: ${REDIS_TTL}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://dailydaily.cvz0lwzweyo3.ap-northeast-2.rds.amazonaws.com:13306/dailydaily
-    username: admin
+    url: jdbc:mysql://${RDS_URL}
+    username: ${RDS_USERNAME}
     password: ${RDS_PASSWORD}
   jpa:
     hibernate:
