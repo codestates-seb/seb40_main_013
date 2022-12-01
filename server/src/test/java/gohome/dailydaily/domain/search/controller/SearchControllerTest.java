@@ -42,6 +42,7 @@ class SearchControllerTest {
     private SearchRedisRepository searchRedisRepository;
     @MockBean
     private SearchResRedisRepository searchResRedisRepository;
+
     @Test
     void getRank() throws Exception {
         // given
