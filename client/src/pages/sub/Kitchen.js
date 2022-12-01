@@ -6,16 +6,19 @@ import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
 import {getLibrary, getSub, getAsc, getCount} from "../../reduxstore/slices/sub/LibrarySlice";
 import RankingDown from "../../components/subcategories/DropDown";
+import Apis from "../../apis/apis";
 
 function Kitchen({ mainClick, subclick }) {
   
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = '주방';
+
+
   console.log(`mainCateClick`,mainCateClick,`subclick`,subclick);
 
   const dispatch = useDispatch();
-  const librarySelector = useSelector((state) => state.library.libraryInitial);
-  console.log('112', librarySelector);
+  // const librarySelector = useSelector((state) => state.library.libraryInitial);
+  // console.log('112', librarySelector);
 
   // const subSelector = useSelector((state) => state.library);
   // console.log(subSelector);
@@ -24,8 +27,8 @@ function Kitchen({ mainClick, subclick }) {
     (state) => state.library.coutnInitial.count
   );
 
-  const [page, setPage] = useState(0);
-  const [products, setProducts] = useState([]);
+  // const [page, setPage] = useState(0);
+  // const [products, setProducts] = useState([]);
 
   // 셀렉트 박스
   const [dropDownclicked, setDropDownClicked] = useState("최신순");
@@ -54,19 +57,82 @@ function Kitchen({ mainClick, subclick }) {
     if (closeDropDown && !modalRef.current.contains(e.target))
       setDloseDropDown(false);
   };
+  // useEffect(() => {
+  //     dispatch(getLibrary({ mainCateClick, page, sortArgument, third }));
+  //   // dispatch(getCount());
+  // }, [subclick]);
+
+  const [products, setProducts] = useState([]);
+  console.log(products);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [a, setA] = useState(true);
+
+  
+  const [prevY, setPrevY] = useState(0);
+  let productsRef = useRef({})
+
+  let loadingRef = useRef(null);
+  let prevYRef = useRef({});
+  let pageRef = useRef({});
+  productsRef.current = products;
+  pageRef.current = page;
+
+  prevYRef.current = prevY
+
   useEffect(() => {
-    if (
-      subclick === '식탁/아일랜드' ||
-      subclick === '식탁의자' ||
-      subclick === '주방수납'
-    ) {
-      console.log(11);
-      dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-    } else {
-      dispatch(getLibrary({ mainCateClick, page, sortArgument, third }));
+    getProducts();
+    setPage(pageRef.current + 1);
+
+    let options = {
+      root: null, //root는 기본적으로 스크롤 가능한 영역, null을 입력하면 전체 브라우저 창이 됨
+      rootMargin: "150px",
+      htreshold: 0.6, //관찰해야 하는 대상 요소의 100%를 의미한다.
+    };
+
+    const observer = new IntersectionObserver(handleObserver, options);
+    observer.observe(loadingRef.current);
+
+  }, [mainClick ,subclick, dropDownclicked, third]);
+
+  // useEffect(() => {
+  //   window.location.reload(); //내일.....조건문짜기.. 한컴포넌트로 끝낼수 있게...
+  // }, [subclick, dropDownclicked]);
+
+  const handleObserver = (entities, observer) => {
+    console.log("time");
+
+    const y = entities[0].boundingClientRect.y; 
+
+    // if(!a){
+    //   console.log('까먹지마...');
+    // }
+    // else
+     if (prevYRef.current > y) { //if(prevYref.curreent> y && hasnext)
+        console.log(`real get list`);
+        getProducts();
+        setPage(pageRef.current + 1);
     }
-    // dispatch(getCount());
-  }, [subclick]);
+    console.log(`currenty`, y, `prevY`, prevY);
+    setPrevY(y);
+  };
+    
+  const getProducts = async () => {
+    try {
+        let productsRes = await Apis.get(
+          `products?main=${mainCateClick}&sub=${subclick}&page=${pageRef.current}&sortType=${sortArgument}&order=${third}`
+        )
+        if (productsRes) {
+          console.log(productsRes);
+          setProducts([...productsRef.current, ...productsRes.data.content]);
+          setA(productsRes.data.sliceInfo.hasNext); // 요청 막기...
+        }
+    } catch (error) {
+      console.log("ERROR GETTING PRODUCTS");
+    }
+  };
+
+  console.log(products);
 
   return (
     <SubBlock onClick={outModalCloseHandler}>
@@ -85,10 +151,10 @@ function Kitchen({ mainClick, subclick }) {
         </section>
       </FilterBlock>
       <ProductList>
-        {librarySelector?.map((product) => (
+        {products?.map((product) => (
           <Products proId={product.id} product={product} key={product.id} />
         ))}
-        {/* <div ref={loadingRef}></div> */}
+        <div ref={loadingRef}></div>
       </ProductList>
     </SubBlock>
   );

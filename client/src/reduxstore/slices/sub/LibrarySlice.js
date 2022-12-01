@@ -18,12 +18,11 @@ export const getLibrary = createAsyncThunk(
 export const getSub = createAsyncThunk(
   "getSub",
   async ({ mainCateClick, subclick, page, sortArgument, third }) => {
-    console.log(111, { mainCateClick, subclick, page, sortArgument });
     return Apis.get(
       `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
     )
       .then((res) => {
-        console.log(`getOne`, res.data);
+        console.log(res.data);
         return res.data;
       })
       .catch((err) => {
@@ -77,7 +76,7 @@ const librarySlice = createSlice({
       state.error = "";
     },
     [getSub.fulfilled]: (state, action) => {
-      state.libraryInitial = action.payload.content;
+      state.libraryInitial =  [...state.libraryInitial].concat(action.payload.content)
       state.loading = true;
       state.error = "";
     },
