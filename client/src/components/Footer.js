@@ -16,20 +16,20 @@ function Footer() {
   return (
     <FooterWrapper>
       <section>
-        <FooterSeviceContent>상시 온라인 시간</FooterSeviceContent>
+        <FooterSeviceContent>연락 가능한 시간</FooterSeviceContent>
         <div>
           <div>
             <FooterSocialBtn href="https://github.com/codestates-seb/seb40_main_013">
-              <GithubBtn/>
+              <GithubBtn />
             </FooterSocialBtn>
             <FooterSocialBtn onClick={clickGuest}>
-              <PersonBtn/>
+              <PersonBtn />
             </FooterSocialBtn>
           </div>
         </div>
       </section>
       <FooterSeviceAvailble>
-      회의 : 10:00, 17:00 &nbsp;&nbsp;코어타임 : 13:00 ~ 17:00
+        회의 : 10:00, 17:00 &nbsp;&nbsp;코어타임 : 13:00 ~ 17:00
       </FooterSeviceAvailble>
       <FooterMidBtnMenu>
         <FooterMenuBtn>이용 약관</FooterMenuBtn>
@@ -57,8 +57,8 @@ const FooterWrapper = styled.div`
   width: 100vw;
   height: 130px;
   background-color: #fcf9e9;
-  padding: 10px 20px ;
-  section{
+  padding: 10px 20px;
+  section {
     display: flex;
     justify-content: space-between;
   }
@@ -90,15 +90,12 @@ const FooterMidBtnMenu = styled.div`
 `;
 
 const FooterMenuBtn = styled.div`
-  cursor: pointer;
   font-size: 15px;
   font-weight: 500;
   padding-right: 20px;
 `;
 
-const FooterSocialBtn = styled.a`
-
-`;
+const FooterSocialBtn = styled.a``;
 
 const GithubBtn = styled(BsGithub)`
   width: 35px;
@@ -129,7 +126,7 @@ const PersonBtn = styled(IoMdPerson)`
 const FooterDownContentSpace = styled.div`
   margin-top: 7px;
   font-size: 10px;
-  color: #AAAAAA;
+  color: #aaaaaa;
 `;
 
 const FooterDownContentSpan = styled.span`

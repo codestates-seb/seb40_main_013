@@ -307,6 +307,9 @@ const Option = styled.h2`
 const Btns = styled.div`
   display: flex;
   flex-direction: column;
+  width: 30%;
+  height: 100%;
+  border: 1px solid blue;
   @media screen and (max-width: 473px) {
     margin: 5px 10px;
     display: flex;
@@ -315,20 +318,26 @@ const Btns = styled.div`
   }
 `;
 const CancleBtn = styled.button`
-  padding: 8px 30px;
   color: white;
   background-color: var(--color-navy);
   border-radius: 10px;
   white-space: nowrap;
   margin-bottom: 10px;
+  border: 1px solid #aaaaaa;
+  width: 100%;
+  height: 50%;
 
   cursor: pointer;
+  &:nth-child(2) {
+    background-color: white;
+    color: var(--color-navy);
+  }
   &:hover {
     /* background-color: red;
     color: white; */
-    color: var(--color-navy);
-    background-color: white;
-    border: 1px solid #aaaaaa;
+    /* color: var(--color-navy);
+    background-color: white; */
+    opacity: 0.8;
   }
   @media screen and (max-width: 473px) {
     width: 50%;

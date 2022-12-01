@@ -312,7 +312,7 @@ const Register = () => {
   const [contentsPrice, setContentsPrice] = useState("");
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
-
+  console.log(contentsImg);
   const brandOptios = [
     { brandName: "두닷", query: 1 },
     { brandName: "포더홈", query: 2 },
@@ -383,11 +383,11 @@ const Register = () => {
       console.log([file]);
 
       const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1920,
+        maxSizeMB: 0.2,
         useWebWorker: true,
       };
       console.log("압축시작");
+      console.log(file);
       const compressFile = await imageCompression(file, options);
       const thumbnailFile = new File([compressFile], "thumbnailImg.JPG");
       setThumbnailImg(thumbnailFile);
@@ -407,18 +407,20 @@ const Register = () => {
   const changeContentImg = async (e) => {
     setDetailFileImage(URL.createObjectURL(e.target.files[0]));
     e.preventDefault();
+    console.log(e.target.files);
     if (e.target.files) {
       const [file] = e.target.files;
       console.log([file]);
 
       const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1920,
+        maxSizeMB: 0.2,
         useWebWorker: true,
       };
       console.log("압축시작");
       const compressFile = await imageCompression(file, options);
       const contentFile = new File([compressFile], "contentImage.JPG");
+      console.log([contentsImg]);
+
       setContentsImg([contentFile]);
       if (contentsImg) {
         setContentsImg([...contentsImg, contentFile]);
@@ -454,8 +456,7 @@ const Register = () => {
         { color: "Black", stock: 1000 },
       ],
     };
-    console.log(postArticleData);
-    // dispatch(postArticle({ postArticleData, navigate }));
+    dispatch(postArticle({ postArticleData, navigate }));
   };
 
   //유효성 체크

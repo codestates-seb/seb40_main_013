@@ -84,7 +84,7 @@ function Login() {
             </LoginCheckSpace>
           </LoginInformationSpace>
           <LoginRouteSign>
-            <div>Don`t have an account?</div>
+            <div>Don't have an account?</div>
             <LoginSignBtn onClick={routeSignup}>Sign Up</LoginSignBtn>
           </LoginRouteSign>
         </LoginContentSpace>
@@ -102,49 +102,33 @@ const Wrapper = styled.form`
   margin-top: 24.5vh;
   @media screen and (max-width: 768px) {
     width: 100%;
-    min-width: 391px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-left: auto;
     margin-right: auto;
   }
-  @media screen and (max-width: 390px) and (min-height: 844px) {
-    min-width: 391px;
-    width: 100%;
-    height: 190vh;
-  }
 `;
 
 const LoginWrapper = styled.div`
-  width: 740px;
+  width: 70%;
+  max-width: 740px;
   height: 100%;
   border: 1px solid var(--color-gray);
   display: flex;
   border-radius: 7px;
-  @media screen and (max-width: 1023px) {
-    min-width: 391px;
-    width: 72%;
-  }
-  @media screen and (max-width: 768px) {
-    width: 60%;
+
+  @media screen and (max-width: 500px) {
+    min-width: 310px;
     height: 100%;
-    min-width: 390px;
-    display: flex;
-    justify-content: center;
-  }
-  @media screen and (max-width: 400px) {
-    width: 300px;
-    height: 90%;
-    min-width: 360px;
     display: flex;
     justify-content: center;
   }
 `;
 
 const LoginImg = styled.img`
-  width: 500px;
-  height: 100%;
+  width: 45%;
+  height: 65vh;
   /* @media screen and (max-width: 1023px) and (min-width: 768) {
     width: 50%;
   } */
@@ -154,15 +138,13 @@ const LoginImg = styled.img`
 `;
 
 const LoginContentSpace = styled.div`
-  width: 480px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   @media screen and (max-width: 768px) {
-    width: 250px;
     height: 430px;
-    min-width: 410px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -211,7 +193,7 @@ const LoginInput = styled.input`
 `;
 
 const LoginButton = styled.button`
-  width: 80%;
+  width: 77%;
   height: 45px;
   background-color: var(--color-navy);
   color: white;
@@ -222,87 +204,41 @@ const LoginButton = styled.button`
   &:hover {
     cursor: pointer;
   }
-  @media screen and (max-width: 1023px) {
-    font-size: 2vw;
-  }
-  @media screen and (max-width: 768px) {
-    font-size: 20px;
-  }
 `;
 
 const LoginInformationSpace = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   width: 90%;
   height: 40px;
   font-size: 20px;
   color: var(--color-gray);
-  @media screen and (max-width: 1023px) {
-    font-size: 2vw;
-  }
-  @media screen and (max-width: 768px) {
-    font-size: 20px;
-  }
 `;
 const LoginCheckSpace = styled.div`
-  width: 53%;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  margin-left: 50px;
-  @media screen and (max-width: 1023px) {
-    width: 55%;
-    font-size: 2vw;
-    margin-left: 40px;
-  }
-  @media screen and (max-width: 790px) {
-    width: 60%;
-    margin-left: 30px;
-  }
-  @media screen and (max-width: 768px) {
-    width: 60%;
-    font-size: 20px;
-    margin-left: 20px;
-  }
+  justify-content: center;
+  align-items: center;
 `;
 const LoginState = styled.div`
   color: ${(state) => (state.isCheck ? "#FFAF51" : "#AAAAAA")};
+  margin-right: 10px;
 `;
 const LoginStateContent = styled.div`
   font-size: 20px;
-  @media screen and (max-width: 1023px) {
-    font-size: 15px;
-  }
-  @media screen and (max-width: 790px) {
-    font-size: 12px;
-  }
-  @media screen and (max-width: 768px) {
-    font-size: 11px;
-  }
 `;
 
 const LoginRouteSign = styled.div`
   display: flex;
-  width: 90%;
+  width: 100%;
+  height: 5vh;
   justify-content: center;
+  align-items: center;
   color: var(--color-gray);
   font-weight: 500;
   margin-top: 20px;
   margin-bottom: 20px;
-  @media screen and (max-width: 1023px) {
-    width: 100%;
-    font-size: 1.5vw;
-  }
-  @media screen and (max-width: 790px) {
-    width: 60%;
-    margin-left: 60px;
-  }
-  @media screen and (max-width: 768px) {
-    width: 70%;
-    font-size: 20px;
-    margin-right: 50px;
-  }
+  font-size: 12px;
 `;
 
 const LoginSignBtn = styled.div`
@@ -313,7 +249,6 @@ const LoginSignBtn = styled.div`
   cursor: pointer;
   &:hover {
     color: var(--color-navy);
-    font-weight: bolder;
   }
 `;
 

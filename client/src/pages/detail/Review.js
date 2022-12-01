@@ -37,7 +37,7 @@ function Review({ articlesDetail, reviewRef }) {
               </ReviewContentsMainSpace>
               <ReviewContentsRightSpace>
                 <ReviewContentsUser>{data.nickname}</ReviewContentsUser>
-                <ReviewContentsUser>
+                <ReviewContentsUser className="reviewDate">
                   {new Date(data.createdAt).getFullYear() +
                     "." +
                     [new Date(data.createdAt).getMonth() + 1] +
@@ -171,6 +171,7 @@ const ReviewMainContent = styled.div`
 const ReviewContent = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 80%;
   height: 100%;
 
@@ -178,9 +179,11 @@ const ReviewContent = styled.div`
     max-width: 77%;
     display: flex;
   }
-  @media screen and (max-width: 700px) {
-    width: 74%;
+  @media screen and (max-width: 720px) {
+    width: 70%;
+    height: 80%;
     display: flex;
+    align-items: center;
   }
   @media screen and (max-width: 400px) {
     display: flex;
@@ -191,12 +194,13 @@ const ReviewContent = styled.div`
 `;
 
 const ReviewContentsRightSpace = styled.div`
-  width: 40%;
+  width: 50%;
   display: flex;
   height: 100%;
   justify-content: space-around;
   align-items: center;
   @media screen and (max-width: 400px) {
+    width: 35%;
     display: flex;
     flex-direction: column;
   }
@@ -206,11 +210,9 @@ const ReviewContentsUser = styled.div`
   font-size: var(--font-smallsize);
   font-weight: bolder;
   margin-left: 10px;
-  @media screen and (max-width: 600px) {
-    margin-left: 0px;
-    &:nth-child(2) {
-      display: none;
-    }
+  .reviewDate {
+    width: 30px;
+    background-color: red;
   }
 `;
 const ReviewPageNationSpace = styled.div`

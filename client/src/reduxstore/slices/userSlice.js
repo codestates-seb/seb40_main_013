@@ -30,11 +30,9 @@ export const loginUser = createAsyncThunk(
         let jwtrefreshToken = res.headers.get("Refresh");
         localStorage.setItem("Authorization", jwtToken);
         localStorage.setItem("Refresh", jwtrefreshToken);
+        window.location.reload();
         navigate("/");
         Toast("success", "로그인에 성공하셨습니다!");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
         return res.data;
       })
       .catch((err) => {

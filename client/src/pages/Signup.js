@@ -141,38 +141,15 @@ const Wrapper = styled.form`
   justify-content: center;
   margin-bottom: 40px;
   margin-top: 16vh;
-  @media screen and (max-width: 768px) {
-    width: 100%;
-    height: 100vh;
-    /* min-width: 391px; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  @media screen and (max-width: 768px) {
-    /* min-width: 391px; */
-    width: 90%;
-    height: 150vh;
-    display: flex;
-    justify-content: center;
-    margin-left: 40px;
-  }
-  @media screen and (max-width: 391px) {
-    /* min-width: 391px; */
-    width: 90%;
-    height: 190vh;
-  }
 `;
 const SignupWrapper = styled.div`
-  width: 500px;
+  width: 50%;
   height: 100%;
   margin: 50px 0px;
   margin-left: auto;
   margin-right: auto;
-  @media screen and (max-width: 768px) {
-    width: 90%;
+  @media screen and (max-width: 400px) {
+    width: 200px;
     height: 100vh;
     margin-left: auto;
     margin-right: auto;
@@ -196,8 +173,9 @@ const UserWriteTitle = styled.div`
 `;
 const UserWriteInput = styled.input`
   margin-top: 20px;
-  width: 98%;
+  width: 90%;
   height: 40px;
+  padding-left: 10px;
   @media screen and (max-width: 768px) {
     width: 90%;
     height: 40px;
@@ -208,7 +186,7 @@ const UserWriteInput = styled.input`
 
 const UserSubmitBtn = styled.button`
   margin-top: 50px;
-  width: 100%;
+  width: 90%;
   height: 50px;
   cursor: pointer;
   background-color: var(--color-navy);

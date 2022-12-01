@@ -355,6 +355,7 @@ const PostReviewDownBtn = styled.button`
   border-radius: 5px;
   color: white;
   background-color: var(--color-navy);
+  cursor: pointer;
   &:nth-child(1) {
     margin-right: 20px;
   }

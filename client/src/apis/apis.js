@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Toast } from "../components/Alert";
 
 const refreshToken = localStorage.getItem("Refresh");
+const url = process.env.REACT_APP_URL;
 
 const Apis = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: url,
 });
 axios.interceptors.request.use(function (config) {
   return config;
@@ -52,7 +53,7 @@ Apis.interceptors.response.use(
       return Promise.reject(err);
     }
     if (err.response.data.message === "Unauthorized" || refreshDatas) {
-      Toast("success", "다시 로그인 해주세요!");
+      Toast("success", "로그인 해주세요!");
       localStorage.clear();
     }
 
