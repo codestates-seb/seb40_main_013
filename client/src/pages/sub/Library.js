@@ -70,6 +70,14 @@ function Library({ mainClick, subclick }) {
   //   }
   // },[inView]);
 
+  // useEffect(()=>{
+  //   if(libraryInitialSelector?.length !==0 && inView) {
+  //       console.log('첫 로딩 이후 무한 스크롤');
+  //       setPage(page+1)
+  //       dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
+  //   }
+  // },[inView]);
+
   return (
     <SubBlock onClick={outModalCloseHandler}>
       <SubCarousel />

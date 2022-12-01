@@ -43,6 +43,11 @@ function SearchResult ({searchWord}) {
   
   const [page, setPage] = useState(0);
 
+  // useEffect(() => {
+  //     dispatch(getSearchResult({ searchWord, page }));
+  //     dispatch(countSearchResult(searchWord))
+  // }, [searchWord]);
+console.log(page);
   useEffect(() => {
       dispatch(getSearchResult({ searchWord, page, sortArgument, third}));
       dispatch(countSearchResult(searchWord))
