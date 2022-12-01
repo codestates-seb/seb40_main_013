@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AWSConfig {
 
-    @Value("${S3_ACCESS_KEY}")
+    @Value("${iam.access-key}")
     private String access_key;
-    @Value("${S3_SECRET_KEY}")
+    @Value("${iam.secret-key}")
     private String secret_key;
     @Value("ap-northeast-2")
     private String region;
