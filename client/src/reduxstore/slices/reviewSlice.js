@@ -30,6 +30,7 @@ export const getAllReview = createAsyncThunk(
 export const postReview = createAsyncThunk(
   "review/post",
   async ({ postData, navigate }) => {
+    console.log({ postData });
     const form = new FormData();
     form.append("content", postData.content);
     form.append("score", postData.score);

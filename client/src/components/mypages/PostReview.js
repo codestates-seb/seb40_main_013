@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import imageCompression from "browser-image-compression";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { BsStar } from "react-icons/bs";
+import { BsStarFill } from "react-icons/bs";
 import noImg from "../../imgs/noImg.gif";
 
 function PostReview({ clickModal, filterProductId, filterData }) {
@@ -54,6 +54,7 @@ function PostReview({ clickModal, filterProductId, filterData }) {
       img: userWriteImg,
       filterProductId: filterProductId,
     };
+    console.log(postData);
     dispatch(postReview({ postData, navigate }));
   };
   const handleStarClick = (index) => {
@@ -71,8 +72,9 @@ function PostReview({ clickModal, filterProductId, filterData }) {
     sendReview();
   }, [clicked]);
   console.log(lengthScore);
+
   return (
-    <Wrapper>
+    <Wrapper onClick={(e) => e.stopPropagation()}>
       <Container>
         <PostReviewTopSpace>
           <PostReviewContentImg
@@ -98,7 +100,7 @@ function PostReview({ clickModal, filterProductId, filterData }) {
           <PostReviewStarSpace>
             {clickNumber.map((item, idx) => {
               return (
-                <BsStar
+                <BsStarFill
                   key={idx}
                   size="30"
                   onClick={() => handleStarClick(item)}
@@ -126,8 +128,10 @@ function PostReview({ clickModal, filterProductId, filterData }) {
               />
             </UploadDelete>
           </SumContainer>
-
-          <PostReviewDownBtn onClick={postSubmit}>추가 버튼</PostReviewDownBtn>
+          <BtnSpace>
+            <PostReviewDownBtn onClick={postSubmit}>등록</PostReviewDownBtn>
+            <PostReviewDownBtn onClick={clickModal}>취소</PostReviewDownBtn>
+          </BtnSpace>
         </PostReviewDownSpace>
       </Container>
     </Wrapper>
@@ -141,6 +145,10 @@ const Wrapper = styled.div`
   top: 140px;
   display: flex;
   justify-content: center;
+  @media (max-width: 768) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 const Container = styled.div`
@@ -153,6 +161,7 @@ const Container = styled.div`
   background-color: white;
   border-radius: 5px;
   padding-top: 10px;
+  box-shadow: 0 1px 5px 0 rgb(0 0 0 / 30%);
 `;
 
 const PostReviewTopSpace = styled.div`
@@ -160,12 +169,11 @@ const PostReviewTopSpace = styled.div`
   height: 15%;
   display: flex;
   justify-content: space-between;
-  border: 1px solid violet;
 `;
 
 const PostReviewContentImg = styled.img`
-  width: 25%;
-  height: 100%;
+  width: 70px;
+  height: 75px;
 `;
 
 const PostReviewContentRightSpace = styled.div`
@@ -175,13 +183,11 @@ const PostReviewContentRightSpace = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid red;
 `;
 const PostReviewTopContent = styled.div`
   width: 100%;
   height: 100%;
   font-size: 1vh;
-  border: 1px solid blue;
   display: flex;
   align-items: center;
   &:nth-child(1) {
@@ -198,7 +204,7 @@ const Hr = styled.hr`
 
 const PostReviewDownSpace = styled.div`
   width: 100%;
-  height: 85%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -218,20 +224,20 @@ const PostReviewStarSpace = styled.div`
   justify-content: center;
   align-items: center;
   & svg {
-    color: gray;
+    color: #e0e0e0;
     cursor: pointer;
   }
 
   :hover svg {
-    color: #fcc419;
+    color: #ffaf51;
   }
 
   & svg:hover ~ svg {
-    color: gray;
+    color: #e0e0e0;
   }
 
   .yellowStar {
-    color: #fcc419;
+    color: #ffaf51;
   }
 `;
 const SumContainer = styled.div`
@@ -264,7 +270,6 @@ const Img = styled.img`
   border-radius: 5px;
   width: 100%;
   height: 150px;
-  border: 5px solid blue;
   @media (min-width: 768px) and (max-width: 1023px) {
   }
 `;
@@ -290,16 +295,25 @@ const DeleteSumnaeil = styled.button`
 
 const PostReviewDownInput = styled.textarea`
   width: 80%;
-  height: 20%;
+  height: 30%;
   margin-top: 10px;
+  padding-top: 5px;
+`;
+const BtnSpace = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 const PostReviewDownBtn = styled.button`
-  margin-top: 10px;
-  width: 30%;
-  height: 30px;
+  width: 20%;
+  height: 50px;
   border-radius: 5px;
   color: white;
   background-color: var(--color-navy);
+  &:nth-child(1) {
+    margin-right: 20px;
+  }
 `;
 
 export default PostReview;

@@ -239,7 +239,7 @@ const PurchaseAll = ({ getUserdata, click }) => {
     <>
       {isModal ? (
         <>
-          <Container isModal={isModal}>
+          <Container isModal={isModal} onClick={clickModal}>
             <PostReview
               clickModal={clickModal}
               filterProductId={filterProductId}
