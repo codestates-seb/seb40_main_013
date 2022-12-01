@@ -59,12 +59,13 @@ public class ProductService {
         return productRepository.findTop5ByScore();
     }
 
-    public SliceResponseDto<CategoryGetDto> getProductListByCategory(GetProductListByDto dto) {
+    public SliceResponseDto<CategoryGetDto>
+    getProductListByCategory(GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> products = productRepository
                 .findAllByCategory(dto.getPageRequest(), ProductGetParam.valueOf(dto));
-        if (products.getContent().isEmpty()) {
-            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
-        }
+//        if (products.getContent().isEmpty()) {
+//            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
+//        }
         return products;
     }
 
