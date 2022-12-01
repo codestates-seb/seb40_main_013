@@ -13,7 +13,8 @@ function Review({ articlesDetail, reviewRef }) {
       <ReviewStarSpace>
         {renderStar(articlesDetail?.score)}
         <ReviewStaAverage>
-          평균 별점<ReviewNumber> {articlesDetail?.score}</ReviewNumber>점
+          평균 별점&nbsp;
+          <ReviewNumber> {articlesDetail?.score}&nbsp;</ReviewNumber>점
         </ReviewStaAverage>
       </ReviewStarSpace>
       <Boundary />
@@ -146,8 +147,8 @@ const ReviewContentsNumber = styled.div`
 `;
 const ReviewContentsImg = styled.img`
   width: 80px;
-  height: 100%;
-  margin-left: 10px;
+  height: 80px;
+  margin: 0px 20px;
   @media screen and (max-width: 520px) {
     width: 60px;
     height: 80%;

@@ -180,8 +180,8 @@ export const reCountCartItem = createAsyncThunk(
 
 export const getSearchResult = createAsyncThunk(
   "getSearchResult",
-  async ({ searchWord, page }) => {
-    return Apis.get(`/products/search?title=${searchWord}&page=${page}`)
+  async ({ searchWord, page, sortArgument, third}) => {
+    return Apis.get(`/products/search?title=${searchWord}&page=${page}&sortType=${sortArgument}&order=${third}`)
       .then((res) => {
         console.log(`shopslice`, res.data);
         return res.data;
@@ -287,7 +287,7 @@ const articleSlice = createSlice({
       state.error = "";
     },
     [getSearchResult.fulfilled]: (state, action) => {
-      state.searchResultInitial = action.payload;
+      state.searchResultInitial = action.payload.content;
       state.loading = true;
       state.error = "";
     },
