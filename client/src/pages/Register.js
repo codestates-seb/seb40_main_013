@@ -14,14 +14,14 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 160px;
-  padding-left: 60px;
   overflow-x: hidden;
+  align-items: center;
   @media screen and (max-width: 767px) {
     padding: 160px 30px;
   }
 `;
 const Title = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: 500;
   color: var(--font-navy);
   margin-bottom: 20px;
@@ -42,6 +42,9 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: 90%;
   }
 `;
 const InputContainer = styled.div`
@@ -78,6 +81,9 @@ const TabContainer = styled.div`
     padding: 10px 0;
     margin-left: 10px;
   }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: 17vw;
+  }
 `;
 const HrContainer = styled.div`
   background-color: #f2f2f2;
@@ -86,6 +92,9 @@ const HrContainer = styled.div`
   justify-content: center;
   @media screen and (max-width: 767px) {
     display: none;
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: 17vw;
   }
 `;
 const ImgContainer = styled.div`
@@ -107,10 +116,16 @@ const ImgContainer = styled.div`
     padding: 10px 0;
     margin-left: 10px;
   }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: 17vw;
+  }
 `;
 const SumContainer = styled.div`
   display: flex;
   flex-direction: column;
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: 70%;
+  }
 `;
 const UploadDelete = styled.div`
   display: flex;
@@ -121,15 +136,6 @@ const ImgLabel = styled.label`
   line-height: normal;
   vertical-align: middle;
   cursor: pointer;
-  button {
-    background-color: var(--color-navy);
-    color: white;
-    width: 55px;
-    height: 30px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-  }
 `;
 const Label = styled.label`
   display: flex;
@@ -154,9 +160,11 @@ const Pricecontent = styled.div`
 `;
 const Input = styled.input`
   height: 2vw;
-  padding: 5px 0 5px 10px;
+  padding: 15px 0 15px 10px;
   border: none;
-  border-bottom: 2px solid #aaa;
+  border: 2px solid #aaa;
+  border-radius: 5px;
+  font-size: 1rem;
   @media screen and (max-width: 767px) {
     border: 2px solid #aaa;
     padding: 15px 10px;
@@ -216,6 +224,7 @@ const Buttons = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
+  width: 100%;
 `;
 const RegisterBtn = styled.button`
   font-size: 1.1rem;
@@ -228,6 +237,10 @@ const RegisterBtn = styled.button`
   &:hover {
     opacity: 0.7;
   }
+  @media screen and (max-width: 478px) {
+    font-size: 0.8rem;
+    padding: 6px 14px;
+  }
 `;
 const Cancle = styled.button`
   font-size: 1.1rem;
@@ -239,6 +252,10 @@ const Cancle = styled.button`
   &:hover {
     opacity: 0.7;
   }
+  @media screen and (max-width: 478px) {
+    font-size: 0.8rem;
+    padding: 6px 14px;
+  }
 `;
 const Img = styled.img`
   margin: 10px 20px 10px 0;
@@ -246,7 +263,13 @@ const Img = styled.img`
   width: 100%;
   height: 150px;
   @media (min-width: 768px) and (max-width: 1023px) {
-    width: 500px;
+    width: fit-content;
+    max-width: 100%;
+  }
+`;
+const Noimg = styled.img`
+  @media screen and (max-width: 478px) {
+    width: 200px;
   }
 `;
 const SumnailUpload = styled.input`
@@ -370,10 +393,13 @@ const Register = () => {
       setThumbnailImg(thumbnailFile);
     }
   };
+
   //썸네일파일 삭제
-  const deleteFileImage = () => {
+  const deleteFileImage = (e) => {
+    e.preventDefault();
     URL.revokeObjectURL(fileImage);
     setFileImage("");
+    setThumbnailImg("");
   };
 
   //디테일 파일 저장
@@ -400,9 +426,11 @@ const Register = () => {
     }
   };
   //디테일 파일 삭제
-  const deletedetailFileImage = () => {
+  const deletedetailFileImage = (e) => {
+    e.preventDefault();
     URL.revokeObjectURL(detailFileImage);
     setDetailFileImage("");
+    setContentsImg("");
   };
 
   //카테고리 선택하기
@@ -478,6 +506,7 @@ const Register = () => {
             </Label>
           </TabContainer>
           <Input
+            placeholder="제품명을 입력해주세요"
             maxLength="40"
             name="title"
             className="title"
@@ -495,8 +524,11 @@ const Register = () => {
           </TabContainer>
           <Pricecontent>
             <Input
+              placeholder="숫자만 입력해주세요"
               name="price"
+              type="number"
               className="price"
+              max={10000000}
               onChange={changeContentPrice}
             />
             {priceConfirm ? (
@@ -560,11 +592,7 @@ const Register = () => {
             <UploadDelete>
               <ImgLabel htmlFor="sumnail">
                 <div className="noImg">
-                  {thumbnailImg === "" ? (
-                    <img src={noImg} alt="noImg" />
-                  ) : (
-                    <button>바꾸기</button>
-                  )}
+                  {thumbnailImg === "" ? <Noimg src={noImg} alt="noImg" /> : ""}
                 </div>
               </ImgLabel>
               <SumnailUpload
@@ -577,7 +605,7 @@ const Register = () => {
               {thumbnailImg === "" ? (
                 ""
               ) : (
-                <DeleteSumnaeil onClick={() => deleteFileImage()}>
+                <DeleteSumnaeil onClick={(e) => deleteFileImage(e)}>
                   삭제
                 </DeleteSumnaeil>
               )}
@@ -596,11 +624,7 @@ const Register = () => {
             <UploadDelete>
               <ImgLabel htmlFor="detailImage">
                 <div className="noImg">
-                  {contentsImg === "" ? (
-                    <img src={noImg} alt="noImg" />
-                  ) : (
-                    <button>추가하기</button>
-                  )}
+                  {contentsImg === "" ? <Noimg src={noImg} alt="noImg" /> : ""}
                 </div>
               </ImgLabel>
               <SumnailUpload
@@ -613,7 +637,7 @@ const Register = () => {
               {contentsImg === "" ? (
                 ""
               ) : (
-                <DeleteSumnaeil onClick={() => deleteFileImage()}>
+                <DeleteSumnaeil onClick={(e) => deletedetailFileImage(e)}>
                   삭제
                 </DeleteSumnaeil>
               )}
