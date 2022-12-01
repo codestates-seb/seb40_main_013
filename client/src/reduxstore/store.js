@@ -11,6 +11,7 @@ import kitchenSlice from "./slices/sub/kitchenSlice";
 import librarySlice from "./slices/sub/LibrarySlice";
 import LivingroomSlice from "./slices/sub/LivingroomSlice";
 import likeSlice from "./slices/likeSlice";
+import intinitiSlice from "./slices/intinitiSlice";
 
 const rootReducer = combineReducers({
   article: articleSlice,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   kitchen: kitchenSlice,
   library: librarySlice,
   livingroom: LivingroomSlice,
-  like: likeSlice
+  like: likeSlice,
+  infinite: intinitiSlice
 });
 
 const store = configureStore({ reducer: rootReducer });

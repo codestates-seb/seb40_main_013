@@ -175,7 +175,7 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
   const [triger, setriger] = useState(0); //
 
   const test = inputWord.replace(/^\s+|\s+$/gm, "");
-
+  console.log(test);
   const inputChageHandler = ({ target }) => {
     setInputWord(target.value);
   };
@@ -253,7 +253,7 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
               type="text"
               value={inputWord}
               onChange={inputChageHandler}
-              maxLength="23"
+              maxlength="23"
             ></input>
             <button onClick={searchResultHandler}>
               <SearchIcon />
