@@ -5,7 +5,7 @@ import { Toast } from "../components/Alert";
 const refreshToken = localStorage.getItem("Refresh");
 
 const Apis = axios.create({
-  baseURL: "https://rich-bags-help-125-134-111-241.loca.lt/",
+  baseURL: process.env.REACT_APP_API_URL,
 });
 axios.interceptors.request.use(function (config) {
   return config;
