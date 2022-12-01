@@ -21,6 +21,7 @@ function Kitchen({ mainClick, subclick }) {
   // 셀렉트 박스
   const [dropDownclicked, setDropDownClicked] = useState("최신순");
   const [third, setThird] = useState("desc");
+  
   const [closeDropDown, setDloseDropDown] = useState(false);
 
   let sortArgument = "createdAt";
@@ -118,17 +119,15 @@ function Kitchen({ mainClick, subclick }) {
     }
   };
 
-  console.log(products);
-
   return (
     <SubBlock onClick={outModalCloseHandler}>
       <SubCarousel />
       <FilterBlock>
         { subclick != '' ? 
-            <div>{subclick}에</div> : 
-            <div>{mainCateClick}에</div>
+            <SubMenuWord>{subclick}&nbsp;</SubMenuWord> : 
+            <SubMenuWord>{mainCateClick}&nbsp;전체상품&nbsp;</SubMenuWord>
         }
-        <div className="total">{countSelector}개의 상품이 있습니다</div>
+        <div className="total">에 {countSelector} 개의 상품이 있습니다</div>
         <section ref={modalRef}>
           <RankingDown
             dropDownclicked={dropDownclicked}
@@ -153,53 +152,67 @@ function Kitchen({ mainClick, subclick }) {
 export default Kitchen;
 
 const SubBlock = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 127.5px;
-    padding: 3vh 4vw;
-    align-items: center;
-    .sub-menus {
-      display: flex;
-      width: 100%;
-      margin: 20px 0px;
-      justify-content: space-evenly;
-    }
-    .total {
-      width: 100%;
-      margin: 15px 0px;
-      font-weight: 600;
-      font-size: 20px;
-      display: flex;
-      justify-content: flex-start;
-    }
-`;
-
-const FilterBlock = styled.div`
-  width: 100%;
-  padding: 0 2.5em;
   display: flex;
-  justify-content: space-between;
-  div{
-    white-space: nowrap;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 127.5px;
+  padding: 3vh 4vw;
+  align-items: center;
+  .sub-menus {
+    display: flex;
+    width: 100%;
+    margin: 20px 0px;
+    justify-content: space-evenly;
+  }
+  .total {
+    width: 100%;
+    margin: 15px 0px;
+    font-weight: 500;
+    font-size: 20px;
+    display: flex;
+    justify-content: flex-start;
+    color: #272727;
   }
 `;
 
+const FilterBlock = styled.div`
+  color: #272727;
+  margin-top: 10px;
+  width: 100%;
+  padding: 0 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.2rem;
+  div {
+    white-space: nowrap;
+  }
+  @media (max-width: 1023px) {
+    padding: 0 1rem;
+  }
+`;
+
+const SubMenuWord = styled.div`
+  font-size: 30px;
+  color: #272727;
+  display: flex;
+  align-items: center;
+`;
+
 const ProductList = styled.div`
-    display: grid;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  @media screen and (max-width: 479px) {
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    justify-content: center;
-    @media screen and (max-width: 479px) {
-      grid-template-rows: 1fr;
-      grid-template-columns: 1fr 1fr;
-    }
-    @media (min-width: 480px) and (max-width: 767px) {
-      grid-template-rows: 1fr;
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-    @media (min-width: 768px) and (max-width: 1023px) {
-      grid-template-rows: 1fr;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 480px) and (max-width: 767px) {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 `;

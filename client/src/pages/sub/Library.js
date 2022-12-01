@@ -75,10 +75,10 @@ function Library({ mainClick, subclick }) {
       <SubCarousel />
       <FilterBlock>
         { subclick != '' ? 
-            <div>{subclick}에</div> : 
-            <div>{mainCateClick}에</div>
+            <SubMenuWord>{subclick}&nbsp;</SubMenuWord> : 
+            <SubMenuWord>{mainCateClick}&nbsp;전체상품&nbsp;</SubMenuWord>
         }
-        <div className="total">{countSelector}개의 상품이 있습니다</div>
+        <div className="total">에 {countSelector} 개의 상품이 있습니다</div>
         <section ref={modalRef}>
           <RankingDown
             dropDownclicked={dropDownclicked}
@@ -121,6 +121,7 @@ const SubBlock = styled.div`
     font-size: 20px;
     display: flex;
     justify-content: flex-start;
+    color: #272727;
   }
 `;
 
@@ -131,12 +132,20 @@ const FilterBlock = styled.div`
   padding: 0 2.5rem;
   display: flex;
   justify-content: space-between;
+  margin-top: 1.2rem;
   div {
     white-space: nowrap;
   }
   @media (max-width: 1023px) {
     padding: 0 1rem;
   }
+`;
+
+const SubMenuWord = styled.div`
+  font-size: 30px;
+  color: #272727;
+  display: flex;
+  align-items: center;
 `;
 
 const ProductList = styled.div`
