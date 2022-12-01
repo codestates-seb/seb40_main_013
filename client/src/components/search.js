@@ -253,7 +253,7 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
               type="text"
               value={inputWord}
               onChange={inputChageHandler}
-              maxlength="23"
+              maxLength="23"
             ></input>
             <button onClick={searchResultHandler}>
               <SearchIcon />

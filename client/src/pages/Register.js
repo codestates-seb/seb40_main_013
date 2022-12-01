@@ -161,7 +161,7 @@ const Input = styled.input`
     border: 2px solid #aaa;
     padding: 15px 10px;
     border-radius: 5px;
-    width: 80%;
+    width: 200px;
   }
 `;
 const SelectBox = styled.div`
