@@ -6,7 +6,7 @@ import RankingDown from "../components/subcategories/DropDown";
 import { useDispatch, useSelector } from "react-redux";
 import { getSearchResult, countSearchResult } from "../reduxstore/slices/articleSlice";
 import { loadInfinite } from "../reduxstore/slices/intinitiSlice";
-import { useInView } from 'react-intersection-observer';
+// import { useInView } from 'react-intersection-observer';
 import Apis from "../apis/apis";
 
 function SearchResult ({searchWord}) {
@@ -43,7 +43,7 @@ function SearchResult ({searchWord}) {
 
   const {infiniteList} =useSelector(state => state.infinite)
   console.log(infiniteList);
-  const [ref, inView] = useInView();
+  // const [ref, inView] = useInView();
 
   // useEffect(() => {
   //     dispatch(getSearchResult({ searchWord, page }));
@@ -58,14 +58,14 @@ console.log(page);
     }
   }, [searchWord]);
 
-  useEffect(()=>{
-    if(infiniteList.length !==0 && inView) {
-        console.log('첫 로딩 이후 무한 스크롤');
-        setPage(page+1)
-        dispatch(loadInfinite({searchWord, page }));
+  // useEffect(()=>{
+  //   if(infiniteList.length !==0 && inView) {
+  //       console.log('첫 로딩 이후 무한 스크롤');
+  //       setPage(page+1)
+  //       dispatch(loadInfinite({searchWord, page }));
 
-    }
-  },[inView]);
+  //   }
+  // },[inView]);
 
     return (
       <SubBlock onClick={outModalCloseHandler}>

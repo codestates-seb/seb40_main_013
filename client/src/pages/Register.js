@@ -161,7 +161,7 @@ const Input = styled.input`
     border: 2px solid #aaa;
     padding: 15px 10px;
     border-radius: 5px;
-    width: 80%;
+    width: 200px;
   }
 `;
 const SelectBox = styled.div`
@@ -472,7 +472,7 @@ console.log(Number(contentsPrice) % 100)
           <TabContainer>
             <Label htmlFor="title">제품명 <span>&nbsp;(40자 이하)</span></Label>
           </TabContainer>
-          <Input maxlength='40' name="title" className="title" onChange={changeContentName} />
+          <Input maxLength='40' name="title" className="title" onChange={changeContentName} />
         </InputContainer>
         <HrContainer>
           <Hr></Hr>

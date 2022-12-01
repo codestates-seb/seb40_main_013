@@ -23,10 +23,30 @@ export const getMyOrder = createAsyncThunk(
   }
 );
 
+export const filterMyOrder = createAsyncThunk(
+  "filterMyOrder",
+  async (id) => {
+    return Apis.get(`orders/${id}`,     
+    {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
 const myOrderSlice = createSlice({
   name: "myorder",
   initialState: {
     myorder: {},
+    filterorder: {},
     loading: false,
     error: "",
   },
@@ -34,6 +54,11 @@ const myOrderSlice = createSlice({
   extraReducers: {
     [getMyOrder.fulfilled]: (state, action) => {
       state.myorder = action.payload;
+      state.loading = true;
+      state.error = "";
+    },
+    [filterMyOrder.fulfilled]: (state, action) => {
+      state.filterorder = action.payload;
       state.loading = true;
       state.error = "";
     },
