@@ -37,7 +37,8 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    private Order findVerifiedOrder(Long memberId, Long orderId) {
+    @Transactional(readOnly = true)
+    public Order findVerifiedOrder(Long memberId, Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
 
