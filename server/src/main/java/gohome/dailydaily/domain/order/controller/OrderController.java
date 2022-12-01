@@ -48,7 +48,7 @@ public class OrderController {
     }
 
     @GetMapping("/{order-id}")
-    public OrderDto.Response getOrder(@MemberId Long memberId,@PathVariable("order-id") Long orderId) {
+    public OrderDto.Response getOrder(@MemberId Long memberId, @PathVariable("order-id") Long orderId) {
         Order order = orderService.findVerifiedOrder(memberId, orderId);
 
         return mapper.toResponse(order);
