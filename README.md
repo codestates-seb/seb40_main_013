@@ -14,17 +14,13 @@
 |ID|guest@guest.com|
 |PW|1234|
 
-</div>
-
 <br /><br /><br /><br /><br />
 
 # 👨‍👩‍👦‍👦 Team
 
 <br />
 
-<div align="center">
-
-## 🖥 Front-end
+### 🖥 Front-end
 |임세영|김서연|노경민|
 |:-:|:-:|:-:|
 |<img src="https://avatars.githubusercontent.com/u/93029270?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/97490053?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/93895421?v=4" width=150>|
@@ -32,7 +28,7 @@
 
 <br />
 
-## ⚙️ Back-end
+### ⚙️ Back-end
 |김경근|홍승재|허준열|
 |:-:|:-:|:-:|
 |<img src="https://avatars.githubusercontent.com/u/97646802?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/107091097?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/106057412?v=4" width=150>|
@@ -147,12 +143,12 @@
 
 <br />
 
-## 🖥 Front-end
+### 🖥 Front-end
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/Create React App-09D3AC?style=for-the-badge&logo=CreateReactApp&logoColor=white"/> <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=ReactRouter&logoColor=white"/> <img src="https://img.shields.io/badge/React Hook Form-EC5990?style=for-the-badge&logo=ReactHookForm&logoColor=white"/> <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white"> <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/fontawesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white"> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=AmazonS3&logoColor=white">
 
 <br /><br /><br /><br />
 
-## ⚙️ Back-end
+### ⚙️ Back-end
 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/spring_boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/spring_rest_docs-6DB33F?style=for-the-badge"> <img src="https://img.shields.io/badge/spring_security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">  <img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"> 
 
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">  <img src="https://img.shields.io/badge/spring_data_jpa-6DB33F?style=for-the-badge"> <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
