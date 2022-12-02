@@ -17,10 +17,13 @@ import { renderStar } from "../../components/Star";
 import ScrollToTop from "../../components/ScrollToTop";
 import Button from "../../components/Button";
 import Apis from "../../apis/apis";
+import Swal from "sweetalert2";
 
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
+  const [clickHeart, setClickHeart] = useState(false);
   const [selectOptions, setSelectOptions] = useState("");
+  console.log(selectOptions);
   const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
   const [cartCount, setCartCount] = useState(1);
   const dispatch = useDispatch();
@@ -35,16 +38,19 @@ function ArticleDetail() {
   let price = articlesDetail?.price;
   const isLike = articlesDetail?.existsLike;
   console.log(articlesDetail);
-  const jwtToken = localStorage.getItem("Authorization");
   const clickFunction = () => {
     setClickSelect(!clickSelect);
   };
   const clickUpCart = () => {
-    setCartCount(cartCount + 1);
+    if (cartCount >= 99) {
+      setCartCount(99);
+    } else {
+      setCartCount(cartCount + 1);
+    }
   };
   const clickDownCart = () => {
-    if (cartCount <= 0) {
-      setCartCount(0);
+    if (cartCount <= 1) {
+      setCartCount(1);
     } else {
       setCartCount(cartCount - 1);
     }
@@ -92,15 +98,61 @@ function ArticleDetail() {
 
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
-
+    setClickHeart(true);
     dispatch(postLike(id));
   };
 
   const clickDeleteLike = () => {
     let id = articlesDetail?.productId;
-
+    setClickHeart(false);
     dispatch(deleteLike(id));
   };
+
+  const nowPayHandler= () => {
+    Swal.fire({
+      title: "",
+      text: "상품을 바로 구매하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#002C6D",
+      cancelButtonColor: "#FFAF51",
+      showCancelButton: true,
+      confirmButtonText: "바로 구매",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+      successNowPay()
+        }
+    });
+  }
+
+  const successNowPay = () =>{
+    const checkList = [{
+      productId : articlesDetail?.productId,
+      optionId : selectOptions,
+      count : cartCount
+    },]
+    console.log(checkList);
+    Apis.post(
+      `orders`,
+      {
+        orderProducts: checkList,
+      },
+      {
+        headers: {
+          Authorization: `${localStorage.getItem("Authorization")}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((res)=>{
+      // console.log(res); 
+        navigate('/members/mypage/purchase')
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
   return (
     <Wrapper>
@@ -113,7 +165,7 @@ function ArticleDetail() {
               <DetailArticleStarSpace onClick={() => onMoveToElement(1)}>
                 {renderStar(articlesDetail?.score)}
                 <DetailArticleStaAverage>
-                  {articlesDetail?.score}점
+                  {articlesDetail?.score}&nbsp;점
                 </DetailArticleStaAverage>
               </DetailArticleStarSpace>
             </DetailArticleNameSpace>
@@ -121,13 +173,39 @@ function ArticleDetail() {
               <DetailArticlePrice>
                 {articlesDetail?.price?.toLocaleString("en-US")}원
               </DetailArticlePrice>
-              <ButtonIcon>
-                {isLike ? (
-                  <BsHeartFill onClick={clickDeleteLike} />
-                ) : (
-                  <BsHeart className="heart" onClick={clickPostLike} />
-                )}
-              </ButtonIcon>
+              {clickHeart ? (
+                <ButtonIcon>
+                  {isLike ? (
+                    <BsHeartFill
+                      size="20"
+                      color="#FFAF51"
+                      onClick={clickDeleteLike}
+                    />
+                  ) : (
+                    <BsHeart
+                      size="20"
+                      className="heart"
+                      onClick={clickPostLike}
+                    />
+                  )}
+                </ButtonIcon>
+              ) : (
+                <ButtonIcon>
+                  {isLike ? (
+                    <BsHeartFill
+                      size="20"
+                      color="#FFAF51"
+                      onClick={clickDeleteLike}
+                    />
+                  ) : (
+                    <BsHeart
+                      size="20"
+                      className="heart"
+                      onClick={clickPostLike}
+                    />
+                  )}
+                </ButtonIcon>
+              )}
             </DetailArticlePriceSpace>
             <div>
               <DetailArticleOptionSpace>
@@ -171,7 +249,7 @@ function ArticleDetail() {
               </DetailArticleOptionSpaceSelect>
             </div>
             <DetailUserSubmitPriceSpace>
-              <DetailUserQuantitySpace>
+              <DetailUserQuantitySpace selectOptions={selectOptions}>
                 <ButtonIcon>
                   <BiChevronLeft onClick={clickDownCart} />
                 </ButtonIcon>
@@ -181,17 +259,30 @@ function ArticleDetail() {
                 </ButtonIcon>
               </DetailUserQuantitySpace>
               <DetailUserPriceSpace>
-                <DetailUserPrice className="w">₩</DetailUserPrice>
-                <DetailUserPrice>
-                  {(price * cartCount).toLocaleString("en-US")}
-                </DetailUserPrice>
+                {selectOptions === "" ? (
+                  <div className="zero">
+                    <DetailUserPrice className="w">₩</DetailUserPrice>
+                    <DetailUserPrice>0</DetailUserPrice>
+                  </div>
+                ) : (
+                  <div>
+                    <DetailUserPrice className="w">₩</DetailUserPrice>
+                    <DetailUserPrice>
+                      {(price * cartCount).toLocaleString("en-US")}
+                    </DetailUserPrice>
+                  </div>
+                )}
               </DetailUserPriceSpace>
             </DetailUserSubmitPriceSpace>
             <DetailArticlBtnSpace>
-              <DetailArticlBtn onClick={clickPostCart}>
-                장바구니
-              </DetailArticlBtn>
-              <DetailArticlBtn>바로구매</DetailArticlBtn>
+              {localStorage.getItem("Authorization") ? (
+                <DetailArticlBtn onClick={clickPostCart}>
+                  장바구니
+                </DetailArticlBtn>
+              ) : (
+                <DetailArticlBtn>장바구니</DetailArticlBtn>
+              )}
+              <DetailArticlBtn onClick={nowPayHandler}>바로구매</DetailArticlBtn>
             </DetailArticlBtnSpace>
           </ArticleInformations>
         </DetailTopUserSelectSpace>
@@ -199,7 +290,7 @@ function ArticleDetail() {
           <SelectMoveBtn onClick={() => onMoveToElement(0)}>
             상세 설명
           </SelectMoveBtn>
-          <SelectCenterLine>/</SelectCenterLine>
+          <SelectCenterLine>|</SelectCenterLine>
           <SelectMoveBtn onClick={() => onMoveToElement(1)}>후기</SelectMoveBtn>
         </SelectMoveSpace>
         {articlesDetail?.content?.map((data) => (
@@ -533,20 +624,22 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
   padding: 15px 0px 15px 10px;
   display: block;
   border: none;
-
-  &:hover {
-    background-color: #cccccc;
-  }
   &:nth-child(1) {
     border: none;
     border-top: 1px solid var(--color-gray);
     border-bottom: 1px solid var(--color-gray);
     background-color: white;
+    &:hover {
+      background-color: #f0f0f0;
+    }
   }
   &:nth-child(2) {
     border: none;
     border-bottom: 1px solid var(--color-gray);
     background-color: white;
+    &:hover {
+      background-color: #f0f0f0;
+    }
   }
 `;
 
@@ -566,13 +659,19 @@ const DetailUserQuantitySpace = styled.div`
   display: flex;
   height: 30px;
   align-items: center;
+  display: ${(props) => (props.selectOptions ? "" : "none")};
 `;
 const DetailUserPriceSpace = styled.div`
   margin-right: 10px;
-  width: 35%;
+  width: 100%;
   height: 50px;
   display: flex;
   justify-content: flex-end;
+  div {
+    display: flex;
+  }
+  .zero {
+  }
 `;
 
 const DetailUserPrice = styled.div`
@@ -612,9 +711,15 @@ const DetailArticlBtn = styled.button`
   color: white;
   font-weight: bold;
   cursor: pointer;
+  &:hover {
+    background-color: #123b77;
+  }
   &:nth-child(1) {
     background-color: white;
     color: var(--color-navy);
+    &:hover {
+      background-color: #f0f0f0;
+    }
   }
 `;
 

@@ -3,7 +3,6 @@ import Apis from "../../apis/apis";
 import { Toast } from "../../components/Alert";
 import { Alert } from "../../components/Alert";
 
-let jwtToken = localStorage.getItem("Authorization");
 export const signUser = createAsyncThunk(
   "user/signUser",
   async ({ signData, navigate }) => {
@@ -32,9 +31,6 @@ export const loginUser = createAsyncThunk(
         localStorage.setItem("Refresh", jwtrefreshToken);
         navigate("/");
         Toast("success", "로그인에 성공하셨습니다!");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
         return res.data;
       })
       .catch((err) => {
@@ -47,7 +43,7 @@ export const loginUser = createAsyncThunk(
 export const getUser = createAsyncThunk("user/getUser", async () => {
   return Apis.get(`members/mypage`, {
     headers: {
-      Authorization: `${jwtToken}`,
+      Authorization: `${localStorage.getItem("Authorization")}`,
       "Content-Type": "application/json",
     },
   })
@@ -65,7 +61,7 @@ export const updateUser = createAsyncThunk(
     console.log(updateData);
     return Apis.patch(`members/mypage`, updateData, {
       headers: {
-        Authorization: `${jwtToken}`,
+        Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "application/json",
       },
     })
@@ -88,11 +84,8 @@ export const guestUser = createAsyncThunk(
         let jwtrefreshToken = res.headers.get("Refresh");
         localStorage.setItem("Authorization", jwtToken);
         localStorage.setItem("Refresh", jwtrefreshToken);
-        // navigate("/");
+        navigate("/");
         Toast("success", "게스트 로그인 성공!");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
         return res.data;
       })
       .catch((err) => {

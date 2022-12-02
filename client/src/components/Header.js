@@ -56,6 +56,14 @@ const LoginBtn = styled.button`
   &:focus {
     color: #ffaf51;
   }
+  @media (min-width: 381px) and (max-width: 767px) {
+    font-size: 14px;
+    margin-left: 3px;
+  }
+  @media screen and (max-width: 380px) {
+    font-size: 12px;
+    margin-left: 0;
+  }
 `;
 
 const Serach = styled.div`
@@ -84,10 +92,10 @@ const CategoryList = styled.div`
   }
   @media screen and (max-width: 380px) {
     padding-left: 10px;
-  } 
+  }
   @media (min-width: 381px) and (max-width: 767px) {
     font-size: 15px;
-    }
+  }
   @media screen and (max-width: 380px) {
     font-size: 14px;
   }
@@ -129,6 +137,10 @@ const Nav = styled.nav`
 const Category = styled.div`
   position: relative;
   padding-right: 30px;
+  .space{
+    display: flex;
+    align-items: center;
+  }
   &:hover {
     cursor: pointer;
     ${Nav} {
@@ -141,7 +153,6 @@ const Category = styled.div`
 `;
 
 function Header({ setMainClick, setSubClick, setSearchWord }) {
-  const jwtToken = localStorage.getItem("Authorization");
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
@@ -149,7 +160,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
 
   const clickMainkMenu = ({ target }) => {
     setMainClick(target.innerText);
-    setSubClick('')
+    setSubClick("");
   };
 
   const clickSubMenu = ({ target }) => {
@@ -165,15 +176,11 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
       setCloseSearch(false);
   };
 
-
   const clickLogOut = (e) => {
     e.preventDefault();
     localStorage.clear();
     navigate("/");
     Toast("success", "로그아웃에 성공하셨습니다!");
-    setTimeout(() => {
-      window.location.reload();
-    }, 1500);
   };
 
   return (
@@ -183,7 +190,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
           <Link to="/register">
             <LoginBtn>판매등록</LoginBtn>
           </Link>
-          {jwtToken ? (
+          {localStorage.getItem("Authorization") ? (
             <Link>
               <LoginBtn onClick={clickLogOut}>로그아웃</LoginBtn>
             </Link>
@@ -192,7 +199,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
               <LoginBtn>로그인/회원가입</LoginBtn>
             </Link>
           )}
-          {jwtToken ? (
+          {localStorage.getItem("Authorization") ? (
             <Link to="/members/mypage/purchase">
               <LoginBtn>마이페이지</LoginBtn>
             </Link>
@@ -211,7 +218,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
           <div>
             <Link to="/library">
               <Category>
-                <div onClick={clickMainkMenu}>서재</div>
+                <div className="space" onClick={clickMainkMenu}>서재</div>
                 <Nav className="1">
                   <div onClick={clickSubMenu}>책상</div>
                   <div onClick={clickSubMenu}>의자</div>
@@ -222,7 +229,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
             </Link>
             <Link to="/bedroom">
               <Category>
-                <div onClick={clickMainkMenu}>침실</div>
+                <div className="space" onClick={clickMainkMenu}>침실</div>
                 <Nav className="2">
                   <div onClick={clickSubMenu}>침대/매트리스</div>
                   <div onClick={clickSubMenu}>행거/옷장</div>
@@ -231,8 +238,8 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
               </Category>
             </Link>
             <Link to="/livingRoom">
-              <Category className="space">
-                <div onClick={clickMainkMenu}>거실</div>
+              <Category>
+                <div className="space" onClick={clickMainkMenu}>거실</div>
                 <Nav className="3">
                   <div onClick={clickSubMenu}>소파</div>
                   <div onClick={clickSubMenu}>거실장</div>
@@ -241,8 +248,8 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
               </Category>
             </Link>
             <Link to="/kitchen">
-              <Category className="space">
-                <div onClick={clickMainkMenu}>주방</div>
+              <Category>
+                <div className="space" onClick={clickMainkMenu}>주방</div>
                 <Nav className="4">
                   <div onClick={clickSubMenu}>식탁/아일랜드</div>
                   <div onClick={clickSubMenu}>식탁의자</div>
@@ -262,7 +269,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
                 setSearchWord={setSearchWord}
               />
             </div>
-            {jwtToken ? (
+            {localStorage.getItem("Authorization") ? (
               <Link to="/cart">
                 <div>
                   <BsCart3 size="20" />

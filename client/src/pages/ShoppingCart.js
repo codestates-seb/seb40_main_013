@@ -6,6 +6,7 @@ import { BsCartX } from 'react-icons/bs';
 import { deleteShoppingCart, getShoppingCart, postPayment } from "../reduxstore/slices/articleSlice";
 import { Alert } from "../components/Alert";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CartBlock = styled.div`
   margin-top: 127.5px;
@@ -93,19 +94,22 @@ const CartList = styled.div`
   width: 100%;
   flex-direction: column;
   @media screen and (min-width: 1024px) {
-    padding-right: 20px;
+    margin-right: 320px;
     width: 700px;
   }
   @media screen and (max-width: 1023px) {
-    padding-right: 0px;
+    margin-right: 0px;
     max-width: 700px;
   }
 `;
 
 //결제정보
 const Payment = styled.section`
-  position: relative;
+  position: fixed;
   /* margin-top: -220px; */
+  top: 230px;
+  right: 50%;
+  margin-right: -505px;
   width: 300px;
   height: 300px;
   min-width: 230px;
@@ -117,10 +121,17 @@ const Payment = styled.section`
     font-weight: 500;
   }
   @media screen and (max-width: 1023px) {
+    top: 0;
+    margin-right: 0;
+    right: 0;
     margin-top: 0px;
     width: 100%;
     max-width: 700px;
+    position: relative;
   }
+  /* @media screen and (min-width: 1023px) {
+    right: 40px;
+  } */
 `;
 
 const PayInfo = styled.div`
@@ -173,6 +184,12 @@ function ShoppingCart() {
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
   console.log(`checkList`, checkList);
 
+  //상품등록
+  const [click, setClick] = useState(0);
+  const clickFunction = () => {
+    setClick(Date.now());
+  };
+
   useEffect(() => {
     dispatch(getShoppingCart());
   }, []);
@@ -214,9 +231,32 @@ function ShoppingCart() {
     if (checkList.length === 0) {
       Alert("warning", "구매하실 상품을 선택해 주세요.");
     } else { //배열에 담아 변수로 보내긔..
-      dispatch(postPayment({checkList,navigate}))
+      Swal.fire({
+        title: "Are you sure?",
+        text: "상품을 구매하시겠습니까?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#002C6D",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "구매하기",
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            purchaseConfirm();
+            Swal.fire("구매완료", "", "success");
+            clickFunction();
+            // navigate('/');
+          }
+        })
+        .catch((err) => console.log(err));
+      // dispatch(postPayment({checkList,navigate}))
     }
   };
+
+  const purchaseConfirm = () => {
+    dispatch(postPayment({checkList,navigate}));
+  }
+
 
   return (
     <CartBlock>

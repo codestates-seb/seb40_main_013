@@ -1,11 +1,12 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Toast } from "../components/Alert";
 
 const refreshToken = localStorage.getItem("Refresh");
 const url = process.env.REACT_APP_URL;
 
 const Apis = axios.create({
-baseURL: url,
+  baseURL: url,
 });
 axios.interceptors.request.use(function (config) {
   return config;
@@ -16,14 +17,13 @@ Apis.interceptors.response.use(
     return response;
   },
   async (err) => {
-    console.log("abc", err);
-    let dataMessage = String(err.response.data.message);
-    const datas = dataMessage.startsWith("JWT expired");
+    let tokenExpiredDataMessage = String(err.response.data.message);
+    let refreshTokenExpiredDataMessage = String(err.response.data.message);
+    const datas = tokenExpiredDataMessage.startsWith("JWT expired");
+    const refreshDatas = refreshTokenExpiredDataMessage.startsWith("JWT");
     if (datas) {
       let originalRequest = err.config;
-      console.log("abc", 11);
       try {
-        console.log("abc", 22);
         const data = await Apis.post(
           "refresh",
           {},
@@ -32,13 +32,11 @@ Apis.interceptors.response.use(
           }
         );
         if (data) {
-          console.log("abc", data);
           const accToken = data.headers.get("Authorization");
           localStorage.removeItem("Authorization");
           localStorage.setItem("Authorization", accToken);
           // originalRequest.headers["Refresh"] = refreshToken;
           originalRequest.headers["Content-Type"] = "application/json";
-          console.log("abcd", 2, originalRequest);
           // return axios.request(originalRequest);
           return Apis({
             ...originalRequest,
@@ -50,13 +48,13 @@ Apis.interceptors.response.use(
           });
         }
       } catch (err) {
-        console.log("abc", "토큰 갱신 에러");
         console.log(err);
       }
       return Promise.reject(err);
     }
-    if (err.response.data.message === "Unauthorized") {
-      Toast("success", "다시 로그인 해주세요!");
+    if (err.response.data.message === "Unauthorized" || refreshDatas) {
+      Toast("success", "로그인 해주세요!");
+      localStorage.clear();
     }
 
     return Promise.reject(err);

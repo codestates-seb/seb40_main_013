@@ -46,17 +46,18 @@ const Container = styled.div`
 `;
 
 const ErrorDisplay = styled.div`
-  font-size: 1vw;
+  font-size: 1.2vw;
   color: red;
-  margin-top: 5px;
-  margin-bottom: 20px;
+  margin-top: 13px;
+  margin-bottom: 10px;
 `;
 
 const Label = styled.label`
-  margin: 10px 15px 8px 0;
+  margin: 10px 15px 0 0;
   color: var(--font-black);
 `;
 const Input = styled.input`
+  margin-top: 10px;
   padding: 8px 5px;
   width: 300px;
   border: 1px solid var(--color-center-line);
@@ -174,7 +175,7 @@ const HowtoEditMobile = styled.div`
   border: 1px solid var(--color-center-line);
   display: none;
   .editTitle {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: #002c6d;
   }
@@ -184,11 +185,17 @@ const HowtoEditMobile = styled.div`
   @media (min-width: 391px) and (max-width: 767px) {
     width: 100%;
     display: flex;
+    li{
+      font-size: 0.8rem;
+    }
   }
   @media (min-width: 768px) and (max-width: 1023px) {
     width: 90%;
     display: flex;
     margin: 0 30px;
+    li{
+      font-size: 0.9rem;
+    }
   }
 `;
 
@@ -202,13 +209,13 @@ const HowtoEdit = styled.div`
   border-radius: 5px;
   border: 1px solid var(--color-center-line);
   .editTitle {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: #002c6d;
   }
   .explain {
     padding: 10px 0;
-    font-size: 1.1vw;
+    font-size: 1vw;
   }
   @media (min-width: 391px) and (max-width: 767px) {
     display: none;
@@ -220,7 +227,7 @@ const HowtoEdit = styled.div`
 const Warning = styled.h2`
   color: red;
   font-weight: 500;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   margin: 10px 0;
 `;
 
@@ -512,8 +519,7 @@ const EditProfile = ({ getUserdata }) => {
         ></Input>
         {!passwordConfirm ? (
           <ErrorDisplay>
-            문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자이상 20자이하로
-            만들어주세요!
+            문자, 숫자, 특수문자를 최소 하나씩 사용해주세요(8~20자)
           </ErrorDisplay>
         ) : null}
         <PwdHide>

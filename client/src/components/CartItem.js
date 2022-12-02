@@ -18,15 +18,15 @@ const CartItemBlock = styled.div`
   align-items: center;
   justify-content: space-between;
   img {
-    width: 100px;
+    width: 90px;
     height: 100%;
-    padding: 0px 10px;
+    padding-right: 10px;
   }
   .product-price {
     padding: 0px 10px;
     justify-content: flex-end;
     font-weight: 600;
-    min-width: 6.7rem;
+    min-width: 7.4rem;
     text-align: center;
     height: 100%;
     align-items: center;
@@ -168,6 +168,7 @@ const EachCheckCircle = styled.input`
   appearance: none;
   cursor: pointer;
   transition: background 0.2s;
+  margin-right: 10px;
   &:checked {
     background: #ffaf51;
     border: none;
@@ -180,13 +181,14 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
   const { brandName, count, img, price, productCartId, productId, title, color } = cartItem;
 
   const [itemCount, setItemCount] = useState(count);
+  console.log(itemCount);
 
   const removeCartItem = () => {
     dispatch(deleteShoppingCart(productCartId));
   };
 
   const ReCountHandler = () => {
-    dispatch(reCountCartItem({ productCartId, itemCount }));
+      dispatch(reCountCartItem({ productCartId, itemCount }));
   };
 
   const upCountHandler = () => {
@@ -206,7 +208,17 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
   };
 
   const onChangeCount = (e) => {
-    setItemCount(e.target.value);
+    let c = e.target.value;
+    if( c === '' || parseInt(c) === 0){
+      Alert("warning", "최소 1개 이상 주문 가능합니다.");
+      setItemCount(1)
+    } else if (parseInt(c)>100) {
+      Alert("warning", "100개 까지 주문 가능합니다.");
+      setItemCount(100)
+    } 
+    else{
+      setItemCount(parseInt(c));
+    }
   };
 
   return (
@@ -236,6 +248,7 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
                 className="count"
                 type="number"
                 pattern="\d*"
+                max={100}
                 value={itemCount}
                 onChange={onChangeCount}
               ></Input>
