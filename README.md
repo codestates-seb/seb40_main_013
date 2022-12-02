@@ -9,6 +9,11 @@
 
 <br />
 
+||test account|
+|:-:|:-:|
+|ID|guest@guest.com|
+|PW|1234|
+
 </div>
 
 <br /><br /><br /><br /><br />
@@ -33,14 +38,6 @@
 |<img src="https://avatars.githubusercontent.com/u/97646802?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/107091097?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/106057412?v=4" width=150>|
 |[@KKG](https://github.com/kkg5)|[@Hong](https://github.com/Grooomit)|[@HeoJunYeol](https://github.com/HeoJunYeol)|
 
-<br />
-
-||test account|
-|:-:|:-:|
-|ID|guest@guest.com|
-|PW|1234|
-
-</div>
 
 <br /><br /><br />
 
