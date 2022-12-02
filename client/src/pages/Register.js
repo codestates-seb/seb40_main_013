@@ -3,11 +3,12 @@ import styled from "styled-components/macro";
 import imageCompression from "browser-image-compression";
 import { postArticle } from "../reduxstore/slices/articleSlice";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import noImg from "../imgs/noImg.gif";
 import { priceCheck } from "../components/effectivenessCheck";
 import { withReactContent } from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 const Container = styled.div`
   /* width: 100vw; */
@@ -165,6 +166,7 @@ const Input = styled.input`
   border: 2px solid #aaa;
   border-radius: 5px;
   font-size: 1rem;
+  width: 200px;
   @media screen and (max-width: 767px) {
     border: 2px solid #aaa;
     padding: 15px 10px;
@@ -313,6 +315,11 @@ const Register = () => {
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
   console.log(contentsImg);
+  //상품등록
+  const [click, setClick] = useState(0);
+  const clickFunction = () => {
+    setClick(Date.now());
+  };
   const brandOptios = [
     { brandName: "두닷", query: 1 },
     { brandName: "포더홈", query: 2 },
@@ -328,7 +335,7 @@ const Register = () => {
     { category: "의자", query: 1 },
     { category: "책상", query: 1 },
     { category: "선반", query: 1 },
-    { category: "침대/메트리스", query: 2 },
+    { category: "침대/매트리스", query: 2 },
     { category: "행거/옷장", query: 2 },
     { category: "화장대", query: 2 },
     { category: "소파", query: 3 },
@@ -443,6 +450,29 @@ const Register = () => {
   //폼 등록하기
   const handleRegister = (e) => {
     e.preventDefault();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "상품을 등록하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#002C6D",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "상품등록",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          registConfirm();
+          Swal.fire("등록되었습니다.", "상품이 등록되었습니다.", "success");
+          clickFunction();
+          // navigate('/');
+        }
+      })
+      .catch((err) => console.log(err));
+
+    // dispatch(postArticle({ postArticleData, navigate }));
+  };
+ console.log(subCategory)
+  const registConfirm = () => {
     let postArticleData = {
       sellerId: sellerId,
       title: contentsName,
@@ -457,7 +487,7 @@ const Register = () => {
       ],
     };
     dispatch(postArticle({ postArticleData, navigate }));
-  };
+  }
 
   //유효성 체크
   const [priceConfirm, setPriceConfirm] = useState(false);
@@ -647,7 +677,9 @@ const Register = () => {
         </InputContainer>
         <Buttons>
           <RegisterBtn onClick={handleRegister}>등록하기</RegisterBtn>
-          <Cancle>취소</Cancle>
+          <Link to="/">
+            <Cancle>취소</Cancle>
+          </Link>
         </Buttons>
       </Form>
     </Container>

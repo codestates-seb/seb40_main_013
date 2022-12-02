@@ -203,6 +203,7 @@ const LoginButton = styled.button`
   border-radius: 5px;
   &:hover {
     cursor: pointer;
+    background-color: #123b77; 
   }
 `;
 

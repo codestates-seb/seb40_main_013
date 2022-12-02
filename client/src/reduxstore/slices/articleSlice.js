@@ -229,12 +229,13 @@ export const popularSearch = createAsyncThunk("popularSearch", async () => {
 export const postArticle = createAsyncThunk(
   "postArticle",
   async ({ postArticleData, navigate }) => {
+    console.log('받아오나?????', postArticleData)
     const form = new FormData();
     form.append("sellerId", postArticleData.sellerId);
     form.append("title", postArticleData.title);
     form.append("price", postArticleData.price);
     form.append("content", postArticleData.content[0]);
-    form.append("content", postArticleData.content[1]);
+    // form.append("content", postArticleData.content[1]);
     form.append("img", postArticleData.img);
     form.append("main", postArticleData.main);
     form.append("sub", postArticleData.sub);

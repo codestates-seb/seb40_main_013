@@ -57,6 +57,7 @@ const Reaction = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 20px;
   @media screen and (max-width: 390px) {
     flex-direction: row;
     justify-content: center;
@@ -83,6 +84,9 @@ const Hello = styled.h2`
   font-weight: 500;
   font-size: 1.3rem;
   color: var(--font-ligthblack);
+  span{
+    color: #002C6D;
+  }
   @media screen and (max-width: 390px) {
     font-size: 1rem;
   }
@@ -212,7 +216,7 @@ const Mypage = () => {
             onclick={handleChangeImg}
           ></ProfileImgConponent>
           <Hello>안녕하세요,&nbsp;</Hello>
-          <Hello>{getUserdata?.nickname}&nbsp;님</Hello>
+          <Hello><span>{getUserdata?.nickname}</span>&nbsp;님</Hello>
         </Reaction>
         <Nav>
           <ReactionDetail path="*">

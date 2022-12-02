@@ -137,7 +137,8 @@ const CategoryImgContainer = styled(Link)`
     display: none;
   }
   @media (min-width: 391px) and (max-width: 767px) {
-    display: flex;
+    display: none;
+    /* display: flex; */
     width: 100%;
     border-bottom-left-radius: 0;
   }
