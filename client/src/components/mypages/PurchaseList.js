@@ -291,6 +291,10 @@ const PurchaseList = () => {
   //페이지네이션
   const [curPage, setCurPage] = useState(0); //현재페이지
   const [totalpage, setTotalpage] = useState(0);
+  const [click, setClick] = useState(0);
+  const clickFunction = () => {
+    setClick(Date.now());
+  };
 
   useEffect(() => {
     window.scrollTo({
@@ -299,6 +303,13 @@ const PurchaseList = () => {
     });
     dispatch(getMyOrder({ curPage, setTotalpage }));
   }, [curPage]);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    dispatch(getMyOrder({ curPage, setTotalpage }));
+  }, [click]);
 
   //주문취소 버튼
   const handleOrderCancle = (id) => {
@@ -321,7 +332,7 @@ const PurchaseList = () => {
         if (result.isConfirmed) {
           orderCancle(id);
           Swal.fire("취소되었습니다", "주문이 취소되었습니다.", "success");
-          window.location.reload();
+          clickFunction();
         }
       })
       .catch((err) => console.log(err));
