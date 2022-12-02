@@ -25,6 +25,84 @@ const Container = styled.div`
     padding: 2rem 0;
   }
 `;
+
+// 좋아요한 상품이 없을 때
+const NotContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  align-items: center;
+  padding: 3rem 0;
+  @media screen and (max-width: 478px){
+    width: 100%;
+  }
+`;
+const NotIcon = styled.div`
+  background-color: #aaaaaa;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10vw;
+  color: white;
+  margin-bottom: 20px;
+  animation: rotate 5s infinite;
+  @keyframes rotate {
+    from {
+      -webkit-transform: rotate(-30deg);
+      -o-transform: rotate(-30deg);
+      transform: rotate(-30deg);
+    }
+    to {
+      -webkit-transform: rotate(30deg);
+      -o-transform: rotate(30deg);
+      transform: rotate(30deg);
+    }
+  }
+  @media screen and (max-width: 478px){
+    width: 7rem;
+    height: 7rem;
+    font-size: 15vw;
+  }
+  @media (min-width: 479px) and (max-width: 767px){
+    font-size: 18vw;
+  }
+`;
+const NotOrder = styled.h3`
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 2rem;
+  span{
+    color: #FFAF51;
+  }
+  @media screen and (max-width: 478px){
+    align-items: center;
+    font-weight: 400;
+    font-size: 1.3rem;
+  }
+`;
+const ShowProduct = styled(Link)`
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-top: 10px;
+  cursor: pointer;
+  &:hover{
+    color: #FFAF51;
+    text-decoration: underline;
+    font-weight: 500;
+  }
+  @media screen and (max-width: 478px){
+    align-items: center;
+    font-weight: 400;
+    font-size: 1.3rem;
+  }
+`;
+
+// 좋아요한 상품이 있을 때
 const LikeTitle = styled.div`
   font-size: 1.7rem;
   font-weight: 600;
@@ -260,37 +338,51 @@ const Like = () => {
   }, [curPage]);
 
   return (
-    <Container>
-      <LikeTitle>내가 좋아하는 상품</LikeTitle>
-      <ProductList>
-        {likeProduct?.map((product, i) => (
-          <Products key={i} to={`/detail/${product.id}`}>
-            <Imgbox>
-              <Img src={product.img?.fullPath}></Img>
-            </Imgbox>
-            <Detail>
-              <SubDetail>
-                <Brand>{product.nickname}</Brand>
-                <StarDetail>
-                  <Star src={starimg}></Star>
-                  <StarAerage>{product.score}</StarAerage>
-                </StarDetail>
-              </SubDetail>
-              <Title>{product.title}</Title>
-              <SubDetail className="end">
-                <Price>
-                  <span className="won">₩</span>
-                  &nbsp;{product.price?.toLocaleString("en-US")}
-                </Price>
-              </SubDetail>
-            </Detail>
-          </Products>
-        ))}
-      </ProductList>
-      <PaginationContainer>
-        <Pagination totalpage={totalpage} page={curPage} setPage={setCurPage} />
-      </PaginationContainer>
-    </Container>
-  );
+    <>
+      {likeProduct?.length === 0 ? (
+        <NotContainer> 
+          <NotIcon>!</NotIcon>
+          <NotOrder><span>좋아요</span>&nbsp;한 상품이 없습니다.</NotOrder>
+          <ShowProduct to="/">상품 보러가기</ShowProduct>
+        </NotContainer>
+      ) : (<Container>
+        <LikeTitle>내가 좋아하는 상품</LikeTitle>
+        <ProductList>
+          {likeProduct?.map((product ,i)=>(
+            <Products key={i} to={`/detail/${product.id}`}>
+              <Imgbox>
+                <Img src={product.img?.fullPath}></Img>
+              </Imgbox>
+              <Detail>
+                <SubDetail>
+                  <Brand>{product.nickname}</Brand>
+                  <StarDetail>
+                    <Star src={starimg}></Star>
+                    <StarAerage>{product.score}</StarAerage>
+                  </StarDetail>
+                </SubDetail>
+                <Title>{product.title}</Title>
+                <SubDetail className="end">
+                  <Price>
+                    <span className="won">
+                      ₩
+                    </span>
+                    &nbsp;{product.price?.toLocaleString("en-US")}</Price>
+                </SubDetail>
+              </Detail>
+            </Products>
+          ))}
+        </ProductList>
+        <PaginationContainer>
+        <Pagination 
+              totalpage={totalpage}
+              page={curPage}
+              setPage={setCurPage}
+              />
+        </PaginationContainer>
+      </Container>
+      )}
+    </>
+    );
 };
 export default Like;

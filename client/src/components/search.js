@@ -175,6 +175,8 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
   const [triger, setriger] = useState(0); //
 
   const test = inputWord.replace(/^\s+|\s+$/gm, "");
+
+  console.log(test);
   const inputChageHandler = ({ target }) => {
     setInputWord(target.value);
   };
@@ -204,6 +206,8 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
   const popularSelector = useSelector(
     (state) => state.article.popularSearchInitial
   );
+
+  console.log(popularSelector);
 
   useEffect(() => {
     dispatch(popularSearch());

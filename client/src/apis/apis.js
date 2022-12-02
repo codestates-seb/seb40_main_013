@@ -19,9 +19,8 @@ Apis.interceptors.response.use(
     let tokenExpiredDataMessage = String(err.response.data.message);
     let refreshTokenExpiredDataMessage = String(err.response.data.message);
     const datas = tokenExpiredDataMessage.startsWith("JWT expired");
-    const refreshDatas = refreshTokenExpiredDataMessage.startsWith(
-      "Refresh Token Error"
-    );
+
+    const refreshDatas = refreshTokenExpiredDataMessage.startsWith("JWT");
     if (datas) {
       let originalRequest = err.config;
       try {

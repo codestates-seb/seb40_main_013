@@ -100,6 +100,7 @@ const Wrapper = styled.form`
   justify-content: center;
   margin-bottom: 80px;
   margin-top: 200px;
+  
   @media screen and (max-width: 768px) {
     display: flex;
     justify-content: center;
@@ -120,6 +121,7 @@ const LoginWrapper = styled.div`
   @media screen and (max-width: 500px) {
     min-width: 240px;
     height: 95%;
+
     display: flex;
     justify-content: center;
   }
@@ -128,6 +130,7 @@ const LoginWrapper = styled.div`
 const LoginImg = styled.img`
   width: 45%;
   height: 68vh;
+
   /* @media screen and (max-width: 1023px) and (min-width: 768) {
     width: 50%;
   } */
@@ -227,6 +230,7 @@ const LoginState = styled.div`
 `;
 const LoginStateContent = styled.div`
   font-size: 17px;
+
 `;
 
 const LoginRouteSign = styled.div`

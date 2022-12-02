@@ -157,6 +157,7 @@ const SignupWrapper = styled.div`
 
   @media screen and (max-width: 400px) {
     height: 100%;
+
   }
 `;
 
@@ -204,6 +205,7 @@ const UserSubmitBtn = styled.button`
   align-items: center;
   font-size: 20px;
   font-weight: bold;
+
 `;
 
 const ErrorDisplay = styled.div`

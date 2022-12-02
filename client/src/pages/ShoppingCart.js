@@ -6,6 +6,7 @@ import { BsCartX } from 'react-icons/bs';
 import { deleteShoppingCart, getShoppingCart, postPayment } from "../reduxstore/slices/articleSlice";
 import { Alert } from "../components/Alert";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CartBlock = styled.div`
   margin-top: 127.5px;
@@ -183,6 +184,12 @@ function ShoppingCart() {
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
   console.log(`checkList`, checkList);
 
+  //상품등록
+  const [click, setClick] = useState(0);
+  const clickFunction = () => {
+    setClick(Date.now());
+  };
+
   useEffect(() => {
     dispatch(getShoppingCart());
   }, []);
@@ -224,9 +231,32 @@ function ShoppingCart() {
     if (checkList.length === 0) {
       Alert("warning", "구매하실 상품을 선택해 주세요.");
     } else { //배열에 담아 변수로 보내긔..
-      dispatch(postPayment({checkList,navigate}))
+      Swal.fire({
+        title: "Are you sure?",
+        text: "상품을 구매하시겠습니까?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#002C6D",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "구매하기",
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            purchaseConfirm();
+            Swal.fire("구매완료", "", "success");
+            clickFunction();
+            // navigate('/');
+          }
+        })
+        .catch((err) => console.log(err));
+      // dispatch(postPayment({checkList,navigate}))
     }
   };
+
+  const purchaseConfirm = () => {
+    dispatch(postPayment({checkList,navigate}));
+  }
+
 
   return (
     <CartBlock>

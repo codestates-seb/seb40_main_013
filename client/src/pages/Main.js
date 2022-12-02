@@ -16,6 +16,7 @@ const Container = styled.div`
   align-items: center;
   margin-top: 127.5px;
   z-index: 1;
+  padding: 0 15px;
 `;
 
 //best of best
