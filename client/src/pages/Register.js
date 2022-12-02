@@ -4,10 +4,10 @@ import imageCompression from "browser-image-compression";
 import { postArticle } from "../reduxstore/slices/articleSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {IoIosArrowDown} from "react-icons/io"
-import noImg from "../imgs/noImg.gif"
-import {priceCheck} from "../components/effectivenessCheck"
-import { withReactContent } from 'sweetalert2-react-content';
+import { IoIosArrowDown } from "react-icons/io";
+import noImg from "../imgs/noImg.gif";
+import { priceCheck } from "../components/effectivenessCheck";
+import { withReactContent } from "sweetalert2-react-content";
 
 const Container = styled.div`
   /* width: 100vw; */
@@ -16,7 +16,7 @@ const Container = styled.div`
   padding-top: 160px;
   overflow-x: hidden;
   align-items: center;
-  @media screen and (max-width:767px){
+  @media screen and (max-width: 767px) {
     padding: 160px 30px;
   }
 `;
@@ -34,28 +34,28 @@ const Title = styled.h2`
 const Form = styled.form`
   width: 900px;
   padding: 10px 0 30px 0;
-  @media screen and (max-width:767px){
+  @media screen and (max-width: 767px) {
     padding: 10px 30px;
     width: 100%;
     border: 1px solid #aaa;
     border-radius: 5px;
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
-  @media (min-width: 768px) and (max-width:1023px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 90%;
   }
 `;
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
-  .err{
+  .err {
     color: red;
     font-size: 0.8em;
     margin-top: 10px;
   }
-  @media screen and (max-width:767px){
+  @media screen and (max-width: 767px) {
     flex-direction: column;
     margin: 10px 0;
     align-items: flex-start;
@@ -69,7 +69,7 @@ const TabContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-right: 30px;
-  @media screen and (max-width:767px){
+  @media screen and (max-width: 767px) {
     width: fit-content;
     border-radius: 5px;
     background-color: white;
@@ -81,7 +81,7 @@ const TabContainer = styled.div`
     padding: 10px 0;
     margin-left: 10px;
   }
-  @media (min-width: 768px) and (max-width:1023px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 17vw;
   }
 `;
@@ -90,10 +90,10 @@ const HrContainer = styled.div`
   width: 15vw;
   display: flex;
   justify-content: center;
-  @media screen and (max-width:767px){
-   display: none;
+  @media screen and (max-width: 767px) {
+    display: none;
   }
-  @media (min-width: 768px) and (max-width:1023px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 17vw;
   }
 `;
@@ -104,7 +104,7 @@ const ImgContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-right: 30px;
-  @media screen and (max-width:767px){
+  @media screen and (max-width: 767px) {
     width: fit-content;
     border-radius: 5px;
     background-color: white;
@@ -116,14 +116,14 @@ const ImgContainer = styled.div`
     padding: 10px 0;
     margin-left: 10px;
   }
-  @media (min-width: 768px) and (max-width:1023px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 17vw;
   }
 `;
 const SumContainer = styled.div`
   display: flex;
   flex-direction: column;
-  @media (min-width: 768px) and (max-width:1023px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: 70%;
   }
 `;
@@ -143,14 +143,14 @@ const Label = styled.label`
   justify-content: center;
   align-items: center;
   line-height: 1.2rem;
-  @media screen and (max-width:767px){
+  @media screen and (max-width: 767px) {
     flex-direction: row;
   }
 `;
 const Hr = styled.hr`
   color: #aaa;
   width: 10vw;
-  @media screen and (max-width:767px){
+  @media screen and (max-width: 767px) {
     display: none;
   }
 `;
@@ -165,7 +165,7 @@ const Input = styled.input`
   border: 2px solid #aaa;
   border-radius: 5px;
   font-size: 1rem;
-  @media screen and (max-width:767px){
+  @media screen and (max-width: 767px) {
     border: 2px solid #aaa;
     padding: 15px 10px;
     border-radius: 5px;
@@ -179,23 +179,23 @@ const SelectBox = styled.div`
   border-radius: 4px;
   border: 2px solid #aaa;
   margin-right: 10px;
-  @media screen and (max-width:767px){
+  @media screen and (max-width: 767px) {
     margin-bottom: 15px;
   }
 `;
 const IcoArrow = styled.span`
-  position: absolute; 
-  top: 0; 
-  right: 0; 
-  z-index: 1; 
-  width: 35px; 
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 35px;
   height: inherit;
   display: flex;
   justify-content: center;
   align-items: center;
-  &.img{
+  &.img {
     width: 50%;
-    transition: .3s;
+    transition: 0.3s;
     transform: rotate(180deg);
   }
 `;
@@ -237,7 +237,7 @@ const RegisterBtn = styled.button`
   &:hover {
     opacity: 0.7;
   }
-  @media screen and (max-width:478px) {
+  @media screen and (max-width: 478px) {
     font-size: 0.8rem;
     padding: 6px 14px;
   }
@@ -252,7 +252,7 @@ const Cancle = styled.button`
   &:hover {
     opacity: 0.7;
   }
-  @media screen and (max-width:478px) {
+  @media screen and (max-width: 478px) {
     font-size: 0.8rem;
     padding: 6px 14px;
   }
@@ -262,13 +262,13 @@ const Img = styled.img`
   border-radius: 5px;
   width: 100%;
   height: 150px;
-  @media (min-width: 768px) and (max-width:1023px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     width: fit-content;
     max-width: 100%;
   }
 `;
 const Noimg = styled.img`
-  @media screen and (max-width:478px) {
+  @media screen and (max-width: 478px) {
     width: 200px;
   }
 `;
@@ -312,7 +312,7 @@ const Register = () => {
   const [contentsPrice, setContentsPrice] = useState("");
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
-
+  console.log(contentsImg);
   const brandOptios = [
     { brandName: "두닷", query: 1 },
     { brandName: "포더홈", query: 2 },
@@ -365,7 +365,11 @@ const Register = () => {
   };
 
   const changeContentName = (e) => {
-    setContentsName(e.target.query);
+    setContentsName(e.target.value.trim());
+  };
+  console.log(contentsName);
+  const handleChangeWhiteSpace = (e) => {
+    e.target.value = e.target.value;
   };
   const changeContentPrice = (e) => {
     setContentsPrice(e.target.value);
@@ -379,11 +383,11 @@ const Register = () => {
       console.log([file]);
 
       const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1920,
+        maxSizeMB: 0.2,
         useWebWorker: true,
       };
       console.log("압축시작");
+      console.log(file);
       const compressFile = await imageCompression(file, options);
       const thumbnailFile = new File([compressFile], "thumbnailImg.JPG");
       setThumbnailImg(thumbnailFile);
@@ -395,7 +399,7 @@ const Register = () => {
     e.preventDefault();
     URL.revokeObjectURL(fileImage);
     setFileImage("");
-    setThumbnailImg('');
+    setThumbnailImg("");
   };
 
   //디테일 파일 저장
@@ -403,31 +407,32 @@ const Register = () => {
   const changeContentImg = async (e) => {
     setDetailFileImage(URL.createObjectURL(e.target.files[0]));
     e.preventDefault();
+    console.log(e.target.files);
     if (e.target.files) {
       const [file] = e.target.files;
       console.log([file]);
 
       const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1920,
+        maxSizeMB: 0.2,
         useWebWorker: true,
       };
       console.log("압축시작");
       const compressFile = await imageCompression(file, options);
       const contentFile = new File([compressFile], "contentImage.JPG");
+      console.log([contentsImg]);
+
       setContentsImg([contentFile]);
       if (contentsImg) {
         setContentsImg([...contentsImg, contentFile]);
       }
     }
   };
-
   //디테일 파일 삭제
   const deletedetailFileImage = (e) => {
     e.preventDefault();
     URL.revokeObjectURL(detailFileImage);
     setDetailFileImage("");
-    setContentsImg('');
+    setContentsImg("");
   };
 
   //카테고리 선택하기
@@ -451,25 +456,24 @@ const Register = () => {
         { color: "Black", stock: 1000 },
       ],
     };
-
     dispatch(postArticle({ postArticleData, navigate }));
   };
 
   //유효성 체크
   const [priceConfirm, setPriceConfirm] = useState(false);
-console.log(Number(contentsPrice) % 100)
-  useEffect(()=> {
-    if(!priceCheck(contentsPrice)){
+  console.log(Number(contentsPrice) % 100);
+  useEffect(() => {
+    if (!priceCheck(contentsPrice)) {
       setPriceConfirm(false);
     } else {
       setPriceConfirm(true);
     }
-    if(Number(contentsPrice) % 100 === 0){
+    if (Number(contentsPrice) % 100 === 0) {
       setPriceConfirm(false);
     } else {
       setPriceConfirm(true);
     }
-  })
+  });
 
   return (
     <Container>
@@ -498,16 +502,26 @@ console.log(Number(contentsPrice) % 100)
         </HrContainer>
         <InputContainer>
           <TabContainer>
-            <Label htmlFor="title">제품명 <span>&nbsp;(40자 이하)</span></Label>
+            <Label htmlFor="title">
+              제품명 <span>&nbsp;(40자 이하)</span>
+            </Label>
           </TabContainer>
-          <Input placeholder="제품명을 입력해주세요" maxLength='40' name="title" className="title" onChange={changeContentName} />
+          <Input
+            placeholder="제품명을 입력해주세요"
+            maxLength="40"
+            name="title"
+            className="title"
+            onChange={changeContentName}
+          />
         </InputContainer>
         <HrContainer>
           <Hr></Hr>
         </HrContainer>
         <InputContainer>
           <TabContainer>
-            <Label htmlFor="price">판매가 <span>&nbsp;(10,000 원 이상)</span></Label>
+            <Label htmlFor="price">
+              판매가 <span>&nbsp;(10,000 원 이상)</span>
+            </Label>
           </TabContainer>
           <Pricecontent>
             <Input
@@ -518,7 +532,13 @@ console.log(Number(contentsPrice) % 100)
               max={10000000}
               onChange={changeContentPrice}
             />
-            {priceConfirm ? <div className="err">숫자만 입력해주세요.(100원 단위 이상만 입력 가능)</div> : ""}
+            {priceConfirm ? (
+              <div className="err">
+                숫자만 입력해주세요.(100원 단위 이상만 입력 가능)
+              </div>
+            ) : (
+              ""
+            )}
           </Pricecontent>
         </InputContainer>
         <HrContainer>
@@ -583,10 +603,13 @@ console.log(Number(contentsPrice) % 100)
                 accept="image/*"
                 onChange={changeThumbnailImg}
               />
-              {thumbnailImg === "" ? "" : 
-              <DeleteSumnaeil onClick={(e) => deleteFileImage(e)}>
-                삭제
-              </DeleteSumnaeil>}
+              {thumbnailImg === "" ? (
+                ""
+              ) : (
+                <DeleteSumnaeil onClick={(e) => deleteFileImage(e)}>
+                  삭제
+                </DeleteSumnaeil>
+              )}
             </UploadDelete>
           </SumContainer>
         </InputContainer>
@@ -612,10 +635,13 @@ console.log(Number(contentsPrice) % 100)
                 accept="image/*"
                 onChange={changeContentImg}
               />
-              {contentsImg === "" ? "" : 
-              <DeleteSumnaeil onClick={(e) => deletedetailFileImage(e)}>
-                삭제
-              </DeleteSumnaeil>}
+              {contentsImg === "" ? (
+                ""
+              ) : (
+                <DeleteSumnaeil onClick={(e) => deletedetailFileImage(e)}>
+                  삭제
+                </DeleteSumnaeil>
+              )}
             </UploadDelete>
           </SumContainer>
         </InputContainer>

@@ -13,7 +13,8 @@ function Review({ articlesDetail, reviewRef }) {
       <ReviewStarSpace>
         {renderStar(articlesDetail?.score)}
         <ReviewStaAverage>
-          평균 별점&nbsp;<ReviewNumber> {articlesDetail?.score}&nbsp;</ReviewNumber>점
+          평균 별점&nbsp;
+          <ReviewNumber> {articlesDetail?.score}&nbsp;</ReviewNumber>점
         </ReviewStaAverage>
       </ReviewStarSpace>
       <Boundary />
@@ -27,22 +28,24 @@ function Review({ articlesDetail, reviewRef }) {
               ) : (
                 <ReviewContentsImg src={noImg}></ReviewContentsImg>
               )}
+            </ReviewContentsLeftSpace>
+            <ReviewContent>
               <ReviewContentsMainSpace>
                 {renderStar(data.score)}
                 <ReviewMainTitle>{data.title}</ReviewMainTitle>
                 <ReviewMainContent>{data.content}</ReviewMainContent>
               </ReviewContentsMainSpace>
-            </ReviewContentsLeftSpace>
-            <ReviewContentsRightSpace>
-              <ReviewContentsUser>{data.nickname}</ReviewContentsUser>
-              <ReviewContentsUser>
-                {new Date(data.createdAt).getFullYear() +
-                  "." +
-                  [new Date(data.createdAt).getMonth() + 1] +
-                  "." +
-                  new Date(data.createdAt).getDate()}
-              </ReviewContentsUser>
-            </ReviewContentsRightSpace>
+              <ReviewContentsRightSpace>
+                <ReviewContentsUser>{data.nickname}</ReviewContentsUser>
+                <ReviewContentsUser className="reviewDate">
+                  {new Date(data.createdAt).getFullYear() +
+                    "." +
+                    [new Date(data.createdAt).getMonth() + 1] +
+                    "." +
+                    new Date(data.createdAt).getDate()}
+                </ReviewContentsUser>
+              </ReviewContentsRightSpace>
+            </ReviewContent>
           </ReviewContentsSpace>
         ))
         .reverse()}
@@ -109,9 +112,15 @@ const ReviewContentsSpace = styled.div`
   height: 110px;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
+  @media screen and (max-width: 400px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 const ReviewContentsLeftSpace = styled.div`
-  width: 70%;
+  width: 20%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -126,6 +135,8 @@ const ReviewContentsMainSpace = styled.div`
   flex-direction: column;
   @media screen and (max-width: 400px) {
     margin-left: 15px;
+    display: flex;
+    align-items: center;
   }
 `;
 const ReviewContentsNumber = styled.div`
@@ -140,9 +151,8 @@ const ReviewContentsImg = styled.img`
   margin: 0px 20px;
   @media screen and (max-width: 520px) {
     width: 60px;
-    height: 70px;
+    height: 80%;
   }
-
 `;
 
 const ReviewMainTitle = styled.div`
@@ -158,14 +168,39 @@ const ReviewMainContent = styled.div`
     display: none;
   }
 `;
+const ReviewContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  height: 100%;
+
+  @media screen and (max-width: 800px) {
+    max-width: 77%;
+    display: flex;
+  }
+  @media screen and (max-width: 720px) {
+    width: 70%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+  }
+  @media screen and (max-width: 400px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 320px;
+  }
+`;
 
 const ReviewContentsRightSpace = styled.div`
-  width: 30%;
+  width: 50%;
   display: flex;
   height: 100%;
   justify-content: space-around;
   align-items: center;
   @media screen and (max-width: 400px) {
+    width: 35%;
     display: flex;
     flex-direction: column;
   }
@@ -174,10 +209,10 @@ const ReviewContentsRightSpace = styled.div`
 const ReviewContentsUser = styled.div`
   font-size: var(--font-smallsize);
   font-weight: bolder;
-  @media screen and (max-width: 400px) {
-    &:nth-child(2) {
-      display: none;
-    }
+  margin-left: 10px;
+  .reviewDate {
+    width: 30px;
+    background-color: red;
   }
 `;
 const ReviewPageNationSpace = styled.div`

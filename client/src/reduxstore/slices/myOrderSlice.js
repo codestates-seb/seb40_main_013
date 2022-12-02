@@ -1,15 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
 
-let jwtToken = localStorage.getItem("Authorization");
-
 export const getMyOrder = createAsyncThunk(
   "getMyOrder",
-  async ( {curPage, setTotalpage} ) => {
-    return Apis.get(`orders?page=${curPage-1}&size=20&sort=createdAt,DESC`,     
-    {
+  async ({ curPage, setTotalpage }) => {
+    return Apis.get(`orders?page=${curPage - 1}&size=20&sort=createdAt,DESC`, {
       headers: {
-        Authorization: `${jwtToken}`,
+        Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "application/json",
       },
     })
@@ -23,24 +20,20 @@ export const getMyOrder = createAsyncThunk(
   }
 );
 
-export const filterMyOrder = createAsyncThunk(
-  "filterMyOrder",
-  async (id) => {
-    return Apis.get(`orders/${id}`,     
-    {
-      headers: {
-        Authorization: `${jwtToken}`,
-        "Content-Type": "application/json",
-      },
+export const filterMyOrder = createAsyncThunk("filterMyOrder", async (id) => {
+  return Apis.get(`orders/${id}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("Authorization")}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.data;
     })
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-);
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 const myOrderSlice = createSlice({
   name: "myorder",

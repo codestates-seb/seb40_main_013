@@ -2,23 +2,22 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
 import axios from "axios";
 
-let jwtToken = localStorage.getItem("Authorization");
-
 export const getAllReview = createAsyncThunk(
   "review/allGet",
-  async (isClick) => {
+  async ({ curPage, setTotalpage }) => {
     return Apis.get(
       `members/mypage/reviews?page=${
-        isClick - 1
+        curPage - 1
       }&size=20&sort=createdAt%2CDESC`,
       {
         headers: {
-          Authorization: `${jwtToken}`,
+          Authorization: `${localStorage.getItem("Authorization")}`,
           "Content-Type": "application/json",
         },
       }
     )
       .then((res) => {
+        setTotalpage(res.data.pageInfo?.totalPages);
         return res.data;
       })
       .catch((err) => {
@@ -29,13 +28,14 @@ export const getAllReview = createAsyncThunk(
 export const postReview = createAsyncThunk(
   "review/post",
   async ({ postData, navigate }) => {
+    console.log({ postData });
     const form = new FormData();
     form.append("content", postData.content);
     form.append("score", postData.score);
     form.append("img", postData.img);
     return Apis.post(`products/${postData.filterProductId}/reviews`, form, {
       headers: {
-        Authorization: `${jwtToken}`,
+        Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "multipart/form-data",
       },
     })
@@ -51,14 +51,20 @@ export const postReview = createAsyncThunk(
 );
 export const updateReview = createAsyncThunk(
   "review/update",
-  async ({ updateData }) => {
-    return Apis.patch(`products/3/reviews`, updateData, {
-      headers: {
-        Authorization: `${jwtToken}`,
-      },
-    })
+  async ({ filterProductId, updateData }) => {
+    console.log({ updateData });
+    return Apis.patch(
+      `products/${filterProductId}/reviews/${updateData.reviewId}`,
+      updateData,
+      {
+        headers: {
+          Authorization: `${localStorage.getItem("Authorization")}`,
+        },
+      }
+    )
       .then((res) => {
         console.log(res);
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {
@@ -73,7 +79,7 @@ export const deleteReview = createAsyncThunk(
       `products/${deleteData.productId}/reviews/${deleteData.reviewId}`,
       {
         headers: {
-          Authorization: `${jwtToken}`,
+          Authorization: `${localStorage.getItem("Authorization")}`,
         },
       }
     )

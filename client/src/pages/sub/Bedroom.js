@@ -3,19 +3,20 @@ import styled from "styled-components/macro";
 import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
-import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
+import { getSub, getCount } from "../../reduxstore/slices/subCategorySlice";
 import RankingDown from "../../components/subcategories/DropDown";
 
 function Bedroom({ mainClick, subclick }) {
-  
   //소분류에 따른 대분류카테고리 이름 지정
-  let mainCateClick = '침실';
+  let mainCateClick = "침실";
   console.log(subclick);
 
   const dispatch = useDispatch();
-  
+
   const subSelector = useSelector((state) => state.subCatetory.subInitial);
-  const countSelector = useSelector((state) => state.subCatetory.coutnInitial.count );
+  const countSelector = useSelector(
+    (state) => state.subCatetory.coutnInitial.count
+  );
 
   const [page, setPage] = useState(0);
 
@@ -25,13 +26,16 @@ function Bedroom({ mainClick, subclick }) {
   const [closeDropDown, setDloseDropDown] = useState(false);
 
   let sortArgument = "createdAt";
-  if(dropDownclicked ==='판매순'){
-    sortArgument = 'sale';
-  } else if(dropDownclicked === '높은가격순'|| dropDownclicked === '낮은가격순'){
-    sortArgument = 'price';
-  } else{
-    sortArgument = 'createdAt';
-  };
+  if (dropDownclicked === "판매순") {
+    sortArgument = "sale";
+  } else if (
+    dropDownclicked === "높은가격순" ||
+    dropDownclicked === "낮은가격순"
+  ) {
+    sortArgument = "price";
+  } else {
+    sortArgument = "createdAt";
+  }
 
   const modalRef = useRef();
 
@@ -46,17 +50,18 @@ function Bedroom({ mainClick, subclick }) {
 
   useEffect(() => {
     dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-    dispatch(getCount({mainCateClick, subclick}));
-}, [subclick, sortArgument, third ]);
+    dispatch(getCount({ mainCateClick, subclick }));
+  }, [subclick, sortArgument, third]);
 
   return (
     <SubBlock onClick={outModalCloseHandler}>
       <SubCarousel />
       <FilterBlock>
-        { subclick != '' ? 
-            <SubMenuWord>{subclick}&nbsp;</SubMenuWord> : 
-            <SubMenuWord>{mainCateClick}&nbsp;전체상품&nbsp;</SubMenuWord>
-        }
+        {subclick != "" ? (
+          <SubMenuWord>{subclick}&nbsp;</SubMenuWord>
+        ) : (
+          <SubMenuWord>{mainCateClick}&nbsp;전체상품&nbsp;</SubMenuWord>
+        )}
         <div className="total">에 {countSelector} 개의 상품이 있습니다</div>
         <section ref={modalRef}>
           <RankingDown

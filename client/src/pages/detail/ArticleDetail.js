@@ -20,6 +20,7 @@ import Apis from "../../apis/apis";
 
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
+  const [clickHeart, setClickHeart] = useState(false);
   const [selectOptions, setSelectOptions] = useState("");
   console.log(selectOptions);
   const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
@@ -36,12 +37,15 @@ function ArticleDetail() {
   let price = articlesDetail?.price;
   const isLike = articlesDetail?.existsLike;
   console.log(articlesDetail);
-  const jwtToken = localStorage.getItem("Authorization");
   const clickFunction = () => {
     setClickSelect(!clickSelect);
   };
   const clickUpCart = () => {
-    setCartCount(cartCount + 1);
+    if (cartCount >= 99) {
+      setCartCount(99);
+    } else {
+      setCartCount(cartCount + 1);
+    }
   };
   const clickDownCart = () => {
     if (cartCount <= 1) {
@@ -93,13 +97,13 @@ function ArticleDetail() {
 
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
-
+    setClickHeart(true);
     dispatch(postLike(id));
   };
 
   const clickDeleteLike = () => {
     let id = articlesDetail?.productId;
-
+    setClickHeart(false);
     dispatch(deleteLike(id));
   };
 
@@ -122,13 +126,39 @@ function ArticleDetail() {
               <DetailArticlePrice>
                 {articlesDetail?.price?.toLocaleString("en-US")}원
               </DetailArticlePrice>
-              <ButtonIcon>
-                {isLike ? (
-                  <BsHeartFill size='20' color="#FFAF51" onClick={clickDeleteLike} />
-                ) : (
-                  <BsHeart size='20' className="heart" onClick={clickPostLike} />
-                )}
-              </ButtonIcon>
+              {clickHeart ? (
+                <ButtonIcon>
+                  {isLike ? (
+                    <BsHeartFill
+                      size="20"
+                      color="#FFAF51"
+                      onClick={clickDeleteLike}
+                    />
+                  ) : (
+                    <BsHeart
+                      size="20"
+                      className="heart"
+                      onClick={clickPostLike}
+                    />
+                  )}
+                </ButtonIcon>
+              ) : (
+                <ButtonIcon>
+                  {isLike ? (
+                    <BsHeartFill
+                      size="20"
+                      color="#FFAF51"
+                      onClick={clickDeleteLike}
+                    />
+                  ) : (
+                    <BsHeart
+                      size="20"
+                      className="heart"
+                      onClick={clickPostLike}
+                    />
+                  )}
+                </ButtonIcon>
+              )}
             </DetailArticlePriceSpace>
             <div>
               <DetailArticleOptionSpace>
@@ -182,25 +212,29 @@ function ArticleDetail() {
                 </ButtonIcon>
               </DetailUserQuantitySpace>
               <DetailUserPriceSpace>
-                { selectOptions === '' ?
+                {selectOptions === "" ? (
                   <div className="zero">
                     <DetailUserPrice className="w">₩</DetailUserPrice>
                     <DetailUserPrice>0</DetailUserPrice>
-                  </div> 
-                  :
+                  </div>
+                ) : (
                   <div>
                     <DetailUserPrice className="w">₩</DetailUserPrice>
                     <DetailUserPrice>
                       {(price * cartCount).toLocaleString("en-US")}
                     </DetailUserPrice>
                   </div>
-                }
+                )}
               </DetailUserPriceSpace>
             </DetailUserSubmitPriceSpace>
             <DetailArticlBtnSpace>
-              <DetailArticlBtn onClick={clickPostCart}>
-                장바구니
-              </DetailArticlBtn>
+              {localStorage.getItem("Authorization") ? (
+                <DetailArticlBtn onClick={clickPostCart}>
+                  장바구니
+                </DetailArticlBtn>
+              ) : (
+                <DetailArticlBtn>장바구니</DetailArticlBtn>
+              )}
               <DetailArticlBtn>바로구매</DetailArticlBtn>
             </DetailArticlBtnSpace>
           </ArticleInformations>
@@ -209,7 +243,7 @@ function ArticleDetail() {
           <SelectMoveBtn onClick={() => onMoveToElement(0)}>
             상세 설명
           </SelectMoveBtn>
-          <SelectCenterLine>/</SelectCenterLine>
+          <SelectCenterLine>|</SelectCenterLine>
           <SelectMoveBtn onClick={() => onMoveToElement(1)}>후기</SelectMoveBtn>
         </SelectMoveSpace>
         {articlesDetail?.content?.map((data) => (
@@ -549,16 +583,16 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
     border-bottom: 1px solid var(--color-gray);
     background-color: white;
     &:hover {
-    background-color: #f0f0f0;
-  }
+      background-color: #f0f0f0;
+    }
   }
   &:nth-child(2) {
     border: none;
     border-bottom: 1px solid var(--color-gray);
     background-color: white;
     &:hover {
-    background-color: #f0f0f0;
-  }
+      background-color: #f0f0f0;
+    }
   }
 `;
 
@@ -578,7 +612,7 @@ const DetailUserQuantitySpace = styled.div`
   display: flex;
   height: 30px;
   align-items: center;
-  display: ${(props) => (props.selectOptions ? "" : "none" )};
+  display: ${(props) => (props.selectOptions ? "" : "none")};
 `;
 const DetailUserPriceSpace = styled.div`
   margin-right: 10px;
@@ -586,11 +620,10 @@ const DetailUserPriceSpace = styled.div`
   height: 50px;
   display: flex;
   justify-content: flex-end;
-  div{
+  div {
     display: flex;
   }
-  .zero{
-    
+  .zero {
   }
 `;
 
@@ -631,13 +664,13 @@ const DetailArticlBtn = styled.button`
   color: white;
   font-weight: bold;
   cursor: pointer;
-  &:hover{
-    background-color: #123B77;
+  &:hover {
+    background-color: #123b77;
   }
   &:nth-child(1) {
     background-color: white;
     color: var(--color-navy);
-    &:hover{
+    &:hover {
       background-color: #f0f0f0;
     }
   }
