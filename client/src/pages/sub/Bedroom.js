@@ -54,8 +54,8 @@ function Bedroom({ mainClick, subclick }) {
       behavior: "smooth",
     });
     dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-    dispatch(getCount({mainCateClick, subclick}));
-}, [subclick, sortArgument, third ]);
+    dispatch(getCount({ mainCateClick, subclick }));
+  }, [subclick, sortArgument, third]);
 
   return (
     <SubBlock onClick={outModalCloseHandler}>

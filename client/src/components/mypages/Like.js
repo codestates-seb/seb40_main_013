@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
-import starimg from "../../imgs/star.png"
+import starimg from "../../imgs/star.png";
 import { likeData } from "../../reduxstore/slices/likeSlice";
 import Pagination from "./Pagination";
 
-const Container =styled.div`
+const Container = styled.div`
   /* border: 1px solid red; */
   width: 75%;
   padding: 2rem;
@@ -114,7 +114,7 @@ const LikeTitle = styled.div`
   }
   @media (min-width: 480px) and (max-width: 767px) {
     padding-left: 1.3rem;
-  }  
+  }
   @media (min-width: 768px) and (max-width: 1023px) {
     padding-left: 1.5rem;
   }
@@ -261,7 +261,7 @@ const Price = styled.h5`
   @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 1.2em;
   }
-  .won{
+  .won {
     font-size: 0.9rem;
     display: flex;
     align-items: center;
@@ -272,7 +272,7 @@ const SubDetail = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 10px 0;
-  &.end{
+  &.end {
     justify-content: flex-end;
   }
 `;
@@ -318,19 +318,24 @@ const PaginationContainer = styled.div`
 
 const Like = () => {
   const dispatch = useDispatch();
-  const likeProduct = useSelector((state)=> state.like.like.content);
+  const likeProduct = useSelector((state) => state.like.like.content);
   //페이지네이션
   const [curPage, setCurPage] = useState(0); //현재페이지
   const [totalpage, setTotalpage] = useState(0);
-  console.log(curPage);
 
-    useEffect(()=>{
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-      dispatch(likeData({curPage, setTotalpage}))
-    }, [curPage]);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    let count = 0;
+    if (curPage > 0) {
+      count = curPage - 1;
+    } else {
+      count = 0;
+    }
+    dispatch(likeData({ count, setTotalpage }));
+  }, [curPage]);
 
   return (
     <>

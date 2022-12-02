@@ -325,14 +325,28 @@ const PurchaseList = () => {
       top: 0,
       behavior: "smooth",
     });
-    dispatch(getMyOrder({ curPage, setTotalpage }));
+    let count = 0;
+    if (curPage > 0) {
+      count = curPage - 1;
+    } else {
+      count = 0;
+    }
+    dispatch(getMyOrder({ count, setTotalpage }));
+
   }, [curPage]);
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-    dispatch(getMyOrder({ curPage, setTotalpage }));
+    let count = 0;
+    if (curPage > 0) {
+      count = curPage - 1;
+    } else {
+      count = 0;
+    }
+    dispatch(getMyOrder({ count, setTotalpage }));
+
   }, [click]);
 
   //주문취소 버튼
@@ -434,6 +448,7 @@ const PurchaseList = () => {
                   </Btns>
                 </Detail>
                 <ReactionSpace>
+
                   <ReactionReviewBtn onClick={() => handleOrderCancle(order.orderId)}>주문취소</ReactionReviewBtn>
                 </ReactionSpace>
               </Content>

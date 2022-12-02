@@ -2,7 +2,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "../components/Alert";
 
-const refreshToken = localStorage.getItem("Refresh");
 const url = process.env.REACT_APP_URL;
 
 const Apis = axios.create({
@@ -20,6 +19,7 @@ Apis.interceptors.response.use(
     let tokenExpiredDataMessage = String(err.response.data.message);
     let refreshTokenExpiredDataMessage = String(err.response.data.message);
     const datas = tokenExpiredDataMessage.startsWith("JWT expired");
+
     const refreshDatas = refreshTokenExpiredDataMessage.startsWith("JWT");
     if (datas) {
       let originalRequest = err.config;
@@ -28,7 +28,7 @@ Apis.interceptors.response.use(
           "refresh",
           {},
           {
-            headers: { Refresh: refreshToken },
+            headers: { Refresh: localStorage.getItem("Refresh") },
           }
         );
         if (data) {
@@ -53,7 +53,7 @@ Apis.interceptors.response.use(
       return Promise.reject(err);
     }
     if (err.response.data.message === "Unauthorized" || refreshDatas) {
-      Toast("success", "로그인 해주세요!");
+      Toast("warning", "로그인 해주세요!");
       localStorage.clear();
     }
 

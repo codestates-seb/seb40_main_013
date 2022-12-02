@@ -76,8 +76,8 @@ function Login() {
           </LoginInputSpace>
           <LoginButton onClick={clickLogin}>로그인</LoginButton>
           <LoginInformationSpace>
-            <LoginCheckSpace>
-              <LoginState isCheck={userStateCheck} onClick={clickState}>
+            <LoginCheckSpace isCheck={userStateCheck}>
+              <LoginState onClick={clickState}>
                 <AiOutlineCheckCircle />
               </LoginState>
               <LoginStateContent>로그인 상태 유지</LoginStateContent>
@@ -98,8 +98,9 @@ const Wrapper = styled.form`
   height: 65%;
   display: flex;
   justify-content: center;
-  margin-bottom: 120px;
-  margin-top: 180px;
+  margin-bottom: 80px;
+  margin-top: 200px;
+  
   @media screen and (max-width: 768px) {
     display: flex;
     justify-content: center;
@@ -118,8 +119,9 @@ const LoginWrapper = styled.div`
   border-radius: 7px;
 
   @media screen and (max-width: 500px) {
-    min-width: 300px;
-    height: 100%;
+    min-width: 240px;
+    height: 95%;
+
     display: flex;
     justify-content: center;
   }
@@ -127,7 +129,8 @@ const LoginWrapper = styled.div`
 
 const LoginImg = styled.img`
   width: 45%;
-  height: 65vh;
+  height: 68vh;
+
   /* @media screen and (max-width: 1023px) and (min-width: 768) {
     width: 50%;
   } */
@@ -138,6 +141,7 @@ const LoginImg = styled.img`
 
 const LoginContentSpace = styled.div`
   width: 100%;
+  height: 68vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -160,7 +164,7 @@ const LoginTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 30px;
   @media screen and (max-width: 1023px) {
     font-size: 4vw;
   }
@@ -203,7 +207,6 @@ const LoginButton = styled.button`
   border-radius: 5px;
   &:hover {
     cursor: pointer;
-    background-color: #123b77; 
   }
 `;
 
@@ -220,13 +223,14 @@ const LoginCheckSpace = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: ${(state) => (state.isCheck ? "#FFAF51" : "#AAAAAA")};
 `;
 const LoginState = styled.div`
-  color: ${(state) => (state.isCheck ? "#FFAF51" : "#AAAAAA")};
   margin-right: 10px;
 `;
 const LoginStateContent = styled.div`
-  font-size: 20px;
+  font-size: 17px;
+
 `;
 
 const LoginRouteSign = styled.div`

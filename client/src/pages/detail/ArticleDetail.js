@@ -22,8 +22,8 @@ import Swal from "sweetalert2";
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
   const [clickHeart, setClickHeart] = useState(false);
+  const [clickCheck, setClickCheck] = useState(0);
   const [selectOptions, setSelectOptions] = useState("");
-  console.log(selectOptions);
   const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
   const [cartCount, setCartCount] = useState(1);
   const dispatch = useDispatch();
@@ -37,13 +37,13 @@ function ArticleDetail() {
   );
   let price = articlesDetail?.price;
   const isLike = articlesDetail?.existsLike;
-  console.log(articlesDetail);
   const clickFunction = () => {
     setClickSelect(!clickSelect);
   };
+
   const clickUpCart = () => {
-    if (cartCount >= 99) {
-      setCartCount(99);
+    if (cartCount >= 100) {
+      setCartCount(100);
     } else {
       setCartCount(cartCount + 1);
     }
@@ -66,25 +66,19 @@ function ArticleDetail() {
       reviewRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-
   const selectOption = (id, color) => {
     setSelectOptions(id);
     setSelectOptionColor(color);
   };
-  let get_local = localStorage.getItem("product");
-  console.log(get_local);
   ScrollToTop();
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
-
-    let local = localStorage.getItem("product");
-    let get_local = [articlesDetail.productId];
-    if (local) {
-      local = JSON.parse(local);
-      get_local = [articlesDetail.productId, ...local];
-    }
-    localStorage.setItem("product", JSON.stringify(get_local));
-  }, [dispatch]);
+  }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(getArticleDetail(Number(id)));
+    }, 500);
+  }, [clickHeart]);
 
   const clickPostCart = () => {
     let postData = {
@@ -92,18 +86,19 @@ function ArticleDetail() {
       count: cartCount,
       optionId: selectOptions,
     };
-    console.log(postData);
     dispatch(postCart({ postData, navigate }));
   };
 
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
+    setClickCheck(Date.now());
     setClickHeart(true);
     dispatch(postLike(id));
   };
 
   const clickDeleteLike = () => {
     let id = articlesDetail?.productId;
+    setClickCheck(Date.now());
     setClickHeart(false);
     dispatch(deleteLike(id));
   };
@@ -182,9 +177,10 @@ function ArticleDetail() {
                       onClick={clickDeleteLike}
                     />
                   ) : (
-                    <BsHeart
+                    <BsHeartFill
                       size="20"
                       className="heart"
+                      color="gray"
                       onClick={clickPostLike}
                     />
                   )}
@@ -198,9 +194,10 @@ function ArticleDetail() {
                       onClick={clickDeleteLike}
                     />
                   ) : (
-                    <BsHeart
+                    <BsHeartFill
                       size="20"
                       className="heart"
+                      color="gray"
                       onClick={clickPostLike}
                     />
                   )}
@@ -280,9 +277,13 @@ function ArticleDetail() {
                   장바구니
                 </DetailArticlBtn>
               ) : (
-                <DetailArticlBtn>장바구니</DetailArticlBtn>
+                <DetailArticlBtn
+                  onClick={() => Toast("warning", "로그인 해주세요!")}
+                >
+                  장바구니
+                </DetailArticlBtn>
               )}
-              <DetailArticlBtn onClick={nowPayHandler}>바로구매</DetailArticlBtn>
+              <DetailArticlBtn>바로구매</DetailArticlBtn>
             </DetailArticlBtnSpace>
           </ArticleInformations>
         </DetailTopUserSelectSpace>

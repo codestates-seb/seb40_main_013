@@ -22,6 +22,7 @@ function MyReview() {
   console.log(userWriteReviews);
   const [filteReview, setFilterReview] = useState("");
 
+
   const [curPage, setCurPage] = useState(0);
   const [totalpage, setTotalpage] = useState(0);
   const [isModal, setIsModal] = useState(false);
@@ -44,7 +45,13 @@ function MyReview() {
       top: 0,
       behavior: "smooth",
     });
-    dispatch(getAllReview({ curPage, setTotalpage }));
+    let count = 0;
+    if (curPage > 0) {
+      count = curPage - 1;
+    } else {
+      count = 0;
+    }
+    dispatch(getAllReview({ count, setTotalpage }));
   }, [curPage]);
 
   return (
@@ -89,6 +96,7 @@ function MyReview() {
                       수정하기
                     </CancleBtn>
                     <CancleBtn
+                      className="cancleBtn"
                       onClick={() =>
                         clickDelete(data?.productId, data?.reviewId)
                       }
@@ -144,6 +152,7 @@ function MyReview() {
                       수정하기
                     </CancleBtn>
                     <CancleBtn
+                      className="cancleBtn"
                       onClick={() =>
                         clickDelete(data?.productId, data?.reviewId)
                       }
@@ -314,6 +323,7 @@ const Btns = styled.div`
     margin: 5px 10px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     /* justify-content: flex-start; */
   }
 `;
@@ -322,36 +332,29 @@ const CancleBtn = styled.button`
   background-color: var(--color-navy);
   border-radius: 10px;
   white-space: nowrap;
-  margin-bottom: 10px;
   border: 1px solid #aaaaaa;
-  width: 100%;
-  height: 50%;
-
+  margin-top: 10px;
   cursor: pointer;
-  &:nth-child(2) {
+  &.cancleBtn {
     background-color: white;
     color: var(--color-navy);
   }
   &:hover {
-    /* background-color: red;
-    color: white; */
-    /* color: var(--color-navy);
-    background-color: white; */
-    opacity: 0.8;
+    opacity: 0.7;
+  }
+  @media screen and (max-width: 479px) {
+    padding: 5px 20px;
+    margin-left: 10px;
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    padding: 5px 21px;
   }
   @media screen and (max-width: 473px) {
     width: 50%;
-    margin-right: 10px;
-    margin-bottom: 0px;
     /* justify-content: flex-start; */
   }
 
-  @media (min-width: 480px) and (max-width: 767px) {
-    padding: 8px 30px;
-  }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    padding: 8px 26px;
-  }
 `;
 
 //반응형 구매후기

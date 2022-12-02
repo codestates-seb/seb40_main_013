@@ -46,7 +46,11 @@ function App() {
         <div className="App">
           <MainContainter>
             <MainContent>
-              <Header setMainClick={setMainClick} setSubClick={setSubClick} setSearchWord={setSearchWord} />
+              <Header
+                setMainClick={setMainClick}
+                setSubClick={setSubClick}
+                setSearchWord={setSearchWord}
+              />
               <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/register" element={<Register />} />
@@ -54,12 +58,35 @@ function App() {
                 <Route path="/members/mypage/*" element={<MyPage />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/detail/:id" element={<ArticleDetail />} />
-                <Route path="/library" element={<Library mainClick={mainClick} subclick={subclick} />} />
-                <Route path="/bedroom" element={<Bedroom mainClick={mainClick} subclick={subclick} />} />
-                <Route path="/kitchen" element={<Kitchen mainClick={mainClick} subclick={subclick}/>} />
-                <Route path="/livingRoom" element={<LivingRoom mainClick={mainClick} subclick={subclick}/>} />
+                <Route
+                  path="/library"
+                  element={
+                    <Library mainClick={mainClick} subclick={subclick} />
+                  }
+                />
+                <Route
+                  path="/bedroom"
+                  element={
+                    <Bedroom mainClick={mainClick} subclick={subclick} />
+                  }
+                />
+                <Route
+                  path="/kitchen"
+                  element={
+                    <Kitchen mainClick={mainClick} subclick={subclick} />
+                  }
+                />
+                <Route
+                  path="/livingRoom"
+                  element={
+                    <LivingRoom mainClick={mainClick} subclick={subclick} />
+                  }
+                />
                 <Route path="/cart" element={<ShoppingCart />} />
-                <Route path="/search" element={<SearchResult searchWord={searchWord} />} />
+                <Route
+                  path="/search"
+                  element={<SearchResult searchWord={searchWord} />}
+                />
               </Routes>
             </MainContent>
             <Footer />
