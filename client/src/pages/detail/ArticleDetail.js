@@ -18,6 +18,7 @@ import ScrollToTop from "../../components/ScrollToTop";
 import Button from "../../components/Button";
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";
+import { Toast } from "../../components/Alert";
 
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
@@ -285,7 +286,15 @@ function ArticleDetail() {
                   장바구니
                 </DetailArticlBtn>
               )}
-              <DetailArticlBtn>바로구매</DetailArticlBtn>
+              {localStorage.getItem("Authorization") ? (
+                <DetailArticlBtn>바로구매</DetailArticlBtn>
+              ) : (
+                <DetailArticlBtn
+                  onClick={() => Toast("warning", "로그인 해주세요!")}
+                >
+                  바로구매
+                </DetailArticlBtn>
+              )}
             </DetailArticlBtnSpace>
           </ArticleInformations>
         </DetailTopUserSelectSpace>
