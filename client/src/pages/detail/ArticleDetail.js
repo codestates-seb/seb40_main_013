@@ -20,6 +20,7 @@ import Apis from "../../apis/apis";
 
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
+  const [clickHeart, setClickHeart] = useState(false);
   const [selectOptions, setSelectOptions] = useState("");
   console.log(selectOptions);
   const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
@@ -96,13 +97,13 @@ function ArticleDetail() {
 
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
-
+    setClickHeart(true);
     dispatch(postLike(id));
   };
 
   const clickDeleteLike = () => {
     let id = articlesDetail?.productId;
-
+    setClickHeart(false);
     dispatch(deleteLike(id));
   };
 
@@ -125,21 +126,39 @@ function ArticleDetail() {
               <DetailArticlePrice>
                 {articlesDetail?.price?.toLocaleString("en-US")}원
               </DetailArticlePrice>
-              <ButtonIcon>
-                {isLike ? (
-                  <BsHeartFill
-                    size="20"
-                    color="#FFAF51"
-                    onClick={clickDeleteLike}
-                  />
-                ) : (
-                  <BsHeart
-                    size="20"
-                    className="heart"
-                    onClick={clickPostLike}
-                  />
-                )}
-              </ButtonIcon>
+              {clickHeart ? (
+                <ButtonIcon>
+                  {isLike ? (
+                    <BsHeartFill
+                      size="20"
+                      color="#FFAF51"
+                      onClick={clickDeleteLike}
+                    />
+                  ) : (
+                    <BsHeart
+                      size="20"
+                      className="heart"
+                      onClick={clickPostLike}
+                    />
+                  )}
+                </ButtonIcon>
+              ) : (
+                <ButtonIcon>
+                  {isLike ? (
+                    <BsHeartFill
+                      size="20"
+                      color="#FFAF51"
+                      onClick={clickDeleteLike}
+                    />
+                  ) : (
+                    <BsHeart
+                      size="20"
+                      className="heart"
+                      onClick={clickPostLike}
+                    />
+                  )}
+                </ButtonIcon>
+              )}
             </DetailArticlePriceSpace>
             <div>
               <DetailArticleOptionSpace>

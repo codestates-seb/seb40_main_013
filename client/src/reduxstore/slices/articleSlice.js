@@ -64,9 +64,6 @@ export const postLike = createAsyncThunk("postLike", async (id) => {
   )
     .then((res) => {
       Toast("success", "상품에 좋아요를 추가하셨습니다!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
       return res.data;
     })
     .catch((err) => {
@@ -82,9 +79,6 @@ export const deleteLike = createAsyncThunk("deleteLike", async (id) => {
   })
     .then((res) => {
       Toast("success", "상품에 좋아요를 삭제하셨습니다!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
       return res.data;
     })
     .catch((err) => {

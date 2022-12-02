@@ -135,19 +135,28 @@ function Signup() {
 const Wrapper = styled.form`
   width: 100%;
   /* height: 58vh; */
-  height: 100vh;
+  height: 100vw;
   margin-top: 127.5px;
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
   margin-top: 16vh;
+  @media screen and (max-width: 400px) {
+    width: 200px;
+    height: 100vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 const SignupWrapper = styled.div`
   width: 50%;
-  height: 100%;
+  height: 100vh;
   margin: 50px 0px;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   @media screen and (max-width: 400px) {
     width: 200px;
     height: 100vh;
@@ -158,9 +167,11 @@ const SignupWrapper = styled.div`
 
 const UserWriteTitle = styled.div`
   margin-top: 50px;
+  width: 60%;
   height: 25px;
-  font-size: 25px;
+  font-size: 18px;
   font-weight: bold;
+  display: flex;
   &:nth-child(4) {
     margin-top: ${(props) => (props.isCheck ? "30px" : "50px")};
   }
@@ -173,13 +184,12 @@ const UserWriteTitle = styled.div`
 `;
 const UserWriteInput = styled.input`
   margin-top: 20px;
-  width: 90%;
-  height: 40px;
+  width: 60%;
+  height: 35px;
   padding-left: 10px;
   border: 1px solid #aaaaaa;
   @media screen and (max-width: 768px) {
-    width: 90%;
-    height: 40px;
+    width: 60%;
     margin-top: 20px;
     border: 1px solid #aaaaaa;
   }
@@ -187,8 +197,8 @@ const UserWriteInput = styled.input`
 
 const UserSubmitBtn = styled.button`
   margin-top: 50px;
-  width: 90%;
-  height: 50px;
+  width: 60%;
+  height: 35px;
   cursor: pointer;
   background-color: var(--color-navy);
   border-radius: var(--border-radius);
@@ -196,10 +206,10 @@ const UserSubmitBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   @media screen and (max-width: 768px) {
-    width: 90%;
+    width: 60%;
   }
 `;
 

@@ -95,13 +95,12 @@ function Login() {
 
 const Wrapper = styled.form`
   width: 100%;
-  height: 65vh;
+  height: 65%;
   display: flex;
   justify-content: center;
   margin-bottom: 120px;
-  margin-top: 24.5vh;
+  margin-top: 180px;
   @media screen and (max-width: 768px) {
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,7 +118,7 @@ const LoginWrapper = styled.div`
   border-radius: 7px;
 
   @media screen and (max-width: 500px) {
-    min-width: 310px;
+    min-width: 300px;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -144,6 +143,7 @@ const LoginContentSpace = styled.div`
   align-items: center;
   justify-content: center;
   @media screen and (max-width: 768px) {
+    width: 100%;
     height: 430px;
     display: flex;
     justify-content: center;
