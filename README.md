@@ -35,6 +35,25 @@
 
 
 <br /><br /><br />
+  
+# 🔎 Skills
+
+<br />
+
+### 🖥 Front-end
+<img src="http://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=000"> <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="http://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/react_icons-EEEEEE?style=for-the-badge&logo=react&logoColor=red"> <img src="https://img.shields.io/badge/Create React App-09D3AC?style=for-the-badge&logo=CreateReactApp&logoColor=white"/> <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=ReactRouter&logoColor=white"/> <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white"> <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/styled_components-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=AmazonS3&logoColor=white">
+
+<br /><br /><br /><br />
+
+### ⚙️ Back-end
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/spring_boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/spring_rest_docs-6DB33F?style=for-the-badge"> <img src="https://img.shields.io/badge/spring_security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">  <img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"> 
+
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">  <img src="https://img.shields.io/badge/spring_data_jpa-6DB33F?style=for-the-badge"> <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
+
+<img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=AmazonEC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=AmazonRDS&logoColor=white"> <img alt="GithubActions" src="https://img.shields.io/badge/Github Actions-2088FF.svg?&style=for-the-badge&logo=GithubActions&logoColor=white"/> <img alt="NGINX" src="https://img.shields.io/badge/NGINX-009639.svg?&style=for-the-badge&logo=NGINX&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
+
+
+<br /><br /><br /><br /><br /><br />
 
 # 💡 Pages
 
@@ -81,46 +100,32 @@
 <br>
 
 #### 6️⃣ 상품 상세조회 페이지:
-* 게시글에 사용된 태그 전체를 조회하실 수 있습니다.
-* 원하는 태그를 검색창에 검색하여 찾을 수 있습니다.
-* 인기순, 이름순으로 정렬하여 태그를 조회할 수 있습니다.<br>
+<br>
 <br>
 
 #### 7️⃣ 장바구니 페이지:
-* 새 질문을 작성할 수 있습니다. 
-* 글자 수 기준으로 유효성 체크를 실시하고, 입력 폼에 맞는 안내 카드가 우측에 나타납니다. 
-* discard 버튼을 누르면 입력폼이 비워집니다.<br>
+<br>
 <br>
 
 #### 8️⃣ 상품 구매내역 페이지:
-* 키워드로 검색이 가능합니다. 
-* 최신, 조회수, 투표수 순으로 목록 정렬이 가능합니다.<br>
+<br>
 <br>
 
 #### 9️⃣ 주문 상세 페이지:
-* 실제 스택오버플로우 사이트의 유저를 조회 할 수 있습니다. 
-* 유저의 이름으로 검색이 가능하고, 명성도, 최신 순으로 목록 정렬이 가능합니다.
+
 </br>
 
 #### 1️⃣0️⃣ 좋아요 상품 조회:
-* 유저가 작성한 질문을 수정할 수 있습니다. 
-* 제목, 내용, 태그 모두 수정이 가능합니다.
-* cancel 버튼을누르면 질문목록페이지로 돌아갑니다.
+
 </br>
 
 #### 1️⃣1️⃣ 상품 리뷰 등록:
-* 유저가 작성한 답변을 수정할 수 있습니다. 
-* 유저의 이름으로 검색이 가능하고, 명성도, 최신 순으로 목록 정렬이 가능합니다.
-* cancel 버튼을누르면 답변을 달았던 질문의 상세페이지로 돌아갑니다.
+
 </br>
 
 #### 1️⃣2️⃣ 회원 정보 수정:
 * 유저마다 프로필 이미지가 랜덤 생성됩니다. 
-* 유저가 쓴 질문, 답변, 태그의 목록을 간단하게 볼 수 있습니다.(Activity => Summary)
-* 유저가 쓴 질문의 목록을 상세하게 볼 수 있습니다. (Activity => questions)
-* 질문을 누르면 질문의 상세페이지로 넘어갑니다.
-* 유저가 쓴 답변의 목록을 상세하게 볼 수 있습니다. (Activity => Answer)
-* 답변을 누르면 답변을 쓴 질문의 상세페이지로 넘어갑니다.
+
 </div>
 
 <br /><br /><br />
@@ -132,24 +137,6 @@
 
 <br /><br /><br /><br />
 
-# 🔎 Skills
-
-<br />
-
-### 🖥 Front-end
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/Create React App-09D3AC?style=for-the-badge&logo=CreateReactApp&logoColor=white"/> <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=ReactRouter&logoColor=white"/> <img src="https://img.shields.io/badge/React Hook Form-EC5990?style=for-the-badge&logo=ReactHookForm&logoColor=white"/> <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white"> <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/fontawesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white"> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=AmazonS3&logoColor=white">
-
-<br /><br /><br /><br />
-
-### ⚙️ Back-end
-<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/spring_boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/spring_rest_docs-6DB33F?style=for-the-badge"> <img src="https://img.shields.io/badge/spring_security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">  <img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"> 
-
-<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">  <img src="https://img.shields.io/badge/spring_data_jpa-6DB33F?style=for-the-badge"> <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
-
-<img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=AmazonEC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=AmazonRDS&logoColor=white"> <img alt="GithubActions" src="https://img.shields.io/badge/Github Actions-2088FF.svg?&style=for-the-badge&logo=GithubActions&logoColor=white"/> <img alt="NGINX" src="https://img.shields.io/badge/NGINX-009639.svg?&style=for-the-badge&logo=NGINX&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
-
-
-<br /><br /><br /><br /><br /><br />
 
 #  Thanks !
 
