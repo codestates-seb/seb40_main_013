@@ -78,20 +78,20 @@
 * 사이트에서 로그아웃할 수 있습니다.<br>
 <br>
 
-#### 4️⃣ 질문 목록 페이지:
+#### 4️⃣ 메인 페이지:
 * 전체 질문을 조회할 수 있습니다.
 * 최신순, 조회수, 투표수로 정렬하여 질문을 조회할 수 있습니다.
 * 로그인한 유저일 경우, 질문 작성 페이지에 접근할 수 있습니다.<br>
 <br>
 
-#### 5️⃣ 질문 상세 페이지:
+#### 5️⃣ 상품 대분류 페이지:
 * 질문의 내용과 해당 질문의 답변을 확인할 수 있습니다.
 * 질문에 대한 답변을 작성할 수 있습니다.
 * 자신이 작성한 질문 및 답변을 삭제할 수 있습니다.
 * 질문과 답변에 up/down을 투표할 수 있습니다.<br>
 <br>
 
-#### 6️⃣ 태그 검색 페이지:
+#### 6️⃣ 상품 소분류 페이지:
 * 게시글에 사용된 태그 전체를 조회하실 수 있습니다.
 * 원하는 태그를 검색창에 검색하여 찾을 수 있습니다.
 * 인기순, 이름순으로 정렬하여 태그를 조회할 수 있습니다.<br>
@@ -136,13 +136,6 @@
 
 <br /><br /><br />
 
-➕
-<br /><br />
-
-|팀원|
-|:-:|
-|<img width="1425" alt="스크린샷 2022-11-07 오후 8 45 16" src="https://user-images.githubusercontent.com/107875909/200302467-02a9505e-a383-49d5-adb8-f1c38ca257fd.png">|
-|해당 프로젝트 팀원의 Github을 확인하실 수 있습니다.|
 
 </div>
 
@@ -160,18 +153,15 @@
 <br /><br /><br /><br />
 
 ## ⚙️ Back-end
-<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"> <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=AmazonEC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=AmazonRDS&logoColor=white">
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/spring_boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/spring_rest_docs-6DB33F?style=for-the-badge"> <img src="https://img.shields.io/badge/spring_security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">  <img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"> 
 
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">  <img src="https://img.shields.io/badge/spring_data_jpa-6DB33F?style=for-the-badge"> <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
+
+<img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=AmazonEC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=AmazonRDS&logoColor=white"> <img alt="GithubActions" src="https://img.shields.io/badge/Github Actions-2088FF.svg?&style=for-the-badge&logo=GithubActions&logoColor=white"/> <img alt="NGINX" src="https://img.shields.io/badge/NGINX-009639.svg?&style=for-the-badge&logo=NGINX&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
 
 
 <br /><br /><br /><br /><br /><br />
 
 #  Thanks !
-
-<div align="center">
-
-<img width="416" alt="스크린샷 2022-11-07 오후 5 43 16" src="https://user-images.githubusercontent.com/107875909/200307711-03742498-9fca-453f-9075-6a28650bc2f2.png">
-
-</div>
 
 <br /><br /><br /><br /><br /><br /><br /><br />
