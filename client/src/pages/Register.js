@@ -314,6 +314,7 @@ const Register = () => {
   const [contentsPrice, setContentsPrice] = useState("");
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
+
   console.log(contentsImg);
   //상품등록
   const [click, setClick] = useState(0);

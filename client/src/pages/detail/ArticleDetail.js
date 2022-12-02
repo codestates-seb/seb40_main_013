@@ -287,7 +287,9 @@ function ArticleDetail() {
                 </DetailArticlBtn>
               )}
               {localStorage.getItem("Authorization") ? (
-                <DetailArticlBtn>바로구매</DetailArticlBtn>
+                <DetailArticlBtn onClick={nowPayHandler}>
+                  바로구매
+                </DetailArticlBtn>
               ) : (
                 <DetailArticlBtn
                   onClick={() => Toast("warning", "로그인 해주세요!")}
