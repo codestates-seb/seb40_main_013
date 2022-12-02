@@ -1,7 +1,7 @@
 # seb40_main_013
 
 # 🏡 가구 유통 플랫폼 집가구싶다
-<div align="center"><img src="" alt="logo" /></div>
+<div align="center"><img src="https://user-images.githubusercontent.com/107091097/205237828-f345ca9e-db71-480e-aa89-d7fe3cdc3f5f.png" alt="logo" /></div>
 
 <div align="center">
 
