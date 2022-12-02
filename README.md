@@ -1,11 +1,9 @@
 # seb40_main_013
 
 # 🏡 가구 유통 플랫폼 집가구싶다
-<div align="center"><img src="https://user-images.githubusercontent.com/97646802/205238126-66ccfd1b-3627-41a6-a2ce-d47b04513a51.png" alt="logo" /></div>
+<div align="center"><a href="https://thunderous-kashata-a1b728.netlify.app/"><img src="https://media.discordapp.net/attachments/1037945125998968864/1048155694651674624/2022-12-02_5.36.00.png?width=959&height=246" alt="logo" /></a></div>
 
 <div align="center">
-
-<a href="https://thunderous-kashata-a1b728.netlify.app/">집가구싶다</a>
 
 <br />
 
