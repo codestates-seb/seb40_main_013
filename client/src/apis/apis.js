@@ -2,9 +2,10 @@ import axios from "axios";
 import { Toast } from "../components/Alert";
 
 const refreshToken = localStorage.getItem("Refresh");
+const url = process.env.REACT_APP_URL;
 
 const Apis = axios.create({
-  baseURL: "https://rich-bags-help-125-134-111-241.loca.lt/",
+baseURL: url,
 });
 axios.interceptors.request.use(function (config) {
   return config;
