@@ -30,7 +30,7 @@
 |<img src="https://avatars.githubusercontent.com/u/93029270?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/97490053?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/93895421?v=4" width=150>|
 |[@insidelamp](https://github.com/insidelamp)|[@seoyeon](https://github.com/seoyeon0108)|[@chocholove](https://github.com/devminoh)
 
-<br /><br />
+<br />
 
 ## ⚙️ Back-end
 |김경근|홍승재|허준열|
