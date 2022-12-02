@@ -247,7 +247,6 @@ const Detail = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 10px 20px;
-  border: 1px solid red;
 
   @media screen and (max-width: 474px) {
     margin: 5px 10px;
@@ -334,12 +333,12 @@ const CancleBtn = styled.button`
   border: 1px solid #aaaaaa;
   margin-top: 10px;
   cursor: pointer;
-
+  &.cancleBtn {
+    background-color: white;
+    color: var(--color-navy);
+  }
   &:hover {
-    background-color: red;
-    color: white;
-    /* color: var(--color-navy);
-    background-color: white; */
+    opacity: 0.7;
   }
   @media screen and (max-width: 479px) {
     padding: 5px 20px;

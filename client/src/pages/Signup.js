@@ -135,14 +135,15 @@ function Signup() {
 const Wrapper = styled.form`
   width: 100%;
   /* height: 58vh; */
-  height: 100vh;
-  margin-top: 127.5px;
+  margin-top: 100px;
+  margin-bottom: 30px;
   display: flex;
   justify-content: center;
-  margin-bottom: 40px;
-  @media screen and (max-width: 400px) {
+  align-items: center;
+  @media screen and (max-width: 330px) {
     width: 300px;
-    height: 100vh;
+    margin-top: 160px;
+    margin-bottom: 80px;
   }
 `;
 const SignupWrapper = styled.div`
@@ -150,9 +151,11 @@ const SignupWrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  max-width: 600px;
+
   @media screen and (max-width: 400px) {
-    width: 300px;
     height: 100%;
   }
 `;
@@ -177,9 +180,10 @@ const UserWriteTitle = styled.div`
 const UserWriteInput = styled.input`
   margin-top: 10px;
   width: 70%;
-  height: 30px;
+  height: 35px;
   padding-left: 10px;
   border: 1px solid #aaaaaa;
+
   @media screen and (max-width: 768px) {
     width: 70%;
     margin-top: 10px;
