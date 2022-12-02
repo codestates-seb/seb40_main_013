@@ -307,7 +307,6 @@ const PaginationContainer = styled.div`
   justify-content: center;
 `;
 
-
 const PurchaseList = () => {
   const dispatch = useDispatch();
   const myOrderData = useSelector((state) => state.myorder.myorder.content);

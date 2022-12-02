@@ -315,13 +315,11 @@ const Register = () => {
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
   console.log(contentsImg);
-
   //상품등록
   const [click, setClick] = useState(0);
   const clickFunction = () => {
     setClick(Date.now());
   };
-
   const brandOptios = [
     { brandName: "두닷", query: 1 },
     { brandName: "포더홈", query: 2 },

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
 import RankingDown from "../../components/subcategories/DropDown";
 
-// import { useInView } from 'react-intersection-observer';
+import { useInView } from 'react-intersection-observer';
 
 function Library({ mainClick, subclick }) {
 
