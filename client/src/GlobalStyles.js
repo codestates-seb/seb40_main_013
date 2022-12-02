@@ -1,0 +1,51 @@
+import { createGlobalStyle } from "styled-components";
+import { reset } from "styled-reset";
+
+const GlobalStyles = createGlobalStyle`
+    ${reset};
+    *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        list-style : inside;
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none
+    }
+    a{
+         text-decoration: none;
+         color: inherit;
+    }
+    button{
+        border: 0;
+        outline: 0;
+    }
+    input{
+        outline: 0;
+    }
+    :root{
+      // font-color
+      --font-red : #FF2323;
+      --font-black : #0E0E0E;
+      --font-ligthblack : #515151;
+      --font-navy : #002C6D;
+      --font-smoothblack : #272727;
+      // font -size 
+      --font-smallsize : 13px
+      // color
+      --color-orange : #FFAF51;
+      --color-whiteyellow : #FCF9E9;
+      --color-navy : #002C6D;
+      --color-gray : #AAAAAA;
+      --color-star : #FFC007;
+      //border-radius 
+      --border-radius : 5px;
+      //border-color
+      --border-navy : #002C6D;
+      // center-line
+      --color-center-line : #AAAAAA; 
+    }
+`;
+
+export default GlobalStyles;
