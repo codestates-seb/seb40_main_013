@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import imageCompression from "browser-image-compression";
 import { postArticle } from "../reduxstore/slices/articleSlice";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import noImg from "../imgs/noImg.gif";
 import { priceCheck } from "../components/effectivenessCheck";
@@ -166,6 +166,7 @@ const Input = styled.input`
   border: 2px solid #aaa;
   border-radius: 5px;
   font-size: 1rem;
+  width: 200px;
   @media screen and (max-width: 767px) {
     border: 2px solid #aaa;
     padding: 15px 10px;
@@ -313,9 +314,12 @@ const Register = () => {
   const [contentsPrice, setContentsPrice] = useState("");
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
-  const [click, setClick] = useState(0);
-
   console.log(contentsImg);
+  //상품등록
+  const [click, setClick] = useState(0);
+  const clickFunction = () => {
+    setClick(Date.now());
+  };
   const brandOptios = [
     { brandName: "두닷", query: 1 },
     { brandName: "포더홈", query: 2 },
@@ -331,7 +335,7 @@ const Register = () => {
     { category: "의자", query: 1 },
     { category: "책상", query: 1 },
     { category: "선반", query: 1 },
-    { category: "침대/메트리스", query: 2 },
+    { category: "침대/매트리스", query: 2 },
     { category: "행거/옷장", query: 2 },
     { category: "화장대", query: 2 },
     { category: "소파", query: 3 },
@@ -444,24 +448,7 @@ const Register = () => {
   }
   console.log(subCategory);
   //폼 등록하기
-  // const handleRegister = (e) => {
-  //   e.preventDefault();
-  //   let postArticleData = {
-  //     sellerId: sellerId,
-  //     title: contentsName,
-  //     price: contentsPrice,
-  //     content: contentsImg,
-  //     img: thumbnailImg,
-  //     main: bigCategory,
-  //     sub: subCategory,
-  //     optionList: [
-  //       { color: "White", stock: 1000 },
-  //       { color: "Black", stock: 1000 },
-  //     ],
-  //   };
-  //   dispatch(postArticle({ postArticleData, navigate }));
-  // };
-  //폼 등록하기
+
   const handleRegister = (e) => {
     e.preventDefault();
     Swal.fire({
@@ -484,9 +471,6 @@ const Register = () => {
       .catch((err) => console.log(err));
 
     // dispatch(postArticle({ postArticleData, navigate }));
-  };
-  const clickFunction = () => {
-    setClick(Date.now());
   };
   const registConfirm = () => {
     let postArticleData = {
@@ -693,7 +677,9 @@ const Register = () => {
         </InputContainer>
         <Buttons>
           <RegisterBtn onClick={handleRegister}>등록하기</RegisterBtn>
-          <Cancle>취소</Cancle>
+          <Link to="/">
+            <Cancle>취소</Cancle>
+          </Link>
         </Buttons>
       </Form>
     </Container>

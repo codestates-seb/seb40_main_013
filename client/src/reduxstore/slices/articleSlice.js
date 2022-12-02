@@ -64,7 +64,6 @@ export const postLike = createAsyncThunk("postLike", async (id) => {
   )
     .then((res) => {
       Toast("success", "상품에 좋아요를 추가하셨습니다!");
-      // window.location.reload();
       return res.data;
     })
     .catch((err) => {
@@ -80,7 +79,6 @@ export const deleteLike = createAsyncThunk("deleteLike", async (id) => {
   })
     .then((res) => {
       Toast("success", "상품에 좋아요를 삭제하셨습니다!");
-      // window.location.reload();
       return res.data;
     })
     .catch((err) => {
@@ -231,12 +229,13 @@ export const popularSearch = createAsyncThunk("popularSearch", async () => {
 export const postArticle = createAsyncThunk(
   "postArticle",
   async ({ postArticleData, navigate }) => {
+    console.log("받아오나?????", postArticleData);
     const form = new FormData();
     form.append("sellerId", postArticleData.sellerId);
     form.append("title", postArticleData.title);
     form.append("price", postArticleData.price);
     form.append("content", postArticleData.content[0]);
-    form.append("content", postArticleData.content[1]);
+    // form.append("content", postArticleData.content[1]);
     form.append("img", postArticleData.img);
     form.append("main", postArticleData.main);
     form.append("sub", postArticleData.sub);

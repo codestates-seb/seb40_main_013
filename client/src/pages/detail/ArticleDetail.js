@@ -17,7 +17,7 @@ import { renderStar } from "../../components/Star";
 import ScrollToTop from "../../components/ScrollToTop";
 import Button from "../../components/Button";
 import Apis from "../../apis/apis";
-import { Toast } from "../../components/Alert";
+import Swal from "sweetalert2";
 
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
@@ -101,6 +101,54 @@ function ArticleDetail() {
     setClickCheck(Date.now());
     setClickHeart(false);
     dispatch(deleteLike(id));
+  };
+
+  const nowPayHandler = () => {
+    Swal.fire({
+      title: "",
+      text: "상품을 바로 구매하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#002C6D",
+      cancelButtonColor: "#FFAF51",
+      showCancelButton: true,
+      confirmButtonText: "바로 구매",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        successNowPay();
+      }
+    });
+  };
+
+  const successNowPay = () => {
+    const checkList = [
+      {
+        productId: articlesDetail?.productId,
+        optionId: selectOptions,
+        count: cartCount,
+      },
+    ];
+    console.log(checkList);
+    Apis.post(
+      `orders`,
+      {
+        orderProducts: checkList,
+      },
+      {
+        headers: {
+          Authorization: `${localStorage.getItem("Authorization")}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
+        // console.log(res);
+        navigate("/members/mypage/purchase");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

@@ -44,6 +44,10 @@ function LivingRoom({ mainClick, subclick }) {
   };
 
   useEffect(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
       dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
       dispatch(getCount({mainCateClick, subclick}));
   }, [subclick, sortArgument, third ]);
