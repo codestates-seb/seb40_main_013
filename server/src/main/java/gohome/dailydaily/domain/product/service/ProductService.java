@@ -27,10 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -90,16 +87,16 @@ public class ProductService {
         }
         SliceResponseDto<CategoryGetDto> products = productRepository
                 .findAllByTitle(dto.getPageRequest(), ProductGetParam.valueOf(dto));
-
-        searchRedisRepository.addSearchCount(dto.getTitle());
+        if (products.getContent().size() > 0){
+            searchRedisRepository.addSearchCount(dto.getTitle());
+        }
         return products;
-
     }
 
     public HashMap<String, List<CategoryGetDto>> getBrandListLikeTop15() {
 
         List<Seller> brandList = sellerRepository.findAll();
-        HashMap<String, List<CategoryGetDto>> products = new HashMap<>();
+        HashMap<String, List<CategoryGetDto>> products = new LinkedHashMap<>();
         List<CategoryGetDto> tmp;
         for (Seller s : brandList) {
             tmp = productRepository.findByTop15ByBrand(s.getId());
