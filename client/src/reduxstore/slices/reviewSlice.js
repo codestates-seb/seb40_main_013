@@ -4,11 +4,9 @@ import axios from "axios";
 
 export const getAllReview = createAsyncThunk(
   "review/allGet",
-  async ({ curPage, setTotalpage }) => {
+  async ({ count, setTotalpage }) => {
     return Apis.get(
-      `members/mypage/reviews?page=${
-        curPage - 1
-      }&size=20&sort=createdAt%2CDESC`,
+      `members/mypage/reviews?page=${count}&size=20&sort=createdAt%2CDESC`,
       {
         headers: {
           Authorization: `${localStorage.getItem("Authorization")}`,

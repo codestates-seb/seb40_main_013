@@ -118,8 +118,8 @@ const LoginWrapper = styled.div`
   border-radius: 7px;
 
   @media screen and (max-width: 500px) {
-    min-width: 300px;
-    height: 100%;
+    min-width: 240px;
+    height: 95%;
     display: flex;
     justify-content: center;
   }
@@ -160,7 +160,7 @@ const LoginTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 30px;
   @media screen and (max-width: 1023px) {
     font-size: 4vw;
   }

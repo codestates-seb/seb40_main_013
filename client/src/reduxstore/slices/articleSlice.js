@@ -32,7 +32,7 @@ export const postCart = createAsyncThunk(
         Swal.fire({
           title: "장바구니에 추가되었습니다",
           text: "장바구니로 이동하시겠습니까??",
-          icon: "warning",
+          icon: "success",
           showCancelButton: true,
           confirmButtonColor: "#002C6D",
           cancelButtonColor: "#FFAF51",
@@ -64,6 +64,7 @@ export const postLike = createAsyncThunk("postLike", async (id) => {
   )
     .then((res) => {
       Toast("success", "상품에 좋아요를 추가하셨습니다!");
+      // window.location.reload();
       return res.data;
     })
     .catch((err) => {
@@ -79,6 +80,7 @@ export const deleteLike = createAsyncThunk("deleteLike", async (id) => {
   })
     .then((res) => {
       Toast("success", "상품에 좋아요를 삭제하셨습니다!");
+      // window.location.reload();
       return res.data;
     })
     .catch((err) => {

@@ -3,9 +3,9 @@ import Apis from "../../apis/apis";
 
 export const likeData = createAsyncThunk(
   "likeData",
-  async ({ curPage, setTotalpage }) => {
+  async ({ count, setTotalpage }) => {
     return Apis.get(
-      `members/mypage/likes?page=${curPage - 1}&size=20&sort=createdAt,DESC`,
+      `members/mypage/likes?page=${count}&size=20&sort=createdAt,DESC`,
       {
         headers: {
           Authorization: `${localStorage.getItem("Authorization")}`,

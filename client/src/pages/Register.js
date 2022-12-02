@@ -8,6 +8,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import noImg from "../imgs/noImg.gif";
 import { priceCheck } from "../components/effectivenessCheck";
 import { withReactContent } from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 const Container = styled.div`
   /* width: 100vw; */
@@ -312,6 +313,8 @@ const Register = () => {
   const [contentsPrice, setContentsPrice] = useState("");
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
+  const [click, setClick] = useState(0);
+
   console.log(contentsImg);
   const brandOptios = [
     { brandName: "두닷", query: 1 },
@@ -439,10 +442,53 @@ const Register = () => {
   function FirstCateChange(e) {
     setBigCategory(e.target.value);
   }
-
+  console.log(subCategory);
+  //폼 등록하기
+  // const handleRegister = (e) => {
+  //   e.preventDefault();
+  //   let postArticleData = {
+  //     sellerId: sellerId,
+  //     title: contentsName,
+  //     price: contentsPrice,
+  //     content: contentsImg,
+  //     img: thumbnailImg,
+  //     main: bigCategory,
+  //     sub: subCategory,
+  //     optionList: [
+  //       { color: "White", stock: 1000 },
+  //       { color: "Black", stock: 1000 },
+  //     ],
+  //   };
+  //   dispatch(postArticle({ postArticleData, navigate }));
+  // };
   //폼 등록하기
   const handleRegister = (e) => {
     e.preventDefault();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "상품을 등록하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#002C6D",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "상품등록",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          registConfirm();
+          Swal.fire("등록되었습니다.", "상품이 등록되었습니다.", "success");
+          clickFunction();
+          // navigate('/');
+        }
+      })
+      .catch((err) => console.log(err));
+
+    // dispatch(postArticle({ postArticleData, navigate }));
+  };
+  const clickFunction = () => {
+    setClick(Date.now());
+  };
+  const registConfirm = () => {
     let postArticleData = {
       sellerId: sellerId,
       title: contentsName,
