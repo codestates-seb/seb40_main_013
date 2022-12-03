@@ -217,27 +217,30 @@ const PostReviewTopSpace = styled.div`
   height: 15%;
   display: flex;
   justify-content: space-between;
+  border: 1px solid blue;
 `;
 
 const PostReviewContentImg = styled.img`
   width: 70px;
-  height: 75px;
+  height: 100%;
 `;
 
 const PostReviewContentRightSpace = styled.div`
   width: 70%;
-  height: 95%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  border: 1px solid red;
 `;
 const PostReviewTopContent = styled.div`
-  width: 90%;
+  width: 100%;
   height: 100%;
   font-size: 13px;
   display: flex;
   align-items: center;
+  border: 1px solid violet;
   &:nth-child(1) {
     color: #aaaaaa;
   }

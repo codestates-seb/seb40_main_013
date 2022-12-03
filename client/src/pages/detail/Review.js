@@ -130,7 +130,6 @@ const ReviewContentsLeftSpace = styled.div`
 `;
 const ReviewContentsMainSpace = styled.div`
   width: 68%;
-  height: 70px;
   display: flex;
   flex-direction: column;
   @media screen and (max-width: 400px) {

@@ -214,16 +214,15 @@ const LoginButton = styled.button`
 
 const LoginInformationSpace = styled.div`
   display: flex;
-  justify-content: center;
-  width: 90%;
+  width: 77%;
   height: 40px;
-  font-size: 20px;
+  font-size: 18px;
   color: var(--color-gray);
 `;
 const LoginCheckSpace = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   color: ${(state) => (state.isCheck ? "#FFAF51" : "#AAAAAA")};
 `;
