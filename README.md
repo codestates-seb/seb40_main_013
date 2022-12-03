@@ -67,7 +67,7 @@
 
 |4️⃣ 상품 목록 조회|5️⃣ 상품 상세 조회|6️⃣ 상품 등록|
 |:-:|:-:|:-:|
-|<img width="300" alt="스크린샷 2022-11-07 오후 6 01 45" src="">|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 07" src="https://media.discordapp.net/attachments/1037945125998968864/1048181636023459860/2022-12-02_7.14.53.png?width=1066&height=678">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 11" src="https://media.discordapp.net/attachments/1037945125998968864/1048193316237361203/2022-12-02_8.05.44.png?width=1271&height=678">|
+|<img width="300" alt="스크린샷 2022-11-07 오후 6 01 45" src="https://user-images.githubusercontent.com/107091097/205440032-2d26682e-cf68-4bc7-a4d6-4e397ee267d0.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 07" src="https://media.discordapp.net/attachments/1037945125998968864/1048181636023459860/2022-12-02_7.14.53.png?width=1066&height=678">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 11" src="https://media.discordapp.net/attachments/1037945125998968864/1048193316237361203/2022-12-02_8.05.44.png?width=1271&height=678">|
 
 7️⃣ 장바구니|8️⃣ 구매|9️⃣ 주문 상세보기|
 |:-:|:-:|:-:|
@@ -76,6 +76,10 @@
 |1️⃣0️⃣ 좋아요 상품 조회|1️⃣1️⃣ 리뷰 등록|1️⃣2️⃣ 정보 수정|
 |:-:|:-:|:-:|
 |<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="https://media.discordapp.net/attachments/1037945125998968864/1048181633410420776/2022-12-02_7.17.03.png?width=1055&height=677">|<img width="300" alt="스크린샷 2022-11-07 오후 6 06 47" src="">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 26" src="https://media.discordapp.net/attachments/1037945125998968864/1048181635125878784/2022-12-02_7.16.52.png?width=1058&height=677">|
+
+|1️⃣3️⃣ 검색 기능|
+|:-:|
+|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="">|
 
 <br /><br />
 <div align="start">
