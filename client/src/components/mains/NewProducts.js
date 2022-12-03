@@ -43,7 +43,7 @@ const SubTab = styled.div`
   }
 `;
 const Tab = styled.div`
-  background-color: #f8f8f8;
+  background-color: var(--button-gray);
   width: 120px;
   padding: 10px 0;
   display: flex;
@@ -54,7 +54,7 @@ const Tab = styled.div`
   cursor: pointer;
   &:hover {
     color: white;
-    background-color: #515151;
+    background-color: #aaaaaa;
   }
   &.clicked {
     color: white;
