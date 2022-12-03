@@ -52,7 +52,8 @@
 
 
 <br /><br /><br /><br />
-
+</div>
+  
 # 💡 Pages
 
 <br />
@@ -80,6 +81,8 @@
 |<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="https://user-images.githubusercontent.com/107091097/205440456-2f26103f-dd54-46f1-b1cf-e5de400f2b1c.png">|
 
 <br /><br />
+</div>
+
 <div align="start">
 
 #### 1️⃣ 회원가입 페이지:
