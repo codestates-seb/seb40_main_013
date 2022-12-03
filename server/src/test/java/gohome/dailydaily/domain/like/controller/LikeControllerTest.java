@@ -2,6 +2,7 @@ package gohome.dailydaily.domain.like.controller;
 
 import com.google.gson.Gson;
 import gohome.dailydaily.domain.like.service.LikeService;
+import gohome.dailydaily.global.common.security.resolver.MemberId;
 import gohome.dailydaily.util.Reflection;
 import gohome.dailydaily.util.security.SecurityTestConfig;
 import gohome.dailydaily.util.security.WithMockCustomUser;
@@ -17,9 +18,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static gohome.dailydaily.util.TestConstant.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = LikeController.class)
@@ -71,6 +73,26 @@ class LikeControllerTest implements Reflection {
 
         actions.andExpect(status().isNoContent())
                 .andDo(document("likes/delete",
+                        REQUEST_PREPROCESSOR,
+                        RESPONSE_PREPROCESSOR,
+                        REQUEST_HEADER_JWT,
+                        PATH_PARAM_PRODUCT_ID
+                ));
+    }
+    @Test
+    void getLike() throws Exception{
+
+        given(likeService.getProductLike(MEMBER.getId(), PRODUCT.getId()))
+                .willReturn(false);
+        ResultActions actions = mockMvc.perform(
+                get("/products/{product-id}/likes", PRODUCT.getId())
+                        .header("Authorization", "JWT")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        actions.andExpect(status().isOk())
+                .andDo(document("likes/get",
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
                         REQUEST_HEADER_JWT,

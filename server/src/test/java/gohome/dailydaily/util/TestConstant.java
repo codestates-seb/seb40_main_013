@@ -90,7 +90,6 @@ public class TestConstant {
             .img(FILE)
             .price(10000)
             .score(3)
-            .existsLike(false)
             .seller(SELLER)
             .category(CATEGORY)
             .build();
@@ -129,7 +128,6 @@ public class TestConstant {
             .img(FILE)
             .content("상품 내용1")
             .price(123456)
-            .existsLike(false)
             .score(3)
             .sale(0)
             .seller(SELLER)
@@ -142,7 +140,6 @@ public class TestConstant {
             .img(FILE)
             .content("상품 내용2")
             .price(100000)
-            .existsLike(false)
             .sale(0)
             .score(5)
             .seller(SELLER)
@@ -481,7 +478,7 @@ public class TestConstant {
             FWP_REVIEW_CONTENT, FWP_REVIEW_SCORE, FWP_REVIEW_IMG_NAME, FWP_REVIEW_IMG_PATH, FWP_REVIEW_CREATED_AT, FWP_REVIEW_MODIFIED_AT
     );
     public static final ResponseFieldsSnippet PRODUCT_RESPONSE_FIELDS = responseFields(
-            FWP_PRODUCT_ID, FWP_PRODUCT_TITLE, FWP_PRODUCT_CONTENTS, FWP_PRODUCT_PRICE, FWP_PRODUCT_IS_LIKE, FWP_PRODUCT_IMG_PATH, FWP_PRODUCT_IMG_NAME, FWP_PRODUCT_SCORE, FWP_PRODUCT_CATEGORY_MAIN,
+            FWP_PRODUCT_ID, FWP_PRODUCT_TITLE, FWP_PRODUCT_CONTENTS, FWP_PRODUCT_PRICE, FWP_PRODUCT_IMG_PATH, FWP_PRODUCT_IMG_NAME, FWP_PRODUCT_SCORE, FWP_PRODUCT_CATEGORY_MAIN,
             FWP_SELLER_SELLER_ID, FWP_SELLER_MEMBER_ID, FWP_SELLER_NICKNAME, FWP_SELLER_BRAND_NUMBER, FWP_SELLER_EMAIL,
             FWP_SELLER_ADDRESS, FWP_SELLER_PHONE, FWP_SELLER_MEMBER_STATUS, FWP_SELLER_IMG_NAME, FWP_SELLER_IMG_PATH,
             FWP_OPTIONS_OPTION_ID, FWP_OPTION_COLOR, FWP_OPTION_STOCK, FWP_REVIEWS_REVIEW_ID, FWP_REVIEWS_PRODUCT_ID, FWP_REVIEWS_PRODUCT_TITLE, FWP_REVIEWS_NICKNAME,
@@ -516,6 +513,7 @@ public class TestConstant {
             partWithName("img").description("썸네일 이미지"),
             partWithName("content").description("상품 상세 이미지")
     );
+    public static final FieldDescriptor RESPONSE_LIKE = fieldWithPath("true").type(BOOLEAN).description("좋아요 상태");
 
     static {
         MEMBER.addRoles(MemberRole.USER);
