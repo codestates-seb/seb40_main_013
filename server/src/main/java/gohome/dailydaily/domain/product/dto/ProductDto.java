@@ -66,7 +66,6 @@ public class ProductDto {
         private List<OptionDto.Response> options;
         private List<ReviewDto.Response> reviews;
         private String main;
-        private boolean existsLike;
     }
 
 }

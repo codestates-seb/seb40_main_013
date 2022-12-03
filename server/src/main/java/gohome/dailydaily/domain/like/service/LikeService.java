@@ -29,7 +29,7 @@ public class LikeService {
     private final MemberService memberService;
 
     // 상품 좋아요 추가
-    public void addProductLike(Long memberId, Long productId) {
+    public Boolean addProductLike(Long memberId, Long productId) {
         if (likeRepository.existsByMember_IdAndProduct_Id(memberId, productId)) {
             throw new BusinessLogicException(ExceptionCode.LIKE_EXISTS);
         }
@@ -42,6 +42,7 @@ public class LikeService {
                 .build();
 
         likeRepository.save(like);
+        return true;
     }
 
     @Transactional(readOnly = true)
@@ -52,10 +53,11 @@ public class LikeService {
     }
 
     // 상품 좋아요 취소
-    public void cancelProductLike(Long memberId, Long productId) {
+    public Boolean cancelProductLike(Long memberId, Long productId) {
         Like like = findVerifiedLike(memberId, productId);
 
         likeRepository.delete(like);
+        return false;
     }
 
     public Like findVerifiedLike(Long memberId, Long productId) {
@@ -63,4 +65,14 @@ public class LikeService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.LIKE_NOT_FOUND));
     }
 
+    public Boolean getProductLike(Long memberId, Long productId) {
+        Like like = likeRepository.findByMember_IdAndProduct_Id(memberId, productId)
+                .orElse(null);
+        boolean status = false;
+
+        if (like != null) {
+            status = true;
+        }
+        return status;
+    }
 }

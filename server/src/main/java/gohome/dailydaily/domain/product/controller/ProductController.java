@@ -68,7 +68,7 @@ public class ProductController {
 
     // 제목으로 상품 리스트 검색
     @GetMapping("/search")
-    @Cacheable(key = "#dto", value = "getProductListByTitle")
+    @Cacheable(key = "#dto", value = "getProductListByTitle", unless = "#result = null")
     public SliceResponseDto<CategoryGetDto> getProductListByTitle(@Valid GetProductListByDto dto) {
         return productService.getProductListByTitle(dto);
     }
@@ -90,5 +90,4 @@ public class ProductController {
     public HashMap<String, Long> getProductCategoryCount(@Valid GetProductListByDto dto) {
         return productService.getProductCategoryCount(dto);
     }
-
 }

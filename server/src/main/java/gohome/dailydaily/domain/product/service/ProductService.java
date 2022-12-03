@@ -27,10 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -63,9 +60,7 @@ public class ProductService {
     getProductListByCategory(GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> products = productRepository
                 .findAllByCategory(dto.getPageRequest(), ProductGetParam.valueOf(dto));
-//        if (products.getContent().isEmpty()) {
-//            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
-//        }
+
         return products;
     }
 
@@ -77,9 +72,6 @@ public class ProductService {
     public Product findProduct(Long memberId, Long productId) {
         Product product = getProduct(productId);
 
-        Optional.ofNullable(memberId)
-                .ifPresent(id -> product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(id, productId)));
-
         return product;
     }
 
@@ -90,16 +82,16 @@ public class ProductService {
         }
         SliceResponseDto<CategoryGetDto> products = productRepository
                 .findAllByTitle(dto.getPageRequest(), ProductGetParam.valueOf(dto));
-
-        searchRedisRepository.addSearchCount(dto.getTitle());
+        if (products.getContent().size() > 0){
+            searchRedisRepository.addSearchCount(dto.getTitle());
+        }
         return products;
-
     }
 
     public HashMap<String, List<CategoryGetDto>> getBrandListLikeTop15() {
 
         List<Seller> brandList = sellerRepository.findAll();
-        HashMap<String, List<CategoryGetDto>> products = new HashMap<>();
+        HashMap<String, List<CategoryGetDto>> products = new LinkedHashMap<>();
         List<CategoryGetDto> tmp;
         for (Seller s : brandList) {
             tmp = productRepository.findByTop15ByBrand(s.getId());

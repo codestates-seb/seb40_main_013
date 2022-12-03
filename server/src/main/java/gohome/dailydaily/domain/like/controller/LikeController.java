@@ -5,6 +5,7 @@ import gohome.dailydaily.global.common.security.resolver.MemberId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,20 +19,22 @@ public class LikeController {
     @PostMapping("/products/{product-id}/likes")
     @ResponseStatus(HttpStatus.CREATED)
     @CacheEvict(key = "#productId +\":\" + #memberId", value = "getProduct")
-    public String postLike(@MemberId Long memberId,
-                           @PathVariable("product-id") Long productId) {
-        likeService.addProductLike(memberId, productId);
-
-        return "Create Likes";
+    public Boolean postLike(@MemberId Long memberId,
+                            @PathVariable("product-id") Long productId) {
+        return likeService.addProductLike(memberId, productId);
     }
 
     @DeleteMapping("/products/{product-id}/likes")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     @CacheEvict(key = "#productId +\":\" + #memberId", value = "getProduct")
-    public String deleteLike(@MemberId Long memberId,
-                             @PathVariable("product-id") Long productId) {
-        likeService.cancelProductLike(memberId, productId);
+    public Boolean deleteLike(@MemberId Long memberId,
+                              @PathVariable("product-id") Long productId) {
+        return likeService.cancelProductLike(memberId, productId);
+    }
 
-        return "Cancel Likes";
+    @GetMapping("/products/{product-id}/likes")
+    public Boolean getLike(@AuthenticationPrincipal Long memberId,
+                           @PathVariable("product-id") Long productId) {
+        return likeService.getProductLike(memberId, productId);
     }
 }
