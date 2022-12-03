@@ -4,12 +4,14 @@
 
 # 🏡 가구 유통 플랫폼 집가구싶다
 
-서비스 소개
+사람들이 제일 많이 이용하고, 친근하게 다가올 수 있는 서비스를 만들고 싶었습니다. 그래서 대중적이고, 다양한 기능을 구현할 수 있는 유통 도메인을 선택했고, 팀원들의 공통관심사인 가구를 판매하는 유통플랫폼을 기획했습니다. 
+<br>
+프로젝트 기간동안 배운 내용을 활용하여 장바구니, 페이지네이션, 토큰기능을 적용했고, 추가적으로 적용해보고 싶었던 검색어, 상품 랭킹 조회, 캐싱 기능들을 구현했습니다.
 
 <br /><br />
 
 
-<br /><br /><br /><br /><br />
+<br /><br /><br />
 
 # 👨‍👩‍👦‍👦 Team
 
@@ -130,12 +132,14 @@
 
 <br /><br /><br />
 
-## 프로젝트 구조
+## 프로젝트 설명
 ### 프로젝트 아키텍처
 <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/dc674d47-4350-44d8-83f6-034874a3fb4f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T122153Z&X-Amz-Expires=86400&X-Amz-Signature=4b8d6105e99d58f822a5edd9d64a2d00f971f536b830e4e9a7b234bca1513201&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
 
 ### Deploy Tools
 <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f4f1fc59-15ad-468c-9fa4-24ea7c43cf07/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T122713Z&X-Amz-Expires=86400&X-Amz-Signature=991f95be394e2266486cf28a749d79db15ade5f5349ef0ddd9e5a72cffa5392a&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
+
+### [API 문서](https://dailydaily.kro.kr/docs/index.html)
 
 
 </div>
