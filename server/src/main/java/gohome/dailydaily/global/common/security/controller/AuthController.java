@@ -31,11 +31,12 @@ public class AuthController {
     }
 
     @PostMapping("/guest")
-    public void guest(HttpServletResponse response) {
+    public String guest(HttpServletResponse response) {
         String accessToken = jwtTokenizer.getGuestAccessToken();
         String refreshToken = jwtTokenizer.getGuestRefreshToken();
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
+        return "게스트";
     }
 
 }
