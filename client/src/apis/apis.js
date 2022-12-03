@@ -3,7 +3,7 @@ import { Toast } from "../components/Alert";
 const url = process.env.REACT_APP_URL;
 
 const Apis = axios.create({
-  baseURL: url,
+  baseURL: "https://stale-games-flash-125-134-111-45.loca.lt",
 });
 axios.interceptors.request.use(function (config) {
   return config;

@@ -188,6 +188,7 @@ function ArticleDetail() {
                   />
                 )}
               </ButtonIcon>
+
             </DetailArticlePriceSpace>
             <div>
               <DetailArticleOptionSpace>
