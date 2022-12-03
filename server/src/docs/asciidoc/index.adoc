@@ -322,6 +322,21 @@ include::{snippets}/likes/delete/path-parameters.adoc[]
 .http-response
 include::{snippets}/likes/delete/http-response.adoc[]
 
+=== 상품 좋아요 상태
+.http-request
+include::{snippets}/likes/get/http-request.adoc[]
+
+.request-headers
+[caption=]
+include::{snippets}/likes/get/request-headers.adoc[]
+
+.path-parameters
+[caption=]
+include::{snippets}/likes/get/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/likes/get/http-response.adoc[]
+
 == 리뷰
 === 리뷰 등록
 .http-request
