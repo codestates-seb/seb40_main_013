@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,12 +32,12 @@ public class AuthController {
     }
 
     @PostMapping("/guest")
-    public String guest(HttpServletResponse response) {
+    public void guest(HttpServletResponse response) throws IOException {
         String accessToken = jwtTokenizer.getGuestAccessToken();
         String refreshToken = jwtTokenizer.getGuestRefreshToken();
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
-        return "게스트";
+        response.getWriter().write("guest");
     }
 
 }
