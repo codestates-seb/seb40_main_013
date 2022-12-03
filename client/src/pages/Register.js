@@ -448,8 +448,8 @@ const Register = () => {
     setBigCategory(e.target.value);
   }
   console.log(subCategory);
-
   //폼 등록하기
+
   const handleRegister = (e) => {
     e.preventDefault();
     Swal.fire({
@@ -473,8 +473,6 @@ const Register = () => {
 
     // dispatch(postArticle({ postArticleData, navigate }));
   };
-
- console.log(subCategory)
   const registConfirm = () => {
     let postArticleData = {
       sellerId: sellerId,
@@ -490,7 +488,7 @@ const Register = () => {
       ],
     };
     dispatch(postArticle({ postArticleData, navigate }));
-  }
+  };
 
   //유효성 체크
   const [priceConfirm, setPriceConfirm] = useState(false);

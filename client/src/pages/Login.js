@@ -67,10 +67,15 @@ function Login() {
         <LoginContentSpace>
           <LoginTitle>Log In</LoginTitle>
           <LoginInputSpace>
-            <LoginInput placeholder="Email" onChange={writeChangeEmail} />
+            <LoginInput
+              placeholder="Email"
+              onChange={writeChangeEmail}
+              autocomplete="off"
+            />
             <LoginInput
               placeholder="Password"
               type="password"
+              autocomplete="current-password"
               onChange={writeChangePwd}
             />
           </LoginInputSpace>
@@ -100,7 +105,10 @@ const Wrapper = styled.form`
   justify-content: center;
   margin-bottom: 80px;
   margin-top: 200px;
+<<<<<<< HEAD
+=======
   
+>>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
   @media screen and (max-width: 768px) {
     display: flex;
     justify-content: center;
@@ -121,7 +129,10 @@ const LoginWrapper = styled.div`
   @media screen and (max-width: 500px) {
     min-width: 240px;
     height: 95%;
+<<<<<<< HEAD
+=======
 
+>>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
     display: flex;
     justify-content: center;
   }
@@ -129,8 +140,12 @@ const LoginWrapper = styled.div`
 
 const LoginImg = styled.img`
   width: 45%;
+<<<<<<< HEAD
+  height: 100%;
+=======
   height: 68vh;
 
+>>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
   /* @media screen and (max-width: 1023px) and (min-width: 768) {
     width: 50%;
   } */
@@ -141,7 +156,11 @@ const LoginImg = styled.img`
 
 const LoginContentSpace = styled.div`
   width: 100%;
+<<<<<<< HEAD
+  height: 60vh;
+=======
   height: 68vh;
+>>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -230,7 +249,10 @@ const LoginState = styled.div`
 `;
 const LoginStateContent = styled.div`
   font-size: 17px;
+<<<<<<< HEAD
+=======
 
+>>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
 `;
 
 const LoginRouteSign = styled.div`

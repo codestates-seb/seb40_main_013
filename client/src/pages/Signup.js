@@ -157,7 +157,10 @@ const SignupWrapper = styled.div`
 
   @media screen and (max-width: 400px) {
     height: 100%;
+<<<<<<< HEAD
+=======
 
+>>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
   }
 `;
 
@@ -205,7 +208,10 @@ const UserSubmitBtn = styled.button`
   align-items: center;
   font-size: 20px;
   font-weight: bold;
+<<<<<<< HEAD
+=======
 
+>>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
 `;
 
 const ErrorDisplay = styled.div`

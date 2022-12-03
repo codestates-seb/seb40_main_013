@@ -34,7 +34,7 @@ const NotContainer = styled.div`
   width: 80%;
   align-items: center;
   padding: 3rem 0;
-  @media screen and (max-width: 478px){
+  @media screen and (max-width: 478px) {
     width: 100%;
   }
 `;
@@ -62,12 +62,12 @@ const NotIcon = styled.div`
       transform: rotate(30deg);
     }
   }
-  @media screen and (max-width: 478px){
+  @media screen and (max-width: 478px) {
     width: 7rem;
     height: 7rem;
     font-size: 15vw;
   }
-  @media (min-width: 479px) and (max-width: 767px){
+  @media (min-width: 479px) and (max-width: 767px) {
     font-size: 18vw;
   }
 `;
@@ -76,10 +76,10 @@ const NotOrder = styled.h3`
   justify-content: center;
   font-weight: 500;
   font-size: 2rem;
-  span{
-    color: #FFAF51;
+  span {
+    color: #ffaf51;
   }
-  @media screen and (max-width: 478px){
+  @media screen and (max-width: 478px) {
     align-items: center;
     font-weight: 400;
     font-size: 1.3rem;
@@ -90,12 +90,12 @@ const ShowProduct = styled(Link)`
   font-size: 1.5rem;
   margin-top: 10px;
   cursor: pointer;
-  &:hover{
-    color: #FFAF51;
+  &:hover {
+    color: #ffaf51;
     text-decoration: underline;
     font-weight: 500;
   }
-  @media screen and (max-width: 478px){
+  @media screen and (max-width: 478px) {
     align-items: center;
     font-weight: 400;
     font-size: 1.3rem;
@@ -340,49 +340,51 @@ const Like = () => {
   return (
     <>
       {likeProduct?.length === 0 ? (
-        <NotContainer> 
+        <NotContainer>
           <NotIcon>!</NotIcon>
-          <NotOrder><span>좋아요</span>&nbsp;한 상품이 없습니다.</NotOrder>
+          <NotOrder>
+            <span>좋아요</span>&nbsp;한 상품이 없습니다.
+          </NotOrder>
           <ShowProduct to="/">상품 보러가기</ShowProduct>
         </NotContainer>
-      ) : (<Container>
-        <LikeTitle>내가 좋아하는 상품</LikeTitle>
-        <ProductList>
-          {likeProduct?.map((product ,i)=>(
-            <Products key={i} to={`/detail/${product.id}`}>
-              <Imgbox>
-                <Img src={product.img?.fullPath}></Img>
-              </Imgbox>
-              <Detail>
-                <SubDetail>
-                  <Brand>{product.nickname}</Brand>
-                  <StarDetail>
-                    <Star src={starimg}></Star>
-                    <StarAerage>{product.score}</StarAerage>
-                  </StarDetail>
-                </SubDetail>
-                <Title>{product.title}</Title>
-                <SubDetail className="end">
-                  <Price>
-                    <span className="won">
-                      ₩
-                    </span>
-                    &nbsp;{product.price?.toLocaleString("en-US")}</Price>
-                </SubDetail>
-              </Detail>
-            </Products>
-          ))}
-        </ProductList>
-        <PaginationContainer>
-        <Pagination 
+      ) : (
+        <Container>
+          <LikeTitle>내가 좋아하는 상품</LikeTitle>
+          <ProductList>
+            {likeProduct?.map((product, i) => (
+              <Products key={i} to={`/detail/${product.id}`}>
+                <Imgbox>
+                  <Img src={product.img?.fullPath}></Img>
+                </Imgbox>
+                <Detail>
+                  <SubDetail>
+                    <Brand>{product.nickname}</Brand>
+                    <StarDetail>
+                      <Star src={starimg}></Star>
+                      <StarAerage>{product.score}</StarAerage>
+                    </StarDetail>
+                  </SubDetail>
+                  <Title>{product.title}</Title>
+                  <SubDetail className="end">
+                    <Price>
+                      <span className="won">₩</span>
+                      &nbsp;{product.price?.toLocaleString("en-US")}
+                    </Price>
+                  </SubDetail>
+                </Detail>
+              </Products>
+            ))}
+          </ProductList>
+          <PaginationContainer>
+            <Pagination
               totalpage={totalpage}
               page={curPage}
               setPage={setCurPage}
-              />
-        </PaginationContainer>
-      </Container>
+            />
+          </PaginationContainer>
+        </Container>
       )}
     </>
-    );
+  );
 };
 export default Like;

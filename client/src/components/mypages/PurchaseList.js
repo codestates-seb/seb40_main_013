@@ -33,7 +33,7 @@ const NotContainer = styled.div`
   width: 80%;
   align-items: center;
   padding: 3rem 0;
-  @media screen and (max-width: 478px){
+  @media screen and (max-width: 478px) {
     width: 100%;
   }
 `;
@@ -61,12 +61,12 @@ const NotIcon = styled.div`
       transform: rotate(30deg);
     }
   }
-  @media screen and (max-width: 478px){
+  @media screen and (max-width: 478px) {
     width: 7rem;
     height: 7rem;
     font-size: 15vw;
   }
-  @media (min-width: 479px) and (max-width: 767px){
+  @media (min-width: 479px) and (max-width: 767px) {
     font-size: 18vw;
   }
 `;
@@ -75,7 +75,7 @@ const NotOrder = styled.h3`
   justify-content: center;
   font-weight: 500;
   font-size: 2rem;
-  @media screen and (max-width: 478px){
+  @media screen and (max-width: 478px) {
     align-items: center;
     font-weight: 400;
     font-size: 1.3rem;
@@ -86,12 +86,12 @@ const ShowProduct = styled(Link)`
   font-size: 1.5rem;
   margin-top: 10px;
   cursor: pointer;
-  &:hover{
-    color: #FFAF51;
+  &:hover {
+    color: #ffaf51;
     text-decoration: underline;
     font-weight: 500;
   }
-  @media screen and (max-width: 478px){
+  @media screen and (max-width: 478px) {
     align-items: center;
     font-weight: 400;
     font-size: 1.3rem;
@@ -117,7 +117,7 @@ const SubTop = styled.h2`
     color: #ffaf51;
   }
   .ordercancle {
-    color: #FF4040;
+    color: #ff4040;
   }
   @media screen and (max-width: 390px) {
     font-size: 12px;
@@ -261,7 +261,7 @@ const CancleBtn = styled.button`
   cursor: pointer;
   border: 1px solid #efefef;
   &:hover {
-    border: 1px solid #FF4040;
+    border: 1px solid #ff4040;
   }
   @media screen and (max-width: 479px) {
     display: none;
@@ -332,7 +332,6 @@ const PurchaseList = () => {
       count = 0;
     }
     dispatch(getMyOrder({ count, setTotalpage }));
-
   }, [curPage]);
   useEffect(() => {
     window.scrollTo({
@@ -346,13 +345,11 @@ const PurchaseList = () => {
       count = 0;
     }
     dispatch(getMyOrder({ count, setTotalpage }));
-
   }, [click]);
 
   //주문취소 버튼
   const handleOrderCancle = (id) => {
     const curData = myOrderData.filter((data) => data.orderId == id);
-
     if (curData[0].status === "주문 취소") {
       console.log("취소된 주문!!!");
       AlreadyDeleteAlert();
@@ -389,7 +386,7 @@ const PurchaseList = () => {
   return (
     <>
       {myOrderData?.length === 0 ? (
-        <NotContainer> 
+        <NotContainer>
           <NotIcon>!</NotIcon>
           <NotOrder>구매 내역이 없습니다.</NotOrder>
           <ShowProduct to="/">상품 보러가기</ShowProduct>
@@ -448,8 +445,11 @@ const PurchaseList = () => {
                   </Btns>
                 </Detail>
                 <ReactionSpace>
-
-                  <ReactionReviewBtn onClick={() => handleOrderCancle(order.orderId)}>주문취소</ReactionReviewBtn>
+                  <ReactionReviewBtn
+                    onClick={() => handleOrderCancle(order.orderId)}
+                  >
+                    주문취소
+                  </ReactionReviewBtn>
                 </ReactionSpace>
               </Content>
               <Hr />
