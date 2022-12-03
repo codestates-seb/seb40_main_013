@@ -235,7 +235,7 @@ const PostReviewContentRightSpace = styled.div`
 const PostReviewTopContent = styled.div`
   width: 90%;
   height: 100%;
-  font-size: 1vh;
+  font-size: 13px;
   display: flex;
   align-items: center;
   &:nth-child(1) {
