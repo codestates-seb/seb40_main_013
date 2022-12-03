@@ -2,8 +2,12 @@ import { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
-import { BsCartX } from 'react-icons/bs';
-import { deleteShoppingCart, getShoppingCart, postPayment } from "../reduxstore/slices/articleSlice";
+import { BsCartX } from "react-icons/bs";
+import {
+  deleteShoppingCart,
+  getShoppingCart,
+  postPayment,
+} from "../reduxstore/slices/articleSlice";
 import { Alert } from "../components/Alert";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -26,7 +30,7 @@ const Empty = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 3rem;
-  div{
+  div {
     color: #272727;
     margin-top: 3rem;
   }
@@ -128,7 +132,7 @@ const Payment = styled.section`
     width: 100%;
     max-width: 700px;
     position: relative;
-  }  
+  }
   @media (max-width: 479px) {
     display: none;
   }
@@ -189,34 +193,34 @@ const ReactionPayment = styled.div`
     position: fixed;
     align-items: center;
   }
-  div{
+  div {
     display: none;
     @media (max-width: 480px) {
-      display: flex; 
+      display: flex;
       padding: 7px;
       font-size: 1.3rem;
       font-weight: 500;
-    } 
+    }
   }
-  .end{
-      @media (max-width: 480px) {
-        display: flex; 
-        width: 100vw;
-        justify-content: flex-end;
-        padding: 10px 30px;
-      } 
+  .end {
+    @media (max-width: 480px) {
+      display: flex;
+      width: 100vw;
+      justify-content: flex-end;
+      padding: 10px 30px;
+    }
   }
-  button{
+  button {
     display: none;
     @media (max-width: 480px) {
-      display: block; 
+      display: block;
       width: 85vw;
       height: 6vh;
       color: white;
       background-color: #002c6d;
       border-radius: 5px;
       font-size: 1.4rem;
-    } 
+    }
   }
 `;
 
@@ -225,7 +229,7 @@ function ShoppingCart() {
   const dispatch = useDispatch();
   const cartSeletor = useSelector((state) => state.article.shoppingCartInitial);
   const cartSeletorLength = cartSeletor?.length;
-  
+
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
   console.log(`checkList`, checkList);
 
@@ -275,7 +279,8 @@ function ShoppingCart() {
   const postPurchase = () => {
     if (checkList.length === 0) {
       Alert("warning", "구매하실 상품을 선택해 주세요.");
-    } else { //배열에 담아 변수로 보내긔..
+    } else {
+      //배열에 담아 변수로 보내긔..
       Swal.fire({
         title: "Are you sure?",
         text: "상품을 구매하시겠습니까?",
@@ -304,16 +309,15 @@ function ShoppingCart() {
   };
 
   const purchaseConfirm = () => {
-    dispatch(postPayment({checkList,navigate}));
-  }
-
+    dispatch(postPayment({ checkList, navigate }));
+  };
 
   return (
     <CartBlock>
       {cartSeletorLength === 0 ? (
         <Empty>
-            <EmptyCartIcon/>
-            <div> 장바구니에 담긴 상품이 없습니다.</div>
+          <EmptyCartIcon />
+          <div> 장바구니에 담긴 상품이 없습니다.</div>
         </Empty>
       ) : (
         <Quary>
@@ -377,11 +381,11 @@ function ShoppingCart() {
             <PayButton onClick={postPurchase}>구매하기</PayButton>
           </Payment>
           <ReactionPayment>
-                <div className="end">
-                  <div>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</div>
-                  <div>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</div>
-                </div>
-              <button onClick={postPurchase}>구매하기</button>
+            <div className="end">
+              <div>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</div>
+              <div>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</div>
+            </div>
+            <button onClick={postPurchase}>구매하기</button>
           </ReactionPayment>
         </Quary>
       )}

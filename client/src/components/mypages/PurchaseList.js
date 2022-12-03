@@ -255,13 +255,13 @@ const CancleBtn = styled.button`
   padding: 8px 30px;
   /* height: 50px; */
   /* border: 1px solid red; */
-  color: #FF4040;
+  color: #ff4040;
   border-radius: 5px;
   white-space: nowrap;
   cursor: pointer;
   border: 1px solid #efefef;
   &:hover {
-    border: 1px solid #FF4040;
+    border: 1px solid #ff4040;
   }
   @media screen and (max-width: 479px) {
     display: none;
@@ -295,7 +295,7 @@ const ReactionCancleBtn = styled.button`
     cursor: pointer;
     border: 1px solid #efefef;
     &:hover {
-      border: 1px solid #FF4040;
+      border: 1px solid #ff4040;
     }
   }
 `;
@@ -448,7 +448,11 @@ const PurchaseList = () => {
                   </Btns>
                 </Detail>
                 <ReactionSpace>
-                  <ReactionCancleBtn onClick={() => handleOrderCancle(order.orderId)}>주문취소</ReactionCancleBtn>
+                  <ReactionCancleBtn
+                    onClick={() => handleOrderCancle(order.orderId)}
+                  >
+                    주문취소
+                  </ReactionCancleBtn>
                 </ReactionSpace>
               </Content>
               <Hr />

@@ -25,13 +25,13 @@ const ArrowUpButton = styled.button`
     opacity: 1;
     pointer-events: auto;
   }
-    @media (min-width: 320px) and (max-width: 389px) {
-      right: 25px;
-      width: 40px;
-      height: 40px;
-      font-size: 25px;
-      bottom: 25px;
-    }
+  @media (min-width: 320px) and (max-width: 389px) {
+    right: 25px;
+    width: 40px;
+    height: 40px;
+    font-size: 25px;
+    bottom: 25px;
+  }
 `;
 const Button = () => {
   const [BtnStatus, setBtnStatus] = useState(false); // 버튼 상태
@@ -43,7 +43,6 @@ const Button = () => {
     });
     setBtnStatus(false);
   };
-
   const ShowButtonClick = () => {
     if (window.scrollY > 800) {
       setBtnStatus(true);

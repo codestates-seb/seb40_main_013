@@ -36,8 +36,10 @@ function Review({ articlesDetail, reviewRef }) {
                 <ReviewMainContent>{data.content}</ReviewMainContent>
               </ReviewContentsMainSpace>
               <ReviewContentsRightSpace>
-                <ReviewContentsUser>{data.nickname}</ReviewContentsUser>
-                <ReviewContentsUser className="reviewDate">
+                <ReviewContentsUser className="reviewName">
+                  {data.nickname}
+                </ReviewContentsUser>
+                <ReviewContentsUser>
                   {new Date(data.createdAt).getFullYear() +
                     "." +
                     [new Date(data.createdAt).getMonth() + 1] +
@@ -66,10 +68,9 @@ function Review({ articlesDetail, reviewRef }) {
 
 const ReviewWrapper = styled.div`
   scroll-margin-top: 130px;
-  width: 100%;
+  width: 85%;
   height: 100%;
   @media screen and (max-width: 1024px) {
-    width: 75%;
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -130,7 +131,6 @@ const ReviewContentsLeftSpace = styled.div`
 `;
 const ReviewContentsMainSpace = styled.div`
   width: 68%;
-  height: 70px;
   display: flex;
   flex-direction: column;
   @media screen and (max-width: 400px) {
@@ -185,22 +185,25 @@ const ReviewContent = styled.div`
     display: flex;
     align-items: center;
   }
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 500px) {
+    width: 70%;
+    height: 80%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     max-width: 320px;
   }
 `;
 
 const ReviewContentsRightSpace = styled.div`
-  width: 50%;
+  width: 70%;
   display: flex;
   height: 100%;
   justify-content: space-around;
   align-items: center;
   @media screen and (max-width: 400px) {
-    width: 35%;
+    width: 100%;
     display: flex;
     flex-direction: column;
   }
@@ -210,10 +213,6 @@ const ReviewContentsUser = styled.div`
   font-size: var(--font-smallsize);
   font-weight: bolder;
   margin-left: 10px;
-  .reviewDate {
-    width: 30px;
-    background-color: red;
-  }
 `;
 const ReviewPageNationSpace = styled.div`
   width: 100%;
