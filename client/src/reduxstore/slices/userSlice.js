@@ -31,6 +31,7 @@ export const loginUser = createAsyncThunk(
         localStorage.setItem("Refresh", jwtrefreshToken);
         navigate("/");
         Toast("success", "로그인에 성공하셨습니다!");
+        console.log(res);
         return res.data;
       })
       .catch((err) => {
@@ -79,11 +80,14 @@ export const guestUser = createAsyncThunk(
   async ({ navigate }) => {
     return Apis.post(`guest`)
       .then((res) => {
+        console.log(res);
         localStorage.clear();
         let jwtToken = res.headers.get("Authorization");
         let jwtrefreshToken = res.headers.get("Refresh");
         localStorage.setItem("Authorization", jwtToken);
         localStorage.setItem("Refresh", jwtrefreshToken);
+        let sellAuthority = res.data;
+        localStorage.setItem("authority", sellAuthority);
         navigate("/");
         Toast("success", "게스트 로그인 성공!");
         return res.data;

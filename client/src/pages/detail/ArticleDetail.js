@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getArticleDetail,
   postCart,
-  // postLike,
-  // deleteLike,
+  postLike,
+  deleteLike,
   articleLike,
 } from "../../reduxstore/slices/articleSlice";
 import { useNavigate, useParams } from "react-router-dom";
@@ -35,12 +35,12 @@ function ArticleDetail() {
   const articleRef = useRef();
   const reviewRef = useRef();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
-  const articlesLike = useSelector((state) => state.article.articleLike);
+  const isLike = useSelector((state) => state.article.articleLike);
+  console.log(isLike);
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
   );
   let price = articlesDetail?.price;
-  const isLike = articlesDetail?.existsLike;
   const clickFunction = () => {
     setClickSelect(!clickSelect);
   };
@@ -77,20 +77,11 @@ function ArticleDetail() {
   ScrollToTop();
 
   useEffect(() => {
-    if (clickHeart === true || clickHeart === false) {
-      setTimeout(() => {
-        dispatch(getArticleDetail(Number(id)));
-      }, 1500);
-    } else {
+    if (clickCheck === 0) {
       dispatch(getArticleDetail(Number(id)));
+      dispatch(articleLike(Number(id)));
     }
-  }, [clickHeart]);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     dispatch(getArticleDetail(Number(id)));
-  //   }, 500);
-  // }, [clickHeart]);
+  }, [clickCheck]);
 
   const clickPostCart = () => {
     let postData = {
@@ -100,19 +91,18 @@ function ArticleDetail() {
     };
     dispatch(postCart({ postData, navigate }));
   };
-
+  console.log(clickCheck);
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
-    setClickHeart(true);
     setClickCheck(Date.now());
-    dispatch(articleLike(id));
+    dispatch(postLike(id));
+    setClickCheck(0);
   };
-
   const clickDeleteLike = () => {
     let id = articlesDetail?.productId;
-    setClickHeart(false);
     setClickCheck(Date.now());
-    dispatch(articleLike(id));
+    dispatch(deleteLike(id));
+    setClickCheck(0);
   };
 
   const nowPayHandler = () => {
@@ -182,41 +172,23 @@ function ArticleDetail() {
               <DetailArticlePrice>
                 {articlesDetail?.price?.toLocaleString("en-US")}원
               </DetailArticlePrice>
-              {clickHeart ? (
-                <ButtonIcon>
-                  {isLike ? (
-                    <BsHeartFill
-                      size="20"
-                      color="#FFAF51"
-                      onClick={clickDeleteLike}
-                    />
-                  ) : (
-                    <BsHeartFill
-                      size="20"
-                      className="heart"
-                      color="gray"
-                      onClick={clickPostLike}
-                    />
-                  )}
-                </ButtonIcon>
-              ) : (
-                <ButtonIcon>
-                  {articlesLike ? (
-                    <BsHeartFill
-                      size="20"
-                      color="#FFAF51"
-                      onClick={clickDeleteLike}
-                    />
-                  ) : (
-                    <BsHeartFill
-                      size="20"
-                      className="heart"
-                      color="gray"
-                      onClick={clickPostLike}
-                    />
-                  )}
-                </ButtonIcon>
-              )}
+              <ButtonIcon>
+                {isLike ? (
+                  <BsHeartFill
+                    size="20"
+                    color="#FFAF51"
+                    onClick={clickDeleteLike}
+                  />
+                ) : (
+                  <BsHeartFill
+                    size="20"
+                    className="heart"
+                    color="gray"
+                    onClick={clickPostLike}
+                  />
+                )}
+              </ButtonIcon>
+
             </DetailArticlePriceSpace>
             <div>
               <DetailArticleOptionSpace>

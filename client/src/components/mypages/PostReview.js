@@ -197,17 +197,18 @@ const Wrapper = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 400px;
   height: 530px;
   border: 1px solid #aaaaaa;
   background-color: white;
   border-radius: 5px;
-  padding-top: 10px;
   box-shadow: 0 1px 5px 0 rgb(0 0 0 / 30%);
   @media screen and (max-width: 400px) {
     max-width: 350px;
     justify-content: center;
+    align-items: center;
   }
 `;
 
@@ -225,16 +226,16 @@ const PostReviewContentImg = styled.img`
 
 const PostReviewContentRightSpace = styled.div`
   width: 70%;
-  height: 100%;
+  height: 95%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 const PostReviewTopContent = styled.div`
-  width: 100%;
+  width: 90%;
   height: 100%;
-  font-size: 1vh;
+  font-size: 13px;
   display: flex;
   align-items: center;
   &:nth-child(1) {
