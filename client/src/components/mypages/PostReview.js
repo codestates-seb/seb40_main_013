@@ -175,7 +175,9 @@ function PostReview({ clickModal, filterData, filteReview }) {
             ) : (
               <PostReviewDownBtn onClick={postSubmit}>등록</PostReviewDownBtn>
             )}
-            <PostReviewDownBtn onClick={clickModal}>취소</PostReviewDownBtn>
+            <PostReviewDownBtn className="cancleBtn" onClick={clickModal}>
+              취소
+            </PostReviewDownBtn>
           </BtnSpace>
         </PostReviewDownSpace>
       </Container>
@@ -327,20 +329,16 @@ const SumnailUpload = styled.input`
   clip: rect(0, 0, 0, 0);
   border: 0;
 `;
-const DeleteSumnaeil = styled.button`
-  background-color: var(--color-navy);
-  color: white;
-  width: 55px;
-  height: 30px;
-  border-radius: 5px;
-  cursor: pointer;
-`;
 
 const PostReviewDownInput = styled.textarea`
   width: 80%;
   height: 30%;
   margin-top: 10px;
   padding: 8px;
+  max-width: 80%;
+  min-width: 70%;
+  min-height: 90px;
+  max-height: 100px;
 `;
 const BtnSpace = styled.div`
   display: flex;
@@ -355,9 +353,17 @@ const PostReviewDownBtn = styled.button`
   border-radius: 5px;
   color: white;
   background-color: var(--color-navy);
+  border: 1px solid #aaaaaa;
   cursor: pointer;
   &:nth-child(1) {
     margin-right: 20px;
+  }
+  &.cancleBtn {
+    background-color: white;
+    color: var(--color-navy);
+  }
+  &:hover {
+    opacity: 0.6;
   }
 `;
 

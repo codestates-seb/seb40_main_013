@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Toast } from "../components/Alert";
 
 const url = process.env.REACT_APP_URL;
 
 const Apis = axios.create({
-  baseURL: url,
+  baseURL: "https://stale-games-flash-125-134-111-45.loca.lt",
 });
 axios.interceptors.request.use(function (config) {
   return config;
@@ -19,7 +19,9 @@ Apis.interceptors.response.use(
     let tokenExpiredDataMessage = String(err.response.data.message);
     let refreshTokenExpiredDataMessage = String(err.response.data.message);
     const datas = tokenExpiredDataMessage.startsWith("JWT expired");
-    const refreshDatas = refreshTokenExpiredDataMessage.startsWith("JWT");
+    const refreshDatas = refreshTokenExpiredDataMessage.startsWith(
+      "Refresh Token Error"
+    );
     if (datas) {
       let originalRequest = err.config;
       try {

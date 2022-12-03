@@ -157,7 +157,6 @@ const SignupWrapper = styled.div`
 
   @media screen and (max-width: 400px) {
     height: 100%;
-
   }
 `;
 

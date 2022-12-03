@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getArticleDetail,
   postCart,
-  postLike,
-  deleteLike,
+  // postLike,
+  // deleteLike,
+  articleLike,
 } from "../../reduxstore/slices/articleSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
@@ -17,6 +18,8 @@ import ScrollToTop from "../../components/ScrollToTop";
 import Button from "../../components/Button";
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";
+import { Toast } from "../../components/Alert";
+import useIntersect from "../../components/useIntersect";
 
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
@@ -32,6 +35,7 @@ function ArticleDetail() {
   const articleRef = useRef();
   const reviewRef = useRef();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
+  const articlesLike = useSelector((state) => state.article.articleLike);
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
   );
@@ -55,7 +59,7 @@ function ArticleDetail() {
       setCartCount(cartCount - 1);
     }
   };
-
+  console.log(articlesDetail);
   const onMoveToElement = (idx) => {
     if (idx === 0) {
       articleRef.current?.scrollIntoView({
@@ -71,14 +75,22 @@ function ArticleDetail() {
     setSelectOptionColor(color);
   };
   ScrollToTop();
+
   useEffect(() => {
-    dispatch(getArticleDetail(Number(id)));
-  }, []);
-  useEffect(() => {
-    setTimeout(() => {
+    if (clickHeart === true || clickHeart === false) {
+      setTimeout(() => {
+        dispatch(getArticleDetail(Number(id)));
+      }, 1500);
+    } else {
       dispatch(getArticleDetail(Number(id)));
-    }, 500);
+    }
   }, [clickHeart]);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     dispatch(getArticleDetail(Number(id)));
+  //   }, 500);
+  // }, [clickHeart]);
 
   const clickPostCart = () => {
     let postData = {
@@ -91,19 +103,19 @@ function ArticleDetail() {
 
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
-    setClickCheck(Date.now());
     setClickHeart(true);
-    dispatch(postLike(id));
+    setClickCheck(Date.now());
+    dispatch(articleLike(id));
   };
 
   const clickDeleteLike = () => {
     let id = articlesDetail?.productId;
-    setClickCheck(Date.now());
     setClickHeart(false);
-    dispatch(deleteLike(id));
+    setClickCheck(Date.now());
+    dispatch(articleLike(id));
   };
 
-  const nowPayHandler= () => {
+  const nowPayHandler = () => {
     Swal.fire({
       title: "",
       text: "상품을 바로 구매하시겠습니까?",
@@ -116,17 +128,19 @@ function ArticleDetail() {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-      successNowPay()
-        }
+        successNowPay();
+      }
     });
-  }
+  };
 
-  const successNowPay = () =>{
-    const checkList = [{
-      productId : articlesDetail?.productId,
-      optionId : selectOptions,
-      count : cartCount
-    },]
+  const successNowPay = () => {
+    const checkList = [
+      {
+        productId: articlesDetail?.productId,
+        optionId: selectOptions,
+        count: cartCount,
+      },
+    ];
     console.log(checkList);
     Apis.post(
       `orders`,
@@ -140,14 +154,14 @@ function ArticleDetail() {
         },
       }
     )
-    .then((res)=>{
-      // console.log(res); 
-        navigate('/members/mypage/purchase')
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
+      .then((res) => {
+        // console.log(res);
+        navigate("/members/mypage/purchase");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Wrapper>
@@ -187,7 +201,7 @@ function ArticleDetail() {
                 </ButtonIcon>
               ) : (
                 <ButtonIcon>
-                  {isLike ? (
+                  {articlesLike ? (
                     <BsHeartFill
                       size="20"
                       color="#FFAF51"
@@ -283,7 +297,17 @@ function ArticleDetail() {
                   장바구니
                 </DetailArticlBtn>
               )}
-              <DetailArticlBtn onClick={nowPayHandler}>바로구매</DetailArticlBtn>
+              {localStorage.getItem("Authorization") ? (
+                <DetailArticlBtn onClick={nowPayHandler}>
+                  바로구매
+                </DetailArticlBtn>
+              ) : (
+                <DetailArticlBtn
+                  onClick={() => Toast("warning", "로그인 해주세요!")}
+                >
+                  바로구매
+                </DetailArticlBtn>
+              )}
             </DetailArticlBtnSpace>
           </ArticleInformations>
         </DetailTopUserSelectSpace>
