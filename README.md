@@ -8,10 +8,6 @@
 
 <br /><br />
 
-||test account|
-|:-:|:-:|
-|ID|guest@guest.com|
-|PW|1234|
 
 <br /><br /><br /><br /><br />
 
@@ -53,7 +49,7 @@
 <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=AmazonEC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=AmazonRDS&logoColor=white"> <img alt="GithubActions" src="https://img.shields.io/badge/Github Actions-2088FF.svg?&style=for-the-badge&logo=GithubActions&logoColor=white"/> <img alt="NGINX" src="https://img.shields.io/badge/NGINX-009639.svg?&style=for-the-badge&logo=NGINX&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
 
 
-<br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br />
 
 # 💡 Pages
 
@@ -63,7 +59,7 @@
 
 |1️⃣ 회원가입|2️⃣ 로그인|3️⃣ 메인 페이지|
 |:-:|:-:|:-:|
-|<img width="300" alt="스크린샷 2022-11-08 오후 10 19 44" src="">|<img width="300" alt="스크린샷 2022-11-07 오후 6 00 38" src="">|<img width="300" alt="스크린샷 2022-11-07 오후 6 13 22" src="https://media.discordapp.net/attachments/1037945125998968864/1048181634102468608/2022-12-02_7.17.57.png?width=1269&height=678">|
+|<img width="300" alt="스크린샷 2022-11-08 오후 10 19 44" src="https://user-images.githubusercontent.com/107091097/205440428-b664322a-bf88-4e2b-a2d3-9d36b6e51c18.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 00 38" src="https://user-images.githubusercontent.com/107091097/205440296-69b6eeba-7c75-47e7-b500-52098190754b.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 13 22" src="https://media.discordapp.net/attachments/1037945125998968864/1048181634102468608/2022-12-02_7.17.57.png?width=1269&height=678">|
 
 |4️⃣ 상품 목록 조회|5️⃣ 상품 상세 조회|6️⃣ 상품 등록|
 |:-:|:-:|:-:|
@@ -79,7 +75,7 @@
 
 |1️⃣3️⃣ 검색 기능|
 |:-:|
-|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="">|
+|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="https://user-images.githubusercontent.com/107091097/205440456-2f26103f-dd54-46f1-b1cf-e5de400f2b1c.png">|
 
 <br /><br />
 <div align="start">
@@ -133,6 +129,13 @@
 </div>
 
 <br /><br /><br />
+
+## 프로젝트 구조
+### 프로젝트 아키텍처
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/dc674d47-4350-44d8-83f6-034874a3fb4f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T122153Z&X-Amz-Expires=86400&X-Amz-Signature=4b8d6105e99d58f822a5edd9d64a2d00f971f536b830e4e9a7b234bca1513201&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
+
+### Deploy Tools
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f4f1fc59-15ad-468c-9fa4-24ea7c43cf07/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T122713Z&X-Amz-Expires=86400&X-Amz-Signature=991f95be394e2266486cf28a749d79db15ade5f5349ef0ddd9e5a72cffa5392a&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
 
 
 </div>
