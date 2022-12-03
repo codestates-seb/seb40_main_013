@@ -3,7 +3,6 @@ import styled from "styled-components/macro";
 import { BsStarFill, BsStarHalf, BsHeart, BsHeartFill } from "react-icons/bs";
 import { FiChevronDown } from "react-icons/fi";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import Review from "./Review";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -27,6 +26,7 @@ function ArticleDetail() {
   const [clickHeart, setClickHeart] = useState(false);
   const [clickCheck, setClickCheck] = useState(0);
   const [selectOptions, setSelectOptions] = useState("");
+  console.log(selectOptions);
   const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
   const [cartCount, setCartCount] = useState(1);
   const dispatch = useDispatch();

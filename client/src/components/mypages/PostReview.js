@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { postReview, updateReview } from "../../reduxstore/slices/reviewSlice";
 import { useDispatch } from "react-redux";
 import imageCompression from "browser-image-compression";

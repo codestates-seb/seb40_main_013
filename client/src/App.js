@@ -84,10 +84,7 @@ function App() {
                   }
                 />
                 <Route path="/cart" element={<ShoppingCart />} />
-                <Route
-                  path="/search"
-                  element={<SearchResult searchWord={searchWord} />}
-                />
+                <Route path="/search" element={<SearchResult searchWord={searchWord} />} />
               </Routes>
             </MainContent>
             <Footer />

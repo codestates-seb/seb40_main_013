@@ -144,14 +144,6 @@ const BrandTitle = styled.h2`
   margin-left: 10px;
   scroll-margin-top: 140px;
 `;
-const FullView = styled(Link)`
-  display: flex;
-  align-items: flex-end;
-  font-size: 1rem;
-  margin: 20px 40px 0 0;
-  color: #aaaaaa;
-  cursor: pointer;
-`;
 
 const BrandProduct = styled.div``;
 
@@ -261,9 +253,6 @@ const Main = () => {
               <BrandTitle ref={(element) => (myRefs.current[key] = element)}>
                 {key}
               </BrandTitle>
-              <FullView name="fullView" className="fullView">
-                전체보기 &gt;&gt;
-              </FullView>
             </BrandTitleContainer>
             <ProductList>
               {value?.map((product) => (

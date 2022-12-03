@@ -42,7 +42,10 @@ export const postCart = createAsyncThunk(
         }).then((result) => {
           if (result.isConfirmed) {
             navigate("/cart");
+          } else {
+            window.location.reload();
           }
+
         });
         return res.data;
       })
