@@ -204,7 +204,6 @@ const LoginButton = styled.button`
   background-color: var(--color-navy);
   color: white;
   font-size: 20px;
-  font-weight: bolder;
   margin-top: 40px;
   border-radius: 5px;
   &:hover {

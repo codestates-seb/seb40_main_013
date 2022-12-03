@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import Products from "../components/mains/Product";
-import RankingDown from "../components/subcategories/DropDown";
+import RankingDown from "../components/DropDown";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getSearchResult, countSearchResult } from "../reduxstore/slices/articleSlice";

@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components/macro";
 import ScrollToTop from "./components/ScrollToTop";
 import Button from "./components/Button";
+import LoadingIcon from "./components/LoadingIcon";
 
 const MainContainter = styled.div`
   height: 100vh;
@@ -39,7 +40,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading....!</div>}>
+      <Suspense fallback={<LoadingIcon></LoadingIcon>}>
         <ScrollToTop />
         <GlobalStyles />
         <Button />

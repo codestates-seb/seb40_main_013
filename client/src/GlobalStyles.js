@@ -26,9 +26,9 @@ const GlobalStyles = createGlobalStyle`
     }
     :root{
       // font-color
-      --font-red : #FF2323;
-      --font-black : #0E0E0E;
-      --font-ligthblack : #515151;
+      --font-red : #FF4040;
+      --font-black : #272727;
+      --font-ligthblack : #272727;
       --font-navy : #002C6D;
       --font-smoothblack : #272727;
       // font -size 
@@ -41,8 +41,11 @@ const GlobalStyles = createGlobalStyle`
       --color-star : #FFC007;
       //border-radius 
       --border-radius : 5px;
-      //border-color
-      --border-navy : #002C6D;
+      //hover-color
+      --hover-navy : #123b77;
+      --white-hover-gary : #f0f0f0;
+      --hover-gary: #aaaaaa;
+      --button-gray : #efefef;
       // center-line
       --color-center-line : #AAAAAA; 
     }

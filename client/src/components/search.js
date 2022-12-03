@@ -283,9 +283,12 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
                 </section>
               ))}
             </SearchList>
+            {keywords.length === 0 ? 
+            <div></div> :
             <RecentWordAllDetete onClick={handleClearKeywords}>
               전체 삭제
             </RecentWordAllDetete>
+            }
           </SearchWord>
           <SearchWord>
             <div className="recent">인기 검색어</div>

@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-
 import styled from "styled-components/macro";
-import SubCarousel from "../../components/subcategories/SubCalousel";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
 import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
-import RankingDown from "../../components/subcategories/DropDown";
+import RankingDown from "../../components/DropDown";
 import Apis from "../../apis/apis";
+import kitchenImg from '../../imgs/sub-kitchen.png';
 
 function Kitchen({ mainClick, subclick }) {
   
@@ -121,13 +120,18 @@ function Kitchen({ mainClick, subclick }) {
 
   return (
     <SubBlock onClick={outModalCloseHandler}>
-      <SubCarousel />
+      <ImgBLock>
+        <SubTitleImg src={kitchenImg}/>
+        <SubTitle>Ktichen</SubTitle>
+      </ImgBLock>
       <FilterBlock>
-        { subclick != '' ? 
-            <SubMenuWord>{subclick}&nbsp;</SubMenuWord> : 
-            <SubMenuWord>{mainCateClick}&nbsp;전체상품&nbsp;</SubMenuWord>
-        }
-        <div className="total">에 {countSelector} 개의 상품이 있습니다</div>
+        <CountBlock>
+          { subclick != '' ? 
+              <SubMenuWord>{subclick}&nbsp;</SubMenuWord> : 
+              <SubMenuWord>{/* {mainCateClick} */}전체상품&nbsp;</SubMenuWord>
+          }
+          <div className="total">에&nbsp;{countSelector}&nbsp;개의&nbsp;상품이&nbsp;있습니다</div>
+        </CountBlock>
         <section ref={modalRef}>
           <RankingDown
             dropDownclicked={dropDownclicked}
@@ -158,6 +162,7 @@ const SubBlock = styled.div`
   margin-top: 127.5px;
   padding: 3vh 4vw;
   align-items: center;
+  position: relative;
   .sub-menus {
     display: flex;
     width: 100%;
@@ -168,11 +173,55 @@ const SubBlock = styled.div`
     width: 100%;
     margin: 15px 0px;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
     justify-content: flex-start;
-    color: #272727;
+    align-items: center;
+    @media (max-width: 767px) {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    @media (max-width: 479px) {
+      font-size: 13px;
+      margin: 10px 0;
+    }
   }
+`;
+
+const ImgBLock = styled.div`
+  position: relative;
+`;
+
+const SubTitle = styled.div`
+  font-size: 3.5rem;
+  font-weight: 300;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2px;
+  animation: fadeInUp 1.4s;
+  @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translate3d(0, 30%, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translateZ(0);
+        }
+    }
+`;
+
+const SubTitleImg = styled.img`
+    width: 100%;
 `;
 
 const FilterBlock = styled.div`
@@ -182,20 +231,40 @@ const FilterBlock = styled.div`
   padding: 0 2.5rem;
   display: flex;
   justify-content: space-between;
-  margin-top: 1.2rem;
+  margin-top: 1.1rem;
   div {
     white-space: nowrap;
   }
   @media (max-width: 1023px) {
     padding: 0 1rem;
   }
+  section{
+    padding-top: 1.8vh;
+    @media (max-width: 479px) {
+      padding-top: 1.2vh;
+    }
+  }
+`;
+
+const CountBlock = styled.div`
+  display: flex;
+  flex-direction: row;
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
 `;
 
 const SubMenuWord = styled.div`
-  font-size: 30px;
+  font-size: 28px;
   color: #272727;
   display: flex;
   align-items: center;
+  @media (max-width: 767px) {
+    font-size: 22px;
+  }
+  @media (max-width: 479px) {
+    font-size: 19px;
+  }
 `;
 
 const ProductList = styled.div`

@@ -255,13 +255,13 @@ const CancleBtn = styled.button`
   padding: 8px 30px;
   /* height: 50px; */
   /* border: 1px solid red; */
-  color: red;
+  color: #FF4040;
   border-radius: 10px;
   white-space: nowrap;
   cursor: pointer;
   border: 1px solid #efefef;
   &:hover {
-    border: 1px solid #ff4040;
+    border: 1px solid #FF4040;
   }
   @media screen and (max-width: 479px) {
     display: none;
@@ -280,23 +280,22 @@ const ReactionSpace = styled.div`
   @media screen and (max-width: 479px) {
     display: flex;
     justify-content: flex-end;
-    margin: 5px 10px;
+    margin: 0 10px 5px 10px;
   }
 `;
 
-const ReactionReviewBtn = styled.button`
+const ReactionCancleBtn = styled.button`
   display: none;
-
   @media screen and (max-width: 479px) {
     display: flex;
-    color: #515151;
-    border: 0.7px solid #aaaaaa;
+    padding: 5px 20px;
+    color: red;
     border-radius: 5px;
-    padding: 3px 10px;
+    white-space: nowrap;
     cursor: pointer;
+    border: 1px solid #efefef;
     &:hover {
-      background-color: #002c6d;
-      color: white;
+      border: 1px solid #FF4040;
     }
   }
 `;
@@ -432,11 +431,7 @@ const PurchaseList = () => {
                   </Btns>
                 </Detail>
                 <ReactionSpace>
-                  <ReactionReviewBtn
-                    onClick={() => handleOrderCancle(order.orderId)}
-                  >
-                    주문취소
-                  </ReactionReviewBtn>
+                  <ReactionCancleBtn onClick={() => handleOrderCancle(order.orderId)}>주문취소</ReactionCancleBtn>
                 </ReactionSpace>
               </Content>
               <Hr />
