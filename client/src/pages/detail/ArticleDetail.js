@@ -9,8 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getArticleDetail,
   postCart,
-  postLike,
-  deleteLike,
+  // postLike,
+  // deleteLike,
+  articleLike,
 } from "../../reduxstore/slices/articleSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
@@ -19,6 +20,7 @@ import Button from "../../components/Button";
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";
 import { Toast } from "../../components/Alert";
+import useIntersect from "../../components/useIntersect";
 
 function ArticleDetail() {
   const [clickSelect, setClickSelect] = useState(false);
@@ -33,6 +35,7 @@ function ArticleDetail() {
   const articleRef = useRef();
   const reviewRef = useRef();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
+  const articlesLike = useSelector((state) => state.article.articleLike);
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
   );
@@ -56,7 +59,7 @@ function ArticleDetail() {
       setCartCount(cartCount - 1);
     }
   };
-
+  console.log(articlesDetail);
   const onMoveToElement = (idx) => {
     if (idx === 0) {
       articleRef.current?.scrollIntoView({
@@ -72,14 +75,22 @@ function ArticleDetail() {
     setSelectOptionColor(color);
   };
   ScrollToTop();
+
   useEffect(() => {
-    dispatch(getArticleDetail(Number(id)));
-  }, []);
-  useEffect(() => {
-    setTimeout(() => {
+    if (clickHeart === true || clickHeart === false) {
+      setTimeout(() => {
+        dispatch(getArticleDetail(Number(id)));
+      }, 1500);
+    } else {
       dispatch(getArticleDetail(Number(id)));
-    }, 500);
+    }
   }, [clickHeart]);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     dispatch(getArticleDetail(Number(id)));
+  //   }, 500);
+  // }, [clickHeart]);
 
   const clickPostCart = () => {
     let postData = {
@@ -92,16 +103,16 @@ function ArticleDetail() {
 
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
-    setClickCheck(Date.now());
     setClickHeart(true);
-    dispatch(postLike(id));
+    setClickCheck(Date.now());
+    dispatch(articleLike(id));
   };
 
   const clickDeleteLike = () => {
     let id = articlesDetail?.productId;
-    setClickCheck(Date.now());
     setClickHeart(false);
-    dispatch(deleteLike(id));
+    setClickCheck(Date.now());
+    dispatch(articleLike(id));
   };
 
   const nowPayHandler = () => {
@@ -190,7 +201,7 @@ function ArticleDetail() {
                 </ButtonIcon>
               ) : (
                 <ButtonIcon>
-                  {isLike ? (
+                  {articlesLike ? (
                     <BsHeartFill
                       size="20"
                       color="#FFAF51"
@@ -321,7 +332,314 @@ function ArticleDetail() {
     </Wrapper>
   );
 }
+// const [clickSelect, setClickSelect] = useState(false);
+// const [clickHeart, setClickHeart] = useState(false);
+// const [clickCheck, setClickCheck] = useState(0);
+// const [selectOptions, setSelectOptions] = useState("");
+// const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
+// const [cartCount, setCartCount] = useState(1);
+// const dispatch = useDispatch();
+// const navigate = useNavigate();
+// const { id } = useParams();
+// const articleRef = useRef();
+// const reviewRef = useRef();
+// const { articlesDetail, loading } = useSelector((state) => ({
+//   articlesDetail: state.article.detailArticle,
+//   loading: state.article.loading,
+// }));
+// // const articlesDetail = useSelector((state) => ({state.article.detailArticle}));
+// console.log(articlesDetail, "11", loading);
+// const optionSelect = useSelector(
+//   (state) => state.article.detailArticle.options
+// );
+// let price = articlesDetail?.price;
+// const isLike = articlesDetail?.existsLike;
+// const clickFunction = () => {
+//   setClickSelect(!clickSelect);
+// };
 
+// const clickUpCart = () => {
+//   if (cartCount >= 100) {
+//     setCartCount(100);
+//   } else {
+//     setCartCount(cartCount + 1);
+//   }
+// };
+// const clickDownCart = () => {
+//   if (cartCount <= 1) {
+//     setCartCount(1);
+//   } else {
+//     setCartCount(cartCount - 1);
+//   }
+// };
+// const onMoveToElement = (idx) => {
+//   if (idx === 0) {
+//     articleRef.current?.scrollIntoView({
+//       behavior: "smooth",
+//       block: "start",
+//     });
+//   } else if (idx === 1) {
+//     reviewRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+//   }
+// };
+// const selectOption = (id, color) => {
+//   setSelectOptions(id);
+//   setSelectOptionColor(color);
+// };
+// ScrollToTop();
+// useEffect(() => {
+//   dispatch(getArticleDetail(Number(id)));
+// }, []);
+// useEffect(() => {
+//   setTimeout(() => {
+//     dispatch(getArticleDetail(Number(id)));
+//   }, 500);
+// }, [clickHeart]);
+
+// const clickPostCart = () => {
+//   let postData = {
+//     productId: articlesDetail?.productId,
+//     count: cartCount,
+//     optionId: selectOptions,
+//   };
+//   dispatch(postCart({ postData, navigate }));
+// };
+
+// const clickPostLike = () => {
+//   let id = articlesDetail?.productId;
+//   setClickHeart(true);
+//   dispatch(postLike(id));
+// };
+
+// const clickDeleteLike = () => {
+//   let id = articlesDetail?.productId;
+//   setClickHeart(false);
+//   dispatch(deleteLike(id));
+// };
+
+// const nowPayHandler = () => {
+//   Swal.fire({
+//     title: "",
+//     text: "상품을 바로 구매하시겠습니까?",
+//     icon: "warning",
+//     showCancelButton: true,
+//     confirmButtonColor: "#002C6D",
+//     cancelButtonColor: "#FFAF51",
+//     showCancelButton: true,
+//     confirmButtonText: "바로 구매",
+//     cancelButtonText: "취소",
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       successNowPay();
+//     }
+//   });
+// };
+
+// const successNowPay = () => {
+//   const checkList = [
+//     {
+//       productId: articlesDetail?.productId,
+//       optionId: selectOptions,
+//       count: cartCount,
+//     },
+//   ];
+//   console.log(checkList);
+//   Apis.post(
+//     `orders`,
+//     {
+//       orderProducts: checkList,
+//     },
+//     {
+//       headers: {
+//         Authorization: `${localStorage.getItem("Authorization")}`,
+//         "Content-Type": "application/json",
+//       },
+//     }
+//   )
+//     .then((res) => {
+//       // console.log(res);
+//       navigate("/members/mypage/purchase");
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
+
+//   const [_, setRef] = useIntersect(async(entry,observer) =>{
+//     observer.unobserver(entry.target);
+//     await dispatch(getArticleDetail(Number(id)))
+
+//   })
+
+//   return (
+//     <Wrapper>
+//       <DetailContents>
+//         <DetailTopUserSelectSpace>
+//           <DetailTopThumbnailImg src={articlesDetail?.img?.fullPath} />
+//           <ArticleInformations>
+//             <DetailArticleName>{articlesDetail?.title}</DetailArticleName>
+//             <DetailArticleNameSpace>
+//               <DetailArticleStarSpace onClick={() => onMoveToElement(1)}>
+//                 {renderStar(articlesDetail?.score)}
+//                 <DetailArticleStaAverage>
+//                   {articlesDetail?.score}&nbsp;점
+//                 </DetailArticleStaAverage>
+//               </DetailArticleStarSpace>
+//             </DetailArticleNameSpace>
+//             <DetailArticlePriceSpace>
+//               <DetailArticlePrice>
+//                 {articlesDetail?.price?.toLocaleString("en-US")}원
+//               </DetailArticlePrice>
+//               {clickHeart ? (
+//                 <ButtonIcon>
+//                   {isLike ? (
+//                     <BsHeartFill
+//                       size="20"
+//                       color="#FFAF51"
+//                       onClick={clickDeleteLike}
+//                     />
+//                   ) : (
+//                     <BsHeartFill
+//                       size="20"
+//                       className="heart"
+//                       color="gray"
+//                       onClick={clickPostLike}
+//                     />
+//                   )}
+//                 </ButtonIcon>
+//               ) : (
+//                 <ButtonIcon>
+//                   {isLike ? (
+//                     <BsHeartFill
+//                       size="20"
+//                       color="#FFAF51"
+//                       onClick={clickDeleteLike}
+//                     />
+//                   ) : (
+//                     <BsHeartFill
+//                       size="20"
+//                       className="heart"
+//                       color="gray"
+//                       onClick={clickPostLike}
+//                     />
+//                   )}
+//                 </ButtonIcon>
+//               )}
+//             </DetailArticlePriceSpace>
+//             <div>
+//               <DetailArticleOptionSpace>
+//                 <DetailArticleOptionContents>
+//                   배송 방법
+//                 </DetailArticleOptionContents>
+//                 <DetailArticleOptionContents>
+//                   무료 배송
+//                 </DetailArticleOptionContents>
+//               </DetailArticleOptionSpace>
+//               <DetailArticleOptionSpace>
+//                 <DetailArticleOptionContents>
+//                   옵션 선택
+//                 </DetailArticleOptionContents>
+//               </DetailArticleOptionSpace>
+//               <DetailArticleOptionSpaceSelect clickSelect={clickSelect}>
+//                 <DetailArticleOptionSpaceSelectDiv>
+//                   {selectOptionColor}
+//                   <div className="cur">
+//                     <FiChevronDown className="button" onClick={clickFunction} />
+//                   </div>
+//                 </DetailArticleOptionSpaceSelectDiv>
+//                 {clickSelect ? (
+//                   <DetailArticleOptionSpaceSelectDivValueUl>
+//                     {optionSelect?.map((option) => (
+//                       <DetailArticleOptionSpaceSelectDivValueLi
+//                         key={option?.optionId}
+//                         value={option?.value}
+//                         onClick={() => {
+//                           selectOption(option.optionId, option.color),
+//                             clickFunction();
+//                         }}
+//                       >
+//                         {option?.color}
+//                       </DetailArticleOptionSpaceSelectDivValueLi>
+//                     ))}
+//                   </DetailArticleOptionSpaceSelectDivValueUl>
+//                 ) : (
+//                   <DetailArticleOptionSpaceSelectDivValueUl></DetailArticleOptionSpaceSelectDivValueUl>
+//                 )}
+//               </DetailArticleOptionSpaceSelect>
+//             </div>
+//             <DetailUserSubmitPriceSpace>
+//               <DetailUserQuantitySpace selectOptions={selectOptions}>
+//                 <ButtonIcon>
+//                   <BiChevronLeft onClick={clickDownCart} />
+//                 </ButtonIcon>
+//                 <div>{cartCount}</div>
+//                 <ButtonIcon>
+//                   <BiChevronRight onClick={clickUpCart} />
+//                 </ButtonIcon>
+//               </DetailUserQuantitySpace>
+//               <DetailUserPriceSpace>
+//                 {selectOptions === "" ? (
+//                   <div className="zero">
+//                     <DetailUserPrice className="w">₩</DetailUserPrice>
+//                     <DetailUserPrice>0</DetailUserPrice>
+//                   </div>
+//                 ) : (
+//                   <div>
+//                     <DetailUserPrice className="w">₩</DetailUserPrice>
+//                     <DetailUserPrice>
+//                       {(price * cartCount).toLocaleString("en-US")}
+//                     </DetailUserPrice>
+//                   </div>
+//                 )}
+//               </DetailUserPriceSpace>
+//             </DetailUserSubmitPriceSpace>
+//             <DetailArticlBtnSpace>
+//               {localStorage.getItem("Authorization") ? (
+//                 <DetailArticlBtn onClick={clickPostCart}>
+//                   장바구니
+//                 </DetailArticlBtn>
+//               ) : (
+//                 <DetailArticlBtn
+//                   onClick={() => Toast("warning", "로그인 해주세요!")}
+//                 >
+//                   장바구니
+//                 </DetailArticlBtn>
+//               )}
+//               {localStorage.getItem("Authorization") ? (
+//                 <DetailArticlBtn onClick={nowPayHandler}>
+//                   바로구매
+//                 </DetailArticlBtn>
+//               ) : (
+//                 <DetailArticlBtn
+//                   onClick={() => Toast("warning", "로그인 해주세요!")}
+//                 >
+//                   바로구매
+//                 </DetailArticlBtn>
+//               )}
+//             </DetailArticlBtnSpace>
+//           </ArticleInformations>
+//         </DetailTopUserSelectSpace>
+//         <SelectMoveSpace ref={articleRef}>
+//           <SelectMoveBtn onClick={() => onMoveToElement(0)}>
+//             상세 설명
+//           </SelectMoveBtn>
+//           <SelectCenterLine>|</SelectCenterLine>
+//           <SelectMoveBtn onClick={() => onMoveToElement(1)}>후기</SelectMoveBtn>
+//         </SelectMoveSpace>
+//         {articlesDetail?.content?.map((data) => (
+//           <DetailMidImg src={data} key={data} />
+//         ))}
+
+//         <Button />
+//         <Review
+//           reviewRef={reviewRef}
+//           articlesDetail={articlesDetail}
+//           renderStar={renderStar}
+//         />
+//       </DetailContents>
+//     </Wrapper>
+//   );
+// }
 const Wrapper = styled.div`
   /* width: 100%; */
   display: flex;

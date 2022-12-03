@@ -67,10 +67,15 @@ function Login() {
         <LoginContentSpace>
           <LoginTitle>Log In</LoginTitle>
           <LoginInputSpace>
-            <LoginInput placeholder="Email" onChange={writeChangeEmail} />
+            <LoginInput
+              placeholder="Email"
+              onChange={writeChangeEmail}
+              autocomplete="off"
+            />
             <LoginInput
               placeholder="Password"
               type="password"
+              autocomplete="current-password"
               onChange={writeChangePwd}
             />
           </LoginInputSpace>
@@ -127,7 +132,7 @@ const LoginWrapper = styled.div`
 
 const LoginImg = styled.img`
   width: 45%;
-  height: 68vh;
+  height: 100%;
   /* @media screen and (max-width: 1023px) and (min-width: 768) {
     width: 50%;
   } */
@@ -138,7 +143,7 @@ const LoginImg = styled.img`
 
 const LoginContentSpace = styled.div`
   width: 100%;
-  height: 68vh;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -52,8 +52,42 @@ export const postCart = createAsyncThunk(
   }
 );
 
-export const postLike = createAsyncThunk("postLike", async (id) => {
-  return Apis.post(
+// export const postLike = createAsyncThunk("postLike", async (id) => {
+//   return Apis.post(
+//     `/products/${id}/likes`,
+//     {},
+//     {
+//       headers: {
+//         Authorization: `${localStorage.getItem("Authorization")}`,
+//       },
+//     }
+//   )
+//     .then((res) => {
+//       Toast("success", "상품에 좋아요를 추가하셨습니다!");
+//       return res.data;
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
+
+// export const deleteLike = createAsyncThunk("deleteLike", async (id) => {
+//   return Apis.delete(`/products/${id}/likes`, {
+//     headers: {
+//       Authorization: `${localStorage.getItem("Authorization")}`,
+//     },
+//   })
+//     .then((res) => {
+//       Toast("success", "상품에 좋아요를 삭제하셨습니다!");
+//       return res.data;
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
+
+export const articleLike = createAsyncThunk("postLike", async (id) => {
+  return Apis.get(
     `/products/${id}/likes`,
     {},
     {
@@ -64,21 +98,6 @@ export const postLike = createAsyncThunk("postLike", async (id) => {
   )
     .then((res) => {
       Toast("success", "상품에 좋아요를 추가하셨습니다!");
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-export const deleteLike = createAsyncThunk("deleteLike", async (id) => {
-  return Apis.delete(`/products/${id}/likes`, {
-    headers: {
-      Authorization: `${localStorage.getItem("Authorization")}`,
-    },
-  })
-    .then((res) => {
-      Toast("success", "상품에 좋아요를 삭제하셨습니다!");
       return res.data;
     })
     .catch((err) => {
@@ -269,6 +288,7 @@ const articleSlice = createSlice({
     searchResultInitial: [],
     countSearchResultInitial: [],
     postArticle: [],
+    articleLike: [],
     loading: false,
     error: "",
   },
@@ -285,8 +305,14 @@ const articleSlice = createSlice({
       state.loading = true;
       state.error = "";
     },
+    [articleLike.fulfilled]: (state, action) => {
+      state.article = action.payload;
+      state.loading = true;
+      state.error = "";
+    },
     [mainData.fulfilled]: (state, action) => {
       state.mainArticle = action.payload;
+      state.detailArticle = [];
       state.loading = true;
       state.error = "";
     },
