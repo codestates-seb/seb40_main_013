@@ -21,7 +21,6 @@ function MyReview() {
   );
   console.log(userWriteReviews);
   const [filteReview, setFilterReview] = useState("");
-
   const [curPage, setCurPage] = useState(0);
   const [totalpage, setTotalpage] = useState(0);
   const [isModal, setIsModal] = useState(false);

@@ -105,6 +105,21 @@ export const articleLike = createAsyncThunk("postLike", async (id) => {
     });
 });
 
+export const deleteLike = createAsyncThunk("deleteLike", async (id) => {
+  return Apis.delete(`/products/${id}/likes`, {
+    headers: {
+      Authorization: `${localStorage.getItem("Authorization")}`,
+    },
+  })
+    .then((res) => {
+      Toast("success", "상품에 좋아요를 삭제하셨습니다!");
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 export const mainData = createAsyncThunk("mainData", async () => {
   return Apis.get(`products/score`)
     .then((res) => {

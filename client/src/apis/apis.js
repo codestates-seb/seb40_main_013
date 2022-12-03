@@ -55,7 +55,6 @@ Apis.interceptors.response.use(
     }
     if (err.response.data.message === "Unauthorized" || refreshDatas) {
       Toast("warning", "로그인 해주세요!");
-      window.location.href("/");
       localStorage.clear();
     }
 
