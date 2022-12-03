@@ -448,13 +448,8 @@ const Register = () => {
     setBigCategory(e.target.value);
   }
   console.log(subCategory);
-<<<<<<< HEAD
   //폼 등록하기
 
-=======
-
-  //폼 등록하기
->>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
   const handleRegister = (e) => {
     e.preventDefault();
     Swal.fire({
@@ -478,11 +473,6 @@ const Register = () => {
 
     // dispatch(postArticle({ postArticleData, navigate }));
   };
-<<<<<<< HEAD
-=======
-
- console.log(subCategory)
->>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
   const registConfirm = () => {
     let postArticleData = {
       sellerId: sellerId,
