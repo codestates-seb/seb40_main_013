@@ -140,7 +140,7 @@ const Nav = styled.nav`
 const Category = styled.div`
   position: relative;
   padding-right: 30px;
-  .space{
+  .space {
     display: flex;
     align-items: center;
   }
@@ -191,7 +191,9 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
       <HeaderBlock onClick={outModalCloseHandler}>
         <div className="top">
           <Link to="/register">
-            <LoginBtn>판매등록</LoginBtn>
+            {localStorage.getItem("authority") ? (
+              <LoginBtn>판매등록</LoginBtn>
+            ) : null}
           </Link>
           {localStorage.getItem("Authorization") ? (
             <Link>
@@ -221,7 +223,9 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
           <div>
             <Link to="/library">
               <Category>
-                <div className="space" onClick={clickMainkMenu}>서재</div>
+                <div className="space" onClick={clickMainkMenu}>
+                  서재
+                </div>
                 <Nav className="1">
                   <div onClick={clickSubMenu}>책상</div>
                   <div onClick={clickSubMenu}>의자</div>
@@ -232,7 +236,9 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
             </Link>
             <Link to="/bedroom">
               <Category>
-                <div className="space" onClick={clickMainkMenu}>침실</div>
+                <div className="space" onClick={clickMainkMenu}>
+                  침실
+                </div>
                 <Nav className="2">
                   <div onClick={clickSubMenu}>침대/매트리스</div>
                   <div onClick={clickSubMenu}>행거/옷장</div>
@@ -242,7 +248,9 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
             </Link>
             <Link to="/livingRoom">
               <Category>
-                <div className="space" onClick={clickMainkMenu}>거실</div>
+                <div className="space" onClick={clickMainkMenu}>
+                  거실
+                </div>
                 <Nav className="3">
                   <div onClick={clickSubMenu}>소파</div>
                   <div onClick={clickSubMenu}>거실장</div>
@@ -252,7 +260,9 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
             </Link>
             <Link to="/kitchen">
               <Category>
-                <div className="space" onClick={clickMainkMenu}>주방</div>
+                <div className="space" onClick={clickMainkMenu}>
+                  주방
+                </div>
                 <Nav className="4">
                   <div onClick={clickSubMenu}>식탁/아일랜드</div>
                   <div onClick={clickSubMenu}>식탁의자</div>

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { Toast } from "../components/Alert";
-
 const url = process.env.REACT_APP_URL;
 
 const Apis = axios.create({
@@ -35,9 +34,7 @@ Apis.interceptors.response.use(
           const accToken = data.headers.get("Authorization");
           localStorage.removeItem("Authorization");
           localStorage.setItem("Authorization", accToken);
-          // originalRequest.headers["Refresh"] = refreshToken;
           originalRequest.headers["Content-Type"] = "application/json";
-          // return axios.request(originalRequest);
           return Apis({
             ...originalRequest,
             headers: {
@@ -55,6 +52,9 @@ Apis.interceptors.response.use(
     if (err.response.data.message === "Unauthorized" || refreshDatas) {
       Toast("warning", "로그인 해주세요!");
       localStorage.clear();
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 1500);
     }
 
     return Promise.reject(err);

@@ -133,8 +133,6 @@ const LoginWrapper = styled.div`
 const LoginImg = styled.img`
   width: 45%;
   height: 100%;
-
-
   /* @media screen and (max-width: 1023px) and (min-width: 768) {
     width: 50%;
   } */
@@ -145,7 +143,7 @@ const LoginImg = styled.img`
 
 const LoginContentSpace = styled.div`
   width: 100%;
-  height: 68vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -206,7 +204,6 @@ const LoginButton = styled.button`
   background-color: var(--color-navy);
   color: white;
   font-size: 20px;
-  font-weight: bolder;
   margin-top: 40px;
   border-radius: 5px;
   &:hover {
