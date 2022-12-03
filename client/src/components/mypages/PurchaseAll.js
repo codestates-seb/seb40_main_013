@@ -155,7 +155,7 @@ const ReviewBtn = styled.button`
   margin-bottom: 10px;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    background-color: #123b77;
   }
   @media screen and (max-width: 390px) {
     display: none;

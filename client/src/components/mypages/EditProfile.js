@@ -109,7 +109,7 @@ const CurPwdBtn = styled.button`
   height: fit-content;
   cursor: pointer;
   &:hover {
-    background-color:  #123b77;
+    background-color: #123b77;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
   }
@@ -138,7 +138,6 @@ const Buttons = styled.div`
 const Delete = styled.button`
   color: #FF4040;
   border: 1px solid #efefef;
-  background-color: #efefef;
   border-radius: 5px;
   padding: 7px 30px;
   margin-right: 10px;

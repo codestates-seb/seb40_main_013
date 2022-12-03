@@ -364,8 +364,8 @@ const PurchaseList = () => {
         if (result.isConfirmed) {
           orderCancle(id);
           Swal.fire({
-            title: "주문 취소완료",
-            text: "주문이 취소되었습니다.",
+            title: "취소되었습니다.",
+            text: "",
             icon: "success",
             confirmButtonColor: "#002C6D",
           });
