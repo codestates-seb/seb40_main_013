@@ -105,14 +105,6 @@ const Wrapper = styled.form`
   justify-content: center;
   margin-bottom: 80px;
   margin-top: 200px;
-<<<<<<< HEAD
-  
-=======
-<<<<<<< HEAD
-=======
-  
->>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
->>>>>>> 9c714a36d3d629c593bc871dca79231a46115f7e
   @media screen and (max-width: 768px) {
     display: flex;
     justify-content: center;
@@ -133,14 +125,6 @@ const LoginWrapper = styled.div`
   @media screen and (max-width: 500px) {
     min-width: 240px;
     height: 95%;
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
->>>>>>> 9c714a36d3d629c593bc871dca79231a46115f7e
     display: flex;
     justify-content: center;
   }
@@ -148,17 +132,9 @@ const LoginWrapper = styled.div`
 
 const LoginImg = styled.img`
   width: 45%;
-<<<<<<< HEAD
-  height: 68vh;
-
-=======
-<<<<<<< HEAD
   height: 100%;
-=======
-  height: 68vh;
 
->>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
->>>>>>> 9c714a36d3d629c593bc871dca79231a46115f7e
+
   /* @media screen and (max-width: 1023px) and (min-width: 768) {
     width: 50%;
   } */
@@ -169,15 +145,7 @@ const LoginImg = styled.img`
 
 const LoginContentSpace = styled.div`
   width: 100%;
-<<<<<<< HEAD
   height: 68vh;
-=======
-<<<<<<< HEAD
-  height: 60vh;
-=======
-  height: 68vh;
->>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
->>>>>>> 9c714a36d3d629c593bc871dca79231a46115f7e
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -266,14 +234,6 @@ const LoginState = styled.div`
 `;
 const LoginStateContent = styled.div`
   font-size: 17px;
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
->>>>>>> 9c714a36d3d629c593bc871dca79231a46115f7e
 `;
 
 const LoginRouteSign = styled.div`

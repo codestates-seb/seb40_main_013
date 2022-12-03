@@ -67,7 +67,6 @@ function LivingRoom({ mainClick, subclick }) {
           }
           <div className="total">에&nbsp;{countSelector}&nbsp;개의&nbsp;상품이&nbsp;있습니다</div>
         </CountBlock>
-        <div className="total">에&nbsp;{countSelector}&nbsp;개의&nbsp;상품이&nbsp;있습니다</div>
         <section ref={modalRef}>
           <RankingDown
             dropDownclicked={dropDownclicked}
