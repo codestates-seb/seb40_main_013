@@ -60,9 +60,7 @@ public class ProductService {
     getProductListByCategory(GetProductListByDto dto) {
         SliceResponseDto<CategoryGetDto> products = productRepository
                 .findAllByCategory(dto.getPageRequest(), ProductGetParam.valueOf(dto));
-//        if (products.getContent().isEmpty()) {
-//            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
-//        }
+
         return products;
     }
 
@@ -73,9 +71,6 @@ public class ProductService {
 
     public Product findProduct(Long memberId, Long productId) {
         Product product = getProduct(productId);
-
-        Optional.ofNullable(memberId)
-                .ifPresent(id -> product.updateLike(likeRepository.existsByMember_IdAndProduct_Id(id, productId)));
 
         return product;
     }

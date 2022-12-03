@@ -90,5 +90,4 @@ public class ProductController {
     public HashMap<String, Long> getProductCategoryCount(@Valid GetProductListByDto dto) {
         return productService.getProductCategoryCount(dto);
     }
-
 }

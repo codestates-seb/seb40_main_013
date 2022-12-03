@@ -17,7 +17,6 @@ public class CategoryGetDto implements Serializable {
     private Float score;
     private String nickname;
     private String main;
-
     private Integer reviews;
 
     @QueryProjection
