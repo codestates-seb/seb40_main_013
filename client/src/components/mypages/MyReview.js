@@ -4,7 +4,7 @@ import {
   deleteReview,
   getAllReview,
 } from "../../reduxstore/slices/reviewSlice";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { useNavigate, Link } from "react-router-dom";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
@@ -314,6 +314,7 @@ const Option = styled.h2`
 const Btns = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 20px;
   @media screen and (max-width: 474px) {
     margin: 5px 10px;
     display: flex;
@@ -326,17 +327,22 @@ const CancleBtn = styled.button`
   padding: 8px 30px;
   color: white;
   background-color: var(--color-navy);
-  border-radius: 10px;
+  border-radius: 5px;
   white-space: nowrap;
-  border: 1px solid #aaaaaa;
   margin-top: 10px;
   cursor: pointer;
   &.cancleBtn {
-    background-color: white;
+    background-color: #efefef;
+    border: 1px solid #efefef;
     color: var(--color-navy);
+    color: #ff4040;
+    &:hover{
+      border: 1px solid #ff4040;
+      background-color: #efefef;
+    }
   }
   &:hover {
-    opacity: 0.7;
+    background-color: #123b77;
   }
   @media screen and (max-width: 474px) {
     padding: 5px 20px;

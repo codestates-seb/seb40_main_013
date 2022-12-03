@@ -11,7 +11,7 @@ import { Alert } from "../Alert";
 
 const EditContainter = styled.div`
   display: flex;
-  width: 80vw;
+  width: 75vw;
   justify-content: center;
   @media (min-width: 391px) and (max-width: 767px) {
     flex-direction: column;
@@ -108,7 +108,7 @@ const CurPwdBtn = styled.button`
   height: fit-content;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    background-color: #123b77;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
   }
@@ -135,14 +135,14 @@ const Buttons = styled.div`
 `;
 
 const Delete = styled.button`
-  color: var(--color-navy);
-  border: 1px solid var(--color-navy);
+  color: #FF4040;
+  border: 1px solid #efefef;
   border-radius: 5px;
   padding: 7px 30px;
   margin-right: 10px;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    border: 1px solid #FF4040;
   }
   @media screen and (max-width: 390px) {
     padding: 5px 20px;
@@ -156,7 +156,7 @@ const Edit = styled.button`
   padding: 7px 30px;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    background-color: #123b77;
   }
   @media screen and (max-width: 390px) {
     padding: 5px 20px;

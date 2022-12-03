@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
-// import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../reduxstore/slices/userSlice";
 import styled from "styled-components/macro";
@@ -7,7 +6,6 @@ import PurchaseList from "../components/mypages/PurchaseList";
 import EditProfile from "../components/mypages/EditProfile";
 import { Routes, Route, Link } from "react-router-dom";
 import MyReview from "../components/mypages/MyReview";
-import Recent from "../components/mypages/Recent";
 import ProfileImg from "../components/mypages/ProfileImg";
 import PurchaseAll from "../components/mypages/PurchaseAll";
 import Like from "../components/mypages/Like"
@@ -35,7 +33,7 @@ const Left = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  width: 20%;
+  width: 20vw;
   padding: 20px 0;
   border-right: 1px solid var(--color-center-line);
   @media screen and (max-width: 390px) {
@@ -51,6 +49,10 @@ const Left = styled.div`
     border-bottom: 1px solid var(--color-center-line);
   }
 `;
+
+const Right = styled.div`
+  width: 80vw;
+`;
 const Reaction = styled.div`
   display: flex;
   width: 100%;
@@ -58,12 +60,14 @@ const Reaction = styled.div`
   align-items: center;
   flex-direction: column;
   margin-bottom: 20px;
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 479px) {
     flex-direction: row;
     justify-content: center;
+    margin-bottom: 0%;
   }
-  @media (min-width: 391px) and (max-width: 768px) {
+  @media (min-width: 480px) and (max-width: 768px) {
     flex-direction: row;
+    margin-bottom: 0;
   }
 `;
 const ProfileImgConponent = styled.img`
@@ -73,9 +77,10 @@ const ProfileImgConponent = styled.img`
   margin-bottom: 20px;
   padding: 10px;
   cursor: pointer;
-  @media screen and (max-width: 390px) {
-    width: 60px;
-    height: 60px;
+  @media screen and (max-width: 479px) {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 0;
   }
 `;
 const Hello = styled.h2`
@@ -87,7 +92,7 @@ const Hello = styled.h2`
   span{
     color: #002C6D;
   }
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 479px) {
     font-size: 1rem;
   }
 `;
@@ -99,22 +104,19 @@ const Nav = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 768px) {
     border-top: none;
-    flex-direction: row;
-    justify-content: center;
-  }
-  @media (min-width: 391px) and (max-width: 768px) {
-    border-top: none;
-    flex-direction: row;
     justify-content: center;
   }
 `;
 const ReactionDetail = styled.div`
   display: flex;
   flex-direction: column;
-  @media screen and (max-width: 390px) {
-    flex-direction: column;
+  @media screen and (max-width: 768px) {
+    border-top: none;
+    justify-content: center;
+    margin-top: 10px;
+    flex-direction: row;
   }
 `;
 
@@ -137,7 +139,7 @@ const NavDetail = styled.nav`
   &:active {
     color: #ffaf51;
   }
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 479px) {
     margin-right: 10px;
     background-color: var(--button-gray);
     padding: 10px 5px;
@@ -160,7 +162,7 @@ const NavDetail = styled.nav`
       color: white;
     }
   }
-  @media (min-width: 391px) and (max-width: 768px) {
+  @media (min-width: 480px) and (max-width: 768px) {
     margin-right: 10px;
     background-color: var(--button-gray);
     padding: 11px 10px;
@@ -187,6 +189,7 @@ const NavDetail = styled.nav`
 const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
+
   //tab click
   const [clicked, setClicked] = useState("");
 
@@ -238,8 +241,8 @@ const Mypage = () => {
                 정보 수정
               </NavDetail>
             </Link>
-          </ReactionDetail>
-          <ReactionDetail>
+            </ReactionDetail>
+            <ReactionDetail>
             <Link to="like" style={{ textDecoration: "none" }}>
               <NavDetail
                 name="like"
@@ -258,29 +261,21 @@ const Mypage = () => {
                 작성한 리뷰
               </NavDetail>
             </Link>
-            <Link to="recent" style={{ textDecoration: "none" }}>
-              <NavDetail
-                name="recent"
-                className={clicked === "최근본 상품" ? "clicked" : ""}
-                onClick={tabClick}
-              >
-                최근본 상품
-              </NavDetail>
-            </Link>
           </ReactionDetail>
         </Nav>
       </Left>
-      <Routes>
-        <Route
-          path="/edit"
-          element={<EditProfile getUserdata={getUserdata} />}
-        ></Route>
-        <Route path="/purchase/*" element={<PurchaseList />}></Route>
-        <Route path="/myboard" element={<MyReview />}></Route>
-        <Route path="/recent" element={<Recent />}></Route>
-        <Route path="/purchase/:id" element={<PurchaseAll />}></Route>
-        <Route path="/like" element={<Like />}></Route>
-      </Routes>
+      <Right>
+        <Routes>
+          <Route
+            path="/edit"
+            element={<EditProfile getUserdata={getUserdata} />}
+          ></Route>
+          <Route path="/purchase/*" element={<PurchaseList />}></Route>
+          <Route path="/myboard" element={<MyReview />}></Route>
+          <Route path="/like" element={<Like />}></Route>
+          <Route path="/purchase/:id" element={<PurchaseAll />}></Route>
+        </Routes>
+      </Right>
     </Container>
   );
 };

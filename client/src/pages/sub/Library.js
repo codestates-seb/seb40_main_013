@@ -6,7 +6,6 @@ import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
 import RankingDown from "../../components/DropDown";
 import libraryImg from '../../imgs/sub-library2.jpeg';
 
-
 function Library({ mainClick, subclick }) {
 
   //소분류에 따른 대분류카테고리 이름 지정

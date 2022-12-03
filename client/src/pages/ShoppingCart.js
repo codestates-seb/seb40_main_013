@@ -177,6 +177,18 @@ const PayButton = styled.button`
 
 const ReactionPayment = styled.div`
   display: none;
+  @media (max-width: 480px) {
+    z-index: 10;
+    display: flex;
+    bottom: 0;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    border: 1px solid #efefef;
+    width: 100vw;
+    height: 16vh;
+    position: fixed;
+    align-items: center;
+  }
   div{
     display: none;
     @media (max-width: 480px) {
@@ -201,20 +213,10 @@ const ReactionPayment = styled.div`
       width: 85vw;
       height: 6vh;
       color: white;
-      background-color: #123b77;
+      background-color: #002c6d;
       border-radius: 5px;
       font-size: 1.4rem;
     } 
-  }
-  @media (max-width: 480px) {
-    display: flex;
-    flex-direction: column;
-    background-color: #f0f0f0;
-    border: 1px solid #efefef;
-    width: 100vw;
-    height: 22vh;
-    position: fixed;
-    align-items: center;
   }
 `;
 
@@ -286,7 +288,12 @@ function ShoppingCart() {
         .then((result) => {
           if (result.isConfirmed) {
             purchaseConfirm();
-            Swal.fire("구매완료", "", "success");
+            Swal.fire({
+              title: "구매완료",
+              text: "",
+              icon: "success",
+              confirmButtonColor: "#002C6D",
+            });
             clickFunction();
             // navigate('/');
           }

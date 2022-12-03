@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { postReview, updateReview } from "../../reduxstore/slices/reviewSlice";
 import { useDispatch } from "react-redux";
 import imageCompression from "browser-image-compression";
@@ -356,15 +356,18 @@ const PostReviewDownBtn = styled.button`
   background-color: var(--color-navy);
   border: 1px solid #aaaaaa;
   cursor: pointer;
+  &:hover {
+    background-color: #123b77;
+  }
   &:nth-child(1) {
     margin-right: 20px;
   }
   &.cancleBtn {
     background-color: white;
     color: var(--color-navy);
-  }
-  &:hover {
-    opacity: 0.6;
+    &:hover{
+      background-color: #f0f0f0;
+    }
   }
 `;
 
