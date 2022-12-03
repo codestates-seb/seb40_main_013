@@ -5,6 +5,8 @@ import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
 import { useSelector } from "react-redux";
 import { Toast } from "./Alert";
+import axios from "axios";
+import Apis from "../apis/apis";
 
 const HeaderBlock = styled.header`
   width: 100vw;
@@ -160,6 +162,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
   const cartCount = useSelector((state) => state);
+  const [headerCartCount, setHeaderCartCount] = useState(0);
 
   const clickMainkMenu = ({ target }) => {
     setMainClick(target.innerText);
@@ -185,6 +188,24 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
     navigate("/");
     Toast("success", "로그아웃에 성공하셨습니다!");
   };
+
+  useEffect(()=>{
+    Apis.get(`carts`, {
+      headers: {
+        Authorization: `${localStorage.getItem("Authorization")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        setHeaderCartCount(res.data.productCarts.length);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [])
+
+
 
   return (
     <>
@@ -286,7 +307,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
               <Link to="/cart">
                 <div>
                   <BsCart3 size="20" />
-                  <div className="cart-count">(0)</div>
+                  <div className="cart-count">({headerCartCount})</div>
                 </div>
               </Link>
             ) : (

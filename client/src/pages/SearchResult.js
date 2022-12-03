@@ -6,7 +6,7 @@ import RankingDown from "../components/DropDown";
 import { useDispatch, useSelector } from "react-redux";
 import { getSearchResult, countSearchResult } from "../reduxstore/slices/articleSlice";
 import { loadInfinite } from "../reduxstore/slices/intinitiSlice";
-import { useInView } from 'react-intersection-observer';
+// import { useInView } from 'react-intersection-observer';
 import Apis from "../apis/apis";
 
 function SearchResult ({searchWord}) {

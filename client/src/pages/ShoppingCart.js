@@ -243,7 +243,12 @@ function ShoppingCart() {
         .then((result) => {
           if (result.isConfirmed) {
             purchaseConfirm();
-            Swal.fire("구매완료", "", "success");
+            Swal.fire({
+              title: "구매완료",
+              text: "",
+              icon: "success",
+              confirmButtonColor: "#002C6D",
+            });
             clickFunction();
             // navigate('/');
           }
