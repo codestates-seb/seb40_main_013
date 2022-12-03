@@ -122,7 +122,7 @@ function Kitchen({ mainClick, subclick }) {
     <SubBlock onClick={outModalCloseHandler}>
       <ImgBLock>
         <SubTitleImg src={kitchenImg}/>
-        <SubTitle>Ktichen</SubTitle>
+        <SubTitle>Kitchen</SubTitle>
       </ImgBLock>
       <FilterBlock>
         <CountBlock>
