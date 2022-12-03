@@ -53,7 +53,7 @@ export const postCart = createAsyncThunk(
 );
 
 export const postLike = createAsyncThunk("postLike", async (id) => {
-  return Apis.get(
+  return Apis.post(
     `/products/${id}/likes`,
     {},
     {

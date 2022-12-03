@@ -205,6 +205,7 @@ const Container = styled.div`
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 1px 5px 0 rgb(0 0 0 / 30%);
+  padding-top: 4px;
   @media screen and (max-width: 400px) {
     max-width: 350px;
     justify-content: center;
@@ -226,23 +227,23 @@ const PostReviewContentImg = styled.img`
 `;
 
 const PostReviewContentRightSpace = styled.div`
-  width: 70%;
-  height: 95%;
+  width: 75%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid red;
 `;
 const PostReviewTopContent = styled.div`
-  width: 90%;
-  height: 100%;
+  border: 1px solid red;
+  width: 100%;
+  height: 50%;
   font-size: 13px;
   display: flex;
   align-items: center;
-  border: 1px solid violet;
   &:nth-child(1) {
     color: #aaaaaa;
+    height: 30%;
   }
 `;
 const Hr = styled.hr`

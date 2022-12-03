@@ -180,7 +180,7 @@ function ArticleDetail() {
                     onClick={clickDeleteLike}
                   />
                 ) : (
-                  <BsHeartFill
+                  <BsHeart
                     size="20"
                     className="heart"
                     color="gray"
@@ -188,7 +188,6 @@ function ArticleDetail() {
                   />
                 )}
               </ButtonIcon>
-
             </DetailArticlePriceSpace>
             <div>
               <DetailArticleOptionSpace>

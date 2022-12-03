@@ -224,6 +224,7 @@ const LoginCheckSpace = styled.div`
   justify-content: start;
   align-items: center;
   color: ${(state) => (state.isCheck ? "#FFAF51" : "#AAAAAA")};
+  margin-top: 10px;
 `;
 const LoginState = styled.div`
   margin-right: 10px;
