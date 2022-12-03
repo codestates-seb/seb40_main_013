@@ -86,6 +86,8 @@ export const guestUser = createAsyncThunk(
         let jwtrefreshToken = res.headers.get("Refresh");
         localStorage.setItem("Authorization", jwtToken);
         localStorage.setItem("Refresh", jwtrefreshToken);
+        let sellAuthority = res.data;
+        localStorage.setItem("authority", sellAuthority);
         navigate("/");
         Toast("success", "게스트 로그인 성공!");
         return res.data;
