@@ -1,11 +1,9 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { Toast } from "../components/Alert";
-
 const url = process.env.REACT_APP_URL;
 
 const Apis = axios.create({
-  baseURL: "https://stale-games-flash-125-134-111-45.loca.lt",
+  baseURL: url,
 });
 axios.interceptors.request.use(function (config) {
   return config;
@@ -55,7 +53,7 @@ Apis.interceptors.response.use(
     }
     if (err.response.data.message === "Unauthorized" || refreshDatas) {
       Toast("warning", "로그인 해주세요!");
-      localStorage.clear();
+      window.location.href("/");
     }
 
     return Promise.reject(err);
