@@ -137,7 +137,7 @@
 
 ## 프로젝트 설명
 ### 프로젝트 아키텍처
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/dc674d47-4350-44d8-83f6-034874a3fb4f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T122153Z&X-Amz-Expires=86400&X-Amz-Signature=4b8d6105e99d58f822a5edd9d64a2d00f971f536b830e4e9a7b234bca1513201&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68e5cfc0-e938-417d-b803-26764b2b9308/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T133058Z&X-Amz-Expires=86400&X-Amz-Signature=fa55869e495ea8c6deee015cf81c057b660125459d0874cb56fe6fe9af1668c2&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
 
 ### Deploy Tools
 <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f4f1fc59-15ad-468c-9fa4-24ea7c43cf07/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T122713Z&X-Amz-Expires=86400&X-Amz-Signature=991f95be394e2266486cf28a749d79db15ade5f5349ef0ddd9e5a72cffa5392a&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
