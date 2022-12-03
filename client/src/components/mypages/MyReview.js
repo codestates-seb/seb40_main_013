@@ -21,8 +21,6 @@ function MyReview() {
   );
   console.log(userWriteReviews);
   const [filteReview, setFilterReview] = useState("");
-
-
   const [curPage, setCurPage] = useState(0);
   const [totalpage, setTotalpage] = useState(0);
   const [isModal, setIsModal] = useState(false);
@@ -316,10 +314,7 @@ const Option = styled.h2`
 const Btns = styled.div`
   display: flex;
   flex-direction: column;
-  width: 30%;
-  height: 100%;
-  border: 1px solid blue;
-  @media screen and (max-width: 473px) {
+  @media screen and (max-width: 474px) {
     margin: 5px 10px;
     display: flex;
     flex-direction: row;
@@ -328,6 +323,7 @@ const Btns = styled.div`
   }
 `;
 const CancleBtn = styled.button`
+  padding: 8px 30px;
   color: white;
   background-color: var(--color-navy);
   border-radius: 10px;
@@ -342,21 +338,16 @@ const CancleBtn = styled.button`
   &:hover {
     opacity: 0.7;
   }
-  @media screen and (max-width: 479px) {
+  @media screen and (max-width: 474px) {
     padding: 5px 20px;
     margin-left: 10px;
   }
 
-  @media (min-width: 768px) and (max-width: 1023px) {
-    padding: 5px 21px;
-  }
   @media screen and (max-width: 473px) {
     width: 50%;
     /* justify-content: flex-start; */
   }
-
 `;
-
 //반응형 구매후기
 const PaginationContainer = styled.div`
   display: flex;

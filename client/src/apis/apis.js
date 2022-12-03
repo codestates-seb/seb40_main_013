@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { Toast } from "../components/Alert";
 
 const url = process.env.REACT_APP_URL;
@@ -19,8 +18,9 @@ Apis.interceptors.response.use(
     let tokenExpiredDataMessage = String(err.response.data.message);
     let refreshTokenExpiredDataMessage = String(err.response.data.message);
     const datas = tokenExpiredDataMessage.startsWith("JWT expired");
-
-    const refreshDatas = refreshTokenExpiredDataMessage.startsWith("JWT");
+    const refreshDatas = refreshTokenExpiredDataMessage.startsWith(
+      "Refresh Token Error"
+    );
     if (datas) {
       let originalRequest = err.config;
       try {

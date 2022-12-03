@@ -175,7 +175,9 @@ function PostReview({ clickModal, filterData, filteReview }) {
             ) : (
               <PostReviewDownBtn onClick={postSubmit}>등록</PostReviewDownBtn>
             )}
-            <PostReviewDownBtn onClick={clickModal}>취소</PostReviewDownBtn>
+            <PostReviewDownBtn className="cancleBtn" onClick={clickModal}>
+              취소
+            </PostReviewDownBtn>
           </BtnSpace>
         </PostReviewDownSpace>
       </Container>
@@ -200,7 +202,7 @@ const Container = styled.div`
   height: 530px;
   border: 1px solid #aaaaaa;
   background-color: white;
-  border-: 5px;
+  border-radius: 5px;
   padding-top: 10px;
   box-shadow: 0 1px 5px 0 rgb(0 0 0 / 30%);
   @media screen and (max-width: 400px) {
@@ -305,14 +307,14 @@ const ImgLabel = styled.label`
     color: white;
     width: 55px;
     height: 30px;
-    border-: 5px;
+    border-radius: 5px;
     cursor: pointer;
     margin-right: 10px;
   }
 `;
 const Img = styled.img`
   margin: 10px 20px 10px 0;
-  border-: 5px;
+  border-radius: 5px;
   width: 100%;
   height: 150px;
 `;
@@ -327,20 +329,16 @@ const SumnailUpload = styled.input`
   clip: rect(0, 0, 0, 0);
   border: 0;
 `;
-const DeleteSumnaeil = styled.button`
-  background-color: var(--color-navy);
-  color: white;
-  width: 55px;
-  height: 30px;
-  border-: 5px;
-  cursor: pointer;
-`;
 
 const PostReviewDownInput = styled.textarea`
   width: 80%;
   height: 30%;
   margin-top: 10px;
   padding: 8px;
+  max-width: 80%;
+  min-width: 70%;
+  min-height: 90px;
+  max-height: 100px;
 `;
 const BtnSpace = styled.div`
   display: flex;
@@ -352,12 +350,20 @@ const BtnSpace = styled.div`
 const PostReviewDownBtn = styled.button`
   width: 20%;
   height: 38px;
-  border-: 5px;
+  border-radius: 5px;
   color: white;
   background-color: var(--color-navy);
+  border: 1px solid #aaaaaa;
   cursor: pointer;
   &:nth-child(1) {
     margin-right: 20px;
+  }
+  &.cancleBtn {
+    background-color: white;
+    color: var(--color-navy);
+  }
+  &:hover {
+    opacity: 0.6;
   }
 `;
 

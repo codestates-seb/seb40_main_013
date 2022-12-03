@@ -157,7 +157,14 @@ const SignupWrapper = styled.div`
 
   @media screen and (max-width: 400px) {
     height: 100%;
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
+>>>>>>> 9c714a36d3d629c593bc871dca79231a46115f7e
   }
 `;
 
@@ -205,7 +212,14 @@ const UserSubmitBtn = styled.button`
   align-items: center;
   font-size: 20px;
   font-weight: bold;
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> c2dcba2041c8015dd630208b6c1242e8766bb55e
+>>>>>>> 9c714a36d3d629c593bc871dca79231a46115f7e
 `;
 
 const ErrorDisplay = styled.div`

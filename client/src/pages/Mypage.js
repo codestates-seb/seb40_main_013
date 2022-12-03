@@ -124,7 +124,11 @@ const NavDetail = styled.nav`
   font-size: 1.1rem;
   font-weight: 500;
   margin-top: 20px;
+<<<<<<< HEAD
   color: #272727;
+=======
+  color: var(--font-ligthblack);
+>>>>>>> 9c714a36d3d629c593bc871dca79231a46115f7e
   &:hover {
     color: #aaa;
   }
@@ -139,15 +143,24 @@ const NavDetail = styled.nav`
   }
   @media screen and (max-width: 390px) {
     margin-right: 10px;
+<<<<<<< HEAD
     background-color: var(--button-gray);
     padding: 10px 5px;
     font-size: 1rem;
     width: 100px;
     border-radius: 5px;
+=======
+    background-color: #ecece8;
+    padding: 10px 5px;
+    font-size: 1rem;
+    width: 100px;
+    border-radius: 10px;
+>>>>>>> 9c714a36d3d629c593bc871dca79231a46115f7e
     display: flex;
     justify-content: center;
     white-space: nowrap;
     &:hover {
+<<<<<<< HEAD
       background-color: var(--color-gray);
       color: white;
     }
@@ -157,16 +170,35 @@ const NavDetail = styled.nav`
     }
     &.clicked::after {
       background-color: var(--color-gray);
+=======
+      background-color: #aaaaaa;
+      color: white;
+    }
+    &.clicked {
+      background-color: #ffaf51;
+      color: white;
+    }
+    &.clicked::after {
+      background-color: #ffaf51;
+>>>>>>> 9c714a36d3d629c593bc871dca79231a46115f7e
       color: white;
     }
   }
   @media (min-width: 391px) and (max-width: 768px) {
     margin-right: 10px;
+<<<<<<< HEAD
     background-color: var(--button-gray);
     padding: 11px 10px;
     width: 120px;
     font-size: 1.1rem;
     border-radius: 5px;
+=======
+    background-color: #ecece8;
+    padding: 11px 10px;
+    width: 120px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+>>>>>>> 9c714a36d3d629c593bc871dca79231a46115f7e
     display: flex;
     justify-content: center;
     white-space: nowrap;

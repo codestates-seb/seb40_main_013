@@ -28,9 +28,6 @@ const CheckBox = styled.div`
     &.closed{
         display: none;
     }
-    @media (max-width: 767px) {
-        width: 10rem;
-    }
 `;
 
 const Radio = styled.li`
@@ -82,36 +79,36 @@ function RankingDown({ third, setThird, dropDownclicked, setDropDownClicked, clo
     }
 
     return (
-      <>
-        <DownClick onClick={closeHandler}>
-          <span>{dropDownclicked}</span>
-          <span>
-            <IoIosArrowDown/>
-          </span>
-        </DownClick>
-        <CheckBox className={closeDropDown ? '' : 'closed'}>
-          <Radio onClick={() => (getRadioText('최신순', 'desc'))} value='0'>
-            <Check className={ dropDownclicked === '최신순' ? 'checked' : ''}/>
-            <div className="circle"></div>
-            <span>최신순</span>
-          </Radio>
-          <Radio onClick={() => (getRadioText('높은가격순', 'desc'))}>
-            <Check className={ dropDownclicked === '높은가격순' ? 'checked' : '' }/>
-            <div className="circle" ></div>
-            <span>높은가격순</span>
-          </Radio>
-          <Radio onClick={() => (getRadioText('낮은가격순' , 'asc'))}>
-            <Check className={ dropDownclicked === '낮은가격순' ? 'checked' : ''}/>
-            <div className="circle"></div>
-            <span>낮은가격순</span>
-          </Radio>
-          <Radio onClick={() => (getRadioText('판매순', 'desc'))}>
-            <Check className={ dropDownclicked === '판매순' ? 'checked' : ''}/>
-            <div className="circle"></div>
-            <span>판매순</span>
-          </Radio>
-        </CheckBox>
-      </>
+        <>
+          <DownClick onClick={closeHandler}>
+            <span>{dropDownclicked}</span>
+            <span>
+                <IoIosArrowDown/>
+            </span>
+          </DownClick>
+            <CheckBox className={closeDropDown ? '' : 'closed'}>
+                <Radio onClick={() => (getRadioText('최신순', 'desc'))} value='0'>
+                    <Check className={ dropDownclicked === '최신순' ? 'checked' : ''}/>
+                    <div className="circle"></div>
+                    <span>최신순</span>
+                </Radio>
+                <Radio onClick={() => (getRadioText('높은가격순', 'desc'))}>
+                    <Check className={ dropDownclicked === '높은가격순' ? 'checked' : '' }/>
+                    <div className="circle" ></div>
+                    <span>높은가격순</span>
+                </Radio>
+                <Radio onClick={() => (getRadioText('낮은가격순' , 'asc'))}>
+                    <Check className={ dropDownclicked === '낮은가격순' ? 'checked' : ''}/>
+                    <div className="circle"></div>
+                    <span>낮은가격순</span>
+                </Radio>
+                <Radio onClick={() => (getRadioText('판매순', 'desc'))}>
+                    <Check className={ dropDownclicked === '판매순' ? 'checked' : ''}/>
+                    <div className="circle"></div>
+                    <span>판매순</span>
+                </Radio>
+            </CheckBox>
+        </>
     );
 }
 
