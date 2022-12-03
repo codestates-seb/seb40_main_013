@@ -256,7 +256,7 @@ const CancleBtn = styled.button`
   /* height: 50px; */
   /* border: 1px solid red; */
   color: #FF4040;
-  border-radius: 10px;
+  border-radius: 5px;
   white-space: nowrap;
   cursor: pointer;
   border: 1px solid #efefef;
@@ -333,6 +333,18 @@ const PurchaseList = () => {
     dispatch(getMyOrder({ count, setTotalpage }));
   }, [curPage]);
 
+  useEffect(() => {
+    let count = 0;
+    if (curPage > 0) {
+      count = curPage - 1;
+    } else {
+      count = 0;
+    }
+    if (click > 0) {
+      dispatch(getMyOrder({ count, setTotalpage }));
+    }
+  }, [click]);
+
   //주문취소 버튼
   const handleOrderCancle = (id) => {
     const curData = myOrderData.filter((data) => data.orderId == id);
@@ -352,7 +364,12 @@ const PurchaseList = () => {
       .then((result) => {
         if (result.isConfirmed) {
           orderCancle(id);
-          Swal.fire("취소되었습니다", "주문이 취소되었습니다.", "success");
+          Swal.fire({
+            title: "취소되었습니다.",
+            text: "",
+            icon: "success",
+            confirmButtonColor: "#002C6D",
+          });
           clickFunction();
         }
       })
