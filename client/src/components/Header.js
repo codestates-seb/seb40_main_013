@@ -37,6 +37,9 @@ const Logo = styled.div`
     @media screen and (max-width: 380px) {
       font-size: 28px;
     }
+    @media screen and (min-width: 1024px) {
+      font-size: 48px;
+    }
   }
 `;
 

@@ -125,9 +125,8 @@ const NavDetail = styled.nav`
   justify-content: center;
   font-size: 1.1rem;
   font-weight: 500;
-  height: 40px;
-  align-items: center;
-  color: var(--font-ligthblack);
+  margin-top: 20px;
+  color: #272727;
   &:hover {
     color: #aaa;
   }
@@ -142,35 +141,34 @@ const NavDetail = styled.nav`
   }
   @media screen and (max-width: 479px) {
     margin-right: 10px;
-    background-color: #ecece8;
-    /* padding: 8px 3px; */
-    height: 30px;
-    font-size: 0.9rem;
-    width: 80px;
+    background-color: var(--button-gray);
+    padding: 10px 5px;
+    font-size: 1rem;
+    width: 100px;
     border-radius: 5px;
     display: flex;
     justify-content: center;
     white-space: nowrap;
     &:hover {
-      background-color: #aaaaaa;
+      background-color: var(--color-gray);
       color: white;
     }
     &.clicked {
-      background-color: #ffaf51;
+      background-color: var(--color-gray);
       color: white;
     }
     &.clicked::after {
-      background-color: #ffaf51;
+      background-color: var(--color-gray);
       color: white;
     }
   }
   @media (min-width: 480px) and (max-width: 768px) {
     margin-right: 10px;
-    background-color: #ecece8;
+    background-color: var(--button-gray);
     padding: 11px 10px;
     width: 120px;
     font-size: 1.1rem;
-    border-radius: 10px;
+    border-radius: 5px;
     display: flex;
     justify-content: center;
     white-space: nowrap;
