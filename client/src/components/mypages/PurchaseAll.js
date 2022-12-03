@@ -83,7 +83,7 @@ const Img = styled.img`
   width: 100px;
   height: 100px;
   margin-right: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   @media screen and (max-width: 390px) {
     width: 60px;
     height: 60px;
@@ -202,7 +202,7 @@ const PaymentTitle = styled.h2`
 const PaySubContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
+  margin: 20px 10px;
   width: 280px;
   @media screen and (max-width: 479px) {
     width: 90%;
