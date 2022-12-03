@@ -53,7 +53,7 @@ export const postCart = createAsyncThunk(
 );
 
 export const postLike = createAsyncThunk("postLike", async (id) => {
-  return Apis.post(
+  return Apis.get(
     `/products/${id}/likes`,
     {},
     {
@@ -308,6 +308,7 @@ const articleSlice = createSlice({
     },
     [deleteLike.fulfilled]: (state, action) => {
       state.articleLike = action.payload;
+
       state.loading = true;
       state.error = "";
     },
