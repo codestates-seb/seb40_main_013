@@ -52,6 +52,10 @@ const Left = styled.div`
 
 const Right = styled.div`
   width: 80vw;
+  @media screen and (max-width: 767px) {
+    width: 100vw;
+    padding-left: 10px;
+  }
 `;
 const Reaction = styled.div`
   display: flex;

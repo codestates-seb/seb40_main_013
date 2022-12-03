@@ -15,6 +15,7 @@ const EditContainter = styled.div`
   justify-content: center;
   @media (min-width: 391px) and (max-width: 767px) {
     flex-direction: column;
+    padding-left: 90px;
   }
   @media (min-width: 768px) and (max-width: 1023px) {
     flex-direction: column;
@@ -108,7 +109,7 @@ const CurPwdBtn = styled.button`
   height: fit-content;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    background-color:  #123b77;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
   }
@@ -135,14 +136,15 @@ const Buttons = styled.div`
 `;
 
 const Delete = styled.button`
-  color: var(--color-navy);
-  border: 1px solid var(--color-navy);
+  color: #FF4040;
+  border: 1px solid #efefef;
+  background-color: #efefef;
   border-radius: 5px;
   padding: 7px 30px;
   margin-right: 10px;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    border: 1px solid #FF4040;
   }
   @media screen and (max-width: 390px) {
     padding: 5px 20px;
@@ -156,7 +158,7 @@ const Edit = styled.button`
   padding: 7px 30px;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    background-color: #123b77;
   }
   @media screen and (max-width: 390px) {
     padding: 5px 20px;
@@ -266,6 +268,7 @@ const EditProfile = ({ getUserdata }) => {
 
   //비밀번호 일치 확인
   const [curpwdConform, setCurpwdConform] = useState(false);
+  console.log(curpwdConform);
 
   //닉네임, 주소, 핸드폰번호 저장하기
   useEffect(() => {
@@ -358,31 +361,44 @@ const EditProfile = ({ getUserdata }) => {
 
   //정보수정하기
   const updateInform = () => {
-    let pwd = "";
-    let updatedata = {};
-    if (updatePassword === "") {
-      pwd = curpwd;
-    } else {
-      pwd = updatePassword;
-    }
-    if (updateNickName === getUserdata.nickname) {
-      updatedata = {
-        password: pwd,
-        address: updateAddress,
-        phone: updatePhone,
-      };
-    } else if (updateNickName !== getUserdata.nickname) {
-      updatedata = {
-        nickname: updateNickName,
-        password: pwd,
-        address: updateAddress,
-        phone: updatePhone,
-      };
-    }
-    // console.log(updatedata);
     if (curpwdConform === true) {
-      dispatch(updateUser(updatedata));
-      Alert("question", "수정하시겠습니까?");
+      Swal
+      .fire({
+        title: "수정하시겠습니까?",
+        text: "정보가 수정됩니다.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "수정",
+        confirmButtonColor: "#002C6D",
+        cancelButtonText: "취소",
+        cancelButtonColor: "#aaaaaa",
+        reverseButtons: true,
+      }).then((res)=>{
+        if (res.isConfirmed){
+          let pwd = "";
+          let updatedata = {};
+          if (updatePassword === "") {
+            pwd = curpwd;
+          } else {
+            pwd = updatePassword;
+          }
+          if (updateNickName === getUserdata.nickname) {
+            updatedata = {
+              password: pwd,
+              address: updateAddress,
+              phone: updatePhone,
+            };
+          } else if (updateNickName !== getUserdata.nickname) {
+            updatedata = {
+              nickname: updateNickName,
+              password: pwd,
+              address: updateAddress,
+              phone: updatePhone,
+            };
+          }
+          dispatch(updateUser({updatedata, navigate}));
+        }
+      })
     } else if (!curpwdConform) {
       Alert("warning", "현재 비밀번호를 확인해주세요");
     }
@@ -390,21 +406,8 @@ const EditProfile = ({ getUserdata }) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: true,
-    });
-    Apis.delete(`/members/mypage`, {
-      headers: {
-        Authorization: initialToken,
-      },
-    })
-      .then(() => {
         if (curpwdConform === true) {
-          swalWithBootstrapButtons
+          Swal
             .fire({
               title: "Are you sure?",
               text: "You won't be able to revert this!",
@@ -418,28 +421,28 @@ const EditProfile = ({ getUserdata }) => {
             })
             .then((result) => {
               if (result.isConfirmed) {
-                localStorage.clear();
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  "그동안 이용해주셔서 감사합니다.",
-                  "success"
-                );
-                navigate("/");
+                Apis.delete(`/members/mypage`, {
+                  headers: {
+                    Authorization: initialToken,
+                  },
+                }).then((res)=>{
+                  localStorage.clear();
+                  Swal.fire({
+                    title: "Deleted!",
+                    text: "그동안 이용해주셔서 감사합니다.",
+                    icon: "success",
+                    confirmButtonColor: "#002C6D",
+                  });
+                  navigate("/");
+                }).catch((err)=>{
+                  console.log(err)
+                })
               }
-              // else if (
-              //   /* Read more about handling dismissals below */
-              //   result.dismiss === Swal.DismissReason.cancel
-              // ) {
-              //   swalWithBootstrapButtons.fire(
-              //     'Cancelled',
-              //     '탈퇴가 취소되었습니다.',
-              //     'error'
-              //   )
-              // }
             });
         }
-      })
-      .catch((err) => alert(err.response.data.message));
+        else if (!curpwdConform){
+          Alert("warning", "현재 비밀번호를 확인해주세요")
+        }
   };
 
   return (
@@ -557,7 +560,8 @@ const EditProfile = ({ getUserdata }) => {
           </ErrorDisplay>
         ) : null}
         <Buttons>
-          <Delete onClick={handleDelete}>회원탈퇴</Delete>
+          {curpwdConform ? <Delete onClick={handleDelete}>회원탈퇴</Delete>
+          :<Delete>회원탈퇴</Delete>}
           <Edit onClick={updateInform}>정보수정</Edit>
         </Buttons>
       </Container>

@@ -6,10 +6,6 @@ import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
 import RankingDown from "../../components/DropDown";
 import libraryImg from '../../imgs/sub-library2.jpeg';
 
-<<<<<<< HEAD
-// import { useInView } from 'react-intersection-observer';
-=======
->>>>>>> 4b7c815268e7320d29a5e4c80db84c2f5db6d257
 
 function Library({ mainClick, subclick }) {
 

@@ -237,7 +237,7 @@ const RegisterBtn = styled.button`
   cursor: pointer;
   margin-right: 10px;
   &:hover {
-    opacity: 0.7;
+    background-color: #123b77;
   }
   @media screen and (max-width: 478px) {
     font-size: 0.8rem;
@@ -246,13 +246,14 @@ const RegisterBtn = styled.button`
 `;
 const Cancle = styled.button`
   font-size: 1.1rem;
+  color: #ff4040;
+  border: 1px solid #efefef;
   padding: 8px 15px;
   border-radius: 5px;
-  background-color: var(--color-navy);
-  color: white;
+  background-color: #efefef;
   cursor: pointer;
   &:hover {
-    opacity: 0.7;
+    border: 1px solid #ff4040;
   }
   @media screen and (max-width: 478px) {
     font-size: 0.8rem;

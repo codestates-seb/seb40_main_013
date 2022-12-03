@@ -128,10 +128,10 @@ const Payment = styled.section`
     width: 100%;
     max-width: 700px;
     position: relative;
+  }  
+  @media (max-width: 479px) {
+    display: none;
   }
-  /* @media screen and (min-width: 1023px) {
-    right: 40px;
-  } */
 `;
 
 const PayInfo = styled.div`
@@ -173,6 +173,51 @@ const PayButton = styled.button`
   font-weight: 500;
   border-radius: 3px;
   cursor: pointer;
+`;
+
+const ReactionPayment = styled.div`
+  display: none;
+  @media (max-width: 480px) {
+    z-index: 10;
+    display: flex;
+    bottom: 0;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    border: 1px solid #efefef;
+    width: 100vw;
+    height: 16vh;
+    position: fixed;
+    align-items: center;
+  }
+  div{
+    display: none;
+    @media (max-width: 480px) {
+      display: flex; 
+      padding: 7px;
+      font-size: 1.3rem;
+      font-weight: 500;
+    } 
+  }
+  .end{
+      @media (max-width: 480px) {
+        display: flex; 
+        width: 100vw;
+        justify-content: flex-end;
+        padding: 10px 30px;
+      } 
+  }
+  button{
+    display: none;
+    @media (max-width: 480px) {
+      display: block; 
+      width: 85vw;
+      height: 6vh;
+      color: white;
+      background-color: #002c6d;
+      border-radius: 5px;
+      font-size: 1.4rem;
+    } 
+  }
 `;
 
 function ShoppingCart() {
@@ -331,6 +376,13 @@ function ShoppingCart() {
             </TotalPrice>
             <PayButton onClick={postPurchase}>구매하기</PayButton>
           </Payment>
+          <ReactionPayment>
+                <div className="end">
+                  <div>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</div>
+                  <div>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</div>
+                </div>
+              <button onClick={postPurchase}>구매하기</button>
+          </ReactionPayment>
         </Quary>
       )}
     </CartBlock>

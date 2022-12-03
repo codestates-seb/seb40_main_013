@@ -151,7 +151,7 @@ const ReviewBtn = styled.button`
   padding: 10px 30px;
   background-color: #002c6d;
   color: white;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-bottom: 10px;
   cursor: pointer;
   &:hover {

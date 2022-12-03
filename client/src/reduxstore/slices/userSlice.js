@@ -58,9 +58,9 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
 });
 export const updateUser = createAsyncThunk(
   "user/updateUser",
-  async (updateData) => {
-    console.log(updateData);
-    return Apis.patch(`members/mypage`, updateData, {
+  async ({ updatedata, navigate }) => {
+    console.log(updatedata);
+    return Apis.patch(`members/mypage`, updatedata, {
       headers: {
         Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "application/json",
@@ -68,6 +68,8 @@ export const updateUser = createAsyncThunk(
     })
       .then((res) => {
         console.log(res);
+        navigate('/members/mypage/purchase');
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {
