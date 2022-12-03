@@ -71,7 +71,7 @@ class LikeControllerTest implements Reflection {
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
-        actions.andExpect(status().isNoContent())
+        actions.andExpect(status().isOk())
                 .andDo(document("likes/delete",
                         REQUEST_PREPROCESSOR,
                         RESPONSE_PREPROCESSOR,
