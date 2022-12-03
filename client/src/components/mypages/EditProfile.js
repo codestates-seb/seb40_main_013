@@ -11,7 +11,7 @@ import { Alert } from "../Alert";
 
 const EditContainter = styled.div`
   display: flex;
-  width: 80vw;
+  width: 75vw;
   justify-content: center;
   @media (min-width: 391px) and (max-width: 767px) {
     flex-direction: column;

@@ -3,8 +3,8 @@ import Apis from "../../apis/apis";
 
 export const getMyOrder = createAsyncThunk(
   "getMyOrder",
-  async ({ curPage, setTotalpage }) => {
-    return Apis.get(`orders?page=${curPage - 1}&size=20&sort=createdAt,DESC`, {
+  async ({ count, setTotalpage }) => {
+    return Apis.get(`orders?page=${count}&size=20&sort=createdAt,DESC`, {
       headers: {
         Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "application/json",

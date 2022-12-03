@@ -32,7 +32,7 @@ export const postCart = createAsyncThunk(
         Swal.fire({
           title: "장바구니에 추가되었습니다",
           text: "장바구니로 이동하시겠습니까??",
-          icon: "warning",
+          icon: "success",
           showCancelButton: true,
           confirmButtonColor: "#002C6D",
           cancelButtonColor: "#FFAF51",
@@ -42,7 +42,10 @@ export const postCart = createAsyncThunk(
         }).then((result) => {
           if (result.isConfirmed) {
             navigate("/cart");
+          } else {
+            window.location.reload();
           }
+
         });
         return res.data;
       })

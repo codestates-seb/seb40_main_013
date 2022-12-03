@@ -322,6 +322,8 @@ const Register = () => {
     setClick(Date.now());
   };
 
+  console.log(contentsImg);
+  
   const brandOptios = [
     { brandName: "두닷", query: 1 },
     { brandName: "포더홈", query: 2 },
@@ -448,6 +450,7 @@ const Register = () => {
   function FirstCateChange(e) {
     setBigCategory(e.target.value);
   }
+  console.log(subCategory);
 
   //폼 등록하기
   const handleRegister = (e) => {

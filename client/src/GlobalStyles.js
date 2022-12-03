@@ -39,6 +39,7 @@ const GlobalStyles = createGlobalStyle`
       --color-navy : #002C6D;
       --color-gray : #AAAAAA;
       --color-star : #FFC007;
+      --hover-navy : #123B77;
       //border-radius 
       --border-radius : 5px;
       //border-color
