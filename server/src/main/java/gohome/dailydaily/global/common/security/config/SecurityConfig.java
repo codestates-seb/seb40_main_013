@@ -50,6 +50,7 @@ public class SecurityConfig {
                 .mvcMatchers(POST, "/signup/**", "/login", "/guest").permitAll()
                 .mvcMatchers(GET, "/members/mypage/**").hasRole("USER")
                 .mvcMatchers(GET, "/orders/**").hasRole("USER")
+                .mvcMatchers(GET, "/carts/**").hasRole("USER")
                 .mvcMatchers(POST, "/products").hasRole("SELLER")
                 .mvcMatchers(POST, "/**").hasRole("USER")
                 .mvcMatchers(PATCH, "/**").hasRole("USER")
