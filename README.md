@@ -1,12 +1,12 @@
-<div align="center"><a href="https://thunderous-kashata-a1b728.netlify.app/"><img src="https://media.discordapp.net/attachments/1037945125998968864/1048155694651674624/2022-12-02_5.36.00.png?width=959&height=246" alt="logo" /></a></div>
+<div align="center"><a href="https://dailydaily.shop/"><img src="https://media.discordapp.net/attachments/1037945125998968864/1048155694651674624/2022-12-02_5.36.00.png?width=959&height=246" alt="logo" /></a></div>
 
 <div align="center">
 
 # 🏡 가구 유통 플랫폼 집가구싶다
 
-사람들이 제일 많이 이용하고, 친근하게 다가올 수 있는 서비스를 만들고 싶었습니다. 그래서 대중적이고, 다양한 기능을 구현할 수 있는 유통 도메인을 선택했고, 팀원들의 공통관심사인 가구를 판매하는 유통플랫폼을 기획했습니다. 
+온라인 기술의 발전으로 집에 있는 시간이 많아졌습니다. 집에 오래있다보면 답답한 기분이 들 수 있는데, 새로운 가구들을 배치함으로써 집 분위기를 변화시키고, 업무환경을 향상시킬 수 있습니다. 저희는 6개월간 부트캠프 교육에 지친 교육생분들이 집분위기를 새롭게 환기시킬 수 있도록 모던한 분위기의 가구를 구매할 수 있는 유통플랫폼을 제작했습니다.
 <br>
-프로젝트 기간동안 배운 내용을 활용하여 장바구니, 페이지네이션, 토큰기능을 적용했고, 추가적으로 적용해보고 싶었던 검색어, 상품 랭킹 조회, 캐싱 기능들을 구현했습니다.
+배운 내용을 활용하여 장바구니, 페이지네이션, 토큰기능을 적용했고, 추가적으로 적용해보고 싶었던 검색어, 상품 랭킹 조회, 캐싱 기능들을 구현했습니다.
 
 <br /><br />
 
@@ -137,7 +137,7 @@
 
 ## 프로젝트 설명
 ### 프로젝트 아키텍처
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68e5cfc0-e938-417d-b803-26764b2b9308/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T133058Z&X-Amz-Expires=86400&X-Amz-Signature=fa55869e495ea8c6deee015cf81c057b660125459d0874cb56fe6fe9af1668c2&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68e5cfc0-e938-417d-b803-26764b2b9308/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221204%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221204T105424Z&X-Amz-Expires=86400&X-Amz-Signature=aa52c4160f3ba99b53c944608182921de5bf35b1ac4638cbefec1909b9c8a9ec&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
 
 ### Deploy Tools
 <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f4f1fc59-15ad-468c-9fa4-24ea7c43cf07/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T122713Z&X-Amz-Expires=86400&X-Amz-Signature=991f95be394e2266486cf28a749d79db15ade5f5349ef0ddd9e5a72cffa5392a&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
