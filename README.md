@@ -85,10 +85,10 @@
 |:-:|:-:|:-:|
 |<img width="300" alt="스크린샷 2022-11-07 오후 6 03 03" src="https://media.discordapp.net/attachments/1037945125998968864/1048181634794520608/2022-12-02_7.18.51.png?width=1251&height=677">|<img width="300" alt="스크린샷 2022-11-07 오후 6 02 41" src="https://media.discordapp.net/attachments/1037945125998968864/1048181635725656156/2022-12-02_7.15.12.png?width=1065&height=678">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 18" src="https://media.discordapp.net/attachments/1037945125998968864/1048181635436269638/2022-12-02_7.16.43.png?width=1049&height=677">|
 
+
 |1️⃣0️⃣ 좋아요 상품 조회|1️⃣1️⃣ 정보 수정|1️⃣2️⃣ 검색 기능|
 |:-:|:-:|:-:|
 |<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="https://media.discordapp.net/attachments/1037945125998968864/1048181633410420776/2022-12-02_7.17.03.png?width=1055&height=677">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 26" src="https://media.discordapp.net/attachments/1037945125998968864/1048181635125878784/2022-12-02_7.16.52.png?width=1058&height=677">|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="https://user-images.githubusercontent.com/107091097/205440456-2f26103f-dd54-46f1-b1cf-e5de400f2b1c.png">|
-
 
 
 <br /><br />
@@ -256,7 +256,6 @@
 </div>
 
 <br /><br /><br />
-
 
 #  Thanks !
 
