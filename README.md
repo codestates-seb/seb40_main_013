@@ -1,31 +1,3 @@
-
-# seb40_main_013
-
-# 🔎 Skills
-
-<br />
-
-## 🖥 Front-end
-
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">  <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=ReactRouter&logoColor=white"/> <img src="https://img.shields.io/badge/React Hook Form-EC5990?style=for-the-badge&logo=ReactHookForm&logoColor=white"/> <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white"> <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">
-
-<br />
-
-## ⚙️ Back-end
-
-<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"> <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=Redis&logoColor=white">
-
-<br />
-
-## 배포
-
-<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=AmazonS3&logoColor=white"> <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=AmazonEC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=AmazonRDS&logoColor=white"> <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=white"> 
-
-
-
-
-<br /><br /><br /><br /><br /><br />
-=======
 <div align="center"><a href="https://dailydaily.shop/"><img src="https://media.discordapp.net/attachments/1037945125998968864/1048155694651674624/2022-12-02_5.36.00.png?width=959&height=246" alt="logo" /></a></div>
 
 <div align="center">
@@ -115,7 +87,7 @@
 
 |1️⃣0️⃣ 좋아요 상품 조회|1️⃣1️⃣ 리뷰 등록|1️⃣2️⃣ 정보 수정|
 |:-:|:-:|:-:|
-|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="https://media.discordapp.net/attachments/1037945125998968864/1048181633410420776/2022-12-02_7.17.03.png?width=1055&height=677">|<img width="300" alt="스크린샷 2022-11-07 오후 6 06 47" src="https://user-images.githubusercontent.com/107091097/205631160-e5c49e1c-1b86-4f7b-b4c4-a9a9fe6964b3.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 26" src="https://media.discordapp.net/attachments/1037945125998968864/1048181635125878784/2022-12-02_7.16.52.png?width=1058&height=677">|
+|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="https://media.discordapp.net/attachments/1037945125998968864/1048181633410420776/2022-12-02_7.17.03.png?width=1055&height=677">|<img width="300" alt="스크린샷 2022-11-07 오후 6 06 47" src="https://user-images.githubusercontent.com/107091097/205632196-c2c28b53-3a02-40f0-a4b7-bb22a30725c6.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 26" src="https://media.discordapp.net/attachments/1037945125998968864/1048181635125878784/2022-12-02_7.16.52.png?width=1058&height=677">|
 
 |1️⃣3️⃣ 검색 기능|
 |:-:|
