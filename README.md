@@ -102,22 +102,15 @@
 
 #### 1️⃣ 메인페이지
 
+  
 <details markdown="1">
 <summary><strong>웹</strong></summary>
-
-- best of best (캐러셀 / 별점순 5개)
-<img src="">
-
-- 카테고리 신상품 (왼쪽사진을 누르면 해당 카테고리로 이동)
-<img src="">
-        
-- 브랜드별 추천상품 (탭을 누르면 해당 브랜드로 이동)
-<img src="">
+<img src="https://user-images.githubusercontent.com/93895421/205637989-ee8ec5d8-9185-40a9-bff6-52079b7703e8.gif">
 </details>
 
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
-<img src="">
+<img src="https://user-images.githubusercontent.com/93029270/205637375-a7b86c58-477d-40c2-9975-a0b4f021c11e.gif">
 </details>
 
 #### 2️⃣ 회원가입 / 로그인
@@ -126,35 +119,36 @@
 <summary><strong>웹</strong></summary>
 
 - 회원가입
-<img src="">
-        
+<img src="https://user-images.githubusercontent.com/106057412/205632745-9243fd90-810e-4e24-95d0-872af8770414.gif">
+
 - 로그인
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205634556-52c26330-71b7-486d-be9c-787ad8b0cf4d.gif">
 </details>
 
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205635543-7ef64139-07ea-41eb-a251-2131c90fb662.gif">
 </details>
+
 
 #### 3️⃣ 소분류 페이지 ( 무한스크롤, 셀렉트박스)
 <details markdown="1">
 <summary><strong>웹</strong></summary>
 
 - 무한스크롤
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205635620-5185675c-b936-4087-ad3e-877e3e039790.gif">
         
 - 카테고리 이동
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205635716-516ad5ed-7907-42b5-aeb8-a85d559f9df9.gif">
         
 - 셀렉트 박스
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205635789-c684b66a-03c9-41f3-8104-8a097be3991f.gif">
 </details>
         
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
     
-<img src="">
+<img src="https://user-images.githubusercontent.com/93029270/205637813-858a2e01-c439-40cf-8f65-b4d6035d9424.gif">
 </details>
 
 #### 4️⃣ 상세페이지
@@ -163,15 +157,15 @@
 <summary><strong>웹</strong></summary>
 
 - 좋아요
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205635974-a158287d-f536-4c30-b221-227768d93a20.gif">
         
 - 리뷰이동
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636039-7ff0e4bd-3ca3-48d9-a1e8-25087fa797f8.gif">
 </details>
         
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636124-8d3afdc9-024b-4c16-80d3-c2ae068328d7.gif">
 </details>
 
 #### 5️⃣ 검색 기능
@@ -179,18 +173,18 @@
 <summary><strong>웹</strong></summary>
 
 - 공백 검색 막기
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636201-783b6135-bd19-4ce8-831e-71840bf39ad3.gif">
         
 - 인기 검색어
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636263-bca39790-e535-4da1-a4f5-7d4ff5d9e390.gif">
         
 - 최근 검색어
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636335-e487dca0-0a7f-4ec5-b81a-ecffee2d0c74.gif">
 </details>
         
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636425-9e374292-3472-478d-b56a-9ab8caed52b1.gif">
 </details>
 
 6️⃣ 장바구니 기능
@@ -198,25 +192,24 @@
 <summary><strong>웹</strong></summary>
 
 - 장바구니담기
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636508-f092433e-fb2b-4557-8f87-bd006e842077.gif">
         
 - 상품 갯수 조정
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636582-8e21a3a7-8e0c-464b-93ff-2b8d643889b5.gif">
         
 - 구매 상품 선택
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636633-699c02fb-a84e-49d0-91d3-2f3348841459.gif">
         
 - 상품 삭제
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636673-d92db641-80b3-4edf-8390-b978ac97be1a.gif">
         
 - 상품 구매
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636998-f98c319a-f15b-402f-8973-50cda56f76bc.gif">
 </details>
         
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
-<img src="">
-
+<img src="https://user-images.githubusercontent.com/107091097/205637081-d99a4b18-276d-4bb4-8382-0c24fefcd669.gif">
 </details>
 
 7️⃣ 마이페이지
@@ -224,34 +217,36 @@
 <summary><strong>웹</strong></summary>
 
 - 주문 취소 (한번더 확인후 취소)
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205637157-0ef1252f-4dc7-4ed6-b197-299d71659148.gif">
         
 - 주문 상세 (주문당 해당 상품들)
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205637229-28d5c73c-2c21-49b7-a764-6fab75fe0ad5.gif">
         
 - 리뷰 등록
-<img src="">
+<img src="">![리뷰 등록](https://user-images.githubusercontent.com/107091097/205637456-ce540d5c-ed99-4663-a7c4-e18d44a3682e.gif)
+
         
 - 리뷰 수정 / 삭제
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205637501-7e032083-2866-43d6-9988-bbcade5b62d8.gif">
+
         
 - 정보수정
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205637543-1534bbf9-bf94-4cf3-817a-450f60e1f9bf.gif">
         
 - 좋아요
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205637638-28237ea4-c5f7-4d9f-814d-839c81f64c51.gif">
 </details>
         
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
     
-<img src="">
+<img src="https://user-images.githubusercontent.com/93029270/205638164-6aec76dd-818c-4f70-8f39-3e90d5e3df0e.gif">
 </details>
 
 9️⃣ 이미지 추가 ( 상품 추가)
 <details markdown="1">
 <summary><strong>웹 & 반응형</strong></summary> 
-<img src="">
+<img src="https://user-images.githubusercontent.com/93029270/205638323-2233223b-45e9-4e53-b89a-778747b73eb7.gif">
 </details>
 
 
