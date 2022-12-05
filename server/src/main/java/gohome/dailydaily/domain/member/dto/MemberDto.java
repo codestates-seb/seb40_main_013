@@ -3,10 +3,12 @@ package gohome.dailydaily.domain.member.dto;
 import gohome.dailydaily.domain.file.entity.File;
 import gohome.dailydaily.domain.member.entity.MemberStatus;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
@@ -15,37 +17,45 @@ public class MemberDto {
     @Getter
     public static class UserSignup {
         @NotBlank
+        @Pattern(regexp = "[A-Za-z가-힣\\d]{2,10}")
         private String nickname;
         @Email
+        @NotNull
         private String email;
         @NotBlank
+        @Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@!%*#?&])[A-Za-z\\d$@!%*#?&]{8,20}")
         private String password;
     }
 
     @Getter
     public static class SellerSignup {
         @NotBlank
+        @Pattern(regexp = "[A-Za-z가-힣\\d]{2,10}")
         private String nickname;
         @NotBlank
+        @Pattern(regexp = "(\\d{3})-(\\d{2})-(\\d{5})")
         private String brandNumber;
-        @NotBlank
         @Email
+        @NotNull
         private String email;
         @NotBlank
-        @Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@!%*#?&])[A-Za-z\\d$@!%*#?&]{8,}")
+        @Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@!%*#?&])[A-Za-z\\d$@!%*#?&]{8,20}")
         private String password;
     }
 
     @Getter
+    @AllArgsConstructor
     public static class ImgRegistration {
-        private MultipartFile img;
+        @NotNull
+        private final MultipartFile img;
     }
 
     @Getter
     public static class Patch {
+        @Pattern(regexp = "[A-Za-z가-힣\\d]{2,10}")
         private String nickname;
 
-        @Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@!%*#?&])[A-Za-z\\d$@!%*#?&]{8,}")
+        @Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@!%*#?&])[A-Za-z\\d$@!%*#?&]{8,20}")
         private String password;
 
         private String address;

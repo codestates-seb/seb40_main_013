@@ -19,11 +19,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 
+@Validated
 @RestController
 @RequestMapping("/orders")
 @RequiredArgsConstructor
-@Validated
 public class OrderController {
     private final OrderService orderService;
     private final OrderMapper mapper;
@@ -48,7 +49,8 @@ public class OrderController {
     }
 
     @GetMapping("/{order-id}")
-    public OrderDto.Response getOrder(@MemberId Long memberId, @PathVariable("order-id") Long orderId) {
+    public OrderDto.Response getOrder(@MemberId Long memberId,
+                                      @Positive @PathVariable("order-id") Long orderId) {
         Order order = orderService.findVerifiedOrder(memberId, orderId);
 
         return mapper.toResponse(order);
@@ -57,7 +59,7 @@ public class OrderController {
     @DeleteMapping("/{order-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public String cancelOrder(@MemberId Long memberId,
-                              @PathVariable("order-id") Long orderId) {
+                              @Positive @PathVariable("order-id") Long orderId) {
         orderService.cancelOrder(memberId, orderId);
         return "Cancel order";
     }

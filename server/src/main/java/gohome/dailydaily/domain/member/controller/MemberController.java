@@ -30,9 +30,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.IOException;
 
+@Validated
 @RestController
 @RequiredArgsConstructor
-@Validated
 public class MemberController {
 
     private final MemberService memberService;

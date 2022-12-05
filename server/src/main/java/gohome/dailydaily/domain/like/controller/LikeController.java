@@ -7,10 +7,13 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Positive;
+
+@Validated
 @RestController
-@Transactional
 @RequiredArgsConstructor
 public class LikeController {
 
@@ -20,7 +23,7 @@ public class LikeController {
     @ResponseStatus(HttpStatus.CREATED)
     @CacheEvict(key = "#productId +\":\" + #memberId", value = "getProduct")
     public Boolean postLike(@MemberId Long memberId,
-                            @PathVariable("product-id") Long productId) {
+                            @Positive @PathVariable("product-id") Long productId) {
         return likeService.addProductLike(memberId, productId);
     }
 
@@ -28,13 +31,13 @@ public class LikeController {
     @ResponseStatus(HttpStatus.OK)
     @CacheEvict(key = "#productId +\":\" + #memberId", value = "getProduct")
     public Boolean deleteLike(@MemberId Long memberId,
-                              @PathVariable("product-id") Long productId) {
+                              @Positive @PathVariable("product-id") Long productId) {
         return likeService.cancelProductLike(memberId, productId);
     }
 
     @GetMapping("/products/{product-id}/likes")
     public Boolean getLike(@AuthenticationPrincipal Long memberId,
-                           @PathVariable("product-id") Long productId) {
+                           @Positive @PathVariable("product-id") Long productId) {
         return likeService.getProductLike(memberId, productId);
     }
 }

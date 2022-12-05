@@ -9,11 +9,14 @@ import gohome.dailydaily.domain.cart.mapper.ProductCartMapper;
 import gohome.dailydaily.domain.cart.service.CartService;
 import gohome.dailydaily.global.common.security.resolver.MemberId;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
+
+@Validated
 @RestController
 @RequestMapping("/carts")
 @RequiredArgsConstructor
@@ -26,7 +29,7 @@ public class CartController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CartDto.Response postProductCart(@MemberId Long memberId,
-                                            @RequestBody ProductCartDto.Post productCartDto) {
+                                            @Valid @RequestBody ProductCartDto.Post productCartDto) {
         ProductCart productCart = productCartMapper.toProductCart(productCartDto);
 
         Cart cart = cartService.addCart(productCart, memberId);
@@ -36,8 +39,8 @@ public class CartController {
 
     @PatchMapping("/{product-cart-id}")
     public CartDto.Response patchProductCart(@MemberId Long memberId,
-                                             @PathVariable("product-cart-id") Long productCartId,
-                                             @RequestBody ProductCartDto.Patch patch) {
+                                             @Positive @PathVariable("product-cart-id") Long productCartId,
+                                             @Valid @RequestBody ProductCartDto.Patch patch) {
 
         ProductCart productCart = productCartMapper.toProductCart(patch, productCartId);
         Cart cart = cartService.updateCart(productCart, memberId);
@@ -55,8 +58,8 @@ public class CartController {
 
     @DeleteMapping("/{product-cart-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String deleteProductCart(@PathVariable("product-cart-id") Long productCartId,
-                                    @MemberId Long memberId) {
+    public String deleteProductCart(@MemberId Long memberId,
+                                    @Positive @PathVariable("product-cart-id") Long productCartId) {
 
         cartService.cancelCart(productCartId, memberId);
         return "success deleteProductCart";

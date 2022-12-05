@@ -67,7 +67,7 @@ public class TestConstant {
 
     public static final Seller SELLER = Seller.builder()
             .id(1L)
-            .brandNumber("53-215-6262463")
+            .brandNumber("532-25-6262")
             .member(MEMBER)
             .build();
 

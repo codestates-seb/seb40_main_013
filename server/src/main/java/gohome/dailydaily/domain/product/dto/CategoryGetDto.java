@@ -10,14 +10,14 @@ import java.io.Serializable;
 @Getter
 public class CategoryGetDto implements Serializable {
 
-    private Long id;
-    private File img;
-    private String title;
-    private Integer price;
-    private Float score;
-    private String nickname;
-    private String main;
-    private Integer reviews;
+    private final Long id;
+    private final File img;
+    private final String title;
+    private final Integer price;
+    private final Float score;
+    private final String nickname;
+    private final String main;
+    private final Integer reviews;
 
     @QueryProjection
     @Builder

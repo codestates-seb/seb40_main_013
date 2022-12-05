@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class ReviewDto {
     public static class Post {
         @NotBlank
         private String content;
+        @NotNull
         @Range(min = 0, max = 5)
         private Float score;
         private MultipartFile img;
@@ -27,6 +29,7 @@ public class ReviewDto {
         @Positive
         private Long reviewId;
         private String content;
+        @Range(min = 0, max = 5)
         private Float score;
     }
 
