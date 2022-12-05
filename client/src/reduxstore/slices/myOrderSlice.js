@@ -44,18 +44,17 @@ const myOrderSlice = createSlice({
     error: "",
   },
   reducers: {},
-  extraReducers: {
-    [getMyOrder.fulfilled]: (state, action) => {
+  extraReducers: (builder) => builder
+    .addCase(getMyOrder.fulfilled, (state, action) => {
       state.myorder = action.payload;
       state.loading = true;
       state.error = "";
-    },
-    [filterMyOrder.fulfilled]: (state, action) => {
+    })
+    .addCase(filterMyOrder.fulfilled, (state, action) => {
       state.filterorder = action.payload;
       state.loading = true;
       state.error = "";
-    },
-  },
+    })
 });
 
 export default myOrderSlice.reducer;

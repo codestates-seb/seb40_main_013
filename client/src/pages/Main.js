@@ -159,7 +159,7 @@ const Main = () => {
   //브랜드리스트
   const brandData = useSelector((state) => state?.main.main);
   const brandTab = Object.keys(brandData)?.filter((t) => t !== "게스트");
-  console.log(brandData);
+
   //자동스크롤 이벤트
   const myRefs = useRef({});
   const onMoveToElement = (key) => {

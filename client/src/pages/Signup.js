@@ -168,13 +168,13 @@ const UserWriteTitle = styled.div`
   font-weight: bold;
   display: flex;
   &:nth-child(4) {
-    margin-top: ${(props) => (props.isCheck ? "30px" : "50px")};
+    margin-top: ${(props) => (props.isCheck ? "15px" : "40px")};
   }
   &:nth-child(7) {
-    margin-top: ${(props) => (props.isCheck ? "30px" : "50px")};
+    margin-top: ${(props) => (props.isCheck ? "15px" : "40px")};
   }
   &:nth-child(10) {
-    margin-top: ${(props) => (props.isCheck ? "30px" : "50px")};
+    margin-top: ${(props) => (props.isCheck ? "15px" : "40px")};
   }
 `;
 const UserWriteInput = styled.input`
@@ -207,8 +207,9 @@ const UserSubmitBtn = styled.button`
 `;
 
 const ErrorDisplay = styled.div`
+  width: 70%;
   margin-top: 10px;
-  font-size: 20px;
+  font-size: 15px;
   color: red;
 `;
 export default Signup;

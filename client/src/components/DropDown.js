@@ -70,12 +70,14 @@ const Check = styled.div`
 `;
 
 
-function RankingDown({ third, setThird, dropDownclicked, setDropDownClicked, closeDropDown, closeHandler}) {
+function RankingDown({ third, setThird, dropDownclicked, setDropDownClicked, closeDropDown, closeHandler, setPage, setProducts }) {
 
     const getRadioText = (el, a) => {
         setDropDownClicked(el)
         setThird(a)
         closeHandler()
+        setPage(0);
+        setProducts([]);
     }
 
     return (
