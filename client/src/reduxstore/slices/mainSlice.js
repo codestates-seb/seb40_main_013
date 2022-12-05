@@ -19,13 +19,12 @@ const mainSlice = createSlice({
     error: "",
   },
   reducers: {},
-  extraReducers: {
-    [newData.fulfilled]: (state, action) => {
+  extraReducers: (builder) => builder
+    .addCase(newData.fulfilled, (state, action) => {
       state.main = action.payload;
       state.loading = true;
       state.error = "";
-    },
-  },
+    })
 });
 
 export default mainSlice.reducer;

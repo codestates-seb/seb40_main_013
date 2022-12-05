@@ -184,9 +184,10 @@ const Container = styled.div`
   padding: 20px 20px 20px 40px;
   width: 80%;
   @media screen and (max-width: 390px) {
-    width: 100%;
-    padding: 0 20px;
-    margin: 30px 0;
+    width: 88%;
+    padding: 0;
+    margin-left: -10px;
+    
   }
   @media (min-width: 391px) and (max-width: 768px) {
     width: 100%;
@@ -263,8 +264,8 @@ const Img = styled.img`
   margin-right: 10px;
   border-radius: 5px;
   @media screen and (max-width: 390px) {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
   }
   @media (min-width: 391px) and (max-width: 768px) {
     width: 100px;
@@ -279,6 +280,7 @@ const BP = styled.div`
   margin-left: 20px;
   @media screen and (max-width: 390px) {
     justify-content: center;
+    margin-left: 0;
   }
   @media (min-width: 391px) and (max-width: 767px) {
     justify-content: center;
@@ -306,6 +308,14 @@ const BrandName = styled(Link)`
 `;
 const Option = styled.h2`
   margin: 5px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.1em;
+  max-height: 2.2em;
+  min-height: 2.2em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   @media screen and (max-width: 390px) {
     font-size: 0.7rem;
   }

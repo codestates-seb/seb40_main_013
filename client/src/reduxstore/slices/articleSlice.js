@@ -207,9 +207,9 @@ export const reCountCartItem = createAsyncThunk(
 
 export const getSearchResult = createAsyncThunk(
   "getSearchResult",
-  async ({ searchWord, page, sortArgument, third }) => {
+  async ({ storageWord, page, sortArgument, third }) => {
     return Apis.get(
-      `/products/search?title=${searchWord}&page=${page}&sortType=${sortArgument}&order=${third}`
+      `/products/search?title=${storageWord}&page=${page}&sortType=${sortArgument}&order=${third}`
     )
       .then((res) => {
         console.log(`shopslice`, res.data);
@@ -233,6 +233,18 @@ export const countSearchResult = createAsyncThunk(
       });
   }
 );
+
+export const getSubCount = createAsyncThunk(
+  "getCount", 
+  async ({mainCateClick, subclick}) => {
+  return Apis.get(`products/count?main=${mainCateClick}&sub=${subclick}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 export const popularSearch = createAsyncThunk("popularSearch", async () => {
   return Apis.get(`search/rank`)
@@ -286,67 +298,71 @@ const articleSlice = createSlice({
     shoppingCartInitial: [],
     searchResultInitial: [],
     countSearchResultInitial: [],
+    getSubCountInitial: [],
     postArticle: [],
     articleLike: [],
     loading: false,
     error: "",
   },
   reducers: {},
-  extraReducers: {
-    [getArticleDetail.fulfilled]: (state, action) => {
+  extraReducers: (builder) => builder
+    .addCase(getArticleDetail.fulfilled, (state, action) => {
       state.detailArticle = action.payload;
       state.loading = true;
       state.error = "";
-    },
-
-    [postCart.fulfilled]: (state, action) => {
+    })
+    .addCase(postCart.fulfilled, (state, action) => {
       state.article = action.payload;
       state.loading = true;
       state.error = "";
-    },
-    [postLike.fulfilled]: (state, action) => {
+    })
+    .addCase(postLike.fulfilled,(state, action) => {
       state.articleLike = action.payload;
       state.loading = true;
       state.error = "";
-    },
-    [deleteLike.fulfilled]: (state, action) => {
+    })
+    .addCase(deleteLike.fulfilled, (state, action) => {
       state.articleLike = action.payload;
 
       state.loading = true;
       state.error = "";
-    },
-    [mainData.fulfilled]: (state, action) => {
+    })
+    .addCase(mainData.fulfilled, (state, action) => {
       state.mainArticle = action.payload;
       state.detailArticle = [];
       state.loading = true;
       state.error = "";
-    },
-    [getShoppingCart.fulfilled]: (state, action) => {
+    })
+    .addCase(getShoppingCart.fulfilled, (state, action) => {
       state.shoppingCartInitial = action.payload?.productCarts;
       state.loading = true;
       state.error = "";
-    },
-    [getSearchResult.fulfilled]: (state, action) => {
+    })
+    .addCase(getSearchResult.fulfilled, (state, action) => {
       state.searchResultInitial = action.payload.content;
       state.loading = true;
       state.error = "";
-    },
-    [countSearchResult.fulfilled]: (state, action) => {
+    })
+    .addCase(countSearchResult.fulfilled, (state, action) => {
       state.countSearchResultInitial = action.payload.count;
       state.loading = true;
       state.error = "";
-    },
-    [popularSearch.fulfilled]: (state, action) => {
+    })
+    .addCase(getSubCount.fulfilled, (state, action) => {
+      state.getSubCountInitial = action.payload.count;
+      state.loading = true;
+      state.error = "";
+    })
+    .addCase(popularSearch.fulfilled, (state, action) => {
       state.popularSearchInitial = action.payload;
       state.loading = true;
       state.error = "";
-    },
-    [postArticle.fulfilled]: (state, action) => {
+    })
+    .addCase(postArticle.fulfilled, (state, action) => {
       state.postArticle = action.payload;
       state.loading = true;
       state.error = "";
-    },
-  },
+    })
 });
 
 export default articleSlice.reducer;

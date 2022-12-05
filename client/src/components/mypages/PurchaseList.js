@@ -257,7 +257,7 @@ const CancleBtn = styled.button`
   padding: 8px 30px;
   /* height: 50px; */
   /* border: 1px solid red; */
-  color: #ff4040;
+  color: #FF4040;
   border-radius: 5px;
   white-space: nowrap;
   cursor: pointer;

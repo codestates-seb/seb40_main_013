@@ -2,21 +2,18 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
-import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
 import RankingDown from "../../components/DropDown";
 import livingImg from '../../imgs/sub-living1.jpeg';
+import Apis from "../../apis/apis";
+import { getSubCount } from "../../reduxstore/slices/articleSlice";
 
-function LivingRoom({ mainClick, subclick }) {
+function LivingRoom({ mainClick, subclick, page, setPage, products, setProducts }) {
   
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = '거실';
 
   const dispatch = useDispatch();
-
-  const subSelector = useSelector((state) => state.subCatetory.subInitial);
-  const countSelector = useSelector((state) => state.subCatetory.coutnInitial.count );
-
-  const [page, setPage] = useState(0);
+  const countSelector = useSelector((state) => state.article.getSubCountInitial);
 
   // 셀렉트 박스
   const [dropDownclicked, setDropDownClicked] = useState("최신순");
@@ -43,15 +40,31 @@ function LivingRoom({ mainClick, subclick }) {
       setDloseDropDown(false);
   };
 
-  useEffect(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-      dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-      dispatch(getCount({mainCateClick, subclick}));
-  }, [subclick, sortArgument, third ]);
+  useEffect(()=>{
+    dispatch(getSubCount({mainCateClick, subclick}))
+  }, [mainCateClick, subclick, sortArgument, third]);
 
+  useEffect(()=>{
+    getProducts();
+  }, [page, subclick, sortArgument, third]);
+
+  const getProducts = async () => {
+        let productsRes = await Apis.get(
+          `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
+        )
+          setProducts(prev => [...prev, ...productsRes.data.content]);
+  };
+
+  const handleScroll = () => {
+    if(window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight){
+      setPage(prev => prev + 1)
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, []) 
 
   return (
     <SubBlock onClick={outModalCloseHandler}>
@@ -75,12 +88,14 @@ function LivingRoom({ mainClick, subclick }) {
             closeHandler={closeHandler}
             setThird={setThird}
             third={third}
+            setPage={setPage}
+            setProducts={setProducts}
           />
         </section>
       </FilterBlock>
       <ProductList>
-        {subSelector?.map((product) => (
-          <Products proId={product.id} product={product} key={product.id} />
+        {products?.map((product) => (
+          <Products proId={product.id} product={product} key={product.id}/>
         ))}
         {/* <div ref={loadingRef}></div> */}
       </ProductList>

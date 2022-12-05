@@ -551,7 +551,7 @@ const Register = () => {
         <InputContainer>
           <TabContainer>
             <Label htmlFor="price">
-              판매가 <span>&nbsp;(10,000 원 이상)</span>
+              판매가 <span>&nbsp;(5,000 원 이상)</span>
             </Label>
           </TabContainer>
           <Pricecontent>

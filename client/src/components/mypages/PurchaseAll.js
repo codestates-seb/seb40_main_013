@@ -142,6 +142,7 @@ const Price = styled.h2`
 const Btns = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 10px;
 `;
 const ReviewBtn = styled.button`
   white-space: nowrap;
