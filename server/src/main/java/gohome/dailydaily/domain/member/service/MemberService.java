@@ -51,7 +51,7 @@ public class MemberService {
         Member verifiedMember = findVerifiedMember(member.getId());
         checkEmailAndNickname(member);
 
-        if (member.getPassword() != null) {
+        if (member.getPassword() != null && !member.getId().equals(9L)) {
             verifiedMember.updateInfo(member, passwordEncoder.encode(member.getPassword()));
         } else {
             verifiedMember.updateInfo(member, null);

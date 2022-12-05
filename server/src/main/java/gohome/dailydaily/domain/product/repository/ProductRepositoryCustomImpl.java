@@ -76,10 +76,9 @@ public class ProductRepositoryCustomImpl extends Querydsl4RepositorySupport impl
         Slice<CategoryGetDto> content = applySlicing(pageable, query ->
                 query.select(getCategoryGetDto())
                         .from(product)
-                        .where(whereCondition)
                         .innerJoin(product.seller.member, member)
                         .innerJoin(product.category, category)
-                        .orderBy(product.score.desc(), product.id.asc()));
+                        .where(whereCondition));
 
         return SliceResponseDto.of(content);
     }

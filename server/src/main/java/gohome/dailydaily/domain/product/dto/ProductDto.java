@@ -6,12 +6,11 @@ import gohome.dailydaily.domain.member.dto.MemberDto;
 import gohome.dailydaily.domain.product.entity.Option;
 import gohome.dailydaily.domain.review.dto.ReviewDto;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,24 +21,21 @@ public class ProductDto {
     @Setter
     public static class PostProduct {
         @NotNull
+        @Positive
         private Long sellerId;
         @NotBlank
-        @NotNull
+        @Length(min = 2, max = 40)
         private String title;
-        @NotNull
         @NotEmpty
         private List<MultipartFile> content;
         @NotNull
         private MultipartFile img;
         @NotBlank
-        @NotNull
         private String main;
         @NotBlank
-        @NotNull
         private String sub;
         @Min(5000)
         private Integer price;
-        @NotNull
         @NotEmpty
         private List<OptionDto.post> optionList;
 
