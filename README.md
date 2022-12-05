@@ -80,7 +80,20 @@
 
 
 <br /><br /><br /><br />
+
+## 프로젝트 설명
+### 프로젝트 아키텍처
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68e5cfc0-e938-417d-b803-26764b2b9308/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221204%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221204T105424Z&X-Amz-Expires=86400&X-Amz-Signature=aa52c4160f3ba99b53c944608182921de5bf35b1ac4638cbefec1909b9c8a9ec&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
+
+### Deploy Tools
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f4f1fc59-15ad-468c-9fa4-24ea7c43cf07/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T122713Z&X-Amz-Expires=86400&X-Amz-Signature=991f95be394e2266486cf28a749d79db15ade5f5349ef0ddd9e5a72cffa5392a&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
+
+### [API 문서](https://dailydaily.kro.kr/docs/index.html)
+
+
 </div>
+
+<br><br><br>
   
 # 💡 Pages
 
@@ -102,7 +115,7 @@
 
 |1️⃣0️⃣ 좋아요 상품 조회|1️⃣1️⃣ 리뷰 등록|1️⃣2️⃣ 정보 수정|
 |:-:|:-:|:-:|
-|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="https://media.discordapp.net/attachments/1037945125998968864/1048181633410420776/2022-12-02_7.17.03.png?width=1055&height=677">|<img width="300" alt="스크린샷 2022-11-07 오후 6 06 47" src="">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 26" src="https://media.discordapp.net/attachments/1037945125998968864/1048181635125878784/2022-12-02_7.16.52.png?width=1058&height=677">|
+|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="https://media.discordapp.net/attachments/1037945125998968864/1048181633410420776/2022-12-02_7.17.03.png?width=1055&height=677">|<img width="300" alt="스크린샷 2022-11-07 오후 6 06 47" src="https://user-images.githubusercontent.com/107091097/205631160-e5c49e1c-1b86-4f7b-b4c4-a9a9fe6964b3.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 26" src="https://media.discordapp.net/attachments/1037945125998968864/1048181635125878784/2022-12-02_7.16.52.png?width=1058&height=677">|
 
 |1️⃣3️⃣ 검색 기능|
 |:-:|
@@ -274,19 +287,6 @@
 
 <br /><br /><br />
 
-## 프로젝트 설명
-### 프로젝트 아키텍처
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68e5cfc0-e938-417d-b803-26764b2b9308/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221204%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221204T105424Z&X-Amz-Expires=86400&X-Amz-Signature=aa52c4160f3ba99b53c944608182921de5bf35b1ac4638cbefec1909b9c8a9ec&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
-
-### Deploy Tools
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f4f1fc59-15ad-468c-9fa4-24ea7c43cf07/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T122713Z&X-Amz-Expires=86400&X-Amz-Signature=991f95be394e2266486cf28a749d79db15ade5f5349ef0ddd9e5a72cffa5392a&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
-
-### [API 문서](https://dailydaily.kro.kr/docs/index.html)
-
-
-</div>
-
-<br><br><br>
 
 #  Thanks !
 
