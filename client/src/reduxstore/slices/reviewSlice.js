@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
-import axios from "axios";
+import { Toast } from "../../components/Alert";
 
 export const getAllReview = createAsyncThunk(
   "review/allGet",
@@ -26,11 +26,15 @@ export const getAllReview = createAsyncThunk(
 export const postReview = createAsyncThunk(
   "review/post",
   async ({ postData, navigate }) => {
-    console.log({ postData });
     const form = new FormData();
-    form.append("content", postData.content);
-    form.append("score", postData.score);
-    form.append("img", postData.img);
+    if (postData.img === undefined) {
+      form.append("content", postData.content);
+      form.append("score", postData.score);
+    } else if (postData.img) {
+      form.append("content", postData.content);
+      form.append("score", postData.score);
+      form.append("img", postData.img);
+    }
     return Apis.post(`products/${postData.filterProductId}/reviews`, form, {
       headers: {
         Authorization: `${localStorage.getItem("Authorization")}`,
@@ -38,8 +42,8 @@ export const postReview = createAsyncThunk(
       },
     })
       .then((res) => {
-        navigate("purchase");
-        window.location.reload();
+        Toast("success", "리뷰가 추가되었습니다!");
+        navigate("/members/mypage/myboard");
         return res.data;
       })
       .catch((err) => {
@@ -49,7 +53,7 @@ export const postReview = createAsyncThunk(
 );
 export const updateReview = createAsyncThunk(
   "review/update",
-  async ({ filterProductId, updateData }) => {
+  async ({ filterProductId, updateData, navigate }) => {
     console.log({ updateData });
     return Apis.patch(
       `products/${filterProductId}/reviews/${updateData.reviewId}`,
@@ -61,7 +65,7 @@ export const updateReview = createAsyncThunk(
       }
     )
       .then((res) => {
-        console.log(res);
+        Toast("success", "리뷰가 수정되었습니다!");
         window.location.reload();
         return res.data;
       })
@@ -73,6 +77,7 @@ export const updateReview = createAsyncThunk(
 export const deleteReview = createAsyncThunk(
   "review/delete",
   async ({ deleteData }) => {
+    console.log(deleteData);
     return Apis.delete(
       `products/${deleteData.productId}/reviews/${deleteData.reviewId}`,
       {
@@ -82,7 +87,7 @@ export const deleteReview = createAsyncThunk(
       }
     )
       .then((res) => {
-        console.log(res);
+        Toast("success", "리뷰가 삭제되었습니다!");
         window.location.reload();
         return res.data;
       })
@@ -96,26 +101,28 @@ const reviewSlice = createSlice({
   name: "review",
   initialState: {
     review: [],
+    postReview: [],
     loading: false,
     error: "",
   },
   reducers: {},
-  extraReducers: (builder) => builder
-    .addCase(getAllReview.fulfilled, (state, action) => {
-      state.review = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(postReview.fulfilled, (state, action) => {
-      state.review = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(deleteReview.fulfilled, (state, action) => {
-      state.review = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
+  extraReducers: (builder) =>
+    builder
+      .addCase(getAllReview.fulfilled, (state, action) => {
+        state.review = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(postReview.fulfilled, (state, action) => {
+        state.review = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(deleteReview.fulfilled, (state, action) => {
+        state.review = action.payload;
+        state.loading = true;
+        state.error = "";
+      }),
 });
 
 export default reviewSlice.reducer;

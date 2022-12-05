@@ -146,14 +146,14 @@ const Buttons = styled.div`
 `;
 
 const Delete = styled.button`
-  color: #FF4040;
+  color: #ff4040;
   border: 1px solid #efefef;
   border-radius: 5px;
   padding: 7px 30px;
   margin-right: 10px;
   cursor: pointer;
   &:hover {
-    border: 1px solid #FF4040;
+    border: 1px solid #ff4040;
   }
   @media screen and (max-width: 390px) {
     padding: 5px 20px;
@@ -203,7 +203,7 @@ const HowtoEditMobile = styled.div`
   @media (min-width: 390px) and (max-width: 767px) {
     width: 80vw;
     display: flex;
-    li{
+    li {
       font-size: 0.8rem;
     }
   }
@@ -211,7 +211,7 @@ const HowtoEditMobile = styled.div`
     width: 90%;
     display: flex;
     margin: 0 30px;
-    li{
+    li {
       font-size: 0.9rem;
     }
   }

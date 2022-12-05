@@ -32,6 +32,32 @@ export const Toast = (icon, content) => {
   });
 };
 
+export const BtnSelectAlert = (
+  text,
+  confirmButtonText,
+  cancelButtonText,
+  fuctionDispatch
+) => {
+  console.log(fuctionDispatch);
+
+  MySwal.fire({
+    title: "Are you sure?",
+    text,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#002C6D",
+    cancelButtonColor: "#FF4040",
+    showCancelButton: true,
+    confirmButtonText,
+    cancelButtonText,
+    cancelButtonAriaLabel: "#000000",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fuctionDispatch();
+    }
+  });
+};
+
 export const BtnAlert = () => {
   Swal.fire({ title: "WOW!", text: "Message!", type: "success" }).then(
     (okay) => {

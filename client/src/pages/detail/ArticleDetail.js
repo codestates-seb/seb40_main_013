@@ -237,7 +237,7 @@ function ArticleDetail() {
                 </ButtonIcon>
                 <div>{cartCount}</div>
                 <ButtonIcon onClick={clickUpCart}>
-                  <BiChevronRight/>
+                  <BiChevronRight />
                 </ButtonIcon>
               </DetailUserQuantitySpace>
               <DetailUserPriceSpace>
@@ -476,6 +476,7 @@ const DetailMidImg = styled.img`
   margin-top: 0px;
   @media screen and (max-width: 1023px) {
     width: 80%;
+    height: auto;
   }
 `;
 const ButtonIcon = styled.button`

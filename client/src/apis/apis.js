@@ -52,8 +52,16 @@ Apis.interceptors.response.use(
       return Promise.reject(err);
     }
 
+<<<<<<< HEAD
     if (err.response.data.message === "Unauthorized" || refreshDatas ||
     accessDisrepairDatas) {
+=======
+    if (
+      err.response.data.message === "Unauthorized" ||
+      refreshDatas ||
+      accessDisrepairDatas
+    ) {
+>>>>>>> fff446a3ffb98a7512e1dc8100419b4e6147ee9d
       Toast("warning", "로그인 해주세요!");
       localStorage.clear();
       setTimeout(() => {

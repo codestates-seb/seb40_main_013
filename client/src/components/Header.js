@@ -1,11 +1,10 @@
 import styled from "styled-components/macro";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsCart3, BsSearch } from "react-icons/bs";
 import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
 import { useSelector } from "react-redux";
 import { Toast } from "./Alert";
-import axios from "axios";
 import Apis from "../apis/apis";
 
 const HeaderBlock = styled.header`
@@ -157,7 +156,13 @@ const Category = styled.div`
   }
 `;
 
-function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts}) {
+function Header({
+  setMainClick,
+  setSubClick,
+  setSearchWord,
+  setPage,
+  setProducts,
+}) {
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
@@ -185,7 +190,7 @@ function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts
     if (closeSearch && !modalRef.current.contains(e.target))
       setCloseSearch(false);
   };
-  
+
   const clickLogOut = (e) => {
     e.preventDefault();
     localStorage.clear();
@@ -195,7 +200,6 @@ function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts
 
   //jwt토큰
   const jwt = localStorage.getItem("Authorization")
-  console.log(headerCartCount)
   useEffect(()=>{
 
     if(jwt){
@@ -334,4 +338,3 @@ function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts
 }
 
 export default Header;
-

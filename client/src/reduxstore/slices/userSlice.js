@@ -109,6 +109,7 @@ const userSlice = createSlice({
     error: "",
   },
   reducers: {},
+<<<<<<< HEAD
   extraReducers: (builder) => builder
     .addCase(signUser.fulfilled, (state, action) => {
       state.users = action.payload;
@@ -135,6 +136,35 @@ const userSlice = createSlice({
       state.loading = true;
       state.error = "";
     })
+=======
+  extraReducers: (builder) =>
+    builder
+      .addCase(signUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(guestUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(updatesUser.fulfilled, (state, action) => {
+        state.updateUser = action.payload;
+        state.loading = true;
+        state.error = "";
+      }),
+>>>>>>> fff446a3ffb98a7512e1dc8100419b4e6147ee9d
 });
 
 export default userSlice.reducer;
