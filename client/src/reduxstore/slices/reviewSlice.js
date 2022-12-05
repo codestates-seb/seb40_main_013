@@ -66,7 +66,7 @@ export const updateReview = createAsyncThunk(
     )
       .then((res) => {
         Toast("success", "리뷰가 수정되었습니다!");
-        window.location.reload();
+        // window.location.reload();
         return res.data;
       })
       .catch((err) => {
