@@ -1,9 +1,15 @@
-import { BsStarFill, BsStarHalf } from "react-icons/bs";
+import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import styled from "styled-components/macro";
 
 export const renderStar = (score) => {
   let result = "";
-  if (score <= 0.5) {
+  if (score === 0) {
+    result = (
+      <ReviewStar>
+        <BsStar />
+      </ReviewStar>
+    );
+  } else if (score > 0 && score <= 0.5) {
     result = (
       <ReviewStar>
         <BsStarHalf />

@@ -45,7 +45,6 @@ export const postCart = createAsyncThunk(
           } else {
             window.location.reload();
           }
-
         });
         return res.data;
       })
@@ -253,7 +252,8 @@ export const postArticle = createAsyncThunk(
     form.append("title", postArticleData.title);
     form.append("price", postArticleData.price);
     form.append("content", postArticleData.content[0]);
-    // form.append("content", postArticleData.content[1]);
+    form.append("content", postArticleData.content[1]);
+    form.append("content", postArticleData.content[2]);
     form.append("img", postArticleData.img);
     form.append("main", postArticleData.main);
     form.append("sub", postArticleData.sub);

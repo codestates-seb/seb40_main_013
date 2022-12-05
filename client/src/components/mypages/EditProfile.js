@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import { nickNameCheck, pwdCheck, phoneCheck } from "../effectivenessCheck";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateUser } from "../../reduxstore/slices/userSlice";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Apis from "../../apis/apis";
@@ -135,14 +135,14 @@ const Buttons = styled.div`
 `;
 
 const Delete = styled.button`
-  color: #FF4040;
+  color: #ff4040;
   border: 1px solid #efefef;
   border-radius: 5px;
   padding: 7px 30px;
   margin-right: 10px;
   cursor: pointer;
   &:hover {
-    border: 1px solid #FF4040;
+    border: 1px solid #ff4040;
   }
   @media screen and (max-width: 390px) {
     padding: 5px 20px;
@@ -185,7 +185,7 @@ const HowtoEditMobile = styled.div`
   @media (min-width: 391px) and (max-width: 767px) {
     width: 100%;
     display: flex;
-    li{
+    li {
       font-size: 0.8rem;
     }
   }
@@ -193,7 +193,7 @@ const HowtoEditMobile = styled.div`
     width: 90%;
     display: flex;
     margin: 0 30px;
-    li{
+    li {
       font-size: 0.9rem;
     }
   }

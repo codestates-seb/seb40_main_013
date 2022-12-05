@@ -189,23 +189,23 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
     Toast("success", "로그아웃에 성공하셨습니다!");
   };
 
-  useEffect(()=>{
-    Apis.get(`carts`, {
-      headers: {
-        Authorization: `${localStorage.getItem("Authorization")}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        setHeaderCartCount(res.data.productCarts.length);
-        return res.data;
+  useEffect(() => {
+    if (localStorage.getItem("Authorization")) {
+      Apis.get(`carts`, {
+        headers: {
+          Authorization: `${localStorage.getItem("Authorization")}`,
+          "Content-Type": "application/json",
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [])
-
-
+        .then((res) => {
+          setHeaderCartCount(res.data.productCarts.length);
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
 
   return (
     <>

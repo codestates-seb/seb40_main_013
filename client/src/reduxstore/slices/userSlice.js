@@ -102,7 +102,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     users: [],
-    uadateUser: [],
+    updateUser: [],
     loading: false,
     error: "",
   },
@@ -130,11 +130,6 @@ const userSlice = createSlice({
     },
     [updateUser.fulfilled]: (state, action) => {
       state.updateUser = action.payload;
-      state.loading = true;
-      state.error = "";
-    },
-    [guestUser.fulfilled]: (state, action) => {
-      state.users = action.payload;
       state.loading = true;
       state.error = "";
     },

@@ -228,8 +228,8 @@ const PurchaseAll = () => {
   const filterProduct = useSelector(
     (state) => state.myorder.filterorder.orderProducts
   );
-  const priceMap = filterProduct?.map(p=> p.price * p.count);
-  const price = priceMap?.reduce((acc,cur)=>acc+cur);
+  const priceMap = filterProduct?.map((p) => p.price * p.count);
+  const price = priceMap?.reduce((acc, cur) => acc + cur);
   console.log(priceMap, price);
 
   const clickModal = () => {
@@ -296,24 +296,28 @@ const PurchaseAll = () => {
                     </ReactionReviewBtn>
                   </ReactionSpace>
                 </Content>
-                <PaymentTitle>결제정보</PaymentTitle>
-                <Hr />
-                <PaymentContainer>
-                  <PaySubContainer>
-                    <PaySubTitle>상품금액</PaySubTitle>
-                    <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
-                  </PaySubContainer>
-                  <PaySubContainer>
-                    <PaySubTitle>선불배송비</PaySubTitle>
-                    <PaySubContent>(+) 0&nbsp;원</PaySubContent>
-                  </PaySubContainer>
-                  <PaySubContainer>
-                    <PaySubTitle>결제금액</PaySubTitle>
-                    <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
-                  </PaySubContainer>
-                </PaymentContainer>
               </ProductContainer>
             ))}
+            <PaymentTitle>결제정보</PaymentTitle>
+            <Hr />
+            <PaymentContainer>
+              <PaySubContainer>
+                <PaySubTitle>상품금액</PaySubTitle>
+                <PaySubContent>
+                  {price?.toLocaleString("en-US")}&nbsp;원
+                </PaySubContent>
+              </PaySubContainer>
+              <PaySubContainer>
+                <PaySubTitle>선불배송비</PaySubTitle>
+                <PaySubContent>(+) 0&nbsp;원</PaySubContent>
+              </PaySubContainer>
+              <PaySubContainer>
+                <PaySubTitle>결제금액</PaySubTitle>
+                <PaySubContent>
+                  {price?.toLocaleString("en-US")}&nbsp;원
+                </PaySubContent>
+              </PaySubContainer>
+            </PaymentContainer>
           </Container>
         </>
       ) : (
@@ -372,7 +376,9 @@ const PurchaseAll = () => {
             <PaymentContainer>
               <PaySubContainer>
                 <PaySubTitle>상품금액</PaySubTitle>
-                <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
+                <PaySubContent>
+                  {price?.toLocaleString("en-US")}&nbsp;원
+                </PaySubContent>
               </PaySubContainer>
               <PaySubContainer>
                 <PaySubTitle>선불배송비</PaySubTitle>
@@ -380,7 +386,9 @@ const PurchaseAll = () => {
               </PaySubContainer>
               <PaySubContainer>
                 <PaySubTitle>결제금액</PaySubTitle>
-                <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
+                <PaySubContent>
+                  {price?.toLocaleString("en-US")}&nbsp;원
+                </PaySubContent>
               </PaySubContainer>
             </PaymentContainer>
           </Container>
