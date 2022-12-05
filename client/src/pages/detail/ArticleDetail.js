@@ -609,6 +609,7 @@ const DetailArticleOptionSpaceSelectDiv = styled.div`
   color: var(--font-navy);
   margin-left: 10px;
   position: relative;
+  cursor: pointer;
   .button {
     font-size: 20px;
     margin-right: 10px;

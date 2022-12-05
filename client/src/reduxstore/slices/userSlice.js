@@ -56,11 +56,11 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
       console.log(err);
     });
 });
-export const updatesUser = createAsyncThunk(
-  "user/updatesUser",
-  async (updateData) => {
-    console.log(updateData);
-    return Apis.patch(`members/mypage`, updateData, {
+export const updateUser = createAsyncThunk(
+  "user/updateUser",
+  async ({ updatedata, navigate }) => {
+    console.log(updatedata);
+    return Apis.patch(`members/mypage`, updatedata, {
       headers: {
         Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "application/json",
@@ -68,6 +68,8 @@ export const updatesUser = createAsyncThunk(
     })
       .then((res) => {
         console.log(res);
+        navigate('/members/mypage/purchase');
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {
@@ -107,33 +109,32 @@ const userSlice = createSlice({
     error: "",
   },
   reducers: {},
-  extraReducers: (builder) =>
-    builder
-      .addCase(signUser.fulfilled, (state, action) => {
-        state.users = action.payload;
-        state.loading = true;
-        state.error = "";
-      })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.users = action.payload;
-        state.loading = true;
-        state.error = "";
-      })
-      .addCase(guestUser.fulfilled, (state, action) => {
-        state.users = action.payload;
-        state.loading = true;
-        state.error = "";
-      })
-      .addCase(getUser.fulfilled, (state, action) => {
-        state.users = action.payload;
-        state.loading = true;
-        state.error = "";
-      })
-      .addCase(updatesUser.fulfilled, (state, action) => {
-        state.updateUser = action.payload;
-        state.loading = true;
-        state.error = "";
-      }),
+  extraReducers: (builder) => builder
+    .addCase(signUser.fulfilled, (state, action) => {
+      state.users = action.payload;
+      state.loading = true;
+      state.error = "";
+    })
+    .addCase(loginUser.fulfilled, (state, action) => {
+      state.users = action.payload;
+      state.loading = true;
+      state.error = "";
+    })
+    .addCase(guestUser.fulfilled, (state, action) => {
+      state.users = action.payload;
+      state.loading = true;
+      state.error = "";
+    })
+    .addCase(getUser.fulfilled, (state, action) => {
+      state.users = action.payload;
+      state.loading = true;
+      state.error = "";
+    })
+    .addCase(updateUser.fulfilled, (state, action) => {
+      state.updateUser = action.payload;
+      state.loading = true;
+      state.error = "";
+    })
 });
 
 export default userSlice.reducer;

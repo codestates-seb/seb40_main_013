@@ -1,11 +1,10 @@
 import styled from "styled-components/macro";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsCart3, BsSearch } from "react-icons/bs";
 import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
 import { useSelector } from "react-redux";
 import { Toast } from "./Alert";
-import axios from "axios";
 import Apis from "../apis/apis";
 
 const HeaderBlock = styled.header`
@@ -199,11 +198,15 @@ function Header({
     Toast("success", "로그아웃에 성공하셨습니다!");
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("Authorization")) {
+
+  //jwt토큰
+  const jwt = localStorage.getItem("Authorization")
+  useEffect(()=>{
+
+    if(jwt){
       Apis.get(`carts`, {
         headers: {
-          Authorization: `${localStorage.getItem("Authorization")}`,
+          Authorization: `${jwt}`,
           "Content-Type": "application/json",
         },
       })
@@ -215,7 +218,8 @@ function Header({
           console.log(err);
         });
     }
-  }, []);
+
+  }, [jwt])
 
   return (
     <>

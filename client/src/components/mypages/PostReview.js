@@ -96,6 +96,7 @@ function PostReview({ clickModal, filterData, filteReview }) {
     );
   };
   console.log(userWriteContent);
+
   const updateDispatch = () => {
     let filterProductId = filteReview[0]?.productId;
     let updateData = {
@@ -120,6 +121,7 @@ function PostReview({ clickModal, filterData, filteReview }) {
   useEffect(() => {
     sendReview();
   }, [clicked]);
+  console.log(userWriteContent);
 
   console.log(userWriteContent);
 
@@ -164,7 +166,7 @@ function PostReview({ clickModal, filterData, filteReview }) {
                 {filteReview[0]?.productTitle}
               </PostReviewTopContent>
             ) : (
-              <PostReviewTopContent>
+              <PostReviewTopContent className="title">
                 {filterData[0]?.title}
               </PostReviewTopContent>
             )}
@@ -301,6 +303,10 @@ const PostReviewTopContent = styled.div`
     color: #aaaaaa;
     height: 30%;
     margin-top: 10px;
+
+  }
+  &.title{
+    font-size: 0.95rem;
   }
 `;
 const Hr = styled.hr`
@@ -407,6 +413,7 @@ const BtnSpace = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px;
   margin-top: ${(props) => (props.filteReview ? "50px" : "0px")};
   margin-bottom: 5px;
 `;

@@ -5,7 +5,6 @@ import RankingDown from "../components/DropDown";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getSearchResult, countSearchResult } from "../reduxstore/slices/articleSlice";
-import { useInView } from 'react-intersection-observer';
 import LoadingIcon from "../components/LoadingIcon";
 
 function SearchResult ({searchWord}) {
@@ -44,24 +43,6 @@ function SearchResult ({searchWord}) {
   const [page, setPage] = useState(0);
   console.log(searchWord);
 
-  const { infiniteList } = useSelector((state) => state.infinite); // store에서 movieList를 가져옴
-  const [ref, inView] = useInView();
- 
-  // useEffect(() => {
-  //   if(searchWord != '' && infiniteList.length === 0 ){
-  //     console.log('첫 포스트 로딩');
-  //     dispatch(loadInfinite({searchWord, page}));
-  //     dispatch(countSearchResult(searchWord));
-  //     return;
-  //   }
-  // }, [searchWord]);
- 
-  // useEffect(()=>{
-  //   if(infiniteList.length !==0 && inView) {
-  //       console.log('첫 로딩 이후 무한 스크롤');
-  //       dispatch(loadInfinite({ searchWord, page }));
-  //     }
-  // },[inView]);
   const [loading, setLoading] = useState(true);
   const [storageWord, setStorageWord] = useState('');
 
