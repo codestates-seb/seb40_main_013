@@ -198,6 +198,7 @@ function Header({
     Toast("success", "로그아웃에 성공하셨습니다!");
   };
 
+
   //jwt토큰
   const jwt = localStorage.getItem("Authorization")
   useEffect(()=>{
@@ -217,6 +218,7 @@ function Header({
           console.log(err);
         });
     }
+
   }, [jwt])
 
   return (

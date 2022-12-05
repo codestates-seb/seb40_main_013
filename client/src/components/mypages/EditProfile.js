@@ -196,7 +196,7 @@ const HowtoEditMobile = styled.div`
   @media screen and (max-width: 389px) {
     width: 80vw;
     display: flex;
-    li{
+    li {
       font-size: 0.8rem;
     }
   }

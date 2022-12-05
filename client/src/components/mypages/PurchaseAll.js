@@ -229,11 +229,15 @@ const PurchaseAll = () => {
   const filterProduct = useSelector(
     (state) => state.myorder.filterorder.orderProducts
   );
+
   const priceMap = filterProduct?.map((p) => p.price * p.count);
   const price = priceMap?.reduce((acc, cur) => acc + cur);
   console.log(priceMap, price);
 
-  const clickModal = () => {
+  const clickModal = (id) => {
+    console.log(id);
+    const filterItem = filterProduct.filter((el) => el.productId === id);
+    setFilterItem(filterItem);
     setIsModal(!isModal);
   };
 
@@ -249,7 +253,7 @@ const PurchaseAll = () => {
             <PostReview
               clickModal={clickModal}
               onClick={(e) => e.preventDefault()}
-              filterData={filterProduct}
+              filterData={filterItem}
             />
             <AllOrderTitle>주문상세정보</AllOrderTitle>
             <Top>
@@ -297,6 +301,7 @@ const PurchaseAll = () => {
                     </ReactionReviewBtn>
                   </ReactionSpace>
                 </Content>
+
                 </ProductContainer>
             ))}
                 <PaymentTitle>결제정보</PaymentTitle>
@@ -350,7 +355,7 @@ const PurchaseAll = () => {
                         className={
                           filterData.status === "주문 취소" ? "hidden" : ""
                         }
-                        onClick={clickModal}
+                        onClick={() => clickModal(p.productId)}
                       >
                         리뷰작성
                       </ReviewBtn>

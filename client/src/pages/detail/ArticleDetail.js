@@ -36,7 +36,8 @@ function ArticleDetail() {
   const reviewRef = useRef();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const isLike = useSelector((state) => state.article.articleLike);
-  console.log(isLike);
+  const optionStock = articlesDetail?.options?.filter((ele) => ele.stock == 0);
+  // console.log(optionStock);
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
   );
@@ -152,6 +153,14 @@ function ArticleDetail() {
         console.log(err);
       });
   };
+  const filterStock = (option) => {
+    let optionFilter = option.filter((el) => el.stock === 0).length;
+    if (optionFilter === 0) {
+      return option.color;
+    } else {
+      ("재고없음");
+    }
+  };
 
   return (
     <Wrapper>
@@ -221,7 +230,7 @@ function ArticleDetail() {
                             clickFunction();
                         }}
                       >
-                        {option?.color}
+                        {filterStock(option)}
                       </DetailArticleOptionSpaceSelectDivValueLi>
                     ))}
                   </DetailArticleOptionSpaceSelectDivValueUl>
@@ -622,6 +631,8 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
   padding: 15px 0px 15px 10px;
   display: block;
   border: none;
+  /* text-decoration: ${(props) =>
+    console.log(props.optionStock.filter(el))}; */
   &:nth-child(1) {
     border: none;
     border-top: 1px solid var(--color-gray);
@@ -657,7 +668,6 @@ const DetailUserQuantitySpace = styled.div`
   display: flex;
   height: 30px;
   align-items: center;
-  display: ${(props) => (props.selectOptions ? "" : "none")};
 `;
 const DetailUserPriceSpace = styled.div`
   margin-right: 10px;
