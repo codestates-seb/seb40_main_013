@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-@RestController
 @Validated
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/products")
 public class ProductController {
