@@ -218,7 +218,6 @@ const PostReviewTopSpace = styled.div`
   height: 15%;
   display: flex;
   justify-content: space-between;
-  border: 1px solid blue;
 `;
 
 const PostReviewContentImg = styled.img`
@@ -231,11 +230,9 @@ const PostReviewContentRightSpace = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 `;
 const PostReviewTopContent = styled.div`
-  border: 1px solid red;
   width: 100%;
   height: 50%;
   font-size: 13px;

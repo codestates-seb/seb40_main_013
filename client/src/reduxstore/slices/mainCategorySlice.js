@@ -19,13 +19,12 @@ const mainCategorySlice = createSlice({
     error: "",
   },
   reducers: {},
-  extraReducers: {
-    [categoryData.fulfilled]: (state, action) => {
+  extraReducers: (builder) => builder
+  .addCase(categoryData.fulfilled, (state, action) => {
       state.category = action.payload;
       state.loading = true;
       state.error = "";
-    },
-  },
+    })
 });
 
 export default mainCategorySlice.reducer;

@@ -31,13 +31,12 @@ const likeSlice = createSlice({
     error: "",
   },
   reducers: {},
-  extraReducers: {
-    [likeData.fulfilled]: (state, action) => {
+  extraReducers: (builder) => builder
+  .addCase(likeData.fulfilled, (state, action) => {
       state.like = action.payload;
       state.loading = true;
       state.error = "";
-    },
-  },
+    })
 });
 
 export default likeSlice.reducer;

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import { nickNameCheck, pwdCheck, phoneCheck } from "../effectivenessCheck";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../../reduxstore/slices/userSlice";
+import { updatesUser } from "../../reduxstore/slices/userSlice";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";
@@ -381,7 +381,7 @@ const EditProfile = ({ getUserdata }) => {
     }
     // console.log(updatedata);
     if (curpwdConform === true) {
-      dispatch(updateUser(updatedata));
+      dispatch(updatesUser(updatedata));
       Alert("question", "수정하시겠습니까?");
     } else if (!curpwdConform) {
       Alert("warning", "현재 비밀번호를 확인해주세요");

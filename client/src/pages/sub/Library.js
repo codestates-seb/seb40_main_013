@@ -2,21 +2,17 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
-import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
 import RankingDown from "../../components/DropDown";
 import libraryImg from '../../imgs/sub-library2.jpeg';
-
-function Library({ mainClick, subclick }) {
+import Apis from "../../apis/apis";
+import { getSubCount } from "../../reduxstore/slices/articleSlice";
+function Library({ mainClick, subclick, page, setPage, products, setProducts  }) {
 
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = '서재';
 
   const dispatch = useDispatch();
-
-  const subSelector = useSelector((state) => state.subCatetory.subInitial);
-  const countSelector = useSelector((state) => state.subCatetory.coutnInitial.count);
-
-  const [page, setPage] = useState(0);
+  const countSelector = useSelector((state) => state.article.getSubCountInitial);
 
   // 셀렉트 박스
   const [dropDownclicked, setDropDownClicked] = useState("최신순");
@@ -30,7 +26,7 @@ function Library({ mainClick, subclick }) {
     sortArgument = 'price';
   } else{
     sortArgument = 'createdAt';
-  }
+  };
 
   const modalRef = useRef();
 
@@ -43,42 +39,32 @@ function Library({ mainClick, subclick }) {
       setDloseDropDown(false);
   };
 
-  useEffect(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-      dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-      dispatch(getCount({mainCateClick, subclick}));
-  }, [subclick, sortArgument, third ]);
+  useEffect(()=>{
+    dispatch(getSubCount({mainCateClick, subclick}))
+  }, [mainCateClick, subclick, sortArgument, third]);
 
-  // const libraryInitialSelector = useSelector((state) => state.library.libraryInitial);
-  // console.log('112', libraryInitialSelector);
-  // const [ref, inView] = useInView();
+  useEffect(()=>{
+    getProducts();
+  }, [page, subclick, sortArgument, third]);
 
-  // useEffect(() => {
-  //   if(libraryInitialSelector?.length === 0){
-  //     console.log('첫 포스트 로딩');
-  //     dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-  //     // setPage(page+1)
-  //   }
-  // }, [subclick]);
+  const getProducts = async () => {
+        let productsRes = await Apis.get(
+          `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
+        )
+          setProducts(prev => [...prev, ...productsRes.data.content]);
+  };
 
-  // useEffect(()=>{
-  //   if(libraryInitialSelector?.length !==0 && inView) {
-  //       console.log('첫 로딩 이후 무한 스크롤');
-  //       setPage(page+1)
-  //       dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-  //   }
-  // },[inView]);
+  const handleScroll = () => {
+    if(window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight){
+      console.log('문제');
+      setPage(prev => prev + 1)
+    }
+  }
 
-  // useEffect(()=>{
-  //   if(libraryInitialSelector?.length !==0 && inView) {
-  //       console.log('첫 로딩 이후 무한 스크롤');
-  //       setPage(page+1)
-  //       dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
-  //   }
-  // },[inView]);
+  useEffect(()=>{
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, []) 
 
   return (
     <SubBlock onClick={outModalCloseHandler}>
@@ -102,14 +88,15 @@ function Library({ mainClick, subclick }) {
             closeHandler={closeHandler}
             setThird={setThird}
             third={third}
+            setPage={setPage}
+            setProducts={setProducts}
           />
         </section>
       </FilterBlock>
       <ProductList>
-        {subSelector?.map((product) => (
+        {products?.map((product) => (
           <Products proId={product.id} product={product} key={product.id} />
         ))}
-        {/* <div ref={loadingRef}></div> */}
       </ProductList>
     </SubBlock>
   );

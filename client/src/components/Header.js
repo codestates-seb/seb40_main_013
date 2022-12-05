@@ -157,7 +157,7 @@ const Category = styled.div`
   }
 `;
 
-function Header({ setMainClick, setSubClick, setSearchWord }) {
+function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts}) {
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
@@ -167,10 +167,14 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
   const clickMainkMenu = ({ target }) => {
     setMainClick(target.innerText);
     setSubClick("");
+    setPage(0);
+    setProducts([]);
   };
 
   const clickSubMenu = ({ target }) => {
     setSubClick(target.innerText);
+    setPage(0);
+    setProducts([]);
   };
 
   const closeHandler = () => {
@@ -181,7 +185,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
     if (closeSearch && !modalRef.current.contains(e.target))
       setCloseSearch(false);
   };
-
+  
   const clickLogOut = (e) => {
     e.preventDefault();
     localStorage.clear();
@@ -190,22 +194,22 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
   };
 
   useEffect(()=>{
-    Apis.get(`carts`, {
-      headers: {
-        Authorization: `${localStorage.getItem("Authorization")}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        setHeaderCartCount(res.data.productCarts.length);
-        return res.data;
+    if(localStorage.getItem("Authorization")){
+      Apis.get(`carts`, {
+        headers: {
+          Authorization: `${localStorage.getItem("Authorization")}`,
+          "Content-Type": "application/json",
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => {
+          setHeaderCartCount(res.data.productCarts.length);
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [])
-
-
 
   return (
     <>
@@ -326,3 +330,4 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
 }
 
 export default Header;
+
