@@ -13,12 +13,12 @@ import { renderStar } from "../Star";
 import Pagination from "./Pagination";
 import PostReview from "./PostReview";
 import noImg from "../../imgs/noImg.gif";
+import { BtnSelectAlert } from "../../components/Alert";
+import Swal from "sweetalert2";
 
 function MyReview() {
   const dispatch = useDispatch();
-  const userWriteReviews = useSelector(
-    (state) => state?.review.review?.content
-  );
+  const userWriteReviews = useSelector((state) => state.review.review.content);
   console.log(userWriteReviews);
   const [filteReview, setFilterReview] = useState("");
   const [curPage, setCurPage] = useState(0);
@@ -29,14 +29,44 @@ function MyReview() {
     setFilterReview(filteData);
     setIsModal(!isModal);
   };
+  const closeModal = () => {
+    setIsModal(!isModal);
+  };
 
   const clickDelete = (productId, reviewId) => {
+    Swal.fire({
+      title: "",
+      text: "상품을 바로 구매하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#002C6D",
+      cancelButtonColor: "#FF4040",
+      showCancelButton: true,
+      confirmButtonText: " 리뷰 삭제 ",
+      cancelButtonText: " 취소 ",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteDate(productId, reviewId);
+      }
+    });
+  };
+
+  const deleteDate = (productId, reviewId) => {
     let deleteData = {
-      productId: productId,
-      reviewId: reviewId,
+      productId,
+      reviewId,
     };
     dispatch(deleteReview({ deleteData }));
   };
+
+  useEffect(() => {
+    let count = curPage;
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    dispatch(getAllReview({ count, setTotalpage }));
+  }, []);
 
   useEffect(() => {
     window.scrollTo({
@@ -55,12 +85,8 @@ function MyReview() {
   return (
     <>
       {isModal ? (
-        <Container onClick={clickModal}>
-          <PostReview
-            clickModal={clickModal}
-            onClick={(e) => e.preventDefault()}
-            filteReview={filteReview}
-          />
+        <Container onClick={closeModal}>
+          <PostReview clickModal={clickModal} filteReview={filteReview} />
           <Hr />
           {userWriteReviews?.map((data, idx) => (
             <div key={data?.reviewId}>
@@ -336,7 +362,7 @@ const CancleBtn = styled.button`
     border: 1px solid #efefef;
     color: var(--color-navy);
     color: #ff4040;
-    &:hover{
+    &:hover {
       border: 1px solid #ff4040;
       background-color: #efefef;
     }

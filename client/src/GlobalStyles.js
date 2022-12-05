@@ -31,6 +31,7 @@ const GlobalStyles = createGlobalStyle`
       --font-ligthblack : #272727;
       --font-navy : #002c6d;
       --font-smoothblack : #272727;
+      --font-red : #FF4040;
       // font -size 
       --font-smallsize : 13px
       // color
@@ -47,8 +48,11 @@ const GlobalStyles = createGlobalStyle`
       --white-hover-gary : #f0f0f0;
       --hover-gary: #aaaaaa;
       --button-gray : #efefef;
+      --white-hover-gary : #f0f0f0;
+
       // center-line
       --color-center-line : #AAAAAA; 
+      --button-gray : #efefef;
     }
 `;
 

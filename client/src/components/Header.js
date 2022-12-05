@@ -157,7 +157,13 @@ const Category = styled.div`
   }
 `;
 
-function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts}) {
+function Header({
+  setMainClick,
+  setSubClick,
+  setSearchWord,
+  setPage,
+  setProducts,
+}) {
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
@@ -185,7 +191,7 @@ function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts
     if (closeSearch && !modalRef.current.contains(e.target))
       setCloseSearch(false);
   };
-  
+
   const clickLogOut = (e) => {
     e.preventDefault();
     localStorage.clear();
@@ -193,8 +199,8 @@ function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts
     Toast("success", "로그아웃에 성공하셨습니다!");
   };
 
-  useEffect(()=>{
-    if(localStorage.getItem("Authorization")){
+  useEffect(() => {
+    if (localStorage.getItem("Authorization")) {
       Apis.get(`carts`, {
         headers: {
           Authorization: `${localStorage.getItem("Authorization")}`,
@@ -209,7 +215,7 @@ function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts
           console.log(err);
         });
     }
-  }, [])
+  }, []);
 
   return (
     <>
@@ -330,4 +336,3 @@ function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts
 }
 
 export default Header;
-

@@ -107,32 +107,33 @@ const userSlice = createSlice({
     error: "",
   },
   reducers: {},
-  extraReducers: (builder) => builder
-    .addCase(signUser.fulfilled, (state, action) => {
-      state.users = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(loginUser.fulfilled, (state, action) => {
-      state.users = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(guestUser.fulfilled, (state, action) => {
-      state.users = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(getUser.fulfilled, (state, action) => {
-      state.users = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(updatesUser.fulfilled, (state, action) => {
-      state.updateUser = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
+  extraReducers: (builder) =>
+    builder
+      .addCase(signUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(guestUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(updatesUser.fulfilled, (state, action) => {
+        state.updateUser = action.payload;
+        state.loading = true;
+        state.error = "";
+      }),
 });
 
 export default userSlice.reducer;
