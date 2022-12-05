@@ -2,21 +2,25 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
+import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
 import RankingDown from "../../components/DropDown";
-import kitchenImg from '../../imgs/sub-kitchen.png';
 import Apis from "../../apis/apis";
-import { getSubCount } from "../../reduxstore/slices/articleSlice";
+import kitchenImg from '../../imgs/sub-kitchen.png';
 
-function Kitchen({ mainClick, subclick, page, setPage, products, setProducts  }) {
+function Kitchen({ mainClick, subclick }) {
   
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = '주방';
+
   const dispatch = useDispatch();
-  const countSelector = useSelector((state) => state.article.getSubCountInitial);
+
+  const subSelector = useSelector((state) => state.subCatetory.subInitial);
+  const countSelector = useSelector((state) => state.subCatetory.coutnInitial.count);
 
   // 셀렉트 박스
   const [dropDownclicked, setDropDownClicked] = useState("최신순");
   const [third, setThird] = useState("desc");
+  
   const [closeDropDown, setDloseDropDown] = useState(false);
 
   let sortArgument = "createdAt";
@@ -26,7 +30,7 @@ function Kitchen({ mainClick, subclick, page, setPage, products, setProducts  })
     sortArgument = 'price';
   } else{
     sortArgument = 'createdAt';
-  };
+  }
 
   const modalRef = useRef();
 
@@ -39,32 +43,78 @@ function Kitchen({ mainClick, subclick, page, setPage, products, setProducts  })
       setDloseDropDown(false);
   };
 
-  useEffect(()=>{
-    dispatch(getSubCount({mainCateClick, subclick}))
-  }, [mainCateClick, subclick, sortArgument, third]);
+  // useEffect(() => {
+  //     dispatch(getSub({ mainCateClick, subclick, page, sortArgument, third }));
+  //     dispatch(getCount({mainCateClick, subclick}));
+  // }, [subclick, sortArgument, third ]);
 
-  useEffect(()=>{
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(0);
+  
+  const [prevY, setPrevY] = useState(0);
+  let productsRef = useRef({})
+
+  let loadingRef = useRef(null);
+  let prevYRef = useRef({}); //useRef 로 관리하는 변수는 값이 바뀐다고 해서 컴포넌트가 리렌더링되지 않는다
+  let pageRef = useRef({});
+  productsRef.current = products;
+  pageRef.current = page;
+
+  prevYRef.current = prevY
+
+  // useEffect(() => {
+  //   setProducts([])
+  //   setPage(0)
+  // }, [subclick]);
+
+  useEffect(() => {
+
     getProducts();
-  }, [page, subclick, sortArgument, third]);
+    setPage(pageRef.current + 1);
 
-  const getProducts = async () => {
-        let productsRes = await Apis.get(
-          `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
-        )
-          setProducts(prev => [...prev, ...productsRes.data.content]);
-  };
+    let options = {
+      root: null, //root는 기본적으로 스크롤 가능한 영역, null을 입력하면 전체 브라우저 창이 됨
+      rootMargin: "150px",
+      htreshold: 0.6, //관찰해야 하는 대상 요소의 100%를 의미한다.
+    };
 
-  const handleScroll = () => {
-    if(window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight){
-      console.log('문제');
-      setPage(prev => prev + 1)
+    /// new IntersectionObserver === 브라우저 기본기능, 타겟이 화면에 보이는지 파악
+    const observer = new IntersectionObserver(handleObserver, options); //감시중인 박스가 화면에 등장하면 handleObserver를 실행해 준다
+    observer.observe(loadingRef.current);
+   
+  }, [subclick, sortArgument, third]); //subclick  
+
+  console.log({mainCateClick, subclick,sortArgument, third});
+
+  const handleObserver = (entities, observer) => { //entities(파라미터)를 출력하면 감시중인 div 다 나옴, 배열에 담겨 나옴 [박스0, 박스1,...]
+    console.log("time");
+
+    const y = entities[0].boundingClientRect.y; // getBoundingClientRect() 메서드는 엘리먼트의 크기와 뷰포트에 상대적인 위치 정보를 제공하는 DOMRect 객체를 반환 === 타겟의y값
+    const none = entities[0].isIntersecting
+     if (prevYRef.current > y) { //y
+        console.log(`real get list`);
+        getProducts();
+        setPage(pageRef.current + 1);
+    } else if (none === true) {
+      console.log(stop);
     }
-  }
-
-  useEffect(()=>{
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, []) 
+    setPrevY(y);
+    console.log(y, none);
+  };
+    
+  const getProducts = async () => {
+    try {
+        let productsRes = await Apis.get(
+          `products?main=${mainCateClick}&sub=${subclick}&page=${pageRef.current}&sortType=${sortArgument}&order=${third}`
+        )
+        if (productsRes) {
+          setProducts([...productsRef.current, ...productsRes.data.content]);
+          // setA(productsRes.data.sliceInfo.hasNext); // 요청 막기...
+        }
+    } catch (error) {
+      console.log("ERROR GETTING PRODUCTS");
+    }
+  };
 
   return (
     <SubBlock onClick={outModalCloseHandler}>
@@ -88,8 +138,6 @@ function Kitchen({ mainClick, subclick, page, setPage, products, setProducts  })
             closeHandler={closeHandler}
             setThird={setThird}
             third={third}
-            setPage={setPage}
-            setProducts={setProducts}
           />
         </section>
       </FilterBlock>
@@ -97,6 +145,7 @@ function Kitchen({ mainClick, subclick, page, setPage, products, setProducts  })
         {products?.map((product) => (
           <Products proId={product.id} product={product} key={product.id} />
         ))}
+        <div ref={loadingRef}></div>
       </ProductList>
     </SubBlock>
   );

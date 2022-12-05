@@ -5,9 +5,8 @@ import RankingDown from "../components/DropDown";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getSearchResult, countSearchResult } from "../reduxstore/slices/articleSlice";
-import { loadInfinite } from "../reduxstore/slices/intinitiSlice";
-// import { useInView } from 'react-intersection-observer';
-import Apis from "../apis/apis";
+import { useInView } from 'react-intersection-observer';
+import LoadingIcon from "../components/LoadingIcon";
 
 function SearchResult ({searchWord}) {
 
@@ -16,9 +15,10 @@ function SearchResult ({searchWord}) {
   const dispatch = useDispatch();
   const searchResultSelector = useSelector((state) => state.article.searchResultInitial);
   const countSearchResultSelector = useSelector((state) => state.article.countSearchResultInitial); 
-  
+  console.log(searchResultSelector);
+
   const [dropDownclicked, setDropDownClicked] = useState('최신순'); //셀렉트박스
-  const [third, setThird] = useState('asc'); //셀렉트박스
+  const [third, setThird] = useState('desc'); //셀렉트박스
   const [closeDropDown, setDloseDropDown] = useState(false);
 
   let sortArgument = "createdAt";
@@ -40,24 +40,61 @@ function SearchResult ({searchWord}) {
     if (closeDropDown && !modalRef.current.contains(e.target))
       setDloseDropDown(false);
   };
-  
-  const [page, setPage] = useState(0);
 
+  const [page, setPage] = useState(0);
+  console.log(searchWord);
+
+  const { infiniteList } = useSelector((state) => state.infinite); // store에서 movieList를 가져옴
+  const [ref, inView] = useInView();
+ 
   // useEffect(() => {
-  //     dispatch(getSearchResult({ searchWord, page }));
-  //     dispatch(countSearchResult(searchWord))
+  //   if(searchWord != '' && infiniteList.length === 0 ){
+  //     console.log('첫 포스트 로딩');
+  //     dispatch(loadInfinite({searchWord, page}));
+  //     dispatch(countSearchResult(searchWord));
+  //     return;
+  //   }
   // }, [searchWord]);
-console.log(page);
+ 
+  // useEffect(()=>{
+  //   if(infiniteList.length !==0 && inView) {
+  //       console.log('첫 로딩 이후 무한 스크롤');
+  //       dispatch(loadInfinite({ searchWord, page }));
+  //     }
+  // },[inView]);
+  const [loading, setLoading] = useState(true);
+  const [storageWord, setStorageWord] = useState('');
+
+    useEffect(() => {
+      const loadRecentKeyword = localStorage.getItem("keywords")
+      ? JSON.parse(localStorage.getItem("keywords"))
+      : [];
+      if(loadRecentKeyword) setStorageWord(loadRecentKeyword[0].text);
+      setLoading(false);
+    },[searchWord]);
+
+    useEffect(() => {
+      dispatch(countSearchResult(storageWord))
+    },[]);
+
   useEffect(() => {
-      dispatch(getSearchResult({ searchWord, page, sortArgument, third}));
-      dispatch(countSearchResult(searchWord))
-  }, [searchWord, sortArgument, third ]);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    if(storageWord != '' ){
+      dispatch(getSearchResult({ storageWord, page, sortArgument, third}));
+    }
+  }, [storageWord, sortArgument, third ]);
+
+  console.log({storageWord, sortArgument, third});
+    if(loading) return <LoadingIcon/>
 
     return (
       <SubBlock onClick={outModalCloseHandler}>
         <FilterBlock>
           <div className="total">
-            <div>{searchWord}</div>
+            <div>{storageWord}</div>
             <CountBlock>(으)로 {countSearchResultSelector} 개의 상품이 검색되었습니다.</CountBlock>
           </div>
           <section ref={modalRef}>
@@ -75,7 +112,8 @@ console.log(page);
             {searchResultSelector?.map((product) => (
               <Products proId={product.id} product={product} key={product.id} />
             ))}
-      </ProductList>
+            <div ref={ref} />
+        </ProductList>
     </SubBlock>
   );
 }

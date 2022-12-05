@@ -106,23 +106,23 @@ const reviewSlice = createSlice({
     error: "",
   },
   reducers: {},
-  extraReducers: {
-    [getAllReview.fulfilled]: (state, action) => {
-      state.review = action.payload;
-      state.loading = true;
-      state.error = "";
-    },
-    [postReview.fulfilled]: (state, action) => {
-      state.postReview = action.payload;
-      state.loading = true;
-      state.error = "";
-    },
-    [deleteReview.fulfilled]: (state, action) => {
-      state.review = action.payload;
-      state.loading = true;
-      state.error = "";
-    },
-  },
+  extraReducers: (builder) =>
+    builder
+      .addCase(getAllReview.fulfilled, (state, action) => {
+        state.review = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(postReview.fulfilled, (state, action) => {
+        state.review = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(deleteReview.fulfilled, (state, action) => {
+        state.review = action.payload;
+        state.loading = true;
+        state.error = "";
+      }),
 });
 
 export default reviewSlice.reducer;

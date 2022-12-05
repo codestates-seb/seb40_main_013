@@ -157,7 +157,13 @@ const Category = styled.div`
   }
 `;
 
-function Header({ setMainClick, setSubClick, setSearchWord }) {
+function Header({
+  setMainClick,
+  setSubClick,
+  setSearchWord,
+  setPage,
+  setProducts,
+}) {
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
@@ -167,10 +173,14 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
   const clickMainkMenu = ({ target }) => {
     setMainClick(target.innerText);
     setSubClick("");
+    setPage(0);
+    setProducts([]);
   };
 
   const clickSubMenu = ({ target }) => {
     setSubClick(target.innerText);
+    setPage(0);
+    setProducts([]);
   };
 
   const closeHandler = () => {
