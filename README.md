@@ -260,9 +260,6 @@
 
 <br><br><br>
 
-<br /><br /><br /><br />
-
-
 #  Thanks !
 
-<br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br />
