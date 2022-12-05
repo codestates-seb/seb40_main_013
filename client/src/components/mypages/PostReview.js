@@ -158,7 +158,7 @@ function PostReview({ clickModal, filterData, filteReview }) {
                 {filteReview[0]?.productTitle}
               </PostReviewTopContent>
             ) : (
-              <PostReviewTopContent>
+              <PostReviewTopContent className="title">
                 {filterData[0]?.title}
               </PostReviewTopContent>
             )}
@@ -298,6 +298,9 @@ const PostReviewTopContent = styled.div`
     height: 30%;
     margin-top: 10px;
   }
+  &.title{
+    font-size: 0.95rem;
+  }
 `;
 const Hr = styled.hr`
   width: 80%;
@@ -403,6 +406,7 @@ const BtnSpace = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px;
   margin-top: ${(props) => (props.filteReview ? "50px" : "0px")};
   margin-bottom: 5px;
 `;

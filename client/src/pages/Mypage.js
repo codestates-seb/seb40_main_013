@@ -52,6 +52,10 @@ const Left = styled.div`
 
 const Right = styled.div`
   width: 80vw;
+  @media screen and (max-width: 767px) {
+    width: 100vw;
+    padding-left: 10px;
+  }
 `;
 const Reaction = styled.div`
   display: flex;
@@ -115,7 +119,7 @@ const ReactionDetail = styled.div`
   @media screen and (max-width: 768px) {
     border-top: none;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: -10px;
     flex-direction: row;
   }
 `;
@@ -189,7 +193,7 @@ const NavDetail = styled.nav`
 const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
-
+console.log(getUserdata)
   //tab click
   const [clicked, setClicked] = useState("");
 
@@ -214,7 +218,7 @@ const Mypage = () => {
       <Left>
         <Reaction>
           <ProfileImgConponent
-            src={`https://source.boringavatars.com/beam/${getUserdata.memberId}/daily?colors=FFAF51,FFC007,AAAAAA,0C8F8F,002C6D`}
+            src={`https://source.boringavatars.com/beam/40/${getUserdata?.nickname}?colors=FFAF51,FFC007,AAAAAA,0C8F8F,002C6D`}
             alt="avator"
             onclick={handleChangeImg}
           ></ProfileImgConponent>
@@ -241,8 +245,8 @@ const Mypage = () => {
                 정보 수정
               </NavDetail>
             </Link>
-            </ReactionDetail>
-            <ReactionDetail>
+          </ReactionDetail>
+          <ReactionDetail>
             <Link to="like" style={{ textDecoration: "none" }}>
               <NavDetail
                 name="like"

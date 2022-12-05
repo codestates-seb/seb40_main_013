@@ -142,6 +142,7 @@ const Price = styled.h2`
 const Btns = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 10px;
 `;
 const ReviewBtn = styled.button`
   white-space: nowrap;
@@ -296,28 +297,24 @@ const PurchaseAll = () => {
                     </ReactionReviewBtn>
                   </ReactionSpace>
                 </Content>
-              </ProductContainer>
+                </ProductContainer>
             ))}
-            <PaymentTitle>결제정보</PaymentTitle>
-            <Hr />
-            <PaymentContainer>
-              <PaySubContainer>
-                <PaySubTitle>상품금액</PaySubTitle>
-                <PaySubContent>
-                  {price?.toLocaleString("en-US")}&nbsp;원
-                </PaySubContent>
-              </PaySubContainer>
-              <PaySubContainer>
-                <PaySubTitle>선불배송비</PaySubTitle>
-                <PaySubContent>(+) 0&nbsp;원</PaySubContent>
-              </PaySubContainer>
-              <PaySubContainer>
-                <PaySubTitle>결제금액</PaySubTitle>
-                <PaySubContent>
-                  {price?.toLocaleString("en-US")}&nbsp;원
-                </PaySubContent>
-              </PaySubContainer>
-            </PaymentContainer>
+                <PaymentTitle>결제정보</PaymentTitle>
+                <Hr />
+                <PaymentContainer>
+                  <PaySubContainer>
+                    <PaySubTitle>상품금액</PaySubTitle>
+                    <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
+                  </PaySubContainer>
+                  <PaySubContainer>
+                    <PaySubTitle>선불배송비</PaySubTitle>
+                    <PaySubContent>(+) 0&nbsp;원</PaySubContent>
+                  </PaySubContainer>
+                  <PaySubContainer>
+                    <PaySubTitle>결제금액</PaySubTitle>
+                    <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
+                  </PaySubContainer>
+                </PaymentContainer>
           </Container>
         </>
       ) : (
