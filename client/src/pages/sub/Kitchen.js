@@ -87,7 +87,6 @@ function Kitchen({ mainClick, subclick }) {
 
   const handleObserver = (entities, observer) => {
     console.log("time");
-
     const y = entities[0].boundingClientRect.y; 
 
     // if(!a){

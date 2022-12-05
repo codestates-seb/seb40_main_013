@@ -204,10 +204,10 @@ function ArticleDetail() {
                 </DetailArticleOptionContents>
               </DetailArticleOptionSpace>
               <DetailArticleOptionSpaceSelect clickSelect={clickSelect}>
-                <DetailArticleOptionSpaceSelectDiv>
+                <DetailArticleOptionSpaceSelectDiv onClick={clickFunction}>
                   {selectOptionColor}
                   <div className="cur">
-                    <FiChevronDown className="button" onClick={clickFunction} />
+                    <FiChevronDown className="button" />
                   </div>
                 </DetailArticleOptionSpaceSelectDiv>
                 {clickSelect ? (
@@ -232,12 +232,12 @@ function ArticleDetail() {
             </div>
             <DetailUserSubmitPriceSpace>
               <DetailUserQuantitySpace selectOptions={selectOptions}>
-                <ButtonIcon>
-                  <BiChevronLeft onClick={clickDownCart} />
+                <ButtonIcon onClick={clickDownCart}>
+                  <BiChevronLeft />
                 </ButtonIcon>
                 <div>{cartCount}</div>
-                <ButtonIcon>
-                  <BiChevronRight onClick={clickUpCart} />
+                <ButtonIcon onClick={clickUpCart}>
+                  <BiChevronRight/>
                 </ButtonIcon>
               </DetailUserQuantitySpace>
               <DetailUserPriceSpace>
@@ -599,6 +599,7 @@ const DetailArticleOptionSpaceSelectDiv = styled.div`
   color: var(--font-navy);
   margin-left: 10px;
   position: relative;
+  cursor: pointer;
   .button {
     font-size: 20px;
     margin-right: 10px;

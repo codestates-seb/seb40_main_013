@@ -296,6 +296,8 @@ const PurchaseAll = () => {
                     </ReactionReviewBtn>
                   </ReactionSpace>
                 </Content>
+                </ProductContainer>
+            ))}
                 <PaymentTitle>결제정보</PaymentTitle>
                 <Hr />
                 <PaymentContainer>
@@ -312,8 +314,6 @@ const PurchaseAll = () => {
                     <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
                   </PaySubContainer>
                 </PaymentContainer>
-              </ProductContainer>
-            ))}
           </Container>
         </>
       ) : (

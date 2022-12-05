@@ -16,10 +16,12 @@ Apis.interceptors.response.use(
   async (err) => {
     let tokenExpiredDataMessage = String(err.response.data.message);
     let refreshTokenExpiredDataMessage = String(err.response.data.message);
+    let accessDisrepair = String(err.response.data.message);
     const datas = tokenExpiredDataMessage.startsWith("JWT expired");
     const refreshDatas = refreshTokenExpiredDataMessage.startsWith(
       "Refresh Token Error"
     );
+    const accessDisrepairDatas = accessDisrepair.startsWith("JWT signature");
     if (datas) {
       let originalRequest = err.config;
       try {
@@ -49,7 +51,9 @@ Apis.interceptors.response.use(
       }
       return Promise.reject(err);
     }
-    if (err.response.data.message === "Unauthorized" || refreshDatas) {
+
+    if (err.response.data.message === "Unauthorized" || refreshDatas ||
+    accessDisrepairDatas) {
       Toast("warning", "로그인 해주세요!");
       localStorage.clear();
       setTimeout(() => {

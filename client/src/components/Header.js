@@ -190,7 +190,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
   };
 
   useEffect(()=>{
-    Apis.get(`carts`, {
+    if(localStorage.getItem("Authorization")){Apis.get(`carts`, {
       headers: {
         Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "application/json",
@@ -202,7 +202,7 @@ function Header({ setMainClick, setSubClick, setSearchWord }) {
       })
       .catch((err) => {
         console.log(err);
-      });
+      });}
   }, [])
 
 

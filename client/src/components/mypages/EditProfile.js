@@ -13,9 +13,15 @@ const EditContainter = styled.div`
   display: flex;
   width: 75vw;
   justify-content: center;
-  @media (min-width: 391px) and (max-width: 767px) {
+  @media screen and (max-width: 389px){
     flex-direction: column;
-    padding-left: 90px;
+    align-items: center;
+    width: 80vw;
+  }
+  @media (min-width: 390px) and (max-width: 767px) {
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
   }
   @media (min-width: 768px) and (max-width: 1023px) {
     flex-direction: column;
@@ -27,15 +33,16 @@ const Container = styled.div`
   margin: 20px 0 20px 30px;
   border-radius: 5px;
   padding: 20px 20px 20px 40px;
-  width: 60vw;
+  width: 45vw;
   border: 1px solid var(--color-center-line);
   @media screen and (max-width: 390px) {
-    width: 100%;
+    width: 80vw;
     padding: 15px;
     margin: 40px 0;
   }
+
   @media (min-width: 390px) and (max-width: 767px) {
-    width: 100%;
+    width: 80vw;
     padding: 15px;
     margin: 40px 0;
   }
@@ -56,6 +63,9 @@ const ErrorDisplay = styled.div`
 const Label = styled.label`
   margin: 10px 15px 0 0;
   color: var(--font-black);
+  @media screen and (max-width: 390px) {
+    font-size: 0.8rem;
+  }
 `;
 const Input = styled.input`
   margin-top: 10px;
@@ -159,9 +169,9 @@ const Edit = styled.button`
   &:hover {
     background-color: #123b77;
   }
-  @media screen and (max-width: 390px) {
+  /* @media screen and (max-width: 390px) {
     padding: 5px 20px;
-  }
+  } */
 `;
 
 //정보 수정하는 법
@@ -183,8 +193,15 @@ const HowtoEditMobile = styled.div`
   .explain {
     padding: 10px 0;
   }
-  @media (min-width: 391px) and (max-width: 767px) {
-    width: 100%;
+  @media screen and (max-width: 389px) {
+    width: 80vw;
+    display: flex;
+    li{
+      font-size: 0.8rem;
+    }
+  }
+  @media (min-width: 390px) and (max-width: 767px) {
+    width: 80vw;
     display: flex;
     li{
       font-size: 0.8rem;
@@ -218,7 +235,7 @@ const HowtoEdit = styled.div`
     padding: 10px 0;
     font-size: 1vw;
   }
-  @media (min-width: 391px) and (max-width: 767px) {
+  @media screen and (max-width: 767px) {
     display: none;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
@@ -474,7 +491,7 @@ const EditProfile = ({ getUserdata }) => {
         <Label htmlFor="nickname">닉네임</Label>
         <Input
           name="UpdateNickName"
-          value={updateNickName}
+          value={updateNickName || ''}
           onChange={handleUpdateNickName}
           required
         ></Input>
@@ -544,13 +561,13 @@ const EditProfile = ({ getUserdata }) => {
         <Label htmlFor="address">주소</Label>
         <Input
           name="address"
-          value={updateAddress}
+          value={updateAddress || ''}
           onChange={handleUpdateAddress}
         ></Input>
         <Label htmlFor="phone">휴대폰 번호 ( 예: 010-1234-5678 )</Label>
         <Input
           name="phone"
-          value={updatePhone}
+          value={updatePhone || ''}
           onChange={handleUpdatePhone}
         ></Input>
         {!updatePhoneConfirm ? (
