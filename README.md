@@ -85,51 +85,162 @@
 
 <div align="start">
 
-#### 1️⃣ 회원가입 페이지:
-* 사이트의 회원으로 가입할 수 있습니다.<br>
-<br>
+## 🖥️ 기능시연
 
-#### 2️⃣ 로그인 페이지:
-* 가입 시 작성한 e-mail과 비밀번호를 통해 로그인할 수 있습니다.<br>
-<br>
+#### 1️⃣ 메인페이지
 
-#### 4️⃣ 메인 페이지:
-* 인기 상품 목록을 조회할 수 있습니다.
-* 인기상품과 대분류별 신상품, 브랜드별 추천상품 목록을 조회할 수 있습니다.<br>
-<br>
+<details markdown="1">
+<summary><strong>웹</strong></summary>
 
-#### 5️⃣ 상품 카테고리 페이지:
-* 선택한 카테고리에 해당하는 상품들을 조회할 수 있습니다.
-* 대분류 및 소분류 별로 상품들을 무한 스크롤로 조회할 수 있습니다.
-* 최신순, 가격순, 판매순으로 상품을 정렬할 수 있습니다.<br>
-<br>
+- best of best (캐러셀 / 별점순 5개)
+<img src="">
 
-#### 6️⃣ 상품 상세조회 페이지:
-<br>
-<br>
+- 카테고리 신상품 (왼쪽사진을 누르면 해당 카테고리로 이동)
+<img src="">
+        
+- 브랜드별 추천상품 (탭을 누르면 해당 브랜드로 이동)
+<img src="">
+</details>
 
-#### 7️⃣ 장바구니 페이지:
-<br>
-<br>
+<details markdown="1">
+<summary><strong>반응형</strong></summary>
+<img src="">
+</details>
 
-#### 8️⃣ 상품 구매내역 페이지:
-<br>
-<br>
+#### 2️⃣ 회원가입 / 로그인
 
-#### 9️⃣ 주문 상세 페이지:
+<details markdown="1">
+<summary><strong>웹</strong></summary>
 
-</br>
+- 회원가입
+<img src="">
+        
+- 로그인
+<img src="">
+</details>
 
-#### 1️⃣0️⃣ 좋아요 상품 조회:
+<details markdown="1">
+<summary><strong>반응형</strong></summary>
+<img src="">
+</details>
 
-</br>
+#### 3️⃣ 소분류 페이지 ( 무한스크롤, 셀렉트박스)
+<details markdown="1">
+<summary><strong>웹</strong></summary>
 
-#### 1️⃣1️⃣ 상품 리뷰 등록:
+- 무한스크롤
+<img src="">
+        
+- 카테고리 이동
+<img src="">
+        
+- 셀렉트 박스
+<img src="">
+</details>
+        
+<details markdown="1">
+<summary><strong>반응형</strong></summary>
+    
+<img src="">
+</details>
 
-</br>
+#### 4️⃣ 상세페이지
 
-#### 1️⃣2️⃣ 회원 정보 수정:
-* 유저마다 프로필 이미지가 랜덤 생성됩니다. 
+<details markdown="1">
+<summary><strong>웹</strong></summary>
+
+- 좋아요
+<img src="">
+        
+- 리뷰이동
+<img src="">
+</details>
+        
+<details markdown="1">
+<summary><strong>반응형</strong></summary>
+<img src="">
+</details>
+
+#### 5️⃣ 검색 기능
+<details markdown="1">
+<summary><strong>웹</strong></summary>
+
+- 공백 검색 막기
+<img src="">
+        
+- 인기 검색어
+<img src="">
+        
+- 최근 검색어
+<img src="">
+</details>
+        
+<details markdown="1">
+<summary><strong>반응형</strong></summary>
+<img src="">
+</details>
+
+6️⃣ 장바구니 기능
+<details markdown="1">
+<summary><strong>웹</strong></summary>
+
+- 장바구니담기
+<img src="">
+        
+- 상품 갯수 조정
+<img src="">
+        
+- 구매 상품 선택
+<img src="">
+        
+- 상품 삭제
+<img src="">
+        
+- 상품 구매
+<img src="">
+</details>
+        
+<details markdown="1">
+<summary><strong>반응형</strong></summary>
+<img src="">
+
+</details>
+
+7️⃣ 마이페이지
+<details markdown="1">
+<summary><strong>웹</strong></summary>
+
+- 주문 취소 (한번더 확인후 취소)
+<img src="">
+        
+- 주문 상세 (주문당 해당 상품들)
+<img src="">
+        
+- 리뷰 등록
+<img src="">
+        
+- 리뷰 수정 / 삭제
+<img src="">
+        
+- 정보수정
+<img src="">
+        
+- 좋아요
+<img src="">
+</details>
+        
+<details markdown="1">
+<summary><strong>반응형</strong></summary>
+    
+<img src="">
+</details>
+
+9️⃣ 이미지 추가 ( 상품 추가)
+<details markdown="1">
+<summary><strong>웹 & 반응형</strong></summary> 
+<img src="">
+</details>
+
 
 </div>
 
