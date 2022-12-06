@@ -446,6 +446,15 @@ const Register = () => {
   //카테고리 선택하기
   function FirstCateChange(e) {
     setBigCategory(e.target.value);
+    if (e.target.value === "서재") {
+      setSubCategory("책장");
+      } else if (e.target.value === "침실") {
+      setSubCategory("침대/매트리스");
+      } else if (e.target.value === "거실") {
+      setSubCategory("소파");
+      } else if (e.target.value === "주방") {
+      setSubCategory("식탁/아일랜드");
+      }
   }
   console.log(subCategory);
   //폼 등록하기

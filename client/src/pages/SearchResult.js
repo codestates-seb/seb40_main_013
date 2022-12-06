@@ -93,7 +93,6 @@ function SearchResult ({searchWord}) {
             {searchResultSelector?.map((product) => (
               <Products proId={product.id} product={product} key={product.id} />
             ))}
-            <div ref={ref} />
         </ProductList>
     </SubBlock>
   );

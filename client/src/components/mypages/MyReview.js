@@ -19,7 +19,7 @@ import Swal from "sweetalert2";
 function MyReview() {
   const dispatch = useDispatch();
   const userWriteReviews = useSelector((state) => state.review.review.content);
-  console.log(userWriteReviews);
+  
   const [filteReview, setFilterReview] = useState("");
   const [curPage, setCurPage] = useState(0);
   const [totalpage, setTotalpage] = useState(0);

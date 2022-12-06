@@ -193,6 +193,7 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
     closeHandler();
     navigate("/search");
     setInputWord("");
+    setriger(Date.now());
   };
 
   const popularSelector = useSelector(

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled from "styled-components/macro";
 import { BsStarFill, BsStarHalf, BsHeart, BsHeartFill } from "react-icons/bs";
 import { FiChevronDown } from "react-icons/fi";
@@ -18,7 +18,7 @@ import ScrollToTop from "../../components/ScrollToTop";
 import Button from "../../components/Button";
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";
-import { Toast } from "../../components/Alert";
+import { Alert, Toast } from "../../components/Alert";
 import useIntersect from "../../components/useIntersect";
 
 function ArticleDetail() {
@@ -26,7 +26,6 @@ function ArticleDetail() {
   const [clickHeart, setClickHeart] = useState(false);
   const [clickCheck, setClickCheck] = useState(0);
   const [selectOptions, setSelectOptions] = useState("");
-  console.log(selectOptions);
   const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
   const [cartCount, setCartCount] = useState(1);
   const dispatch = useDispatch();
@@ -36,7 +35,8 @@ function ArticleDetail() {
   const reviewRef = useRef();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const isLike = useSelector((state) => state.article.articleLike);
-  console.log(isLike);
+  const optionStock = articlesDetail?.options?.filter((ele) => ele.stock == 0);
+  // console.log(optionStock);
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
   );
@@ -59,7 +59,6 @@ function ArticleDetail() {
       setCartCount(cartCount - 1);
     }
   };
-  console.log(articlesDetail);
   const onMoveToElement = (idx) => {
     if (idx === 0) {
       articleRef.current?.scrollIntoView({
@@ -70,9 +69,14 @@ function ArticleDetail() {
       reviewRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-  const selectOption = (id, color) => {
-    setSelectOptions(id);
-    setSelectOptionColor(color);
+  const selectOption = (id, color, stock) => {
+    if (stock !== 0) {
+      setSelectOptions(id);
+      setSelectOptionColor(color);
+    } else {
+      Alert("error", "판매물품이 모두 소진되었습니다!");
+      setClickCheck(Date.now());
+    }
   };
   ScrollToTop();
 
@@ -91,7 +95,6 @@ function ArticleDetail() {
     };
     dispatch(postCart({ postData, navigate }));
   };
-  console.log(clickCheck);
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
     setClickCheck(Date.now());
@@ -204,7 +207,10 @@ function ArticleDetail() {
                 </DetailArticleOptionContents>
               </DetailArticleOptionSpace>
               <DetailArticleOptionSpaceSelect clickSelect={clickSelect}>
-                <DetailArticleOptionSpaceSelectDiv onClick={clickFunction}>
+                <DetailArticleOptionSpaceSelectDiv
+                  onClick={clickFunction}
+                  optionStock={optionStock}
+                >
                   {selectOptionColor}
                   <div className="cur">
                     <FiChevronDown className="button" />
@@ -216,8 +222,13 @@ function ArticleDetail() {
                       <DetailArticleOptionSpaceSelectDivValueLi
                         key={option?.optionId}
                         value={option?.value}
+                        optionStock={option?.stock}
                         onClick={() => {
-                          selectOption(option.optionId, option.color),
+                          selectOption(
+                            option.optionId,
+                            option.color,
+                            option.stock
+                          ),
                             clickFunction();
                         }}
                       >
@@ -389,22 +400,6 @@ const DetailArticleName = styled.div`
   color: #272727;
   font-size: 1.8rem;
   font-weight: bold;
-  /* @media screen and (max-width: 1300px) {
-    width: 100%;
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-    line-height: 1.2;
-    height: 2.4em;
-    text-align: left;
-    word-wrap: break-word;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    font-size: 1.5rem;
-  } */
   @media screen and (max-width: 767px) {
     font-size: 1.3rem;
   }
@@ -600,7 +595,6 @@ const DetailArticleOptionSpaceSelectDiv = styled.div`
   color: var(--font-navy);
   margin-left: 10px;
   position: relative;
-  cursor: pointer;
   .button {
     font-size: 20px;
     margin-right: 10px;
@@ -622,6 +616,8 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
   padding: 15px 0px 15px 10px;
   display: block;
   border: none;
+  text-decoration: ${(props) =>
+    props.optionStock === 0 ? "line-through" : null};
   &:nth-child(1) {
     border: none;
     border-top: 1px solid var(--color-gray);
@@ -657,7 +653,6 @@ const DetailUserQuantitySpace = styled.div`
   display: flex;
   height: 30px;
   align-items: center;
-  display: ${(props) => (props.selectOptions ? "" : "none")};
 `;
 const DetailUserPriceSpace = styled.div`
   margin-right: 10px;

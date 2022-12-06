@@ -193,7 +193,7 @@ const NavDetail = styled.nav`
 const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
-console.log(getUserdata)
+
   //tab click
   const [clicked, setClicked] = useState("");
 

@@ -13,9 +13,14 @@ export const signUser = createAsyncThunk(
         return res.data;
       })
       .catch((err) => {
-        Toast("error", "회원가입에 실패했습니다!");
+        if (err.response.data.message === "Nickname already exist") {
+        Alert("error", "똑같은 닉네임이 존재합니다!");
+        } else if (err.response.data.message === "Email already exist") {
+        Alert("error", "똑같은 이메일이 존재합니다!");
+        }
+        // Toast("error", "회원가입에 실패했습니다!");
         console.log(err);
-      });
+        });
   }
 );
 
@@ -31,11 +36,10 @@ export const loginUser = createAsyncThunk(
         localStorage.setItem("Refresh", jwtrefreshToken);
         navigate("/");
         Toast("success", "로그인에 성공하셨습니다!");
-        console.log(res);
         return res.data;
       })
       .catch((err) => {
-        Toast("error", "로그인에 실패했습니다!");
+        Alert("error", "이메일이나 비밀번호를 확인해주세요!");
         console.log(err);
       });
   }
@@ -49,7 +53,6 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
     },
   })
     .then((res) => {
-      console.log(res);
       return res.data;
     })
     .catch((err) => {
@@ -67,7 +70,6 @@ export const updateUser = createAsyncThunk(
       },
     })
       .then((res) => {
-        console.log(res);
         navigate('/members/mypage/purchase');
         window.location.reload();
         return res.data;
@@ -82,7 +84,6 @@ export const guestUser = createAsyncThunk(
   async ({ navigate }) => {
     return Apis.post(`guest`)
       .then((res) => {
-        console.log(res);
         localStorage.clear();
         let jwtToken = res.headers.get("Authorization");
         let jwtrefreshToken = res.headers.get("Refresh");

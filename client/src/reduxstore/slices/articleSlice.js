@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
-import { Toast } from "../../components/Alert";
+import { Toast, Alert } from "../../components/Alert";
 import Swal from "sweetalert2";
 
 export const getArticleDetail = createAsyncThunk(
@@ -49,7 +49,9 @@ export const postCart = createAsyncThunk(
         return res.data;
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.data.fieldErrors[0].reason === "널이어서는 안됩니다") {
+          Alert("error", "옵션을 선택해주세요!");
+          }
       });
   }
 );
@@ -95,7 +97,6 @@ export const articleLike = createAsyncThunk("postLike", async (id) => {
     },
   })
     .then((res) => {
-      console.log(res);
       return res.data;
     })
     .catch((err) => {
@@ -280,7 +281,6 @@ export const postArticle = createAsyncThunk(
       },
     })
       .then((res) => {
-        console.log(res);
         return res.data;
       })
       .catch((err) => {

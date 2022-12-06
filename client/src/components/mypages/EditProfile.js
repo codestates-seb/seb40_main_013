@@ -196,7 +196,7 @@ const HowtoEditMobile = styled.div`
   @media screen and (max-width: 389px) {
     width: 80vw;
     display: flex;
-    li{
+    li {
       font-size: 0.8rem;
     }
   }
@@ -250,7 +250,7 @@ const Warning = styled.h2`
 `;
 
 const EditProfile = ({ getUserdata }) => {
-  console.log({ getUserdata });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const initialToken = localStorage.getItem("Authorization");
@@ -284,7 +284,6 @@ const EditProfile = ({ getUserdata }) => {
 
   //비밀번호 일치 확인
   const [curpwdConform, setCurpwdConform] = useState(false);
-  console.log(curpwdConform);
 
   //닉네임, 주소, 핸드폰번호 저장하기
   useEffect(() => {

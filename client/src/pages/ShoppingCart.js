@@ -231,7 +231,6 @@ function ShoppingCart() {
   const cartSeletorLength = cartSeletor?.length;
 
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
-  console.log(`checkList`, checkList);
 
   //상품등록
   const [click, setClick] = useState(0);

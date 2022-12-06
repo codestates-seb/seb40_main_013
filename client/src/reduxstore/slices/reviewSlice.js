@@ -114,7 +114,7 @@ const reviewSlice = createSlice({
         state.error = "";
       })
       .addCase(postReview.fulfilled, (state, action) => {
-        state.review = action.payload;
+        state.postReview = action.payload;
         state.loading = true;
         state.error = "";
       })
