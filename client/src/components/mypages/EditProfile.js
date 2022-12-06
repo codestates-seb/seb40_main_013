@@ -343,12 +343,10 @@ const EditProfile = ({ getUserdata }) => {
       }
     )
       .then((res) => {
-        console.log(res);
         setCurpwdConform(true);
         Alert("success", "비밀번호가 일치합니다!");
       })
       .catch((err) => {
-        console.log(err.response.data.message);
         if (err.response.data.message === "Password does not match") {
           Alert("error", "입력하신 비밀번호가 일치하지않습니다.");
         }
@@ -379,7 +377,6 @@ const EditProfile = ({ getUserdata }) => {
         phone: updatePhone,
       };
     }
-    // console.log(updatedata);
     if (curpwdConform === true) {
       dispatch(updatesUser(updatedata));
       Alert("question", "수정하시겠습니까?");

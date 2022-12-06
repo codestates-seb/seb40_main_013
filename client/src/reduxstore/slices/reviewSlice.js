@@ -54,7 +54,6 @@ export const postReview = createAsyncThunk(
 export const updateReview = createAsyncThunk(
   "review/update",
   async ({ filterProductId, updateData, navigate }) => {
-    console.log({ updateData });
     return Apis.patch(
       `products/${filterProductId}/reviews/${updateData.reviewId}`,
       updateData,
@@ -77,7 +76,6 @@ export const updateReview = createAsyncThunk(
 export const deleteReview = createAsyncThunk(
   "review/delete",
   async ({ deleteData }) => {
-    console.log(deleteData);
     return Apis.delete(
       `products/${deleteData.productId}/reviews/${deleteData.reviewId}`,
       {
@@ -114,7 +112,7 @@ const reviewSlice = createSlice({
         state.error = "";
       })
       .addCase(postReview.fulfilled, (state, action) => {
-        state.review = action.payload;
+        state.postReview = action.payload;
         state.loading = true;
         state.error = "";
       })

@@ -10,7 +10,6 @@ import noImg from "../../imgs/noImg.gif";
 import Swal from "sweetalert2";
 
 function PostReview({ clickModal, filterData, filteReview }) {
-  console.log(filterData, filteReview);
   const dispatch = useDispatch();
   const [userWriteImg, setUserWriteImg] = useState("");
   const [userWriteContent, setUserWriteContent] = useState(
@@ -22,7 +21,6 @@ function PostReview({ clickModal, filterData, filteReview }) {
   const clickNumber = [1, 2, 3, 4, 5];
   const [lengthScore, setLengthScore] = useState(0);
   const [fileImage, setFileImage] = useState("");
-  console.log(filterData);
   const changeImg = async (e) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
     e.preventDefault();
@@ -44,7 +42,6 @@ function PostReview({ clickModal, filterData, filteReview }) {
     e.preventDefault();
     setUserWriteContent(e.target.value);
   };
-  console.log(userWriteContent);
   const postDispatch = () => {
     let postData = "";
     if (userWriteImg === "") {
@@ -95,7 +92,6 @@ function PostReview({ clickModal, filterData, filteReview }) {
       updateDispatch
     );
   };
-  console.log(userWriteContent);
   const updateDispatch = () => {
     let filterProductId = filteReview[0]?.productId;
     let updateData = {
@@ -103,7 +99,6 @@ function PostReview({ clickModal, filterData, filteReview }) {
       content: userWriteContent,
       score: lengthScore,
     };
-    console.log(updateData);
     dispatch(updateReview({ filterProductId, updateData, navigate }));
   };
   const handleStarClick = (index) => {
@@ -120,8 +115,6 @@ function PostReview({ clickModal, filterData, filteReview }) {
   useEffect(() => {
     sendReview();
   }, [clicked]);
-
-  console.log(userWriteContent);
 
   return (
     <Wrapper>

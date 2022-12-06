@@ -2,34 +2,38 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
-import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
+import { getSub, getCount } from "../../reduxstore/slices/subCategorySlice";
 import RankingDown from "../../components/DropDown";
 import Apis from "../../apis/apis";
-import kitchenImg from '../../imgs/sub-kitchen.png';
+import kitchenImg from "../../imgs/sub-kitchen.png";
 
 function Kitchen({ mainClick, subclick }) {
-  
   //소분류에 따른 대분류카테고리 이름 지정
-  let mainCateClick = '주방';
+  let mainCateClick = "주방";
 
   const dispatch = useDispatch();
 
   const subSelector = useSelector((state) => state.subCatetory.subInitial);
-  const countSelector = useSelector((state) => state.subCatetory.coutnInitial.count);
+  const countSelector = useSelector(
+    (state) => state.subCatetory.coutnInitial.count
+  );
 
   // 셀렉트 박스
   const [dropDownclicked, setDropDownClicked] = useState("최신순");
   const [third, setThird] = useState("desc");
-  
+
   const [closeDropDown, setDloseDropDown] = useState(false);
 
   let sortArgument = "createdAt";
-  if(dropDownclicked ==='판매순'){
-    sortArgument = 'sale';
-  } else if(dropDownclicked === '높은가격순'|| dropDownclicked === '낮은가격순'){
-    sortArgument = 'price';
-  } else{
-    sortArgument = 'createdAt';
+  if (dropDownclicked === "판매순") {
+    sortArgument = "sale";
+  } else if (
+    dropDownclicked === "높은가격순" ||
+    dropDownclicked === "낮은가격순"
+  ) {
+    sortArgument = "price";
+  } else {
+    sortArgument = "createdAt";
   }
 
   const modalRef = useRef();
@@ -50,9 +54,9 @@ function Kitchen({ mainClick, subclick }) {
 
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
-  
+
   const [prevY, setPrevY] = useState(0);
-  let productsRef = useRef({})
+  let productsRef = useRef({});
 
   let loadingRef = useRef(null);
   let prevYRef = useRef({}); //useRef 로 관리하는 변수는 값이 바뀐다고 해서 컴포넌트가 리렌더링되지 않는다
@@ -60,7 +64,7 @@ function Kitchen({ mainClick, subclick }) {
   productsRef.current = products;
   pageRef.current = page;
 
-  prevYRef.current = prevY
+  prevYRef.current = prevY;
 
   // useEffect(() => {
   //   setProducts([])
@@ -68,7 +72,6 @@ function Kitchen({ mainClick, subclick }) {
   // }, [subclick]);
 
   useEffect(() => {
-
     getProducts();
     setPage(pageRef.current + 1);
 
@@ -81,36 +84,31 @@ function Kitchen({ mainClick, subclick }) {
     /// new IntersectionObserver === 브라우저 기본기능, 타겟이 화면에 보이는지 파악
     const observer = new IntersectionObserver(handleObserver, options); //감시중인 박스가 화면에 등장하면 handleObserver를 실행해 준다
     observer.observe(loadingRef.current);
-   
-  }, [subclick, sortArgument, third]); //subclick  
+  }, [subclick, sortArgument, third]); //subclick
 
-  console.log({mainCateClick, subclick,sortArgument, third});
-
-  const handleObserver = (entities, observer) => { //entities(파라미터)를 출력하면 감시중인 div 다 나옴, 배열에 담겨 나옴 [박스0, 박스1,...]
-    console.log("time");
+  const handleObserver = (entities, observer) => {
+    //entities(파라미터)를 출력하면 감시중인 div 다 나옴, 배열에 담겨 나옴 [박스0, 박스1,...]
 
     const y = entities[0].boundingClientRect.y; // getBoundingClientRect() 메서드는 엘리먼트의 크기와 뷰포트에 상대적인 위치 정보를 제공하는 DOMRect 객체를 반환 === 타겟의y값
-    const none = entities[0].isIntersecting
-     if (prevYRef.current > y) { //y
-        console.log(`real get list`);
-        getProducts();
-        setPage(pageRef.current + 1);
+    const none = entities[0].isIntersecting;
+    if (prevYRef.current > y) {
+      //y
+      getProducts();
+      setPage(pageRef.current + 1);
     } else if (none === true) {
-      console.log(stop);
     }
     setPrevY(y);
-    console.log(y, none);
   };
-    
+
   const getProducts = async () => {
     try {
-        let productsRes = await Apis.get(
-          `products?main=${mainCateClick}&sub=${subclick}&page=${pageRef.current}&sortType=${sortArgument}&order=${third}`
-        )
-        if (productsRes) {
-          setProducts([...productsRef.current, ...productsRes.data.content]);
-          // setA(productsRes.data.sliceInfo.hasNext); // 요청 막기...
-        }
+      let productsRes = await Apis.get(
+        `products?main=${mainCateClick}&sub=${subclick}&page=${pageRef.current}&sortType=${sortArgument}&order=${third}`
+      );
+      if (productsRes) {
+        setProducts([...productsRef.current, ...productsRes.data.content]);
+        // setA(productsRes.data.sliceInfo.hasNext); // 요청 막기...
+      }
     } catch (error) {
       console.log("ERROR GETTING PRODUCTS");
     }
@@ -119,16 +117,19 @@ function Kitchen({ mainClick, subclick }) {
   return (
     <SubBlock onClick={outModalCloseHandler}>
       <ImgBLock>
-        <SubTitleImg src={kitchenImg}/>
+        <SubTitleImg src={kitchenImg} />
         <SubTitle>Kitchen</SubTitle>
       </ImgBLock>
       <FilterBlock>
         <CountBlock>
-          { subclick != '' ? 
-              <SubMenuWord>{subclick}&nbsp;</SubMenuWord> : 
-              <SubMenuWord>{/* {mainCateClick} */}전체상품&nbsp;</SubMenuWord>
-          }
-          <div className="total">에&nbsp;{countSelector}&nbsp;개의&nbsp;상품이&nbsp;있습니다</div>
+          {subclick != "" ? (
+            <SubMenuWord>{subclick}&nbsp;</SubMenuWord>
+          ) : (
+            <SubMenuWord>{/* {mainCateClick} */}전체상품&nbsp;</SubMenuWord>
+          )}
+          <div className="total">
+            에&nbsp;{countSelector}&nbsp;개의&nbsp;상품이&nbsp;있습니다
+          </div>
         </CountBlock>
         <section ref={modalRef}>
           <RankingDown
@@ -207,19 +208,19 @@ const SubTitle = styled.div`
   text-underline-offset: 2px;
   animation: fadeInUp 1.4s;
   @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            transform: translate3d(0, 30%, 0);
-        }
-        to {
-            opacity: 1;
-            transform: translateZ(0);
-        }
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 30%, 0);
     }
+    to {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+  }
 `;
 
 const SubTitleImg = styled.img`
-    width: 100%;
+  width: 100%;
 `;
 
 const FilterBlock = styled.div`
@@ -236,7 +237,7 @@ const FilterBlock = styled.div`
   @media (max-width: 1023px) {
     padding: 0 1rem;
   }
-  section{
+  section {
     padding-top: 1.8vh;
     @media (max-width: 479px) {
       padding-top: 1.2vh;

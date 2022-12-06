@@ -228,14 +228,11 @@ const PurchaseAll = () => {
   const filterProduct = useSelector(
     (state) => state.myorder.filterorder.orderProducts
   );
-  console.log(filterProduct);
   const priceMap = filterProduct?.map((p) => p.price * p.count);
   const price = priceMap?.reduce((acc, cur) => acc + cur);
   const [filterItem, setFilterItem] = useState("");
-  console.log(priceMap, price);
 
   const clickModal = (id) => {
-    console.log(id);
     const filterItem = filterProduct.filter((el) => el.productId === id);
     setFilterItem(filterItem);
     setIsModal(!isModal);

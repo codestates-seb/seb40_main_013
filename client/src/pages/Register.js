@@ -9,6 +9,7 @@ import noImg from "../imgs/noImg.gif";
 import { priceCheck } from "../components/effectivenessCheck";
 import { withReactContent } from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import { Alert } from "../components/Alert";
 
 const Container = styled.div`
   /* width: 100vw; */
@@ -314,7 +315,6 @@ const Register = () => {
   const [contentsPrice, setContentsPrice] = useState("");
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
-  console.log(subCategory);
   //상품등록
   const [click, setClick] = useState(0);
   const clickFunction = () => {
@@ -374,7 +374,6 @@ const Register = () => {
   const changeContentName = (e) => {
     setContentsName(e.target.value.trim());
   };
-  console.log(contentsName);
   const handleChangeWhiteSpace = (e) => {
     e.target.value = e.target.value;
   };
@@ -387,14 +386,12 @@ const Register = () => {
     e.preventDefault();
     if (e.target.files) {
       const [file] = e.target.files;
-      console.log([file]);
 
       const options = {
         maxSizeMB: 0.2,
         useWebWorker: true,
       };
       console.log("압축시작");
-      console.log(file);
       const compressFile = await imageCompression(file, options);
       const thumbnailFile = new File([compressFile], "thumbnailImg.JPG");
       setThumbnailImg(thumbnailFile);
@@ -412,13 +409,10 @@ const Register = () => {
   //디테일 파일 저장
 
   const changeContentImg = async (e) => {
-    setDetailFileImage(URL.createObjectURL(e.target.files[0]));
     e.preventDefault();
-    console.log(e.target.files);
+    setDetailFileImage(URL.createObjectURL(e.target.files[0]));
     if (e.target.files) {
       const [file] = e.target.files;
-      console.log([file]);
-
       const options = {
         maxSizeMB: 0.2,
         useWebWorker: true,
@@ -426,7 +420,6 @@ const Register = () => {
       console.log("압축시작");
       const compressFile = await imageCompression(file, options);
       const contentFile = new File([compressFile], "contentImage.JPG");
-      console.log([contentsImg]);
 
       setContentsImg([contentFile]);
       if (contentsImg) {
@@ -445,10 +438,16 @@ const Register = () => {
   //카테고리 선택하기
   function FirstCateChange(e) {
     setBigCategory(e.target.value);
+    if (e.target.value === "서재") {
+      setSubCategory("책장");
+    } else if (e.target.value === "침실") {
+      setSubCategory("침대/매트리스");
+    } else if (e.target.value === "거실") {
+      setSubCategory("소파");
+    } else if (e.target.value === "주방") {
+      setSubCategory("식탁/아일랜드");
+    }
   }
-  console.log(subCategory);
-  //폼 등록하기
-
   const handleRegister = (e) => {
     e.preventDefault();
     Swal.fire({
@@ -463,7 +462,6 @@ const Register = () => {
       .then((result) => {
         if (result.isConfirmed) {
           registConfirm();
-          Swal.fire("등록되었습니다.", "상품이 등록되었습니다.", "success");
           clickFunction();
           // navigate('/');
         }
@@ -473,25 +471,35 @@ const Register = () => {
     // dispatch(postArticle({ postArticleData, navigate }));
   };
   const registConfirm = () => {
-    let postArticleData = {
-      sellerId: sellerId,
-      title: contentsName,
-      price: contentsPrice,
-      content: contentsImg,
-      img: thumbnailImg,
-      main: bigCategory,
-      sub: subCategory,
-      optionList: [
-        { color: "White", stock: 1000 },
-        { color: "Black", stock: 1000 },
-      ],
-    };
-    dispatch(postArticle({ postArticleData, navigate }));
+    if (
+      sellerId === "" ||
+      contentsName === "" ||
+      thumbnailImg === "" ||
+      contentsImg === "" ||
+      contentsPrice
+    ) {
+      Alert("error", "모든 입력값이 필수로 작성되야 합니다!");
+    } else {
+      let postArticleData = {
+        sellerId: sellerId,
+        title: contentsName,
+        price: contentsPrice,
+        content: contentsImg,
+        img: thumbnailImg,
+        main: bigCategory,
+        sub: subCategory,
+        optionList: [
+          { color: "White", stock: 1000 },
+          { color: "Black", stock: 1000 },
+        ],
+      };
+      Alert("success", "상품 추가에 성공하셨습니다!");
+      dispatch(postArticle({ postArticleData, navigate }));
+    }
   };
 
   //유효성 체크
   const [priceConfirm, setPriceConfirm] = useState(false);
-  console.log(Number(contentsPrice) % 100);
   useEffect(() => {
     if (!priceCheck(contentsPrice)) {
       setPriceConfirm(false);
@@ -603,7 +611,9 @@ const Register = () => {
               onChange={(e) => changeSubCategory(e)}
             >
               {selectSubCategory.map((option) => (
-                <Option key={option.category}>{option.category}</Option>
+                <Option key={option.category} value={option.category}>
+                  {option.category}
+                </Option>
               ))}
             </Select>
             <IcoArrow className="icoArrow">
