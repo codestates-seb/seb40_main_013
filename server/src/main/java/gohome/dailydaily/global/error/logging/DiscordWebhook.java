@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -20,7 +22,6 @@ import java.util.*;
  * Come from: https://gist.github.com/k3kdude/fba6f6b37594eae3d6f9475330733bdb
  */
 @Setter
-@Component
 public class DiscordWebhook {
 
     private String url;
@@ -29,6 +30,10 @@ public class DiscordWebhook {
     private String avatarUrl;
     private boolean tts;
     private final List<EmbedObject> embeds = new ArrayList<>();
+
+    public DiscordWebhook(String url) {
+        this.url = url;
+    }
 
     public void addEmbed(EmbedObject embed) {
         this.embeds.add(embed);
@@ -160,7 +165,7 @@ public class DiscordWebhook {
 
         public EmbedObject addField(String name, String value, boolean inline) {
             if (value.equals("")) {
-                this.fields.add(new Field(name, null, inline));
+                this.fields.add(new Field(name, "null", inline));
             } else {
                 this.fields.add(new Field(name, value, inline));
             }
