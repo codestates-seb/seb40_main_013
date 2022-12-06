@@ -51,12 +51,6 @@ const CartItemBlock = styled.div`
   .part {
     align-items: center;
   }
-  //input 화살표 지우는 방법
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
   @media screen and (max-width: 584px) {
     flex-direction: column;
     align-items: baseline;

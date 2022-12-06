@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import Products from "../components/mains/Product";
 import RankingDown from "../components/DropDown";
-
+import Apis from "../apis/apis";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getSearchResult,
@@ -10,11 +10,8 @@ import {
 } from "../reduxstore/slices/articleSlice";
 import LoadingIcon from "../components/LoadingIcon";
 
-function SearchResult({ searchWord }) {
+function SearchResult({ searchWord, page, setPage, products, setProducts  }) {
   const dispatch = useDispatch();
-  const searchResultSelector = useSelector(
-    (state) => state.article.searchResultInitial
-  );
   const countSearchResultSelector = useSelector(
     (state) => state.article.countSearchResultInitial
   );
@@ -46,31 +43,48 @@ function SearchResult({ searchWord }) {
       setDloseDropDown(false);
   };
 
-  const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [storageWord, setStorageWord] = useState("");
+  // const [storageWord, setStorageWord] = useState("");
+
+  // useEffect(() => {
+  //   const loadRecentKeyword = localStorage.getItem("keywords")
+  //     ? JSON.parse(localStorage.getItem("keywords"))
+  //     : [];
+  //   if (loadRecentKeyword) setStorageWord(loadRecentKeyword[0].text);
+  //   setLoading(false);
+  // }, [searchWord]);
 
   useEffect(() => {
-    const loadRecentKeyword = localStorage.getItem("keywords")
-      ? JSON.parse(localStorage.getItem("keywords"))
-      : [];
-    if (loadRecentKeyword) setStorageWord(loadRecentKeyword[0].text);
-    setLoading(false);
-  }, [searchWord]);
-
-  useEffect(() => {
-    dispatch(countSearchResult(storageWord));
+    dispatch(countSearchResult(searchWord));
   }, []);
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-    if (storageWord != "") {
-      dispatch(getSearchResult({ storageWord, page, sortArgument, third }));
+  useEffect(()=>{
+    if(searchWord != ''){
+      getProducts();
     }
-  }, [storageWord, sortArgument, third]);
+  }, [page, searchWord, sortArgument, third]);
+
+  const getProducts = () => {
+    setTimeout(async () => {
+      let productsRes = await Apis.get(
+        `/products/search?title=${searchWord}&page=${page}&sortType=${sortArgument}&order=${third}`
+      )
+      setProducts(prev => [...prev, ...productsRes.data.content]);
+      setLoading(false);
+    },1000)
+  };
+
+  const handleScroll = () => {
+    if(window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight){
+      setPage(prev => prev + 1)
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, []) 
+
 
   if (loading) return <LoadingIcon />;
 
@@ -78,7 +92,7 @@ function SearchResult({ searchWord }) {
     <SubBlock onClick={outModalCloseHandler}>
       <FilterBlock>
         <div className="total">
-          <div>{storageWord}</div>
+          <div>{searchWord}</div>
           <CountBlock>
             (으)로 {countSearchResultSelector} 개의 상품이 검색되었습니다.
           </CountBlock>
@@ -95,7 +109,7 @@ function SearchResult({ searchWord }) {
         </section>
       </FilterBlock>
       <ProductList>
-        {searchResultSelector?.map((product) => (
+        {products?.map((product) => (
           <Products proId={product.id} product={product} key={product.id} />
         ))}
       </ProductList>

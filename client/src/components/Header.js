@@ -30,11 +30,11 @@ const Logo = styled.div`
   div {
     font-size: 43px;
     color: var(--color-navy);
-    @media (min-width: 381px) and (max-width: 767px) {
-      font-size: 35px;
-    }
     @media screen and (max-width: 380px) {
       font-size: 28px;
+    }
+    @media (min-width: 381px) and (max-width: 767px) {
+      font-size: 35px;
     }
     @media screen and (min-width: 1024px) {
       font-size: 48px;
@@ -94,14 +94,12 @@ const CategoryList = styled.div`
   div {
     height: 100%;
   }
-  @media screen and (max-width: 380px) {
-    padding-left: 10px;
-  }
-  @media (min-width: 381px) and (max-width: 767px) {
-    font-size: 15px;
-  }
-  @media screen and (max-width: 380px) {
+  @media screen and (max-width: 479px) { //479
+    padding-left: 2px;
     font-size: 14px;
+  }
+  @media (min-width: 480px) and (max-width: 767px) {
+    font-size: 15px;
   }
 `;
 
@@ -109,10 +107,10 @@ const Nav = styled.nav`
   z-index: 400;
   position: absolute;
   top: 19px;
-  left: -68px;
+  left: -45px;
   background-color: white;
   border: 1px solid #aaaaaa;
-  width: 6.9em;
+  width: 7.2em;
   font-size: 15px;
   justify-content: space-between;
   border-bottom: 1px solid #bebcaf;
@@ -127,20 +125,21 @@ const Nav = styled.nav`
   &:hover {
     display: block;
   }
-  @media screen and (max-width: 380px) {
+  @media screen and (max-width: 479px) {
     width: 6.8em;
     font-size: 13px;
-    left: -63px;
+    left: -50px;
   }
-  @media (min-width: 381px) and (max-width: 767px) {
+  @media (min-width: 480px) and (max-width: 1023px) {
     font-size: 14px;
-    left: -66px;
+    left: -45.5px;
   }
 `;
 
 const Category = styled.div`
   position: relative;
-  padding-right: 30px;
+  width: 5rem;
+  justify-content: center;
   .space {
     display: flex;
     align-items: center;
@@ -151,18 +150,15 @@ const Category = styled.div`
       display: block;
     }
   }
-  @media screen and (max-width: 380px) {
-    padding-right: 20px;
+  @media screen and (max-width: 479px) {
+    width: 3.1rem;
+  }
+  @media (min-width: 480px) and (max-width: 1023px) {
+    width: 4.5rem;
   }
 `;
 
-function Header({
-  setMainClick,
-  setSubClick,
-  setSearchWord,
-  setPage,
-  setProducts,
-}) {
+function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts}) {
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
@@ -190,7 +186,7 @@ function Header({
     if (closeSearch && !modalRef.current.contains(e.target))
       setCloseSearch(false);
   };
-
+  
   const clickLogOut = (e) => {
     e.preventDefault();
     localStorage.clear();
@@ -338,3 +334,4 @@ function Header({
 }
 
 export default Header;
+
