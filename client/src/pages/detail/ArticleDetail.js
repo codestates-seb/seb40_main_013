@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled from "styled-components/macro";
 import { BsStarFill, BsStarHalf, BsHeart, BsHeartFill } from "react-icons/bs";
 import { FiChevronDown } from "react-icons/fi";
@@ -224,6 +224,7 @@ function ArticleDetail() {
                       <DetailArticleOptionSpaceSelectDivValueLi
                         key={option?.optionId}
                         value={option?.value}
+                        optionStock={option?.stock}
                         onClick={() => {
                           selectOption(
                             option.optionId,
@@ -607,7 +608,6 @@ const DetailArticleOptionSpaceSelectDiv = styled.div`
   color: var(--font-navy);
   margin-left: 10px;
   position: relative;
-  cursor: pointer;
   .button {
     font-size: 20px;
     margin-right: 10px;

@@ -116,9 +116,7 @@ function PostReview({ clickModal, filterData, filteReview }) {
   useEffect(() => {
     sendReview();
   }, [clicked]);
-
-  console.log(userWriteContent);
-
+  
   return (
     <Wrapper>
       <Container
@@ -300,6 +298,9 @@ const PostReviewTopContent = styled.div`
 
   }
   &.title {
+    font-size: 0.95rem;
+  }
+  &.title{
     font-size: 0.95rem;
   }
 `;

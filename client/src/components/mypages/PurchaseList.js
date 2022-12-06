@@ -169,6 +169,11 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
 `;
+const AllPrice = styled.div`
+  display: flex;
+  padding-right: 10px;
+  justify-content: flex-end;
+`;
 
 const Detail = styled.div`
   display: flex;
@@ -182,7 +187,7 @@ const Detail = styled.div`
 `;
 const ReactionSubDetail = styled.div`
   display: flex;
-  cursor: pointer;
+  /* cursor: pointer; */
   /* @media screen and (max-width: 479px) {
     flex-direction: column;
   } */
@@ -233,13 +238,13 @@ const BrandName = styled.div`
   }
 `;
 const Option = styled.h2`
-  margin: 5px 0;
+  margin: 10px 0;
   @media screen and (max-width: 390px) {
     font-size: 0.7rem;
   }
 `;
 const Price = styled.h2`
-  margin: 10px 0;
+  /* margin: 10px 0; */
   @media screen and (max-width: 390px) {
     margin: 5px 5px 5px 0;
     font-size: 12px;
@@ -315,10 +320,12 @@ const PurchaseList = () => {
   //페이지네이션
   const [curPage, setCurPage] = useState(0); //현재페이지
   const [totalpage, setTotalpage] = useState(0);
-  const [clicked, setClicked] = useState("");
+  const [clicked, setClicked] = useState('');
+
   const clickFunction = () => {
     setClicked(Date.now());
   };
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -369,7 +376,6 @@ const PurchaseList = () => {
         Authorization: initialToken,
       },
     }).then(() => {
-      // console.log('orderCanle!!!')
     });
   };
 
@@ -383,9 +389,7 @@ const PurchaseList = () => {
         </NotContainer>
       ) : (
         <Container>
-          <Page>
-            현재 페이지: {curPage} / {pageInfo?.totalPages}
-          </Page>
+          <Page>현재 페이지: {curPage === 0 ? 1 : curPage} / {pageInfo?.totalPages}</Page>
           <Hr />
           {myOrderData?.map((order, i) => (
             <div key={i}>
@@ -422,8 +426,8 @@ const PurchaseList = () => {
                         </BrandName>
                         <Option>색상: {order.orderProducts[0]?.color}</Option>
                         <Price>
+                          ₩&nbsp;
                           <span>
-                            ₩&nbsp;
                             {order.orderProducts[0]?.price.toLocaleString(
                               "en-US"
                             )}

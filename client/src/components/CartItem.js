@@ -181,7 +181,6 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
   const { brandName, count, img, price, productCartId, productId, title, color } = cartItem;
 
   const [itemCount, setItemCount] = useState(count);
-  console.log(itemCount);
 
   const removeCartItem = () => {
     dispatch(deleteShoppingCart(productCartId));
@@ -209,10 +208,10 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
 
   const onChangeCount = (e) => {
     let c = e.target.value;
-    if( c === '' || parseInt(c) === 0){
+    if( c === '' || parseInt(c) < 1){
       Alert("warning", "최소 1개 이상 주문 가능합니다.");
       setItemCount(1)
-    } else if (parseInt(c)>100) {
+    } else if (parseInt(c) > 100) {
       Alert("warning", "100개 까지 주문 가능합니다.");
       setItemCount(100)
     } 

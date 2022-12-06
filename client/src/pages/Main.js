@@ -1,5 +1,4 @@
 import React, { useRef, useLayoutEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { mainData } from "../reduxstore/slices/articleSlice";
 import { newData } from "../reduxstore/slices/mainSlice";
@@ -8,6 +7,7 @@ import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
 import Products from "../components/mains/Product";
 import NewProducts from "../components/mains/NewProducts";
+import useScrollFadeIn from "../components/Fadein";
 
 const Container = styled.div`
   width: 100vw;
@@ -48,6 +48,9 @@ const MainTitle = styled.h2`
     margin-top: 5px;
   }
 `;
+const New = styled.div`
+`;
+
 const ProductList = styled.div`
   /* width: 70%; */
   margin: 10px 0;
@@ -147,6 +150,9 @@ const BrandTitle = styled.h2`
 
 const BrandProduct = styled.div``;
 
+//스크롤 이벤트
+const Form  = styled.div``;
+
 const Main = () => {
   const dispatch = useDispatch();
 
@@ -173,6 +179,15 @@ const Main = () => {
     dispatch(newData());
   }, []);
 
+  //scroll 이벤트
+  const animateScroll = {
+    0: useScrollFadeIn('down', 0.7, 0),
+    1: useScrollFadeIn('down', 0.8, 0),
+    2: useScrollFadeIn('down', 0.8, 0),
+    3: useScrollFadeIn('down', 0.8, 0),
+    4: useScrollFadeIn('down', 0.8, 0),
+  }
+
   return (
     <Container id="app">
       {/* 캐러셀 */}
@@ -188,20 +203,22 @@ const Main = () => {
           ))}
       </ProductList>
       {/* 카테고리별 신상품 */}
-      <Title>
-        <SubTitle>New Arrival</SubTitle>
-        <MainTitle>카테고리별 신상품</MainTitle>
-      </Title>
-      <NewProducts
-        key={newArivalData.침실?.length}
-        newArivalList={newArivalData}
-      />
+      <New id="newArrival" {...animateScroll[0]}>
+        <Title>
+          <SubTitle>New Arrival</SubTitle>
+          <MainTitle>카테고리별 신상품</MainTitle>
+        </Title>
+        <NewProducts
+          key={newArivalData.침실?.length}
+          newArivalList={newArivalData}
+        />
+      </New>
       {/* 브랜드별 추천상품 */}
-      <BrandTabTitle>
+      <BrandTabTitle {...animateScroll[1]}>
         <SubTitle>Best Selling</SubTitle>
         <MainTitle>브랜드별 추천상품</MainTitle>
       </BrandTabTitle>
-      <BrandTab>
+      <BrandTab {...animateScroll[2]}>
         <div className="tbody">
           <div className="reactionbody">
             <TH>

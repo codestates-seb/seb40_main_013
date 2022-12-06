@@ -19,7 +19,7 @@ export const signUser = createAsyncThunk(
           Alert("error", "똑같은 이메일이 존재합니다!");
         }
         console.log(err);
-      });
+        });
   }
 );
 
@@ -38,7 +38,7 @@ export const loginUser = createAsyncThunk(
         return res.data;
       })
       .catch((err) => {
-        Alert("error", "이메일과 비밀번호를 확인해주세요!");
+        Alert("error", "이메일이나 비밀번호를 확인해주세요!");
         console.log(err);
       });
   }
@@ -68,6 +68,8 @@ export const updateUser = createAsyncThunk(
       },
     })
       .then((res) => {
+        navigate('/members/mypage/purchase');
+        window.location.reload();
         return res.data;
       })
       .catch((err) => {
