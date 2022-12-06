@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
         -webkit-user-select:none;
         -moz-user-select:none;
         -ms-user-select:none;
-        user-select:none
+        user-select:none;
     }
     a{
          text-decoration: none;
@@ -28,6 +28,22 @@ const GlobalStyles = createGlobalStyle`
     input[type="number"]::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
+    }
+    /* 스크롤바 가로 사이즈 */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 0;
+    }
+
+    /* 스크롤바 막대기 */
+    ::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        background-color: #002c6d;
+    }
+
+    /* 스크롤바 백그라운드 */
+    ::-webkit-scrollbar-track {
+        background-color: #fff;
     }
     :root{
       // font-color

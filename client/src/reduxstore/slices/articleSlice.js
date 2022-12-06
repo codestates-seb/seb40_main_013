@@ -49,7 +49,9 @@ export const postCart = createAsyncThunk(
         return res.data;
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.data.fieldErrors[0].reason === "널이어서는 안됩니다") {
+          Alert("error", "옵션을 선택해주세요!");
+          }
       });
   }
 );

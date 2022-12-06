@@ -117,8 +117,6 @@ function PostReview({ clickModal, filterData, filteReview }) {
     sendReview();
   }, [clicked]);
 
-  console.log(userWriteContent);
-
   return (
     <Wrapper>
       <Container
@@ -297,7 +295,9 @@ const PostReviewTopContent = styled.div`
     color: #aaaaaa;
     height: 30%;
     margin-top: 10px;
-
+  }
+  &.title {
+    font-size: 0.95rem;
   }
   &.title {
     font-size: 0.95rem;
