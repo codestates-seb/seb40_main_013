@@ -36,6 +36,7 @@ public class ServerErrorLogging {
                 .addField("IP", getIp(request), false)
                 .addField("예외 타입", String.valueOf(e.getClass()), false)
                 .addField("에러 메시지", e.getMessage(), false)
+                .addField("사용자 정보", request.getHeader("User-Agent"), false)
                 .addField("발생 시간", String.valueOf(LocalDateTime.now()), false));
 
         webhook.execute();
