@@ -477,9 +477,11 @@ const Register = () => {
       contentsName === "" ||
       thumbnailImg === "" ||
       contentsImg === "" ||
-      contentsPrice
+      contentsPrice === ""
     ) {
       Alert("error", "모든 입력값이 필수로 작성되야 합니다!");
+    } else if (contentsPrice < 5000) {
+      Alert("error", "상품의 최소가격은 5000원이어야 합니다 ");
     } else {
       let postArticleData = {
         sellerId: sellerId,
@@ -565,15 +567,16 @@ const Register = () => {
           <Pricecontent>
             <Input
               placeholder="숫자만 입력해주세요"
-              name="price"
+              name="pric e"
               type="number"
               className="price"
+              min={5000}
               max={10000000}
               onChange={changeContentPrice}
             />
-            {priceConfirm ? (
+            {contentsPrice < 5000 ? (
               <div className="err">
-                숫자만 입력해주세요.(100원 단위 이상만 입력 가능)
+                5000원 이상부터 입력가능하며 100원단위로 입력가능합니다
               </div>
             ) : (
               ""

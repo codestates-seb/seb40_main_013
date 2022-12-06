@@ -58,7 +58,7 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
       console.log(err);
     });
 });
-export const updatesUser = createAsyncThunk(
+export const updateUser = createAsyncThunk(
   "user/updatesUser",
   async (updateData) => {
     return Apis.patch(`members/mypage`, updateData, {
