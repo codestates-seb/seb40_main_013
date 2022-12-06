@@ -36,6 +36,7 @@ function ArticleDetail() {
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const isLike = useSelector((state) => state.article.articleLike);
   const optionStock = articlesDetail?.options?.filter((ele) => ele.stock == 0);
+
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
   );
@@ -156,6 +157,14 @@ function ArticleDetail() {
         });
     }
   };
+  const filterStock = (option) => {
+    let optionFilter = option.filter((el) => el.stock === 0).length;
+    if (optionFilter === 0) {
+      return option.color;
+    } else {
+      ("재고없음");
+    }
+  };
 
   return (
     <Wrapper>
@@ -244,6 +253,7 @@ function ArticleDetail() {
                             <> {option?.color}</>
                           )}
                         </>
+                        {filterStock(option)}
                       </DetailArticleOptionSpaceSelectDivValueLi>
                     ))}
                   </DetailArticleOptionSpaceSelectDivValueUl>
@@ -628,7 +638,6 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
   padding: 15px 0px 15px 10px;
   display: block;
   border: none;
-
   &:nth-child(1) {
     border: none;
     border-top: 1px solid var(--color-gray);

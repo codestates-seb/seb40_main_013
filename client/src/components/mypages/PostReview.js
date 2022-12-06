@@ -92,6 +92,7 @@ function PostReview({ clickModal, filterData, filteReview }) {
       updateDispatch
     );
   };
+
   const updateDispatch = () => {
     let filterProductId = filteReview[0]?.productId;
     let updateData = {
@@ -115,6 +116,8 @@ function PostReview({ clickModal, filterData, filteReview }) {
   useEffect(() => {
     sendReview();
   }, [clicked]);
+
+  console.log(userWriteContent);
 
   return (
     <Wrapper>
@@ -294,6 +297,7 @@ const PostReviewTopContent = styled.div`
     color: #aaaaaa;
     height: 30%;
     margin-top: 10px;
+
   }
   &.title {
     font-size: 0.95rem;

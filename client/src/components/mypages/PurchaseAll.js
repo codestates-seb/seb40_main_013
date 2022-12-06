@@ -229,6 +229,7 @@ const PurchaseAll = () => {
   const filterProduct = useSelector(
     (state) => state.myorder.filterorder.orderProducts
   );
+
   const priceMap = filterProduct?.map((p) => p.price * p.count);
   const price = priceMap?.reduce((acc, cur) => acc + cur);
   const [filterItem, setFilterItem] = useState("");
@@ -299,7 +300,8 @@ const PurchaseAll = () => {
                     </ReactionReviewBtn>
                   </ReactionSpace>
                 </Content>
-              </ProductContainer>
+
+                </ProductContainer>
             ))}
             <PaymentTitle>결제정보</PaymentTitle>
             <Hr />
