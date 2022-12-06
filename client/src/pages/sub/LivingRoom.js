@@ -42,7 +42,7 @@ function LivingRoom({ mainClick, subclick, page, setPage, products, setProducts 
 
   useEffect(()=>{
     dispatch(getSubCount({mainCateClick, subclick}))
-  }, [mainCateClick, subclick, sortArgument, third]);
+  }, [mainCateClick, subclick]);
 
   useEffect(()=>{
     getProducts();

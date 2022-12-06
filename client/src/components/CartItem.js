@@ -175,7 +175,6 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
   const { brandName, count, img, price, productCartId, productId, title, color } = cartItem;
 
   const [itemCount, setItemCount] = useState(count);
-  console.log(itemCount);
 
   const removeCartItem = () => {
     dispatch(deleteShoppingCart(productCartId));

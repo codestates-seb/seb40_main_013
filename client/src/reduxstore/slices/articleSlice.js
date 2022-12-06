@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
-import { Toast } from "../../components/Alert";
+import { Alert, Toast } from "../../components/Alert";
 import Swal from "sweetalert2";
 
 export const getArticleDetail = createAsyncThunk(
@@ -45,12 +45,13 @@ export const postCart = createAsyncThunk(
           } else {
             window.location.reload();
           }
-
         });
         return res.data;
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.data.fieldErrors[0].reason === "널이어서는 안됩니다") {
+          Alert("error", "옵션을 선택해주세요!");
+          }
       });
   }
 );
@@ -96,7 +97,6 @@ export const articleLike = createAsyncThunk("postLike", async (id) => {
     },
   })
     .then((res) => {
-      console.log(res);
       return res.data;
     })
     .catch((err) => {
@@ -143,7 +143,6 @@ export const deleteShoppingCart = createAsyncThunk(
       },
     })
       .then((res) => {
-        console.log(`shopslice`, res.data);
         window.location.reload();
         return res.data;
       })
@@ -156,7 +155,6 @@ export const deleteShoppingCart = createAsyncThunk(
 export const postPayment = createAsyncThunk(
   "getShoppingCart",
   async ({ checkList, navigate }) => {
-    console.log(checkList);
     return Apis.post(
       `orders`,
       {
@@ -170,7 +168,6 @@ export const postPayment = createAsyncThunk(
       }
     )
       .then((res) => {
-        console.log(`shopslice`, res.data);
         navigate("/members/mypage/purchase");
         return res.data;
       })
@@ -212,7 +209,6 @@ export const getSearchResult = createAsyncThunk(
       `/products/search?title=${storageWord}&page=${page}&sortType=${sortArgument}&order=${third}`
     )
       .then((res) => {
-        console.log(`shopslice`, res.data);
         return res.data;
       })
       .catch((err) => {
@@ -235,16 +231,16 @@ export const countSearchResult = createAsyncThunk(
 );
 
 export const getSubCount = createAsyncThunk(
-  "getCount", 
-  async ({mainCateClick, subclick}) => {
-  return Apis.get(`products/count?main=${mainCateClick}&sub=${subclick}`)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+  "getCount",
+  async ({ mainCateClick, subclick }) => {
+    return Apis.get(`products/count?main=${mainCateClick}&sub=${subclick}`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
 export const popularSearch = createAsyncThunk("popularSearch", async () => {
   return Apis.get(`search/rank`)
@@ -259,13 +255,13 @@ export const popularSearch = createAsyncThunk("popularSearch", async () => {
 export const postArticle = createAsyncThunk(
   "postArticle",
   async ({ postArticleData, navigate }) => {
-    console.log("받아오나?????", postArticleData);
     const form = new FormData();
     form.append("sellerId", postArticleData.sellerId);
     form.append("title", postArticleData.title);
     form.append("price", postArticleData.price);
     form.append("content", postArticleData.content[0]);
-    // form.append("content", postArticleData.content[1]);
+    form.append("content", postArticleData.content[1]);
+    form.append("content", postArticleData.content[2]);
     form.append("img", postArticleData.img);
     form.append("main", postArticleData.main);
     form.append("sub", postArticleData.sub);
@@ -280,7 +276,6 @@ export const postArticle = createAsyncThunk(
       },
     })
       .then((res) => {
-        console.log(res);
         return res.data;
       })
       .catch((err) => {

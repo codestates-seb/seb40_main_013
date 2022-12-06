@@ -121,7 +121,6 @@ function App() {
                   element={
                     <SearchResult 
                       searchWord={searchWord} 
-                      setSearchWord={setSearchWord}
                       page={page}
                       setPage={setPage}
                       products={products}

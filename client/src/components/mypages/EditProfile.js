@@ -13,8 +13,15 @@ const EditContainter = styled.div`
   display: flex;
   width: 75vw;
   justify-content: center;
-  @media (min-width: 391px) and (max-width: 767px) {
+  @media screen and (max-width: 389px) {
     flex-direction: column;
+    align-items: center;
+    width: 80vw;
+  }
+  @media (min-width: 390px) and (max-width: 767px) {
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
   }
   @media (min-width: 768px) and (max-width: 1023px) {
     flex-direction: column;
@@ -26,15 +33,16 @@ const Container = styled.div`
   margin: 20px 0 20px 30px;
   border-radius: 5px;
   padding: 20px 20px 20px 40px;
-  width: 60vw;
+  width: 45vw;
   border: 1px solid var(--color-center-line);
   @media screen and (max-width: 390px) {
-    width: 100%;
+    width: 80vw;
     padding: 15px;
     margin: 40px 0;
   }
+
   @media (min-width: 390px) and (max-width: 767px) {
-    width: 100%;
+    width: 80vw;
     padding: 15px;
     margin: 40px 0;
   }
@@ -55,6 +63,9 @@ const ErrorDisplay = styled.div`
 const Label = styled.label`
   margin: 10px 15px 0 0;
   color: var(--font-black);
+  @media screen and (max-width: 390px) {
+    font-size: 0.8rem;
+  }
 `;
 const Input = styled.input`
   margin-top: 10px;
@@ -135,14 +146,14 @@ const Buttons = styled.div`
 `;
 
 const Delete = styled.button`
-  color: #FF4040;
+  color: #ff4040;
   border: 1px solid #efefef;
   border-radius: 5px;
   padding: 7px 30px;
   margin-right: 10px;
   cursor: pointer;
   &:hover {
-    border: 1px solid #FF4040;
+    border: 1px solid #ff4040;
   }
   @media screen and (max-width: 390px) {
     padding: 5px 20px;
@@ -158,9 +169,9 @@ const Edit = styled.button`
   &:hover {
     background-color: #123b77;
   }
-  @media screen and (max-width: 390px) {
+  /* @media screen and (max-width: 390px) {
     padding: 5px 20px;
-  }
+  } */
 `;
 
 //정보 수정하는 법
@@ -182,10 +193,17 @@ const HowtoEditMobile = styled.div`
   .explain {
     padding: 10px 0;
   }
-  @media (min-width: 391px) and (max-width: 767px) {
-    width: 100%;
+  @media screen and (max-width: 389px) {
+    width: 80vw;
     display: flex;
-    li{
+    li {
+      font-size: 0.8rem;
+    }
+  }
+  @media (min-width: 390px) and (max-width: 767px) {
+    width: 80vw;
+    display: flex;
+    li {
       font-size: 0.8rem;
     }
   }
@@ -193,7 +211,7 @@ const HowtoEditMobile = styled.div`
     width: 90%;
     display: flex;
     margin: 0 30px;
-    li{
+    li {
       font-size: 0.9rem;
     }
   }
@@ -217,7 +235,7 @@ const HowtoEdit = styled.div`
     padding: 10px 0;
     font-size: 1vw;
   }
-  @media (min-width: 391px) and (max-width: 767px) {
+  @media screen and (max-width: 767px) {
     display: none;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
@@ -232,7 +250,6 @@ const Warning = styled.h2`
 `;
 
 const EditProfile = ({ getUserdata }) => {
-  console.log({ getUserdata });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const initialToken = localStorage.getItem("Authorization");
@@ -343,12 +360,10 @@ const EditProfile = ({ getUserdata }) => {
       }
     )
       .then((res) => {
-        console.log(res);
         setCurpwdConform(true);
         Alert("success", "비밀번호가 일치합니다!");
       })
       .catch((err) => {
-        console.log(err.response.data.message);
         if (err.response.data.message === "Password does not match") {
           Alert("error", "입력하신 비밀번호가 일치하지않습니다.");
         }
@@ -379,10 +394,43 @@ const EditProfile = ({ getUserdata }) => {
         phone: updatePhone,
       };
     }
-    // console.log(updatedata);
     if (curpwdConform === true) {
-      dispatch(updatesUser(updatedata));
-      Alert("question", "수정하시겠습니까?");
+      Swal.fire({
+        title: "수정하시겠습니까?",
+        text: "정보가 수정됩니다.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "수정",
+        confirmButtonColor: "#002C6D",
+        cancelButtonText: "취소",
+        cancelButtonColor: "#aaaaaa",
+        reverseButtons: true,
+      }).then((res) => {
+        if (res.isConfirmed) {
+          let pwd = "";
+          let updatedata = {};
+          if (updatePassword === "") {
+            pwd = curpwd;
+          } else {
+            pwd = updatePassword;
+          }
+          if (updateNickName === getUserdata.nickname) {
+            updatedata = {
+              password: pwd,
+              address: updateAddress,
+              phone: updatePhone,
+            };
+          } else if (updateNickName !== getUserdata.nickname) {
+            updatedata = {
+              nickname: updateNickName,
+              password: pwd,
+              address: updateAddress,
+              phone: updatePhone,
+            };
+          }
+          dispatch(updateUser({ updatedata, navigate }));
+        }
+      });
     } else if (!curpwdConform) {
       Alert("warning", "현재 비밀번호를 확인해주세요");
     }
@@ -390,56 +438,42 @@ const EditProfile = ({ getUserdata }) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: true,
-    });
-    Apis.delete(`/members/mypage`, {
-      headers: {
-        Authorization: initialToken,
-      },
-    })
-      .then(() => {
-        if (curpwdConform === true) {
-          swalWithBootstrapButtons
-            .fire({
-              title: "Are you sure?",
-              text: "You won't be able to revert this!",
-              icon: "warning",
-              showCancelButton: true,
-              confirmButtonText: "Yes, delete it!",
-              confirmButtonColor: "red",
-              cancelButtonText: "No, cancel!",
-              cancelButtonColor: "#aaaaaa",
-              reverseButtons: true,
+    if (curpwdConform === true) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        confirmButtonColor: "red",
+        cancelButtonText: "No, cancel!",
+        cancelButtonColor: "#aaaaaa",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Apis.delete(`/members/mypage`, {
+            headers: {
+              Authorization: initialToken,
+            },
+          })
+            .then((res) => {
+              localStorage.clear();
+              Swal.fire({
+                title: "Deleted!",
+                text: "그동안 이용해주셔서 감사합니다.",
+                icon: "success",
+                confirmButtonColor: "#002C6D",
+              });
+              navigate("/");
             })
-            .then((result) => {
-              if (result.isConfirmed) {
-                localStorage.clear();
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  "그동안 이용해주셔서 감사합니다.",
-                  "success"
-                );
-                navigate("/");
-              }
-              // else if (
-              //   /* Read more about handling dismissals below */
-              //   result.dismiss === Swal.DismissReason.cancel
-              // ) {
-              //   swalWithBootstrapButtons.fire(
-              //     'Cancelled',
-              //     '탈퇴가 취소되었습니다.',
-              //     'error'
-              //   )
-              // }
+            .catch((err) => {
+              console.log(err);
             });
         }
-      })
-      .catch((err) => alert(err.response.data.message));
+      });
+    } else if (!curpwdConform) {
+      Alert("warning", "현재 비밀번호를 확인해주세요");
+    }
   };
 
   return (
@@ -472,7 +506,7 @@ const EditProfile = ({ getUserdata }) => {
         <Label htmlFor="nickname">닉네임</Label>
         <Input
           name="UpdateNickName"
-          value={updateNickName}
+          value={updateNickName || ""}
           onChange={handleUpdateNickName}
           required
         ></Input>
@@ -542,13 +576,13 @@ const EditProfile = ({ getUserdata }) => {
         <Label htmlFor="address">주소</Label>
         <Input
           name="address"
-          value={updateAddress}
+          value={updateAddress || ""}
           onChange={handleUpdateAddress}
         ></Input>
         <Label htmlFor="phone">휴대폰 번호 ( 예: 010-1234-5678 )</Label>
         <Input
           name="phone"
-          value={updatePhone}
+          value={updatePhone || ""}
           onChange={handleUpdatePhone}
         ></Input>
         {!updatePhoneConfirm ? (
@@ -557,7 +591,11 @@ const EditProfile = ({ getUserdata }) => {
           </ErrorDisplay>
         ) : null}
         <Buttons>
-          <Delete onClick={handleDelete}>회원탈퇴</Delete>
+          {curpwdConform ? (
+            <Delete onClick={handleDelete}>회원탈퇴</Delete>
+          ) : (
+            <Delete>회원탈퇴</Delete>
+          )}
           <Edit onClick={updateInform}>정보수정</Edit>
         </Buttons>
       </Container>

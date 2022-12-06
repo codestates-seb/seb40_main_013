@@ -189,7 +189,7 @@ const ReactionPayment = styled.div`
     background-color: #f0f0f0;
     border: 1px solid #efefef;
     width: 100vw;
-    height: 16vh;
+    height: 16.5vh;
     position: fixed;
     align-items: center;
   }
@@ -231,7 +231,6 @@ function ShoppingCart() {
   const cartSeletorLength = cartSeletor?.length;
 
   const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
-  console.log(`checkList`, checkList);
 
   //상품등록
   const [click, setClick] = useState(0);

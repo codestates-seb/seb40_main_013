@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsCart3, BsSearch } from "react-icons/bs";
 import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
@@ -94,14 +94,12 @@ const CategoryList = styled.div`
   div {
     height: 100%;
   }
-  @media screen and (max-width: 380px) {
-    padding-left: 10px;
-  }
-  @media (min-width: 381px) and (max-width: 767px) {
-    font-size: 15px;
-  }
-  @media screen and (max-width: 380px) {
+  @media screen and (max-width: 479px) { //479
+    padding-left: 2px;
     font-size: 14px;
+  }
+  @media (min-width: 480px) and (max-width: 767px) {
+    font-size: 15px;
   }
 `;
 
@@ -127,14 +125,14 @@ const Nav = styled.nav`
   &:hover {
     display: block;
   }
-  @media screen and (max-width: 380px) {
+  @media screen and (max-width: 479px) {
     width: 6.8em;
     font-size: 13px;
-    left: -63px;
+    left: -50px;
   }
-  @media (min-width: 381px) and (max-width: 767px) {
+  @media (min-width: 480px) and (max-width: 1023px) {
     font-size: 14px;
-    left: -66px;
+    left: -45.5px;
   }
 `;
 
@@ -152,11 +150,11 @@ const Category = styled.div`
       display: block;
     }
   }
-  @media screen and (max-width: 380px) {
-    padding-right: 20px;
+  @media screen and (max-width: 479px) {
+    width: 3.1rem;
   }
-  @media (min-width: 381px) and (max-width: 1023px) {
-    width: 4rem;
+  @media (min-width: 480px) and (max-width: 1023px) {
+    width: 4.5rem;
   }
 `;
 
@@ -196,11 +194,14 @@ function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts
     Toast("success", "로그아웃에 성공하셨습니다!");
   };
 
+  //jwt토큰
+  const jwt = localStorage.getItem("Authorization")
   useEffect(()=>{
-    if(localStorage.getItem("Authorization")){
+
+    if(jwt){
       Apis.get(`carts`, {
         headers: {
-          Authorization: `${localStorage.getItem("Authorization")}`,
+          Authorization: `${jwt}`,
           "Content-Type": "application/json",
         },
       })
@@ -212,7 +213,7 @@ function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts
           console.log(err);
         });
     }
-  }, [])
+  }, [jwt])
 
   return (
     <>

@@ -13,13 +13,12 @@ import { renderStar } from "../Star";
 import Pagination from "./Pagination";
 import PostReview from "./PostReview";
 import noImg from "../../imgs/noImg.gif";
+import { BtnSelectAlert } from "../../components/Alert";
+import Swal from "sweetalert2";
 
 function MyReview() {
   const dispatch = useDispatch();
-  const userWriteReviews = useSelector(
-    (state) => state?.review.review?.content
-  );
-  console.log(userWriteReviews);
+  const userWriteReviews = useSelector((state) => state.review.review.content);
   const [filteReview, setFilterReview] = useState("");
   const [curPage, setCurPage] = useState(0);
   const [totalpage, setTotalpage] = useState(0);
@@ -29,14 +28,44 @@ function MyReview() {
     setFilterReview(filteData);
     setIsModal(!isModal);
   };
+  const closeModal = () => {
+    setIsModal(!isModal);
+  };
 
   const clickDelete = (productId, reviewId) => {
+    Swal.fire({
+      title: "",
+      text: "상품을 바로 구매하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#002C6D",
+      cancelButtonColor: "#FF4040",
+      showCancelButton: true,
+      confirmButtonText: " 리뷰 삭제 ",
+      cancelButtonText: " 취소 ",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteDate(productId, reviewId);
+      }
+    });
+  };
+
+  const deleteDate = (productId, reviewId) => {
     let deleteData = {
-      productId: productId,
-      reviewId: reviewId,
+      productId,
+      reviewId,
     };
     dispatch(deleteReview({ deleteData }));
   };
+
+  useEffect(() => {
+    let count = curPage;
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    dispatch(getAllReview({ count, setTotalpage }));
+  }, []);
 
   useEffect(() => {
     window.scrollTo({
@@ -55,12 +84,8 @@ function MyReview() {
   return (
     <>
       {isModal ? (
-        <Container onClick={clickModal}>
-          <PostReview
-            clickModal={clickModal}
-            onClick={(e) => e.preventDefault()}
-            filteReview={filteReview}
-          />
+        <Container onClick={closeModal}>
+          <PostReview clickModal={clickModal} filteReview={filteReview} />
           <Hr />
           {userWriteReviews?.map((data, idx) => (
             <div key={data?.reviewId}>
@@ -184,9 +209,10 @@ const Container = styled.div`
   padding: 20px 20px 20px 40px;
   width: 80%;
   @media screen and (max-width: 390px) {
-    width: 100%;
-    padding: 0 20px;
-    margin: 30px 0;
+    width: 88%;
+    padding: 0;
+    margin-left: -10px;
+    
   }
   @media (min-width: 391px) and (max-width: 768px) {
     width: 100%;
@@ -263,8 +289,8 @@ const Img = styled.img`
   margin-right: 10px;
   border-radius: 5px;
   @media screen and (max-width: 390px) {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
   }
   @media (min-width: 391px) and (max-width: 768px) {
     width: 100px;
@@ -279,6 +305,7 @@ const BP = styled.div`
   margin-left: 20px;
   @media screen and (max-width: 390px) {
     justify-content: center;
+    margin-left: 0;
   }
   @media (min-width: 391px) and (max-width: 767px) {
     justify-content: center;
@@ -306,6 +333,14 @@ const BrandName = styled(Link)`
 `;
 const Option = styled.h2`
   margin: 5px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.1em;
+  max-height: 2.2em;
+  min-height: 2.2em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   @media screen and (max-width: 390px) {
     font-size: 0.7rem;
   }
@@ -336,7 +371,7 @@ const CancleBtn = styled.button`
     border: 1px solid #efefef;
     color: var(--color-navy);
     color: #ff4040;
-    &:hover{
+    &:hover {
       border: 1px solid #ff4040;
       background-color: #efefef;
     }

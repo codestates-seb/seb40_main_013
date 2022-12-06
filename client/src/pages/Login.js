@@ -12,7 +12,7 @@ function Login() {
   const [userWritePwd, setUserWritePwd] = useState("");
   const [userWriteInput, setUserWriteInput] = useState(false);
   const [userStateCheck, setUserStateCheck] = useState(false);
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const routeSignup = () => {
@@ -260,7 +260,10 @@ const LoginRouteSign = styled.div`
   font-weight: 500;
   margin-top: 20px;
   margin-bottom: 20px;
-  font-size: 12px;
+  font-size: 13px;
+  @media (min-width: 1023px) {
+    font-size: 15px;
+  }
 `;
 
 const LoginSignBtn = styled.div`

@@ -8,7 +8,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import MyReview from "../components/mypages/MyReview";
 import ProfileImg from "../components/mypages/ProfileImg";
 import PurchaseAll from "../components/mypages/PurchaseAll";
-import Like from "../components/mypages/Like"
+import Like from "../components/mypages/Like";
 
 const Container = styled.div`
   display: flex;
@@ -52,6 +52,10 @@ const Left = styled.div`
 
 const Right = styled.div`
   width: 80vw;
+  @media screen and (max-width: 767px) {
+    width: 100vw;
+    padding-left: 10px;
+  }
 `;
 const Reaction = styled.div`
   display: flex;
@@ -89,8 +93,8 @@ const Hello = styled.h2`
   font-weight: 500;
   font-size: 1.3rem;
   color: var(--font-ligthblack);
-  span{
-    color: #002C6D;
+  span {
+    color: #002c6d;
   }
   @media screen and (max-width: 479px) {
     font-size: 1rem;
@@ -115,7 +119,7 @@ const ReactionDetail = styled.div`
   @media screen and (max-width: 768px) {
     border-top: none;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: -10px;
     flex-direction: row;
   }
 `;
@@ -189,7 +193,6 @@ const NavDetail = styled.nav`
 const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
-
   //tab click
   const [clicked, setClicked] = useState("");
 
@@ -214,12 +217,14 @@ const Mypage = () => {
       <Left>
         <Reaction>
           <ProfileImgConponent
-            src={`https://source.boringavatars.com/beam/${getUserdata.memberId}/daily?colors=FFAF51,FFC007,AAAAAA,0C8F8F,002C6D`}
+            src={`https://source.boringavatars.com/beam/40/${getUserdata?.nickname}?colors=FFAF51,FFC007,AAAAAA,0C8F8F,002C6D`}
             alt="avator"
             onclick={handleChangeImg}
           ></ProfileImgConponent>
           <Hello>안녕하세요,&nbsp;</Hello>
-          <Hello><span>{getUserdata?.nickname}</span>&nbsp;님</Hello>
+          <Hello>
+            <span>{getUserdata?.nickname}</span>&nbsp;님
+          </Hello>
         </Reaction>
         <Nav>
           <ReactionDetail path="*">
@@ -241,8 +246,8 @@ const Mypage = () => {
                 정보 수정
               </NavDetail>
             </Link>
-            </ReactionDetail>
-            <ReactionDetail>
+          </ReactionDetail>
+          <ReactionDetail>
             <Link to="like" style={{ textDecoration: "none" }}>
               <NavDetail
                 name="like"

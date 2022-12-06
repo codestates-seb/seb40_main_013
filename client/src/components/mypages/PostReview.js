@@ -1,24 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import styled from "styled-components/macro";
 import { postReview, updateReview } from "../../reduxstore/slices/reviewSlice";
 import { useDispatch } from "react-redux";
 import imageCompression from "browser-image-compression";
 import { useNavigate } from "react-router-dom";
 import { BsStarFill } from "react-icons/bs";
+import { Toast, BtnSelectAlert, Alert } from "../../components/Alert";
 import noImg from "../../imgs/noImg.gif";
+import Swal from "sweetalert2";
 
 function PostReview({ clickModal, filterData, filteReview }) {
-  console.log(filterData, filteReview);
   const dispatch = useDispatch();
   const [userWriteImg, setUserWriteImg] = useState("");
-  const [userWriteContent, setUserWriteContent] = useState("");
-  const [userWriteScroe, setUserWriteScroe] = useState("");
+  const [userWriteContent, setUserWriteContent] = useState(
+    filteReview ? filteReview[0].content : filterData[0].content
+  );
+
   const navigate = useNavigate();
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const clickNumber = [1, 2, 3, 4, 5];
   const [lengthScore, setLengthScore] = useState(0);
   const [fileImage, setFileImage] = useState("");
-  console.log(filterData);
   const changeImg = async (e) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
     e.preventDefault();
@@ -35,34 +37,69 @@ function PostReview({ clickModal, filterData, filteReview }) {
       setUserWriteImg(myFile);
     }
   };
-  const deleteFileImage = () => {
-    URL.revokeObjectURL(fileImage);
-    setFileImage("");
-  };
 
   const changeContent = (e) => {
+    e.preventDefault();
     setUserWriteContent(e.target.value);
+  };
+  const postDispatch = () => {
+    let postData = "";
+    if (userWriteImg === "") {
+      postData = {
+        content: userWriteContent,
+        score: lengthScore,
+        // img: userWriteImg,
+        filterProductId: filterData[0]?.productId,
+      };
+    } else {
+      postData = {
+        content: userWriteContent,
+        score: lengthScore,
+        img: userWriteImg,
+        filterProductId: filterData[0]?.productId,
+      };
+    }
+    dispatch(postReview({ postData, navigate }));
   };
 
   const postSubmit = (e) => {
     e.preventDefault();
-    let postData = {
-      content: userWriteContent,
-      score: lengthScore,
-      img: userWriteImg,
-      filterProductId: filterData[0]?.productId,
-    };
-    dispatch(postReview({ postData, navigate }));
+    if (userWriteContent === "") {
+      Alert("error", "리뷰의 내용을 작성해주세요!");
+    } else if (userWriteImg === "") {
+      BtnSelectAlert(
+        "사진없이 리뷰를 추가하시겠습니까?",
+        " 리뷰추가 ",
+        " 취소 ",
+        postDispatch
+      );
+    } else {
+      BtnSelectAlert(
+        "리뷰를 추가하시겠습니까?",
+        " 리뷰추가 ",
+        " 취소 ",
+        postDispatch
+      );
+    }
   };
+
   const updateSubmit = (e) => {
     e.preventDefault();
+    BtnSelectAlert(
+      "리뷰 수정을 하시겠습니까?",
+      " 리뷰 수정 ",
+      " 취소 ",
+      updateDispatch
+    );
+  };
+
+  const updateDispatch = () => {
     let filterProductId = filteReview[0]?.productId;
     let updateData = {
       reviewId: filteReview[0]?.reviewId,
       content: userWriteContent,
       score: lengthScore,
     };
-    console.log(updateData);
     dispatch(updateReview({ filterProductId, updateData, navigate }));
   };
   const handleStarClick = (index) => {
@@ -79,10 +116,14 @@ function PostReview({ clickModal, filterData, filteReview }) {
   useEffect(() => {
     sendReview();
   }, [clicked]);
-
+  
   return (
-    <Wrapper onClick={(e) => e.stopPropagation()}>
-      <Container>
+    <Wrapper>
+      <Container
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <PostReviewTopSpace>
           {filterData === undefined ? (
             <>
@@ -117,7 +158,7 @@ function PostReview({ clickModal, filterData, filteReview }) {
                 {filteReview[0]?.productTitle}
               </PostReviewTopContent>
             ) : (
-              <PostReviewTopContent>
+              <PostReviewTopContent className="title">
                 {filterData[0]?.title}
               </PostReviewTopContent>
             )}
@@ -126,10 +167,18 @@ function PostReview({ clickModal, filterData, filteReview }) {
         <Hr />
         <PostReviewDownSpace>
           <PostReviewDownTitle>어떤 점이 좋았나요?</PostReviewDownTitle>
-          <PostReviewDownInput
-            placeholder="사용하시면서 만족도에 대한 후기를 남겨주세요!"
-            onChange={changeContent}
-          />
+          {filterData === undefined ? (
+            <PostReviewDownInput
+              value={userWriteContent || ""}
+              onChange={changeContent}
+            />
+          ) : (
+            <PostReviewDownInput
+              placeholder="사용하시면서 만족도에 대한 후기를 남겨주세요!"
+              onChange={changeContent}
+            />
+          )}
+
           <PostReviewDownTitle>리뷰 별점</PostReviewDownTitle>
           <PostReviewStarSpace>
             {clickNumber.map((item, idx) => {
@@ -200,7 +249,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 400px;
-  height: 530px;
+  height: 540px;
   border: 1px solid #aaaaaa;
   background-color: white;
   border-radius: 5px;
@@ -231,6 +280,9 @@ const PostReviewContentRightSpace = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 550px) {
+    margin-left: 10px;
+  }
 `;
 const PostReviewTopContent = styled.div`
   width: 100%;
@@ -241,6 +293,14 @@ const PostReviewTopContent = styled.div`
   &:nth-child(1) {
     color: #aaaaaa;
     height: 30%;
+    margin-top: 10px;
+
+  }
+  &.title {
+    font-size: 0.95rem;
+  }
+  &.title{
+    font-size: 0.95rem;
   }
 `;
 const Hr = styled.hr`
@@ -347,7 +407,9 @@ const BtnSpace = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px;
   margin-top: ${(props) => (props.filteReview ? "50px" : "0px")};
+  margin-bottom: 5px;
 `;
 const PostReviewDownBtn = styled.button`
   width: 20%;
@@ -355,7 +417,8 @@ const PostReviewDownBtn = styled.button`
   border-radius: 5px;
   color: white;
   background-color: var(--color-navy);
-  border: 1px solid #aaaaaa;
+  border: 1px solid var(--white-hover-gary);
+
   cursor: pointer;
   &:hover {
     background-color: #123b77;
@@ -364,10 +427,10 @@ const PostReviewDownBtn = styled.button`
     margin-right: 20px;
   }
   &.cancleBtn {
-    background-color: white;
-    color: var(--color-navy);
-    &:hover{
-      background-color: #f0f0f0;
+    background-color: var(--button-gray);
+    color: var(--font-red);
+    &:hover {
+      border: 1px solid var(--font-red);
     }
   }
 `;

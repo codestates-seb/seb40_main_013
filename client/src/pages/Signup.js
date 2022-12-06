@@ -19,7 +19,6 @@ function Signup() {
   const [pwdConfirm, setPwdConfirm] = useState(false);
   const [pwdAgainConfirm, setPwdAgainConfirm] = useState(false);
   const data = useSelector((state) => state);
-  console.log(data);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -194,7 +193,7 @@ const UserWriteInput = styled.input`
 const UserSubmitBtn = styled.button`
   margin-top: 50px;
   width: 70%;
-  height: 40px;
+  height: 47px;
   cursor: pointer;
   background-color: var(--color-navy);
   border-radius: var(--border-radius);

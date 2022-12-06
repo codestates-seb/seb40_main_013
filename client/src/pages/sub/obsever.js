@@ -57,7 +57,7 @@ function Observer({ mainClick, subclick }) {
   productsRef.current = products;
   pageRef.current = page;
 
-  prevYRef.current = prevY
+  prevYRef.current = prevY;
 
   // useEffect(() => {
   //   setProducts([])
@@ -65,7 +65,6 @@ function Observer({ mainClick, subclick }) {
   // }, [subclick]);
 
   useEffect(() => {
-
     getProducts();
     setPage(pageRef.current + 1);
 

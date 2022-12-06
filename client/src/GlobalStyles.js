@@ -12,7 +12,7 @@ const GlobalStyles = createGlobalStyle`
         -moz-user-select:none;
         -ms-user-select:none;
         user-select:none;
-        font-family: 'Gothic A1', sans-serif!important;
+        /* font-family: 'Pretendard'!important; */
     }
     a{
          text-decoration: none;
@@ -25,14 +25,22 @@ const GlobalStyles = createGlobalStyle`
     input{
         outline: 0;
     }
-      //input 화살표 지우는 방법
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* 스크롤바 가로 사이즈 */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 0;
     }
 
-    
+    /* 스크롤바 막대기 */
+    ::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        background-color: #cccccc;
+    }
 
     :root{
       // font-color
@@ -57,8 +65,11 @@ const GlobalStyles = createGlobalStyle`
       --white-hover-gary : #f0f0f0;
       --hover-gary: #aaaaaa;
       --button-gray : #efefef;
+      --white-hover-gary : #f0f0f0;
+
       // center-line
       --color-center-line : #AAAAAA; 
+      --button-gray : #efefef;
     }
 `;
 

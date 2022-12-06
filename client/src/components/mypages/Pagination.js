@@ -20,11 +20,10 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
-const PageButton = styled.button`
+const PageButtonArrow = styled.button`
   background: none;
   border: none;
   border-radius: 50%;
-  box-sizing: border-box;
   color: rgba(0, 0, 0, 0.6);
   display: block;
   font-size: 16px;
@@ -36,7 +35,36 @@ const PageButton = styled.button`
     cursor: pointer;
     background-color: #aaa;
     border-radius: 50%;
-    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.6);
+    display: block;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    min-width: 40px;
+    padding: 0;
+    &:hover {
+      cursor: pointer;
+      background-color: #aaa;
+      border-radius: 50%;
+      color: white;
+    }
+  }
+`;
+const PageButton = styled.button`
+  background: none;
+  border: none;
+  border-radius: 50%;
+  color: rgba(0, 0, 0, 0.6);
+  display: block;
+  font-size: 16px;
+  height: 40px;
+  line-height: 40px;
+  min-width: 40px;
+  padding: 0;
+  &:hover {
+    cursor: pointer;
+    background-color: #aaa;
+    border-radius: 50%;
     color: rgba(0, 0, 0, 0.6);
     display: block;
     font-size: 16px;
@@ -71,11 +99,10 @@ const PageButton = styled.button`
   }
 `;
 
-function Pagination({ totalpage, page, setPage }) {
+function Pagination({ totalpage, page, setPage, clicked, setClicked }) {
   const [currentPageArray, setCurrentPageArray] = useState([]);
   const [totalPageArray, setTotalPageArray] = useState([]);
   //tab click
-  const [clicked, setClicked] = useState("");
   const sliceArrayByLimit = (totalPages) => {
     const totalPageArr = Array(totalPages)
       .fill()
@@ -102,24 +129,24 @@ function Pagination({ totalpage, page, setPage }) {
   return (
     <ButtonWrap>
       <li>
-        <PageButton
+        <PageButtonArrow
           onClick={() => setPage(1)}
           disabled={page === 1}
           className="prev"
           title="previous page"
         >
           &#10094;&#10094;
-        </PageButton>
+        </PageButtonArrow>
       </li>
       <li>
-        <PageButton
+        <PageButtonArrow
           onClick={() => setPage(page - 1)}
           disabled={page === 1}
           className="prev"
           title="previous page"
         >
           &#10094;
-        </PageButton>
+        </PageButtonArrow>
       </li>
       <ButtonWrapper>
         {currentPageArray?.map((i) => (
@@ -130,31 +157,31 @@ function Pagination({ totalpage, page, setPage }) {
               setClicked(e.target.innerText);
             }}
             aria-current={page === i + 1 ? "page" : null}
-            className={clicked === i ? "clicked" : ""}
+            className={clicked === page ? "clicked" : ""}
           >
             {i + 1}
           </PageButton>
         ))}
       </ButtonWrapper>
       <li>
-        <PageButton
+        <PageButtonArrow
           onClick={() => setPage(page + 1)}
           disabled={page === totalpage}
           className="next"
           title="next page"
         >
           &#10095;
-        </PageButton>
+        </PageButtonArrow>
       </li>
       <li>
-        <PageButton
+        <PageButtonArrow
           onClick={() => setPage(totalpage)}
           disabled={page === totalpage}
           className="fullnext"
           title="full next page"
         >
           &#10095;&#10095;
-        </PageButton>
+        </PageButtonArrow>
       </li>
     </ButtonWrap>
   );
