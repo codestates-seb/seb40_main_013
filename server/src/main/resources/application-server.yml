@@ -30,3 +30,4 @@ env: server
 
 webhook:
   error: ${ERROR_WEBHOOK}
+  status: ${STATUS_WEBHOOK}

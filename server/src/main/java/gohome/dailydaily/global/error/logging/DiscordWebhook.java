@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -24,7 +23,6 @@ import java.util.*;
 @Component
 public class DiscordWebhook {
 
-    @Value("${webhook.error}")
     private String url;
     private String content;
     private String username;
