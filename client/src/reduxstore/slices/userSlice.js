@@ -13,7 +13,11 @@ export const signUser = createAsyncThunk(
         return res.data;
       })
       .catch((err) => {
-        Toast("error", "회원가입에 실패했습니다!");
+        if (err.response.data.message === "Nickname already exist") {
+          Alert("error", "똑같은 닉네임이 존재합니다!");
+        } else if (err.response.data.message === "Email already exist") {
+          Alert("error", "똑같은 이메일이 존재합니다!");
+        }
         console.log(err);
       });
   }
@@ -31,11 +35,10 @@ export const loginUser = createAsyncThunk(
         localStorage.setItem("Refresh", jwtrefreshToken);
         navigate("/");
         Toast("success", "로그인에 성공하셨습니다!");
-        console.log(res);
         return res.data;
       })
       .catch((err) => {
-        Toast("error", "로그인에 실패했습니다!");
+        Alert("error", "이메일과 비밀번호를 확인해주세요!");
         console.log(err);
       });
   }
@@ -49,7 +52,6 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
     },
   })
     .then((res) => {
-      console.log(res);
       return res.data;
     })
     .catch((err) => {
@@ -57,19 +59,15 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
     });
 });
 export const updateUser = createAsyncThunk(
-  "user/updateUser",
-  async ({ updatedata, navigate }) => {
-    console.log(updatedata);
-    return Apis.patch(`members/mypage`, updatedata, {
+  "user/updatesUser",
+  async (updateData) => {
+    return Apis.patch(`members/mypage`, updateData, {
       headers: {
         Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "application/json",
       },
     })
       .then((res) => {
-        console.log(res);
-        navigate('/members/mypage/purchase');
-        window.location.reload();
         return res.data;
       })
       .catch((err) => {
@@ -82,7 +80,6 @@ export const guestUser = createAsyncThunk(
   async ({ navigate }) => {
     return Apis.post(`guest`)
       .then((res) => {
-        console.log(res);
         localStorage.clear();
         let jwtToken = res.headers.get("Authorization");
         let jwtrefreshToken = res.headers.get("Refresh");
@@ -109,32 +106,33 @@ const userSlice = createSlice({
     error: "",
   },
   reducers: {},
-  extraReducers: (builder) => builder
-    .addCase(signUser.fulfilled, (state, action) => {
-      state.users = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(loginUser.fulfilled, (state, action) => {
-      state.users = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(guestUser.fulfilled, (state, action) => {
-      state.users = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(getUser.fulfilled, (state, action) => {
-      state.users = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(updateUser.fulfilled, (state, action) => {
-      state.updateUser = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
+  extraReducers: (builder) =>
+    builder
+      .addCase(signUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(guestUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.updateUser = action.payload;
+        state.loading = true;
+        state.error = "";
+      }),
 });
 
 export default userSlice.reducer;

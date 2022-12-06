@@ -19,7 +19,6 @@ function Signup() {
   const [pwdConfirm, setPwdConfirm] = useState(false);
   const [pwdAgainConfirm, setPwdAgainConfirm] = useState(false);
   const data = useSelector((state) => state);
-  console.log(data);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

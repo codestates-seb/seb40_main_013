@@ -99,12 +99,10 @@ const PageButton = styled.button`
   }
 `;
 
-function Pagination({ totalpage, page, setPage, clicked, setClicked}) {
+function Pagination({ totalpage, page, setPage, clicked, setClicked }) {
   const [currentPageArray, setCurrentPageArray] = useState([]);
   const [totalPageArray, setTotalPageArray] = useState([]);
   //tab click
-  console.log(clicked)
-  console.log(page)
   const sliceArrayByLimit = (totalPages) => {
     const totalPageArr = Array(totalPages)
       .fill()

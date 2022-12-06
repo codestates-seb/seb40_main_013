@@ -8,7 +8,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import MyReview from "../components/mypages/MyReview";
 import ProfileImg from "../components/mypages/ProfileImg";
 import PurchaseAll from "../components/mypages/PurchaseAll";
-import Like from "../components/mypages/Like"
+import Like from "../components/mypages/Like";
 
 const Container = styled.div`
   display: flex;
@@ -93,8 +93,8 @@ const Hello = styled.h2`
   font-weight: 500;
   font-size: 1.3rem;
   color: var(--font-ligthblack);
-  span{
-    color: #002C6D;
+  span {
+    color: #002c6d;
   }
   @media screen and (max-width: 479px) {
     font-size: 1rem;
@@ -193,7 +193,6 @@ const NavDetail = styled.nav`
 const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
-console.log(getUserdata)
   //tab click
   const [clicked, setClicked] = useState("");
 
@@ -223,7 +222,9 @@ console.log(getUserdata)
             onclick={handleChangeImg}
           ></ProfileImgConponent>
           <Hello>안녕하세요,&nbsp;</Hello>
-          <Hello><span>{getUserdata?.nickname}</span>&nbsp;님</Hello>
+          <Hello>
+            <span>{getUserdata?.nickname}</span>&nbsp;님
+          </Hello>
         </Reaction>
         <Nav>
           <ReactionDetail path="*">

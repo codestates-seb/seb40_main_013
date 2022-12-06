@@ -38,8 +38,6 @@ export const BtnSelectAlert = (
   cancelButtonText,
   fuctionDispatch
 ) => {
-  console.log(fuctionDispatch);
-
   MySwal.fire({
     title: "Are you sure?",
     text,

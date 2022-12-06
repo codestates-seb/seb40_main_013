@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  border: 1px solide blue;
   height: 20%;
 `;
 const PL = styled.div``;
@@ -15,8 +14,6 @@ const Title = styled.h2`
   font-size: 1rem;
 `;
 const BrandProductDetail = ({ productList }) => {
-  console.log(productList);
-
   return (
     <Container>
       {productList.map((p) => {
