@@ -6,7 +6,7 @@ import RankingDown from "../../components/DropDown";
 import libraryImg from '../../imgs/sub-library2.jpeg';
 import Apis from "../../apis/apis";
 import { getSubCount } from "../../reduxstore/slices/articleSlice";
-function Library({ mainClick, subclick, page, setPage, products, setProducts  }) {
+function Library({ mainClick, subclick, page, setPage, products, setProducts }) {
 
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = '서재';

@@ -5,7 +5,6 @@ import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
 import { useSelector } from "react-redux";
 import { Toast } from "./Alert";
-import axios from "axios";
 import Apis from "../apis/apis";
 
 const HeaderBlock = styled.header`
@@ -31,11 +30,11 @@ const Logo = styled.div`
   div {
     font-size: 43px;
     color: var(--color-navy);
-    @media (min-width: 381px) and (max-width: 767px) {
-      font-size: 35px;
-    }
     @media screen and (max-width: 380px) {
       font-size: 28px;
+    }
+    @media (min-width: 381px) and (max-width: 767px) {
+      font-size: 35px;
     }
     @media screen and (min-width: 1024px) {
       font-size: 48px;
@@ -110,10 +109,10 @@ const Nav = styled.nav`
   z-index: 400;
   position: absolute;
   top: 19px;
-  left: -68px;
+  left: -45px;
   background-color: white;
   border: 1px solid #aaaaaa;
-  width: 6.9em;
+  width: 7.2em;
   font-size: 15px;
   justify-content: space-between;
   border-bottom: 1px solid #bebcaf;
@@ -141,7 +140,8 @@ const Nav = styled.nav`
 
 const Category = styled.div`
   position: relative;
-  padding-right: 30px;
+  width: 5rem;
+  justify-content: center;
   .space {
     display: flex;
     align-items: center;
@@ -154,6 +154,9 @@ const Category = styled.div`
   }
   @media screen and (max-width: 380px) {
     padding-right: 20px;
+  }
+  @media (min-width: 381px) and (max-width: 1023px) {
+    width: 4rem;
   }
 `;
 

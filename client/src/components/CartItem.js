@@ -51,12 +51,6 @@ const CartItemBlock = styled.div`
   .part {
     align-items: center;
   }
-  //input 화살표 지우는 방법
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
   @media screen and (max-width: 584px) {
     flex-direction: column;
     align-items: baseline;
@@ -209,10 +203,10 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
 
   const onChangeCount = (e) => {
     let c = e.target.value;
-    if( c === '' || parseInt(c) === 0){
+    if( c === '' || parseInt(c) < 1){
       Alert("warning", "최소 1개 이상 주문 가능합니다.");
       setItemCount(1)
-    } else if (parseInt(c)>100) {
+    } else if (parseInt(c) > 100) {
       Alert("warning", "100개 까지 주문 가능합니다.");
       setItemCount(100)
     } 

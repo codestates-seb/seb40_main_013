@@ -56,7 +56,7 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
       console.log(err);
     });
 });
-export const updatesUser = createAsyncThunk(
+export const updateUser = createAsyncThunk(
   "user/updatesUser",
   async (updateData) => {
     console.log(updateData);
@@ -128,7 +128,7 @@ const userSlice = createSlice({
       state.loading = true;
       state.error = "";
     })
-    .addCase(updatesUser.fulfilled, (state, action) => {
+    .addCase(updateUser.fulfilled, (state, action) => {
       state.updateUser = action.payload;
       state.loading = true;
       state.error = "";

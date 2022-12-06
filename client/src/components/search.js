@@ -178,7 +178,7 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
     if (test.length === 0) {
       Alert("warning", "첫번째 글자에 공백이 입력되었습니다.");
     } else {
-      setSearchWord(test);
+      // setSearchWord(test);
       handleAddKeyword(test); //##
       navigate("/search");
       closeHandler();
@@ -188,11 +188,12 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
   };
 
   const clickWordSearch = ({ target }) => {
-    setSearchWord(target.innerText);
+    // setSearchWord(target.innerText);
     handleAddKeyword(target.innerText);
     closeHandler();
     navigate("/search");
     setInputWord("");
+    setriger(Date.now());
   };
 
   const popularSelector = useSelector(

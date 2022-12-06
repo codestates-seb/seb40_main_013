@@ -218,7 +218,7 @@ const BP = styled.div`
 const BrandName = styled.div`
   font-weight: 600;
   font-size: 1rem;
-  margin-bottom: 5px;
+  margin-top: 2px;
   @media screen and (max-width: 390px) {
     font-weight: 600;
     font-size: 0.8rem;

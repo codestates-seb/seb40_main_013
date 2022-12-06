@@ -379,7 +379,17 @@ const Register = () => {
     e.target.value = e.target.value;
   };
   const changeContentPrice = (e) => {
-    setContentsPrice(e.target.value);
+    let c = e.target.value;
+    if( c === '' || parseInt(c) < 5000){
+      Alert("warning", "5,000원 미만 입력 불가");
+      setContentsPrice(5000)
+    } else if (parseInt(c)>10000000) {
+      Alert("warning", "10,000,000원 초과 입력 불가");
+      setContentsPrice(10000000)
+    } 
+    else{
+      setContentsPrice(parseInt(c));
+    }
   };
 
   const changeThumbnailImg = async (e) => {
@@ -463,9 +473,24 @@ const Register = () => {
       .then((result) => {
         if (result.isConfirmed) {
           registConfirm();
-          Swal.fire("등록되었습니다.", "상품이 등록되었습니다.", "success");
+          Swal.fire({          
+            title: "상품이 등록 되었습니다",
+            text: "상품을 더 추가하시겠습니까??",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: "#002C6D",
+            cancelButtonColor: "#FFAF51",
+            showCancelButton: true,
+            confirmButtonText: "예",
+            cancelButtonText: "아니요",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            } else {
+              navigate("/");
+            }
+          })
           clickFunction();
-          // navigate('/');
         }
       })
       .catch((err) => console.log(err));
@@ -550,7 +575,7 @@ const Register = () => {
         <InputContainer>
           <TabContainer>
             <Label htmlFor="price">
-              판매가 <span>&nbsp;(10,000 원 이상)</span>
+              판매가 <span>&nbsp;(5,000 원 이상)</span>
             </Label>
           </TabContainer>
           <Pricecontent>
@@ -560,11 +585,12 @@ const Register = () => {
               type="number"
               className="price"
               max={10000000}
+              value={contentsPrice}
               onChange={changeContentPrice}
             />
             {priceConfirm ? (
               <div className="err">
-                숫자만 입력해주세요.(100원 단위 이상만 입력 가능)
+                (100원 단위로만 입력 가능)
               </div>
             ) : (
               ""

@@ -12,14 +12,17 @@ function Login() {
   const [userWritePwd, setUserWritePwd] = useState("");
   const [userWriteInput, setUserWriteInput] = useState(false);
   const [userStateCheck, setUserStateCheck] = useState(false);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const routeSignup = () => {
     navigate("/signup");
   };
+
   const writeChangeEmail = (e) => {
     setUserWriteEmail(e.target.value);
   };
+
   const writeChangePwd = (e) => {
     setUserWritePwd(e.target.value);
   };
@@ -81,10 +84,8 @@ function Login() {
           </LoginInputSpace>
           <LoginButton onClick={clickLogin}>로그인</LoginButton>
           <LoginInformationSpace>
-            <LoginCheckSpace isCheck={userStateCheck}>
-              <LoginState onClick={clickState}>
-                <AiOutlineCheckCircle />
-              </LoginState>
+            <LoginCheckSpace isCheck={userStateCheck} onClick={clickState}>
+              <LoginState/>
               <LoginStateContent>로그인 상태 유지</LoginStateContent>
             </LoginCheckSpace>
           </LoginInformationSpace>
@@ -174,6 +175,7 @@ const LoginTitle = styled.div`
     font-size: 30px;
   }
 `;
+
 const LoginInputSpace = styled.div`
   width: 90%;
   display: flex;
@@ -181,6 +183,7 @@ const LoginInputSpace = styled.div`
   align-items: center;
   margin-top: 20px;
 `;
+
 const LoginInput = styled.input`
   width: 85%;
   height: 60px;
@@ -217,7 +220,9 @@ const LoginInformationSpace = styled.div`
   height: 40px;
   font-size: 18px;
   color: var(--color-gray);
+  cursor: pointer;
 `;
+
 const LoginCheckSpace = styled.div`
   width: 100%;
   display: flex;
@@ -226,11 +231,23 @@ const LoginCheckSpace = styled.div`
   color: ${(state) => (state.isCheck ? "#FFAF51" : "#AAAAAA")};
   margin-top: 10px;
 `;
-const LoginState = styled.div`
-  margin-right: 10px;
+
+const LoginState = styled(AiOutlineCheckCircle)`
+  margin-right: 5px;
+  margin-top: -1.5px;
 `;
+
 const LoginStateContent = styled.div`
-  font-size: 17px;
+  font-size: 16px;
+  @media screen and (max-width: 380px) {
+      font-size: 12px;
+    }
+    @media (min-width: 381px) and (max-width: 767px) {
+      font-size: 14px;
+    }
+    @media screen and (min-width: 1024px) {
+      font-size: 15px;
+    }
 `;
 
 const LoginRouteSign = styled.div`

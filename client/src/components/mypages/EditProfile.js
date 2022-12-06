@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import { nickNameCheck, pwdCheck, phoneCheck } from "../effectivenessCheck";
 import { useDispatch, useSelector } from "react-redux";
-import { updatesUser } from "../../reduxstore/slices/userSlice";
+import { updateUser } from "../../reduxstore/slices/userSlice";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";

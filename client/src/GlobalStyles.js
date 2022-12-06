@@ -11,7 +11,8 @@ const GlobalStyles = createGlobalStyle`
         -webkit-user-select:none;
         -moz-user-select:none;
         -ms-user-select:none;
-        user-select:none
+        user-select:none;
+        font-family: 'Gothic A1', sans-serif!important;
     }
     a{
          text-decoration: none;
@@ -24,6 +25,15 @@ const GlobalStyles = createGlobalStyle`
     input{
         outline: 0;
     }
+      //input 화살표 지우는 방법
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+
+    
+
     :root{
       // font-color
       --font-red : #FF4040;
