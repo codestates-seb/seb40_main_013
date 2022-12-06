@@ -1,6 +1,5 @@
 package gohome.dailydaily.global.error.logging;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,19 +14,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-@RequiredArgsConstructor
 public class ServerErrorLogging {
 
     @Value("${webhook.error}")
     private String url;
-    private final DiscordWebhook webhook;
 
     public void sendToDiscord(HttpServletRequest request, Exception e) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        webhook.setUrl(url);
-        webhook.setContent(e.getMessage());
-
+        DiscordWebhook webhook = new DiscordWebhook(url);
         DiscordWebhook.EmbedObject errorObject = new DiscordWebhook.EmbedObject();
 
         String parameterMap = request.getParameterMap().entrySet().stream()

@@ -34,13 +34,6 @@ public class SecurityTestConfig {
                 .and()
                 .build();
     }
-//    @PersistenceContext
-//    private EntityManager entityManager;
-//
-//    @Bean
-//    public JPAQueryFactory jpaQueryFactory(){
-//        return new JPAQueryFactory(entityManager);
-//    }
 
     @Bean
     public MemberRepository memberRepository() {
@@ -48,11 +41,7 @@ public class SecurityTestConfig {
     }
 
     @Bean
-    public DiscordWebhook discordWebhook() {
-        return new DiscordWebhook();
-    }
-    @Bean
     public ServerErrorLogging serverErrorLogging() {
-        return new ServerErrorLogging(discordWebhook());
+        return new ServerErrorLogging();
     }
 }
