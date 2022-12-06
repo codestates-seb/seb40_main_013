@@ -76,12 +76,11 @@ public class GlobalExceptionAdvice {
     // 코드 상의 문제로 발생하는 Exception 을 처리하기 위한 메서드
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleException(HttpServletRequest request, Exception e,
-                                         @AuthenticationPrincipal Long memberId) throws IOException {
+    public ErrorResponse handleException(HttpServletRequest request, Exception e) throws IOException {
         log.error("# handle Exception", e);
 
         // 디스코드 webhook 으로 로그 전송
-        logging.sendToDiscord(request, e, memberId);
+        logging.sendToDiscord(request, e);
 
         return ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }

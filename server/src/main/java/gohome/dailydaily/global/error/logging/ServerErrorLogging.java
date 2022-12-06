@@ -1,6 +1,7 @@
 package gohome.dailydaily.global.error.logging;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,8 @@ public class ServerErrorLogging {
 
     private final DiscordWebhook webhook;
 
-    public void sendToDiscord(HttpServletRequest request, Exception e, Long memberId) throws IOException {
+    public void sendToDiscord(HttpServletRequest request, Exception e) throws IOException {
+        Long memberId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         webhook.setContent(e.getMessage());
 
         DiscordWebhook.EmbedObject errorObject = new DiscordWebhook.EmbedObject();
