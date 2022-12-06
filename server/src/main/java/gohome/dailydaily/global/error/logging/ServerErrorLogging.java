@@ -1,6 +1,8 @@
 package gohome.dailydaily.global.error.logging;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -9,16 +11,21 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class ServerErrorLogging {
 
+    @Value("${webhook.error}")
+    private String url;
     private final DiscordWebhook webhook;
 
     public void sendToDiscord(HttpServletRequest request, Exception e) throws IOException {
-        Long memberId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        webhook.setUrl(url);
         webhook.setContent(e.getMessage());
 
         DiscordWebhook.EmbedObject errorObject = new DiscordWebhook.EmbedObject();
@@ -27,10 +34,11 @@ public class ServerErrorLogging {
                 .map(entry -> String.join("=", entry.getKey(), Arrays.toString(entry.getValue())))
                 .collect(Collectors.joining(", "));
 
+        Optional.ofNullable(authentication)
+                .ifPresent(auth -> errorObject.addField("유저 아이디", String.valueOf(auth.getPrincipal()), false));
         webhook.addEmbed(errorObject
                 .addField("URI", request.getRequestURI(), false)
                 .addField("ParameterMap", parameterMap, false)
-                .addField("유저 아이디", String.valueOf(memberId), false)
                 .addField("IP", getIp(request), false)
                 .addField("예외 타입", String.valueOf(e.getClass()), false)
                 .addField("에러 메시지", e.getMessage(), false)
