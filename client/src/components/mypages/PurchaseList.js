@@ -16,7 +16,7 @@ const Container = styled.div`
   padding: 20px 20px 20px 40px;
   width: 80%;
   @media screen and (max-width: 390px) {
-    width: 80vw;
+    width: 88vw;
     padding: 0;
     margin: 30px 0;
   }
@@ -340,6 +340,20 @@ const PurchaseList = () => {
     dispatch(getMyOrder({ count, setTotalpage }));
   }, [curPage]);
 
+  useEffect(() => {
+    window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+    });
+    let count = 0;
+    if (curPage > 0) {
+    count = curPage - 1;
+    } else {
+    count = 0;
+    }
+    dispatch(getMyOrder({ count, setTotalpage }));
+    }, [clicked]);
+
   //주문취소 버튼
   const handleOrderCancle = (id) => {
     const curData = myOrderData.filter((data) => data.orderId == id);
@@ -464,8 +478,6 @@ const PurchaseList = () => {
               totalpage={totalpage}
               page={curPage}
               setPage={setCurPage}
-              clicked={clicked}
-              setClicked={setClicked}
             />
           </PaginationContainer>
         </Container>

@@ -40,6 +40,7 @@ const Left = styled.div`
     justify-content: center;
     width: 100%;
     border-right: none;
+    padding-top: 0;
     border-bottom: 1px solid var(--color-center-line);
   }
   @media (min-width: 391px) and (max-width: 768px) {
@@ -52,7 +53,10 @@ const Left = styled.div`
 
 const Right = styled.div`
   width: 80vw;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 390px){
+    padding-left: 0;
+  }
+  @media (min-width:391px) and (max-width: 767px) {
     width: 100vw;
     padding-left: 10px;
   }

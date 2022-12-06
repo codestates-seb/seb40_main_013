@@ -16,7 +16,7 @@ const EditContainter = styled.div`
   @media screen and (max-width: 389px) {
     flex-direction: column;
     align-items: center;
-    width: 80vw;
+    width: 88vw;
   }
   @media (min-width: 390px) and (max-width: 767px) {
     flex-direction: column;

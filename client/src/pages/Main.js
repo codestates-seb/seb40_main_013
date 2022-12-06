@@ -49,6 +49,7 @@ const MainTitle = styled.h2`
   }
 `;
 const New = styled.div`
+  animation-fill-mode: both;
 `;
 
 const ProductList = styled.div`

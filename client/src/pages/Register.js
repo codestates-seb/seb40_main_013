@@ -164,12 +164,12 @@ const Input = styled.input`
   height: 2vw;
   padding: 15px 0 15px 10px;
   border: none;
-  border: 2px solid #aaa;
+  border: 1px solid #aaa;
   border-radius: 5px;
   font-size: 1rem;
   width: 200px;
   @media screen and (max-width: 767px) {
-    border: 2px solid #aaa;
+    border: 1px solid #aaa;
     padding: 15px 10px;
     border-radius: 5px;
     width: 200px;
@@ -180,7 +180,7 @@ const SelectBox = styled.div`
   width: 150px;
   height: 35px;
   border-radius: 4px;
-  border: 2px solid #aaa;
+  border: 1px solid #aaa;
   margin-right: 10px;
   @media screen and (max-width: 767px) {
     margin-bottom: 15px;
@@ -482,7 +482,9 @@ const Register = () => {
       Alert("error", "모든 입력값이 필수로 작성되야 합니다!");
     } else if (contentsPrice < 5000) {
       Alert("error", "상품의 최소가격은 5000원이어야 합니다 ");
-    } else {
+    } else if (contentsPrice > 10000000) {
+      Alert("error", "상품의 최소가격은 1000만원이하이어야 합니다 ");
+      }else {
       let postArticleData = {
         sellerId: sellerId,
         title: contentsName,
@@ -519,7 +521,7 @@ const Register = () => {
   return (
     <Container>
       <Title>
-        <span className="span">|</span>제품등록
+        제품등록
       </Title>
       <Form>
         <InputContainer>

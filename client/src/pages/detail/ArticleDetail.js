@@ -21,10 +21,8 @@ import Swal from "sweetalert2";
 import { Alert, Toast } from "../../components/Alert";
 import useIntersect from "../../components/useIntersect";
 
-function ArticleDetail() {
+function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
   const [clickSelect, setClickSelect] = useState(false);
-  const [clickHeart, setClickHeart] = useState(false);
-  const [clickCheck, setClickCheck] = useState(0);
   const [selectOptions, setSelectOptions] = useState("");
   const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
   const [cartCount, setCartCount] = useState(1);
@@ -75,7 +73,7 @@ function ArticleDetail() {
       setSelectOptionColor(color);
     } else {
       Alert("error", "판매물품이 모두 소진되었습니다!");
-      setClickCheck(Date.now());
+      clickCheckFunction();
     }
   };
   ScrollToTop();
@@ -96,18 +94,18 @@ function ArticleDetail() {
         count: cartCount,
         optionId: selectOptions,
       };
-      dispatch(postCart({ postData, navigate }));
+      dispatch(postCart({ postData, navigate, clickCheckFunction }));
     }
   };
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
-    setClickCheck(Date.now());
+    clickCheckFunction();
     dispatch(postLike(id));
     setClickCheck(0);
   };
   const clickDeleteLike = () => {
     let id = articlesDetail?.productId;
-    setClickCheck(Date.now());
+    clickCheckFunction();
     dispatch(deleteLike(id));
     setClickCheck(0);
   };

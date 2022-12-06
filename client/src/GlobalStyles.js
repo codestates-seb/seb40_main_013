@@ -38,13 +38,9 @@ const GlobalStyles = createGlobalStyle`
     /* 스크롤바 막대기 */
     ::-webkit-scrollbar-thumb {
         border-radius: 20px;
-        background-color: #002c6d;
+        background-color: #cccccc;
     }
 
-    /* 스크롤바 백그라운드 */
-    ::-webkit-scrollbar-track {
-        background-color: #fff;
-    }
     :root{
       // font-color
       --font-red : #FF4040;
