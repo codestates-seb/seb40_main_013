@@ -1,10 +1,11 @@
-package gohome.dailydaily.global.error;
+package gohome.dailydaily.global.error.logging;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.awt.*;
@@ -12,7 +13,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.*;
 
@@ -21,22 +21,16 @@ import java.util.*;
  * Come from: https://gist.github.com/k3kdude/fba6f6b37594eae3d6f9475330733bdb
  */
 @Setter
+@Component
 public class DiscordWebhook {
-    private final String url;
+
+    @Value("${webhook.error}")
+    private String url;
     private String content;
     private String username;
     private String avatarUrl;
     private boolean tts;
-    private List<EmbedObject> embeds = new ArrayList<>();
-
-    /**
-     * Constructs a new DiscordWebhook instance
-     *
-     * @param url The webhook URL obtained in Discord
-     */
-    public DiscordWebhook(String url) {
-        this.url = url;
-    }
+    private final List<EmbedObject> embeds = new ArrayList<>();
 
     public void addEmbed(EmbedObject embed) {
         this.embeds.add(embed);
@@ -159,7 +153,7 @@ public class DiscordWebhook {
         private Thumbnail thumbnail;
         private Image image;
         private Author author;
-        private List<Field> fields = new ArrayList<>();
+        private final List<Field> fields = new ArrayList<>();
 
         public EmbedObject setAuthor(String name, String url, String icon) {
             this.author = new Author(name, url, icon);
@@ -167,50 +161,55 @@ public class DiscordWebhook {
         }
 
         public EmbedObject addField(String name, String value, boolean inline) {
-            this.fields.add(new Field(name, value, inline));
+            if (value.equals("")) {
+                this.fields.add(new Field(name, null, inline));
+            } else {
+                this.fields.add(new Field(name, value, inline));
+            }
             return this;
         }
 
         @Getter
-        @AllArgsConstructor
+        @RequiredArgsConstructor
         private static class Footer {
-            private String text;
-            private String iconUrl;
+            private final String text;
+            private final String iconUrl;
 
         }
 
         @Getter
-        @AllArgsConstructor
+        @RequiredArgsConstructor
         private static class Thumbnail {
-            private String url;
+            private final String url;
         }
 
         @Getter
-        @AllArgsConstructor
+        @RequiredArgsConstructor
         private static class Image {
-            private String url;
+            private final String url;
         }
 
         @Getter
-        @AllArgsConstructor
+        @RequiredArgsConstructor
         private static class Author {
-            private String name;
-            private String url;
-            private String iconUrl;
+            private final String name;
+            private final String url;
+            private final String iconUrl;
         }
 
         @Getter
-        @AllArgsConstructor
+        @RequiredArgsConstructor
         private static class Field {
-            private String name;
-            private String value;
-            private boolean inline;
+            private final String name;
+            private final String value;
+            private final boolean inline;
         }
     }
 
     private static class JSONObject {
 
         private final HashMap<String, Object> map = new HashMap<>();
+
         void put(String key, Object value) {
             if (value != null) {
                 map.put(key, value);
@@ -235,7 +234,7 @@ public class DiscordWebhook {
                 } else if (val instanceof Boolean) {
                     builder.append(val);
                 } else if (val instanceof JSONObject) {
-                    builder.append(val.toString());
+                    builder.append(val);
                 } else if (val.getClass().isArray()) {
                     builder.append("[");
                     int len = Array.getLength(val);
