@@ -1,8 +1,10 @@
 package gohome.dailydaily.global.error;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.IOException;
+import java.util.List;
+
 
 /*
 * Controller 클래스에서 발생하는 예외들을 공통으로 처리하는 클래스
@@ -20,6 +25,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionAdvice {
+
+    @Value("${webhook.error}")
+    private String url;
 
     // RequestBody 의 유효성 검증 에러인 MethodArgumentNotValidException 처리하는 메서드
     @ExceptionHandler
@@ -69,8 +77,18 @@ public class GlobalExceptionAdvice {
     // 코드 상의 문제로 발생하는 Exception 을 처리하기 위한 메서드
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleException(Exception e) {
+    public ErrorResponse handleException(HttpServletRequest request, Exception e) throws IOException {
         log.error("# handle Exception", e);
+        // 디스코드 webhook 으로 로그 전송
+        DiscordWebhook webhook = new DiscordWebhook(url);
+        webhook.setContent(e.getMessage());
+
+        DiscordWebhook.EmbedObject errorObject = new DiscordWebhook.EmbedObject();
+        errorObject.setUrl(request.getRequestURI());
+        errorObject.addField("유저 정보", String.valueOf(request.getUserPrincipal()), false);
+
+        webhook.addEmbed(errorObject);
+        webhook.execute();
 
         return ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
