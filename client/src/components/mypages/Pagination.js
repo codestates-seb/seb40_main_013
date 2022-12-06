@@ -102,7 +102,6 @@ const PageButton = styled.button`
 function Pagination({ totalpage, page, setPage, clicked, setClicked }) {
   const [currentPageArray, setCurrentPageArray] = useState([]);
   const [totalPageArray, setTotalPageArray] = useState([]);
-  const [isclick, setIsClick] = useState(false);
   //tab click
   const sliceArrayByLimit = (totalPages) => {
     const totalPageArr = Array(totalPages)
@@ -156,10 +155,9 @@ function Pagination({ totalpage, page, setPage, clicked, setClicked }) {
             onClick={(e) => {
               setPage(i + 1);
               setClicked(e.target.innerText);
-              setIsClick(true)
             }}
             aria-current={page === i + 1 ? "page" : null}
-            className={isclick ? "clicked" : ""}
+            className={clicked === page ? "clicked" : ""}
           >
             {i + 1}
           </PageButton>
