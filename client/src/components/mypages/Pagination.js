@@ -99,7 +99,7 @@ const PageButton = styled.button`
   }
 `;
 
-function Pagination({ totalpage, page, setPage, clicked, setClicked}) {
+function Pagination({ totalpage, page, setPage, clicked, setClicked }) {
   const [currentPageArray, setCurrentPageArray] = useState([]);
   const [totalPageArray, setTotalPageArray] = useState([]);
   const [isclick, setIsClick] = useState(false);

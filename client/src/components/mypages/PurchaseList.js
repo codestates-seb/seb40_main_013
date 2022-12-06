@@ -98,7 +98,6 @@ const ShowProduct = styled(Link)`
   }
 `;
 
-
 //페이지
 const Page = styled.div``;
 
@@ -420,11 +419,10 @@ const PurchaseList = () => {
                       <BP>
                         <BrandName>
                           {[order.orderProducts[0]?.brandName]}
-                          <span>
-                            {order.orderProducts[0]?.title}&nbsp;
-                          </span>
-                          {order.orderProducts?.length === 1 ? '' : `외 ${order.orderProducts?.length-1}개`}
-                          
+                          <span>{order.orderProducts[0]?.title}&nbsp;</span>
+                          {order.orderProducts?.length === 1
+                            ? ""
+                            : `외 ${order.orderProducts?.length - 1}개`}
                         </BrandName>
                         <Option>색상: {order.orderProducts[0]?.color}</Option>
                         <Price>
@@ -439,9 +437,15 @@ const PurchaseList = () => {
                     </Link>
                   </ReactionSubDetail>
                   <Btns>
-                    {order.status === '주문 접수'? <CancleBtn onClick={() => handleOrderCancle(order.orderId)}>
-                      주문취소
-                    </CancleBtn>: "" }
+                    {order.status === "주문 접수" ? (
+                      <CancleBtn
+                        onClick={() => handleOrderCancle(order.orderId)}
+                      >
+                        주문취소
+                      </CancleBtn>
+                    ) : (
+                      ""
+                    )}
                   </Btns>
                 </Detail>
                 <ReactionSpace>

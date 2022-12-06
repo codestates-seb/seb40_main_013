@@ -14,11 +14,10 @@ export const signUser = createAsyncThunk(
       })
       .catch((err) => {
         if (err.response.data.message === "Nickname already exist") {
-        Alert("error", "똑같은 닉네임이 존재합니다!");
+          Alert("error", "똑같은 닉네임이 존재합니다!");
         } else if (err.response.data.message === "Email already exist") {
-        Alert("error", "똑같은 이메일이 존재합니다!");
+          Alert("error", "똑같은 이메일이 존재합니다!");
         }
-        // Toast("error", "회원가입에 실패했습니다!");
         console.log(err);
         });
   }
@@ -60,10 +59,9 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
     });
 });
 export const updateUser = createAsyncThunk(
-  "user/updateUser",
-  async ({ updatedata, navigate }) => {
-    console.log(updatedata);
-    return Apis.patch(`members/mypage`, updatedata, {
+  "user/updatesUser",
+  async (updateData) => {
+    return Apis.patch(`members/mypage`, updateData, {
       headers: {
         Authorization: `${localStorage.getItem("Authorization")}`,
         "Content-Type": "application/json",
@@ -110,32 +108,33 @@ const userSlice = createSlice({
     error: "",
   },
   reducers: {},
-  extraReducers: (builder) => builder
-    .addCase(signUser.fulfilled, (state, action) => {
-      state.users = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(loginUser.fulfilled, (state, action) => {
-      state.users = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(guestUser.fulfilled, (state, action) => {
-      state.users = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(getUser.fulfilled, (state, action) => {
-      state.users = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(updateUser.fulfilled, (state, action) => {
-      state.updateUser = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
+  extraReducers: (builder) =>
+    builder
+      .addCase(signUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(guestUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.updateUser = action.payload;
+        state.loading = true;
+        state.error = "";
+      }),
 });
 
 export default userSlice.reducer;

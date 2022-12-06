@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
-import { Toast, Alert } from "../../components/Alert";
+import { Alert, Toast } from "../../components/Alert";
 import Swal from "sweetalert2";
 
 export const getArticleDetail = createAsyncThunk(
@@ -143,7 +143,6 @@ export const deleteShoppingCart = createAsyncThunk(
       },
     })
       .then((res) => {
-        console.log(`shopslice`, res.data);
         window.location.reload();
         return res.data;
       })
@@ -156,7 +155,6 @@ export const deleteShoppingCart = createAsyncThunk(
 export const postPayment = createAsyncThunk(
   "getShoppingCart",
   async ({ checkList, navigate }) => {
-    console.log(checkList);
     return Apis.post(
       `orders`,
       {
@@ -170,7 +168,6 @@ export const postPayment = createAsyncThunk(
       }
     )
       .then((res) => {
-        console.log(`shopslice`, res.data);
         navigate("/members/mypage/purchase");
         return res.data;
       })
@@ -212,7 +209,6 @@ export const getSearchResult = createAsyncThunk(
       `/products/search?title=${storageWord}&page=${page}&sortType=${sortArgument}&order=${third}`
     )
       .then((res) => {
-        console.log(`shopslice`, res.data);
         return res.data;
       })
       .catch((err) => {
@@ -235,16 +231,17 @@ export const countSearchResult = createAsyncThunk(
 );
 
 export const getSubCount = createAsyncThunk(
-  "getCount", 
-  async ({mainCateClick, subclick}) => {
-  return Apis.get(`products/count?main=${mainCateClick}&sub=${subclick}`)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+  "getCount",
+  async ({ mainCateClick, subclick }) => {
+    return Apis.get(`products/count?main=${mainCateClick}&sub=${subclick}`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 
 export const popularSearch = createAsyncThunk("popularSearch", async () => {
   return Apis.get(`search/rank`)
@@ -259,7 +256,6 @@ export const popularSearch = createAsyncThunk("popularSearch", async () => {
 export const postArticle = createAsyncThunk(
   "postArticle",
   async ({ postArticleData, navigate }) => {
-    console.log("받아오나?????", postArticleData);
     const form = new FormData();
     form.append("sellerId", postArticleData.sellerId);
     form.append("title", postArticleData.title);
@@ -305,64 +301,65 @@ const articleSlice = createSlice({
     error: "",
   },
   reducers: {},
-  extraReducers: (builder) => builder
-    .addCase(getArticleDetail.fulfilled, (state, action) => {
-      state.detailArticle = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(postCart.fulfilled, (state, action) => {
-      state.article = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(postLike.fulfilled,(state, action) => {
-      state.articleLike = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(deleteLike.fulfilled, (state, action) => {
-      state.articleLike = action.payload;
+  extraReducers: (builder) =>
+    builder
+      .addCase(getArticleDetail.fulfilled, (state, action) => {
+        state.detailArticle = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(postCart.fulfilled, (state, action) => {
+        state.article = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(postLike.fulfilled, (state, action) => {
+        state.articleLike = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(deleteLike.fulfilled, (state, action) => {
+        state.articleLike = action.payload;
 
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(mainData.fulfilled, (state, action) => {
-      state.mainArticle = action.payload;
-      state.detailArticle = [];
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(getShoppingCart.fulfilled, (state, action) => {
-      state.shoppingCartInitial = action.payload?.productCarts;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(getSearchResult.fulfilled, (state, action) => {
-      state.searchResultInitial = action.payload.content;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(countSearchResult.fulfilled, (state, action) => {
-      state.countSearchResultInitial = action.payload.count;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(getSubCount.fulfilled, (state, action) => {
-      state.getSubCountInitial = action.payload.count;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(popularSearch.fulfilled, (state, action) => {
-      state.popularSearchInitial = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
-    .addCase(postArticle.fulfilled, (state, action) => {
-      state.postArticle = action.payload;
-      state.loading = true;
-      state.error = "";
-    })
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(mainData.fulfilled, (state, action) => {
+        state.mainArticle = action.payload;
+        state.detailArticle = [];
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(getShoppingCart.fulfilled, (state, action) => {
+        state.shoppingCartInitial = action.payload?.productCarts;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(getSearchResult.fulfilled, (state, action) => {
+        state.searchResultInitial = action.payload.content;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(countSearchResult.fulfilled, (state, action) => {
+        state.countSearchResultInitial = action.payload.count;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(getSubCount.fulfilled, (state, action) => {
+        state.getSubCountInitial = action.payload.count;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(popularSearch.fulfilled, (state, action) => {
+        state.popularSearchInitial = action.payload;
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(postArticle.fulfilled, (state, action) => {
+        state.postArticle = action.payload;
+        state.loading = true;
+        state.error = "";
+      }),
 });
 
 export default articleSlice.reducer;

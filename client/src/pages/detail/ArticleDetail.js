@@ -36,7 +36,7 @@ function ArticleDetail() {
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const isLike = useSelector((state) => state.article.articleLike);
   const optionStock = articlesDetail?.options?.filter((ele) => ele.stock == 0);
-  // console.log(optionStock);
+
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
   );
@@ -88,12 +88,16 @@ function ArticleDetail() {
   }, [clickCheck]);
 
   const clickPostCart = () => {
-    let postData = {
-      productId: articlesDetail?.productId,
-      count: cartCount,
-      optionId: selectOptions,
-    };
-    dispatch(postCart({ postData, navigate }));
+    if (selectOptions === "") {
+      Alert("error", "옵션을 선택해주세요!");
+    } else {
+      let postData = {
+        productId: articlesDetail?.productId,
+        count: cartCount,
+        optionId: selectOptions,
+      };
+      dispatch(postCart({ postData, navigate }));
+    }
   };
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
@@ -109,24 +113,6 @@ function ArticleDetail() {
   };
 
   const nowPayHandler = () => {
-    Swal.fire({
-      title: "",
-      text: "상품을 바로 구매하시겠습니까?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#002C6D",
-      cancelButtonColor: "#FFAF51",
-      showCancelButton: true,
-      confirmButtonText: "바로 구매",
-      cancelButtonText: "취소",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        successNowPay();
-      }
-    });
-  };
-
-  const successNowPay = () => {
     const checkList = [
       {
         productId: articlesDetail?.productId,
@@ -134,26 +120,42 @@ function ArticleDetail() {
         count: cartCount,
       },
     ];
-    console.log(checkList);
-    Apis.post(
-      `orders`,
-      {
-        orderProducts: checkList,
-      },
-      {
-        headers: {
-          Authorization: `${localStorage.getItem("Authorization")}`,
-          "Content-Type": "application/json",
+    if (selectOptions === "") {
+      Alert("error", "옵션을 선택해주세요!");
+    } else {
+      Apis.post(
+        `orders`,
+        {
+          orderProducts: checkList,
         },
-      }
-    )
-      .then((res) => {
-        // console.log(res);
-        navigate("/members/mypage/purchase");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("Authorization")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((res) => {
+          Swal.fire({
+            title: "",
+            text: "상품을 바로 구매하시겠습니까?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#002C6D",
+            cancelButtonColor: "#FFAF51",
+            showCancelButton: true,
+            confirmButtonText: "바로 구매",
+            cancelButtonText: "취소",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate("/members/mypage/purchase");
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -232,7 +234,18 @@ function ArticleDetail() {
                             clickFunction();
                         }}
                       >
-                        {option?.color}
+                        <>
+                          {option?.stock === 0 ? (
+                            <OptionDiv>
+                              <OptionDivA optionStock={option?.stock}>
+                                {option?.color}
+                              </OptionDivA>
+                              <OptionDivB>품절 </OptionDivB>
+                            </OptionDiv>
+                          ) : (
+                            <> {option?.color}</>
+                          )}
+                        </>
                       </DetailArticleOptionSpaceSelectDivValueLi>
                     ))}
                   </DetailArticleOptionSpaceSelectDivValueUl>
@@ -616,8 +629,6 @@ const DetailArticleOptionSpaceSelectDivValueLi = styled.li`
   padding: 15px 0px 15px 10px;
   display: block;
   border: none;
-  text-decoration: ${(props) =>
-    props.optionStock === 0 ? "line-through" : null};
   &:nth-child(1) {
     border: none;
     border-top: 1px solid var(--color-gray);
@@ -714,6 +725,21 @@ const DetailArticlBtn = styled.button`
       background-color: #f0f0f0;
     }
   }
+`;
+const OptionDiv = styled.div`
+  display: flex;
+  /* justify-content: space-between; */
+`;
+const OptionDivA = styled.div`
+  text-decoration: ${(props) =>
+    props.optionStock === 0 ? "line-through" : null};
+`;
+const OptionDivB = styled.div`
+  /* color: black; */
+  color: var(--font-red);
+  margin-left: 10px;
+  text-decoration: none;
+  font-weight: 300;
 `;
 
 export default ArticleDetail;

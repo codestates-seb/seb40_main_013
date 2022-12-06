@@ -21,7 +21,6 @@ function PostReview({ clickModal, filterData, filteReview }) {
   const clickNumber = [1, 2, 3, 4, 5];
   const [lengthScore, setLengthScore] = useState(0);
   const [fileImage, setFileImage] = useState("");
-
   const changeImg = async (e) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
     e.preventDefault();
@@ -101,7 +100,6 @@ function PostReview({ clickModal, filterData, filteReview }) {
       content: userWriteContent,
       score: lengthScore,
     };
-    console.log(updateData);
     dispatch(updateReview({ filterProductId, updateData, navigate }));
   };
   const handleStarClick = (index) => {
@@ -118,7 +116,7 @@ function PostReview({ clickModal, filterData, filteReview }) {
   useEffect(() => {
     sendReview();
   }, [clicked]);
-
+  
   return (
     <Wrapper>
       <Container
@@ -299,7 +297,7 @@ const PostReviewTopContent = styled.div`
     margin-top: 10px;
 
   }
-  &.title{
+  &.title {
     font-size: 0.95rem;
   }
   &.title{

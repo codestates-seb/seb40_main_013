@@ -14,8 +14,6 @@ const Title = styled.h2`
   font-size: 1rem;
 `;
 const BrandProductDetail = ({ productList }) => {
-  console.log(productList);
-
   return (
     <Container>
       {productList.map((p) => {

@@ -13,7 +13,7 @@ const EditContainter = styled.div`
   display: flex;
   width: 75vw;
   justify-content: center;
-  @media screen and (max-width: 389px){
+  @media screen and (max-width: 389px) {
     flex-direction: column;
     align-items: center;
     width: 80vw;
@@ -250,7 +250,6 @@ const Warning = styled.h2`
 `;
 
 const EditProfile = ({ getUserdata }) => {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const initialToken = localStorage.getItem("Authorization");
@@ -361,12 +360,10 @@ const EditProfile = ({ getUserdata }) => {
       }
     )
       .then((res) => {
-        console.log(res);
         setCurpwdConform(true);
         Alert("success", "비밀번호가 일치합니다!");
       })
       .catch((err) => {
-        console.log(err.response.data.message);
         if (err.response.data.message === "Password does not match") {
           Alert("error", "입력하신 비밀번호가 일치하지않습니다.");
         }
@@ -376,9 +373,29 @@ const EditProfile = ({ getUserdata }) => {
 
   //정보수정하기
   const updateInform = () => {
+    let pwd = "";
+    let updatedata = {};
+    if (updatePassword === "") {
+      pwd = curpwd;
+    } else {
+      pwd = updatePassword;
+    }
+    if (updateNickName === getUserdata.nickname) {
+      updatedata = {
+        password: pwd,
+        address: updateAddress,
+        phone: updatePhone,
+      };
+    } else if (updateNickName !== getUserdata.nickname) {
+      updatedata = {
+        nickname: updateNickName,
+        password: pwd,
+        address: updateAddress,
+        phone: updatePhone,
+      };
+    }
     if (curpwdConform === true) {
-      Swal
-      .fire({
+      Swal.fire({
         title: "수정하시겠습니까?",
         text: "정보가 수정됩니다.",
         icon: "warning",
@@ -388,8 +405,8 @@ const EditProfile = ({ getUserdata }) => {
         cancelButtonText: "취소",
         cancelButtonColor: "#aaaaaa",
         reverseButtons: true,
-      }).then((res)=>{
-        if (res.isConfirmed){
+      }).then((res) => {
+        if (res.isConfirmed) {
           let pwd = "";
           let updatedata = {};
           if (updatePassword === "") {
@@ -411,9 +428,9 @@ const EditProfile = ({ getUserdata }) => {
               phone: updatePhone,
             };
           }
-          dispatch(updateUser({updatedata, navigate}));
+          dispatch(updateUser({ updatedata, navigate }));
         }
-      })
+      });
     } else if (!curpwdConform) {
       Alert("warning", "현재 비밀번호를 확인해주세요");
     }
@@ -421,43 +438,42 @@ const EditProfile = ({ getUserdata }) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-        if (curpwdConform === true) {
-          Swal
-            .fire({
-              title: "Are you sure?",
-              text: "You won't be able to revert this!",
-              icon: "warning",
-              showCancelButton: true,
-              confirmButtonText: "Yes, delete it!",
-              confirmButtonColor: "red",
-              cancelButtonText: "No, cancel!",
-              cancelButtonColor: "#aaaaaa",
-              reverseButtons: true,
+    if (curpwdConform === true) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        confirmButtonColor: "red",
+        cancelButtonText: "No, cancel!",
+        cancelButtonColor: "#aaaaaa",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Apis.delete(`/members/mypage`, {
+            headers: {
+              Authorization: initialToken,
+            },
+          })
+            .then((res) => {
+              localStorage.clear();
+              Swal.fire({
+                title: "Deleted!",
+                text: "그동안 이용해주셔서 감사합니다.",
+                icon: "success",
+                confirmButtonColor: "#002C6D",
+              });
+              navigate("/");
             })
-            .then((result) => {
-              if (result.isConfirmed) {
-                Apis.delete(`/members/mypage`, {
-                  headers: {
-                    Authorization: initialToken,
-                  },
-                }).then((res)=>{
-                  localStorage.clear();
-                  Swal.fire({
-                    title: "Deleted!",
-                    text: "그동안 이용해주셔서 감사합니다.",
-                    icon: "success",
-                    confirmButtonColor: "#002C6D",
-                  });
-                  navigate("/");
-                }).catch((err)=>{
-                  console.log(err)
-                })
-              }
+            .catch((err) => {
+              console.log(err);
             });
         }
-        else if (!curpwdConform){
-          Alert("warning", "현재 비밀번호를 확인해주세요")
-        }
+      });
+    } else if (!curpwdConform) {
+      Alert("warning", "현재 비밀번호를 확인해주세요");
+    }
   };
 
   return (
@@ -490,7 +506,7 @@ const EditProfile = ({ getUserdata }) => {
         <Label htmlFor="nickname">닉네임</Label>
         <Input
           name="UpdateNickName"
-          value={updateNickName || ''}
+          value={updateNickName || ""}
           onChange={handleUpdateNickName}
           required
         ></Input>
@@ -560,13 +576,13 @@ const EditProfile = ({ getUserdata }) => {
         <Label htmlFor="address">주소</Label>
         <Input
           name="address"
-          value={updateAddress || ''}
+          value={updateAddress || ""}
           onChange={handleUpdateAddress}
         ></Input>
         <Label htmlFor="phone">휴대폰 번호 ( 예: 010-1234-5678 )</Label>
         <Input
           name="phone"
-          value={updatePhone || ''}
+          value={updatePhone || ""}
           onChange={handleUpdatePhone}
         ></Input>
         {!updatePhoneConfirm ? (
@@ -575,8 +591,11 @@ const EditProfile = ({ getUserdata }) => {
           </ErrorDisplay>
         ) : null}
         <Buttons>
-          {curpwdConform ? <Delete onClick={handleDelete}>회원탈퇴</Delete>
-          :<Delete>회원탈퇴</Delete>}
+          {curpwdConform ? (
+            <Delete onClick={handleDelete}>회원탈퇴</Delete>
+          ) : (
+            <Delete>회원탈퇴</Delete>
+          )}
           <Edit onClick={updateInform}>정보수정</Edit>
         </Buttons>
       </Container>
