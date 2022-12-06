@@ -128,7 +128,7 @@ const userSlice = createSlice({
         state.loading = true;
         state.error = "";
       })
-      .addCase(updatesUser.fulfilled, (state, action) => {
+      .addCase(updateUser.fulfilled, (state, action) => {
         state.updateUser = action.payload;
         state.loading = true;
         state.error = "";

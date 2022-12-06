@@ -38,8 +38,6 @@ export const BtnSelectAlert = (
   cancelButtonText,
   fuctionDispatch
 ) => {
-  console.log(fuctionDispatch);
-
   MySwal.fire({
     title: "Are you sure?",
     text,
@@ -67,32 +65,6 @@ export const BtnAlert = () => {
     }
   );
 };
-
-// export const Toast = () => {
-//   Swal.fire({
-//     position: "top-end",
-//     icon: "success",
-//     title: "Your work has been saved",
-//     showConfirmButton: false,
-//     timer: 1500,
-//   });
-// };
-
-// export const DeleteAlert = () => {
-//   MySwal.fire({
-//     title: "Are you sure?",
-//     text: '주문을 취소하시겠습니까?',
-//     icon: "warning",
-//     showCancelButton: true,
-//     confirmButtonColor: "#002C6D",
-//     cancelButtonColor: "#d33",
-//     confirmButtonText: '주문취소',
-//   }).then((result) => {
-//     if (result.isConfirmed) {
-//       Swal.fire("취소되었습니다", '주문이 취소되었습니다.', "success");
-//     }
-//   });
-// };
 
 export const AlreadyDeleteAlert = () => {
   Swal.fire({

@@ -24,6 +24,11 @@ const GlobalStyles = createGlobalStyle`
     input{
         outline: 0;
     }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
     :root{
       // font-color
       --font-red : #FF4040;
