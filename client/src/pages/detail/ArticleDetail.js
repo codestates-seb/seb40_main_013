@@ -157,14 +157,6 @@ function ArticleDetail() {
         });
     }
   };
-  const filterStock = (option) => {
-    let optionFilter = option.filter((el) => el.stock === 0).length;
-    if (optionFilter === 0) {
-      return option.color;
-    } else {
-      ("재고없음");
-    }
-  };
 
   return (
     <Wrapper>
@@ -253,7 +245,6 @@ function ArticleDetail() {
                             <> {option?.color}</>
                           )}
                         </>
-                        {filterStock(option)}
                       </DetailArticleOptionSpaceSelectDivValueLi>
                     ))}
                   </DetailArticleOptionSpaceSelectDivValueUl>
