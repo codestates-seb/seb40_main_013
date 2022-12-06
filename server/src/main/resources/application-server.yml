@@ -29,5 +29,4 @@ iam:
 env: server
 
 webhook:
-  deploy: ${DEPLOY_WEBHOOK}
   error: ${ERROR_WEBHOOK}

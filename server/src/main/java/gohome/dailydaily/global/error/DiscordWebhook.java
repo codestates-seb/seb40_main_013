@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.*;
 
@@ -138,6 +139,8 @@ public class DiscordWebhook {
         stream.write(json.toString().getBytes());
         stream.flush();
         stream.close();
+
+        System.out.println(json);
 
         connection.getInputStream().close(); //I'm not sure why but it doesn't work without getting the InputStream
         connection.disconnect();
