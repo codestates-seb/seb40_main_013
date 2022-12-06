@@ -1,6 +1,8 @@
 package gohome.dailydaily.util.security;
 
 import gohome.dailydaily.domain.member.repository.MemberRepository;
+import gohome.dailydaily.global.error.logging.DiscordWebhook;
+import gohome.dailydaily.global.error.logging.ServerErrorLogging;
 import gohome.dailydaily.util.TestMemberRepository;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -45,4 +47,12 @@ public class SecurityTestConfig {
         return new TestMemberRepository();
     }
 
+    @Bean
+    public DiscordWebhook discordWebhook() {
+        return new DiscordWebhook();
+    }
+    @Bean
+    public ServerErrorLogging serverErrorLogging() {
+        return new ServerErrorLogging(discordWebhook());
+    }
 }

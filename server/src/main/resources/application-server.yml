@@ -16,11 +16,17 @@ spring:
       ddl-auto: update
       default_batch_fetch_size: 500
 
-
 file:
-  profileImg: /img/profileImg/
-  productImg: /img/productImg/
-  productContentsImg: /img/productContentsImg/
-  reviewImg: /img/reviewImg/
+  profileImg: img/profileImg/
+  productImg: img/productImg/
+  productContentsImg: img/productContentsImg/
+  reviewImg: img/reviewImg/
+
+iam:
+  access-key: ${S3_ACCESS_KEY}
+  secret-key: ${S3_SECRET_KEY}
 
 env: server
+
+webhook:
+  error: ${ERROR_WEBHOOK}
