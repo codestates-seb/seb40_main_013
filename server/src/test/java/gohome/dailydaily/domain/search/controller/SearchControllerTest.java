@@ -1,9 +1,7 @@
 package gohome.dailydaily.domain.search.controller;
 
-import gohome.dailydaily.domain.search.dto.SearchDto;
 import gohome.dailydaily.domain.search.mapper.SearchMapper;
 import gohome.dailydaily.domain.search.repository.SearchRedisRepository;
-import gohome.dailydaily.domain.search.repository.SearchResRedisRepository;
 import gohome.dailydaily.util.security.SecurityTestConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +10,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
+import org.springframework.data.redis.core.DefaultTypedTuple;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import static gohome.dailydaily.util.TestConstant.REQUEST_PREPROCESSOR;
 import static gohome.dailydaily.util.TestConstant.RESPONSE_PREPROCESSOR;
-import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -29,7 +28,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = {SearchController.class})
+@WebMvcTest(controllers = {SearchController.class, SearchMapper.class})
 @MockBean(JpaMetamodelMappingContext.class)
 @Import({SecurityTestConfig.class})
 @AutoConfigureRestDocs
@@ -40,19 +39,17 @@ class SearchControllerTest {
 
     @MockBean
     private SearchRedisRepository searchRedisRepository;
-    @MockBean
-    private SearchResRedisRepository searchResRedisRepository;
 
     @Test
     void getRank() throws Exception {
         // given
-        SearchDto.RankResponse response1 = SearchDto.RankResponse.builder().count(5L).keyword("검색어1").build();
-        SearchDto.RankResponse response2 = SearchDto.RankResponse.builder().count(3L).keyword("검색어2").build();
-        SearchDto.RankResponse response3 = SearchDto.RankResponse.builder().count(2L).keyword("검색어3").build();
-        SearchDto.RankResponse response4 = SearchDto.RankResponse.builder().count(1L).keyword("검색어4").build();
+        DefaultTypedTuple<String> typedTuple1 = new DefaultTypedTuple<>("검색어1", 5D);
+        DefaultTypedTuple<String> typedTuple2 = new DefaultTypedTuple<>("검색어2", 3D);
+        DefaultTypedTuple<String> typedTuple3 = new DefaultTypedTuple<>("검색어3", 2D);
+        DefaultTypedTuple<String> typedTuple4 = new DefaultTypedTuple<>("검색어4", 1D);
 
-        given(searchResRedisRepository.getTop5Responses())
-                .willReturn(List.of(response1, response2, response3, response4));
+        given(searchRedisRepository.getRankTop5())
+                .willReturn(new LinkedHashSet<>(List.of(typedTuple1, typedTuple2, typedTuple3, typedTuple4)));
 
         // when
         ResultActions perform = mockMvc.perform(
