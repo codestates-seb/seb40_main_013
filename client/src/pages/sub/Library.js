@@ -3,24 +3,16 @@ import styled from "styled-components/macro";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
 import RankingDown from "../../components/DropDown";
-import libraryImg from "../../imgs/sub-library2.jpeg";
+import libraryImg from '../../imgs/sub-library2.jpeg';
 import Apis from "../../apis/apis";
 import { getSubCount } from "../../reduxstore/slices/articleSlice";
-function Library({
-  mainClick,
-  subclick,
-  page,
-  setPage,
-  products,
-  setProducts,
-}) {
+function Library({ mainClick, subclick, page, setPage, products, setProducts }) {
+
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = "서재";
 
   const dispatch = useDispatch();
-  const countSelector = useSelector(
-    (state) => state.article.getSubCountInitial
-  );
+  const countSelector = useSelector((state) => state.article.getSubCountInitial);
 
   // 셀렉트 박스
   const [dropDownclicked, setDropDownClicked] = useState("최신순");
@@ -28,16 +20,13 @@ function Library({
   const [closeDropDown, setDloseDropDown] = useState(false);
 
   let sortArgument = "createdAt";
-  if (dropDownclicked === "판매순") {
-    sortArgument = "sale";
-  } else if (
-    dropDownclicked === "높은가격순" ||
-    dropDownclicked === "낮은가격순"
-  ) {
-    sortArgument = "price";
-  } else {
-    sortArgument = "createdAt";
-  }
+  if(dropDownclicked ==='판매순'){
+    sortArgument = 'sale';
+  } else if(dropDownclicked === '높은가격순'|| dropDownclicked === '낮은가격순'){
+    sortArgument = 'price';
+  } else{
+    sortArgument = 'createdAt';
+  };
 
   const modalRef = useRef();
 
@@ -52,7 +41,7 @@ function Library({
 
   useEffect(() => {
     dispatch(getSubCount({ mainCateClick, subclick }));
-  }, [mainCateClick, subclick, sortArgument, third]);
+  }, [mainCateClick, subclick]);
 
   useEffect(() => {
     getProducts();

@@ -230,8 +230,8 @@ const Buttons = styled.div`
   width: 100%;
 `;
 const RegisterBtn = styled.button`
-  font-size: 1.1rem;
-  padding: 8px 15px;
+  font-size: 1rem;
+  padding: 6px 15px;
   border-radius: 5px;
   background-color: var(--color-navy);
   color: white;
@@ -246,10 +246,10 @@ const RegisterBtn = styled.button`
   }
 `;
 const Cancle = styled.button`
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #ff4040;
   border: 1px solid #efefef;
-  padding: 8px 15px;
+  padding: 6px 15px;
   border-radius: 5px;
   background-color: #efefef;
   cursor: pointer;
@@ -379,7 +379,17 @@ const Register = () => {
     e.target.value = e.target.value;
   };
   const changeContentPrice = (e) => {
-    setContentsPrice(e.target.value);
+    let c = e.target.value;
+    if( c === '' || parseInt(c) < 5000){
+      Alert("warning", "5,000원 미만 입력 불가");
+      setContentsPrice(5000)
+    } else if (parseInt(c)>10000000) {
+      Alert("warning", "10,000,000원 초과 입력 불가");
+      setContentsPrice(10000000)
+    } 
+    else{
+      setContentsPrice(parseInt(c));
+    }
   };
 
   const changeThumbnailImg = async (e) => {
@@ -464,7 +474,6 @@ const Register = () => {
         if (result.isConfirmed) {
           registConfirm();
           clickFunction();
-          // navigate('/');
         }
       })
       .catch((err) => console.log(err));
@@ -574,6 +583,7 @@ const Register = () => {
               className="price"
               min={5000}
               max={10000000}
+              value={contentsPrice}
               onChange={changeContentPrice}
             />
             {contentsPrice < 5000 ? (

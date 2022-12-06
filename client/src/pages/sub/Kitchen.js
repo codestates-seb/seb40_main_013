@@ -3,24 +3,16 @@ import styled from "styled-components/macro";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
 import RankingDown from "../../components/DropDown";
-import kitchenImg from "../../imgs/sub-kitchen.png";
+import kitchenImg from '../../imgs/sub-kitchen.png';
 import Apis from "../../apis/apis";
 import { getSubCount } from "../../reduxstore/slices/articleSlice";
 
-function Kitchen({
-  mainClick,
-  subclick,
-  page,
-  setPage,
-  products,
-  setProducts,
-}) {
+function Kitchen({ mainClick, subclick, page, setPage, products, setProducts  }) {
+  
   //소분류에 따른 대분류카테고리 이름 지정
-  let mainCateClick = "주방";
+  let mainCateClick = '주방';
   const dispatch = useDispatch();
-  const countSelector = useSelector(
-    (state) => state.article.getSubCountInitial
-  );
+  const countSelector = useSelector((state) => state.article.getSubCountInitial);
 
   // 셀렉트 박스
   const [dropDownclicked, setDropDownClicked] = useState("최신순");
@@ -28,16 +20,13 @@ function Kitchen({
   const [closeDropDown, setDloseDropDown] = useState(false);
 
   let sortArgument = "createdAt";
-  if (dropDownclicked === "판매순") {
-    sortArgument = "sale";
-  } else if (
-    dropDownclicked === "높은가격순" ||
-    dropDownclicked === "낮은가격순"
-  ) {
-    sortArgument = "price";
-  } else {
-    sortArgument = "createdAt";
-  }
+  if(dropDownclicked ==='판매순'){
+    sortArgument = 'sale';
+  } else if(dropDownclicked === '높은가격순'|| dropDownclicked === '낮은가격순'){
+    sortArgument = 'price';
+  } else{
+    sortArgument = 'createdAt';
+  };
 
   const modalRef = useRef();
 
@@ -50,11 +39,11 @@ function Kitchen({
       setDloseDropDown(false);
   };
 
-  useEffect(() => {
-    dispatch(getSubCount({ mainCateClick, subclick }));
-  }, [mainCateClick, subclick, sortArgument, third]);
+  useEffect(()=>{
+    dispatch(getSubCount({mainCateClick, subclick}))
+  }, [mainCateClick, subclick]);
 
-  useEffect(() => {
+  useEffect(()=>{
     getProducts();
   }, [page, subclick, sortArgument, third]);
 
