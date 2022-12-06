@@ -23,6 +23,7 @@ function MyReview() {
   const [curPage, setCurPage] = useState(0);
   const [totalpage, setTotalpage] = useState(0);
   const [isModal, setIsModal] = useState(false);
+
   const clickModal = (id) => {
     const filteData = userWriteReviews?.filter((data) => data.reviewId === id);
     setFilterReview(filteData);
@@ -212,7 +213,6 @@ const Container = styled.div`
     width: 88%;
     padding: 0;
     margin-left: -10px;
-    
   }
   @media (min-width: 391px) and (max-width: 768px) {
     width: 100%;

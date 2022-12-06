@@ -320,7 +320,7 @@ const PurchaseList = () => {
   //페이지네이션
   const [curPage, setCurPage] = useState(0); //현재페이지
   const [totalpage, setTotalpage] = useState(0);
-  const [clicked, setClicked] = useState("");
+  const [clicked, setClicked] = useState(0);
 
   const clickFunction = () => {
     setClicked(Date.now());
@@ -339,7 +339,19 @@ const PurchaseList = () => {
     }
     dispatch(getMyOrder({ count, setTotalpage }));
   }, [curPage]);
-
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    let count = 0;
+    if (curPage > 0) {
+      count = curPage - 1;
+    } else {
+      count = 0;
+    }
+    dispatch(getMyOrder({ count, setTotalpage }));
+  }, [clicked]);
   //주문취소 버튼
   const handleOrderCancle = (id) => {
     const curData = myOrderData.filter((data) => data.orderId == id);
@@ -358,13 +370,13 @@ const PurchaseList = () => {
       .then((result) => {
         if (result.isConfirmed) {
           orderCancle(id);
+          setClicked(Date.now());
           Swal.fire({
             title: "취소되었습니다.",
             text: "",
             icon: "success",
             confirmButtonColor: "#002C6D",
           });
-          clickFunction();
         }
       })
       .catch((err) => console.log(err));

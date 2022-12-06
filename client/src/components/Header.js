@@ -162,6 +162,7 @@ function Header({
   setSearchWord,
   setPage,
   setProducts,
+  clickCheck,
 }) {
   const navigate = useNavigate();
   const modalRef = useRef();
@@ -199,10 +200,9 @@ function Header({
   };
 
   //jwt토큰
-  const jwt = localStorage.getItem("Authorization")
-  useEffect(()=>{
-
-    if(jwt){
+  const jwt = localStorage.getItem("Authorization");
+  useEffect(() => {
+    if (jwt) {
       Apis.get(`carts`, {
         headers: {
           Authorization: `${jwt}`,
@@ -217,7 +217,24 @@ function Header({
           console.log(err);
         });
     }
-  }, [jwt])
+  }, [jwt]);
+  useEffect(() => {
+    if (jwt) {
+      Apis.get(`carts`, {
+        headers: {
+          Authorization: `${jwt}`,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          setHeaderCartCount(res.data.productCarts.length);
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [clickCheck]);
 
   return (
     <>

@@ -36,9 +36,13 @@ function App() {
   const [subclick, setSubClick] = useState("");
   const [searchWord, setSearchWord] = useState("");
 
-
   const [page, setPage] = useState(0);
   const [products, setProducts] = useState([]);
+  const [clickCheck, setClickCheck] = useState(0);
+
+  const clickCheckFunction = () => {
+    setClickCheck(Date.now());
+  };
 
   return (
     <BrowserRouter>
@@ -55,6 +59,7 @@ function App() {
                 setSearchWord={setSearchWord}
                 setPage={setPage}
                 setProducts={setProducts}
+                clickCheck={clickCheck}
               />
               <Routes>
                 <Route path="/" element={<Main />} />
@@ -62,13 +67,22 @@ function App() {
                 <Route path="/users/login" element={<Login />} />
                 <Route path="/members/mypage/*" element={<MyPage />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/detail/:id" element={<ArticleDetail />} />
+                <Route
+                  path="/detail/:id"
+                  element={
+                    <ArticleDetail
+                      clickCheckFunction={clickCheckFunction}
+                      clickCheck={clickCheck}
+                      setClickCheck={setClickCheck}
+                    />
+                  }
+                />
                 <Route
                   path="/library"
                   element={
-                    <Library 
-                      mainClick={mainClick} 
-                      subclick={subclick} 
+                    <Library
+                      mainClick={mainClick}
+                      subclick={subclick}
                       page={page}
                       setPage={setPage}
                       products={products}
@@ -79,8 +93,8 @@ function App() {
                 <Route
                   path="/bedroom"
                   element={
-                    <Bedroom 
-                      mainClick={mainClick} 
+                    <Bedroom
+                      mainClick={mainClick}
                       subclick={subclick}
                       page={page}
                       setPage={setPage}
@@ -92,9 +106,9 @@ function App() {
                 <Route
                   path="/kitchen"
                   element={
-                    <Kitchen 
-                      mainClick={mainClick} 
-                      subclick={subclick} 
+                    <Kitchen
+                      mainClick={mainClick}
+                      subclick={subclick}
                       page={page}
                       setPage={setPage}
                       products={products}
@@ -105,9 +119,9 @@ function App() {
                 <Route
                   path="/livingRoom"
                   element={
-                    <LivingRoom 
-                      mainClick={mainClick} 
-                      subclick={subclick} 
+                    <LivingRoom
+                      mainClick={mainClick}
+                      subclick={subclick}
                       page={page}
                       setPage={setPage}
                       products={products}
@@ -116,7 +130,10 @@ function App() {
                   }
                 />
                 <Route path="/cart" element={<ShoppingCart />} />
-                <Route path="/search" element={<SearchResult searchWord={searchWord} />} />
+                <Route
+                  path="/search"
+                  element={<SearchResult searchWord={searchWord} />}
+                />
               </Routes>
             </MainContent>
             <Footer />

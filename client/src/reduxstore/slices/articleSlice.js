@@ -22,7 +22,7 @@ export const getArticleDetail = createAsyncThunk(
 
 export const postCart = createAsyncThunk(
   "carts",
-  async ({ postData, navigate }) => {
+  async ({ postData, navigate, clickCheckFunction }) => {
     return Apis.post(`carts`, postData, {
       headers: {
         Authorization: `${localStorage.getItem("Authorization")}`,
@@ -42,6 +42,7 @@ export const postCart = createAsyncThunk(
         }).then((result) => {
           if (result.isConfirmed) {
             navigate("/cart");
+            clickCheckFunction();
           } else {
             window.location.reload();
           }
@@ -51,7 +52,7 @@ export const postCart = createAsyncThunk(
       .catch((err) => {
         if (err.response.data.fieldErrors[0].reason === "널이어서는 안됩니다") {
           Alert("error", "옵션을 선택해주세요!");
-          }
+        }
       });
   }
 );

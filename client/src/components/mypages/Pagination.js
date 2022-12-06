@@ -154,7 +154,7 @@ function Pagination({ totalpage, page, setPage, clicked, setClicked }) {
             key={i + 1}
             onClick={(e) => {
               setPage(i + 1);
-              setClicked(e.target.innerText);
+              setClicked(i + 1);
             }}
             aria-current={page === i + 1 ? "page" : null}
             className={clicked === page ? "clicked" : ""}
