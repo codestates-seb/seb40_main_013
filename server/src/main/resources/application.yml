@@ -1,0 +1,30 @@
+logging:
+  level:
+    org:
+#      hibernate:
+#        type: trace
+      springframework:
+        orm:
+          jpa: DEBUG # 로그 단계 설정
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
+
+cloud:
+  aws:
+    region: # AWS Region 구성
+      static: ap-northeast-2
+    stack: # EC2에서 Spring Cloud 프로젝트를 실행시키면 기본으로 CloudFormation 구성을 시작
+      auto: false
+
+iam:
+  access-key: test123124123121231241231314123
+  secret-key: test123124123121231241231314123
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
+  keep-state-refresh-token-expiration-minutes: 1440
+
