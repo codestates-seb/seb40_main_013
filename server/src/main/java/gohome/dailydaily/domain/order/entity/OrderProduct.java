@@ -27,7 +27,7 @@ public class OrderProduct extends BaseTime {
     private Product product;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "options")
+    @JoinColumn(name = "option_id")
     private Option option;
 
     @Column
