@@ -27,10 +27,7 @@ public class SearchScheduler {
         this.webhook.setContent("서버 정상 작동 중😄");
     }
 
-    //    @Scheduled(fixedDelay = 3_600_000) // 60분
-    @Scheduled(fixedDelay = 1_200_000) // 20분
-//    @Scheduled(fixedDelay = 600_000) // 10분
-//    @Scheduled(fixedDelay = 60_000) // 1분
+    @Scheduled(cron = "0 0 * * * *")
     public void updateSearchCount() throws IOException {
         searchRedisRepository.update();
 
