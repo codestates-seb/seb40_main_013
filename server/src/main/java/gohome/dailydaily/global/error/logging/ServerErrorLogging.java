@@ -51,7 +51,7 @@ public class ServerErrorLogging {
         String ip = request.getRemoteAddr();
 
         for (String header : headers) {
-            if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+            if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip) && !ip.equals("127.0.0.1")) {
                 break;
             }
             ip = request.getHeader(header);
