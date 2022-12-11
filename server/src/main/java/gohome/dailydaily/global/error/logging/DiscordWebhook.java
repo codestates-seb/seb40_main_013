@@ -4,9 +4,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.stereotype.Component;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.awt.*;
@@ -164,9 +161,7 @@ public class DiscordWebhook {
         }
 
         public EmbedObject addField(String name, String value, boolean inline) {
-            if (value.equals("")) {
-                this.fields.add(new Field(name, "null", inline));
-            } else {
+            if (value != null && !value.equals("")) {
                 this.fields.add(new Field(name, value, inline));
             }
             return this;
