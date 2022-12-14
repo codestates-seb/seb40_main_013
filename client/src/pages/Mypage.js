@@ -112,6 +112,7 @@ const Nav = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 10px;
   @media screen and (max-width: 768px) {
     border-top: none;
     justify-content: center;
@@ -133,7 +134,7 @@ const NavDetail = styled.nav`
   justify-content: center;
   font-size: 1.1rem;
   font-weight: 500;
-  margin-top: 20px;
+  padding: 20px 0;
   color: #272727;
   &:hover {
     color: #aaa;

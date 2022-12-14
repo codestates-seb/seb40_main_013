@@ -55,8 +55,10 @@ function SearchResult({ searchWord, page, setPage, products, setProducts  }) {
   // }, [searchWord]);
 
   useEffect(() => {
+    setProducts([]);
+    setPage(0);
     dispatch(countSearchResult(searchWord));
-  }, []);
+  }, [searchWord]);
 
   useEffect(()=>{
     if(searchWord != ''){
@@ -71,7 +73,7 @@ function SearchResult({ searchWord, page, setPage, products, setProducts  }) {
       )
       setProducts(prev => [...prev, ...productsRes.data.content]);
       setLoading(false);
-    },1000)
+    },700)
   };
 
   const handleScroll = () => {
@@ -105,6 +107,8 @@ function SearchResult({ searchWord, page, setPage, products, setProducts  }) {
             closeHandler={closeHandler}
             setThird={setThird}
             third={third}
+            setPage={setPage}
+            setProducts={setProducts}
           />
         </section>
       </FilterBlock>

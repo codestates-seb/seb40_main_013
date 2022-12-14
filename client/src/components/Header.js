@@ -223,20 +223,22 @@ function Header({
   }, [jwt])
 
   useEffect(() => {
-    if (jwt) {
-    Apis.get(`carts`, {
-    headers: {
-    Authorization: `${jwt}`,
-    "Content-Type": "application/json",
-    },
-    })
-    .then((res) => {
-    setHeaderCartCount(res.data.productCarts.length);
-    return res.data;
-    })
-    .catch((err) => {
-    console.log(err);
-    });
+    if (clickCheck > 0) {
+      if (jwt) {
+      Apis.get(`carts`, {
+      headers: {
+      Authorization: `${jwt}`,
+      "Content-Type": "application/json",
+      },
+      })
+      .then((res) => {
+      setHeaderCartCount(res.data.productCarts.length);
+      return res.data;
+      })
+      .catch((err) => {
+      console.log(err);
+      });
+      }
     }
     }, [clickCheck]);
 

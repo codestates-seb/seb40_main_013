@@ -596,6 +596,7 @@ const DetailArticleOptionSpaceSelect = styled.div`
   font-size: 1rem;
   border-bottom: 1px solid var(--color-gray);
   position: relative;
+  cursor: pointer;
 `;
 const DetailArticleOptionSpaceSelectDiv = styled.div`
   width: 100%;

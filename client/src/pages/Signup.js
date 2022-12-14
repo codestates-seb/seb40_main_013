@@ -133,29 +133,30 @@ function Signup() {
 
 const Wrapper = styled.form`
   width: 100%;
-  /* height: 58vh; */
-  margin-top: 100px;
-  margin-bottom: 30px;
+  height: 85vh;
+  margin-top: 180px;
   display: flex;
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 330px) {
     width: 300px;
-    margin-top: 160px;
-    margin-bottom: 80px;
   }
 `;
+
 const SignupWrapper = styled.div`
-  width: 100%;
-  height: 100vh;
+  width: 80%;
+  height: 75vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 600px;
-
-  @media screen and (max-width: 400px) {
-    height: 100%;
+  margin: 0px 0px 50px 0px;
+  border: 1px solid #aaaaaa;
+  box-shadow: 0 1px 5px 0 rgb(0 0 0 / 30%);
+  border-radius: 7px;
+  @media screen and (max-width: 500px) {
+    height: 70vh;
   }
 `;
 
@@ -191,7 +192,7 @@ const UserWriteInput = styled.input`
 `;
 
 const UserSubmitBtn = styled.button`
-  margin-top: 50px;
+  margin-top: 30px;
   width: 70%;
   height: 47px;
   cursor: pointer;
@@ -203,6 +204,7 @@ const UserSubmitBtn = styled.button`
   align-items: center;
   font-size: 20px;
   font-weight: bold;
+  margin-bottom: 50px;
 `;
 
 const ErrorDisplay = styled.div`
