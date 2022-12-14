@@ -124,7 +124,7 @@ const ReactionDetail = styled.div`
   @media screen and (max-width: 768px) {
     border-top: none;
     justify-content: center;
-    margin-top: -10px;
+    margin-top: 10px;
     flex-direction: row;
   }
 `;

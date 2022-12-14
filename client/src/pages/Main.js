@@ -1,3 +1,5 @@
+// @ts-check
+
 import React, { useRef, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { mainData } from "../reduxstore/slices/articleSlice";
@@ -13,25 +15,28 @@ const Main = () => {
   const dispatch = useDispatch();
 
   //best of best
-  const bestData = useSelector((state) => state.article.mainArticle);
+  const bestData = useSelector((/** @type {any} */state) => state.article.mainArticle);
 
   // 신상품
-  const newArivalData = useSelector((state) => state.maincategory.category);
+  const newArivalData = useSelector((/** @type {any} */state) => state.maincategory.category);
 
   //브랜드리스트
-  const brandData = useSelector((state) => state?.main.main);
+  const brandData = useSelector((/** @type {any} */state) => state?.main.main);
   const brandTab = Object.keys(brandData)
 
   //자동스크롤 이벤트
   const myRefs = useRef({});
-  const onMoveToElement = (key) => {
+  const onMoveToElement = (/** @type {string} */ key) => {
     myRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   // 데이터 받아오기
   useLayoutEffect(() => {
+    // @ts-ignore
     dispatch(mainData());
+    // @ts-ignore
     dispatch(categoryData());
+    // @ts-ignore
     dispatch(newData());
   }, []);
 
@@ -59,7 +64,7 @@ const Main = () => {
           ))}
       </ProductList>
       {/* 카테고리별 신상품 */}
-      <div id="newArrival" {...animateScroll[0]}>
+      <div id="newArrival">
         <Title>
           <SubTitle>New Arrival</SubTitle>
           <MainTitle>카테고리별 신상품</MainTitle>
@@ -70,11 +75,11 @@ const Main = () => {
         />
       </div>
       {/* 브랜드별 추천상품 */}
-      <BrandTabTitle {...animateScroll[1]}>
+      <BrandTabTitle>
         <SubTitle>Best Selling</SubTitle>
         <MainTitle>브랜드별 추천상품</MainTitle>
       </BrandTabTitle>
-      <BrandTab {...animateScroll[2]}>
+      <BrandTab>
         <div className="tbody">
           <div className="reactionbody">
             <TH>
