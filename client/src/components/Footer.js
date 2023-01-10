@@ -1,18 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components/macro";
 import { BsGithub } from "react-icons/bs";
-import { IoMdPerson } from "react-icons/io";
-import { guestUser } from "../reduxstore/slices/userSlice";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 function Footer() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const clickGuest = () => {
-    dispatch(guestUser({ navigate }));
-  };
-
   return (
     <FooterWrapper>
       <section>
@@ -21,9 +11,6 @@ function Footer() {
           <div>
             <FooterSocialBtn href="https://github.com/codestates-seb/seb40_main_013">
               <GithubBtn />
-            </FooterSocialBtn>
-            <FooterSocialBtn onClick={clickGuest}>
-              <PersonBtn />
             </FooterSocialBtn>
           </div>
         </div>
@@ -63,6 +50,7 @@ const FooterWrapper = styled.div`
     justify-content: space-between;
   }
 `;
+const FooterSocialBtn = styled.a``;
 
 const FooterSeviceContent = styled.div`
   font-size: 15px;
@@ -95,22 +83,7 @@ const FooterMenuBtn = styled.div`
   padding-right: 20px;
 `;
 
-const FooterSocialBtn = styled.a``;
-
 const GithubBtn = styled(BsGithub)`
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
-  padding-right: 10px;
-  color: #515151;
-  @media screen and (max-width: 767px) {
-    width: 22px;
-    height: 22px;
-    padding-right: 5px;
-  }
-`;
-
-const PersonBtn = styled(IoMdPerson)`
   width: 35px;
   height: 35px;
   cursor: pointer;
