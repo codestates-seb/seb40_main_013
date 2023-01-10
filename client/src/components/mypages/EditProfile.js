@@ -451,26 +451,26 @@ const EditProfile = ({ getUserdata }) => {
         cancelButtonColor: "#aaaaaa",
         reverseButtons: true,
       }).then((result) => {
-      if (result.isConfirmed) {
-        Apis.delete(`/members/mypage`, {
-        headers: {
-        Authorization: initialToken,
-        },
-      })
-      .then((res) => {
-        localStorage.clear();
-        Swal.fire({
-        title: "Deleted!",
-        text: "그동안 이용해주셔서 감사합니다.",
-        icon: "success",
-        confirmButtonColor: "#002C6D",
-      });
-      navigate("/");
-      })
-      .catch((err) => {
-      console.log(err);
-      });
-      }
+        if (result.isConfirmed) {
+          Apis.delete(`/members/mypage`, {
+          headers: {
+          Authorization: initialToken,
+          },
+        })
+        .then((res) => {
+          localStorage.clear();
+          Swal.fire({
+          title: "Deleted!",
+          text: "그동안 이용해주셔서 감사합니다.",
+          icon: "success",
+          confirmButtonColor: "#002C6D",
+        });
+          navigate("/");
+        })
+          .catch((err) => {
+            console.log(err);
+          });
+        }
       });
       } else if (!curpwdConform) {
         Alert("warning", "현재 비밀번호를 확인해주세요");
