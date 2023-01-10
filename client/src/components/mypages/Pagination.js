@@ -84,13 +84,13 @@ const PageButton = styled.button`
       border-radius: 50%;
       color: white;
     }
-    &.clicked {
+    .clicked {
       cursor: pointer;
       background-color: #aaa;
       border-radius: 50%;
       color: white;
     }
-    &.clicked::after {
+    .clicked::after {
       cursor: pointer;
       background-color: #aaa;
       border-radius: 50%;
@@ -99,12 +99,12 @@ const PageButton = styled.button`
   }
 `;
 
-function Pagination({ totalpage, page, setPage, clicked, setClicked}) {
+function Pagination({ totalpage, page, setPage }) {
   const [currentPageArray, setCurrentPageArray] = useState([]);
   const [totalPageArray, setTotalPageArray] = useState([]);
+  const [isClick, setIsClick] = useState(0);
+
   //tab click
-  console.log(clicked)
-  console.log(page)
   const sliceArrayByLimit = (totalPages) => {
     const totalPageArr = Array(totalPages)
       .fill()
@@ -127,7 +127,7 @@ function Pagination({ totalpage, page, setPage, clicked, setClicked}) {
     setTotalPageArray(slicedPageArray);
     setCurrentPageArray(slicedPageArray[0]);
   }, [totalpage]);
-
+  
   return (
     <ButtonWrap>
       <li>
@@ -154,12 +154,12 @@ function Pagination({ totalpage, page, setPage, clicked, setClicked}) {
         {currentPageArray?.map((i) => (
           <PageButton
             key={i + 1}
-            onClick={(e) => {
+            onClick={() => {
               setPage(i + 1);
-              setClicked(e.target.innerText);
+              setIsClick(1);
             }}
             aria-current={page === i + 1 ? "page" : null}
-            className={clicked === page ? "clicked" : ""}
+            className={isClick === 1 ? "clicked" : ""}
           >
             {i + 1}
           </PageButton>

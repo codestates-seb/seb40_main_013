@@ -14,8 +14,8 @@ const Container = styled.div`
   padding: 20px 20px 20px 40px;
   width: 75vw;
   @media screen and (max-width: 390px) {
-    width: 100%;
-    padding: 0 20px;
+    width: 88vw;
+    padding: 0;
     margin: 30px 0;
   }
   @media (min-width: 391px) and (max-width: 768px) {
@@ -50,7 +50,7 @@ const SubTop = styled.h2`
 `;
 
 const Hr = styled.hr`
-  height: 2px;
+  height: 1px;
   border: none;
   background-color: var(--color-center-line);
   margin: 5px 0;
@@ -101,12 +101,20 @@ const BP = styled.div`
   margin-left: 20px;
   @media screen and (max-width: 390px) {
     flex-direction: row;
-    justify-content: flex-start;
+    width: 88vw;
+    justify-content: space-between;
+    padding-right: 10px;
+    margin-top: 10px;
+    margin-left: 0;
   }
 `;
+const ReactionNameOption = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const BrandName = styled(Link)`
-  font-weight: 700;
-  font-size: 1.1rem;
+  font-weight: 600;
+  font-size: 1rem;
   margin-bottom: 5px;
   &:hover {
     opacity: 0.7;
@@ -124,6 +132,9 @@ const Option = styled.h2`
   margin-top: 5px;
   font-size: 1em;
   color: #aaa;
+  @media screen and (max-width: 390px) {
+    font-size: 0.7rem;
+  }
 `;
 const Price = styled.h2`
   margin: 10px 0;
@@ -134,6 +145,7 @@ const Price = styled.h2`
   @media screen and (max-width: 390px) {
     margin: 5px 5px 5px 0;
     font-size: 12px;
+    white-space: nowrap;
   }
   @media (min-width: 391px) and (max-width: 768px) {
     margin: 5px 0;
@@ -229,11 +241,14 @@ const PurchaseAll = () => {
   const filterProduct = useSelector(
     (state) => state.myorder.filterorder.orderProducts
   );
+
   const priceMap = filterProduct?.map((p) => p.price * p.count);
   const price = priceMap?.reduce((acc, cur) => acc + cur);
-  console.log(priceMap, price);
+  const [filterItem, setFilterItem] = useState("");
 
-  const clickModal = () => {
+  const clickModal = (id) => {
+    const filterItem = filterProduct.filter((el) => el.productId === id);
+    setFilterItem(filterItem);
     setIsModal(!isModal);
   };
 
@@ -249,7 +264,7 @@ const PurchaseAll = () => {
             <PostReview
               clickModal={clickModal}
               onClick={(e) => e.preventDefault()}
-              filterData={filterProduct}
+              filterData={filterItem}
             />
             <AllOrderTitle>주문상세정보</AllOrderTitle>
             <Top>
@@ -266,10 +281,12 @@ const PurchaseAll = () => {
                     <ReactionSubDetail>
                       <Img src={p.img.fullPath} />
                       <BP>
-                        <BrandName to={`/detail/${p.productId}`}>
-                          [{p.brandName}] {p.title}
-                        </BrandName>
-                        <Option>색상: {p.color}</Option>
+                        <ReactionNameOption>
+                          <BrandName to={`/detail/${p.productId}`}>
+                            [{p.brandName}] {p.title}
+                          </BrandName>
+                          <Option>색상: {p.color}</Option>
+                        </ReactionNameOption>
                         <Price>
                           <span>₩&nbsp;{p.price.toLocaleString("en-US")}</span>
                           &nbsp;|&nbsp;{p.count}개
@@ -299,22 +316,26 @@ const PurchaseAll = () => {
                 </Content>
                 </ProductContainer>
             ))}
-                <PaymentTitle>결제정보</PaymentTitle>
-                <Hr />
-                <PaymentContainer>
-                  <PaySubContainer>
-                    <PaySubTitle>상품금액</PaySubTitle>
-                    <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
-                  </PaySubContainer>
-                  <PaySubContainer>
-                    <PaySubTitle>선불배송비</PaySubTitle>
-                    <PaySubContent>(+) 0&nbsp;원</PaySubContent>
-                  </PaySubContainer>
-                  <PaySubContainer>
-                    <PaySubTitle>결제금액</PaySubTitle>
-                    <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
-                  </PaySubContainer>
-                </PaymentContainer>
+            <PaymentTitle>결제정보</PaymentTitle>
+            <Hr />
+            <PaymentContainer>
+              <PaySubContainer>
+                <PaySubTitle>상품금액</PaySubTitle>
+                <PaySubContent>
+                  {price?.toLocaleString("en-US")}&nbsp;원
+                </PaySubContent>
+              </PaySubContainer>
+              <PaySubContainer>
+                <PaySubTitle>선불배송비</PaySubTitle>
+                <PaySubContent>(+) 0&nbsp;원</PaySubContent>
+              </PaySubContainer>
+              <PaySubContainer>
+                <PaySubTitle>결제금액</PaySubTitle>
+                <PaySubContent>
+                  {price?.toLocaleString("en-US")}&nbsp;원
+                </PaySubContent>
+              </PaySubContainer>
+            </PaymentContainer>
           </Container>
         </>
       ) : (
@@ -335,10 +356,12 @@ const PurchaseAll = () => {
                     <ReactionSubDetail>
                       <Img src={p.img.fullPath} />
                       <BP>
-                        <BrandName to={`/detail/${p.productId}`}>
-                          [{p.brandName}] {p.title}
-                        </BrandName>
-                        <Option>색상: {p.color}</Option>
+                        <ReactionNameOption>
+                          <BrandName to={`/detail/${p.productId}`}>
+                            [{p.brandName}] {p.title}
+                          </BrandName>
+                          <Option>색상: {p.color}</Option>
+                        </ReactionNameOption>
                         <Price>
                           <span>₩&nbsp;{p.price.toLocaleString("en-US")}</span>
                           &nbsp;|&nbsp;{p.count}개
@@ -350,7 +373,7 @@ const PurchaseAll = () => {
                         className={
                           filterData.status === "주문 취소" ? "hidden" : ""
                         }
-                        onClick={clickModal}
+                        onClick={() => clickModal(p.productId)}
                       >
                         리뷰작성
                       </ReviewBtn>

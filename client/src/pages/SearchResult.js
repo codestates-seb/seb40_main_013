@@ -2,37 +2,40 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import Products from "../components/mains/Product";
 import RankingDown from "../components/DropDown";
-
+import Apis from "../apis/apis";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearchResult, countSearchResult } from "../reduxstore/slices/articleSlice";
+import {
+  getSearchResult,
+  countSearchResult,
+} from "../reduxstore/slices/articleSlice";
 import LoadingIcon from "../components/LoadingIcon";
 
-function SearchResult ({searchWord}) {
-
-  console.log(`searchWord`,searchWord);
-
+function SearchResult({ searchWord, page, setPage, products, setProducts  }) {
   const dispatch = useDispatch();
-  const searchResultSelector = useSelector((state) => state.article.searchResultInitial);
-  const countSearchResultSelector = useSelector((state) => state.article.countSearchResultInitial); 
-  console.log(searchResultSelector);
+  const countSearchResultSelector = useSelector(
+    (state) => state.article.countSearchResultInitial
+  );
 
-  const [dropDownclicked, setDropDownClicked] = useState('최신순'); //셀렉트박스
-  const [third, setThird] = useState('desc'); //셀렉트박스
+  const [dropDownclicked, setDropDownClicked] = useState("최신순"); //셀렉트박스
+  const [third, setThird] = useState("desc"); //셀렉트박스
   const [closeDropDown, setDloseDropDown] = useState(false);
 
   let sortArgument = "createdAt";
-  if(dropDownclicked ==='판매순'){
-    sortArgument = 'sale';
-  } else if(dropDownclicked === '높은가격순'|| dropDownclicked === '낮은가격순'){
-    sortArgument = 'price';
-  } else{
-    sortArgument = 'createdAt';
-  };
+  if (dropDownclicked === "판매순") {
+    sortArgument = "sale";
+  } else if (
+    dropDownclicked === "높은가격순" ||
+    dropDownclicked === "낮은가격순"
+  ) {
+    sortArgument = "price";
+  } else {
+    sortArgument = "createdAt";
+  }
 
   const modalRef = useRef();
 
   const closeHandler = () => {
-      setDloseDropDown(!closeDropDown);
+    setDloseDropDown(!closeDropDown);
   };
 
   const outModalCloseHandler = (e) => {
@@ -40,118 +43,136 @@ function SearchResult ({searchWord}) {
       setDloseDropDown(false);
   };
 
-  const [page, setPage] = useState(0);
-  console.log(searchWord);
-
   const [loading, setLoading] = useState(true);
-  const [storageWord, setStorageWord] = useState('');
+  // const [storageWord, setStorageWord] = useState("");
 
-    useEffect(() => {
-      const loadRecentKeyword = localStorage.getItem("keywords")
-      ? JSON.parse(localStorage.getItem("keywords"))
-      : [];
-      if(loadRecentKeyword) setStorageWord(loadRecentKeyword[0].text);
-      setLoading(false);
-    },[searchWord]);
-
-    useEffect(() => {
-      dispatch(countSearchResult(storageWord))
-    },[]);
+  // useEffect(() => {
+  //   const loadRecentKeyword = localStorage.getItem("keywords")
+  //     ? JSON.parse(localStorage.getItem("keywords"))
+  //     : [];
+  //   if (loadRecentKeyword) setStorageWord(loadRecentKeyword[0].text);
+  //   setLoading(false);
+  // }, [searchWord]);
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-    if(storageWord != '' ){
-      dispatch(getSearchResult({ storageWord, page, sortArgument, third}));
+    setProducts([]);
+    setPage(0);
+    dispatch(countSearchResult(searchWord));
+  }, [searchWord]);
+
+  useEffect(()=>{
+    if(searchWord != ''){
+      getProducts();
     }
-  }, [storageWord, sortArgument, third ]);
+  }, [page, searchWord, sortArgument, third]);
 
-  console.log({storageWord, sortArgument, third});
-    if(loading) return <LoadingIcon/>
+  const getProducts = () => {
+    setTimeout(async () => {
+      let productsRes = await Apis.get(
+        `/products/search?title=${searchWord}&page=${page}&sortType=${sortArgument}&order=${third}`
+      )
+      setProducts(prev => [...prev, ...productsRes.data.content]);
+      setLoading(false);
+    },700)
+  };
 
-    return (
-      <SubBlock onClick={outModalCloseHandler}>
-        <FilterBlock>
-          <div className="total">
-            <div>{storageWord}</div>
-            <CountBlock>(으)로 {countSearchResultSelector} 개의 상품이 검색되었습니다.</CountBlock>
-          </div>
-          <section ref={modalRef}>
-            <RankingDown 
-              dropDownclicked={dropDownclicked}
-              setDropDownClicked={setDropDownClicked}
-              closeDropDown={closeDropDown}
-              closeHandler={closeHandler}
-              setThird={setThird}
-              third={third}
-            />
-          </section>
-        </FilterBlock>
-        <ProductList>
-            {searchResultSelector?.map((product) => (
-              <Products proId={product.id} product={product} key={product.id} />
-            ))}
-            <div ref={ref} />
-        </ProductList>
+  const handleScroll = () => {
+    if(window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight){
+      setPage(prev => prev + 1)
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, []) 
+
+
+  if (loading) return <LoadingIcon />;
+
+  return (
+    <SubBlock onClick={outModalCloseHandler}>
+      <FilterBlock>
+        <div className="total">
+          <div>{searchWord}</div>
+          <CountBlock>
+            (으)로 {countSearchResultSelector} 개의 상품이 검색되었습니다.
+          </CountBlock>
+        </div>
+        <section ref={modalRef}>
+          <RankingDown
+            dropDownclicked={dropDownclicked}
+            setDropDownClicked={setDropDownClicked}
+            closeDropDown={closeDropDown}
+            closeHandler={closeHandler}
+            setThird={setThird}
+            third={third}
+            setPage={setPage}
+            setProducts={setProducts}
+          />
+        </section>
+      </FilterBlock>
+      <ProductList>
+        {products?.map((product) => (
+          <Products proId={product.id} product={product} key={product.id} />
+        ))}
+      </ProductList>
     </SubBlock>
   );
 }
 export default SearchResult;
 
 const SubBlock = styled.div`
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 127.5px;
+  padding: 3vh 4vw;
+  align-items: center;
+  .total {
     width: 100%;
-    margin-top: 127.5px;
-    padding: 3vh 4vw;
-    align-items: center;
-    .total {
-      width: 100%;
-      font-weight: 300;
-      font-size: 2rem;
-    }
+    font-weight: 300;
+    font-size: 2rem;
+  }
 `;
 
 const FilterBlock = styled.div`
-    width: 100%;
-    padding: 0 2.5rem;
-    display: flex;
-    justify-content: space-between;
-    div{
-      white-space: nowrap;
-    }
-    section{
-      padding-top: 28px;
-    }
-    @media (max-width: 1023px) {
-      padding: 0 1rem;
-    }
+  width: 100%;
+  padding: 0 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  div {
+    white-space: nowrap;
+  }
+  section {
+    padding-top: 28px;
+  }
+  @media (max-width: 1023px) {
+    padding: 0 1rem;
+  }
 `;
 
 const CountBlock = styled.div`
-    padding-top: 0.8em;
-    font-size: 1rem;
+  padding-top: 0.8em;
+  font-size: 1rem;
 `;
 
 const ProductList = styled.div`
-    margin-top: 8px;
-    display: grid;
+  margin-top: 8px;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  @media screen and (max-width: 479px) {
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    justify-content: center;
-    @media screen and (max-width: 479px) {
-      grid-template-rows: 1fr;
-      grid-template-columns: 1fr 1fr;
-    }
-    @media (min-width: 480px) and (max-width: 767px) {
-      grid-template-rows: 1fr;
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-    @media (min-width: 768px) and (max-width: 1023px) {
-      grid-template-rows: 1fr;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 480px) and (max-width: 767px) {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 `;
-

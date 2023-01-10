@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components/macro";
 import starimg from "../../imgs/star.png";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import placeholderSrc from "../../imgs/loading.webp"
 
 const Products = styled(Link)`
   width: 18vw;
@@ -35,6 +38,20 @@ const Imgbox = styled.div`
   }
   @media (min-width: 768px) and (max-width: 1023px) {
     width: 20vw;
+  }
+  .img-lazy{
+    width: 13vw;
+    display: flex;
+    border-radius: 5px;
+    @media screen and (max-width: 479px) {
+    width: 35vw;
+    }
+    @media (min-width: 480px) and (max-width: 767px) {
+      width: 24vw;
+    }
+    @media (min-width: 768px) and (max-width: 1023px) {
+      width: 20vw;
+    }
   }
 `;
 const Img = styled.img`
@@ -169,7 +186,14 @@ const Product = ({ proId, product }) => {
   return (
     <Products to={`/detail/${proId}`}>
       <Imgbox>
-        <Img src={img?.fullPath}></Img>
+        <LazyLoadImage
+          key={proId}
+          src={img?.fullPath}
+          className="img-lazy"
+          placeholderSrc={placeholderSrc}
+          effect="blur"
+         />
+        {/* <Img src={img?.fullPath}></Img> */}
       </Imgbox>
       <Detail>
         <SubDetail>

@@ -6,10 +6,10 @@ import RankingDown from "../../components/DropDown";
 import libraryImg from '../../imgs/sub-library2.jpeg';
 import Apis from "../../apis/apis";
 import { getSubCount } from "../../reduxstore/slices/articleSlice";
-function Library({ mainClick, subclick, page, setPage, products, setProducts  }) {
+function Library({ mainClick, subclick, page, setPage, products, setProducts }) {
 
   //소분류에 따른 대분류카테고리 이름 지정
-  let mainCateClick = '서재';
+  let mainCateClick = "서재";
 
   const dispatch = useDispatch();
   const countSelector = useSelector((state) => state.article.getSubCountInitial);
@@ -39,46 +39,53 @@ function Library({ mainClick, subclick, page, setPage, products, setProducts  })
       setDloseDropDown(false);
   };
 
-  useEffect(()=>{
-    dispatch(getSubCount({mainCateClick, subclick}))
-  }, [mainCateClick, subclick, sortArgument, third]);
+  useEffect(() => {
+    dispatch(getSubCount({ mainCateClick, subclick }));
+  }, [mainCateClick, subclick]);
 
-  useEffect(()=>{
+  useEffect(() => {
     getProducts();
   }, [page, subclick, sortArgument, third]);
 
-  const getProducts = async () => {
-        let productsRes = await Apis.get(
-          `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
-        )
-          setProducts(prev => [...prev, ...productsRes.data.content]);
-  };
+  const getProducts = () => {
+    setTimeout(async () => {
+    let productsRes = await Apis.get(
+    `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
+    );
+    setProducts((prev) => [...prev, ...productsRes.data.content]);
+    }, 700);
+    };
 
   const handleScroll = () => {
-    if(window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight){
-      console.log('문제');
-      setPage(prev => prev + 1)
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 1 >=
+      document.documentElement.scrollHeight
+    ) {
+      setPage((prev) => prev + 1);
     }
-  }
+  };
 
-  useEffect(()=>{
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, []) 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <SubBlock onClick={outModalCloseHandler}>
       <ImgBLock>
-        <SubTitleImg src={libraryImg}/>
+        <SubTitleImg src={libraryImg} />
         <SubTitle>Library</SubTitle>
       </ImgBLock>
       <FilterBlock>
         <CountBlock>
-          { subclick != '' ? 
-              <SubMenuWord>{subclick}&nbsp;</SubMenuWord> : 
-              <SubMenuWord>{/* {mainCateClick} */}전체상품&nbsp;</SubMenuWord>
-          }
-          <div className="total">에&nbsp;{countSelector}&nbsp;개의&nbsp;상품이&nbsp;있습니다</div>
+          {subclick != "" ? (
+            <SubMenuWord>{subclick}&nbsp;</SubMenuWord>
+          ) : (
+            <SubMenuWord>{/* {mainCateClick} */}전체상품&nbsp;</SubMenuWord>
+          )}
+          <div className="total">
+            에&nbsp;{countSelector}&nbsp;개의&nbsp;상품이&nbsp;있습니다
+          </div>
         </CountBlock>
         <section ref={modalRef}>
           <RankingDown
@@ -157,19 +164,19 @@ const SubTitle = styled.div`
   text-underline-offset: 2px;
   animation: fadeInUp 1.4s;
   @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            transform: translate3d(0, 30%, 0);
-        }
-        to {
-            opacity: 1;
-            transform: translateZ(0);
-        }
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 30%, 0);
     }
+    to {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+  }
 `;
 
 const SubTitleImg = styled.img`
-    width: 100%;
+  width: 100%;
 `;
 
 const FilterBlock = styled.div`
@@ -186,7 +193,7 @@ const FilterBlock = styled.div`
   @media (max-width: 1023px) {
     padding: 0 1rem;
   }
-  section{
+  section {
     padding-top: 1.8vh;
     @media (max-width: 479px) {
       padding-top: 1.2vh;

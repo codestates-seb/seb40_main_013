@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled from "styled-components/macro";
 import { BsStarFill, BsStarHalf, BsHeart, BsHeartFill } from "react-icons/bs";
 import { FiChevronDown } from "react-icons/fi";
@@ -18,15 +18,12 @@ import ScrollToTop from "../../components/ScrollToTop";
 import Button from "../../components/Button";
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";
-import { Toast } from "../../components/Alert";
+import { Alert, Toast } from "../../components/Alert";
 import useIntersect from "../../components/useIntersect";
 
-function ArticleDetail() {
+function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
   const [clickSelect, setClickSelect] = useState(false);
-  const [clickHeart, setClickHeart] = useState(false);
-  const [clickCheck, setClickCheck] = useState(0);
   const [selectOptions, setSelectOptions] = useState("");
-  console.log(selectOptions);
   const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
   const [cartCount, setCartCount] = useState(1);
   const dispatch = useDispatch();
@@ -36,7 +33,8 @@ function ArticleDetail() {
   const reviewRef = useRef();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const isLike = useSelector((state) => state.article.articleLike);
-  console.log(isLike);
+  const optionStock = articlesDetail?.options?.filter((ele) => ele.stock == 0);
+
   const optionSelect = useSelector(
     (state) => state.article.detailArticle.options
   );
@@ -59,7 +57,6 @@ function ArticleDetail() {
       setCartCount(cartCount - 1);
     }
   };
-  console.log(articlesDetail);
   const onMoveToElement = (idx) => {
     if (idx === 0) {
       articleRef.current?.scrollIntoView({
@@ -70,9 +67,14 @@ function ArticleDetail() {
       reviewRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-  const selectOption = (id, color) => {
-    setSelectOptions(id);
-    setSelectOptionColor(color);
+  const selectOption = (id, color, stock) => {
+    if (stock !== 0) {
+      setSelectOptions(id);
+      setSelectOptionColor(color);
+    } else {
+      Alert("error", "판매물품이 모두 소진되었습니다!");
+      clickCheckFunction();
+    }
   };
   ScrollToTop();
 
@@ -84,46 +86,31 @@ function ArticleDetail() {
   }, [clickCheck]);
 
   const clickPostCart = () => {
-    let postData = {
-      productId: articlesDetail?.productId,
-      count: cartCount,
-      optionId: selectOptions,
-    };
-    dispatch(postCart({ postData, navigate }));
+    if (selectOptions === "") {
+      Alert("error", "옵션을 선택해주세요!");
+    } else {
+      let postData = {
+        productId: articlesDetail?.productId,
+        count: cartCount,
+        optionId: selectOptions,
+      };
+      dispatch(postCart({ postData, navigate, clickCheckFunction }));
+    }
   };
-  console.log(clickCheck);
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
-    setClickCheck(Date.now());
+    clickCheckFunction();
     dispatch(postLike(id));
     setClickCheck(0);
   };
   const clickDeleteLike = () => {
     let id = articlesDetail?.productId;
-    setClickCheck(Date.now());
+    clickCheckFunction();
     dispatch(deleteLike(id));
     setClickCheck(0);
   };
 
   const nowPayHandler = () => {
-    Swal.fire({
-      title: "",
-      text: "상품을 바로 구매하시겠습니까?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#002C6D",
-      cancelButtonColor: "#FFAF51",
-      showCancelButton: true,
-      confirmButtonText: "바로 구매",
-      cancelButtonText: "취소",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        successNowPay();
-      }
-    });
-  };
-
-  const successNowPay = () => {
     const checkList = [
       {
         productId: articlesDetail?.productId,
@@ -131,26 +118,42 @@ function ArticleDetail() {
         count: cartCount,
       },
     ];
-    console.log(checkList);
-    Apis.post(
-      `orders`,
-      {
-        orderProducts: checkList,
-      },
-      {
-        headers: {
-          Authorization: `${localStorage.getItem("Authorization")}`,
-          "Content-Type": "application/json",
+    if (selectOptions === "") {
+      Alert("error", "옵션을 선택해주세요!");
+    } else {
+      Apis.post(
+        `orders`,
+        {
+          orderProducts: checkList,
         },
-      }
-    )
-      .then((res) => {
-        // console.log(res);
-        navigate("/members/mypage/purchase");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("Authorization")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((res) => {
+          Swal.fire({
+            title: "",
+            text: "상품을 바로 구매하시겠습니까?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#002C6D",
+            cancelButtonColor: "#FFAF51",
+            showCancelButton: true,
+            confirmButtonText: "바로 구매",
+            cancelButtonText: "취소",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate("/members/mypage/purchase");
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -204,7 +207,10 @@ function ArticleDetail() {
                 </DetailArticleOptionContents>
               </DetailArticleOptionSpace>
               <DetailArticleOptionSpaceSelect clickSelect={clickSelect}>
-                <DetailArticleOptionSpaceSelectDiv onClick={clickFunction}>
+                <DetailArticleOptionSpaceSelectDiv
+                  onClick={clickFunction}
+                  optionStock={optionStock}
+                >
                   {selectOptionColor}
                   <div className="cur">
                     <FiChevronDown className="button" />
@@ -216,12 +222,28 @@ function ArticleDetail() {
                       <DetailArticleOptionSpaceSelectDivValueLi
                         key={option?.optionId}
                         value={option?.value}
+                        optionStock={option?.stock}
                         onClick={() => {
-                          selectOption(option.optionId, option.color),
+                          selectOption(
+                            option.optionId,
+                            option.color,
+                            option.stock
+                          ),
                             clickFunction();
                         }}
                       >
-                        {option?.color}
+                        <>
+                          {option?.stock === 0 ? (
+                            <OptionDiv>
+                              <OptionDivA optionStock={option?.stock}>
+                                {option?.color}
+                              </OptionDivA>
+                              <OptionDivB>품절 </OptionDivB>
+                            </OptionDiv>
+                          ) : (
+                            <> {option?.color}</>
+                          )}
+                        </>
                       </DetailArticleOptionSpaceSelectDivValueLi>
                     ))}
                   </DetailArticleOptionSpaceSelectDivValueUl>
@@ -389,22 +411,6 @@ const DetailArticleName = styled.div`
   color: #272727;
   font-size: 1.8rem;
   font-weight: bold;
-  /* @media screen and (max-width: 1300px) {
-    width: 100%;
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-    line-height: 1.2;
-    height: 2.4em;
-    text-align: left;
-    word-wrap: break-word;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    font-size: 1.5rem;
-  } */
   @media screen and (max-width: 767px) {
     font-size: 1.3rem;
   }
@@ -590,6 +596,7 @@ const DetailArticleOptionSpaceSelect = styled.div`
   font-size: 1rem;
   border-bottom: 1px solid var(--color-gray);
   position: relative;
+  cursor: pointer;
 `;
 const DetailArticleOptionSpaceSelectDiv = styled.div`
   width: 100%;
@@ -600,7 +607,6 @@ const DetailArticleOptionSpaceSelectDiv = styled.div`
   color: var(--font-navy);
   margin-left: 10px;
   position: relative;
-  cursor: pointer;
   .button {
     font-size: 20px;
     margin-right: 10px;
@@ -657,7 +663,6 @@ const DetailUserQuantitySpace = styled.div`
   display: flex;
   height: 30px;
   align-items: center;
-  display: ${(props) => (props.selectOptions ? "" : "none")};
 `;
 const DetailUserPriceSpace = styled.div`
   margin-right: 10px;
@@ -719,6 +724,21 @@ const DetailArticlBtn = styled.button`
       background-color: #f0f0f0;
     }
   }
+`;
+const OptionDiv = styled.div`
+  display: flex;
+  /* justify-content: space-between; */
+`;
+const OptionDivA = styled.div`
+  text-decoration: ${(props) =>
+    props.optionStock === 0 ? "line-through" : null};
+`;
+const OptionDivB = styled.div`
+  /* color: black; */
+  color: var(--font-red);
+  margin-left: 10px;
+  text-decoration: none;
+  font-weight: 300;
 `;
 
 export default ArticleDetail;

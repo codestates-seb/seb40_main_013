@@ -46,7 +46,7 @@ function Footer() {
           프론트 : 김서연, 노경민, 임세영
         </FooterDownContentSpan>
         <FooterDownContent>
-          @ 2022 집 가고 싶다. All Right Reserved.
+          @ 2022 집 가구 싶다. All Right Reserved.
         </FooterDownContent>
       </FooterDownContentSpace>
     </FooterWrapper>

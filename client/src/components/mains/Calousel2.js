@@ -23,8 +23,16 @@ const Carousel2 = () => {
           className={index === activeIndex ? "slides active" : "inactive"}
         >
           <Imgbox>
-            <Link to={slide.link}>
-              <Img className="slide-image" src={slide.urls} alt="" />
+            <Link 
+              to={slide.link} 
+              rel="preload"
+              >
+              {/* <Img className="slide-image" src={slide.urls} alt="" /> */}
+              <Img 
+                style={{backgroundImage: `url(${slide.urls})`}} 
+                className="slide-image" 
+                src={slide.urls} 
+                alt="" />
             </Link>
           </Imgbox>
           <SlideTitle>{slide.title}</SlideTitle>

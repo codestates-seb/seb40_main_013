@@ -9,6 +9,7 @@ import noImg from "../imgs/noImg.gif";
 import { priceCheck } from "../components/effectivenessCheck";
 import { withReactContent } from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import { Alert } from "../components/Alert";
 
 const Container = styled.div`
   /* width: 100vw; */
@@ -163,12 +164,12 @@ const Input = styled.input`
   height: 2vw;
   padding: 15px 0 15px 10px;
   border: none;
-  border: 2px solid #aaa;
+  border: 1px solid #aaa;
   border-radius: 5px;
   font-size: 1rem;
   width: 200px;
   @media screen and (max-width: 767px) {
-    border: 2px solid #aaa;
+    border: 1px solid #aaa;
     padding: 15px 10px;
     border-radius: 5px;
     width: 200px;
@@ -179,7 +180,7 @@ const SelectBox = styled.div`
   width: 150px;
   height: 35px;
   border-radius: 4px;
-  border: 2px solid #aaa;
+  border: 1px solid #aaa;
   margin-right: 10px;
   @media screen and (max-width: 767px) {
     margin-bottom: 15px;
@@ -229,8 +230,8 @@ const Buttons = styled.div`
   width: 100%;
 `;
 const RegisterBtn = styled.button`
-  font-size: 1.1rem;
-  padding: 8px 15px;
+  font-size: 1rem;
+  padding: 6px 15px;
   border-radius: 5px;
   background-color: var(--color-navy);
   color: white;
@@ -245,10 +246,10 @@ const RegisterBtn = styled.button`
   }
 `;
 const Cancle = styled.button`
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #ff4040;
   border: 1px solid #efefef;
-  padding: 8px 15px;
+  padding: 6px 15px;
   border-radius: 5px;
   background-color: #efefef;
   cursor: pointer;
@@ -315,7 +316,6 @@ const Register = () => {
   const [contentsPrice, setContentsPrice] = useState("");
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
-  console.log(subCategory);
   //상품등록
   const [click, setClick] = useState(0);
   const clickFunction = () => {
@@ -375,12 +375,21 @@ const Register = () => {
   const changeContentName = (e) => {
     setContentsName(e.target.value.trim());
   };
-  console.log(contentsName);
   const handleChangeWhiteSpace = (e) => {
     e.target.value = e.target.value;
   };
   const changeContentPrice = (e) => {
-    setContentsPrice(e.target.value);
+    let c = e.target.value;
+    if( c === '' || parseInt(c) < 5000){
+      Alert("warning", "5,000원 미만 입력 불가");
+      setContentsPrice(5000)
+    } else if (parseInt(c)>10000000) {
+      Alert("warning", "10,000,000원 초과 입력 불가");
+      setContentsPrice(10000000)
+    } 
+    else{
+      setContentsPrice(parseInt(c));
+    }
   };
 
   const changeThumbnailImg = async (e) => {
@@ -388,14 +397,12 @@ const Register = () => {
     e.preventDefault();
     if (e.target.files) {
       const [file] = e.target.files;
-      console.log([file]);
 
       const options = {
         maxSizeMB: 0.2,
         useWebWorker: true,
       };
       console.log("압축시작");
-      console.log(file);
       const compressFile = await imageCompression(file, options);
       const thumbnailFile = new File([compressFile], "thumbnailImg.JPG");
       setThumbnailImg(thumbnailFile);
@@ -413,13 +420,10 @@ const Register = () => {
   //디테일 파일 저장
 
   const changeContentImg = async (e) => {
-    setDetailFileImage(URL.createObjectURL(e.target.files[0]));
     e.preventDefault();
-    console.log(e.target.files);
+    setDetailFileImage(URL.createObjectURL(e.target.files[0]));
     if (e.target.files) {
       const [file] = e.target.files;
-      console.log([file]);
-
       const options = {
         maxSizeMB: 0.2,
         useWebWorker: true,
@@ -427,7 +431,6 @@ const Register = () => {
       console.log("압축시작");
       const compressFile = await imageCompression(file, options);
       const contentFile = new File([compressFile], "contentImage.JPG");
-      console.log([contentsImg]);
 
       setContentsImg([contentFile]);
       if (contentsImg) {
@@ -446,10 +449,16 @@ const Register = () => {
   //카테고리 선택하기
   function FirstCateChange(e) {
     setBigCategory(e.target.value);
+    if (e.target.value === "서재") {
+      setSubCategory("책장");
+    } else if (e.target.value === "침실") {
+      setSubCategory("침대/매트리스");
+    } else if (e.target.value === "거실") {
+      setSubCategory("소파");
+    } else if (e.target.value === "주방") {
+      setSubCategory("식탁/아일랜드");
+    }
   }
-  console.log(subCategory);
-  //폼 등록하기
-
   const handleRegister = (e) => {
     e.preventDefault();
     Swal.fire({
@@ -464,9 +473,7 @@ const Register = () => {
       .then((result) => {
         if (result.isConfirmed) {
           registConfirm();
-          Swal.fire("등록되었습니다.", "상품이 등록되었습니다.", "success");
           clickFunction();
-          // navigate('/');
         }
       })
       .catch((err) => console.log(err));
@@ -474,25 +481,39 @@ const Register = () => {
     // dispatch(postArticle({ postArticleData, navigate }));
   };
   const registConfirm = () => {
-    let postArticleData = {
-      sellerId: sellerId,
-      title: contentsName,
-      price: contentsPrice,
-      content: contentsImg,
-      img: thumbnailImg,
-      main: bigCategory,
-      sub: subCategory,
-      optionList: [
-        { color: "White", stock: 1000 },
-        { color: "Black", stock: 1000 },
-      ],
-    };
-    dispatch(postArticle({ postArticleData, navigate }));
+    if (
+      sellerId === "" ||
+      contentsName === "" ||
+      thumbnailImg === "" ||
+      contentsImg === "" ||
+      contentsPrice === ""
+    ) {
+      Alert("error", "모든 입력값이 필수로 작성되야 합니다!");
+    } else if (contentsPrice < 5000) {
+      Alert("error", "상품의 최소가격은 5000원이어야 합니다 ");
+    } else if (contentsPrice > 10000000) {
+      Alert("error", "상품의 최소가격은 1000만원이하이어야 합니다 ");
+      }else {
+      let postArticleData = {
+        sellerId: sellerId,
+        title: contentsName,
+        price: contentsPrice,
+        content: contentsImg,
+        img: thumbnailImg,
+        main: bigCategory,
+        sub: subCategory,
+        optionList: [
+          { color: "White", stock: 1000 },
+          { color: "Black", stock: 1000 },
+        ],
+      };
+      Alert("success", "상품 추가에 성공하셨습니다!");
+      dispatch(postArticle({ postArticleData, navigate }));
+    }
   };
 
   //유효성 체크
   const [priceConfirm, setPriceConfirm] = useState(false);
-  console.log(Number(contentsPrice) % 100);
   useEffect(() => {
     if (!priceCheck(contentsPrice)) {
       setPriceConfirm(false);
@@ -509,7 +530,7 @@ const Register = () => {
   return (
     <Container>
       <Title>
-        <span className="span">|</span>제품등록
+        제품등록
       </Title>
       <Form>
         <InputContainer>
@@ -557,15 +578,17 @@ const Register = () => {
           <Pricecontent>
             <Input
               placeholder="숫자만 입력해주세요"
-              name="price"
+              name="pric e"
               type="number"
               className="price"
+              min={5000}
               max={10000000}
+              value={contentsPrice}
               onChange={changeContentPrice}
             />
-            {priceConfirm ? (
+            {contentsPrice < 5000 ? (
               <div className="err">
-                숫자만 입력해주세요.(100원 단위 이상만 입력 가능)
+                5000원 이상부터 입력가능하며 100원단위로 입력가능합니다
               </div>
             ) : (
               ""
@@ -604,7 +627,9 @@ const Register = () => {
               onChange={(e) => changeSubCategory(e)}
             >
               {selectSubCategory.map((option) => (
-                <Option key={option.category}>{option.category}</Option>
+                <Option key={option.category} value={option.category}>
+                  {option.category}
+                </Option>
               ))}
             </Select>
             <IcoArrow className="icoArrow">

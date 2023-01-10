@@ -2,19 +2,16 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
 import Products from "../../components/mains/Product";
 import { useDispatch, useSelector } from "react-redux";
-import { getSub, getCount} from "../../reduxstore/slices/subCategorySlice";
 import RankingDown from "../../components/DropDown";
 import Apis from "../../apis/apis";
 import kitchenImg from '../../imgs/sub-kitchen.png';
 
-function Kitchen({ mainClick, subclick }) {
+function Observer({ mainClick, subclick }) {
   
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = '주방';
 
   const dispatch = useDispatch();
-
-  const subSelector = useSelector((state) => state.subCatetory.subInitial);
   const countSelector = useSelector((state) => state.subCatetory.coutnInitial.count);
 
   // 셀렉트 박스
@@ -60,7 +57,7 @@ function Kitchen({ mainClick, subclick }) {
   productsRef.current = products;
   pageRef.current = page;
 
-  prevYRef.current = prevY
+  prevYRef.current = prevY;
 
   // useEffect(() => {
   //   setProducts([])
@@ -68,7 +65,6 @@ function Kitchen({ mainClick, subclick }) {
   // }, [subclick]);
 
   useEffect(() => {
-
     getProducts();
     setPage(pageRef.current + 1);
 
@@ -151,7 +147,7 @@ function Kitchen({ mainClick, subclick }) {
   );
 }
 
-export default Kitchen;
+export default Observer;
 
 const SubBlock = styled.div`
   display: flex;

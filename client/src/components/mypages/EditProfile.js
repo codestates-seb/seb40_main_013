@@ -13,10 +13,10 @@ const EditContainter = styled.div`
   display: flex;
   width: 75vw;
   justify-content: center;
-  @media screen and (max-width: 389px){
+  @media screen and (max-width: 389px) {
     flex-direction: column;
     align-items: center;
-    width: 80vw;
+    width: 88vw;
   }
   @media (min-width: 390px) and (max-width: 767px) {
     flex-direction: column;
@@ -196,7 +196,7 @@ const HowtoEditMobile = styled.div`
   @media screen and (max-width: 389px) {
     width: 80vw;
     display: flex;
-    li{
+    li {
       font-size: 0.8rem;
     }
   }
@@ -250,7 +250,6 @@ const Warning = styled.h2`
 `;
 
 const EditProfile = ({ getUserdata }) => {
-  console.log({ getUserdata });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const initialToken = localStorage.getItem("Authorization");
@@ -284,7 +283,6 @@ const EditProfile = ({ getUserdata }) => {
 
   //비밀번호 일치 확인
   const [curpwdConform, setCurpwdConform] = useState(false);
-  console.log(curpwdConform);
 
   //닉네임, 주소, 핸드폰번호 저장하기
   useEffect(() => {
@@ -362,12 +360,10 @@ const EditProfile = ({ getUserdata }) => {
       }
     )
       .then((res) => {
-        console.log(res);
         setCurpwdConform(true);
         Alert("success", "비밀번호가 일치합니다!");
       })
       .catch((err) => {
-        console.log(err.response.data.message);
         if (err.response.data.message === "Password does not match") {
           Alert("error", "입력하신 비밀번호가 일치하지않습니다.");
         }
@@ -377,9 +373,29 @@ const EditProfile = ({ getUserdata }) => {
 
   //정보수정하기
   const updateInform = () => {
+    let pwd = "";
+    let updatedata = {};
+    if (updatePassword === "") {
+      pwd = curpwd;
+    } else {
+      pwd = updatePassword;
+    }
+    if (updateNickName === getUserdata.nickname) {
+      updatedata = {
+        password: pwd,
+        address: updateAddress,
+        phone: updatePhone,
+      };
+    } else if (updateNickName !== getUserdata.nickname) {
+      updatedata = {
+        nickname: updateNickName,
+        password: pwd,
+        address: updateAddress,
+        phone: updatePhone,
+      };
+    }
     if (curpwdConform === true) {
-      Swal
-      .fire({
+      Swal.fire({
         title: "수정하시겠습니까?",
         text: "정보가 수정됩니다.",
         icon: "warning",
@@ -389,8 +405,8 @@ const EditProfile = ({ getUserdata }) => {
         cancelButtonText: "취소",
         cancelButtonColor: "#aaaaaa",
         reverseButtons: true,
-      }).then((res)=>{
-        if (res.isConfirmed){
+      }).then((res) => {
+        if (res.isConfirmed) {
           let pwd = "";
           let updatedata = {};
           if (updatePassword === "") {
@@ -412,9 +428,9 @@ const EditProfile = ({ getUserdata }) => {
               phone: updatePhone,
             };
           }
-          dispatch(updateUser({updatedata, navigate}));
+          dispatch(updateUser({ updatedata, navigate }));
         }
-      })
+      });
     } else if (!curpwdConform) {
       Alert("warning", "현재 비밀번호를 확인해주세요");
     }
@@ -422,62 +438,65 @@ const EditProfile = ({ getUserdata }) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-        if (curpwdConform === true) {
-          Swal
-            .fire({
-              title: "Are you sure?",
-              text: "You won't be able to revert this!",
-              icon: "warning",
-              showCancelButton: true,
-              confirmButtonText: "Yes, delete it!",
-              confirmButtonColor: "red",
-              cancelButtonText: "No, cancel!",
-              cancelButtonColor: "#aaaaaa",
-              reverseButtons: true,
-            })
-            .then((result) => {
-              if (result.isConfirmed) {
-                Apis.delete(`/members/mypage`, {
-                  headers: {
-                    Authorization: initialToken,
-                  },
-                }).then((res)=>{
-                  localStorage.clear();
-                  Swal.fire({
-                    title: "Deleted!",
-                    text: "그동안 이용해주셔서 감사합니다.",
-                    icon: "success",
-                    confirmButtonColor: "#002C6D",
-                  });
-                  navigate("/");
-                }).catch((err)=>{
-                  console.log(err)
-                })
-              }
-            });
+      if (!localStorage.getItem("authority")) {
+      if (curpwdConform === true) {
+        Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        confirmButtonColor: "red",
+        cancelButtonText: "No, cancel!",
+        cancelButtonColor: "#aaaaaa",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Apis.delete(`/members/mypage`, {
+          headers: {
+          Authorization: initialToken,
+          },
+        })
+        .then((res) => {
+          localStorage.clear();
+          Swal.fire({
+          title: "Deleted!",
+          text: "그동안 이용해주셔서 감사합니다.",
+          icon: "success",
+          confirmButtonColor: "#002C6D",
+        });
+          navigate("/");
+        })
+          .catch((err) => {
+            console.log(err);
+          });
         }
-        else if (!curpwdConform){
-          Alert("warning", "현재 비밀번호를 확인해주세요")
-        }
-  };
+      });
+      } else if (!curpwdConform) {
+        Alert("warning", "현재 비밀번호를 확인해주세요");
+      }
+      } else {
+        Alert("error", "게스트이용자는 회원탈퇴가 불가능합니다!");
+      }
+    };
 
   return (
     <EditContainter>
       <HowtoEditMobile>
         <h2 className="editTitle">How to Edit</h2>
         <Warning>
-          현재 비밀번호 입력후, 일치확인을 하셔야 정보수정이 가능합니다.
+          현재 비밀번호 입력 후, 일치확인을 하셔야 정보수정이 가능합니다.
         </Warning>
         <ul>
           <li className="explain">
             닉네임: 수정하지 않으면 기존 닉네임이 유지됩니다.
           </li>
           <li className="explain">
-            현재비밀번호(필수): 반드시 입력해야합니다.
+            현재 비밀번호(필수): 반드시 입력해야합니다.
           </li>
-          <li className="explain">비밀번호: 수정하지않으면 비워도 됩니다.</li>
-          <li className="explain">주소: 수정하지않으면 비워도 됩니다.</li>
-          <li className="explain">휴대번호: 수정하지않으면 비워도 됩니다.</li>
+          <li className="explain">비밀번호: 수정하지 않으면 비워도 됩니다.</li>
+          <li className="explain">주소: 수정하지 않으면 비워도 됩니다.</li>
+          <li className="explain">휴대번호: 수정하지 않으면 비워도 됩니다.</li>
         </ul>
       </HowtoEditMobile>
       <Container>
@@ -491,7 +510,7 @@ const EditProfile = ({ getUserdata }) => {
         <Label htmlFor="nickname">닉네임</Label>
         <Input
           name="UpdateNickName"
-          value={updateNickName || ''}
+          value={updateNickName || ""}
           onChange={handleUpdateNickName}
           required
         ></Input>
@@ -561,41 +580,44 @@ const EditProfile = ({ getUserdata }) => {
         <Label htmlFor="address">주소</Label>
         <Input
           name="address"
-          value={updateAddress || ''}
+          value={updateAddress || ""}
           onChange={handleUpdateAddress}
         ></Input>
         <Label htmlFor="phone">휴대폰 번호 ( 예: 010-1234-5678 )</Label>
         <Input
           name="phone"
-          value={updatePhone || ''}
+          value={updatePhone || ""}
           onChange={handleUpdatePhone}
         ></Input>
         {!updatePhoneConfirm ? (
           <ErrorDisplay>
-            위의 양식에 맞게 -와 숫자를 섞어서 작성해주세요.
+            위의 양식에 맞게 - 와 숫자를 섞어서 작성해주세요.
           </ErrorDisplay>
         ) : null}
         <Buttons>
-          {curpwdConform ? <Delete onClick={handleDelete}>회원탈퇴</Delete>
-          :<Delete>회원탈퇴</Delete>}
+          {curpwdConform ? (
+            <Delete onClick={handleDelete}>회원탈퇴</Delete>
+          ) : (
+            <Delete>회원탈퇴</Delete>
+          )}
           <Edit onClick={updateInform}>정보수정</Edit>
         </Buttons>
       </Container>
       <HowtoEdit>
         <h2 className="editTitle">How to Edit</h2>
         <Warning>
-          현재 비밀번호 입력후, 일치확인을 하셔야 정보수정 및 탈퇴가 가능합니다.
+          현재 비밀번호 입력 후, 일치확인을 하셔야 정보수정 및 탈퇴가 가능합니다.
         </Warning>
         <ul>
           <li className="explain">
             닉네임: 수정하지 않으면 기존 닉네임이 유지됩니다.
           </li>
           <li className="explain">
-            현재비밀번호(필수): 반드시 입력해야합니다.
+            현재 비밀번호(필수): 반드시 입력해야합니다.
           </li>
-          <li className="explain">비밀번호: 수정하지않으면 비워도 됩니다.</li>
-          <li className="explain">주소: 수정하지않으면 비워도 됩니다.</li>
-          <li className="explain">휴대번호: 수정하지않으면 비워도 됩니다.</li>
+          <li className="explain">비밀번호: 수정하지 않으면 비워도 됩니다.</li>
+          <li className="explain">주소: 수정하지 않으면 비워도 됩니다.</li>
+          <li className="explain">휴대번호: 수정하지 않으면 비워도 됩니다.</li>
         </ul>
       </HowtoEdit>
     </EditContainter>

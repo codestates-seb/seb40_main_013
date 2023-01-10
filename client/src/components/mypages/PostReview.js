@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import styled from "styled-components/macro";
 import { postReview, updateReview } from "../../reduxstore/slices/reviewSlice";
 import { useDispatch } from "react-redux";
@@ -8,17 +8,19 @@ import { BsStarFill } from "react-icons/bs";
 import { Toast, BtnSelectAlert, Alert } from "../../components/Alert";
 import noImg from "../../imgs/noImg.gif";
 import Swal from "sweetalert2";
+
 function PostReview({ clickModal, filterData, filteReview }) {
-  console.log(filterData, filteReview);
   const dispatch = useDispatch();
   const [userWriteImg, setUserWriteImg] = useState("");
-  const [userWriteContent, setUserWriteContent] = useState("");
+  const [userWriteContent, setUserWriteContent] = useState(
+    filteReview ? filteReview[0].content : filterData[0].content
+  );
+
   const navigate = useNavigate();
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const clickNumber = [1, 2, 3, 4, 5];
   const [lengthScore, setLengthScore] = useState(0);
   const [fileImage, setFileImage] = useState("");
-  console.log(filterData);
   const changeImg = async (e) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
     e.preventDefault();
@@ -37,9 +39,9 @@ function PostReview({ clickModal, filterData, filteReview }) {
   };
 
   const changeContent = (e) => {
+    e.preventDefault();
     setUserWriteContent(e.target.value);
   };
-  console.log(userWriteContent);
   const postDispatch = () => {
     let postData = "";
     if (userWriteImg === "") {
@@ -98,7 +100,6 @@ function PostReview({ clickModal, filterData, filteReview }) {
       content: userWriteContent,
       score: lengthScore,
     };
-    console.log(updateData);
     dispatch(updateReview({ filterProductId, updateData, navigate }));
   };
   const handleStarClick = (index) => {
@@ -115,8 +116,7 @@ function PostReview({ clickModal, filterData, filteReview }) {
   useEffect(() => {
     sendReview();
   }, [clicked]);
-  console.log(userWriteContent);
-
+  
   return (
     <Wrapper>
       <Container
@@ -169,9 +169,7 @@ function PostReview({ clickModal, filterData, filteReview }) {
           <PostReviewDownTitle>어떤 점이 좋았나요?</PostReviewDownTitle>
           {filterData === undefined ? (
             <PostReviewDownInput
-              defaultValue={
-                filteReview[0].content ? filteReview[0].content : ""
-              }
+              value={userWriteContent || ""}
               onChange={changeContent}
             />
           ) : (
@@ -281,7 +279,6 @@ const PostReviewContentRightSpace = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   @media screen and (max-width: 550px) {
     margin-left: 10px;
@@ -297,6 +294,10 @@ const PostReviewTopContent = styled.div`
     color: #aaaaaa;
     height: 30%;
     margin-top: 10px;
+
+  }
+  &.title {
+    font-size: 0.95rem;
   }
   &.title{
     font-size: 0.95rem;

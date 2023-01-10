@@ -19,7 +19,6 @@ import Swal from "sweetalert2";
 function MyReview() {
   const dispatch = useDispatch();
   const userWriteReviews = useSelector((state) => state.review.review.content);
-  console.log(userWriteReviews);
   const [filteReview, setFilterReview] = useState("");
   const [curPage, setCurPage] = useState(0);
   const [totalpage, setTotalpage] = useState(0);
@@ -210,9 +209,9 @@ const Container = styled.div`
   padding: 20px 20px 20px 40px;
   width: 80%;
   @media screen and (max-width: 390px) {
-    width: 88%;
+    width: 88vw;
     padding: 0;
-    margin-left: -10px;
+    margin: 30px 0;
     
   }
   @media (min-width: 391px) and (max-width: 768px) {

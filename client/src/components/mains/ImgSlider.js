@@ -1,7 +1,7 @@
-import Bed from "../../imgs/Bed.png";
-import Desk from "../../imgs/Desk.png";
-import Table from "../../imgs/Table.png";
-import Sofa from "../../imgs/Sofa.png";
+import Bed from "../../imgs/Bed.webp";
+import Desk from "../../imgs/Desk.webp";
+import Table from "../../imgs/Table.webp";
+import Sofa from "../../imgs/Sofa.webp";
 
 export default [
   {

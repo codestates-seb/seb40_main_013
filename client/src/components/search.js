@@ -13,7 +13,7 @@ const SearchBlock = styled.div`
   z-index: 300;
   overflow: hidden;
   transition: 0.3s height;
-  top: 8.04rem;
+  top: 8.0555rem;
   left: 0;
   background-color: white;
   display: flex;
@@ -58,6 +58,12 @@ const SearchInput = styled.div`
     &:focus {
       outline: none;
     }
+    @media screen and (max-width: 479px) {
+      font-size: 23px;
+    }
+    @media (min-width: 480px) and (max-width: 1023px) {
+      font-size: 27px;
+    }
   }
   button {
     background-color: white;
@@ -80,6 +86,12 @@ const SearchWord = styled.div`
     height: 2em;
     text-decoration: #ffaf51 wavy underline;
     text-underline-offset: 7px;
+  }
+  @media screen and (max-width: 479px) {
+    font-size: 1.1rem;
+    }
+  @media (min-width: 480px) and (max-width: 1023px) {
+    font-size: 1.2rem;
   }
 `;
 
@@ -119,11 +131,23 @@ const SearchList = styled.div`
       color: black;
     }
     padding-top: 5px;
+    @media screen and (max-width: 479px) {
+      font-size: 1rem;
+    }
+    @media (min-width: 480px) and (max-width: 1023px) {
+      font-size: 1.1rem;
+    }
   }
   .recent2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  @media screen and (max-width: 479px) {
+    max-height: 300px;
+    }
+  @media (min-width: 480px) and (max-width: 1023px) {
+    max-height: 310px;
   }
 `;
 
@@ -137,6 +161,12 @@ const RecentWordAllDetete = styled.span`
   justify-content: end;
   &:hover {
     color: black;
+  }
+  @media screen and (max-width: 479px) {
+    font-size: 0.8rem;
+    }
+  @media (min-width: 480px) and (max-width: 1023px) {
+    font-size: 0.9rem;
   }
 `;
 
@@ -193,6 +223,7 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
     closeHandler();
     navigate("/search");
     setInputWord("");
+    setriger(Date.now());
   };
 
   const popularSelector = useSelector(

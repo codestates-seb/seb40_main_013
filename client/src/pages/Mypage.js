@@ -8,7 +8,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import MyReview from "../components/mypages/MyReview";
 import ProfileImg from "../components/mypages/ProfileImg";
 import PurchaseAll from "../components/mypages/PurchaseAll";
-import Like from "../components/mypages/Like"
+import Like from "../components/mypages/Like";
 
 const Container = styled.div`
   display: flex;
@@ -40,6 +40,7 @@ const Left = styled.div`
     justify-content: center;
     width: 100%;
     border-right: none;
+    padding-top: 0;
     border-bottom: 1px solid var(--color-center-line);
   }
   @media (min-width: 391px) and (max-width: 768px) {
@@ -52,7 +53,10 @@ const Left = styled.div`
 
 const Right = styled.div`
   width: 80vw;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 390px){
+    padding-left: 0;
+  }
+  @media (min-width:391px) and (max-width: 767px) {
     width: 100vw;
     padding-left: 10px;
   }
@@ -93,8 +97,8 @@ const Hello = styled.h2`
   font-weight: 500;
   font-size: 1.3rem;
   color: var(--font-ligthblack);
-  span{
-    color: #002C6D;
+  span {
+    color: #002c6d;
   }
   @media screen and (max-width: 479px) {
     font-size: 1rem;
@@ -108,6 +112,7 @@ const Nav = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 10px;
   @media screen and (max-width: 768px) {
     border-top: none;
     justify-content: center;
@@ -119,7 +124,7 @@ const ReactionDetail = styled.div`
   @media screen and (max-width: 768px) {
     border-top: none;
     justify-content: center;
-    margin-top: -10px;
+    margin-top: 10px;
     flex-direction: row;
   }
 `;
@@ -129,7 +134,7 @@ const NavDetail = styled.nav`
   justify-content: center;
   font-size: 1.1rem;
   font-weight: 500;
-  margin-top: 20px;
+  padding: 20px 0;
   color: #272727;
   &:hover {
     color: #aaa;
@@ -193,7 +198,6 @@ const NavDetail = styled.nav`
 const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
-console.log(getUserdata)
   //tab click
   const [clicked, setClicked] = useState("");
 
@@ -223,7 +227,9 @@ console.log(getUserdata)
             onclick={handleChangeImg}
           ></ProfileImgConponent>
           <Hello>안녕하세요,&nbsp;</Hello>
-          <Hello><span>{getUserdata?.nickname}</span>&nbsp;님</Hello>
+          <Hello>
+            <span>{getUserdata?.nickname}</span>&nbsp;님
+          </Hello>
         </Reaction>
         <Nav>
           <ReactionDetail path="*">

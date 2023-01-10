@@ -1,5 +1,6 @@
+// @ts-check
+
 import React, { useRef, useLayoutEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { mainData } from "../reduxstore/slices/articleSlice";
 import { newData } from "../reduxstore/slices/mainSlice";
@@ -8,6 +9,142 @@ import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
 import Products from "../components/mains/Product";
 import NewProducts from "../components/mains/NewProducts";
+import useScrollFadeIn from "../components/Fadein";
+
+const Main = () => {
+  const dispatch = useDispatch();
+
+  //best of best
+  const bestData = useSelector((/** @type {any} */state) => state.article.mainArticle);
+
+  // 신상품
+  const newArivalData = useSelector((/** @type {any} */state) => state.maincategory.category);
+
+  //브랜드리스트
+  const brandData = useSelector((/** @type {any} */state) => state?.main.main);
+  const brandTab = Object.keys(brandData)
+
+  //자동스크롤 이벤트
+  const myRefs = useRef({});
+  const onMoveToElement = (/** @type {string} */ key) => {
+    myRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // 데이터 받아오기
+  useLayoutEffect(() => {
+    // @ts-ignore
+    dispatch(mainData());
+    // @ts-ignore
+    dispatch(categoryData());
+    // @ts-ignore
+    dispatch(newData());
+  }, []);
+
+  //scroll 이벤트
+  const animateScroll = {
+    0: useScrollFadeIn('down', 0.7, 0),
+    1: useScrollFadeIn('down', 0.8, 0),
+    2: useScrollFadeIn('down', 0.8, 0),
+    3: useScrollFadeIn('down', 0.8, 0),
+    4: useScrollFadeIn('down', 0.8, 0),
+  }
+
+  return (
+    <Container id="app">
+      {/* 캐러셀 */}
+      <Carousel />
+      {/* Best of Best */}
+      <Title>
+        <SubTitle>Best Selling</SubTitle>
+        <MainTitle>Best of Best</MainTitle>
+      </Title>
+      <ProductList>
+        {bestData?.map((product) => (
+          <Products key={product.id} proId={product.id} product={product} />
+          ))}
+      </ProductList>
+      {/* 카테고리별 신상품 */}
+      <div id="newArrival">
+        <Title>
+          <SubTitle>New Arrival</SubTitle>
+          <MainTitle>카테고리별 신상품</MainTitle>
+        </Title>
+        <NewProducts
+          key={newArivalData.침실?.length}
+          newArivalList={newArivalData}
+        />
+      </div>
+      {/* 브랜드별 추천상품 */}
+      <BrandTabTitle>
+        <SubTitle>Best Selling</SubTitle>
+        <MainTitle>브랜드별 추천상품</MainTitle>
+      </BrandTabTitle>
+      <BrandTab>
+        <div className="tbody">
+          <div className="reactionbody">
+            <TH>
+              {brandTab
+                ?.filter((t, i) => i <= 1)
+                ?.map((tab) => (
+                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                    {tab}
+                  </TD>
+                ))}
+            </TH>
+            <TH>
+              {brandTab
+                ?.filter((t, i) => i <= 3 && i > 1)
+                ?.map((tab) => (
+                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                    {tab}
+                  </TD>
+                ))}
+            </TH>
+          </div>
+          <div className="reactionbody">
+            <TH>
+              {brandTab
+                ?.filter((t, i) => i > 3 && i < 6)
+                ?.map((tab) => (
+                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                    {tab}
+                  </TD>
+                ))}
+            </TH>
+            <TH>
+              {brandTab
+                ?.filter((t, i) => i >= 6)
+                ?.map((tab) => (
+                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                    {tab}
+                  </TD>
+                ))}
+            </TH>
+          </div>
+        </div>
+      </BrandTab>
+      {Object?.entries(brandData)
+        ?.map(([key, value]) => (
+          <div key={key}>
+            <BrandTitleContainer>
+              <BrandTitle ref={(element) => (myRefs.current[key] = element)}>
+                {key}
+              </BrandTitle>
+            </BrandTitleContainer>
+            <ProductList>
+              {value?.map((product) => (
+                <Products
+                  key={product.id}
+                  proId={product.id}
+                  product={product}
+                />
+              ))}
+            </ProductList>
+          </div>
+        ))}
+    </Container>
+  );
+};
 
 const Container = styled.div`
   width: 100vw;
@@ -48,6 +185,7 @@ const MainTitle = styled.h2`
     margin-top: 5px;
   }
 `;
+
 const ProductList = styled.div`
   /* width: 70%; */
   margin: 10px 0;
@@ -144,129 +282,5 @@ const BrandTitle = styled.h2`
   margin-left: 10px;
   scroll-margin-top: 140px;
 `;
-
-const BrandProduct = styled.div``;
-
-const Main = () => {
-  const dispatch = useDispatch();
-
-  //best of best
-  const bestData = useSelector((state) => state.article.mainArticle);
-
-  // 신상품
-  const newArivalData = useSelector((state) => state.maincategory.category);
-
-  //브랜드리스트
-  const brandData = useSelector((state) => state?.main.main);
-  const brandTab = Object.keys(brandData)?.filter((t) => t !== "게스트");
-
-  //자동스크롤 이벤트
-  const myRefs = useRef({});
-  const onMoveToElement = (key) => {
-    myRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  // 데이터 받아오기
-  useLayoutEffect(() => {
-    dispatch(mainData());
-    dispatch(categoryData());
-    dispatch(newData());
-  }, []);
-
-  return (
-    <Container id="app">
-      {/* 캐러셀 */}
-      <Carousel />
-      {/* Best of Best */}
-      <Title>
-        <SubTitle>Best Selling</SubTitle>
-        <MainTitle>Best of Best</MainTitle>
-      </Title>
-      <ProductList>
-        {bestData?.map((product) => (
-          <Products key={product.id} proId={product.id} product={product} />
-          ))}
-      </ProductList>
-      {/* 카테고리별 신상품 */}
-      <Title>
-        <SubTitle>New Arrival</SubTitle>
-        <MainTitle>카테고리별 신상품</MainTitle>
-      </Title>
-      <NewProducts
-        key={newArivalData.침실?.length}
-        newArivalList={newArivalData}
-      />
-      {/* 브랜드별 추천상품 */}
-      <BrandTabTitle>
-        <SubTitle>Best Selling</SubTitle>
-        <MainTitle>브랜드별 추천상품</MainTitle>
-      </BrandTabTitle>
-      <BrandTab>
-        <div className="tbody">
-          <div className="reactionbody">
-            <TH>
-              {brandTab
-                ?.filter((t, i) => i <= 1)
-                ?.map((tab) => (
-                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
-                    {tab}
-                  </TD>
-                ))}
-            </TH>
-            <TH>
-              {brandTab
-                ?.filter((t, i) => i <= 3 && i > 1)
-                ?.map((tab) => (
-                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
-                    {tab}
-                  </TD>
-                ))}
-            </TH>
-          </div>
-          <div className="reactionbody">
-            <TH>
-              {brandTab
-                ?.filter((t, i) => i > 3 && i < 6)
-                ?.map((tab) => (
-                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
-                    {tab}
-                  </TD>
-                ))}
-            </TH>
-            <TH>
-              {brandTab
-                ?.filter((t, i) => i >= 6)
-                ?.map((tab) => (
-                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
-                    {tab}
-                  </TD>
-                ))}
-            </TH>
-          </div>
-        </div>
-      </BrandTab>
-      {Object?.entries(brandData)
-        ?.filter((key) => key[0] !== "게스트")
-        ?.map(([key, value]) => (
-          <BrandProduct key={key}>
-            <BrandTitleContainer>
-              <BrandTitle ref={(element) => (myRefs.current[key] = element)}>
-                {key}
-              </BrandTitle>
-            </BrandTitleContainer>
-            <ProductList>
-              {value?.map((product) => (
-                <Products
-                  key={product.id}
-                  proId={product.id}
-                  product={product}
-                />
-              ))}
-            </ProductList>
-          </BrandProduct>
-        ))}
-    </Container>
-  );
-};
 
 export default Main;
