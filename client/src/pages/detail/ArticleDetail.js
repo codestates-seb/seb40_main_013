@@ -19,7 +19,8 @@ import Button from "../../components/Button";
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";
 import { Alert, Toast } from "../../components/Alert";
-import useIntersect from "../../components/useIntersect";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import placeholderSrc from "../../imgs/loading.webp";
 
 function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
   const [clickSelect, setClickSelect] = useState(false);
@@ -312,7 +313,17 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
           <SelectMoveBtn onClick={() => onMoveToElement(1)}>후기</SelectMoveBtn>
         </SelectMoveSpace>
         {articlesDetail?.content?.map((data) => (
-          <DetailMidImg src={data} key={data} />
+          <DetailMidImg>
+            <LazyLoadImage
+              src={data}
+              key={data}
+              placeholderSrc={placeholderSrc}
+              effect="blur"
+              width={data.width}
+              height={data.height}
+              className="detailImg"
+            />
+          </DetailMidImg>
         ))}
 
         <Button />
@@ -477,9 +488,15 @@ const SelectCenterLine = styled.div`
   color: #8a8a8a;
   margin: 0px 10px;
 `;
-const DetailMidImg = styled.img`
+const DetailMidImg = styled.div`
   width: 70%;
   margin-top: 0px;
+  display: flex;
+  justify-content: center;
+  .detailImg {
+    width: 100%;
+    height: 100%;
+  }
   @media screen and (max-width: 1023px) {
     width: 80%;
     height: auto;
