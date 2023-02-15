@@ -48,11 +48,13 @@ function LivingRoom({ mainClick, subclick, page, setPage, products, setProducts 
     getProducts();
   }, [page, subclick, sortArgument, third]);
 
-  const getProducts = async () => {
-        let productsRes = await Apis.get(
-          `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
-        )
-          setProducts(prev => [...prev, ...productsRes.data.content]);
+  const getProducts = () => {
+    setTimeout(async () => {
+      let productsRes = await Apis.get(
+       `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
+      );
+      setProducts((prev) => [...prev, ...productsRes.data.content]);
+    }, 700);
   };
 
   const handleScroll = () => {

@@ -150,6 +150,12 @@ const Category = styled.div`
       display: block;
     }
   }
+  div:hover{
+    color: #FFAF51;
+  }
+  div:focus{
+    color: #FFAF51;
+  }
   @media screen and (max-width: 479px) {
     width: 3.1rem;
   }

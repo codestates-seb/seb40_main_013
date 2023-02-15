@@ -70,13 +70,13 @@ function Observer({ mainClick, subclick }) {
 
     let options = {
       root: null, //root는 기본적으로 스크롤 가능한 영역, null을 입력하면 전체 브라우저 창이 됨
-      rootMargin: "150px",
+      rootMargin: "0px",
       htreshold: 0.6, //관찰해야 하는 대상 요소의 100%를 의미한다.
     };
 
     /// new IntersectionObserver === 브라우저 기본기능, 타겟이 화면에 보이는지 파악
     const observer = new IntersectionObserver(handleObserver, options); //감시중인 박스가 화면에 등장하면 handleObserver를 실행해 준다
-    observer.observe(loadingRef.current);
+    observer.observe(loadingRef.current);//감시대상 설정
    
   }, [subclick, sortArgument, third]); //subclick  
 
@@ -85,7 +85,7 @@ function Observer({ mainClick, subclick }) {
   const handleObserver = (entities, observer) => { //entities(파라미터)를 출력하면 감시중인 div 다 나옴, 배열에 담겨 나옴 [박스0, 박스1,...]
     console.log("time");
 
-    const y = entities[0].boundingClientRect.y; // getBoundingClientRect() 메서드는 엘리먼트의 크기와 뷰포트에 상대적인 위치 정보를 제공하는 DOMRect 객체를 반환 === 타겟의y값
+    const y = entities[0].boundingClientRect.y; // boundingClientRect() 메서드는 엘리먼트의 크기와 뷰포트에 상대적인 위치 정보를 제공하는 DOMRect 객체를 반환 === 타겟의y값
     const none = entities[0].isIntersecting
      if (prevYRef.current > y) { //y
         console.log(`real get list`);

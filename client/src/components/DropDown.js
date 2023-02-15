@@ -69,6 +69,16 @@ const Check = styled.div`
     }
 `;
 
+// const Ad = styled.span`
+//     &:hover {
+//         ${Check} {
+//             background-color: #e2e2e3;
+//             border: 1px solid #939496;
+//             opacity: 0.5;
+//         }
+//     }
+// `;
+
 
 function RankingDown({ third, setThird, dropDownclicked, setDropDownClicked, closeDropDown, closeHandler, setPage, setProducts }) {
 
