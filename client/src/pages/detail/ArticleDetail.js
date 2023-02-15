@@ -78,12 +78,10 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
     }
   };
   ScrollToTop();
-
+  console.log(clickCheck);
   useEffect(() => {
-    if (clickCheck === 0) {
-      dispatch(getArticleDetail(Number(id)));
-      dispatch(articleLike(Number(id)));
-    }
+    dispatch(getArticleDetail(Number(id)));
+    dispatch(articleLike(Number(id)));
   }, [clickCheck]);
 
   const clickPostCart = () => {
@@ -156,6 +154,7 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
         });
     }
   };
+  console.log(optionSelect);
 
   return (
     <Wrapper>
@@ -313,10 +312,9 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
           <SelectMoveBtn onClick={() => onMoveToElement(1)}>후기</SelectMoveBtn>
         </SelectMoveSpace>
         {articlesDetail?.content?.map((data) => (
-          <DetailMidImg>
+          <DetailMidImg key={data}>
             <LazyLoadImage
               src={data}
-              key={data}
               placeholderSrc={placeholderSrc}
               effect="blur"
               width={data.width}
