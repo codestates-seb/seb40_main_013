@@ -491,7 +491,9 @@ const Register = () => {
       Alert("error", "모든 입력값이 필수로 작성되야 합니다!");
     } else if (contentsPrice < 5000) {
       Alert("error", "상품의 최소가격은 5000원이어야 합니다 ");
-    } else {
+    } else if (contentsPrice > 10000000) {
+      Alert("error", "상품의 최소가격은 1000만원이하이어야 합니다 ");
+      }else {
       let postArticleData = {
         sellerId: sellerId,
         title: contentsName,
@@ -528,7 +530,7 @@ const Register = () => {
   return (
     <Container>
       <Title>
-        <span className="span"></span>제품등록
+        제품등록
       </Title>
       <Form>
         <InputContainer>

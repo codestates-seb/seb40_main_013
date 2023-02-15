@@ -158,7 +158,14 @@ const Category = styled.div`
   }
 `;
 
-function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts}) {
+function Header({
+  setMainClick,
+  setSubClick,
+  setSearchWord,
+  setPage,
+  setProducts,
+  clickCheck,
+}) {
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
@@ -214,6 +221,26 @@ function Header({ setMainClick, setSubClick, setSearchWord, setPage, setProducts
         });
     }
   }, [jwt])
+
+  useEffect(() => {
+    if (clickCheck > 0) {
+      if (jwt) {
+      Apis.get(`carts`, {
+      headers: {
+      Authorization: `${jwt}`,
+      "Content-Type": "application/json",
+      },
+      })
+      .then((res) => {
+      setHeaderCartCount(res.data.productCarts.length);
+      return res.data;
+      })
+      .catch((err) => {
+      console.log(err);
+      });
+      }
+    }
+    }, [clickCheck]);
 
   return (
     <>

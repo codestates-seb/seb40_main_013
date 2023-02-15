@@ -19,12 +19,11 @@ import Button from "../../components/Button";
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";
 import { Alert, Toast } from "../../components/Alert";
-import useIntersect from "../../components/useIntersect";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import placeholderSrc from "../../imgs/loading.webp";
 
-function ArticleDetail() {
+function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
   const [clickSelect, setClickSelect] = useState(false);
-  const [clickHeart, setClickHeart] = useState(false);
-  const [clickCheck, setClickCheck] = useState(0);
   const [selectOptions, setSelectOptions] = useState("");
   const [selectOptionColor, setSelectOptionColor] = useState("색상 선택");
   const [cartCount, setCartCount] = useState(1);
@@ -75,16 +74,14 @@ function ArticleDetail() {
       setSelectOptionColor(color);
     } else {
       Alert("error", "판매물품이 모두 소진되었습니다!");
-      setClickCheck(Date.now());
+      clickCheckFunction();
     }
   };
   ScrollToTop();
-
+  console.log(clickCheck);
   useEffect(() => {
-    if (clickCheck === 0) {
-      dispatch(getArticleDetail(Number(id)));
-      dispatch(articleLike(Number(id)));
-    }
+    dispatch(getArticleDetail(Number(id)));
+    dispatch(articleLike(Number(id)));
   }, [clickCheck]);
 
   const clickPostCart = () => {
@@ -96,18 +93,18 @@ function ArticleDetail() {
         count: cartCount,
         optionId: selectOptions,
       };
-      dispatch(postCart({ postData, navigate }));
+      dispatch(postCart({ postData, navigate, clickCheckFunction }));
     }
   };
   const clickPostLike = () => {
     let id = articlesDetail?.productId;
-    setClickCheck(Date.now());
+    clickCheckFunction();
     dispatch(postLike(id));
     setClickCheck(0);
   };
   const clickDeleteLike = () => {
     let id = articlesDetail?.productId;
-    setClickCheck(Date.now());
+    clickCheckFunction();
     dispatch(deleteLike(id));
     setClickCheck(0);
   };
@@ -157,6 +154,7 @@ function ArticleDetail() {
         });
     }
   };
+  console.log(optionSelect);
 
   return (
     <Wrapper>
@@ -314,7 +312,16 @@ function ArticleDetail() {
           <SelectMoveBtn onClick={() => onMoveToElement(1)}>후기</SelectMoveBtn>
         </SelectMoveSpace>
         {articlesDetail?.content?.map((data) => (
-          <DetailMidImg src={data} key={data} />
+          <DetailMidImg key={data}>
+            <LazyLoadImage
+              src={data}
+              placeholderSrc={placeholderSrc}
+              effect="blur"
+              width={data.width}
+              height={data.height}
+              className="detailImg"
+            />
+          </DetailMidImg>
         ))}
 
         <Button />
@@ -479,9 +486,15 @@ const SelectCenterLine = styled.div`
   color: #8a8a8a;
   margin: 0px 10px;
 `;
-const DetailMidImg = styled.img`
+const DetailMidImg = styled.div`
   width: 70%;
   margin-top: 0px;
+  display: flex;
+  justify-content: center;
+  .detailImg {
+    width: 100%;
+    height: 100%;
+  }
   @media screen and (max-width: 1023px) {
     width: 80%;
     height: auto;
@@ -598,6 +611,7 @@ const DetailArticleOptionSpaceSelect = styled.div`
   font-size: 1rem;
   border-bottom: 1px solid var(--color-gray);
   position: relative;
+  cursor: pointer;
 `;
 const DetailArticleOptionSpaceSelectDiv = styled.div`
   width: 100%;

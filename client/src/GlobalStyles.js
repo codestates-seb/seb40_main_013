@@ -12,7 +12,6 @@ const GlobalStyles = createGlobalStyle`
         -moz-user-select:none;
         -ms-user-select:none;
         user-select:none;
-        /* font-family: 'Pretendard'!important; */
     }
     a{
          text-decoration: none;

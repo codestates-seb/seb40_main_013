@@ -16,7 +16,7 @@ const EditContainter = styled.div`
   @media screen and (max-width: 389px) {
     flex-direction: column;
     align-items: center;
-    width: 80vw;
+    width: 88vw;
   }
   @media (min-width: 390px) and (max-width: 767px) {
     flex-direction: column;
@@ -438,8 +438,9 @@ const EditProfile = ({ getUserdata }) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    if (curpwdConform === true) {
-      Swal.fire({
+      if (!localStorage.getItem("authority")) {
+      if (curpwdConform === true) {
+        Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
@@ -452,47 +453,50 @@ const EditProfile = ({ getUserdata }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           Apis.delete(`/members/mypage`, {
-            headers: {
-              Authorization: initialToken,
-            },
-          })
-            .then((res) => {
-              localStorage.clear();
-              Swal.fire({
-                title: "Deleted!",
-                text: "그동안 이용해주셔서 감사합니다.",
-                icon: "success",
-                confirmButtonColor: "#002C6D",
-              });
-              navigate("/");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          headers: {
+          Authorization: initialToken,
+          },
+        })
+        .then((res) => {
+          localStorage.clear();
+          Swal.fire({
+          title: "Deleted!",
+          text: "그동안 이용해주셔서 감사합니다.",
+          icon: "success",
+          confirmButtonColor: "#002C6D",
+        });
+          navigate("/");
+        })
+          .catch((err) => {
+            console.log(err);
+          });
         }
       });
-    } else if (!curpwdConform) {
-      Alert("warning", "현재 비밀번호를 확인해주세요");
-    }
-  };
+      } else if (!curpwdConform) {
+        Alert("warning", "현재 비밀번호를 확인해주세요");
+      }
+      } else {
+        Alert("error", "게스트이용자는 회원탈퇴가 불가능합니다!");
+      }
+    };
 
   return (
     <EditContainter>
       <HowtoEditMobile>
         <h2 className="editTitle">How to Edit</h2>
         <Warning>
-          현재 비밀번호 입력후, 일치확인을 하셔야 정보수정이 가능합니다.
+          현재 비밀번호 입력 후, 일치확인을 하셔야 정보수정이 가능합니다.
         </Warning>
         <ul>
           <li className="explain">
             닉네임: 수정하지 않으면 기존 닉네임이 유지됩니다.
           </li>
           <li className="explain">
-            현재비밀번호(필수): 반드시 입력해야합니다.
+            현재 비밀번호(필수): 반드시 입력해야합니다.
           </li>
-          <li className="explain">비밀번호: 수정하지않으면 비워도 됩니다.</li>
-          <li className="explain">주소: 수정하지않으면 비워도 됩니다.</li>
-          <li className="explain">휴대번호: 수정하지않으면 비워도 됩니다.</li>
+          <li className="explain">비밀번호: 수정하지 않으면 비워도 됩니다.</li>
+          <li className="explain">주소: 수정하지 않으면 비워도 됩니다.</li>
+          <li className="explain">휴대번호: 수정하지 않으면 비워도 됩니다.</li>
         </ul>
       </HowtoEditMobile>
       <Container>
@@ -587,7 +591,7 @@ const EditProfile = ({ getUserdata }) => {
         ></Input>
         {!updatePhoneConfirm ? (
           <ErrorDisplay>
-            위의 양식에 맞게 -와 숫자를 섞어서 작성해주세요.
+            위의 양식에 맞게 - 와 숫자를 섞어서 작성해주세요.
           </ErrorDisplay>
         ) : null}
         <Buttons>
@@ -602,18 +606,18 @@ const EditProfile = ({ getUserdata }) => {
       <HowtoEdit>
         <h2 className="editTitle">How to Edit</h2>
         <Warning>
-          현재 비밀번호 입력후, 일치확인을 하셔야 정보수정 및 탈퇴가 가능합니다.
+          현재 비밀번호 입력 후, 일치확인을 하셔야 정보수정 및 탈퇴가 가능합니다.
         </Warning>
         <ul>
           <li className="explain">
             닉네임: 수정하지 않으면 기존 닉네임이 유지됩니다.
           </li>
           <li className="explain">
-            현재비밀번호(필수): 반드시 입력해야합니다.
+            현재 비밀번호(필수): 반드시 입력해야합니다.
           </li>
-          <li className="explain">비밀번호: 수정하지않으면 비워도 됩니다.</li>
-          <li className="explain">주소: 수정하지않으면 비워도 됩니다.</li>
-          <li className="explain">휴대번호: 수정하지않으면 비워도 됩니다.</li>
+          <li className="explain">비밀번호: 수정하지 않으면 비워도 됩니다.</li>
+          <li className="explain">주소: 수정하지 않으면 비워도 됩니다.</li>
+          <li className="explain">휴대번호: 수정하지 않으면 비워도 됩니다.</li>
         </ul>
       </HowtoEdit>
     </EditContainter>
