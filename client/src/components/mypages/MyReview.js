@@ -209,9 +209,9 @@ const Container = styled.div`
   padding: 20px 20px 20px 40px;
   width: 80%;
   @media screen and (max-width: 390px) {
-    width: 88%;
+    width: 88vw;
     padding: 0;
-    margin-left: -10px;
+    margin: 30px 0;
     
   }
   @media (min-width: 391px) and (max-width: 768px) {

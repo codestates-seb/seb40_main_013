@@ -122,7 +122,7 @@ function Observer({ mainClick, subclick }) {
         <CountBlock>
           { subclick != '' ? 
               <SubMenuWord>{subclick}&nbsp;</SubMenuWord> : 
-              <SubMenuWord>{/* {mainCateClick} */}전체상품&nbsp;</SubMenuWord>
+              <SubMenuWord>전체상품&nbsp;</SubMenuWord>
           }
           <div className="total">에&nbsp;{countSelector}&nbsp;개의&nbsp;상품이&nbsp;있습니다</div>
         </CountBlock>

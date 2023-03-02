@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components/macro";
 import starimg from "../../imgs/star.png";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import placeholderSrc from "../../imgs/loading.webp"
 
 const Products = styled(Link)`
   width: 18vw;
@@ -23,9 +26,10 @@ const Products = styled(Link)`
 const Imgbox = styled.div`
   overflow: hidden;
   &:hover img {
+    border-radius: 5px;
     object-fit: cover;
     transform: scale(1.3);
-    transition: transform 1s;
+    transition: transform 1s !important;
   }
   @media screen and (max-width: 479px) {
     width: 35vw;
@@ -36,21 +40,22 @@ const Imgbox = styled.div`
   @media (min-width: 768px) and (max-width: 1023px) {
     width: 20vw;
   }
-`;
-const Img = styled.img`
-  width: 13vw;
-  display: flex;
-  border-radius: 5px;
-  @media screen and (max-width: 479px) {
+  .img-lazy{
+    width: 13vw;
+    display: flex;
+    border-radius: 5px;
+    @media screen and (max-width: 479px) {
     width: 35vw;
-  }
-  @media (min-width: 480px) and (max-width: 767px) {
-    width: 24vw;
-  }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    width: 20vw;
+    }
+    @media (min-width: 480px) and (max-width: 767px) {
+      width: 24vw;
+    }
+    @media (min-width: 768px) and (max-width: 1023px) {
+      width: 20vw;
+    }
   }
 `;
+
 const Detail = styled.div`
   display: flex;
   flex-direction: column;
@@ -169,7 +174,13 @@ const Product = ({ proId, product }) => {
   return (
     <Products to={`/detail/${proId}`}>
       <Imgbox>
-        <Img src={img?.fullPath}></Img>
+        <LazyLoadImage
+          key={proId}
+          src={img?.fullPath}
+          className="img-lazy"
+          placeholderSrc={placeholderSrc}
+          effect="blur"
+         />
       </Imgbox>
       <Detail>
         <SubDetail>

@@ -14,7 +14,7 @@ const Container = styled.div`
   padding: 20px 20px 20px 40px;
   width: 75vw;
   @media screen and (max-width: 390px) {
-    width: 90%;
+    width: 88vw;
     padding: 0;
     margin: 30px 0;
   }
@@ -101,7 +101,9 @@ const BP = styled.div`
   margin-left: 20px;
   @media screen and (max-width: 390px) {
     flex-direction: row;
-    justify-content: flex-start;
+    width: 88vw;
+    justify-content: space-between;
+    padding-right: 10px;
     margin-top: 10px;
     margin-left: 0;
   }
