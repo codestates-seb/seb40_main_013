@@ -78,7 +78,7 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
     }
   };
   ScrollToTop();
-
+  console.log(clickCheck);
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
     dispatch(articleLike(Number(id)));
@@ -154,6 +154,7 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
         });
     }
   };
+  console.log(optionSelect);
 
   return (
     <Wrapper>

@@ -183,7 +183,6 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
   const [headerCartCount, setHeaderCartCount] = useState(0);
   const [clickSubWord, setClickSubWord] = useState('');
 
-
   const clickMainkMenu = () => {
     setSubClick("");
     setPage(0);
@@ -260,7 +259,6 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
           }
       };
       window.addEventListener("keydown", escKeyModalClose);
-      //return () => window.removeEventListener("keydown", escKeyModalClose);
   }, []);
 
   useEffect(() => {
@@ -269,7 +267,6 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
       setClickSubWord(target.innerText)
     };
     window.addEventListener("click", subColorHandler);
-    //return () => window.removeEventListener("keydown", subColorHandler);
 }, []);
 
   return (
