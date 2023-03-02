@@ -26,9 +26,10 @@ const Products = styled(Link)`
 const Imgbox = styled.div`
   overflow: hidden;
   &:hover img {
+    border-radius: 5px;
     object-fit: cover;
     transform: scale(1.3);
-    transition: transform 1s;
+    transition: transform 1s !important;
   }
   @media screen and (max-width: 479px) {
     width: 35vw;
@@ -44,7 +45,7 @@ const Imgbox = styled.div`
     display: flex;
     border-radius: 5px;
     @media screen and (max-width: 479px) {
-    width: 35vw;
+      width: 35vw;
     }
     @media (min-width: 480px) and (max-width: 767px) {
       width: 24vw;
@@ -54,20 +55,7 @@ const Imgbox = styled.div`
     }
   }
 `;
-const Img = styled.img`
-  width: 13vw;
-  display: flex;
-  border-radius: 5px;
-  @media screen and (max-width: 479px) {
-    width: 35vw;
-  }
-  @media (min-width: 480px) and (max-width: 767px) {
-    width: 24vw;
-  }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    width: 20vw;
-  }
-`;
+
 const Detail = styled.div`
   display: flex;
   flex-direction: column;
@@ -193,7 +181,6 @@ const Product = ({ proId, product }) => {
           placeholderSrc={placeholderSrc}
           effect="blur"
          />
-        {/* <Img src={img?.fullPath}></Img> */}
       </Imgbox>
       <Detail>
         <SubDetail>

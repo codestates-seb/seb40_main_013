@@ -7,10 +7,10 @@ import kitchenImg from '../../imgs/sub-kitchen.png';
 import Apis from "../../apis/apis";
 import { getSubCount } from "../../reduxstore/slices/articleSlice";
 
-function Kitchen({ mainClick, subclick, page, setPage, products, setProducts  }) {
-  
+function Kitchen({ subclick, page, setPage, products, setProducts  }) {
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = '주방';
+
   const dispatch = useDispatch();
   const countSelector = useSelector((state) => state.article.getSubCountInitial);
 
@@ -47,27 +47,24 @@ function Kitchen({ mainClick, subclick, page, setPage, products, setProducts  })
     getProducts();
   }, [page, subclick, sortArgument, third]);
 
-    const getProducts = () => {
-      setTimeout(async () => {
+  const getProducts = () => {
+    setTimeout(async () => {
       let productsRes = await Apis.get(
-      `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
+       `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
       );
       setProducts((prev) => [...prev, ...productsRes.data.content]);
-      }, 700);
-    };
+    }, 700);
+  };
 
   const handleScroll = () => {
     if (
-      window.innerHeight + document.documentElement.scrollTop + 1 >=
-      document.documentElement.scrollHeight
-    ) {
+      window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
       setPage((prev) => prev + 1);
     }
   };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -81,7 +78,7 @@ function Kitchen({ mainClick, subclick, page, setPage, products, setProducts  })
           {subclick != "" ? (
             <SubMenuWord>{subclick}&nbsp;</SubMenuWord>
           ) : (
-            <SubMenuWord>{/* {mainCateClick} */}전체상품&nbsp;</SubMenuWord>
+            <SubMenuWord>전체상품&nbsp;</SubMenuWord>
           )}
           <div className="total">
             에&nbsp;{countSelector}&nbsp;개의&nbsp;상품이&nbsp;있습니다

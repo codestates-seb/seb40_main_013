@@ -336,16 +336,15 @@ const Bubble = styled.div`
     border-width: 31px;
     margin-top: -31px;
   }
-  @media screen and (max-width: 768px) {
-    top: -5%;
-    left: 30px;
+  @media screen and (max-width: 767px) {
+    display: none;
   }
 `;
 
 const BubbleContents = styled.p`
   color: var(--color-navy);
   font-size: 0.9vw;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     font-size: 0.6vw;
   }
 `;
