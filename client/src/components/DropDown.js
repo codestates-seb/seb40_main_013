@@ -30,6 +30,22 @@ const CheckBox = styled.div`
     }
 `;
 
+const Check = styled.div`
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    border: 1px solid #bdbebe;
+    /* &:hover{
+        background-color: #e2e2e3;
+        border: 1px solid #939496;
+        opacity: 0.5;
+    }
+    &.checked{
+        border: 0;
+        background-color: #FFAF51;
+    } */
+`;
+
 const Radio = styled.li`
     list-style: none;
     cursor: pointer;
@@ -51,29 +67,39 @@ const Radio = styled.li`
         top: 0.45em;
         /* z-index: 2; */
     }
+    &:hover{
+        ${Check} {        
+            background-color: #e2e2e3;
+            border: 1px solid #939496;
+            opacity: 0.5;
+            &.checked{
+                border: 0;
+                background-color: #FFAF51;
+            }
+        }
+    }
+    ${Check} {        
+        &.checked{
+            border: 0;
+            background-color: #FFAF51;
+        }
+    }
 `;
 
-const Check = styled.div`
-    width: 1.2em;
-    height: 1.2em;
-    border-radius: 50%;
-    border: 1px solid #bdbebe;
-    &:hover{
-        background-color: #e2e2e3;
-        border: 1px solid #939496;
-        opacity: 0.5;
-    }
-    &.checked{
-        border: 0;
-        background-color: #FFAF51;
-    }
-`;
+
+
+// const Ad = styled.span`
+//     &:hover {
+//         
+//     }
+// `;
 
 
 function RankingDown({ third, setThird, dropDownclicked, setDropDownClicked, closeDropDown, closeHandler, setPage, setProducts }) {
 
     const getRadioText = (el, a) => {
         setDropDownClicked(el)
+        console.log(dropDownclicked)
         setThird(a)
         closeHandler()
         setPage(0);

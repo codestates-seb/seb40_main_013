@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { BsCart3, BsSearch } from "react-icons/bs";
 import { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
-import { useSelector } from "react-redux";
 import { Toast } from "./Alert";
 import Apis from "../apis/apis";
 
@@ -120,6 +119,10 @@ const Nav = styled.nav`
     padding: 6px 0px;
     flex-direction: column;
     align-items: center;
+    &:hover {
+    color: #002C6D;
+    font-weight: 500;
+    }
   }
   display: none;
   &:hover {
@@ -140,10 +143,6 @@ const Category = styled.div`
   position: relative;
   width: 5rem;
   justify-content: center;
-  .space {
-    display: flex;
-    align-items: center;
-  }
   &:hover {
     cursor: pointer;
     ${Nav} {
@@ -158,28 +157,39 @@ const Category = styled.div`
   }
 `;
 
-function Header({
-  setMainClick,
-  setSubClick,
-  setSearchWord,
-  setPage,
-  setProducts,
-  clickCheck,
-}) {
+const BigSub = styled.div`
+  width:inherit;
+  display: flex;
+  justify-content : center;
+  font-weight: 500;
+  &.space {
+    &:hover {
+    color: #002C6D;
+    }
+  }
+  &.click-space{
+    color: #FFAF51;
+    &:hover {
+    color: #002C6D;
+
+    }
+  }
+`;
+
+function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }) {
   const navigate = useNavigate();
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
-  const cartCount = useSelector((state) => state);
   const [headerCartCount, setHeaderCartCount] = useState(0);
+  const [clickSubWord, setClickSubWord] = useState('');
 
-  const clickMainkMenu = ({ target }) => {
-    setMainClick(target.innerText);
+  const clickMainkMenu = () => {
     setSubClick("");
     setPage(0);
     setProducts([]);
   };
 
-  const clickSubMenu = ({ target }) => {
+  const clickSubMenu = ({target}) => {
     setSubClick(target.innerText);
     setPage(0);
     setProducts([]);
@@ -242,6 +252,23 @@ function Header({
     }
     }, [clickCheck]);
 
+  useEffect(() => {
+      const escKeyModalClose = (e) => {
+          if (e.keyCode === 27) {
+            setCloseSearch(false);
+          }
+      };
+      window.addEventListener("keydown", escKeyModalClose);
+  }, []);
+
+  useEffect(() => {
+    const subColorHandler = ({ target }) => {
+      // console.dir(target)
+      setClickSubWord(target.innerText)
+    };
+    window.addEventListener("click", subColorHandler);
+}, []);
+
   return (
     <>
       <HeaderBlock onClick={outModalCloseHandler}>
@@ -279,9 +306,9 @@ function Header({
           <div>
             <Link to="/library">
               <Category>
-                <div className="space" onClick={clickMainkMenu}>
+                <BigSub className={clickSubWord === '서재' ? "click-space" : "space"} onClick={clickMainkMenu}>
                   서재
-                </div>
+                </BigSub>
                 <Nav className="1">
                   <div onClick={clickSubMenu}>책상</div>
                   <div onClick={clickSubMenu}>의자</div>
@@ -292,9 +319,9 @@ function Header({
             </Link>
             <Link to="/bedroom">
               <Category>
-                <div className="space" onClick={clickMainkMenu}>
+                <BigSub className={clickSubWord === '침실' ? "click-space" : "space"} onClick={clickMainkMenu}>
                   침실
-                </div>
+                </BigSub>
                 <Nav className="2">
                   <div onClick={clickSubMenu}>침대/매트리스</div>
                   <div onClick={clickSubMenu}>행거/옷장</div>
@@ -304,9 +331,9 @@ function Header({
             </Link>
             <Link to="/livingRoom">
               <Category>
-                <div className="space" onClick={clickMainkMenu}>
+                <BigSub className={clickSubWord === '거실' ? "click-space" : "space"} onClick={clickMainkMenu}>
                   거실
-                </div>
+                </BigSub>
                 <Nav className="3">
                   <div onClick={clickSubMenu}>소파</div>
                   <div onClick={clickSubMenu}>거실장</div>
@@ -316,9 +343,9 @@ function Header({
             </Link>
             <Link to="/kitchen">
               <Category>
-                <div className="space" onClick={clickMainkMenu}>
+                <BigSub className={clickSubWord === '주방' ? "click-space" : "space"} onClick={clickMainkMenu}>
                   주방
-                </div>
+                </BigSub>
                 <Nav className="4">
                   <div onClick={clickSubMenu}>식탁/아일랜드</div>
                   <div onClick={clickSubMenu}>식탁의자</div>

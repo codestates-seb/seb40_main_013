@@ -7,8 +7,7 @@ import livingImg from '../../imgs/sub-living1.jpeg';
 import Apis from "../../apis/apis";
 import { getSubCount } from "../../reduxstore/slices/articleSlice";
 
-function LivingRoom({ mainClick, subclick, page, setPage, products, setProducts }) {
-  
+function LivingRoom({ subclick, page, setPage, products, setProducts }) {
   //소분류에 따른 대분류카테고리 이름 지정
   let mainCateClick = '거실';
 
@@ -50,12 +49,12 @@ function LivingRoom({ mainClick, subclick, page, setPage, products, setProducts 
 
   const getProducts = () => {
     setTimeout(async () => {
-    let productsRes = await Apis.get(
-    `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
-    );
-    setProducts((prev) => [...prev, ...productsRes.data.content]);
+      let productsRes = await Apis.get(
+       `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
+      );
+      setProducts((prev) => [...prev, ...productsRes.data.content]);
     }, 700);
-    };
+  };
 
   const handleScroll = () => {
     if(window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight){
@@ -65,7 +64,6 @@ function LivingRoom({ mainClick, subclick, page, setPage, products, setProducts 
 
   useEffect(()=>{
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll)
   }, []) 
 
   return (
@@ -78,7 +76,7 @@ function LivingRoom({ mainClick, subclick, page, setPage, products, setProducts 
         <CountBlock>
           { subclick != '' ? 
               <SubMenuWord>{subclick}&nbsp;</SubMenuWord> : 
-              <SubMenuWord>{/* {mainCateClick} */}전체상품&nbsp;</SubMenuWord>
+              <SubMenuWord>전체상품&nbsp;</SubMenuWord>
           }
           <div className="total">에&nbsp;{countSelector}&nbsp;개의&nbsp;상품이&nbsp;있습니다</div>
         </CountBlock>
@@ -99,7 +97,6 @@ function LivingRoom({ mainClick, subclick, page, setPage, products, setProducts 
         {products?.map((product) => (
           <Products proId={product.id} product={product} key={product.id}/>
         ))}
-        {/* <div ref={loadingRef}></div> */}
       </ProductList>
     </SubBlock>
   );
