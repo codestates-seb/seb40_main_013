@@ -55,10 +55,10 @@
 
 ## 프로젝트 설명
 ### 프로젝트 아키텍처
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68e5cfc0-e938-417d-b803-26764b2b9308/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221204%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221204T105424Z&X-Amz-Expires=86400&X-Amz-Signature=aa52c4160f3ba99b53c944608182921de5bf35b1ac4638cbefec1909b9c8a9ec&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbwZm1b%2Fbtr9dXOotYd%2FniAVIOsCW61tWKgGwaymT1%2Fimg.png">
 
 ### Deploy Tools
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f4f1fc59-15ad-468c-9fa4-24ea7c43cf07/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T122713Z&X-Amz-Expires=86400&X-Amz-Signature=991f95be394e2266486cf28a749d79db15ade5f5349ef0ddd9e5a72cffa5392a&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbSfDDY%2Fbtr9dXHFiTn%2F6cyGvikwgOL8d5TRSQxTq0%2Fimg.png">
 
 ### [API 문서](https://dailydaily.kro.kr/docs/index.html)
 
