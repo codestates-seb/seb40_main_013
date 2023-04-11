@@ -45,7 +45,11 @@ const Imgbox = styled.div`
     display: flex;
     border-radius: 5px;
     @media screen and (max-width: 479px) {
+<<<<<<< HEAD
+    width: 35vw;
+=======
       width: 35vw;
+>>>>>>> f71dcef15d1727580ad9ea5aee4f21074c0d208a
     }
     @media (min-width: 480px) and (max-width: 767px) {
       width: 24vw;
