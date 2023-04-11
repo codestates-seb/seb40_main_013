@@ -1,0 +1,55 @@
+spring:
+  profiles:
+    active: local
+  redis:
+    host: localhost
+    port: 6379
+    ttl: 5
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    url: jdbc:h2:mem:test
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG # 로그 단계 설정
+
+cloud:
+  aws:
+    region: # AWS Region 구성
+      static: ap-northeast-2
+    stack: # EC2에서 Spring Cloud 프로젝트를 실행시키면 기본으로 CloudFormation 구성을 시작
+      auto: false
+
+iam:
+  access-key: test123412341234123412341234123412341234!@#$
+  secret-key: test123412341234123412341234123412341234!@#$
+
+jwt:
+  secret-key: test123412341234123412341234123412341234!@#$
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
+  keep-state-refresh-token-expiration-minutes: 1440
+
+file:
+  profileImg: /img/profileImg
+  productImg: /img/productImg
+  productContentsImg: /img/productContentsImg/
+  reviewImg: /img/reviewImg
+
+env: local
+
+webhook:
+  error: j12312hqukrhkfkaf333
+  status: j12312hqukrhkfkaf333

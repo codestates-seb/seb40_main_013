@@ -183,7 +183,10 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
   const [headerCartCount, setHeaderCartCount] = useState(0);
   const [clickSubWord, setClickSubWord] = useState('');
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f71dcef15d1727580ad9ea5aee4f21074c0d208a
   const clickMainkMenu = () => {
     setSubClick("");
     setPage(0);
@@ -264,6 +267,10 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
 
   useEffect(() => {
     const subColorHandler = ({ target }) => {
+<<<<<<< HEAD
+=======
+      // console.dir(target)
+>>>>>>> f71dcef15d1727580ad9ea5aee4f21074c0d208a
       setClickSubWord(target.innerText)
     };
     window.addEventListener("click", subColorHandler);

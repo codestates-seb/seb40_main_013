@@ -1,31 +1,3 @@
-
-# seb40_main_013
-
-# 🔎 Skills
-
-<br />
-
-## 🖥 Front-end
-
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">  <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=ReactRouter&logoColor=white"/> <img src="https://img.shields.io/badge/React Hook Form-EC5990?style=for-the-badge&logo=ReactHookForm&logoColor=white"/> <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white"> <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">
-
-<br />
-
-## ⚙️ Back-end
-
-<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"> <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=Redis&logoColor=white">
-
-<br />
-
-## 배포
-
-<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=AmazonS3&logoColor=white"> <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=AmazonEC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=AmazonRDS&logoColor=white"> <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=white"> 
-
-
-
-
-<br /><br /><br /><br /><br /><br />
-=======
 <div align="center"><a href="https://dailydaily.shop/"><img src="https://media.discordapp.net/attachments/1037945125998968864/1048155694651674624/2022-12-02_5.36.00.png?width=959&height=246" alt="logo" /></a></div>
 
 <div align="center">
@@ -80,7 +52,20 @@
 
 
 <br /><br /><br /><br />
+
+## 프로젝트 설명
+### 프로젝트 아키텍처
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbwZm1b%2Fbtr9dXOotYd%2FniAVIOsCW61tWKgGwaymT1%2Fimg.png">
+
+### Deploy Tools
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbSfDDY%2Fbtr9dXHFiTn%2F6cyGvikwgOL8d5TRSQxTq0%2Fimg.png">
+
+### [API 문서](https://dailydaily.kro.kr/docs/index.html)
+
+
 </div>
+
+<br><br><br>
   
 # 💡 Pages
 
@@ -102,7 +87,7 @@
 
 |1️⃣0️⃣ 좋아요 상품 조회|1️⃣1️⃣ 리뷰 등록|1️⃣2️⃣ 정보 수정|
 |:-:|:-:|:-:|
-|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="https://media.discordapp.net/attachments/1037945125998968864/1048181633410420776/2022-12-02_7.17.03.png?width=1055&height=677">|<img width="300" alt="스크린샷 2022-11-07 오후 6 06 47" src="">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 26" src="https://media.discordapp.net/attachments/1037945125998968864/1048181635125878784/2022-12-02_7.16.52.png?width=1058&height=677">|
+|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="https://media.discordapp.net/attachments/1037945125998968864/1048181633410420776/2022-12-02_7.17.03.png?width=1055&height=677">|<img width="300" alt="스크린샷 2022-11-07 오후 6 06 47" src="https://user-images.githubusercontent.com/107091097/205632196-c2c28b53-3a02-40f0-a4b7-bb22a30725c6.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 26" src="https://media.discordapp.net/attachments/1037945125998968864/1048181635125878784/2022-12-02_7.16.52.png?width=1058&height=677">|
 
 |1️⃣3️⃣ 검색 기능|
 |:-:|
@@ -117,22 +102,15 @@
 
 #### 1️⃣ 메인페이지
 
+  
 <details markdown="1">
 <summary><strong>웹</strong></summary>
-
-- best of best (캐러셀 / 별점순 5개)
-<img src="">
-
-- 카테고리 신상품 (왼쪽사진을 누르면 해당 카테고리로 이동)
-<img src="">
-        
-- 브랜드별 추천상품 (탭을 누르면 해당 브랜드로 이동)
-<img src="">
+<img src="https://user-images.githubusercontent.com/93895421/205637989-ee8ec5d8-9185-40a9-bff6-52079b7703e8.gif">
 </details>
 
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
-<img src="">
+<img src="https://user-images.githubusercontent.com/93029270/205637375-a7b86c58-477d-40c2-9975-a0b4f021c11e.gif">
 </details>
 
 #### 2️⃣ 회원가입 / 로그인
@@ -141,35 +119,36 @@
 <summary><strong>웹</strong></summary>
 
 - 회원가입
-<img src="">
-        
+<img src="https://user-images.githubusercontent.com/106057412/205632745-9243fd90-810e-4e24-95d0-872af8770414.gif">
+
 - 로그인
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205634556-52c26330-71b7-486d-be9c-787ad8b0cf4d.gif">
 </details>
 
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205635543-7ef64139-07ea-41eb-a251-2131c90fb662.gif">
 </details>
+
 
 #### 3️⃣ 소분류 페이지 ( 무한스크롤, 셀렉트박스)
 <details markdown="1">
 <summary><strong>웹</strong></summary>
 
 - 무한스크롤
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205635620-5185675c-b936-4087-ad3e-877e3e039790.gif">
         
 - 카테고리 이동
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205635716-516ad5ed-7907-42b5-aeb8-a85d559f9df9.gif">
         
 - 셀렉트 박스
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205635789-c684b66a-03c9-41f3-8104-8a097be3991f.gif">
 </details>
         
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
     
-<img src="">
+<img src="https://user-images.githubusercontent.com/93029270/205637813-858a2e01-c439-40cf-8f65-b4d6035d9424.gif">
 </details>
 
 #### 4️⃣ 상세페이지
@@ -178,15 +157,15 @@
 <summary><strong>웹</strong></summary>
 
 - 좋아요
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205635974-a158287d-f536-4c30-b221-227768d93a20.gif">
         
 - 리뷰이동
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636039-7ff0e4bd-3ca3-48d9-a1e8-25087fa797f8.gif">
 </details>
         
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636124-8d3afdc9-024b-4c16-80d3-c2ae068328d7.gif">
 </details>
 
 #### 5️⃣ 검색 기능
@@ -194,18 +173,18 @@
 <summary><strong>웹</strong></summary>
 
 - 공백 검색 막기
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636201-783b6135-bd19-4ce8-831e-71840bf39ad3.gif">
         
 - 인기 검색어
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636263-bca39790-e535-4da1-a4f5-7d4ff5d9e390.gif">
         
 - 최근 검색어
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636335-e487dca0-0a7f-4ec5-b81a-ecffee2d0c74.gif">
 </details>
         
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636425-9e374292-3472-478d-b56a-9ab8caed52b1.gif">
 </details>
 
 6️⃣ 장바구니 기능
@@ -213,25 +192,24 @@
 <summary><strong>웹</strong></summary>
 
 - 장바구니담기
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636508-f092433e-fb2b-4557-8f87-bd006e842077.gif">
         
 - 상품 갯수 조정
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636582-8e21a3a7-8e0c-464b-93ff-2b8d643889b5.gif">
         
 - 구매 상품 선택
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636633-699c02fb-a84e-49d0-91d3-2f3348841459.gif">
         
 - 상품 삭제
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636673-d92db641-80b3-4edf-8390-b978ac97be1a.gif">
         
 - 상품 구매
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205636998-f98c319a-f15b-402f-8973-50cda56f76bc.gif">
 </details>
         
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
-<img src="">
-
+<img src="https://user-images.githubusercontent.com/107091097/205637081-d99a4b18-276d-4bb4-8382-0c24fefcd669.gif">
 </details>
 
 7️⃣ 마이페이지
@@ -239,34 +217,36 @@
 <summary><strong>웹</strong></summary>
 
 - 주문 취소 (한번더 확인후 취소)
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205637157-0ef1252f-4dc7-4ed6-b197-299d71659148.gif">
         
 - 주문 상세 (주문당 해당 상품들)
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205637229-28d5c73c-2c21-49b7-a764-6fab75fe0ad5.gif">
         
 - 리뷰 등록
-<img src="">
+<img src="">![리뷰 등록](https://user-images.githubusercontent.com/107091097/205637456-ce540d5c-ed99-4663-a7c4-e18d44a3682e.gif)
+
         
 - 리뷰 수정 / 삭제
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205637501-7e032083-2866-43d6-9988-bbcade5b62d8.gif">
+
         
 - 정보수정
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205637543-1534bbf9-bf94-4cf3-817a-450f60e1f9bf.gif">
         
 - 좋아요
-<img src="">
+<img src="https://user-images.githubusercontent.com/107091097/205637638-28237ea4-c5f7-4d9f-814d-839c81f64c51.gif">
 </details>
         
 <details markdown="1">
 <summary><strong>반응형</strong></summary>
     
-<img src="">
+<img src="https://user-images.githubusercontent.com/93029270/205638164-6aec76dd-818c-4f70-8f39-3e90d5e3df0e.gif">
 </details>
 
 9️⃣ 이미지 추가 ( 상품 추가)
 <details markdown="1">
 <summary><strong>웹 & 반응형</strong></summary> 
-<img src="">
+<img src="https://user-images.githubusercontent.com/93029270/205638323-2233223b-45e9-4e53-b89a-778747b73eb7.gif">
 </details>
 
 
@@ -274,19 +254,6 @@
 
 <br /><br /><br />
 
-## 프로젝트 설명
-### 프로젝트 아키텍처
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68e5cfc0-e938-417d-b803-26764b2b9308/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221204%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221204T105424Z&X-Amz-Expires=86400&X-Amz-Signature=aa52c4160f3ba99b53c944608182921de5bf35b1ac4638cbefec1909b9c8a9ec&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
-
-### Deploy Tools
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f4f1fc59-15ad-468c-9fa4-24ea7c43cf07/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221203%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221203T122713Z&X-Amz-Expires=86400&X-Amz-Signature=991f95be394e2266486cf28a749d79db15ade5f5349ef0ddd9e5a72cffa5392a&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject">
-
-### [API 문서](https://dailydaily.kro.kr/docs/index.html)
-
-
-</div>
-
-<br><br><br>
 
 #  Thanks !
 
