@@ -260,16 +260,13 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
           }
       };
       window.addEventListener("keydown", escKeyModalClose);
-      //return () => window.removeEventListener("keydown", escKeyModalClose);
   }, []);
 
   useEffect(() => {
     const subColorHandler = ({ target }) => {
-      // console.dir(target)
       setClickSubWord(target.innerText)
     };
     window.addEventListener("click", subColorHandler);
-    //return () => window.removeEventListener("keydown", subColorHandler);
 }, []);
 
   return (

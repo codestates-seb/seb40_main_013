@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import GlobalStyles from "./GlobalStyles";
+import GlobalStyles from "./styles/GlobalStyles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components/macro";
 import ScrollToTop from "./components/ScrollToTop";
