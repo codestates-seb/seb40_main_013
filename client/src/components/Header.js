@@ -41,7 +41,7 @@ const Logo = styled.div`
   }
 `;
 
-//우측 상단 버튼
+// 우측 상단 버튼
 const LoginBtn = styled.button`
   display: flex;
   justify-content: center;
@@ -93,7 +93,8 @@ const CategoryList = styled.div`
   div {
     height: 100%;
   }
-  @media screen and (max-width: 479px) { //479
+  @media screen and (max-width: 479px) {
+    //479
     padding-left: 2px;
     font-size: 14px;
   }
@@ -120,8 +121,8 @@ const Nav = styled.nav`
     flex-direction: column;
     align-items: center;
     &:hover {
-    color: #002C6D;
-    font-weight: 500;
+      color: #002c6d;
+      font-weight: 500;
     }
   }
   display: none;
@@ -158,20 +159,19 @@ const Category = styled.div`
 `;
 
 const BigSub = styled.div`
-  width:inherit;
+  width: inherit;
   display: flex;
-  justify-content : center;
+  justify-content: center;
   font-weight: 500;
   &.space {
     &:hover {
-    color: #002C6D;
+      color: #002c6d;
     }
   }
-  &.click-space{
-    color: #FFAF51;
+  &.click-space {
+    color: #ffaf51;
     &:hover {
-    color: #002C6D;
-
+      color: #002c6d;
     }
   }
 `;
@@ -181,19 +181,15 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
   const modalRef = useRef();
   const [closeSearch, setCloseSearch] = useState(false);
   const [headerCartCount, setHeaderCartCount] = useState(0);
-  const [clickSubWord, setClickSubWord] = useState('');
+  const [clickSubWord, setClickSubWord] = useState("");
 
-<<<<<<< HEAD
-
-=======
->>>>>>> f71dcef15d1727580ad9ea5aee4f21074c0d208a
   const clickMainkMenu = () => {
     setSubClick("");
     setPage(0);
     setProducts([]);
   };
 
-  const clickSubMenu = ({target}) => {
+  const clickSubMenu = ({ target }) => {
     setSubClick(target.innerText);
     setPage(0);
     setProducts([]);
@@ -204,10 +200,9 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
   };
 
   const outModalCloseHandler = (e) => {
-    if (closeSearch && !modalRef.current.contains(e.target))
-      setCloseSearch(false);
+    if (closeSearch && !modalRef.current.contains(e.target)) setCloseSearch(false);
   };
-  
+
   const clickLogOut = (e) => {
     e.preventDefault();
     localStorage.clear();
@@ -215,11 +210,10 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
     Toast("success", "로그아웃에 성공하셨습니다!");
   };
 
-  //jwt토큰
-  const jwt = localStorage.getItem("Authorization")
-  useEffect(()=>{
-
-    if(jwt){
+  // jwt토큰
+  const jwt = localStorage.getItem("Authorization");
+  useEffect(() => {
+    if (jwt) {
       Apis.get(`carts`, {
         headers: {
           Authorization: `${jwt}`,
@@ -234,57 +228,50 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
           console.log(err);
         });
     }
-  }, [jwt])
+  }, [jwt]);
 
   useEffect(() => {
     if (clickCheck > 0) {
       if (jwt) {
-      Apis.get(`carts`, {
-      headers: {
-      Authorization: `${jwt}`,
-      "Content-Type": "application/json",
-      },
-      })
-      .then((res) => {
-      setHeaderCartCount(res.data.productCarts.length);
-      return res.data;
-      })
-      .catch((err) => {
-      console.log(err);
-      });
+        Apis.get(`carts`, {
+          headers: {
+            Authorization: `${jwt}`,
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => {
+            setHeaderCartCount(res.data.productCarts.length);
+            return res.data;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     }
-    }, [clickCheck]);
+  }, [clickCheck]);
 
   useEffect(() => {
-      const escKeyModalClose = (e) => {
-          if (e.keyCode === 27) {
-            setCloseSearch(false);
-          }
-      };
-      window.addEventListener("keydown", escKeyModalClose);
+    const escKeyModalClose = (e) => {
+      if (e.keyCode === 27) {
+        setCloseSearch(false);
+      }
+    };
+    window.addEventListener("keydown", escKeyModalClose);
   }, []);
 
   useEffect(() => {
     const subColorHandler = ({ target }) => {
-<<<<<<< HEAD
-=======
       // console.dir(target)
->>>>>>> f71dcef15d1727580ad9ea5aee4f21074c0d208a
-      setClickSubWord(target.innerText)
+      setClickSubWord(target.innerText);
     };
     window.addEventListener("click", subColorHandler);
-}, []);
+  }, []);
 
   return (
     <>
       <HeaderBlock onClick={outModalCloseHandler}>
         <div className="top">
-          <Link to="/register">
-            {localStorage.getItem("authority") ? (
-              <LoginBtn>판매등록</LoginBtn>
-            ) : null}
-          </Link>
+          <Link to="/register">{localStorage.getItem("authority") ? <LoginBtn>판매등록</LoginBtn> : null}</Link>
           {localStorage.getItem("Authorization") ? (
             <Link>
               <LoginBtn onClick={clickLogOut}>로그아웃</LoginBtn>
@@ -313,7 +300,7 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
           <div>
             <Link to="/library">
               <Category>
-                <BigSub className={clickSubWord === '서재' ? "click-space" : "space"} onClick={clickMainkMenu}>
+                <BigSub className={clickSubWord === "서재" ? "click-space" : "space"} onClick={clickMainkMenu}>
                   서재
                 </BigSub>
                 <Nav className="1">
@@ -326,7 +313,7 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
             </Link>
             <Link to="/bedroom">
               <Category>
-                <BigSub className={clickSubWord === '침실' ? "click-space" : "space"} onClick={clickMainkMenu}>
+                <BigSub className={clickSubWord === "침실" ? "click-space" : "space"} onClick={clickMainkMenu}>
                   침실
                 </BigSub>
                 <Nav className="2">
@@ -338,7 +325,7 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
             </Link>
             <Link to="/livingRoom">
               <Category>
-                <BigSub className={clickSubWord === '거실' ? "click-space" : "space"} onClick={clickMainkMenu}>
+                <BigSub className={clickSubWord === "거실" ? "click-space" : "space"} onClick={clickMainkMenu}>
                   거실
                 </BigSub>
                 <Nav className="3">
@@ -350,7 +337,7 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
             </Link>
             <Link to="/kitchen">
               <Category>
-                <BigSub className={clickSubWord === '주방' ? "click-space" : "space"} onClick={clickMainkMenu}>
+                <BigSub className={clickSubWord === "주방" ? "click-space" : "space"} onClick={clickMainkMenu}>
                   주방
                 </BigSub>
                 <Nav className="4">
@@ -366,11 +353,7 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
               <Serach onClick={closeHandler}>
                 <BsSearch size="20" />
               </Serach>
-              <DownSearch
-                closeSearch={closeSearch}
-                closeHandler={closeHandler}
-                setSearchWord={setSearchWord}
-              />
+              <DownSearch closeSearch={closeSearch} closeHandler={closeHandler} setSearchWord={setSearchWord} />
             </div>
             {localStorage.getItem("Authorization") ? (
               <Link to="/cart">
@@ -395,4 +378,3 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
 }
 
 export default Header;
-

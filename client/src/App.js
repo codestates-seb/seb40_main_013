@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import GlobalStyles from "./styles/GlobalStyles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components/macro";
@@ -35,13 +35,12 @@ function App() {
   const [subclick, setSubClick] = useState("");
   const [searchWord, setSearchWord] = useState("");
 
-
   const [page, setPage] = useState(0);
   const [products, setProducts] = useState([]);
   const [clickCheck, setClickCheck] = useState(0);
 
   const clickCheckFunction = () => {
-  setClickCheck(Date.now());
+    setClickCheck(Date.now());
   };
 
   return (
@@ -53,83 +52,29 @@ function App() {
         <div className="App">
           <MainContainter>
             <MainContent>
-              <Header
-                setSubClick={setSubClick}
-                setSearchWord={setSearchWord}
-                setPage={setPage}
-                setProducts={setProducts}
-                clickCheck={clickCheck}
-              />
+              <Header setSubClick={setSubClick} setSearchWord={setSearchWord} setPage={setPage} setProducts={setProducts} clickCheck={clickCheck} />
               <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/users/login" element={<Login />} />
                 <Route path="/members/mypage/*" element={<MyPage />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/detail/:id" element={
-                <ArticleDetail 
-                clickCheckFunction={clickCheckFunction}
-                clickCheck={clickCheck}
-                setClickCheck={setClickCheck}/>} />
                 <Route
-                  path="/library"
-                  element={
-                    <Library
-                      subclick={subclick} 
-                      page={page}
-                      setPage={setPage}
-                      products={products}
-                      setProducts={setProducts}
-                    />
-                  }
+                  path="/detail/:id"
+                  element={<ArticleDetail clickCheckFunction={clickCheckFunction} clickCheck={clickCheck} setClickCheck={setClickCheck} />}
                 />
-                <Route
-                  path="/bedroom"
-                  element={
-                    <Bedroom
-                      subclick={subclick}
-                      page={page}
-                      setPage={setPage}
-                      products={products}
-                      setProducts={setProducts}
-                    />
-                  }
-                />
-                <Route
-                  path="/kitchen"
-                  element={
-                    <Kitchen
-                      subclick={subclick} 
-                      page={page}
-                      setPage={setPage}
-                      products={products}
-                      setProducts={setProducts}
-                    />
-                  }
-                />
+                <Route path="/library" element={<Library subclick={subclick} page={page} setPage={setPage} products={products} setProducts={setProducts} />} />
+                <Route path="/bedroom" element={<Bedroom subclick={subclick} page={page} setPage={setPage} products={products} setProducts={setProducts} />} />
+                <Route path="/kitchen" element={<Kitchen subclick={subclick} page={page} setPage={setPage} products={products} setProducts={setProducts} />} />
                 <Route
                   path="/livingRoom"
-                  element={
-                    <LivingRoom
-                      subclick={subclick} 
-                      page={page}
-                      setPage={setPage}
-                      products={products}
-                      setProducts={setProducts}
-                    />
-                  }
+                  element={<LivingRoom subclick={subclick} page={page} setPage={setPage} products={products} setProducts={setProducts} />}
                 />
                 <Route path="/cart" element={<ShoppingCart />} />
-                <Route 
-                  path="/search" 
-                  element={
-                    <SearchResult 
-                      searchWord={searchWord} 
-                      page={page}
-                      setPage={setPage}
-                      products={products}
-                      setProducts={setProducts}
-                    />} />
+                <Route
+                  path="/search"
+                  element={<SearchResult searchWord={searchWord} page={page} setPage={setPage} products={products} setProducts={setProducts} />}
+                />
               </Routes>
             </MainContent>
             <Footer />

@@ -18,7 +18,7 @@ const NewContainer = styled.div`
   } */
 `;
 
-//tab
+// tab
 const Tabs = styled.div`
   display: flex;
   justify-content: center;
@@ -68,7 +68,7 @@ const Tab = styled.div`
     margin-bottom: 10px;
   }
 `;
-//카테고리별 이미지
+// 카테고리별 이미지
 const CategoryProduct = styled.div`
   display: flex;
   /* border: 1px solid red; */
@@ -91,7 +91,7 @@ const CategoryProduct = styled.div`
   }
 `;
 const CategoryImgContainer = styled(Link)`
-  width:100%;
+  width: 100%;
   height: 100%;
   display: inline-block;
   position: relative;
@@ -143,7 +143,7 @@ const CategoryImgContainer = styled(Link)`
     border-bottom-left-radius: 0;
   }
   @media (min-width: 768px) and (max-width: 1023px) {
-    width:80%;
+    width: 80%;
     .hover_text {
       top: 20px;
       left: 20px;
@@ -217,7 +217,7 @@ const Price = styled.h2`
 `;
 const ProductArrContainer = styled.div`
   height: fit-content;
-  display:flex;
+  display: flex;
   justify-content: center;
   @media (min-width: 320px) and (max-width: 390px) {
     height: 100%;
@@ -315,45 +315,23 @@ const NewProducts = ({ newArivalList }) => {
     <NewContainer>
       <Tabs>
         <SubTab>
-          <Tab
-            name="library"
-            className={clicked === "서재" ? "clicked" : ""}
-            onClick={onClick}
-            value="1"
-          >
+          <Tab name="library" className={clicked === "서재" ? "clicked" : ""} onClick={onClick} value="1">
             서재
           </Tab>
-          <Tab
-            name="bedroom"
-            className={clicked === "침실" ? "clicked" : ""}
-            onClick={onClick}
-            value="2"
-          >
+          <Tab name="bedroom" className={clicked === "침실" ? "clicked" : ""} onClick={onClick} value="2">
             침실
           </Tab>
         </SubTab>
         <SubTab>
-          <Tab
-            name="livingroom"
-            className={clicked === "거실" ? "clicked" : ""}
-            onClick={onClick}
-            value="3"
-          >
+          <Tab name="livingroom" className={clicked === "거실" ? "clicked" : ""} onClick={onClick} value="3">
             거실
           </Tab>
-          <Tab
-            name="kitchen"
-            className={clicked === "주방" ? "clicked" : ""}
-            onClick={onClick}
-            value="4"
-          >
+          <Tab name="kitchen" className={clicked === "주방" ? "clicked" : ""} onClick={onClick} value="4">
             주방
           </Tab>
         </SubTab>
       </Tabs>
-      <ProductArrContainer>
-        {ProductArr[clicked]}
-      </ProductArrContainer>
+      <ProductArrContainer>{ProductArr[clicked]}</ProductArrContainer>
     </NewContainer>
   );
 };

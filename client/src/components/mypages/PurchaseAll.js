@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PostReview from "./PostReview";
 import { filterMyOrder } from "../../reduxstore/slices/myOrderSlice";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -32,7 +31,7 @@ const AllOrderTitle = styled.h2`
   margin-bottom: 30px;
 `;
 
-//상단
+// 상단
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
@@ -56,7 +55,7 @@ const Hr = styled.hr`
   margin: 5px 0;
 `;
 
-//콘텐츠
+// 콘텐츠
 const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -178,7 +177,7 @@ const ReviewBtn = styled.button`
   }
 `;
 
-//반응형 구매후기
+// 반응형 구매후기
 const ReactionSpace = styled.div`
   display: none;
   @media screen and (max-width: 390px) {
@@ -207,7 +206,7 @@ const ReactionReviewBtn = styled.button`
   }
 `;
 
-//결제정보
+// 결제정보
 const PaymentTitle = styled.h2`
   font-weight: 600;
   margin-top: 50px;
@@ -238,9 +237,7 @@ const PurchaseAll = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const filterData = useSelector((state) => state.myorder.filterorder);
-  const filterProduct = useSelector(
-    (state) => state.myorder.filterorder.orderProducts
-  );
+  const filterProduct = useSelector((state) => state.myorder.filterorder.orderProducts);
 
   const priceMap = filterProduct?.map((p) => p.price * p.count);
   const price = priceMap?.reduce((acc, cur) => acc + cur);
@@ -261,11 +258,7 @@ const PurchaseAll = () => {
       {isModal ? (
         <>
           <Container onClick={clickModal}>
-            <PostReview
-              clickModal={clickModal}
-              onClick={(e) => e.preventDefault()}
-              filterData={filterItem}
-            />
+            <PostReview clickModal={clickModal} onClick={(e) => e.preventDefault()} filterData={filterItem} />
             <AllOrderTitle>주문상세정보</AllOrderTitle>
             <Top>
               <SubTop>
@@ -294,36 +287,23 @@ const PurchaseAll = () => {
                       </BP>
                     </ReactionSubDetail>
                     <Btns>
-                      <ReviewBtn
-                        className={
-                          filterData.status === "주문 취소" ? "hidden" : ""
-                        }
-                        onClick={clickModal}
-                      >
+                      <ReviewBtn className={filterData.status === "주문 취소" ? "hidden" : ""} onClick={clickModal}>
                         리뷰작성
                       </ReviewBtn>
                     </Btns>
                   </Detail>
                   <ReactionSpace>
-                    <ReactionReviewBtn
-                      className={
-                        filterData.status === "주문 취소" ? "hidden" : ""
-                      }
-                    >
-                      구매후기
-                    </ReactionReviewBtn>
+                    <ReactionReviewBtn className={filterData.status === "주문 취소" ? "hidden" : ""}>구매후기</ReactionReviewBtn>
                   </ReactionSpace>
                 </Content>
-                </ProductContainer>
+              </ProductContainer>
             ))}
             <PaymentTitle>결제정보</PaymentTitle>
             <Hr />
             <PaymentContainer>
               <PaySubContainer>
                 <PaySubTitle>상품금액</PaySubTitle>
-                <PaySubContent>
-                  {price?.toLocaleString("en-US")}&nbsp;원
-                </PaySubContent>
+                <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
               </PaySubContainer>
               <PaySubContainer>
                 <PaySubTitle>선불배송비</PaySubTitle>
@@ -331,9 +311,7 @@ const PurchaseAll = () => {
               </PaySubContainer>
               <PaySubContainer>
                 <PaySubTitle>결제금액</PaySubTitle>
-                <PaySubContent>
-                  {price?.toLocaleString("en-US")}&nbsp;원
-                </PaySubContent>
+                <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
               </PaySubContainer>
             </PaymentContainer>
           </Container>
@@ -369,24 +347,13 @@ const PurchaseAll = () => {
                       </BP>
                     </ReactionSubDetail>
                     <Btns>
-                      <ReviewBtn
-                        className={
-                          filterData.status === "주문 취소" ? "hidden" : ""
-                        }
-                        onClick={() => clickModal(p.productId)}
-                      >
+                      <ReviewBtn className={filterData.status === "주문 취소" ? "hidden" : ""} onClick={() => clickModal(p.productId)}>
                         리뷰작성
                       </ReviewBtn>
                     </Btns>
                   </Detail>
                   <ReactionSpace>
-                    <ReactionReviewBtn
-                      className={
-                        filterData.status === "주문 취소" ? "hidden" : ""
-                      }
-                    >
-                      구매후기
-                    </ReactionReviewBtn>
+                    <ReactionReviewBtn className={filterData.status === "주문 취소" ? "hidden" : ""}>구매후기</ReactionReviewBtn>
                   </ReactionSpace>
                 </Content>
               </ProductContainer>
@@ -396,9 +363,7 @@ const PurchaseAll = () => {
             <PaymentContainer>
               <PaySubContainer>
                 <PaySubTitle>상품금액</PaySubTitle>
-                <PaySubContent>
-                  {price?.toLocaleString("en-US")}&nbsp;원
-                </PaySubContent>
+                <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
               </PaySubContainer>
               <PaySubContainer>
                 <PaySubTitle>선불배송비</PaySubTitle>
@@ -406,9 +371,7 @@ const PurchaseAll = () => {
               </PaySubContainer>
               <PaySubContainer>
                 <PaySubTitle>결제금액</PaySubTitle>
-                <PaySubContent>
-                  {price?.toLocaleString("en-US")}&nbsp;원
-                </PaySubContent>
+                <PaySubContent>{price?.toLocaleString("en-US")}&nbsp;원</PaySubContent>
               </PaySubContainer>
             </PaymentContainer>
           </Container>
