@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -13,17 +13,16 @@ const Img = styled.img`
 const Title = styled.h2`
   font-size: 1rem;
 `;
-const NewProductDetail = ({productList}) => {
-
-  return(
+const NewProductDetail = ({ productList }) => {
+  return (
     <Container>
-      {productList.map(p=>{
+      {productList.map((p) => {
         <PL>
           <Img src={p.img} />
           <Title>{p.title}</Title>
-        </PL>
+        </PL>;
       })}
     </Container>
-  )
-}
+  );
+};
 export default NewProductDetail;

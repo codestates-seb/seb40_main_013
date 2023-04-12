@@ -1,12 +1,7 @@
-import React, { useState, useCallback } from "react";
 import styled from "styled-components/macro";
-import livingroom from "../../imgs/livingroom.png";
-import library from "../../imgs/library.png";
-import bedroom from "../../imgs/bedroom.png";
-import kitchen from "../../imgs/kitchen.png";
 import { Link } from "react-router-dom";
 
-const NewContainer = styled.div`
+export const NewContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +14,7 @@ const NewContainer = styled.div`
 `;
 
 // tab
-const Tabs = styled.div`
+export const Tabs = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px 0;
@@ -33,7 +28,7 @@ const Tabs = styled.div`
     flex-direction: column;
   }
 `;
-const SubTab = styled.div`
+export const SubTab = styled.div`
   display: flex;
   @media screen and (max-width: 767px) {
     margin-bottom: 10px;
@@ -42,7 +37,7 @@ const SubTab = styled.div`
     margin-bottom: 10px;
   }
 `;
-const Tab = styled.div`
+export const Tab = styled.div`
   background-color: var(--button-gray);
   width: 120px;
   padding: 10px 0;
@@ -69,7 +64,7 @@ const Tab = styled.div`
   }
 `;
 // 카테고리별 이미지
-const CategoryProduct = styled.div`
+export const CategoryProduct = styled.div`
   display: flex;
   /* border: 1px solid red; */
   border-radius: 10px;
@@ -90,7 +85,7 @@ const CategoryProduct = styled.div`
     justify-content: center;
   }
 `;
-const CategoryImgContainer = styled(Link)`
+export const CategoryImgContainer = styled(Link)`
   width: 100%;
   height: 100%;
   display: inline-block;
@@ -152,7 +147,7 @@ const CategoryImgContainer = styled(Link)`
   }
 `;
 
-const CategoryImg = styled.img`
+export const CategoryImg = styled.img`
   width: 500px;
   height: 100%;
   @media screen and (max-width: 390px) {
@@ -170,11 +165,11 @@ const CategoryImg = styled.img`
     display: none;
   }
 `;
-const BPList = styled.div`
+export const BPList = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const BP = styled(Link)`
+export const BP = styled(Link)`
   display: flex;
   align-items: center;
   /* border: 0.1rem solid var(--color-center-line); */
@@ -196,26 +191,26 @@ const BP = styled(Link)`
     width: 350px;
   }
 `;
-const Img = styled.img`
+export const Img = styled.img`
   width: 70px;
   height: 70px;
   border-radius: 5px;
   margin: 0 20px;
 `;
-const TP = styled.div`
+export const TP = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Title = styled.h2`
+export const Title = styled.h2`
   font-size: 1rem;
   margin-bottom: 10px;
   padding-right: 10px;
 `;
-const Price = styled.h2`
+export const Price = styled.h2`
   font-size: 1.1rem;
   font-weight: 600;
 `;
-const ProductArrContainer = styled.div`
+export const ProductArrContainer = styled.div`
   height: fit-content;
   display: flex;
   justify-content: center;
@@ -223,117 +218,3 @@ const ProductArrContainer = styled.div`
     height: 100%;
   }
 `;
-
-const NewProducts = ({ newArivalList }) => {
-  const [clicked, setClicked] = useState("서재");
-
-  const onClick = useCallback((e) => {
-    const text = e.target.innerText;
-    setClicked(text);
-  }, []);
-
-  const ProductArr = {
-    서재: (
-      <CategoryProduct>
-        <CategoryImgContainer to="/library">
-          <CategoryImg src={library}></CategoryImg>
-          <p className="hover_text">More view</p>
-        </CategoryImgContainer>
-        <BPList>
-          {newArivalList.서재?.map((p) => (
-            <BP key={p.id} to={`/detail/${p.id}`}>
-              <Img src={p.img.fullPath} />
-              <TP>
-                <Title>{p.title}</Title>
-                <Price>{p.price.toLocaleString("en-US")}</Price>
-              </TP>
-            </BP>
-          ))}
-        </BPList>
-      </CategoryProduct>
-    ),
-    침실: (
-      <CategoryProduct>
-        <CategoryImgContainer to="/bedroom">
-          <CategoryImg src={bedroom}></CategoryImg>
-          <p className="hover_text">More view</p>
-        </CategoryImgContainer>
-        <BPList>
-          {newArivalList.침실?.map((p) => (
-            <BP key={p.id} to={`/detail/${p.id}`}>
-              <Img src={p.img.fullPath} />
-              <TP>
-                <Title>{p.title}</Title>
-                <Price>{p.price.toLocaleString("en-US")}</Price>
-              </TP>
-            </BP>
-          ))}
-        </BPList>
-      </CategoryProduct>
-    ),
-    거실: (
-      <CategoryProduct>
-        <CategoryImgContainer to="/livingRoom">
-          <CategoryImg src={livingroom}></CategoryImg>
-          <p className="hover_text">More view</p>
-        </CategoryImgContainer>
-        <BPList>
-          {newArivalList.거실?.map((p) => (
-            <BP key={p.id} to={`/detail/${p.id}`}>
-              <Img src={p.img.fullPath} />
-              <TP>
-                <Title>{p.title}</Title>
-                <Price>{p.price.toLocaleString("en-US")}</Price>
-              </TP>
-            </BP>
-          ))}
-        </BPList>
-      </CategoryProduct>
-    ),
-    주방: (
-      <CategoryProduct>
-        <CategoryImgContainer to="/kitchen">
-          <CategoryImg src={kitchen}></CategoryImg>
-          <p className="hover_text">More view</p>
-        </CategoryImgContainer>
-        <BPList>
-          {newArivalList.주방?.map((p) => (
-            <BP key={p.id} to={`/detail/${p.id}`}>
-              <Img src={p.img.fullPath} />
-              <TP>
-                <Title>{p.title}</Title>
-                <Price>{p.price.toLocaleString("en-US")}</Price>
-              </TP>
-            </BP>
-          ))}
-        </BPList>
-      </CategoryProduct>
-    ),
-  };
-
-  return (
-    <NewContainer>
-      <Tabs>
-        <SubTab>
-          <Tab name="library" className={clicked === "서재" ? "clicked" : ""} onClick={onClick} value="1">
-            서재
-          </Tab>
-          <Tab name="bedroom" className={clicked === "침실" ? "clicked" : ""} onClick={onClick} value="2">
-            침실
-          </Tab>
-        </SubTab>
-        <SubTab>
-          <Tab name="livingroom" className={clicked === "거실" ? "clicked" : ""} onClick={onClick} value="3">
-            거실
-          </Tab>
-          <Tab name="kitchen" className={clicked === "주방" ? "clicked" : ""} onClick={onClick} value="4">
-            주방
-          </Tab>
-        </SubTab>
-      </Tabs>
-      <ProductArrContainer>{ProductArr[clicked]}</ProductArrContainer>
-    </NewContainer>
-  );
-};
-
-export default NewProducts;
