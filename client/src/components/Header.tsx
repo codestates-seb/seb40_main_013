@@ -41,7 +41,7 @@ const Logo = styled.div`
   }
 `;
 
-//우측 상단 버튼
+// 우측 상단 버튼
 const LoginBtn = styled.button`
   display: flex;
   justify-content: center;
@@ -93,7 +93,7 @@ const CategoryList = styled.div`
   div {
     height: 100%;
   }
-  @media screen and (max-width: 479px) { //479
+  @media screen and (max-width: 479px) {
     padding-left: 2px;
     font-size: 14px;
   }
@@ -120,8 +120,8 @@ const Nav = styled.nav`
     flex-direction: column;
     align-items: center;
     &:hover {
-    color: #002C6D;
-    font-weight: 500;
+      color: #002c6d;
+      font-weight: 500;
     }
   }
   display: none;
@@ -158,20 +158,19 @@ const Category = styled.div`
 `;
 
 const BigSub = styled.div`
-  width:inherit;
+  width: inherit;
   display: flex;
-  justify-content : center;
+  justify-content: center;
   font-weight: 500;
   &.space {
     &:hover {
-    color: #002C6D;
+      color: #002c6d;
     }
   }
-  &.click-space{
-    color: #FFAF51;
+  &.click-space {
+    color: #ffaf51;
     &:hover {
-    color: #002C6D;
-
+      color: #002c6d;
     }
   }
 `;
@@ -183,10 +182,6 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
   const [headerCartCount, setHeaderCartCount] = useState(0);
   const [clickSubWord, setClickSubWord] = useState('');
 
-<<<<<<< HEAD
-
-=======
->>>>>>> f71dcef15d1727580ad9ea5aee4f21074c0d208a
   const clickMainkMenu = () => {
     setSubClick("");
     setPage(0);
@@ -267,10 +262,6 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
 
   useEffect(() => {
     const subColorHandler = ({ target }) => {
-<<<<<<< HEAD
-=======
-      // console.dir(target)
->>>>>>> f71dcef15d1727580ad9ea5aee4f21074c0d208a
       setClickSubWord(target.innerText)
     };
     window.addEventListener("click", subColorHandler);

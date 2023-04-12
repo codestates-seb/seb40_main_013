@@ -9,22 +9,21 @@ import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
 import Products from "../components/mains/Product";
 import NewProducts from "../components/mains/NewProducts";
-import useScrollFadeIn from "../components/Fadein";
 
 const Main = () => {
   const dispatch = useDispatch();
 
-  //best of best
-  const bestData = useSelector((/** @type {any} */state) => state.article.mainArticle);
+  // best of best
+  const bestData = useSelector((/** @type {any} */ state) => state.article.mainArticle);
 
   // 신상품
-  const newArivalData = useSelector((/** @type {any} */state) => state.maincategory.category);
+  const newArivalData = useSelector((/** @type {any} */ state) => state.maincategory.category);
 
-  //브랜드리스트
-  const brandData = useSelector((/** @type {any} */state) => state?.main.main);
-  const brandTab = Object.keys(brandData)
+  // 브랜드리스트
+  const brandData = useSelector((/** @type {any} */ state) => state?.main.main);
+  const brandTab = Object.keys(brandData);
 
-  //자동스크롤 이벤트
+  // 자동스크롤 이벤트
   const myRefs = useRef({});
   const onMoveToElement = (/** @type {string} */ key) => {
     myRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -32,22 +31,10 @@ const Main = () => {
 
   // 데이터 받아오기
   useLayoutEffect(() => {
-    // @ts-ignore
     dispatch(mainData());
-    // @ts-ignore
     dispatch(categoryData());
-    // @ts-ignore
     dispatch(newData());
   }, []);
-
-  //scroll 이벤트
-  const animateScroll = {
-    0: useScrollFadeIn('down', 0.7, 0),
-    1: useScrollFadeIn('down', 0.8, 0),
-    2: useScrollFadeIn('down', 0.8, 0),
-    3: useScrollFadeIn('down', 0.8, 0),
-    4: useScrollFadeIn('down', 0.8, 0),
-  }
 
   return (
     <Container id="app">
@@ -61,7 +48,7 @@ const Main = () => {
       <ProductList>
         {bestData?.map((product) => (
           <Products key={product.id} proId={product.id} product={product} />
-          ))}
+        ))}
       </ProductList>
       {/* 카테고리별 신상품 */}
       <div id="newArrival">
@@ -69,10 +56,7 @@ const Main = () => {
           <SubTitle>New Arrival</SubTitle>
           <MainTitle>카테고리별 신상품</MainTitle>
         </Title>
-        <NewProducts
-          key={newArivalData.침실?.length}
-          newArivalList={newArivalData}
-        />
+        <NewProducts key={newArivalData.침실?.length} newArivalList={newArivalData} />
       </div>
       {/* 브랜드별 추천상품 */}
       <BrandTabTitle>
@@ -123,25 +107,18 @@ const Main = () => {
           </div>
         </div>
       </BrandTab>
-      {Object?.entries(brandData)
-        ?.map(([key, value]) => (
-          <div key={key}>
-            <BrandTitleContainer>
-              <BrandTitle ref={(element) => (myRefs.current[key] = element)}>
-                {key}
-              </BrandTitle>
-            </BrandTitleContainer>
-            <ProductList>
-              {value?.map((product) => (
-                <Products
-                  key={product.id}
-                  proId={product.id}
-                  product={product}
-                />
-              ))}
-            </ProductList>
-          </div>
-        ))}
+      {Object?.entries(brandData)?.map(([key, value]) => (
+        <div key={key}>
+          <BrandTitleContainer>
+            <BrandTitle ref={(element) => (myRefs.current[key] = element)}>{key}</BrandTitle>
+          </BrandTitleContainer>
+          <ProductList>
+            {value?.map((product) => (
+              <Products key={product.id} proId={product.id} product={product} />
+            ))}
+          </ProductList>
+        </div>
+      ))}
     </Container>
   );
 };
@@ -156,7 +133,7 @@ const Container = styled.div`
   padding: 0 15px;
 `;
 
-//best of best
+// best of best
 const Title = styled.div`
   display: flex;
   flex-direction: column;
@@ -208,7 +185,7 @@ const ProductList = styled.div`
   }
 `;
 
-//브랜드 리스트
+// 브랜드 리스트
 const BrandTab = styled.div`
   margin-top: 10px;
   margin-bottom: 30px;
@@ -217,28 +194,28 @@ const BrandTab = styled.div`
   width: 80%;
   align-items: center;
   justify-content: center;
-  .tbody{
+  .tbody {
     display: flex;
-    border: 2px solid #ECECE8;
+    border: 2px solid #ecece8;
   }
-  .reactionbody{
-     display:flex;
-    }
+  .reactionbody {
+    display: flex;
+  }
   @media screen and (max-width: 479px) {
-    .tbody{
+    .tbody {
       flex-direction: column;
     }
-    .reactionbody{
+    .reactionbody {
       flex-direction: column;
     }
   }
   @media (min-width: 480px) and (max-width: 767px) {
-    .tbody{
+    .tbody {
       flex-direction: column;
     }
   }
   @media (min-width: 768px) and (max-width: 1023px) {
-    .tbody{
+    .tbody {
       flex-direction: column;
     }
   }
@@ -249,7 +226,7 @@ const TH = styled.div`
 const TD = styled.div`
   display: flex;
   justify-content: center;
-  border: 3px solid #ECECE8;
+  border: 3px solid #ecece8;
   padding: 20px 50px;
   font-size: 1rem;
   width: 50px;
