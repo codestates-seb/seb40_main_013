@@ -21,8 +21,8 @@ const NewProducts = ({ newArivalData }) => {
   const category: string[] = ["서재", "침실", "거실", "주방"];
   const [NewProductArr, setNewProductArr] = useState({});
 
-  const handleClick = useCallback((e: any) => {
-    const text = e.target.innerText;
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = useCallback((e) => {
+    const text = (e.target as HTMLDivElement).innerText;
     setClicked(text);
   }, []);
 
