@@ -98,16 +98,6 @@ export const articleLike = createAsyncThunk("postLike", async (id) => {
     });
 });
 
-// export const mainData = createAsyncThunk("mainData", async () => {
-//   return Apis.get(`products/score`)
-//     .then((res) => {
-//       return res.data;
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
-
 export const getShoppingCart = createAsyncThunk(
   // 비동기처리를 도와주는애(자동으로 지원해줌)
   "getShoppingCart",
@@ -295,12 +285,6 @@ const articleSlice = createSlice({
         state.loading = true;
         state.error = "";
       })
-      // .addCase(mainData.fulfilled, (state, action) => {
-      //   state.mainArticle = action.payload;
-      //   state.detailArticle = [];
-      //   state.loading = true;
-      //   state.error = "";
-      // })
       .addCase(getShoppingCart.fulfilled, (state, action) => {
         state.shoppingCartInitial = action.payload?.productCarts;
         state.loading = true;
