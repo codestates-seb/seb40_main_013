@@ -60,7 +60,7 @@ const NewProducts = ({ newArivalData }) => {
         <Style.SubTab>
           {category.slice(0, 2).map((ele, idx) => {
             return (
-              <Style.Tab key={idx} className={clicked === "ele" ? "clicked" : ""} onClick={handleClick}>
+              <Style.Tab key={idx} className={clicked === ele ? "clicked" : ""} onClick={handleClick}>
                 {ele}
               </Style.Tab>
             );
@@ -69,7 +69,7 @@ const NewProducts = ({ newArivalData }) => {
         <Style.SubTab>
           {category.slice(2, 4).map((ele, idx) => {
             return (
-              <Style.Tab key={idx} className={clicked === "ele" ? "clicked" : ""} onClick={handleClick}>
+              <Style.Tab key={idx} className={clicked === ele ? "clicked" : ""} onClick={handleClick}>
                 {ele}
               </Style.Tab>
             );
