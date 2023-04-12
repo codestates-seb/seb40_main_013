@@ -19,14 +19,15 @@ interface brand {
   score: number;
   title: string;
 }
+type bestProduct = brand[];
 type newProduct = Record<string, object[]>;
 type brandProduct = Record<string, brand[]>;
 
 const Main = () => {
-  const [bestData, setBestData] = useState([]);
+  const [bestData, setBestData] = useState<bestProduct>([]);
   const [newArivalData, setNewArivalData] = useState<newProduct>({});
   const [brandData, setBrandData] = useState<brandProduct>({});
-  console.log(bestData);
+
   useEffect(() => {
     // best of best
     void getMain({ endPoint: "score", setData: setBestData });
