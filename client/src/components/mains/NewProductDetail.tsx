@@ -17,10 +17,12 @@ const NewProductDetail = ({ productList }) => {
   return (
     <Container>
       {productList.map((p) => {
-        <PL>
-          <Img src={p.img} />
-          <Title>{p.title}</Title>
-        </PL>;
+        return (
+          <PL>
+            <Img src={p.img} />
+            <Title>{p.title}</Title>
+          </PL>
+        );
       })}
     </Container>
   );
