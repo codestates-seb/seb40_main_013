@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../reduxstore/slices/userSlice";
+import { loginUser, guestUser } from "../reduxstore/slices/userSlice";
 import loginImg from "../imgs/chairImage.png";
 import { AiOutlineCheckCircle } from "react-icons/ai";
-import { guestUser } from "../reduxstore/slices/userSlice";
-import { IoMdPerson } from "react-icons/io";
 
 function Login() {
   const [userWriteEmail, setUserWriteEmail] = useState("");
@@ -58,16 +56,12 @@ function Login() {
       };
     }
 
-    if (
-      userWriteEmail !== "" &&
-      userWritePwd !== "" &&
-      userWriteInput === false
-    ) {
+    if (userWriteEmail !== "" && userWritePwd !== "" && userWriteInput === false) {
       dispatch(loginUser({ loginData, navigate }));
     }
   };
 
-  //content
+  // content
 
   return (
     <Wrapper>
@@ -76,17 +70,8 @@ function Login() {
         <LoginContentSpace>
           <LoginTitle>Log In</LoginTitle>
           <LoginInputSpace>
-            <LoginInput
-              placeholder="Email"
-              onChange={writeChangeEmail}
-              autocomplete="off"
-            />
-            <LoginInput
-              placeholder="Password"
-              type="password"
-              autocomplete="current-password"
-              onChange={writeChangePwd}
-            />
+            <LoginInput placeholder="Email" onChange={writeChangeEmail} autocomplete="off" />
+            <LoginInput placeholder="Password" type="password" autocomplete="current-password" onChange={writeChangePwd} />
           </LoginInputSpace>
           <LoginButton onClick={clickLogin}>로그인</LoginButton>
           <LoginButton onClick={clickGuest} className="adminLogin">
@@ -107,8 +92,7 @@ function Login() {
       </LoginWrapper>
       <Bubble>
         <BubbleContents>
-          관리자 로그인 버튼을 누르면 <br /> 아이디, 비번 입력 없이 로그인
-          가능합니다
+          관리자 로그인 버튼을 누르면 <br /> 아이디, 비번 입력 없이 로그인 가능합니다
         </BubbleContents>
       </Bubble>
     </Wrapper>

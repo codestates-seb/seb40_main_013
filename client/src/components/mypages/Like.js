@@ -309,7 +309,7 @@ const StarAerage = styled.div`
   }
 `;
 
-//페이지네이션
+// 페이지네이션
 const PaginationContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -319,8 +319,8 @@ const PaginationContainer = styled.div`
 const Like = () => {
   const dispatch = useDispatch();
   const likeProduct = useSelector((state) => state.like.like.content);
-  //페이지네이션
-  const [curPage, setCurPage] = useState(0); //현재페이지
+  // 페이지네이션
+  const [curPage, setCurPage] = useState(0); // 현재페이지
   const [totalpage, setTotalpage] = useState(0);
 
   useEffect(() => {
@@ -376,11 +376,7 @@ const Like = () => {
             ))}
           </ProductList>
           <PaginationContainer>
-            <Pagination
-              totalpage={totalpage}
-              page={curPage}
-              setPage={setCurPage}
-            />
+            <Pagination totalpage={totalpage} page={curPage} setPage={setCurPage} />
           </PaginationContainer>
         </Container>
       )}

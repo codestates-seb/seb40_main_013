@@ -1,10 +1,8 @@
 import styled from "styled-components/macro";
-import { IoMdClose } from "react-icons/io";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { IoMdClose, IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
-import { deleteShoppingCart } from "../reduxstore/slices/articleSlice";
+import { deleteShoppingCart, reCountCartItem } from "../reduxstore/slices/articleSlice";
 import { useDispatch } from "react-redux";
-import { reCountCartItem } from "../reduxstore/slices/articleSlice";
 import { Link } from "react-router-dom";
 import { Alert } from "./Alert";
 
@@ -181,7 +179,7 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
   };
 
   const ReCountHandler = () => {
-      dispatch(reCountCartItem({ productCartId, itemCount }));
+    dispatch(reCountCartItem({ productCartId, itemCount }));
   };
 
   const upCountHandler = () => {
@@ -201,15 +199,14 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
   };
 
   const onChangeCount = (e) => {
-    let c = e.target.value;
-    if( c === '' || parseInt(c) < 1){
+    const c = e.target.value;
+    if (c === "" || parseInt(c) < 1) {
       Alert("warning", "최소 1개 이상 주문 가능합니다.");
-      setItemCount(1)
+      setItemCount(1);
     } else if (parseInt(c) > 100) {
       Alert("warning", "100개 까지 주문 가능합니다.");
-      setItemCount(100)
-    } 
-    else{
+      setItemCount(100);
+    } else {
       setItemCount(parseInt(c));
     }
   };
@@ -218,11 +215,7 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
     <>
       <CartItemBlock>
         <div className="part">
-          <EachCheckCircle
-            type="checkbox"
-            onChange={(e) => changeEachCheck(e.target.checked, cartItem)}
-            checked={checkList.includes(cartItem) ? true : false}
-          />
+          <EachCheckCircle type="checkbox" onChange={(e) => changeEachCheck(e.target.checked, cartItem)} checked={!!checkList.includes(cartItem)} />
           <DetailLink to={`/detail/${productId}`}>
             <img src={img.fullPath} alt="장바구니 물건"></img>
             <ProductInfo>
@@ -237,22 +230,13 @@ function CartItem({ cartItem, changeEachCheck, checkList }) {
           <div className="count-zone">
             <div>
               <DownCount onClick={downCountHandler} />
-              <Input
-                className="count"
-                type="number"
-                pattern="\d*"
-                max={100}
-                value={itemCount}
-                onChange={onChangeCount}
-              ></Input>
+              <Input className="count" type="number" pattern="\d*" max={100} value={itemCount} onChange={onChangeCount}></Input>
               <UpCount onClick={upCountHandler} />
             </div>
             <ReCount onClick={ReCountHandler}>주문수정</ReCount>
           </div>
           <div className="media-price">
-            <div className="product-price">
-              {(itemCount * price).toLocaleString("en-US")}원
-            </div>
+            <div className="product-price">{(itemCount * price).toLocaleString("en-US")}원</div>
             <ItemDelete onClick={removeCartItem} />
           </div>
         </div>

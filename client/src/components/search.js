@@ -89,7 +89,7 @@ const SearchWord = styled.div`
   }
   @media screen and (max-width: 479px) {
     font-size: 1.1rem;
-    }
+  }
   @media (min-width: 480px) and (max-width: 1023px) {
     font-size: 1.2rem;
   }
@@ -145,7 +145,7 @@ const SearchList = styled.div`
   }
   @media screen and (max-width: 479px) {
     max-height: 300px;
-    }
+  }
   @media (min-width: 480px) and (max-width: 1023px) {
     max-height: 310px;
   }
@@ -164,7 +164,7 @@ const RecentWordAllDetete = styled.span`
   }
   @media screen and (max-width: 479px) {
     font-size: 0.8rem;
-    }
+  }
   @media (min-width: 480px) and (max-width: 1023px) {
     font-size: 0.9rem;
   }
@@ -209,7 +209,7 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
       Alert("warning", "첫번째 글자에 공백이 입력되었습니다.");
     } else {
       setSearchWord(test);
-      handleAddKeyword(test); //##
+      handleAddKeyword(test); // ##
       navigate("/search");
       closeHandler();
       setInputWord("");
@@ -226,43 +226,39 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
     setriger(Date.now());
   };
 
-  const popularSelector = useSelector(
-    (state) => state.article.popularSearchInitial
-  );
+  const popularSelector = useSelector((state) => state.article.popularSearchInitial);
 
   useEffect(() => {
     dispatch(popularSearch());
   }, [triger]);
 
-  //string은 map을 사용 할 수 없기때문에 object 형태로 변환 시키기 위해 parsing을 해줘야함
-  const loadRecentKeyword = localStorage.getItem("keywords")
-    ? JSON.parse(localStorage.getItem("keywords"))
-    : [];
+  // string은 map을 사용 할 수 없기때문에 object 형태로 변환 시키기 위해 parsing을 해줘야함
+  const loadRecentKeyword = localStorage.getItem("keywords") ? JSON.parse(localStorage.getItem("keywords")) : [];
   const [keywords, setKeywords] = useState(loadRecentKeyword);
 
   useEffect(() => {
-    //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
+    // array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
     localStorage.setItem("keywords", JSON.stringify(keywords));
   }, [keywords]);
 
   const handleAddKeyword = (text) => {
     const newKeyword = {
       id: Date.now(),
-      text: text,
+      text,
     };
     const sameKeywordRemove = keywords.filter((thisKeyword) => {
-      return thisKeyword.text != newKeyword.text;
+      return thisKeyword.text !== newKeyword.text;
     });
     setKeywords([newKeyword, ...sameKeywordRemove]);
   };
 
   const handleRemoveKeyword = (id) => {
     const nextKeyword = keywords.filter((thisKeyword) => {
-      return thisKeyword.id != id;
+      return thisKeyword.id !== id;
     });
     setKeywords(nextKeyword);
   };
-  //검색어 전체 삭제
+  // 검색어 전체 삭제
   const handleClearKeywords = () => {
     setKeywords([]);
   };
@@ -272,12 +268,7 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
       <div className="search-section">
         <Form>
           <SearchInput>
-            <input
-              type="text"
-              value={inputWord}
-              onChange={inputChageHandler}
-              maxLength="23"
-            ></input>
+            <input type="text" value={inputWord} onChange={inputChageHandler} maxLength="23"></input>
             <button onClick={searchResultHandler}>
               <SearchIcon />
             </button>
@@ -296,7 +287,7 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
                     {text}
                   </span>
                   <WordCloseIcon
-                    //눌렸을때 해야하는거라 arrow function을 사용하여 실행. 그냥 함수 쓰면은 그려지자마자 바로 실행됨
+                    // 눌렸을때 해야하는거라 arrow function을 사용하여 실행. 그냥 함수 쓰면은 그려지자마자 바로 실행됨
                     onClick={() => {
                       handleRemoveKeyword(id);
                     }}
@@ -304,12 +295,7 @@ function DownSearch({ closeSearch, closeHandler, setSearchWord }) {
                 </section>
               ))}
             </SearchList>
-            {keywords.length === 0 ? 
-            <div></div> :
-            <RecentWordAllDetete onClick={handleClearKeywords}>
-              전체 삭제
-            </RecentWordAllDetete>
-            }
+            {keywords.length === 0 ? <div></div> : <RecentWordAllDetete onClick={handleClearKeywords}>전체 삭제</RecentWordAllDetete>}
           </SearchWord>
           <SearchWord>
             <div className="recent">인기 검색어</div>

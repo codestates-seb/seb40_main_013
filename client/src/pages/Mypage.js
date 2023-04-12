@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../reduxstore/slices/userSlice";
 import styled from "styled-components/macro";
@@ -27,7 +27,7 @@ const Container = styled.div`
   }
 `;
 
-//왼쪽 nav bar
+// 왼쪽 nav bar
 const Left = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -53,10 +53,10 @@ const Left = styled.div`
 
 const Right = styled.div`
   width: 80vw;
-  @media screen and (max-width: 390px){
+  @media screen and (max-width: 390px) {
     padding-left: 0;
   }
-  @media (min-width:391px) and (max-width: 767px) {
+  @media (min-width: 391px) and (max-width: 767px) {
     width: 100vw;
     padding-left: 10px;
   }
@@ -198,21 +198,21 @@ const NavDetail = styled.nav`
 const Mypage = () => {
   const dispatch = useDispatch();
   const getUserdata = useSelector((state) => state.user.users);
-  //tab click
+  // tab click
   const [clicked, setClicked] = useState("");
 
-  //user 정보 받아오기
+  // user 정보 받아오기
   useEffect(() => {
     dispatch(getUser());
   }, []);
 
-  //탭 클릭 이벤트
+  // 탭 클릭 이벤트
   const tabClick = (e) => {
     const text = e.target.innerText;
     setClicked(text);
   };
 
-  //프로필 이미지 바꾸기
+  // 프로필 이미지 바꾸기
   const handleChangeImg = () => {
     ProfileImg();
   };
@@ -234,40 +234,24 @@ const Mypage = () => {
         <Nav>
           <ReactionDetail path="*">
             <Link to="purchase" style={{ textDecoration: "none" }}>
-              <NavDetail
-                name="purchaseTab"
-                className={clicked === "구매 내역" ? "clicked" : ""}
-                onClick={tabClick}
-              >
+              <NavDetail name="purchaseTab" className={clicked === "구매 내역" ? "clicked" : ""} onClick={tabClick}>
                 구매 내역
               </NavDetail>
             </Link>
             <Link to="edit" style={{ textDecoration: "none" }}>
-              <NavDetail
-                name="editProfileTab"
-                className={clicked === "정보 수정" ? "clicked" : ""}
-                onClick={tabClick}
-              >
+              <NavDetail name="editProfileTab" className={clicked === "정보 수정" ? "clicked" : ""} onClick={tabClick}>
                 정보 수정
               </NavDetail>
             </Link>
           </ReactionDetail>
           <ReactionDetail>
             <Link to="like" style={{ textDecoration: "none" }}>
-              <NavDetail
-                name="like"
-                className={clicked === "좋아요" ? "clicked" : ""}
-                onClick={tabClick}
-              >
+              <NavDetail name="like" className={clicked === "좋아요" ? "clicked" : ""} onClick={tabClick}>
                 좋아요
               </NavDetail>
             </Link>
             <Link to="myboard" style={{ textDecoration: "none" }}>
-              <NavDetail
-                name="myboard"
-                className={clicked === "작성한 리뷰" ? "clicked" : ""}
-                onClick={tabClick}
-              >
+              <NavDetail name="myboard" className={clicked === "작성한 리뷰" ? "clicked" : ""} onClick={tabClick}>
                 작성한 리뷰
               </NavDetail>
             </Link>
@@ -276,10 +260,7 @@ const Mypage = () => {
       </Left>
       <Right>
         <Routes>
-          <Route
-            path="/edit"
-            element={<EditProfile getUserdata={getUserdata} />}
-          ></Route>
+          <Route path="/edit" element={<EditProfile getUserdata={getUserdata} />}></Route>
           <Route path="/purchase/*" element={<PurchaseList />}></Route>
           <Route path="/myboard" element={<MyReview />}></Route>
           <Route path="/like" element={<Like />}></Route>
