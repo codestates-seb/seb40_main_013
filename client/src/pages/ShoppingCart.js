@@ -3,11 +3,7 @@ import styled from "styled-components/macro";
 import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { BsCartX } from "react-icons/bs";
-import {
-  deleteShoppingCart,
-  getShoppingCart,
-  postPayment,
-} from "../reduxstore/slices/articleSlice";
+import { deleteShoppingCart, getShoppingCart, postPayment } from "../reduxstore/slices/articleSlice";
 import { Alert } from "../components/Alert";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -107,7 +103,7 @@ const CartList = styled.div`
   }
 `;
 
-//결제정보
+// 결제정보
 const Payment = styled.section`
   position: fixed;
   /* margin-top: -220px; */
@@ -132,7 +128,7 @@ const Payment = styled.section`
     width: 100%;
     max-width: 700px;
     position: relative;
-  }  
+  }
   @media (max-width: 479px) {
     display: none;
   }
@@ -193,34 +189,34 @@ const ReactionPayment = styled.div`
     position: fixed;
     align-items: center;
   }
-  div{
+  div {
     display: none;
     @media (max-width: 480px) {
-      display: flex; 
+      display: flex;
       padding: 7px;
       font-size: 1.3rem;
       font-weight: 500;
-    } 
+    }
   }
-  .end{
-      @media (max-width: 480px) {
-        display: flex; 
-        width: 100vw;
-        justify-content: flex-end;
-        padding: 10px 30px;
-      } 
+  .end {
+    @media (max-width: 480px) {
+      display: flex;
+      width: 100vw;
+      justify-content: flex-end;
+      padding: 10px 30px;
+    }
   }
-  button{
+  button {
     display: none;
     @media (max-width: 480px) {
-      display: block; 
+      display: block;
       width: 85vw;
       height: 6vh;
       color: white;
       background-color: #002c6d;
       border-radius: 5px;
       font-size: 1.4rem;
-    } 
+    }
   }
 `;
 
@@ -230,9 +226,10 @@ function ShoppingCart() {
   const cartSeletor = useSelector((state) => state.article.shoppingCartInitial);
   const cartSeletorLength = cartSeletor?.length;
 
-  const [checkList, setCheckList] = useState([]); //체크되면(true 가되면) cartItem을 배열로 추가
+  const [checkList, setCheckList] = useState([]); // 체크되면(true 가되면) cartItem을 배열로 추가
 
-  //상품등록
+  // 상품등록
+  // eslint-disable-next-line no-unused-vars
   const [click, setClick] = useState(0);
   const clickFunction = () => {
     setClick(Date.now());
@@ -279,7 +276,7 @@ function ShoppingCart() {
     if (checkList.length === 0) {
       Alert("warning", "구매하실 상품을 선택해 주세요.");
     } else {
-      //배열에 담아 변수로 보내긔..
+      // 배열에 담아 변수로 보내긔..
       Swal.fire({
         title: "Are you sure?",
         text: "상품을 구매하시겠습니까?",
@@ -328,7 +325,7 @@ function ShoppingCart() {
                 type="checkbox"
                 // className='all-check'
                 onChange={(e) => changeAllCheck(e.target.checked)}
-                checked={checkList.length === cartSeletorLength ? true : false}
+                checked={checkList.length === cartSeletorLength}
               />
               <label htmlFor="checkid" className="center">
                 전체선택
@@ -339,12 +336,7 @@ function ShoppingCart() {
               </span>
             </AllCheckBlock>
             {cartSeletor?.map((item) => (
-              <CartItem
-                cartItem={item}
-                key={item.productCartId}
-                changeEachCheck={changeEachCheck}
-                checkList={checkList}
-              />
+              <CartItem cartItem={item} key={item.productCartId} changeEachCheck={changeEachCheck} checkList={checkList} />
             ))}
           </CartList>
           <Payment>
@@ -352,15 +344,11 @@ function ShoppingCart() {
             <PayInfo>
               <div>
                 <span>상품수</span>
-                <span>
-                  {totalCountCalculator.toLocaleString("en-US")}&nbsp;개
-                </span>
+                <span>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</span>
               </div>
               <div>
                 <span>상품금액</span>
-                <span>
-                  {totalPriceCalculator.toLocaleString("en-US")}&nbsp;원
-                </span>
+                <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
               </div>
               <div>
                 <span>할인금액</span>
@@ -373,18 +361,16 @@ function ShoppingCart() {
             </PayInfo>
             <TotalPrice>
               <span className="small">총&nbsp;결제금액</span>
-              <span>
-                {totalPriceCalculator.toLocaleString("en-US")}&nbsp;원
-              </span>
+              <span>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</span>
             </TotalPrice>
             <PayButton onClick={postPurchase}>구매하기</PayButton>
           </Payment>
           <ReactionPayment>
-                <div className="end">
-                  <div>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</div>
-                  <div>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</div>
-                </div>
-              <button onClick={postPurchase}>구매하기</button>
+            <div className="end">
+              <div>{totalCountCalculator.toLocaleString("en-US")}&nbsp;개</div>
+              <div>{totalPriceCalculator.toLocaleString("en-US")}&nbsp;원</div>
+            </div>
+            <button onClick={postPurchase}>구매하기</button>
           </ReactionPayment>
         </Quary>
       )}

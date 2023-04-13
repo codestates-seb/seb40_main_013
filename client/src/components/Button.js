@@ -50,7 +50,7 @@ const Button = () => {
       setBtnStatus(false);
     }
   };
-  //윈도우가 높이가 800 이상일때 버튼이 보이도록
+  // 윈도우가 높이가 800 이상일때 버튼이 보이도록
   useEffect(() => {
     window.addEventListener("scroll", ShowButtonClick);
     return () => {

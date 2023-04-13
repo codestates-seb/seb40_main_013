@@ -1,40 +1,48 @@
-// @ts-check
-
-import React, { useRef, useLayoutEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { mainData } from "../reduxstore/slices/articleSlice";
-import { newData } from "../reduxstore/slices/mainSlice";
-import { categoryData } from "../reduxstore/slices/mainCategorySlice";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import Carousel from "../components/mains/Calousel2";
-import Products from "../components/mains/Product";
+import Products from "../components/common/Product";
 import NewProducts from "../components/mains/NewProducts";
+import { getMain } from "../apis/mainAPI";
+
+interface ImgDetail {
+  fileName: string;
+  fullPath: string;
+}
+interface brand {
+  id: number;
+  img: ImgDetail;
+  main: string;
+  nickname: string;
+  price: number;
+  reviews: number;
+  score: number;
+  title: string;
+}
+type newProduct = Record<string, object[]>;
+type brandProduct = Record<string, brand[]>;
 
 const Main = () => {
-  const dispatch = useDispatch();
+  const [bestData, setBestData] = useState([]);
+  const [newArivalData, setNewArivalData] = useState<newProduct>({});
+  const [brandData, setBrandData] = useState<brandProduct>({});
+  console.log(bestData);
+  useEffect(() => {
+    // best of best
+    void getMain({ endPoint: "score", setData: setBestData });
+    // 브랜드리스트
+    void getMain({ endPoint: "categoryCreated", setData: setNewArivalData });
+    // 브랜드리스트
+    void getMain({ endPoint: "brandListLike", setData: setBrandData });
+  }, [setBestData, setNewArivalData, setBrandData]);
 
-  // best of best
-  const bestData = useSelector((/** @type {any} */ state) => state.article.mainArticle);
-
-  // 신상품
-  const newArivalData = useSelector((/** @type {any} */ state) => state.maincategory.category);
-
-  // 브랜드리스트
-  const brandData = useSelector((/** @type {any} */ state) => state?.main.main);
   const brandTab = Object.keys(brandData);
 
   // 자동스크롤 이벤트
   const myRefs = useRef({});
-  const onMoveToElement = (/** @type {string} */ key) => {
+  const onMoveToElement = (key: string) => {
     myRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
-  // 데이터 받아오기
-  useLayoutEffect(() => {
-    dispatch(mainData());
-    dispatch(categoryData());
-    dispatch(newData());
-  }, []);
 
   return (
     <Container id="app">
@@ -70,7 +78,12 @@ const Main = () => {
               {brandTab
                 ?.filter((t, i) => i <= 1)
                 ?.map((tab) => (
-                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                  <TD
+                    key={tab}
+                    onClick={() => {
+                      onMoveToElement(tab);
+                    }}
+                  >
                     {tab}
                   </TD>
                 ))}
@@ -79,7 +92,12 @@ const Main = () => {
               {brandTab
                 ?.filter((t, i) => i <= 3 && i > 1)
                 ?.map((tab) => (
-                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                  <TD
+                    key={tab}
+                    onClick={() => {
+                      onMoveToElement(tab);
+                    }}
+                  >
                     {tab}
                   </TD>
                 ))}
@@ -90,7 +108,12 @@ const Main = () => {
               {brandTab
                 ?.filter((t, i) => i > 3 && i < 6)
                 ?.map((tab) => (
-                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                  <TD
+                    key={tab}
+                    onClick={() => {
+                      onMoveToElement(tab);
+                    }}
+                  >
                     {tab}
                   </TD>
                 ))}
@@ -99,7 +122,12 @@ const Main = () => {
               {brandTab
                 ?.filter((t, i) => i >= 6)
                 ?.map((tab) => (
-                  <TD key={tab} onClick={() => onMoveToElement(tab)}>
+                  <TD
+                    key={tab}
+                    onClick={() => {
+                      onMoveToElement(tab);
+                    }}
+                  >
                     {tab}
                   </TD>
                 ))}

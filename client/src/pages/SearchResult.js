@@ -1,32 +1,24 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
-import Products from "../components/mains/Product";
+import Products from "../components/common/Product";
 import RankingDown from "../components/DropDown";
 import Apis from "../apis/apis";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getSearchResult,
-  countSearchResult,
-} from "../reduxstore/slices/articleSlice";
+import { countSearchResult } from "../reduxstore/slices/articleSlice";
 import LoadingIcon from "../components/LoadingIcon";
 
-function SearchResult({ searchWord, page, setPage, products, setProducts  }) {
+function SearchResult({ searchWord, page, setPage, products, setProducts }) {
   const dispatch = useDispatch();
-  const countSearchResultSelector = useSelector(
-    (state) => state.article.countSearchResultInitial
-  );
+  const countSearchResultSelector = useSelector((state) => state.article.countSearchResultInitial);
 
-  const [dropDownclicked, setDropDownClicked] = useState("최신순"); //셀렉트박스
-  const [third, setThird] = useState("desc"); //셀렉트박스
+  const [dropDownclicked, setDropDownClicked] = useState("최신순"); // 셀렉트박스
+  const [third, setThird] = useState("desc"); // 셀렉트박스
   const [closeDropDown, setDloseDropDown] = useState(false);
 
   let sortArgument = "createdAt";
   if (dropDownclicked === "판매순") {
     sortArgument = "sale";
-  } else if (
-    dropDownclicked === "높은가격순" ||
-    dropDownclicked === "낮은가격순"
-  ) {
+  } else if (dropDownclicked === "높은가격순" || dropDownclicked === "낮은가격순") {
     sortArgument = "price";
   } else {
     sortArgument = "createdAt";
@@ -39,8 +31,7 @@ function SearchResult({ searchWord, page, setPage, products, setProducts  }) {
   };
 
   const outModalCloseHandler = (e) => {
-    if (closeDropDown && !modalRef.current.contains(e.target))
-      setDloseDropDown(false);
+    if (closeDropDown && !modalRef.current.contains(e.target)) setDloseDropDown(false);
   };
 
   const [loading, setLoading] = useState(true);
@@ -60,33 +51,30 @@ function SearchResult({ searchWord, page, setPage, products, setProducts  }) {
     dispatch(countSearchResult(searchWord));
   }, [searchWord]);
 
-  useEffect(()=>{
-    if(searchWord != ''){
+  useEffect(() => {
+    if (searchWord !== "") {
       getProducts();
     }
   }, [page, searchWord, sortArgument, third]);
 
   const getProducts = () => {
     setTimeout(async () => {
-      let productsRes = await Apis.get(
-        `/products/search?title=${searchWord}&page=${page}&sortType=${sortArgument}&order=${third}`
-      )
-      setProducts(prev => [...prev, ...productsRes.data.content]);
+      const productsRes = await Apis.get(`/products/search?title=${searchWord}&page=${page}&sortType=${sortArgument}&order=${third}`);
+      setProducts((prev) => [...prev, ...productsRes.data.content]);
       setLoading(false);
-    },700)
+    }, 700);
   };
 
   const handleScroll = () => {
-    if(window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight){
-      setPage(prev => prev + 1)
+    if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
+      setPage((prev) => prev + 1);
     }
-  }
+  };
 
-  useEffect(()=>{
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, []) 
-
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   if (loading) return <LoadingIcon />;
 
@@ -95,9 +83,7 @@ function SearchResult({ searchWord, page, setPage, products, setProducts  }) {
       <FilterBlock>
         <div className="total">
           <div>{searchWord}</div>
-          <CountBlock>
-            (으)로 {countSearchResultSelector} 개의 상품이 검색되었습니다.
-          </CountBlock>
+          <CountBlock>(으)로 {countSearchResultSelector} 개의 상품이 검색되었습니다.</CountBlock>
         </div>
         <section ref={modalRef}>
           <RankingDown

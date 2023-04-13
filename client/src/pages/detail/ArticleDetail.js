@@ -1,17 +1,11 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components/macro";
-import { BsStarFill, BsStarHalf, BsHeart, BsHeartFill } from "react-icons/bs";
+import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { FiChevronDown } from "react-icons/fi";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import Review from "./Review";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getArticleDetail,
-  postCart,
-  postLike,
-  deleteLike,
-  articleLike,
-} from "../../reduxstore/slices/articleSlice";
+import { getArticleDetail, postCart, postLike, deleteLike, articleLike } from "../../reduxstore/slices/articleSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
 import ScrollToTop from "../../components/ScrollToTop";
@@ -34,12 +28,10 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
   const reviewRef = useRef();
   const articlesDetail = useSelector((state) => state.article.detailArticle);
   const isLike = useSelector((state) => state.article.articleLike);
-  const optionStock = articlesDetail?.options?.filter((ele) => ele.stock == 0);
+  const optionStock = articlesDetail?.options?.filter((ele) => ele.stock === 0);
 
-  const optionSelect = useSelector(
-    (state) => state.article.detailArticle.options
-  );
-  let price = articlesDetail?.price;
+  const optionSelect = useSelector((state) => state.article.detailArticle.options);
+  const price = articlesDetail?.price;
   const clickFunction = () => {
     setClickSelect(!clickSelect);
   };
@@ -88,7 +80,7 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
     if (selectOptions === "") {
       Alert("error", "옵션을 선택해주세요!");
     } else {
-      let postData = {
+      const postData = {
         productId: articlesDetail?.productId,
         count: cartCount,
         optionId: selectOptions,
@@ -97,13 +89,13 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
     }
   };
   const clickPostLike = () => {
-    let id = articlesDetail?.productId;
+    const id = articlesDetail?.productId;
     clickCheckFunction();
     dispatch(postLike(id));
     setClickCheck(0);
   };
   const clickDeleteLike = () => {
-    let id = articlesDetail?.productId;
+    const id = articlesDetail?.productId;
     clickCheckFunction();
     dispatch(deleteLike(id));
     setClickCheck(0);
@@ -130,7 +122,7 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
             Authorization: `${localStorage.getItem("Authorization")}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       )
         .then((res) => {
           Swal.fire({
@@ -140,7 +132,6 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
             showCancelButton: true,
             confirmButtonColor: "#002C6D",
             cancelButtonColor: "#FFAF51",
-            showCancelButton: true,
             confirmButtonText: "바로 구매",
             cancelButtonText: "취소",
           }).then((result) => {
@@ -166,51 +157,29 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
             <DetailArticleNameSpace>
               <DetailArticleStarSpace onClick={() => onMoveToElement(1)}>
                 {renderStar(articlesDetail?.score)}
-                <DetailArticleStaAverage>
-                  {articlesDetail?.score}&nbsp;점
-                </DetailArticleStaAverage>
+                <DetailArticleStaAverage>{articlesDetail?.score}&nbsp;점</DetailArticleStaAverage>
               </DetailArticleStarSpace>
             </DetailArticleNameSpace>
             <DetailArticlePriceSpace>
-              <DetailArticlePrice>
-                {articlesDetail?.price?.toLocaleString("en-US")}원
-              </DetailArticlePrice>
+              <DetailArticlePrice>{articlesDetail?.price?.toLocaleString("en-US")}원</DetailArticlePrice>
               <ButtonIcon>
                 {isLike ? (
-                  <BsHeartFill
-                    size="20"
-                    color="#FFAF51"
-                    onClick={clickDeleteLike}
-                  />
+                  <BsHeartFill size="20" color="#FFAF51" onClick={clickDeleteLike} />
                 ) : (
-                  <BsHeart
-                    size="20"
-                    className="heart"
-                    color="gray"
-                    onClick={clickPostLike}
-                  />
+                  <BsHeart size="20" className="heart" color="gray" onClick={clickPostLike} />
                 )}
               </ButtonIcon>
             </DetailArticlePriceSpace>
             <div>
               <DetailArticleOptionSpace>
-                <DetailArticleOptionContents>
-                  배송 방법
-                </DetailArticleOptionContents>
-                <DetailArticleOptionContents>
-                  무료 배송
-                </DetailArticleOptionContents>
+                <DetailArticleOptionContents>배송 방법</DetailArticleOptionContents>
+                <DetailArticleOptionContents>무료 배송</DetailArticleOptionContents>
               </DetailArticleOptionSpace>
               <DetailArticleOptionSpace>
-                <DetailArticleOptionContents>
-                  옵션 선택
-                </DetailArticleOptionContents>
+                <DetailArticleOptionContents>옵션 선택</DetailArticleOptionContents>
               </DetailArticleOptionSpace>
               <DetailArticleOptionSpaceSelect clickSelect={clickSelect}>
-                <DetailArticleOptionSpaceSelectDiv
-                  onClick={clickFunction}
-                  optionStock={optionStock}
-                >
+                <DetailArticleOptionSpaceSelectDiv onClick={clickFunction} optionStock={optionStock}>
                   {selectOptionColor}
                   <div className="cur">
                     <FiChevronDown className="button" />
@@ -224,20 +193,14 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
                         value={option?.value}
                         optionStock={option?.stock}
                         onClick={() => {
-                          selectOption(
-                            option.optionId,
-                            option.color,
-                            option.stock
-                          ),
-                            clickFunction();
+                          // eslint-disable-next-line no-unused-expressions, no-sequences
+                          selectOption(option.optionId, option.color, option.stock), clickFunction();
                         }}
                       >
                         <>
                           {option?.stock === 0 ? (
                             <OptionDiv>
-                              <OptionDivA optionStock={option?.stock}>
-                                {option?.color}
-                              </OptionDivA>
+                              <OptionDivA optionStock={option?.stock}>{option?.color}</OptionDivA>
                               <OptionDivB>품절 </OptionDivB>
                             </OptionDiv>
                           ) : (
@@ -271,65 +234,38 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
                 ) : (
                   <div>
                     <DetailUserPrice className="w">₩</DetailUserPrice>
-                    <DetailUserPrice>
-                      {(price * cartCount).toLocaleString("en-US")}
-                    </DetailUserPrice>
+                    <DetailUserPrice>{(price * cartCount).toLocaleString("en-US")}</DetailUserPrice>
                   </div>
                 )}
               </DetailUserPriceSpace>
             </DetailUserSubmitPriceSpace>
             <DetailArticlBtnSpace>
               {localStorage.getItem("Authorization") ? (
-                <DetailArticlBtn onClick={clickPostCart}>
-                  장바구니
-                </DetailArticlBtn>
+                <DetailArticlBtn onClick={clickPostCart}>장바구니</DetailArticlBtn>
               ) : (
-                <DetailArticlBtn
-                  onClick={() => Toast("warning", "로그인 해주세요!")}
-                >
-                  장바구니
-                </DetailArticlBtn>
+                <DetailArticlBtn onClick={() => Toast("warning", "로그인 해주세요!")}>장바구니</DetailArticlBtn>
               )}
               {localStorage.getItem("Authorization") ? (
-                <DetailArticlBtn onClick={nowPayHandler}>
-                  바로구매
-                </DetailArticlBtn>
+                <DetailArticlBtn onClick={nowPayHandler}>바로구매</DetailArticlBtn>
               ) : (
-                <DetailArticlBtn
-                  onClick={() => Toast("warning", "로그인 해주세요!")}
-                >
-                  바로구매
-                </DetailArticlBtn>
+                <DetailArticlBtn onClick={() => Toast("warning", "로그인 해주세요!")}>바로구매</DetailArticlBtn>
               )}
             </DetailArticlBtnSpace>
           </ArticleInformations>
         </DetailTopUserSelectSpace>
         <SelectMoveSpace ref={articleRef}>
-          <SelectMoveBtn onClick={() => onMoveToElement(0)}>
-            상세 설명
-          </SelectMoveBtn>
+          <SelectMoveBtn onClick={() => onMoveToElement(0)}>상세 설명</SelectMoveBtn>
           <SelectCenterLine>|</SelectCenterLine>
           <SelectMoveBtn onClick={() => onMoveToElement(1)}>후기</SelectMoveBtn>
         </SelectMoveSpace>
         {articlesDetail?.content?.map((data) => (
           <DetailMidImg key={data}>
-            <LazyLoadImage
-              src={data}
-              placeholderSrc={placeholderSrc}
-              effect="blur"
-              width={data.width}
-              height={data.height}
-              className="detailImg"
-            />
+            <LazyLoadImage src={data} placeholderSrc={placeholderSrc} effect="blur" width={data.width} height={data.height} className="detailImg" />
           </DetailMidImg>
         ))}
 
         <Button />
-        <Review
-          reviewRef={reviewRef}
-          articlesDetail={articlesDetail}
-          renderStar={renderStar}
-        />
+        <Review reviewRef={reviewRef} articlesDetail={articlesDetail} renderStar={renderStar} />
       </DetailContents>
     </Wrapper>
   );
@@ -745,8 +681,7 @@ const OptionDiv = styled.div`
   /* justify-content: space-between; */
 `;
 const OptionDivA = styled.div`
-  text-decoration: ${(props) =>
-    props.optionStock === 0 ? "line-through" : null};
+  text-decoration: ${(props) => (props.optionStock === 0 ? "line-through" : null)};
 `;
 const OptionDivB = styled.div`
   /* color: black; */

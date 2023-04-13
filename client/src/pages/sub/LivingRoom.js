@@ -1,15 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components/macro";
-import Products from "../../components/mains/Product";
+import Products from "../../components/common/Product";
 import { useDispatch, useSelector } from "react-redux";
 import RankingDown from "../../components/DropDown";
-import livingImg from '../../imgs/sub-living1.jpeg';
+import livingImg from "../../imgs/sub-living1.jpeg";
 import Apis from "../../apis/apis";
 import { getSubCount } from "../../reduxstore/slices/articleSlice";
 
 function LivingRoom({ subclick, page, setPage, products, setProducts }) {
-  //소분류에 따른 대분류카테고리 이름 지정
-  let mainCateClick = '거실';
+  // 소분류에 따른 대분류카테고리 이름 지정
+  const mainCateClick = "거실";
 
   const dispatch = useDispatch();
   const countSelector = useSelector((state) => state.article.getSubCountInitial);
@@ -20,13 +20,13 @@ function LivingRoom({ subclick, page, setPage, products, setProducts }) {
   const [closeDropDown, setDloseDropDown] = useState(false);
 
   let sortArgument = "createdAt";
-  if(dropDownclicked ==='판매순'){
-    sortArgument = 'sale';
-  } else if(dropDownclicked === '높은가격순'|| dropDownclicked === '낮은가격순'){
-    sortArgument = 'price';
-  } else{
-    sortArgument = 'createdAt';
-  };
+  if (dropDownclicked === "판매순") {
+    sortArgument = "sale";
+  } else if (dropDownclicked === "높은가격순" || dropDownclicked === "낮은가격순") {
+    sortArgument = "price";
+  } else {
+    sortArgument = "createdAt";
+  }
 
   const modalRef = useRef();
 
@@ -35,49 +35,43 @@ function LivingRoom({ subclick, page, setPage, products, setProducts }) {
   };
 
   const outModalCloseHandler = (e) => {
-    if (closeDropDown && !modalRef.current.contains(e.target))
-      setDloseDropDown(false);
+    if (closeDropDown && !modalRef.current.contains(e.target)) setDloseDropDown(false);
   };
 
-  useEffect(()=>{
-    dispatch(getSubCount({mainCateClick, subclick}))
+  useEffect(() => {
+    dispatch(getSubCount({ mainCateClick, subclick }));
   }, [mainCateClick, subclick]);
 
-  useEffect(()=>{
+  useEffect(() => {
     getProducts();
   }, [page, subclick, sortArgument, third]);
 
   const getProducts = () => {
     setTimeout(async () => {
-      let productsRes = await Apis.get(
-       `products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`
-      );
+      const productsRes = await Apis.get(`products?main=${mainCateClick}&sub=${subclick}&page=${page}&sortType=${sortArgument}&order=${third}`);
       setProducts((prev) => [...prev, ...productsRes.data.content]);
     }, 700);
   };
 
   const handleScroll = () => {
-    if(window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight){
-      setPage(prev => prev + 1)
+    if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
+      setPage((prev) => prev + 1);
     }
-  }
+  };
 
-  useEffect(()=>{
-    window.addEventListener('scroll', handleScroll);
-  }, []) 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <SubBlock onClick={outModalCloseHandler}>
       <ImgBLock>
-        <SubTitleImg src={livingImg}/>
+        <SubTitleImg src={livingImg} />
         <SubTitle>Living Room</SubTitle>
       </ImgBLock>
       <FilterBlock>
         <CountBlock>
-          { subclick != '' ? 
-              <SubMenuWord>{subclick}&nbsp;</SubMenuWord> : 
-              <SubMenuWord>전체상품&nbsp;</SubMenuWord>
-          }
+          {subclick !== "" ? <SubMenuWord>{subclick}&nbsp;</SubMenuWord> : <SubMenuWord>전체상품&nbsp;</SubMenuWord>}
           <div className="total">에&nbsp;{countSelector}&nbsp;개의&nbsp;상품이&nbsp;있습니다</div>
         </CountBlock>
         <section ref={modalRef}>
@@ -95,7 +89,7 @@ function LivingRoom({ subclick, page, setPage, products, setProducts }) {
       </FilterBlock>
       <ProductList>
         {products?.map((product) => (
-          <Products proId={product.id} product={product} key={product.id}/>
+          <Products proId={product.id} product={product} key={product.id} />
         ))}
       </ProductList>
     </SubBlock>
@@ -158,19 +152,19 @@ const SubTitle = styled.div`
   text-underline-offset: 2px;
   animation: fadeInUp 1.4s;
   @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            transform: translate3d(0, 30%, 0);
-        }
-        to {
-            opacity: 1;
-            transform: translateZ(0);
-        }
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 30%, 0);
     }
+    to {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+  }
 `;
 
 const SubTitleImg = styled.img`
-    width: 100%;
+  width: 100%;
 `;
 
 const FilterBlock = styled.div`
@@ -187,7 +181,7 @@ const FilterBlock = styled.div`
   @media (max-width: 1023px) {
     padding: 0 1rem;
   }
-  section{
+  section {
     padding-top: 1.8vh;
     @media (max-width: 479px) {
       padding-top: 1.2vh;

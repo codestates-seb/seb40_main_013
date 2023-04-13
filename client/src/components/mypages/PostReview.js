@@ -1,20 +1,17 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 import { postReview, updateReview } from "../../reduxstore/slices/reviewSlice";
 import { useDispatch } from "react-redux";
 import imageCompression from "browser-image-compression";
 import { useNavigate } from "react-router-dom";
 import { BsStarFill } from "react-icons/bs";
-import { Toast, BtnSelectAlert, Alert } from "../../components/Alert";
+import { BtnSelectAlert, Alert } from "../../components/Alert";
 import noImg from "../../imgs/noImg.gif";
-import Swal from "sweetalert2";
 
 function PostReview({ clickModal, filterData, filteReview }) {
   const dispatch = useDispatch();
   const [userWriteImg, setUserWriteImg] = useState("");
-  const [userWriteContent, setUserWriteContent] = useState(
-    filteReview ? filteReview[0].content : filterData[0].content
-  );
+  const [userWriteContent, setUserWriteContent] = useState(filteReview ? filteReview[0].content : filterData[0].content);
 
   const navigate = useNavigate();
   const [clicked, setClicked] = useState([false, false, false, false, false]);
@@ -67,35 +64,20 @@ function PostReview({ clickModal, filterData, filteReview }) {
     if (userWriteContent === "") {
       Alert("error", "리뷰의 내용을 작성해주세요!");
     } else if (userWriteImg === "") {
-      BtnSelectAlert(
-        "사진없이 리뷰를 추가하시겠습니까?",
-        " 리뷰추가 ",
-        " 취소 ",
-        postDispatch
-      );
+      BtnSelectAlert("사진없이 리뷰를 추가하시겠습니까?", " 리뷰추가 ", " 취소 ", postDispatch);
     } else {
-      BtnSelectAlert(
-        "리뷰를 추가하시겠습니까?",
-        " 리뷰추가 ",
-        " 취소 ",
-        postDispatch
-      );
+      BtnSelectAlert("리뷰를 추가하시겠습니까?", " 리뷰추가 ", " 취소 ", postDispatch);
     }
   };
 
   const updateSubmit = (e) => {
     e.preventDefault();
-    BtnSelectAlert(
-      "리뷰 수정을 하시겠습니까?",
-      " 리뷰 수정 ",
-      " 취소 ",
-      updateDispatch
-    );
+    BtnSelectAlert("리뷰 수정을 하시겠습니까?", " 리뷰 수정 ", " 취소 ", updateDispatch);
   };
 
   const updateDispatch = () => {
-    let filterProductId = filteReview[0]?.productId;
-    let updateData = {
+    const filterProductId = filteReview[0]?.productId;
+    const updateData = {
       reviewId: filteReview[0]?.reviewId,
       content: userWriteContent,
       score: lengthScore,
@@ -103,20 +85,20 @@ function PostReview({ clickModal, filterData, filteReview }) {
     dispatch(updateReview({ filterProductId, updateData, navigate }));
   };
   const handleStarClick = (index) => {
-    let clickStates = [...clicked];
+    const clickStates = [...clicked];
     for (let i = 1; i <= 5; i++) {
-      clickStates[i] = i <= index ? true : false;
+      clickStates[i] = i <= index;
     }
     setClicked(clickStates);
   };
   const sendReview = () => {
-    let score = clicked.filter(Boolean).length;
+    const score = clicked.filter(Boolean).length;
     setLengthScore(score);
   };
   useEffect(() => {
     sendReview();
   }, [clicked]);
-  
+
   return (
     <Wrapper>
       <Container
@@ -126,41 +108,21 @@ function PostReview({ clickModal, filterData, filteReview }) {
       >
         <PostReviewTopSpace>
           {filterData === undefined ? (
-            <>
-              {filteReview[0].img !== null ? (
-                <PostReviewContentImg src={filteReview[0]?.img.fullPath} />
-              ) : (
-                <PostReviewContentImg src={noImg} />
-              )}
-            </>
+            <>{filteReview[0].img !== null ? <PostReviewContentImg src={filteReview[0]?.img.fullPath} /> : <PostReviewContentImg src={noImg} />}</>
           ) : (
-            <>
-              {filterData[0].img !== null ? (
-                <PostReviewContentImg src={filterData[0]?.img.fullPath} />
-              ) : (
-                <PostReviewContentImg src={noImg} />
-              )}
-            </>
+            <>{filterData[0].img !== null ? <PostReviewContentImg src={filterData[0]?.img.fullPath} /> : <PostReviewContentImg src={noImg} />}</>
           )}
 
           <PostReviewContentRightSpace>
             {filterData === undefined ? (
-              <PostReviewTopContent>
-                {filteReview[0]?.nickname}
-              </PostReviewTopContent>
+              <PostReviewTopContent>{filteReview[0]?.nickname}</PostReviewTopContent>
             ) : (
-              <PostReviewTopContent>
-                {filterData[0]?.brandName}
-              </PostReviewTopContent>
+              <PostReviewTopContent>{filterData[0]?.brandName}</PostReviewTopContent>
             )}
             {filterData === undefined ? (
-              <PostReviewTopContent>
-                {filteReview[0]?.productTitle}
-              </PostReviewTopContent>
+              <PostReviewTopContent>{filteReview[0]?.productTitle}</PostReviewTopContent>
             ) : (
-              <PostReviewTopContent className="title">
-                {filterData[0]?.title}
-              </PostReviewTopContent>
+              <PostReviewTopContent className="title">{filterData[0]?.title}</PostReviewTopContent>
             )}
           </PostReviewContentRightSpace>
         </PostReviewTopSpace>
@@ -168,28 +130,15 @@ function PostReview({ clickModal, filterData, filteReview }) {
         <PostReviewDownSpace>
           <PostReviewDownTitle>어떤 점이 좋았나요?</PostReviewDownTitle>
           {filterData === undefined ? (
-            <PostReviewDownInput
-              value={userWriteContent || ""}
-              onChange={changeContent}
-            />
+            <PostReviewDownInput value={userWriteContent || ""} onChange={changeContent} />
           ) : (
-            <PostReviewDownInput
-              placeholder="사용하시면서 만족도에 대한 후기를 남겨주세요!"
-              onChange={changeContent}
-            />
+            <PostReviewDownInput placeholder="사용하시면서 만족도에 대한 후기를 남겨주세요!" onChange={changeContent} />
           )}
 
           <PostReviewDownTitle>리뷰 별점</PostReviewDownTitle>
           <PostReviewStarSpace>
             {clickNumber.map((item, idx) => {
-              return (
-                <BsStarFill
-                  key={idx}
-                  size="30"
-                  onClick={() => handleStarClick(item)}
-                  className={clicked[item] && "yellowStar"}
-                />
-              );
+              return <BsStarFill key={idx} size="30" onClick={() => handleStarClick(item)} className={clicked[item] && "yellowStar"} />;
             })}
           </PostReviewStarSpace>
           {filterData === undefined ? (
@@ -199,20 +148,8 @@ function PostReview({ clickModal, filterData, filteReview }) {
               <PostReviewDownTitle>사진 추가하기</PostReviewDownTitle>
               <SumContainer>
                 <UploadDelete>
-                  <ImgLabel htmlFor="sumnail">
-                    {userWriteImg === "" ? (
-                      <Img src={noImg} alt="noImg" />
-                    ) : (
-                      <Img src={fileImage} />
-                    )}
-                  </ImgLabel>
-                  <SumnailUpload
-                    name="sumnailUpload"
-                    type="file"
-                    id="sumnail"
-                    accept="image/*"
-                    onChange={changeImg}
-                  />
+                  <ImgLabel htmlFor="sumnail">{userWriteImg === "" ? <Img src={noImg} alt="noImg" /> : <Img src={fileImage} />}</ImgLabel>
+                  <SumnailUpload name="sumnailUpload" type="file" id="sumnail" accept="image/*" onChange={changeImg} />
                 </UploadDelete>
               </SumContainer>
             </>
@@ -294,12 +231,11 @@ const PostReviewTopContent = styled.div`
     color: #aaaaaa;
     height: 30%;
     margin-top: 10px;
-
   }
   &.title {
     font-size: 0.95rem;
   }
-  &.title{
+  &.title {
     font-size: 0.95rem;
   }
 `;

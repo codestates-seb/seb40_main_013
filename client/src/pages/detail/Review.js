@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { renderStar } from "../../components/Star";
 import noImg from "../../imgs/noImg.gif";
@@ -23,11 +22,7 @@ function Review({ articlesDetail, reviewRef }) {
           <ReviewContentsSpace key={data.reviewId}>
             <ReviewContentsLeftSpace>
               <ReviewContentsNumber>{idx + 1}</ReviewContentsNumber>
-              {data?.img ? (
-                <ReviewContentsImg src={data?.img.fullPath}></ReviewContentsImg>
-              ) : (
-                <ReviewContentsImg src={noImg}></ReviewContentsImg>
-              )}
+              {data?.img ? <ReviewContentsImg src={data?.img.fullPath}></ReviewContentsImg> : <ReviewContentsImg src={noImg}></ReviewContentsImg>}
             </ReviewContentsLeftSpace>
             <ReviewContent>
               <ReviewContentsMainSpace>
@@ -36,15 +31,9 @@ function Review({ articlesDetail, reviewRef }) {
                 <ReviewMainContent>{data.content}</ReviewMainContent>
               </ReviewContentsMainSpace>
               <ReviewContentsRightSpace>
-                <ReviewContentsUser className="reviewName">
-                  {data.nickname}
-                </ReviewContentsUser>
+                <ReviewContentsUser className="reviewName">{data.nickname}</ReviewContentsUser>
                 <ReviewContentsUser>
-                  {new Date(data.createdAt).getFullYear() +
-                    "." +
-                    [new Date(data.createdAt).getMonth() + 1] +
-                    "." +
-                    new Date(data.createdAt).getDate()}
+                  {new Date(data.createdAt).getFullYear() + "." + [new Date(data.createdAt).getMonth() + 1] + "." + new Date(data.createdAt).getDate()}
                 </ReviewContentsUser>
               </ReviewContentsRightSpace>
             </ReviewContent>
