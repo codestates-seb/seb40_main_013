@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import { nickNameCheck, pwdCheck, phoneCheck } from "../effectivenessCheck";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateUser } from "../../reduxstore/slices/userSlice";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Apis from "../../apis/apis";
@@ -103,7 +103,7 @@ const Input = styled.input`
     margin: 15px 0;
   }
 `;
-//현재 비밀번호 확인 버튼
+// 현재 비밀번호 확인 버튼
 const CurInputBtn = styled.div`
   display: flex;
   align-items: center;
@@ -124,11 +124,11 @@ const CurPwdBtn = styled.button`
   @media (min-width: 768px) and (max-width: 1024px) {
   }
 `;
-//비밀번호 숨기기
+// 비밀번호 숨기기
 const PwdHide = styled.div`
   margin-top: 10px;
 `;
-//버튼
+// 버튼
 const Buttons = styled.div`
   display: flex;
   margin-top: 20px;
@@ -174,7 +174,7 @@ const Edit = styled.button`
   } */
 `;
 
-//정보 수정하는 법
+// 정보 수정하는 법
 const HowtoEditMobile = styled.div`
   display: flex;
   flex-direction: column;
@@ -254,12 +254,12 @@ const EditProfile = ({ getUserdata }) => {
   const navigate = useNavigate();
   const initialToken = localStorage.getItem("Authorization");
 
-  //비빌번호 타입 변경
+  // 비빌번호 타입 변경
   const [passwordType, setPasswordType] = useState({
     type: "password",
     visible: false,
   });
-  //password type 변경하는 함수
+  // password type 변경하는 함수
   const handlePasswordType = (e) => {
     setPasswordType(() => {
       if (!passwordType.visible) {
@@ -281,10 +281,10 @@ const EditProfile = ({ getUserdata }) => {
   const [updatePwdCheckConfirm, setUpdatePwdCheckConfirm] = useState(false);
   const [updatePhoneConfirm, setUpdatePhoneConfirm] = useState(false);
 
-  //비밀번호 일치 확인
+  // 비밀번호 일치 확인
   const [curpwdConform, setCurpwdConform] = useState(false);
 
-  //닉네임, 주소, 핸드폰번호 저장하기
+  // 닉네임, 주소, 핸드폰번호 저장하기
   useEffect(() => {
     if (!updateNickName) {
       setUpdatNickName(getUserdata?.nickname);
@@ -316,7 +316,7 @@ const EditProfile = ({ getUserdata }) => {
     setUpdatePhone(e.target.value);
   };
 
-  //confirm nickname
+  // confirm nickname
   useEffect(() => {
     if (updateNickName === "" || !nickNameCheck(updateNickName)) {
       setNicknameConfirm(false);
@@ -324,21 +324,21 @@ const EditProfile = ({ getUserdata }) => {
       setNicknameConfirm(true);
     }
 
-    //confirm password
+    // confirm password
     if (updatePassword === "" || !pwdCheck(updatePassword)) {
       setPasswordConfirm(false);
     } else {
       setPasswordConfirm(true);
     }
 
-    //confirm passwordCheck
+    // confirm passwordCheck
     if (updatePwdCheck === "" || updatePassword !== updatePwdCheck) {
       setUpdatePwdCheckConfirm(false);
     } else {
       setUpdatePwdCheckConfirm(true);
     }
 
-    //confirm phone
+    // confirm phone
     if (!phoneCheck(updatePhone)) {
       setUpdatePhoneConfirm(false);
     } else {
@@ -357,7 +357,7 @@ const EditProfile = ({ getUserdata }) => {
         headers: {
           Authorization: initialToken,
         },
-      }
+      },
     )
       .then((res) => {
         setCurpwdConform(true);
@@ -371,7 +371,7 @@ const EditProfile = ({ getUserdata }) => {
       });
   };
 
-  //정보수정하기
+  // 정보수정하기
   const updateInform = () => {
     let pwd = "";
     let updatedata = {};
@@ -387,6 +387,7 @@ const EditProfile = ({ getUserdata }) => {
         phone: updatePhone,
       };
     } else if (updateNickName !== getUserdata.nickname) {
+      // eslint-disable-next-line no-unused-vars
       updatedata = {
         nickname: updateNickName,
         password: pwd,
@@ -438,62 +439,56 @@ const EditProfile = ({ getUserdata }) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-      if (!localStorage.getItem("authority")) {
+    if (!localStorage.getItem("authority")) {
       if (curpwdConform === true) {
         Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        confirmButtonColor: "red",
-        cancelButtonText: "No, cancel!",
-        cancelButtonColor: "#aaaaaa",
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Apis.delete(`/members/mypage`, {
-          headers: {
-          Authorization: initialToken,
-          },
-        })
-        .then((res) => {
-          localStorage.clear();
-          Swal.fire({
-          title: "Deleted!",
-          text: "그동안 이용해주셔서 감사합니다.",
-          icon: "success",
-          confirmButtonColor: "#002C6D",
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it!",
+          confirmButtonColor: "red",
+          cancelButtonText: "No, cancel!",
+          cancelButtonColor: "#aaaaaa",
+          reverseButtons: true,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Apis.delete(`/members/mypage`, {
+              headers: {
+                Authorization: initialToken,
+              },
+            })
+              .then((res) => {
+                localStorage.clear();
+                Swal.fire({
+                  title: "Deleted!",
+                  text: "그동안 이용해주셔서 감사합니다.",
+                  icon: "success",
+                  confirmButtonColor: "#002C6D",
+                });
+                navigate("/");
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
         });
-          navigate("/");
-        })
-          .catch((err) => {
-            console.log(err);
-          });
-        }
-      });
       } else if (!curpwdConform) {
         Alert("warning", "현재 비밀번호를 확인해주세요");
       }
-      } else {
-        Alert("error", "게스트이용자는 회원탈퇴가 불가능합니다!");
-      }
-    };
+    } else {
+      Alert("error", "게스트이용자는 회원탈퇴가 불가능합니다!");
+    }
+  };
 
   return (
     <EditContainter>
       <HowtoEditMobile>
         <h2 className="editTitle">How to Edit</h2>
-        <Warning>
-          현재 비밀번호 입력 후, 일치확인을 하셔야 정보수정이 가능합니다.
-        </Warning>
+        <Warning>현재 비밀번호 입력 후, 일치확인을 하셔야 정보수정이 가능합니다.</Warning>
         <ul>
-          <li className="explain">
-            닉네임: 수정하지 않으면 기존 닉네임이 유지됩니다.
-          </li>
-          <li className="explain">
-            현재 비밀번호(필수): 반드시 입력해야합니다.
-          </li>
+          <li className="explain">닉네임: 수정하지 않으면 기존 닉네임이 유지됩니다.</li>
+          <li className="explain">현재 비밀번호(필수): 반드시 입력해야합니다.</li>
           <li className="explain">비밀번호: 수정하지 않으면 비워도 됩니다.</li>
           <li className="explain">주소: 수정하지 않으면 비워도 됩니다.</li>
           <li className="explain">휴대번호: 수정하지 않으면 비워도 됩니다.</li>
@@ -501,40 +496,16 @@ const EditProfile = ({ getUserdata }) => {
       </HowtoEditMobile>
       <Container>
         <Label htmlFor="email">이메일</Label>
-        <Input
-          name="email"
-          className="email"
-          value={getUserdata?.email}
-          disabled
-        ></Input>
+        <Input name="email" className="email" value={getUserdata?.email} disabled></Input>
         <Label htmlFor="nickname">닉네임</Label>
-        <Input
-          name="UpdateNickName"
-          value={updateNickName || ""}
-          onChange={handleUpdateNickName}
-          required
-        ></Input>
-        {!nicknameConfirm ? (
-          <ErrorDisplay>
-            띄어쓰기 없이 2자이상 8자 이하 영어 또는 숫자 또는 한글로
-            입력해주세요!
-          </ErrorDisplay>
-        ) : null}
+        <Input name="UpdateNickName" value={updateNickName || ""} onChange={handleUpdateNickName} required></Input>
+        {!nicknameConfirm ? <ErrorDisplay>띄어쓰기 없이 2자이상 8자 이하 영어 또는 숫자 또는 한글로 입력해주세요!</ErrorDisplay> : null}
         <PwdHide>
-          <Label htmlFor="password">
-            현재 비밀번호 ( * 필수입력 : 대/소문자 구분 )
-          </Label>
-          <span onClick={handlePasswordType}>
-            {passwordType.visible ? <AiFillEyeInvisible /> : <AiFillEye />}
-          </span>
+          <Label htmlFor="password">현재 비밀번호 ( * 필수입력 : 대/소문자 구분 )</Label>
+          <span onClick={handlePasswordType}>{passwordType.visible ? <AiFillEyeInvisible /> : <AiFillEye />}</span>
         </PwdHide>
         <CurInputBtn>
-          <Input
-            name="Password"
-            type={passwordType.type}
-            onChange={handlecurPassword}
-            required
-          ></Input>
+          <Input name="Password" type={passwordType.type} onChange={handlecurPassword} required></Input>
           <CurPwdBtn
             onClick={() => {
               onConfirmPwd();
@@ -545,76 +516,32 @@ const EditProfile = ({ getUserdata }) => {
         </CurInputBtn>
         <PwdHide>
           <Label htmlFor="password">비밀번호</Label>
-          <span onClick={handlePasswordType}>
-            {passwordType.visible ? <AiFillEyeInvisible /> : <AiFillEye />}
-          </span>
+          <span onClick={handlePasswordType}>{passwordType.visible ? <AiFillEyeInvisible /> : <AiFillEye />}</span>
         </PwdHide>
-        <Input
-          name="password"
-          type={passwordType.type}
-          onChange={handleUpdatePassword}
-          required
-        ></Input>
-        {!passwordConfirm ? (
-          <ErrorDisplay>
-            문자, 숫자, 특수문자를 최소 하나씩 사용해주세요(8~20자)
-          </ErrorDisplay>
-        ) : null}
+        <Input name="password" type={passwordType.type} onChange={handleUpdatePassword} required></Input>
+        {!passwordConfirm ? <ErrorDisplay>문자, 숫자, 특수문자를 최소 하나씩 사용해주세요(8~20자)</ErrorDisplay> : null}
         <PwdHide>
           <Label htmlFor="confirmPassword">비밀번호 확인</Label>
-          <span onClick={handlePasswordType}>
-            {passwordType.visible ? <AiFillEyeInvisible /> : <AiFillEye />}
-          </span>
+          <span onClick={handlePasswordType}>{passwordType.visible ? <AiFillEyeInvisible /> : <AiFillEye />}</span>
         </PwdHide>
-        <Input
-          name="confirmPassword"
-          type={passwordType.type}
-          onChange={handleUpdatePwdCheck}
-          required
-        ></Input>
-        {!updatePwdCheckConfirm ? (
-          <ErrorDisplay>
-            위에 작성하신 비밀번호와 같은 비밀번호를 입력해주세요!
-          </ErrorDisplay>
-        ) : null}
+        <Input name="confirmPassword" type={passwordType.type} onChange={handleUpdatePwdCheck} required></Input>
+        {!updatePwdCheckConfirm ? <ErrorDisplay>위에 작성하신 비밀번호와 같은 비밀번호를 입력해주세요!</ErrorDisplay> : null}
         <Label htmlFor="address">주소</Label>
-        <Input
-          name="address"
-          value={updateAddress || ""}
-          onChange={handleUpdateAddress}
-        ></Input>
+        <Input name="address" value={updateAddress || ""} onChange={handleUpdateAddress}></Input>
         <Label htmlFor="phone">휴대폰 번호 ( 예: 010-1234-5678 )</Label>
-        <Input
-          name="phone"
-          value={updatePhone || ""}
-          onChange={handleUpdatePhone}
-        ></Input>
-        {!updatePhoneConfirm ? (
-          <ErrorDisplay>
-            위의 양식에 맞게 - 와 숫자를 섞어서 작성해주세요.
-          </ErrorDisplay>
-        ) : null}
+        <Input name="phone" value={updatePhone || ""} onChange={handleUpdatePhone}></Input>
+        {!updatePhoneConfirm ? <ErrorDisplay>위의 양식에 맞게 - 와 숫자를 섞어서 작성해주세요.</ErrorDisplay> : null}
         <Buttons>
-          {curpwdConform ? (
-            <Delete onClick={handleDelete}>회원탈퇴</Delete>
-          ) : (
-            <Delete>회원탈퇴</Delete>
-          )}
+          {curpwdConform ? <Delete onClick={handleDelete}>회원탈퇴</Delete> : <Delete>회원탈퇴</Delete>}
           <Edit onClick={updateInform}>정보수정</Edit>
         </Buttons>
       </Container>
       <HowtoEdit>
         <h2 className="editTitle">How to Edit</h2>
-        <Warning>
-          현재 비밀번호 입력 후, 일치확인을 하셔야 정보수정 및 탈퇴가 가능합니다.
-        </Warning>
+        <Warning>현재 비밀번호 입력 후, 일치확인을 하셔야 정보수정 및 탈퇴가 가능합니다.</Warning>
         <ul>
-          <li className="explain">
-            닉네임: 수정하지 않으면 기존 닉네임이 유지됩니다.
-          </li>
-          <li className="explain">
-            현재 비밀번호(필수): 반드시 입력해야합니다.
-          </li>
+          <li className="explain">닉네임: 수정하지 않으면 기존 닉네임이 유지됩니다.</li>
+          <li className="explain">현재 비밀번호(필수): 반드시 입력해야합니다.</li>
           <li className="explain">비밀번호: 수정하지 않으면 비워도 됩니다.</li>
           <li className="explain">주소: 수정하지 않으면 비워도 됩니다.</li>
           <li className="explain">휴대번호: 수정하지 않으면 비워도 됩니다.</li>

@@ -18,21 +18,11 @@ const Carousel2 = () => {
   return (
     <Container>
       {ImgSlider.map((slide, index) => (
-        <Slides
-          key={index}
-          className={index === activeIndex ? "slides active" : "inactive"}
-        >
+        <Slides key={index} className={index === activeIndex ? "slides active" : "inactive"}>
           <Imgbox>
-            <Link 
-              to={slide.link} 
-              rel="preload"
-              >
+            <Link to={slide.link} rel="preload">
               {/* <Img className="slide-image" src={slide.urls} alt="" /> */}
-              <Img 
-                style={{backgroundImage: `url(${slide.urls})`}} 
-                className="slide-image" 
-                src={slide.urls} 
-                alt="" />
+              <Img style={{ backgroundImage: `url(${slide.urls})` }} className="slide-image" src={slide.urls} alt="" />
             </Link>
           </Imgbox>
           <SlideTitle>{slide.title}</SlideTitle>
@@ -40,30 +30,16 @@ const Carousel2 = () => {
         </Slides>
       ))}
       <Arrows className="arrows">
-        <Prev
-          className="prev"
-          onClick={() =>
-            setActiveIndex(activeIndex < 1 ? len : activeIndex - 1)
-          }
-        >
+        <Prev className="prev" onClick={() => setActiveIndex(activeIndex < 1 ? len : activeIndex - 1)}>
           &#10094;
         </Prev>
-        <Next
-          className="next"
-          onClick={() =>
-            setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)
-          }
-        >
+        <Next className="next" onClick={() => setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)}>
           &#10095;
         </Next>
       </Arrows>
       <AllDots className="all-dots">
         {ImgSlider.map((slide, index) => (
-          <Dot
-            key={index}
-            className={`${activeIndex === index ? "dot active-dot" : "dot"}`}
-            onClick={(activeIndex) => setActiveIndex(activeIndex)}
-          />
+          <Dot key={index} className={`${activeIndex === index ? "dot active-dot" : "dot"}`} onClick={(activeIndex) => setActiveIndex(activeIndex)} />
         ))}
       </AllDots>
     </Container>
@@ -81,7 +57,7 @@ const Container = styled.div`
   @media (min-width: 480px) and (max-width: 767px) {
     height: 24vh;
   }
-  @media (min-width:768px) and (max-width: 1023px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     height: 27vh;
   }
 `;
@@ -179,11 +155,11 @@ const Img = styled.img`
   cursor: pointer;
   /* object-fit: cover; */
   animation: slideIn 7s linear forwards;
-  @keyframes slideIn{
-    from{
+  @keyframes slideIn {
+    from {
       top: -50%;
     }
-    to{
+    to {
       bottom: 50%;
     }
   }
@@ -199,14 +175,14 @@ const SlideTitle = styled.h2`
   z-index: 10;
   animation: fadeInLeft 4s;
   @keyframes fadeInLeft {
-      0% {
-          opacity: 0;
-          transform: translate3d(-10%, 0, 0);
-      }
-      to {
-          opacity: 1;
-          transform: translateZ(0);
-      }
+    0% {
+      opacity: 0;
+      transform: translate3d(-10%, 0, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translateZ(0);
+    }
   }
   @media screen and (max-width: 479px) {
     font-size: 4.5vh;
@@ -216,7 +192,7 @@ const SlideTitle = styled.h2`
     font-size: 6.1vh;
     top: 28%;
   }
-  @media (min-width:768px) and (max-width: 1023px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 6.5vh;
   }
 `;
@@ -230,14 +206,14 @@ const SlideText = styled.h3`
   z-index: 10;
   animation: fadeInUp 3s;
   @keyframes fadeInUp {
-      0% {
-          opacity: 0;
-          transform: translate3d(0, 10%, 0);
-      }
-      to {
-          opacity: 1;
-          transform: translateZ(0);
-      }
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 10%, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translateZ(0);
+    }
   }
   @media screen and (max-width: 479px) {
     font-size: 1rem;
@@ -245,7 +221,7 @@ const SlideText = styled.h3`
   @media (min-width: 480px) and (max-width: 767px) {
     font-size: 1.2rem;
   }
-  @media (min-width:768px) and (max-width: 1023px){
+  @media (min-width: 768px) and (max-width: 1023px) {
     font-size: 1.4rem;
   }
 `;

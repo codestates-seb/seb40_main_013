@@ -15,9 +15,7 @@ function Footer() {
           </div>
         </div>
       </section>
-      <FooterSeviceAvailble>
-        회의 : 10:00, 17:00 &nbsp;&nbsp;코어타임 : 13:00 ~ 17:00
-      </FooterSeviceAvailble>
+      <FooterSeviceAvailble>회의 : 10:00, 17:00 &nbsp;&nbsp;코어타임 : 13:00 ~ 17:00</FooterSeviceAvailble>
       <FooterMidBtnMenu>
         <FooterMenuBtn>이용 약관</FooterMenuBtn>
         <FooterMenuBtn>개인정보 취급방침</FooterMenuBtn>
@@ -26,15 +24,9 @@ function Footer() {
         <FooterMenuBtn>공지 사항</FooterMenuBtn>
       </FooterMidBtnMenu>
       <FooterDownContentSpace>
-        <FooterDownContentSpan>
-          백엔드 : 김경근, 허준열, 홍승재
-        </FooterDownContentSpan>
-        <FooterDownContentSpan>
-          프론트 : 김서연, 노경민, 임세영
-        </FooterDownContentSpan>
-        <FooterDownContent>
-          @ 2022 집 가구 싶다. All Right Reserved.
-        </FooterDownContent>
+        <FooterDownContentSpan>백엔드 : 김경근, 허준열, 홍승재</FooterDownContentSpan>
+        <FooterDownContentSpan>프론트 : 김서연, 노경민, 임세영</FooterDownContentSpan>
+        <FooterDownContent>@ 2022 집 가구 싶다. All Right Reserved.</FooterDownContent>
       </FooterDownContentSpace>
     </FooterWrapper>
   );

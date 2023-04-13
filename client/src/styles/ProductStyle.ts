@@ -1,12 +1,7 @@
-import React from "react";
 import styled from "styled-components/macro";
-import starimg from "../../imgs/star.png";
 import { Link } from "react-router-dom";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import 'react-lazy-load-image-component/src/effects/blur.css';
-import placeholderSrc from "../../imgs/loading.webp"
 
-const Products = styled(Link)`
+export const Products = styled(Link)`
   width: 18vw;
   padding-top: 10px;
   display: flex;
@@ -23,7 +18,7 @@ const Products = styled(Link)`
     width: 23vw;
   }
 `;
-const Imgbox = styled.div`
+export const Imgbox = styled.div`
   overflow: hidden;
   &:hover img {
     border-radius: 5px;
@@ -40,16 +35,12 @@ const Imgbox = styled.div`
   @media (min-width: 768px) and (max-width: 1023px) {
     width: 20vw;
   }
-  .img-lazy{
+  .img-lazy {
     width: 13vw;
     display: flex;
     border-radius: 5px;
     @media screen and (max-width: 479px) {
-<<<<<<< HEAD
-    width: 35vw;
-=======
       width: 35vw;
->>>>>>> f71dcef15d1727580ad9ea5aee4f21074c0d208a
     }
     @media (min-width: 480px) and (max-width: 767px) {
       width: 24vw;
@@ -60,7 +51,7 @@ const Imgbox = styled.div`
   }
 `;
 
-const Detail = styled.div`
+export const Detail = styled.div`
   display: flex;
   flex-direction: column;
   width: 13vw;
@@ -75,7 +66,7 @@ const Detail = styled.div`
     width: 20vw;
   }
 `;
-const Brand = styled.h5`
+export const Brand = styled.h5`
   color: var(--font-ligthblack);
   font-size: 0.8rem;
   font-weight: 300;
@@ -89,7 +80,7 @@ const Brand = styled.h5`
     font-size: 1em;
   }
 `;
-const Title = styled.h2`
+export const Title = styled.h2`
   font-size: 1rem;
   font-weight: 400;
   overflow: hidden;
@@ -110,7 +101,7 @@ const Title = styled.h2`
     font-size: 1em;
   }
 `;
-const Price = styled.h5`
+export const Price = styled.h5`
   display: flex;
   justify-content: flex-end;
   padding: 5px 0;
@@ -132,7 +123,7 @@ const Price = styled.h5`
     align-items: center;
   }
 `;
-const SubDetail = styled.div`
+export const SubDetail = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -141,10 +132,10 @@ const SubDetail = styled.div`
     justify-content: flex-end;
   }
 `;
-const StarDetail = styled.div`
+export const StarDetail = styled.div`
   display: flex;
 `;
-const Star = styled.img`
+export const Star = styled.img`
   width: 15px;
   height: 15px;
   margin-right: 5px;
@@ -161,7 +152,7 @@ const Star = styled.img`
     height: 13px;
   }
 `;
-const StarAerage = styled.div`
+export const StarAerage = styled.div`
   display: flex;
   @media screen and (max-width: 479px) {
     font-size: 0.8em;
@@ -173,37 +164,3 @@ const StarAerage = styled.div`
     font-size: 0.9em;
   }
 `;
-const Product = ({ proId, product }) => {
-  const { img, nickname, score, title, price } = product;
-  return (
-    <Products to={`/detail/${proId}`}>
-      <Imgbox>
-        <LazyLoadImage
-          key={proId}
-          src={img?.fullPath}
-          className="img-lazy"
-          placeholderSrc={placeholderSrc}
-          effect="blur"
-         />
-      </Imgbox>
-      <Detail>
-        <SubDetail>
-          <Brand>{nickname}</Brand>
-          <StarDetail>
-            <Star src={starimg}></Star>
-            <StarAerage>{score}</StarAerage>
-          </StarDetail>
-        </SubDetail>
-        <Title>{title}</Title>
-        <SubDetail className="end">
-          <Price>
-            <span className="won">₩</span>
-            &nbsp;{price?.toLocaleString("en-US")}
-          </Price>
-        </SubDetail>
-      </Detail>
-    </Products>
-  );
-};
-
-export default Product;

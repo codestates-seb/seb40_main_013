@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import noImg from "../imgs/noImg.gif";
 import { priceCheck } from "../components/effectivenessCheck";
-import { withReactContent } from "sweetalert2-react-content";
+// import { withReactContent } from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { Alert } from "../components/Alert";
 
@@ -300,23 +300,24 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //썸네일 파일 미리볼 url 저장해두는 state
+  // 썸네일 파일 미리볼 url 저장해두는 state
   const [fileImage, setFileImage] = useState("");
-  //디테일 파일 미리볼 url 저장해두는 state
+  // 디테일 파일 미리볼 url 저장해두는 state
   const [detailFileImage, setDetailFileImage] = useState("");
-  //썸네일 이미지 저장해두는 state
+  // 썸네일 이미지 저장해두는 state
   const [thumbnailImg, setThumbnailImg] = useState("");
-  //콘텐츠 이미지 저장해두는 state
+  // 콘텐츠 이미지 저장해두는 state
   const [contentsImg, setContentsImg] = useState("");
-  //판매자 이름 저장해두는 state
+  // 판매자 이름 저장해두는 state
   const [sellerId, setSellerId] = useState("");
-  //상품 이름 저장해두는 state
+  // 상품 이름 저장해두는 state
   const [contentsName, setContentsName] = useState("");
-  //상품 가격 저장해두는 state
+  // 상품 가격 저장해두는 state
   const [contentsPrice, setContentsPrice] = useState("");
   const [bigCategory, setBigCategory] = useState("대분류");
   const [subCategory, setSubCategory] = useState("");
-  //상품등록
+  // 상품등록
+  // eslint-disable-next-line no-unused-vars
   const [click, setClick] = useState(0);
   const clickFunction = () => {
     setClick(Date.now());
@@ -347,14 +348,15 @@ const Register = () => {
     { category: "주방수납", query: 4 },
   ];
 
-  let selectSubCategory = subOptios?.filter((data) => {
+  // eslint-disable-next-line array-callback-return
+  const selectSubCategory = subOptios?.filter((data) => {
     if (bigCategory === "서재" && data.query === 1) {
       return data;
-    } else if (bigCategory === "침실" && data.query == 2) {
+    } else if (bigCategory === "침실" && data.query === 2) {
       return data;
-    } else if (bigCategory === "거실" && data.query == 3) {
+    } else if (bigCategory === "거실" && data.query === 3) {
       return data;
-    } else if (bigCategory === "주방" && data.query == 4) {
+    } else if (bigCategory === "주방" && data.query === 4) {
       return data;
     }
   });
@@ -365,9 +367,7 @@ const Register = () => {
 
   const changeBrand = (e) => {
     let result = 0;
-    let filterBrand = brandOptios.filter(
-      (data) => data.brandName === e.target.value
-    );
+    const filterBrand = brandOptios.filter((data) => data.brandName === e.target.value);
     result = filterBrand[0].query;
     setSellerId(result);
   };
@@ -375,19 +375,18 @@ const Register = () => {
   const changeContentName = (e) => {
     setContentsName(e.target.value.trim());
   };
-  const handleChangeWhiteSpace = (e) => {
-    e.target.value = e.target.value;
-  };
+  // const handleChangeWhiteSpace = (e) => {
+  //   e.target.value = e.target.value;
+  // };
   const changeContentPrice = (e) => {
-    let c = e.target.value;
-    if( c === '' || parseInt(c) < 5000){
+    const c = e.target.value;
+    if (c === "" || parseInt(c) < 5000) {
       Alert("warning", "5,000원 미만 입력 불가");
-      setContentsPrice(5000)
-    } else if (parseInt(c)>10000000) {
+      setContentsPrice(5000);
+    } else if (parseInt(c) > 10000000) {
       Alert("warning", "10,000,000원 초과 입력 불가");
-      setContentsPrice(10000000)
-    } 
-    else{
+      setContentsPrice(10000000);
+    } else {
       setContentsPrice(parseInt(c));
     }
   };
@@ -409,7 +408,7 @@ const Register = () => {
     }
   };
 
-  //썸네일파일 삭제
+  // 썸네일파일 삭제
   const deleteFileImage = (e) => {
     e.preventDefault();
     URL.revokeObjectURL(fileImage);
@@ -417,7 +416,7 @@ const Register = () => {
     setThumbnailImg("");
   };
 
-  //디테일 파일 저장
+  // 디테일 파일 저장
 
   const changeContentImg = async (e) => {
     e.preventDefault();
@@ -438,7 +437,7 @@ const Register = () => {
       }
     }
   };
-  //디테일 파일 삭제
+  // 디테일 파일 삭제
   const deletedetailFileImage = (e) => {
     e.preventDefault();
     URL.revokeObjectURL(detailFileImage);
@@ -446,7 +445,7 @@ const Register = () => {
     setContentsImg("");
   };
 
-  //카테고리 선택하기
+  // 카테고리 선택하기
   function FirstCateChange(e) {
     setBigCategory(e.target.value);
     if (e.target.value === "서재") {
@@ -481,21 +480,15 @@ const Register = () => {
     // dispatch(postArticle({ postArticleData, navigate }));
   };
   const registConfirm = () => {
-    if (
-      sellerId === "" ||
-      contentsName === "" ||
-      thumbnailImg === "" ||
-      contentsImg === "" ||
-      contentsPrice === ""
-    ) {
+    if (sellerId === "" || contentsName === "" || thumbnailImg === "" || contentsImg === "" || contentsPrice === "") {
       Alert("error", "모든 입력값이 필수로 작성되야 합니다!");
     } else if (contentsPrice < 5000) {
       Alert("error", "상품의 최소가격은 5000원이어야 합니다 ");
     } else if (contentsPrice > 10000000) {
       Alert("error", "상품의 최소가격은 1000만원이하이어야 합니다 ");
-      }else {
-      let postArticleData = {
-        sellerId: sellerId,
+    } else {
+      const postArticleData = {
+        sellerId,
         title: contentsName,
         price: contentsPrice,
         content: contentsImg,
@@ -512,7 +505,8 @@ const Register = () => {
     }
   };
 
-  //유효성 체크
+  // 유효성 체크
+  // eslint-disable-next-line no-unused-vars
   const [priceConfirm, setPriceConfirm] = useState(false);
   useEffect(() => {
     if (!priceCheck(contentsPrice)) {
@@ -529,9 +523,7 @@ const Register = () => {
 
   return (
     <Container>
-      <Title>
-        제품등록
-      </Title>
+      <Title>제품등록</Title>
       <Form>
         <InputContainer>
           <TabContainer>
@@ -558,13 +550,7 @@ const Register = () => {
               제품명 <span>&nbsp;(40자 이하)</span>
             </Label>
           </TabContainer>
-          <Input
-            placeholder="제품명을 입력해주세요"
-            maxLength="40"
-            name="title"
-            className="title"
-            onChange={changeContentName}
-          />
+          <Input placeholder="제품명을 입력해주세요" maxLength="40" name="title" className="title" onChange={changeContentName} />
         </InputContainer>
         <HrContainer>
           <Hr></Hr>
@@ -586,13 +572,7 @@ const Register = () => {
               value={contentsPrice}
               onChange={changeContentPrice}
             />
-            {contentsPrice < 5000 ? (
-              <div className="err">
-                5000원 이상부터 입력가능하며 100원단위로 입력가능합니다
-              </div>
-            ) : (
-              ""
-            )}
+            {contentsPrice < 5000 ? <div className="err">5000원 이상부터 입력가능하며 100원단위로 입력가능합니다</div> : ""}
           </Pricecontent>
         </InputContainer>
         <HrContainer>
@@ -603,13 +583,7 @@ const Register = () => {
             <Label>카테고리</Label>
           </TabContainer>
           <SelectBox>
-            <Select
-              className="cate-control"
-              id="FirstCate"
-              name="FirstCate"
-              value={bigCategory}
-              onChange={(e) => FirstCateChange(e)}
-            >
+            <Select className="cate-control" id="FirstCate" name="FirstCate" value={bigCategory} onChange={(e) => FirstCateChange(e)}>
               <Option>대분류</Option>
               <Option value="서재">서재</Option>
               <Option value="침실">침실</Option>
@@ -621,11 +595,7 @@ const Register = () => {
             </IcoArrow>
           </SelectBox>
           <SelectBox>
-            <Select
-              id="SubCate"
-              name="SubCate"
-              onChange={(e) => changeSubCategory(e)}
-            >
+            <Select id="SubCate" name="SubCate" onChange={(e) => changeSubCategory(e)}>
               {selectSubCategory.map((option) => (
                 <Option key={option.category} value={option.category}>
                   {option.category}
@@ -648,24 +618,10 @@ const Register = () => {
             {fileImage && <Img alt="sumnail" src={fileImage} />}
             <UploadDelete>
               <ImgLabel htmlFor="sumnail">
-                <div className="noImg">
-                  {thumbnailImg === "" ? <Noimg src={noImg} alt="noImg" /> : ""}
-                </div>
+                <div className="noImg">{thumbnailImg === "" ? <Noimg src={noImg} alt="noImg" /> : ""}</div>
               </ImgLabel>
-              <SumnailUpload
-                name="sumnailUpload"
-                type="file"
-                id="sumnail"
-                accept="image/*"
-                onChange={changeThumbnailImg}
-              />
-              {thumbnailImg === "" ? (
-                ""
-              ) : (
-                <DeleteSumnaeil onClick={(e) => deleteFileImage(e)}>
-                  삭제
-                </DeleteSumnaeil>
-              )}
+              <SumnailUpload name="sumnailUpload" type="file" id="sumnail" accept="image/*" onChange={changeThumbnailImg} />
+              {thumbnailImg === "" ? "" : <DeleteSumnaeil onClick={(e) => deleteFileImage(e)}>삭제</DeleteSumnaeil>}
             </UploadDelete>
           </SumContainer>
         </InputContainer>
@@ -680,24 +636,10 @@ const Register = () => {
             {detailFileImage && <Img alt="detailImg" src={detailFileImage} />}
             <UploadDelete>
               <ImgLabel htmlFor="detailImage">
-                <div className="noImg">
-                  {contentsImg === "" ? <Noimg src={noImg} alt="noImg" /> : ""}
-                </div>
+                <div className="noImg">{contentsImg === "" ? <Noimg src={noImg} alt="noImg" /> : ""}</div>
               </ImgLabel>
-              <SumnailUpload
-                name="detailImg"
-                id="detailImage"
-                type="file"
-                accept="image/*"
-                onChange={changeContentImg}
-              />
-              {contentsImg === "" ? (
-                ""
-              ) : (
-                <DeleteSumnaeil onClick={(e) => deletedetailFileImage(e)}>
-                  삭제
-                </DeleteSumnaeil>
-              )}
+              <SumnailUpload name="detailImg" id="detailImage" type="file" accept="image/*" onChange={changeContentImg} />
+              {contentsImg === "" ? "" : <DeleteSumnaeil onClick={(e) => deletedetailFileImage(e)}>삭제</DeleteSumnaeil>}
             </UploadDelete>
           </SumContainer>
         </InputContainer>

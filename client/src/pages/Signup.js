@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components/macro";
 import { signUser } from "../reduxstore/slices/userSlice";
-import {
-  nickNameCheck,
-  emailCheck,
-  pwdCheck,
-} from "../components/effectivenessCheck";
+import { nickNameCheck, emailCheck, pwdCheck } from "../components/effectivenessCheck";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
@@ -18,7 +14,7 @@ function Signup() {
   const [emailConfirm, setEmailConfirm] = useState(false);
   const [pwdConfirm, setPwdConfirm] = useState(false);
   const [pwdAgainConfirm, setPwdAgainConfirm] = useState(false);
-  const data = useSelector((state) => state);
+  // const data = useSelector((state) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -36,12 +32,7 @@ function Signup() {
   };
   const signupSubmit = (e) => {
     e.preventDefault();
-    if (
-      writeNickName === "" ||
-      writeEmail === "" ||
-      writePwd === "" ||
-      writePwdAgainCheck === ""
-    ) {
+    if (writeNickName === "" || writeEmail === "" || writePwd === "" || writePwdAgainCheck === "") {
       setNickNameConfirm(true);
       setEmailConfirm(true);
       setPwdConfirm(true);
@@ -98,33 +89,16 @@ function Signup() {
       <SignupWrapper>
         <UserWriteTitle>닉네임</UserWriteTitle>
         <UserWriteInput onChange={writeChangeNickName} />
-        {nickNameConfirm ? (
-          <ErrorDisplay>
-            2자이상 8자 이하 영어 또는 숫자 또는 한글로 입력해주세요!
-          </ErrorDisplay>
-        ) : null}
+        {nickNameConfirm ? <ErrorDisplay>2자이상 8자 이하 영어 또는 숫자 또는 한글로 입력해주세요!</ErrorDisplay> : null}
         <UserWriteTitle isCheck={emailConfirm}>이메일</UserWriteTitle>
         <UserWriteInput onChange={writeChangeEmail} />
-        {emailConfirm ? (
-          <ErrorDisplay>이메일의 형식에 맞게 작성해주세요!</ErrorDisplay>
-        ) : null}
+        {emailConfirm ? <ErrorDisplay>이메일의 형식에 맞게 작성해주세요!</ErrorDisplay> : null}
         <UserWriteTitle isCheck={pwdConfirm}>비밀번호</UserWriteTitle>
         <UserWriteInput type="password" onChange={writeChangePwd} />
-        {pwdConfirm ? (
-          <ErrorDisplay>
-            문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자이상 20자이하로
-            만들어주세요!
-          </ErrorDisplay>
-        ) : null}
-        <UserWriteTitle isCheck={pwdAgainConfirm}>
-          비밀번호 재확인
-        </UserWriteTitle>
+        {pwdConfirm ? <ErrorDisplay>문자,숫자,특수문자를 최소 하나씩사용하여 최소 8자이상 20자이하로 만들어주세요!</ErrorDisplay> : null}
+        <UserWriteTitle isCheck={pwdAgainConfirm}>비밀번호 재확인</UserWriteTitle>
         <UserWriteInput type="password" onChange={writeChangePwdAgainCheck} />
-        {pwdAgainConfirm ? (
-          <ErrorDisplay>
-            위에 작성하신 비밀번호와 같은 비밀번호를 입력해주세요!
-          </ErrorDisplay>
-        ) : null}
+        {pwdAgainConfirm ? <ErrorDisplay>위에 작성하신 비밀번호와 같은 비밀번호를 입력해주세요!</ErrorDisplay> : null}
         <UserSubmitBtn onClick={signupSubmit}>회원 가입</UserSubmitBtn>
       </SignupWrapper>
     </Wrapper>

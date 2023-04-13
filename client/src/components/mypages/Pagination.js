@@ -104,7 +104,7 @@ function Pagination({ totalpage, page, setPage }) {
   const [totalPageArray, setTotalPageArray] = useState([]);
   const [isClick, setIsClick] = useState(0);
 
-  //tab click
+  // tab click
   const sliceArrayByLimit = (totalPages) => {
     const totalPageArr = Array(totalPages)
       .fill()
@@ -127,26 +127,16 @@ function Pagination({ totalpage, page, setPage }) {
     setTotalPageArray(slicedPageArray);
     setCurrentPageArray(slicedPageArray[0]);
   }, [totalpage]);
-  
+
   return (
     <ButtonWrap>
       <li>
-        <PageButtonArrow
-          onClick={() => setPage(1)}
-          disabled={page === 1}
-          className="prev"
-          title="previous page"
-        >
+        <PageButtonArrow onClick={() => setPage(1)} disabled={page === 1} className="prev" title="previous page">
           &#10094;&#10094;
         </PageButtonArrow>
       </li>
       <li>
-        <PageButtonArrow
-          onClick={() => setPage(page - 1)}
-          disabled={page === 1}
-          className="prev"
-          title="previous page"
-        >
+        <PageButtonArrow onClick={() => setPage(page - 1)} disabled={page === 1} className="prev" title="previous page">
           &#10094;
         </PageButtonArrow>
       </li>
@@ -166,22 +156,12 @@ function Pagination({ totalpage, page, setPage }) {
         ))}
       </ButtonWrapper>
       <li>
-        <PageButtonArrow
-          onClick={() => setPage(page + 1)}
-          disabled={page === totalpage}
-          className="next"
-          title="next page"
-        >
+        <PageButtonArrow onClick={() => setPage(page + 1)} disabled={page === totalpage} className="next" title="next page">
           &#10095;
         </PageButtonArrow>
       </li>
       <li>
-        <PageButtonArrow
-          onClick={() => setPage(totalpage)}
-          disabled={page === totalpage}
-          className="fullnext"
-          title="full next page"
-        >
+        <PageButtonArrow onClick={() => setPage(totalpage)} disabled={page === totalpage} className="fullnext" title="full next page">
           &#10095;&#10095;
         </PageButtonArrow>
       </li>

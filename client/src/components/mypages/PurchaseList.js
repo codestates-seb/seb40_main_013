@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import { getMyOrder } from "../../reduxstore/slices/myOrderSlice";
 import Apis from "../../apis/apis";
@@ -98,10 +98,10 @@ const ShowProduct = styled(Link)`
   }
 `;
 
-//페이지
+// 페이지
 const Page = styled.div``;
 
-//상단
+// 상단
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
@@ -164,16 +164,16 @@ const Hr = styled.hr`
   margin: 5px 0;
 `;
 
-//콘텐츠
+// 콘텐츠
 const Content = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const AllPrice = styled.div`
-  display: flex;
-  padding-right: 10px;
-  justify-content: flex-end;
-`;
+// const AllPrice = styled.div`
+//   display: flex;
+//   padding-right: 10px;
+//   justify-content: flex-end;
+// `;
 
 const Detail = styled.div`
   display: flex;
@@ -261,7 +261,7 @@ const CancleBtn = styled.button`
   padding: 8px 30px;
   /* height: 50px; */
   /* border: 1px solid red; */
-  color: #FF4040;
+  color: #ff4040;
   border-radius: 5px;
   white-space: nowrap;
   cursor: pointer;
@@ -280,7 +280,7 @@ const CancleBtn = styled.button`
   }
 `;
 
-//반응형 구매후기
+// 반응형 구매후기
 const ReactionSpace = styled.div`
   display: none;
   @media screen and (max-width: 479px) {
@@ -306,7 +306,7 @@ const ReactionCancleBtn = styled.button`
   }
 `;
 
-//페이지네이션
+// 페이지네이션
 const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -317,10 +317,10 @@ const PurchaseList = () => {
   const myOrderData = useSelector((state) => state.myorder.myorder.content);
   const pageInfo = useSelector((state) => state.myorder.myorder.pageInfo);
   const initialToken = localStorage.getItem("Authorization");
-  //페이지네이션
-  const [curPage, setCurPage] = useState(0); //현재페이지
+  // 페이지네이션
+  const [curPage, setCurPage] = useState(0); // 현재페이지
   const [totalpage, setTotalpage] = useState(0);
-  const [clicked, setClicked] = useState('');
+  const [clicked, setClicked] = useState("");
 
   const clickFunction = () => {
     setClicked(Date.now());
@@ -342,21 +342,21 @@ const PurchaseList = () => {
 
   useEffect(() => {
     window.scrollTo({
-    top: 0,
-    behavior: "smooth",
+      top: 0,
+      behavior: "smooth",
     });
     let count = 0;
     if (curPage > 0) {
-    count = curPage - 1;
+      count = curPage - 1;
     } else {
-    count = 0;
+      count = 0;
     }
     dispatch(getMyOrder({ count, setTotalpage }));
-    }, [clicked]);
+  }, [clicked]);
 
-  //주문취소 버튼
+  // 주문취소 버튼
   const handleOrderCancle = (id) => {
-    const curData = myOrderData.filter((data) => data.orderId == id);
+    const curData = myOrderData.filter((data) => data.orderId === id);
     if (curData[0].status === "주문 취소") {
       AlreadyDeleteAlert();
     }
@@ -389,8 +389,8 @@ const PurchaseList = () => {
       headers: {
         Authorization: initialToken,
       },
-    }).then(() => {
-    });
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+    }).then(() => {});
   };
 
   return (
@@ -403,7 +403,9 @@ const PurchaseList = () => {
         </NotContainer>
       ) : (
         <Container>
-          <Page>현재 페이지: {curPage === 0 ? 1 : curPage} / {pageInfo?.totalPages}</Page>
+          <Page>
+            현재 페이지: {curPage === 0 ? 1 : curPage} / {pageInfo?.totalPages}
+          </Page>
           <Hr />
           {myOrderData?.map((order, i) => (
             <div key={i}>
@@ -411,15 +413,7 @@ const PurchaseList = () => {
                 <SubTop>
                   <span className="ordernumber">{order.orderNumber}</span>
                   &nbsp;|&nbsp; {order.createdAt.slice(0, 10)}&nbsp;|&nbsp;
-                  <span
-                    className={
-                      order.status === "주문 접수"
-                        ? "orderStatus"
-                        : "ordercancle"
-                    }
-                  >
-                    {order.status}
-                  </span>
+                  <span className={order.status === "주문 접수" ? "orderStatus" : "ordercancle"}>{order.status}</span>
                 </SubTop>
                 <Link to={`${order.orderId}`}>
                   <AllPurchase>상세보기 &gt;</AllPurchase>
@@ -434,51 +428,27 @@ const PurchaseList = () => {
                         <BrandName>
                           {[order.orderProducts[0]?.brandName]}
                           <span>{order.orderProducts[0]?.title}&nbsp;</span>
-                          {order.orderProducts?.length === 1
-                            ? ""
-                            : `외 ${order.orderProducts?.length - 1}개`}
+                          {order.orderProducts?.length === 1 ? "" : `외 ${order.orderProducts?.length - 1}개`}
                         </BrandName>
                         <Option>색상: {order.orderProducts[0]?.color}</Option>
                         <Price>
                           ₩&nbsp;
-                          <span>
-                            {order.orderProducts[0]?.price.toLocaleString(
-                              "en-US"
-                            )}
-                          </span>
+                          <span>{order.orderProducts[0]?.price.toLocaleString("en-US")}</span>
                         </Price>
                       </BP>
                     </Link>
                   </ReactionSubDetail>
-                  <Btns>
-                    {order.status === "주문 접수" ? (
-                      <CancleBtn
-                        onClick={() => handleOrderCancle(order.orderId)}
-                      >
-                        주문취소
-                      </CancleBtn>
-                    ) : (
-                      ""
-                    )}
-                  </Btns>
+                  <Btns>{order.status === "주문 접수" ? <CancleBtn onClick={() => handleOrderCancle(order.orderId)}>주문취소</CancleBtn> : ""}</Btns>
                 </Detail>
                 <ReactionSpace>
-                  <ReactionCancleBtn
-                    onClick={() => handleOrderCancle(order.orderId)}
-                  >
-                    주문취소
-                  </ReactionCancleBtn>
+                  <ReactionCancleBtn onClick={() => handleOrderCancle(order.orderId)}>주문취소</ReactionCancleBtn>
                 </ReactionSpace>
               </Content>
               <Hr />
             </div>
           ))}
           <PaginationContainer>
-            <Pagination
-              totalpage={totalpage}
-              page={curPage}
-              setPage={setCurPage}
-            />
+            <Pagination totalpage={totalpage} page={curPage} setPage={setCurPage} />
           </PaginationContainer>
         </Container>
       )}

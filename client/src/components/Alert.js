@@ -1,4 +1,3 @@
-import React from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -32,12 +31,7 @@ export const Toast = (icon, content) => {
   });
 };
 
-export const BtnSelectAlert = (
-  text,
-  confirmButtonText,
-  cancelButtonText,
-  fuctionDispatch
-) => {
+export const BtnSelectAlert = (text, confirmButtonText, cancelButtonText, fuctionDispatch) => {
   MySwal.fire({
     title: "Are you sure?",
     text,
@@ -45,7 +39,6 @@ export const BtnSelectAlert = (
     showCancelButton: true,
     confirmButtonColor: "#002C6D",
     cancelButtonColor: "#FF4040",
-    showCancelButton: true,
     confirmButtonText,
     cancelButtonText,
     cancelButtonAriaLabel: "#000000",
@@ -57,13 +50,11 @@ export const BtnSelectAlert = (
 };
 
 export const BtnAlert = () => {
-  Swal.fire({ title: "WOW!", text: "Message!", type: "success" }).then(
-    (okay) => {
-      if (okay) {
-        window.location.href = "http://localhost:3000/cart";
-      }
+  Swal.fire({ title: "WOW!", text: "Message!", type: "success" }).then((okay) => {
+    if (okay) {
+      window.location.href = "http://localhost:3000/cart";
     }
-  );
+  });
 };
 
 export const AlreadyDeleteAlert = () => {

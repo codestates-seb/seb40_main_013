@@ -1,11 +1,16 @@
 {
     "compilerOptions": {
+      "jsx": "preserve",
       "allowJs": true,
       "target": "ES5",
       "outDir": "./dist",
       "moduleResolution": "Node",
-      "lib": ["ES2015", "DOM", "DOM.Iterable"]
+      "esModuleInterop": true,
+      "lib": ["ES2015", "DOM", "DOM.Iterable"],
     },
-    "include": ["./src/**/*"],
-    "exclude": ["node_modules", "dist"]
+    "include": ["./src/**/*", "tsconfig.strictNullChecks.json"],
+    "exclude": ["node_modules", "dist"],
+    "jsoncompilerOptions": {
+      "strictNullChecks": true
+    }
   }
