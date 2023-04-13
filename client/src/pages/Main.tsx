@@ -9,7 +9,7 @@ interface ImgDetail {
   fileName: string;
   fullPath: string;
 }
-interface brand {
+interface brandNew {
   id: number;
   img: ImgDetail;
   main: string;
@@ -19,14 +19,15 @@ interface brand {
   score: number;
   title: string;
 }
-type newProduct = Record<string, object[]>;
-type brandProduct = Record<string, brand[]>;
+type bestProduct = brandNew[];
+type newProduct = Record<string, brandNew[]>;
+type brandProduct = Record<string, brandNew[]>;
 
 const Main = () => {
-  const [bestData, setBestData] = useState([]);
+  const [bestData, setBestData] = useState<bestProduct>([]);
   const [newArivalData, setNewArivalData] = useState<newProduct>({});
   const [brandData, setBrandData] = useState<brandProduct>({});
-  console.log(bestData);
+
   useEffect(() => {
     // best of best
     void getMain({ endPoint: "score", setData: setBestData });
@@ -64,7 +65,7 @@ const Main = () => {
           <SubTitle>New Arrival</SubTitle>
           <MainTitle>카테고리별 신상품</MainTitle>
         </Title>
-        <NewProducts key={newArivalData.침실?.length} newArivalList={newArivalData} />
+        <NewProducts key={newArivalData.침실?.length} newArivalData={newArivalData} />
       </div>
       {/* 브랜드별 추천상품 */}
       <BrandTabTitle>

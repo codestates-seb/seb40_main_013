@@ -15,5 +15,7 @@ module.exports = {
     "@typescript-eslint/space-before-function-paren": "off",
     "strict-null-checks/all": "warn",
     "@typescript-eslint/explicit-function-return-type": "off",
+    "prettier/prettier": ["error", { endOfLine: "auto", printWidth: 160 }],
+    // 'printWidth: 줄바꿈 설정'
   },
 };
