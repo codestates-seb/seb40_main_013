@@ -28,7 +28,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
-    "styled-components": "^5.3.6",
+    "styled-components": "^5.3.9",
     "styled-reset": "^4.4.2",
     "sweetalert2": "^11.6.14",
     "sweetalert2-react-content": "^5.0.7",

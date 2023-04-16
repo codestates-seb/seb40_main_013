@@ -3,7 +3,15 @@ import Desk from "../../imgs/Desk.webp";
 import Table from "../../imgs/Table.webp";
 import Sofa from "../../imgs/Sofa.webp";
 
-export default [
+interface Slide {
+  urls: string;
+  link: string;
+  title: string;
+  description: string;
+  furniture: string;
+}
+
+export const ImgSlider: Slide[] = [
   {
     title: "Furniture",
     description: "in bedroom",
