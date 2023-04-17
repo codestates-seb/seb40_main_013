@@ -199,7 +199,7 @@ export default function Header({ setSubClick, setSearchWord, setPage, setProduct
   };
 
   const outModalCloseHandler = (e) => {
-    if (closeSearch && !modalRef.current.contains(e.target)) setCloseSearch(false);
+    if (closeSearch && !modalRef.current?.contains(e.target)) setCloseSearch(false);
   };
 
   const clickLogOut = (e) => {
