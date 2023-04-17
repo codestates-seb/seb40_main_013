@@ -251,7 +251,6 @@ const articleSlice = createSlice({
   initialState: {
     article: [],
     detailArticle: [],
-    mainArticle: [],
     shoppingCartInitial: [],
     searchResultInitial: [],
     countSearchResultInitial: [],
