@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components/macro";
-import Carousel from "../components/mains/Calousel2";
+import Carousel from "../components/mains/Calousel";
 import Products from "../components/common/Product";
 import NewProducts from "../components/mains/NewProducts";
 import { getMain } from "../apis/mainAPI";
