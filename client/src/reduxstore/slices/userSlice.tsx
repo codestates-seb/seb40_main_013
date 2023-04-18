@@ -3,7 +3,7 @@ import Apis from "../../apis/apis";
 import { Toast, Alert } from "../../components/Alert";
 
 export const signUser = createAsyncThunk("user/signUser", async ({ signData, navigate }) => {
-  return Apis.post(`signup`, signData)
+  return await Apis.post(`signup`, signData)
     .then((res) => {
       navigate("/users/login");
       Toast("success", "회원가입에 성공하셨습니다!");
@@ -20,7 +20,7 @@ export const signUser = createAsyncThunk("user/signUser", async ({ signData, nav
 });
 
 export const loginUser = createAsyncThunk("user/loginUser", async ({ loginData, navigate }) => {
-  return Apis.post(`login`, loginData, { withCredentials: true })
+  return await Apis.post(`login`, loginData, { withCredentials: true })
     .then((res) => {
       localStorage.clear();
       const jwtToken = res.headers.get("Authorization");
@@ -38,9 +38,9 @@ export const loginUser = createAsyncThunk("user/loginUser", async ({ loginData, 
 });
 
 export const getUser = createAsyncThunk("user/getUser", async () => {
-  return Apis.get(`members/mypage`, {
+  return await Apis.get(`members/mypage`, {
     headers: {
-      Authorization: `${localStorage.getItem("Authorization")}`,
+      Authorization: `${localStorage?.getItem("Authorization") ?? ""}`,
       "Content-Type": "application/json",
     },
   })
@@ -51,10 +51,11 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
       console.log(err);
     });
 });
+
 export const updateUser = createAsyncThunk("user/updatesUser", async (updateData) => {
-  return Apis.patch(`members/mypage`, updateData, {
+  return await Apis.patch(`members/mypage`, updateData, {
     headers: {
-      Authorization: `${localStorage.getItem("Authorization")}`,
+      Authorization: `${localStorage?.getItem("Authorization") ?? ""}`,
       "Content-Type": "application/json",
     },
   })
@@ -69,35 +70,52 @@ export const updateUser = createAsyncThunk("user/updatesUser", async (updateData
     });
 });
 export const guestUser = createAsyncThunk("user/guestUser", async ({ navigate }) => {
-  return (
-    Apis.post(`guest`)
-      .then((res) => {
-        localStorage.clear();
-        const jwtToken = res.headers.get("Authorization");
-        const jwtrefreshToken = res.headers.get("Refresh");
-        localStorage.setItem("Authorization", jwtToken);
-        localStorage.setItem("Refresh", jwtrefreshToken);
-        const sellAuthority = res.data;
-        localStorage.setItem("authority", sellAuthority);
-        navigate("/");
-        Toast("success", "게스트 로그인 성공!");
-        return res.data;
-      })
-      // eslint-disable-next-line n/handle-callback-err
-      .catch((err) => {
-        Toast("error", "로그인에 실패했습니다!");
-      })
-  );
+  return await Apis.post(`guest`)
+    .then((res) => {
+      localStorage.clear();
+      const jwtToken = res.headers.get("Authorization");
+      const jwtrefreshToken = res.headers.get("Refresh");
+      localStorage.setItem("Authorization", jwtToken);
+      localStorage.setItem("Refresh", jwtrefreshToken);
+      const sellAuthority = res.data;
+      localStorage.setItem("authority", sellAuthority);
+      navigate("/");
+      Toast("success", "게스트 로그인 성공!");
+      return res.data;
+    })
+    // eslint-disable-next-line n/handle-callback-err
+    .catch((err) => {
+      Toast("error", "로그인에 실패했습니다!");
+    });
 });
+
+interface User {
+  address?: string;
+  email: string;
+  img?: string;
+  memberId: number;
+  memberStatus: string;
+  nickname: string;
+  phone: string;
+}
+
+interface UserState {
+  users: User | null;
+  updateUser: any[];
+  loading: boolean;
+  error: string;
+}
+
+const initialState: UserState = {
+  users: null,
+  updateUser: [],
+  loading: false,
+  error: "",
+};
 
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    users: [],
-    updateUser: [],
-    loading: false,
-    error: "",
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) =>
     builder
