@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import * as Style from "../../styles/mypage/PurchaseDetailStyle";
 import PostReview from "./PostReview";
-import { filterMyOrder } from "../../reduxstore/slices/myOrderSlice";
+import { filterMyOrder, type OrderProductsArgs } from "../../reduxstore/slices/myOrderSlice";
 import { useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../reduxstore/hooks";
 
@@ -26,8 +26,8 @@ const PurchaseAll = () => {
   const { id } = useParams();
   const filterData = useAppSelector((state) => state.myorder.filterorder);
   const filterProduct = useAppSelector((state) => state.myorder.filterorder.orderProducts);
-  const [filterItem, setFilterItem] = useState("");
-  console.log(filterData);
+  const [filterItem, setFilterItem] = useState<OrderProductsArgs[] | null>(null);
+
   const priceMap = filterProduct?.map((p: Product) => p.price * p.count);
   const price = priceMap?.reduce((acc: number, cur: number) => acc + cur, 0);
 

@@ -40,15 +40,51 @@ export const filterMyOrder = createAsyncThunk("filterMyOrder", async ({ id }: Fi
       console.log(err);
     });
 });
+interface Img {
+  fileName: string;
+  fullPath: string;
+}
+export interface OrderProductsArgs {
+  brandName: string;
+  color: string;
+  count: number;
+  img: Img;
+  price: number;
+  productId: number;
+  title: string;
+}
+
+interface FilterOrderArgs {
+  createdAt: string;
+  orderId: number;
+  orderNumber: number;
+  orderProducts: OrderProductsArgs[];
+  status: string;
+}
+
+interface OrderState {
+  myorder: object;
+  filterorder: FilterOrderArgs;
+  loading: boolean;
+  error: string;
+}
+
+const initialState: OrderState = {
+  myorder: {},
+  filterorder: {
+    createdAt: "",
+    orderId: 0,
+    orderNumber: 0,
+    orderProducts: [],
+    status: "",
+  },
+  loading: false,
+  error: "",
+};
 
 const myOrderSlice = createSlice({
   name: "myorder",
-  initialState: {
-    myorder: {},
-    filterorder: {},
-    loading: false,
-    error: "",
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) =>
     builder
