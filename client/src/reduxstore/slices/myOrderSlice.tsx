@@ -1,10 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
 
-export const getMyOrder = createAsyncThunk("getMyOrder", async ({ count, setTotalpage }) => {
-  return Apis.get(`orders?page=${count}&size=20&sort=createdAt,DESC`, {
+interface getMyOrderArgs {
+  count: number;
+  setTotalpage: any;
+}
+
+interface FilterMyOrderArgs {
+  id: string;
+}
+
+export const getMyOrder = createAsyncThunk("getMyOrder", async ({ count, setTotalpage }: getMyOrderArgs) => {
+  return await Apis.get(`orders?page=${count}&size=20&sort=createdAt,DESC`, {
     headers: {
-      Authorization: `${localStorage.getItem("Authorization")}`,
+      Authorization: `${localStorage?.getItem("Authorization") ?? ""}`,
       "Content-Type": "application/json",
     },
   })
@@ -17,10 +26,10 @@ export const getMyOrder = createAsyncThunk("getMyOrder", async ({ count, setTota
     });
 });
 
-export const filterMyOrder = createAsyncThunk("filterMyOrder", async (id) => {
-  return Apis.get(`orders/${id}`, {
+export const filterMyOrder = createAsyncThunk("filterMyOrder", async ({ id }: FilterMyOrderArgs) => {
+  return await Apis.get(`orders/${id}`, {
     headers: {
-      Authorization: `${localStorage.getItem("Authorization")}`,
+      Authorization: `${localStorage?.getItem("Authorization") ?? ""}`,
       "Content-Type": "application/json",
     },
   })

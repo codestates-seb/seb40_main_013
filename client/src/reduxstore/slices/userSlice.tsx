@@ -1,8 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
 import { Toast, Alert } from "../../components/Alert";
+interface signUserArgs {
+  signData: any;
+  navigate: any;
+}
 
-export const signUser = createAsyncThunk("user/signUser", async ({ signData, navigate }) => {
+interface loginUserArgs {
+  loginData: any;
+  navigate: any;
+}
+
+export const signUser = createAsyncThunk("user/signUser", async ({ signData, navigate }: signUserArgs) => {
   return await Apis.post(`signup`, signData)
     .then((res) => {
       navigate("/users/login");
@@ -19,7 +28,7 @@ export const signUser = createAsyncThunk("user/signUser", async ({ signData, nav
     });
 });
 
-export const loginUser = createAsyncThunk("user/loginUser", async ({ loginData, navigate }) => {
+export const loginUser = createAsyncThunk("user/loginUser", async ({ loginData, navigate }: loginUserArgs) => {
   return await Apis.post(`login`, loginData, { withCredentials: true })
     .then((res) => {
       localStorage.clear();
@@ -69,6 +78,7 @@ export const updateUser = createAsyncThunk("user/updatesUser", async (updateData
       console.log(err);
     });
 });
+
 export const guestUser = createAsyncThunk("user/guestUser", async ({ navigate }) => {
   return await Apis.post(`guest`)
     .then((res) => {
