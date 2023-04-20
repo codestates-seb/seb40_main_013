@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
-import { nickNameCheck, pwdCheck, phoneCheck } from "../effectivenessCheck";
+import { nickNameCheck, pwdCheck, phoneCheck } from "../common/effectivenessCheck";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../reduxstore/slices/userSlice";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
