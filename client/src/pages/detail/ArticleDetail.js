@@ -70,7 +70,6 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
     }
   };
   ScrollToTop();
-  console.log(clickCheck);
   useEffect(() => {
     dispatch(getArticleDetail(Number(id)));
     dispatch(articleLike(Number(id)));
@@ -124,7 +123,7 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
           },
         },
       )
-        .then((res) => {
+        .then(() => {
           Swal.fire({
             title: "",
             text: "상품을 바로 구매하시겠습니까?",
@@ -145,7 +144,6 @@ function ArticleDetail({ clickCheckFunction, clickCheck, setClickCheck }) {
         });
     }
   };
-  console.log(optionSelect);
 
   return (
     <Wrapper>

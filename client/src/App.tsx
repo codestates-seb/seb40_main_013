@@ -16,20 +16,20 @@ const MainContent = styled.div`
   flex: 1;
 `;
 
-const Header = lazy(() => import("./components/Header"));
-const Footer = lazy(() => import("./components/Footer"));
-const Login = lazy(() => import("./pages/Login"));
-const Main = lazy(() => import("./pages/Main"));
-const MyPage = lazy(() => import("./pages/Mypage"));
-const Signup = lazy(() => import("./pages/Signup"));
-const ArticleDetail = lazy(() => import("./pages/detail/ArticleDetail"));
-const ShoppingCart = lazy(() => import("./pages/ShoppingCart"));
-const Library = lazy(() => import("./pages/sub/Library"));
-const Bedroom = lazy(() => import("./pages/sub/Bedroom"));
-const Kitchen = lazy(() => import("./pages/sub/Kitchen"));
-const LivingRoom = lazy(() => import("./pages/sub/LivingRoom"));
-const SearchResult = lazy(() => import("./pages/SearchResult"));
-const Register = lazy(() => import("./pages/Register"));
+const Header = lazy(async () => await import("./components/Header"));
+const Footer = lazy(async () => await import("./components/Footer"));
+const Login = lazy(async () => await import("./pages/Login"));
+const Main = lazy(async () => await import("./pages/Main"));
+const MyPage = lazy(async () => await import("./pages/Mypage"));
+const Signup = lazy(async () => await import("./pages/Signup"));
+const ArticleDetail = lazy(async () => await import("./pages/detail/ArticleDetail"));
+const ShoppingCart = lazy(async () => await import("./pages/ShoppingCart"));
+const Library = lazy(async () => await import("./pages/sub/Library"));
+const Bedroom = lazy(async () => await import("./pages/sub/Bedroom"));
+const Kitchen = lazy(async () => await import("./pages/sub/Kitchen"));
+const LivingRoom = lazy(async () => await import("./pages/sub/LivingRoom"));
+const SearchResult = lazy(async () => await import("./pages/SearchResult"));
+const Register = lazy(async () => await import("./pages/Register"));
 
 function App() {
   const [subclick, setSubClick] = useState("");
