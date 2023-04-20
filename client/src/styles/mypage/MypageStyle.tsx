@@ -1,16 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../reduxstore/slices/userSlice";
 import styled from "styled-components/macro";
-import PurchaseList from "../components/mypages/PurchaseList";
-import EditProfile from "../components/mypages/EditProfile";
-import { Routes, Route, Link } from "react-router-dom";
-import MyReview from "../components/mypages/MyReview";
-import ProfileImg from "../components/mypages/ProfileImg";
-import PurchaseAll from "../components/mypages/PurchaseAll";
-import Like from "../components/mypages/Like";
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   /* height: 100%; */
   padding: 145px 16px 25px 30px;
@@ -28,7 +18,7 @@ const Container = styled.div`
 `;
 
 // 왼쪽 nav bar
-const Left = styled.div`
+export const Left = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -51,7 +41,7 @@ const Left = styled.div`
   }
 `;
 
-const Right = styled.div`
+export const Right = styled.div`
   width: 80vw;
   @media screen and (max-width: 390px) {
     padding-left: 0;
@@ -61,7 +51,7 @@ const Right = styled.div`
     padding-left: 10px;
   }
 `;
-const Reaction = styled.div`
+export const Reaction = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
@@ -78,7 +68,7 @@ const Reaction = styled.div`
     margin-bottom: 0;
   }
 `;
-const ProfileImgConponent = styled.img`
+export const ProfileImgConponent = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -91,7 +81,7 @@ const ProfileImgConponent = styled.img`
     margin-bottom: 0;
   }
 `;
-const Hello = styled.h2`
+export const Hello = styled.h2`
   white-space: nowrap;
   padding: 5px 0;
   font-weight: 500;
@@ -105,7 +95,7 @@ const Hello = styled.h2`
   }
 `;
 
-const Nav = styled.div`
+export const Nav = styled.div`
   width: 100%;
   border-top: 1px solid var(--color-center-line);
   display: flex;
@@ -118,7 +108,7 @@ const Nav = styled.div`
     justify-content: center;
   }
 `;
-const ReactionDetail = styled.div`
+export const ReactionDetail = styled.div`
   display: flex;
   flex-direction: column;
   @media screen and (max-width: 768px) {
@@ -129,7 +119,7 @@ const ReactionDetail = styled.div`
   }
 `;
 
-const NavDetail = styled.nav`
+export const NavDetail = styled.nav`
   display: flex;
   justify-content: center;
   font-size: 1.1rem;
@@ -195,79 +185,3 @@ const NavDetail = styled.nav`
     }
   }
 `;
-const Mypage = () => {
-  const dispatch = useDispatch();
-  const getUserdata = useSelector((state) => state.user.users);
-  // tab click
-  const [clicked, setClicked] = useState("");
-
-  // user 정보 받아오기
-  useEffect(() => {
-    dispatch(getUser());
-  }, []);
-
-  // 탭 클릭 이벤트
-  const tabClick = (e) => {
-    const text = e.target.innerText;
-    setClicked(text);
-  };
-
-  // 프로필 이미지 바꾸기
-  const handleChangeImg = () => {
-    ProfileImg();
-  };
-
-  return (
-    <Container>
-      <Left>
-        <Reaction>
-          <ProfileImgConponent
-            src={`https://source.boringavatars.com/beam/40/${getUserdata?.nickname}?colors=FFAF51,FFC007,AAAAAA,0C8F8F,002C6D`}
-            alt="avator"
-            onclick={handleChangeImg}
-          ></ProfileImgConponent>
-          <Hello>안녕하세요,&nbsp;</Hello>
-          <Hello>
-            <span>{getUserdata?.nickname}</span>&nbsp;님
-          </Hello>
-        </Reaction>
-        <Nav>
-          <ReactionDetail path="*">
-            <Link to="purchase" style={{ textDecoration: "none" }}>
-              <NavDetail name="purchaseTab" className={clicked === "구매 내역" ? "clicked" : ""} onClick={tabClick}>
-                구매 내역
-              </NavDetail>
-            </Link>
-            <Link to="edit" style={{ textDecoration: "none" }}>
-              <NavDetail name="editProfileTab" className={clicked === "정보 수정" ? "clicked" : ""} onClick={tabClick}>
-                정보 수정
-              </NavDetail>
-            </Link>
-          </ReactionDetail>
-          <ReactionDetail>
-            <Link to="like" style={{ textDecoration: "none" }}>
-              <NavDetail name="like" className={clicked === "좋아요" ? "clicked" : ""} onClick={tabClick}>
-                좋아요
-              </NavDetail>
-            </Link>
-            <Link to="myboard" style={{ textDecoration: "none" }}>
-              <NavDetail name="myboard" className={clicked === "작성한 리뷰" ? "clicked" : ""} onClick={tabClick}>
-                작성한 리뷰
-              </NavDetail>
-            </Link>
-          </ReactionDetail>
-        </Nav>
-      </Left>
-      <Right>
-        <Routes>
-          <Route path="/edit" element={<EditProfile getUserdata={getUserdata} />}></Route>
-          <Route path="/purchase/*" element={<PurchaseList />}></Route>
-          <Route path="/myboard" element={<MyReview />}></Route>
-          <Route path="/like" element={<Like />}></Route>
-          <Route path="/purchase/:id" element={<PurchaseAll />}></Route>
-        </Routes>
-      </Right>
-    </Container>
-  );
-};
-export default Mypage;

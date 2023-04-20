@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getArticleDetail, postCart, postLike, deleteLike, articleLike } from "../../reduxstore/slices/articleSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { renderStar } from "../../components/Star";
-import ScrollToTop from "../../components/ScrollToTop";
+import ScrollToTop from "../../components/common/ScrollToTop";
 import Button from "../../components/Button";
 import Apis from "../../apis/apis";
 import Swal from "sweetalert2";
