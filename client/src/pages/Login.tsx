@@ -50,7 +50,7 @@ function Login() {
       };
     }
     if (writeEmail !== "" && writePassword !== "" && !userWriteInput) {
-      void dispatch(loginUser({ loginData, navigate }));
+      await dispatch(loginUser({ loginData, navigate }));
     }
   };
   return (

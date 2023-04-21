@@ -49,7 +49,7 @@ function Signup() {
       password: writePwd,
     };
     if (!nickNameConfirm && !emailConfirm && !pwdConfirm && !pwdAgainConfirm) {
-      void dispatch(signUser({ signData, navigate }));
+      await dispatch(signUser({ signData, navigate }));
     }
   };
 
