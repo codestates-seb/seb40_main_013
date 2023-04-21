@@ -171,3 +171,5 @@ export const BigSub = styled.div`
     }
   }
 `;
+
+export const Cart = styled(Link)``;

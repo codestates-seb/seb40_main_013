@@ -2,7 +2,7 @@ import { lazy, Suspense, useState } from "react";
 import GlobalStyles from "./styles/GlobalStyles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components/macro";
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "./components/common/ScrollToTop";
 import Button from "./components/Button";
 import LoadingIcon from "./components/LoadingIcon";
 

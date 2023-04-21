@@ -1,12 +1,20 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BsCart3, BsSearch } from "react-icons/bs";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import DownSearch from "./search";
 import { Toast } from "./Alert";
 import Apis from "../apis/apis";
 import * as Style from "../styles/HeaderStyle";
 
-function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }) {
+interface Props {
+  setSubClick: React.Dispatch<React.SetStateAction<string>>;
+  setSearchWord: React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setProducts: React.Dispatch<React.SetStateAction<any[]>>;
+  clickCheck: number;
+}
+
+function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }: Props) {
   const navigate = useNavigate();
   const modalRef = useRef<HTMLDivElement>(null);
   const [closeSearch, setCloseSearch] = useState(false);
@@ -19,8 +27,8 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
     setProducts([]);
   };
 
-  const clickSubMenu = ({ target }) => {
-    setSubClick(target.innerText);
+  const clickSubMenu = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setSubClick((e.target as HTMLElement).innerText);
     setPage(0);
     setProducts([]);
   };
@@ -29,11 +37,11 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
     setCloseSearch(!closeSearch);
   };
 
-  const outModalCloseHandler = (e) => {
-    if (closeSearch && !modalRef.current.contains(e.target)) setCloseSearch(false);
+  const outModalCloseHandler = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    if (closeSearch && modalRef.current !== null && !modalRef.current.contains(e.target as HTMLElement)) setCloseSearch(false);
   };
 
-  const clickLogOut = (e) => {
+  const clickLogOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     localStorage.clear();
     navigate("/");
@@ -80,8 +88,9 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
     }
   }, [clickCheck]);
 
+  // 검색창 esc키로 닫음
   useEffect(() => {
-    const escKeyModalClose = (e) => {
+    const escKeyModalClose = (e: KeyboardEvent) => {
       if (e.keyCode === 27) {
         setCloseSearch(false);
       }
@@ -90,11 +99,13 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
   }, []);
 
   useEffect(() => {
-    const subColorHandler = ({ target }) => {
-      // console.dir(target)
-      setClickSubWord(target.innerText);
+    const subColorHandler = (e: MouseEvent) => {
+      setClickSubWord((e.target as HTMLElement).innerText);
     };
     window.addEventListener("click", subColorHandler);
+    return () => {
+      window.removeEventListener("click", subColorHandler);
+    };
   }, []);
 
   return (
@@ -109,11 +120,7 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
           ) : (
             <Style.LoginBtn to="/users/login">로그인/회원가입</Style.LoginBtn>
           )}
-          {jwt != null ? (
-            <Style.LoginBtn to="/members/mypage/purchase">마이페이지</Style.LoginBtn>
-          ) : (
-            <Style.LoginBtn to="/users/login">마이페이지</Style.LoginBtn>
-          )}
+          <Style.LoginBtn to={jwt != null ? "/members/mypage/purchase" : "/users/login"}>마이페이지</Style.LoginBtn>
         </div>
         <Style.Logo to="/">
           <div>DAILY DAILY</div>
@@ -169,21 +176,10 @@ function Header({ setSubClick, setSearchWord, setPage, setProducts, clickCheck }
               </Style.Serach>
               <DownSearch closeSearch={closeSearch} closeHandler={closeHandler} setSearchWord={setSearchWord} />
             </div>
-            {jwt != null ? (
-              <Link to="/cart">
-                <div>
-                  <BsCart3 size="20" />
-                  <div className="cart-count">({headerCartCount})</div>
-                </div>
-              </Link>
-            ) : (
-              <Link to="/users/login">
-                <div>
-                  <BsCart3 size="20" />
-                  <div className="cart-count">(0)</div>
-                </div>
-              </Link>
-            )}
+            <Style.Cart to="/cart">
+              <BsCart3 size="20" />
+              <div className="cart-count">({jwt != null ? headerCartCount : 0})</div>
+            </Style.Cart>
           </div>
         </Style.CategoryList>
       </Style.HeaderBlock>

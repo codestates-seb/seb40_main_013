@@ -8,7 +8,7 @@ import { BsStarFill } from "react-icons/bs";
 import { BtnSelectAlert, Alert } from "../../components/Alert";
 import noImg from "../../imgs/noImg.gif";
 
-function PostReview({ clickModal, filterData, filteReview }) {
+function PostReview({ clickModal, filterData, filteReview, modalRef }) {
   const dispatch = useDispatch();
   const [userWriteImg, setUserWriteImg] = useState("");
   const [userWriteContent, setUserWriteContent] = useState(filteReview ? filteReview[0].content : filterData[0].content);
@@ -105,6 +105,7 @@ function PostReview({ clickModal, filterData, filteReview }) {
         onClick={(e) => {
           e.stopPropagation();
         }}
+        ref={modalRef}
       >
         <PostReviewTopSpace>
           {filterData === undefined ? (
