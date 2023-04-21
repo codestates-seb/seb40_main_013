@@ -1,17 +1,31 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
 import { Toast, Alert } from "../../components/Alert";
-interface signUserArgs {
-  signData: any;
-  navigate: any;
+
+interface UserArgs {
+  loginData?: Users | object;
+  signData?: Users | object;
+  navigate?: NavigateFunction;
 }
 
-interface loginUserArgs {
-  loginData: any;
-  navigate: any;
+interface Users {
+  email: string;
+  password: string;
+  nickname?: string;
+  keepState?: boolean;
+}
+interface NavigateFunction {
+  (
+    to: string,
+    options?: {
+      replace?: boolean;
+      state?: any;
+    },
+  ): void;
+  (delta: number): void;
 }
 
-export const signUser = createAsyncThunk("user/signUser", async ({ signData, navigate }: signUserArgs) => {
+export const signUser = createAsyncThunk("user/signUser", async ({ signData, navigate }: UserArgs) => {
   return await Apis.post(`signup`, signData)
     .then((res) => {
       navigate("/users/login");
@@ -28,9 +42,10 @@ export const signUser = createAsyncThunk("user/signUser", async ({ signData, nav
     });
 });
 
-export const loginUser = createAsyncThunk("user/loginUser", async ({ loginData, navigate }: loginUserArgs) => {
+export const loginUser = createAsyncThunk("user/loginUser", async ({ loginData, navigate }: UserArgs) => {
+  console.log(loginData);
   return await Apis.post(`login`, loginData, { withCredentials: true })
-    .then((res) => {
+    .then((res: any) => {
       localStorage.clear();
       const jwtToken = res.headers.get("Authorization");
       const jwtrefreshToken = res.headers.get("Refresh");
@@ -43,6 +58,7 @@ export const loginUser = createAsyncThunk("user/loginUser", async ({ loginData, 
     .catch((err) => {
       Alert("error", "이메일이나 비밀번호를 확인해주세요!");
       console.log(err);
+      console.log(typeof err);
     });
 });
 
@@ -61,14 +77,14 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
     });
 });
 
-export const updateUser = createAsyncThunk("user/updatesUser", async (updateData) => {
+export const updateUser = createAsyncThunk("user/updatesUser", async ({ updateData, navigate }: any) => {
   return await Apis.patch(`members/mypage`, updateData, {
     headers: {
       Authorization: `${localStorage?.getItem("Authorization") ?? ""}`,
       "Content-Type": "application/json",
     },
   })
-    .then((res) => {
+    .then((res: any) => {
       // eslint-disable-next-line no-undef
       navigate("/members/mypage/purchase");
       window.location.reload();
@@ -79,9 +95,9 @@ export const updateUser = createAsyncThunk("user/updatesUser", async (updateData
     });
 });
 
-export const guestUser = createAsyncThunk("user/guestUser", async ({ navigate }) => {
+export const guestUser = createAsyncThunk("user/guestUser", async ({ navigate }: UserArgs) => {
   return await Apis.post(`guest`)
-    .then((res) => {
+    .then((res: any) => {
       localStorage.clear();
       const jwtToken = res.headers.get("Authorization");
       const jwtrefreshToken = res.headers.get("Refresh");
@@ -103,15 +119,16 @@ interface User {
   address?: string;
   email: string;
   img?: string;
-  memberId: number;
-  memberStatus: string;
-  nickname: string;
-  phone: string;
+  memberId?: number;
+  memberStatus?: string;
+  nickname?: string;
+  phone?: string;
+  password?: string;
 }
 
 interface UserState {
   users: User | null;
-  updateUser: any[];
+  updateUser: User | [];
   loading: boolean;
   error: string;
 }
