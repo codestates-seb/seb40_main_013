@@ -3,17 +3,11 @@ import Apis from "../../apis/apis";
 import { Toast, Alert } from "../../components/Alert";
 
 interface UserArgs {
-  loginData?: Users | object;
-  signData?: Users | object;
+  loginData?: User | object;
+  signData?: User | object;
   navigate?: NavigateFunction;
 }
 
-interface Users {
-  email: string;
-  password: string;
-  nickname?: string;
-  keepState?: boolean;
-}
 interface NavigateFunction {
   (
     to: string,
@@ -84,8 +78,7 @@ export const updateUser = createAsyncThunk("user/updatesUser", async ({ updateDa
       "Content-Type": "application/json",
     },
   })
-    .then((res: any) => {
-      // eslint-disable-next-line no-undef
+    .then((res) => {
       navigate("/members/mypage/purchase");
       window.location.reload();
       return res.data;
@@ -124,6 +117,7 @@ interface User {
   nickname?: string;
   phone?: string;
   password?: string;
+  keepState?: boolean;
 }
 
 interface UserState {
