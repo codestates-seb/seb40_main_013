@@ -40,6 +40,25 @@ export const filterMyOrder = createAsyncThunk("filterMyOrder", async ({ id }: Fi
       console.log(err);
     });
 });
+
+export interface Content {
+  createdAt: string;
+  orderId: number;
+  orderNumber: number;
+  orderProducts: OrderProductsArgs[];
+  status: string;
+}
+interface Page {
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+}
+
+interface MyOrderArgs {
+  content: Content[];
+  pageInfo: Page;
+}
 interface Img {
   fileName: string;
   fullPath: string;
@@ -63,14 +82,22 @@ interface FilterOrderArgs {
 }
 
 interface OrderState {
-  myorder: object;
+  myorder: MyOrderArgs;
   filterorder: FilterOrderArgs;
   loading: boolean;
   error: string;
 }
 
 const initialState: OrderState = {
-  myorder: {},
+  myorder: {
+    content: [],
+    pageInfo: {
+      page: 0,
+      size: 0,
+      totalElements: 0,
+      totalPages: 0,
+    },
+  },
   filterorder: {
     createdAt: "",
     orderId: 0,
