@@ -5,8 +5,6 @@ import { loginUser, guestUser } from "../reduxstore/slices/userSlice";
 import loginImg from "../imgs/chairImage.png";
 import * as Style from "../styles/Login";
 
-// test@naver.com
-// 1234!QWer
 function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
