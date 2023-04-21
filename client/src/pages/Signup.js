@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components/macro";
 import { signUser } from "../reduxstore/slices/userSlice";
-import { nickNameCheck, emailCheck, pwdCheck } from "../components/effectivenessCheck";
+import { nickNameCheck, emailCheck, pwdCheck } from "../components/common/effectivenessCheck";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
