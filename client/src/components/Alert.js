@@ -66,3 +66,13 @@ export const AlreadyDeleteAlert = () => {
     confirmButtonText: "확인",
   });
 };
+
+export const CancleAlert = (titleString, iconString, content) => {
+  MySwal.fire({
+    title: titleString,
+    icon: iconString,
+    text: content,
+    padding: "20px",
+    confirmButtonColor: "#002C6D",
+  });
+};

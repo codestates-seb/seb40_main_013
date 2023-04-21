@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import noImg from "../imgs/noImg.gif";
-import { priceCheck } from "../components/effectivenessCheck";
+import { priceCheck } from "../components/common/effectivenessCheck";
 // import { withReactContent } from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { Alert } from "../components/Alert";
