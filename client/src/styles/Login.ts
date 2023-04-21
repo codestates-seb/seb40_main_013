@@ -1,105 +1,7 @@
-import React, { useState } from "react";
 import styled from "styled-components/macro";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { loginUser, guestUser } from "../reduxstore/slices/userSlice";
-import loginImg from "../imgs/chairImage.png";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 
-function Login() {
-  const [userWriteEmail, setUserWriteEmail] = useState("");
-  const [userWritePwd, setUserWritePwd] = useState("");
-  const [userWriteInput, setUserWriteInput] = useState(false);
-  const [userStateCheck, setUserStateCheck] = useState(false);
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const routeSignup = () => {
-    navigate("/signup");
-  };
-
-  const writeChangeEmail = (e) => {
-    setUserWriteEmail(e.target.value);
-  };
-
-  const writeChangePwd = (e) => {
-    setUserWritePwd(e.target.value);
-  };
-
-  const clickState = () => {
-    setUserStateCheck(!userStateCheck);
-  };
-
-  const clickGuest = (e) => {
-    e.preventDefault();
-    dispatch(guestUser({ navigate }));
-  };
-
-  const clickLogin = (e) => {
-    e.preventDefault();
-    let loginData = {};
-    if (userWriteEmail === "" || userWritePwd === "") {
-      setUserWriteInput(true);
-    } else {
-      setUserWriteInput(false);
-    }
-    if (userStateCheck === true) {
-      loginData = {
-        email: userWriteEmail,
-        password: userWritePwd,
-        keepState: true,
-      };
-    } else if (userStateCheck === false) {
-      loginData = {
-        email: userWriteEmail,
-        password: userWritePwd,
-      };
-    }
-
-    if (userWriteEmail !== "" && userWritePwd !== "" && userWriteInput === false) {
-      dispatch(loginUser({ loginData, navigate }));
-    }
-  };
-
-  // content
-
-  return (
-    <Wrapper>
-      <LoginWrapper>
-        <LoginImg src={loginImg} />
-        <LoginContentSpace>
-          <LoginTitle>Log In</LoginTitle>
-          <LoginInputSpace>
-            <LoginInput placeholder="Email" onChange={writeChangeEmail} autocomplete="off" />
-            <LoginInput placeholder="Password" type="password" autocomplete="current-password" onChange={writeChangePwd} />
-          </LoginInputSpace>
-          <LoginButton onClick={clickLogin}>로그인</LoginButton>
-          <LoginButton onClick={clickGuest} className="adminLogin">
-            관리자 로그인
-          </LoginButton>
-
-          <LoginInformationSpace>
-            <LoginCheckSpace isCheck={userStateCheck} onClick={clickState}>
-              <LoginState />
-              <LoginStateContent>로그인 상태 유지</LoginStateContent>
-            </LoginCheckSpace>
-          </LoginInformationSpace>
-          <LoginRouteSign>
-            <div>Don't have an account?</div>
-            <LoginSignBtn onClick={routeSignup}>Sign Up</LoginSignBtn>
-          </LoginRouteSign>
-        </LoginContentSpace>
-      </LoginWrapper>
-      <Bubble>
-        <BubbleContents>
-          관리자 로그인 버튼을 누르면 <br /> 아이디, 비번 입력 없이 로그인 가능합니다
-        </BubbleContents>
-      </Bubble>
-    </Wrapper>
-  );
-}
-
-const Wrapper = styled.form`
+export const Wrapper = styled.form`
   width: 100%;
   height: 65%;
   display: flex;
@@ -115,7 +17,7 @@ const Wrapper = styled.form`
   }
 `;
 
-const LoginWrapper = styled.div`
+export const LoginWrapper = styled.div`
   width: 70%;
   max-width: 740px;
   height: 100%;
@@ -132,7 +34,7 @@ const LoginWrapper = styled.div`
   }
 `;
 
-const LoginImg = styled.img`
+export const LoginImg = styled.img`
   width: 45%;
   height: 100%;
   /* @media screen and (max-width: 1023px) and (min-width: 768) {
@@ -143,7 +45,7 @@ const LoginImg = styled.img`
   }
 `;
 
-const LoginContentSpace = styled.div`
+export const LoginContentSpace = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -159,7 +61,7 @@ const LoginContentSpace = styled.div`
   }
 `;
 
-const LoginTitle = styled.div`
+export const LoginTitle = styled.div`
   width: 90%;
   height: 50px;
   font-size: 40px;
@@ -177,7 +79,7 @@ const LoginTitle = styled.div`
   }
 `;
 
-const LoginInputSpace = styled.div`
+export const LoginInputSpace = styled.div`
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -185,7 +87,7 @@ const LoginInputSpace = styled.div`
   margin-top: 20px;
 `;
 
-const LoginInput = styled.input`
+export const LoginInput = styled.input`
   width: 85%;
   height: 60px;
   border: none;
@@ -202,7 +104,7 @@ const LoginInput = styled.input`
   }
 `;
 
-const LoginButton = styled.button`
+export const LoginButton = styled.button`
   width: 77%;
   height: 45px;
   border: 1px solid var(--color-navy);
@@ -223,7 +125,7 @@ const LoginButton = styled.button`
   }
 `;
 
-const LoginInformationSpace = styled.div`
+export const LoginInformationSpace = styled.div`
   display: flex;
   width: 77%;
   height: 40px;
@@ -232,21 +134,20 @@ const LoginInformationSpace = styled.div`
   cursor: pointer;
 `;
 
-const LoginCheckSpace = styled.div`
+export const LoginCheckSpace = styled.div`
   width: 100%;
   display: flex;
   justify-content: start;
   align-items: center;
-  color: ${(state) => (state.isCheck ? "#FFAF51" : "#AAAAAA")};
   margin-top: 10px;
 `;
 
-const LoginState = styled(AiOutlineCheckCircle)`
+export const LoginState = styled(AiOutlineCheckCircle)`
   margin-right: 5px;
   margin-top: -1.5px;
 `;
 
-const LoginStateContent = styled.div`
+export const LoginStateContent = styled.div`
   font-size: 16px;
   @media screen and (max-width: 380px) {
     font-size: 12px;
@@ -259,7 +160,7 @@ const LoginStateContent = styled.div`
   }
 `;
 
-const LoginRouteSign = styled.div`
+export const LoginRouteSign = styled.div`
   display: flex;
   width: 100%;
   height: 5vh;
@@ -275,7 +176,7 @@ const LoginRouteSign = styled.div`
   }
 `;
 
-const LoginSignBtn = styled.div`
+export const LoginSignBtn = styled.div`
   color: #ffaf51;
   background: none;
   border: none;
@@ -285,7 +186,7 @@ const LoginSignBtn = styled.div`
     color: var(--color-navy);
   }
 `;
-const Bubble = styled.div`
+export const Bubble = styled.div`
   width: 20%;
   height: 15%;
   position: relative;
@@ -325,12 +226,10 @@ const Bubble = styled.div`
   }
 `;
 
-const BubbleContents = styled.p`
+export const BubbleContents = styled.p`
   color: var(--color-navy);
   font-size: 0.9vw;
   @media screen and (max-width: 767px) {
     font-size: 0.6vw;
   }
 `;
-
-export default Login;
