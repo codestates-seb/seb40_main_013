@@ -4,14 +4,10 @@ import livingroom from "../../imgs/livingroom.png";
 import library from "../../imgs/library.png";
 import bedroom from "../../imgs/bedroom.png";
 import kitchen from "../../imgs/kitchen.png";
-
-interface ImgDetail {
-  fileName: string;
-  fullPath: string;
-}
+import { type Img } from "../../type";
 interface brandNew {
   id: number;
-  img: ImgDetail;
+  img: Img;
   price: number;
   title: string;
 }

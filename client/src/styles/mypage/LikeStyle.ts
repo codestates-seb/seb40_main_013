@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
-import starimg from "../../imgs/star.png";
-import { likeData } from "../../reduxstore/slices/likeSlice";
-import Pagination from "./Pagination";
+import { Link } from "react-router-dom";
 
-const Container = styled.div`
+export const Container = styled.div`
   /* border: 1px solid red; */
   width: 75%;
   padding: 2rem;
@@ -27,7 +22,7 @@ const Container = styled.div`
 `;
 
 // 좋아요한 상품이 없을 때
-const NotContainer = styled.div`
+export const NotContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,7 +33,7 @@ const NotContainer = styled.div`
     width: 100%;
   }
 `;
-const NotIcon = styled.div`
+export const NotIcon = styled.div`
   background-color: #aaaaaa;
   width: 10rem;
   height: 10rem;
@@ -71,7 +66,7 @@ const NotIcon = styled.div`
     font-size: 18vw;
   }
 `;
-const NotOrder = styled.h3`
+export const NotOrder = styled.h3`
   display: flex;
   justify-content: center;
   font-weight: 500;
@@ -85,7 +80,7 @@ const NotOrder = styled.h3`
     font-size: 1.3rem;
   }
 `;
-const ShowProduct = styled(Link)`
+export const ShowProduct = styled(Link)`
   font-weight: 400;
   font-size: 1.5rem;
   margin-top: 10px;
@@ -103,7 +98,7 @@ const ShowProduct = styled(Link)`
 `;
 
 // 좋아요한 상품이 있을 때
-const LikeTitle = styled.div`
+export const LikeTitle = styled.div`
   font-size: 1.7rem;
   font-weight: 600;
   color: #272727;
@@ -119,7 +114,7 @@ const LikeTitle = styled.div`
     padding-left: 1.5rem;
   }
 `;
-const ProductList = styled.div`
+export const ProductList = styled.div`
   width: 80%;
   margin: 10px 0;
   display: grid;
@@ -145,7 +140,7 @@ const ProductList = styled.div`
   }
 `;
 
-const Products = styled(Link)`
+export const Products = styled(Link)`
   width: 14vw;
   padding-top: 10px;
   display: flex;
@@ -162,7 +157,7 @@ const Products = styled(Link)`
     width: 17.5vw;
   }
 `;
-const Imgbox = styled.div`
+export const Imgbox = styled.div`
   display: flex;
   justify-content: center;
   overflow: hidden;
@@ -181,7 +176,7 @@ const Imgbox = styled.div`
     width: 16vw;
   }
 `;
-const Img = styled.img`
+export const Img = styled.img`
   width: 12vw;
   display: flex;
   border-radius: 5px;
@@ -195,7 +190,7 @@ const Img = styled.img`
     width: 15vw;
   }
 `;
-const Detail = styled.div`
+export const Detail = styled.div`
   display: flex;
   flex-direction: column;
   width: 12vw;
@@ -210,7 +205,7 @@ const Detail = styled.div`
     width: 15vw;
   }
 `;
-const Brand = styled.h5`
+export const Brand = styled.h5`
   color: var(--font-ligthblack);
   font-size: 0.8rem;
   font-weight: 300;
@@ -224,7 +219,7 @@ const Brand = styled.h5`
     font-size: 0.9em;
   }
 `;
-const Title = styled.h2`
+export const Title = styled.h2`
   font-size: 1rem;
   font-weight: 400;
   overflow: hidden;
@@ -245,7 +240,7 @@ const Title = styled.h2`
     font-size: 0.9em;
   }
 `;
-const Price = styled.h5`
+export const Price = styled.h5`
   display: flex;
   justify-content: flex-end;
   padding: 5px 0;
@@ -267,7 +262,7 @@ const Price = styled.h5`
     align-items: center;
   }
 `;
-const SubDetail = styled.div`
+export const SubDetail = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -276,10 +271,10 @@ const SubDetail = styled.div`
     justify-content: flex-end;
   }
 `;
-const StarDetail = styled.div`
+export const StarDetail = styled.div`
   display: flex;
 `;
-const Star = styled.img`
+export const Star = styled.img`
   width: 15px;
   height: 15px;
   margin-right: 5px;
@@ -296,7 +291,7 @@ const Star = styled.img`
     height: 12px;
   }
 `;
-const StarAerage = styled.div`
+export const StarAerage = styled.div`
   display: flex;
   @media screen and (max-width: 479px) {
     font-size: 0.8em;
@@ -310,77 +305,8 @@ const StarAerage = styled.div`
 `;
 
 // 페이지네이션
-const PaginationContainer = styled.div`
+export const PaginationContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
 `;
-
-const Like = () => {
-  const dispatch = useDispatch();
-  const likeProduct = useSelector((state) => state.like.like.content);
-  // 페이지네이션
-  const [curPage, setCurPage] = useState(0); // 현재페이지
-  const [totalpage, setTotalpage] = useState(0);
-
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-    let count = 0;
-    if (curPage > 0) {
-      count = curPage - 1;
-    } else {
-      count = 0;
-    }
-    dispatch(likeData({ count, setTotalpage }));
-  }, [curPage]);
-
-  return (
-    <>
-      {likeProduct?.length === 0 ? (
-        <NotContainer>
-          <NotIcon>!</NotIcon>
-          <NotOrder>
-            <span>좋아요</span>&nbsp;한 상품이 없습니다.
-          </NotOrder>
-          <ShowProduct to="/">상품 보러가기</ShowProduct>
-        </NotContainer>
-      ) : (
-        <Container>
-          <LikeTitle>내가 좋아하는 상품</LikeTitle>
-          <ProductList>
-            {likeProduct?.map((product, i) => (
-              <Products key={i} to={`/detail/${product.id}`}>
-                <Imgbox>
-                  <Img src={product.img?.fullPath}></Img>
-                </Imgbox>
-                <Detail>
-                  <SubDetail>
-                    <Brand>{product.nickname}</Brand>
-                    <StarDetail>
-                      <Star src={starimg}></Star>
-                      <StarAerage>{product.score}</StarAerage>
-                    </StarDetail>
-                  </SubDetail>
-                  <Title>{product.title}</Title>
-                  <SubDetail className="end">
-                    <Price>
-                      <span className="won">₩</span>
-                      &nbsp;{product.price?.toLocaleString("en-US")}
-                    </Price>
-                  </SubDetail>
-                </Detail>
-              </Products>
-            ))}
-          </ProductList>
-          <PaginationContainer>
-            <Pagination totalpage={totalpage} page={curPage} setPage={setCurPage} />
-          </PaginationContainer>
-        </Container>
-      )}
-    </>
-  );
-};
-export default Like;
