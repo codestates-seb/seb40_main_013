@@ -35,6 +35,7 @@ function Library({ subclick, page, setPage, products, setProducts }) {
   };
 
   const outModalCloseHandler = (e) => {
+    // eslint-disable-next-line strict-null-checks/all
     if (closeDropDown && !modalRef.current.contains(e.target)) setDloseDropDown(false);
   };
 

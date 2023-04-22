@@ -41,13 +41,13 @@ export const UserWriteTitle = styled.div<PropsStyled>`
   font-weight: bold;
   display: flex;
   &:nth-child(4) {
-    margin-top: ${(props) => (props?.isCheck ? "15px" : "40px")};
+    margin-top: ${(props) => (props.isCheck != null && props.isCheck ? "15px" : "40px")};
   }
   &:nth-child(7) {
-    margin-top: ${(props) => (props?.isCheck ? "15px" : "40px")};
+    margin-top: ${(props) => (props.isCheck != null && props.isCheck ? "15px" : "40px")};
   }
   &:nth-child(10) {
-    margin-top: ${(props) => (props?.isCheck ? "15px" : "40px")};
+    margin-top: ${(props) => (props.isCheck != null && props.isCheck ? "15px" : "40px")};
   }
 `;
 export const UserWriteInput = styled.input`

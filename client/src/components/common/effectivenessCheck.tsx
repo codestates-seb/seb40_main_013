@@ -17,7 +17,6 @@ export const pwdCheck = (pwd: string) => {
 
   return pwdreg.test(pwd);
 };
-
 // 최소 8 자 최대 20자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
 
 export const phoneCheck = (phone: string) => {
@@ -25,7 +24,6 @@ export const phoneCheck = (phone: string) => {
 
   return phonereg.test(phone);
 };
-
 // 핸드폰번호
 
 export const priceCheck = (price: string) => {

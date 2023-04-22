@@ -20,7 +20,7 @@ interface Product {
 }
 
 const PurchaseAll = () => {
-  const modalRef = useRef<HTMLDivElement | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
   const [isModal, setIsModal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const { id } = useParams();

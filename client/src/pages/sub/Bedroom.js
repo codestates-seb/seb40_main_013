@@ -35,7 +35,7 @@ function Bedroom({ subclick, page, setPage, products, setProducts }) {
   };
 
   const outModalCloseHandler = (e) => {
-    if (closeDropDown && !modalRef.current.contains(e.target)) setDloseDropDown(false);
+    if (closeDropDown && !modalRef.current?.contains(e.target)) setDloseDropDown(false);
   };
 
   useEffect(() => {
