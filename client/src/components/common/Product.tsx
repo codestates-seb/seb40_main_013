@@ -4,23 +4,10 @@ import starimg from "../../imgs/star.png";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import placeholderSrc from "../../imgs/loading.webp";
-
-interface ImgDetail {
-  fileName: string;
-  fullPath: string;
-}
-interface ProductDetail {
-  img: ImgDetail;
-  main: string;
-  nickname: string;
-  price: number;
-  reviews: number;
-  score: number;
-  title: string;
-}
+import { type ProductArgs } from "../../type";
 interface Props {
   proId: number;
-  product: ProductDetail;
+  product: ProductArgs;
 }
 
 const Product = ({ proId, product }: Props) => {

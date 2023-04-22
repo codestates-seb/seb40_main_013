@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Apis from "../../apis/apis";
-
+import { type PageInfo, type ProductDetail } from "../../type";
 interface getMyOrderArgs {
   count: number;
-  setTotalpage: any;
+  setTotalpage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface FilterMyOrderArgs {
@@ -45,39 +45,18 @@ export interface Content {
   createdAt: string;
   orderId: number;
   orderNumber: number;
-  orderProducts: OrderProductsArgs[];
+  orderProducts: ProductDetail[];
   status: string;
 }
-interface Page {
-  page: number;
-  size: number;
-  totalElements: number;
-  totalPages: number;
-}
-
 interface MyOrderArgs {
   content: Content[];
-  pageInfo: Page;
+  pageInfo: PageInfo;
 }
-interface Img {
-  fileName: string;
-  fullPath: string;
-}
-export interface OrderProductsArgs {
-  brandName: string;
-  color: string;
-  count: number;
-  img: Img;
-  price: number;
-  productId: number;
-  title: string;
-}
-
 interface FilterOrderArgs {
   createdAt: string;
   orderId: number;
   orderNumber: number;
-  orderProducts: OrderProductsArgs[];
+  orderProducts: ProductDetail[];
   status: string;
 }
 

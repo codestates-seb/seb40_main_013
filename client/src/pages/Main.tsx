@@ -4,24 +4,11 @@ import Carousel from "../components/mains/Calousel";
 import Products from "../components/common/Product";
 import NewProducts from "../components/mains/NewProducts";
 import { getMain } from "../apis/mainAPI";
+import { type ProductArgs } from "../type";
 
-interface ImgDetail {
-  fileName: string;
-  fullPath: string;
-}
-interface brandNew {
-  id: number;
-  img: ImgDetail;
-  main: string;
-  nickname: string;
-  price: number;
-  reviews: number;
-  score: number;
-  title: string;
-}
-type bestProduct = brandNew[];
-type newProduct = Record<string, brandNew[]>;
-type brandProduct = Record<string, brandNew[]>;
+type bestProduct = ProductArgs[];
+type newProduct = Record<string, ProductArgs[]>;
+type brandProduct = Record<string, ProductArgs[]>;
 
 const Main = () => {
   const [bestData, setBestData] = useState<bestProduct>([]);
